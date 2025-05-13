@@ -1,0 +1,17 @@
+{
+  "name": "@dplib/meta",
+  "type": "module",
+  "main": "build/index.js",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/dplib",
+  "description": "Data Package implementation in TypeScript.",
+  "keywords": ["data", "package", "typescript", "meta"],
+  "dependencies": {
+    "ajv": "^8.17.1"
+  },
+  "scripts": {
+    "build": "tsc --build"
+  }
+}
