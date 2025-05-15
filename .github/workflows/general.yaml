@@ -30,8 +30,9 @@ jobs:
       - name: Upload Coverage
         uses: codecov/codecov-action@v5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
           slug: datisthq/dplib
+          files: ./coverage/coverage-final.json
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   release:
     if: github.event_name == 'push'
