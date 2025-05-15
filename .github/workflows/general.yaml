@@ -31,7 +31,6 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           slug: datisthq/dplib
-          files: ./coverage/coverage-final.json
           token: ${{ secrets.CODECOV_TOKEN }}
 
   release:
