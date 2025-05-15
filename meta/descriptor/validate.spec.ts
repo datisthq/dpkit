@@ -1,10 +1,15 @@
-import { Ajv } from "ajv"
 import { describe, expect, it } from "vitest"
 import { validateDescriptor } from "./validate.js"
 
 describe("validateDescriptor", () => {
   it("returns empty array for valid descriptor", async () => {
-    const profile = {
+    const descriptor = {
+      name: "test-package",
+      version: "1.0.0",
+      description: "A test package",
+    }
+
+    const defaultProfile = {
       type: "object",
       required: ["name", "version"],
       properties: {
@@ -14,22 +19,16 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const descriptor = {
-      name: "test-package",
-      version: "1.0.0",
-      description: "A test package",
-    }
-
     const result = await validateDescriptor({
       descriptor,
-      profile,
+      defaultProfile,
     })
 
     expect(result).toEqual([])
   })
 
   it("returns validation errors for invalid descriptor", async () => {
-    const profile = {
+    const defaultProfile = {
       type: "object",
       required: ["name", "version"],
       properties: {
@@ -47,7 +46,7 @@ describe("validateDescriptor", () => {
 
     const result = await validateDescriptor({
       descriptor,
-      profile,
+      defaultProfile,
     })
 
     expect(result).not.toBeNull()
@@ -63,7 +62,7 @@ describe("validateDescriptor", () => {
   })
 
   it("returns errors when required fields are missing", async () => {
-    const profile = {
+    const defaultProfile = {
       type: "object",
       required: ["name", "version", "required_field"],
       properties: {
@@ -80,7 +79,7 @@ describe("validateDescriptor", () => {
 
     const result = await validateDescriptor({
       descriptor,
-      profile,
+      defaultProfile,
     })
 
     expect(Array.isArray(result)).toBe(true)
@@ -98,7 +97,7 @@ describe("validateDescriptor", () => {
   })
 
   it("validates nested objects in the descriptor", async () => {
-    const profile = {
+    const defaultProfile = {
       type: "object",
       required: ["name", "version", "author"],
       properties: {
@@ -129,7 +128,7 @@ describe("validateDescriptor", () => {
 
     const result = await validateDescriptor({
       descriptor,
-      profile,
+      defaultProfile,
     })
 
     expect(Array.isArray(result)).toBe(true)
@@ -143,31 +142,5 @@ describe("validateDescriptor", () => {
     )
 
     expect(hasEmailPatternError).toBe(true)
-  })
-
-  it("throws Ajv.ValidationError when orThrow is true and descriptor is invalid", async () => {
-    const profile = {
-      type: "object",
-      required: ["name", "version"],
-      properties: {
-        name: { type: "string" },
-        version: { type: "string" },
-        description: { type: "string" },
-      },
-    }
-
-    const descriptor = {
-      name: "test-package",
-      version: 123, // Wrong type (number instead of string)
-      description: "A test package with wrong version type",
-    }
-
-    await expect(
-      validateDescriptor({
-        descriptor,
-        profile,
-        orThrow: true,
-      }),
-    ).rejects.toThrow(Ajv.ValidationError)
   })
 })

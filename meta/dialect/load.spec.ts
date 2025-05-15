@@ -10,15 +10,14 @@ describe("loadDialect", async () => {
   }
 
   it("loads a dialect from a local file path", async () => {
-    const dialect = await loadDialect({ source: getPath("valid.json") })
-
+    const dialect = await loadDialect({ path: getPath("valid.json") })
     expectTypeOf(dialect).toEqualTypeOf<Dialect>()
     expect(dialect).toEqual(descriptor)
   })
 
   it("throw an error when dialect is invalid", async () => {
     await expect(
-      loadDialect({ source: getPath("invalid.json") }),
+      loadDialect({ path: getPath("invalid.json") }),
     ).rejects.toThrow()
   })
 })

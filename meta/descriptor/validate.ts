@@ -6,29 +6,20 @@ import { loadDescriptor } from "./load.js"
  * Validate a descriptor (JSON Object) against a JSON Schema
  * It uses Ajv for JSON Schema validation under the hood
  * It returns a list of errors (empty if valid)
- *
- * @throws {Ajv.ValidationError} if `props.orThrow` and the descriptor is invalid
  */
 export async function validateDescriptor(props: {
   descriptor: Descriptor
-  profile: Descriptor
-  orThrow?: boolean
+  defaultProfile: Descriptor
 }) {
-  const { descriptor, profile } = props
+  const { descriptor, defaultProfile } = props
 
   const ajv = new Ajv({
     strict: false,
     loadSchema: path => loadDescriptor({ path, remoteOnly: true }),
   })
 
-  const validate = await ajv.compileAsync(profile)
+  const validate = await ajv.compileAsync(defaultProfile)
   validate(descriptor)
-
-  if (props.orThrow) {
-    if (validate.errors) {
-      throw new Ajv.ValidationError(validate.errors)
-    }
-  }
 
   return validate.errors ?? []
 }

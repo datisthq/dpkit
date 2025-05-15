@@ -1,14 +1,12 @@
-import type { Descriptor } from "../descriptor/Descriptor.js"
-import { loadDescriptor } from "../descriptor/load.js"
-import type { Dialect } from "./Dialect.js"
-import { validateDialect } from "./validate.js"
+import { loadDescriptor } from "../descriptor/index.js"
+import { assertDialect } from "./assert.js"
 
-export async function loadDialect(props: { source: string | Descriptor }) {
-  const descriptor =
-    typeof props.source === "string"
-      ? await loadDescriptor({ path: props.source })
-      : props.source
-
-  await validateDialect({ descriptor, orThrow: true })
-  return descriptor as Dialect
+/**
+ * Load a Dialect descriptor (JSON Object) from a file or URL
+ * Ensures the descriptor is valid against its profile
+ */
+export async function loadDialect(props: { path: string }) {
+  const descriptor = await loadDescriptor(props)
+  const dialect = await assertDialect({ descriptor })
+  return dialect
 }
