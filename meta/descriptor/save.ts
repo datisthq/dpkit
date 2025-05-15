@@ -12,9 +12,7 @@ export async function saveDescriptor(props: {
 
   const node = await loadNodeApis()
   if (!node) {
-    throw new Error(
-      "File system operations are not supported in this environment",
-    )
+    throw new Error("File system is not supported in this environment")
   }
 
   const content = JSON.stringify(descriptor, null, 2)

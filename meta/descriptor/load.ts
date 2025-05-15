@@ -1,65 +1,48 @@
+import { loadNodeApis } from "./node.js"
+
 /**
  * Load a descriptor (JSON Object) from a file or URL
  * Uses dynamic imports to work in both Node.js and browser environments
  * Supports HTTP, HTTPS, FTP, and FTPS protocols
- *
- * @param props Object containing the path to the descriptor
  */
 export async function loadDescriptor(props: { path: string }) {
-  const { path } = props
+  const url = createRemoteUrl(props.path)
 
-  let isUrl = false
-  try {
-    new URL(path)
-    isUrl = true
-  } catch {
-    isUrl = false
-  }
-
-  return isUrl
-    ? await loadRemoteDescriptor(props)
-    : await loadLocalDescriptor(props)
+  return url
+    ? await loadRemoteDescriptor(url)
+    : await loadLocalDescriptor(props.path)
 }
 
-/**
- * Load a descriptor (JSON Object) from a remote URL
- * Supports HTTP, HTTPS, FTP, and FTPS protocols
- *
- * @param props Object containing the remote URL path
- */
-async function loadRemoteDescriptor(props: { path: string }) {
-  const { path } = props
+function createRemoteUrl(path: string) {
+  try {
+    return new URL(path)
+  } catch {
+    return undefined
+  }
+}
 
-  const url = new URL(path)
+const REMOTE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:"]
+
+async function loadRemoteDescriptor(url: URL) {
   const protocol = url.protocol.toLowerCase()
-
-  if (!["http:", "https:", "ftp:", "ftps:"].includes(protocol)) {
+  if (!REMOTE_PROTOCOLS.includes(protocol)) {
     throw new Error(`Unsupported URL protocol: ${protocol}`)
   }
 
-  const response = await fetch(path)
-  if (!response.ok) {
-    throw new Error(
-      `Failed to load descriptor from URL: ${path}, status: ${response.status}`,
-    )
-  }
+  const response = await fetch(url.toString())
+  const descriptor = (await response.json()) as Record<string, any>
 
-  const data = (await response.json()) as Record<string, any>
-  return data
+  return descriptor
 }
 
-/**
- * Load a descriptor (JSON Object) from a local file
- * Works in Node.js environments only
- *
- * @param props Object containing the file path
- */
-async function loadLocalDescriptor(props: { path: string }) {
-  const { path } = props
+async function loadLocalDescriptor(path: string) {
+  const node = await loadNodeApis()
+  if (!node) {
+    throw new Error("File system is not supported in this environment")
+  }
 
-  const fs = await import("node:fs/promises")
-  await fs.access(path, fs.constants.R_OK)
+  const content = await node.fs.readFile(path, "utf-8")
+  const descriptor = JSON.parse(content) as Record<string, any>
 
-  const content = await fs.readFile(path, "utf-8")
-  return JSON.parse(content) as Record<string, any>
+  return descriptor
 }
