@@ -1,0 +1,19 @@
+{
+  "name": "@dplib/docs",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "astro build",
+    "preview": "astro preview",
+    "start": "astro dev"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "0.34.3",
+    "astro": "5.7.12",
+    "sharp": "0.32.5",
+    "starlight-scroll-to-top": "0.1.1",
+    "starlight-typedoc": "0.21.3",
+    "typedoc": "0.28.4",
+    "typedoc-plugin-markdown": "4.6.3"
+  }
+}

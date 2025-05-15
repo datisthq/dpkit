@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets"
+import datist from "./datist.png"
+---
+
+<article class="sl-flex not-content" aria-labelledby="about-astro-heading">
+  <small id="about-astro-heading">
+    Brought to you by
+  </small>
+  <div><Image src={datist} alt="Datist" /></div>
+  We are bringing technological innovation and consultancy services to open data field.
+  <a href="https://datist.io">Learn about Datist</a>.
+</article>
+
+<style>
+  article {
+    max-width: 40rem;
+    margin-inline: auto;
+    padding-block: 5rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  article > :global(*) {
+    max-width: 50ch;
+  }
+  small {
+    color: var(--sl-color-gray-3);
+  }
+  svg {
+    width: 15rem;
+  }
+  img {
+    border-radius: 15px;
+  }
+  div {
+    padding: 5px;
+    padding-bottom: 0;
+    border-radius: 15px;
+    border: dashed 1px #ccc;
+  }
+</style>

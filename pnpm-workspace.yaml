@@ -1,0 +1,14 @@
+dangerouslyAllowAllBuilds: true
+packages:
+  - ckan
+  - cli
+  - csv
+  - data
+  - db
+  - docs
+  - dplib
+  - excel
+  - json
+  - meta
+  - ods
+  - zenodo
