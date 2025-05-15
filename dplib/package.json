@@ -7,7 +7,15 @@
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dplib",
   "description": "Data Package implementation in TypeScript.",
-  "keywords": ["data", "package", "typescript"],
+  "keywords": [
+    "data",
+    "package",
+    "typescript",
+    "validation",
+    "quality",
+    "fair",
+    "cli"
+  ],
   "dependencies": {
     "@dplib/meta": "workspace:*"
   },
