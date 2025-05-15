@@ -11,6 +11,7 @@
     "bump": "ncu -ws -u",
     "ci:publish": "pnpm -r publish --access public && changeset tag",
     "check": "pnpm run lint && pnpm run type",
+    "coverage": "vitest --ui",
     "format": "biome check --write",
     "lint": "biome check",
     "prepare": "husky",
