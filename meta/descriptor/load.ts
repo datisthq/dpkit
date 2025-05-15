@@ -1,3 +1,4 @@
+import type { Descriptor } from "./Descriptor.js"
 import { loadNodeApis } from "./node.js"
 
 /**
@@ -5,12 +6,39 @@ import { loadNodeApis } from "./node.js"
  * Uses dynamic imports to work in both Node.js and browser environments
  * Supports HTTP, HTTPS, FTP, and FTPS protocols
  */
-export async function loadDescriptor(props: { path: string }) {
+export async function loadDescriptor(props: {
+  path: string
+  remoteOnly?: boolean
+}) {
   const url = createRemoteUrl(props.path)
+
+  if (!url && props.remoteOnly) {
+    throw new Error("Local descriptors are forbidden")
+  }
 
   return url
     ? await loadRemoteDescriptor(url)
     : await loadLocalDescriptor(props.path)
+}
+
+/**
+ * Load a descriptor and throw error if validation fails
+ */
+export async function loadDescriptorOrThrow(props: {
+  path: string
+  remoteOnly?: boolean
+  validate?: (descriptor: Descriptor) => string[] | Promise<string[]>
+}) {
+  const descriptor = await loadDescriptor(props)
+
+  if (props.validate) {
+    const errors = await props.validate(descriptor)
+    if (errors.length > 0) {
+      throw new Error(`Invalid descriptor: ${errors.join(", ")}`)
+    }
+  }
+
+  return descriptor
 }
 
 function createRemoteUrl(path: string) {

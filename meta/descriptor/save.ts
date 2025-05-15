@@ -1,3 +1,4 @@
+import type { Descriptor } from "./Descriptor.js"
 import { loadNodeApis } from "./node.js"
 
 /**
@@ -5,7 +6,7 @@ import { loadNodeApis } from "./node.js"
  * Works in Node.js environments
  */
 export async function saveDescriptor(props: {
-  descriptor: Record<string, any>
+  descriptor: Descriptor
   path: string
 }) {
   const { descriptor, path } = props

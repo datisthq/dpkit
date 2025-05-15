@@ -1,3 +1,4 @@
+import { Ajv } from "ajv"
 import { describe, expect, it } from "vitest"
 import { validateDescriptor } from "./validate.js"
 
@@ -142,5 +143,31 @@ describe("validateDescriptor", () => {
     )
 
     expect(hasEmailPatternError).toBe(true)
+  })
+
+  it("throws Ajv.ValidationError when orThrow is true and descriptor is invalid", async () => {
+    const profile = {
+      type: "object",
+      required: ["name", "version"],
+      properties: {
+        name: { type: "string" },
+        version: { type: "string" },
+        description: { type: "string" },
+      },
+    }
+
+    const descriptor = {
+      name: "test-package",
+      version: 123, // Wrong type (number instead of string)
+      description: "A test package with wrong version type",
+    }
+
+    await expect(
+      validateDescriptor({
+        descriptor,
+        profile,
+        orThrow: true,
+      }),
+    ).rejects.toThrow(Ajv.ValidationError)
   })
 })

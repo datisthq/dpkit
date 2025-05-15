@@ -91,4 +91,14 @@ describe("loadDescriptor", () => {
       "Unsupported URL protocol: file:",
     )
   })
+
+  it("throws error when remoteOnly is true but path is local", async () => {
+    // Arrange
+    const fixturePath = path.resolve(process.cwd(), "fixtures/schema.json")
+
+    // Act & Assert
+    await expect(
+      loadDescriptor({ path: fixturePath, remoteOnly: true }),
+    ).rejects.toThrow("Local descriptors are forbidden")
+  })
 })

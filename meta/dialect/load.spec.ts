@@ -1,27 +1,24 @@
-import * as path from "node:path"
+import { join } from "node:path"
 import { describe, expect, expectTypeOf, it } from "vitest"
 import type { Dialect } from "./Dialect.js"
 import { loadDialect } from "./load.js"
 
-describe("loadDialect", () => {
-  const basePath = path.join(import.meta.dirname, "fixtures")
-  const baseUrl =
-    "https://raw.githubusercontent.com/frictionlessdata/dplib-py/refs/heads/main/data"
+describe("loadDialect", async () => {
+  const getPath = (name: string) => join(__dirname, "fixtures", name)
   const descriptor = {
     delimiter: ";",
   }
 
   it("loads a dialect from a local file path", async () => {
-    const dialect = await loadDialect({ path: `${basePath}/dialect.json` })
+    const dialect = await loadDialect({ source: getPath("valid.json") })
 
     expectTypeOf(dialect).toEqualTypeOf<Dialect>()
     expect(dialect).toEqual(descriptor)
   })
 
-  it("loads a dialect from a remote URL", async () => {
-    const dialect = await loadDialect({ path: `${baseUrl}/dialect.json` })
-
-    expectTypeOf(dialect).toEqualTypeOf<Dialect>()
-    expect(dialect).toEqual(descriptor)
+  it("throw an error when dialect is invalid", async () => {
+    await expect(
+      loadDialect({ source: getPath("invalid.json") }),
+    ).rejects.toThrow()
   })
 })
