@@ -27,6 +27,11 @@ jobs:
         run: pnpm build
       - name: Test Packages
         run: pnpm test
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: datisthq/dplib
 
   release:
     if: github.event_name == 'push'
