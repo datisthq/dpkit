@@ -9,6 +9,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "bump": "ncu -ws -u",
+    "ci:install": "pnpm install --ignore-scripts",
     "ci:publish": "pnpm -r publish --access public && changeset tag",
     "check": "pnpm run lint && pnpm run type",
     "coverage": "vitest --ui",

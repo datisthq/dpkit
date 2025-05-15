@@ -22,7 +22,7 @@ jobs:
           cache: pnpm
           node-version-file: package.json
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm ci:install
       - name: Build Packages
         run: pnpm build
       - name: Test Packages
@@ -53,7 +53,7 @@ jobs:
           cache: pnpm
           node-version-file: package.json
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm ci:install
       - name: Build Packages
         run: pnpm build
       - name: Create Release Pull Request or Publish to npm
