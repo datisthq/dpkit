@@ -1,8 +1,0 @@
-{
-  "name": "@dplib/examples",
-  "type": "module",
-  "private": true,
-  "dependencies": {
-    "dpkit": "workspace:*"
-  }
-}

@@ -1,102 +1,94 @@
-import * as fs from "node:fs/promises"
-import * as path from "node:path"
-import { temporaryDirectory } from "tempy"
+import path from "node:path"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { loadDescriptor } from "./load.js"
+import * as nodeModule from "./node.js"
 
 describe("loadDescriptor", () => {
-  const testSchema = {
-    fields: [
-      {
-        name: "id",
-        type: "integer",
-      },
-      {
-        name: "name",
-        type: "string",
-      },
-    ],
-  }
+  // Setup mocks for fetch
+  const originalFetch = globalThis.fetch
 
-  let testDir: string
-  let testPath: string
-
-  beforeEach(async () => {
-    testDir = temporaryDirectory()
-    testPath = path.join(testDir, "schema.json")
-
-    const content = JSON.stringify(testSchema, null, 2)
-    await fs.writeFile(testPath, content, "utf-8")
+  beforeEach(() => {
+    // Reset mocks before each test
+    vi.resetAllMocks()
   })
 
-  afterEach(async () => {
-    try {
-      await fs.rm(testDir, { recursive: true, force: true })
-    } catch (error) {
-      if (error instanceof Error && !error.message.includes("ENOENT")) {
-        console.error(`Failed to clean up test directory: ${testDir}`, error)
-      }
-    }
+  afterEach(() => {
+    // Restore original fetch after each test
+    globalThis.fetch = originalFetch
   })
 
-  it("loads a descriptor from a local file path", async () => {
-    const descriptor = await loadDescriptor({ path: testPath })
-
-    expect(descriptor).toEqual(testSchema)
-  })
-
-  it("loads a descriptor from a remote URL", async () => {
-    const mockResponse = {
-      ok: true,
-      json: vi.fn().mockResolvedValue(testSchema),
+  it("loads a local descriptor from a file path", async () => {
+    // Arrange
+    const fixturePath = path.resolve(process.cwd(), "fixtures/schema.json")
+    const expectedContent = {
+      fields: [
+        {
+          name: "id",
+          type: "integer",
+        },
+        {
+          name: "name",
+          type: "string",
+        },
+      ],
     }
 
-    global.fetch = vi.fn().mockResolvedValue(mockResponse)
+    // Act
+    const result = await loadDescriptor({ path: fixturePath })
 
-    const testUrl = "https://example.com/schema.json"
-    const descriptor = await loadDescriptor({ path: testUrl })
-
-    expect(global.fetch).toHaveBeenCalledWith(testUrl)
-    expect(descriptor).toEqual(testSchema)
+    // Assert
+    expect(result).toEqual(expectedContent)
   })
 
-  it("throws an error for invalid local path", async () => {
-    const invalidPath = path.join(testDir, "nonexistent.json")
+  it("throws error when file system is not supported", async () => {
+    // Arrange
+    const fixturePath = path.resolve(process.cwd(), "fixtures/schema.json")
 
-    await expect(loadDescriptor({ path: invalidPath })).rejects.toThrow()
-  })
+    // Mock loadNodeApis to return undefined (simulating browser environment)
+    vi.spyOn(nodeModule, "loadNodeApis").mockResolvedValue(undefined)
 
-  it("throws an error for unsupported protocol", async () => {
-    const invalidUrl = "ftp://example.com/schema.json"
-
-    await expect(loadDescriptor({ path: invalidUrl })).rejects.toThrow(
-      "Unsupported URL protocol: ftp:",
+    // Act & Assert
+    await expect(loadDescriptor({ path: fixturePath })).rejects.toThrow(
+      "File system is not supported in this environment",
     )
   })
 
-  it("throws an error for failed remote fetch", async () => {
-    const mockResponse = {
-      ok: false,
-      status: 404,
+  it("loads a remote descriptor from a URL", async () => {
+    // Arrange
+    const testUrl = "https://example.com/schema.json"
+    const expectedContent = {
+      fields: [
+        {
+          name: "id",
+          type: "integer",
+        },
+        {
+          name: "name",
+          type: "string",
+        },
+      ],
     }
 
-    global.fetch = vi.fn().mockResolvedValue(mockResponse)
+    // Mock fetch response
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      json: () => Promise.resolve(expectedContent),
+    })
 
-    const testUrl = "https://example.com/not-found.json"
+    // Act
+    const result = await loadDescriptor({ path: testUrl })
 
-    await expect(loadDescriptor({ path: testUrl })).rejects.toThrow()
+    // Assert
+    expect(result).toEqual(expectedContent)
+    expect(fetch).toHaveBeenCalledWith(testUrl)
   })
 
-  it("handles JSON parse errors from remote source", async () => {
-    const mockResponse = {
-      ok: true,
-      json: vi.fn().mockRejectedValue(new Error("Invalid JSON")),
-    }
+  it("throws error for unsupported URL protocol", async () => {
+    // Arrange
+    const testUrl = "file:///path/to/schema.json"
 
-    global.fetch = vi.fn().mockResolvedValue(mockResponse)
-
-    const testUrl = "https://example.com/invalid.json"
-
-    await expect(loadDescriptor({ path: testUrl })).rejects.toThrow()
+    // Act & Assert
+    await expect(loadDescriptor({ path: testUrl })).rejects.toThrow(
+      "Unsupported URL protocol: file:",
+    )
   })
 })

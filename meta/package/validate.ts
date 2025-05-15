@@ -1,3 +1,3 @@
-export async function validatePackage(dpackage: string) {
-  return dpackage
+export async function validatePackage(props: { package: string }) {
+  console.log(props)
 }
