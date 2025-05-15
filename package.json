@@ -9,11 +9,11 @@
   "scripts": {
     "build": "pnpm -r build",
     "bump": "ncu -ws -u",
+    "ci:publish": "pnpm -r publish --access public && changeset tag",
     "check": "pnpm run lint && pnpm run type",
     "format": "biome check --write",
     "lint": "biome check",
     "prepare": "husky",
-    "release": "pnpm -r publish --access public && changeset tag",
     "start": "pnpm -F docs start",
     "spec": "vitest run",
     "test": "pnpm check && pnpm run spec",

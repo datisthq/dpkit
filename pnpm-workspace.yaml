@@ -6,7 +6,7 @@ packages:
   - data
   - db
   - docs
-  - dplib
+  - dpkit
   - excel
   - json
   - meta
