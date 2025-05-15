@@ -1,4 +1,4 @@
-import { saveMetadata } from "../metadata/save.js"
+import { saveDescriptor } from "../descriptor/save.js"
 import type { Dialect } from "./Dialect.js"
 
 /**
@@ -8,8 +8,8 @@ import type { Dialect } from "./Dialect.js"
 export async function saveDialect(props: { dialect: Dialect; path: string }) {
   const { dialect, path } = props
 
-  return saveMetadata({
-    metadata: dialect,
+  return saveDescriptor({
+    descriptor: dialect,
     path,
   })
 }

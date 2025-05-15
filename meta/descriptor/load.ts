@@ -1,11 +1,11 @@
 /**
- * Load a metadata (JSON Object) from a file or URL
+ * Load a descriptor (JSON Object) from a file or URL
  * Uses dynamic imports to work in both Node.js and browser environments
  * Supports HTTP, HTTPS, FTP, and FTPS protocols
  *
- * @param props Object containing the path to the metadata
+ * @param props Object containing the path to the descriptor
  */
-export async function loadMetadata(props: { path: string }) {
+export async function loadDescriptor(props: { path: string }) {
   const { path } = props
 
   let isUrl = false
@@ -17,17 +17,17 @@ export async function loadMetadata(props: { path: string }) {
   }
 
   return isUrl
-    ? await loadRemoteMetadata(props)
-    : await loadLocalMetadata(props)
+    ? await loadRemoteDescriptor(props)
+    : await loadLocalDescriptor(props)
 }
 
 /**
- * Load a metadata (JSON Object) from a remote URL
+ * Load a descriptor (JSON Object) from a remote URL
  * Supports HTTP, HTTPS, FTP, and FTPS protocols
  *
  * @param props Object containing the remote URL path
  */
-async function loadRemoteMetadata(props: { path: string }) {
+async function loadRemoteDescriptor(props: { path: string }) {
   const { path } = props
 
   const url = new URL(path)
@@ -40,7 +40,7 @@ async function loadRemoteMetadata(props: { path: string }) {
   const response = await fetch(path)
   if (!response.ok) {
     throw new Error(
-      `Failed to load metadata from URL: ${path}, status: ${response.status}`,
+      `Failed to load descriptor from URL: ${path}, status: ${response.status}`,
     )
   }
 
@@ -49,12 +49,12 @@ async function loadRemoteMetadata(props: { path: string }) {
 }
 
 /**
- * Load a metadata (JSON Object) from a local file
+ * Load a descriptor (JSON Object) from a local file
  * Works in Node.js environments only
  *
  * @param props Object containing the file path
  */
-async function loadLocalMetadata(props: { path: string }) {
+async function loadLocalDescriptor(props: { path: string }) {
   const { path } = props
 
   const fs = await import("node:fs/promises")

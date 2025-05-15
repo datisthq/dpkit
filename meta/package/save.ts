@@ -1,4 +1,4 @@
-import { saveMetadata } from "../metadata/save.js"
+import { saveDescriptor } from "../descriptor/save.js"
 import type { Package } from "./Package.js"
 
 /**
@@ -11,8 +11,8 @@ export async function savePackage(props: {
 }) {
   const { package: pkg, path } = props
 
-  return saveMetadata({
-    metadata: pkg,
+  return saveDescriptor({
+    descriptor: pkg,
     path,
   })
 }

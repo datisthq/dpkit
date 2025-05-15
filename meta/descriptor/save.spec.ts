@@ -2,13 +2,13 @@ import * as fs from "node:fs/promises"
 import * as path from "node:path"
 import { temporaryDirectory } from "tempy"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
-import { saveMetadata } from "./save.js"
+import { saveDescriptor } from "./save.js"
 
-describe("saveMetadata", () => {
-  const testMetadata = {
-    name: "test-metadata",
+describe("saveDescriptor", () => {
+  const testDescriptor = {
+    name: "test-descriptor",
     version: "1.0.0",
-    description: "Test metadata for save function",
+    description: "Test descriptor for save function",
     resources: [
       {
         name: "resource1",
@@ -22,7 +22,7 @@ describe("saveMetadata", () => {
 
   beforeEach(() => {
     testDir = temporaryDirectory()
-    testPath = path.join(testDir, "metadata.json")
+    testPath = path.join(testDir, "descriptor.json")
   })
 
   afterEach(async () => {
@@ -35,9 +35,9 @@ describe("saveMetadata", () => {
     }
   })
 
-  it("should save a metadata to the specified path", async () => {
-    const result = await saveMetadata({
-      metadata: testMetadata,
+  it("should save a descriptor to the specified path", async () => {
+    const result = await saveDescriptor({
+      descriptor: testDescriptor,
       path: testPath,
     })
 
@@ -51,14 +51,14 @@ describe("saveMetadata", () => {
 
     const content = await fs.readFile(testPath, "utf-8")
     const parsedContent = JSON.parse(content)
-    expect(parsedContent).toEqual(testMetadata)
+    expect(parsedContent).toEqual(testDescriptor)
   })
 
-  it("should save a metadata to a nested directory path", async () => {
-    const nestedPath = path.join(testDir, "nested", "dir", "metadata.json")
+  it("should save a descriptor to a nested directory path", async () => {
+    const nestedPath = path.join(testDir, "nested", "dir", "descriptor.json")
 
-    const result = await saveMetadata({
-      metadata: testMetadata,
+    const result = await saveDescriptor({
+      descriptor: testDescriptor,
       path: nestedPath,
     })
 
@@ -72,17 +72,17 @@ describe("saveMetadata", () => {
 
     const content = await fs.readFile(nestedPath, "utf-8")
     const parsedContent = JSON.parse(content)
-    expect(parsedContent).toEqual(testMetadata)
+    expect(parsedContent).toEqual(testDescriptor)
   })
 
   it("should use pretty formatting with 2-space indentation", async () => {
-    await saveMetadata({
-      metadata: testMetadata,
+    await saveDescriptor({
+      descriptor: testDescriptor,
       path: testPath,
     })
 
     const content = await fs.readFile(testPath, "utf-8")
-    const expectedFormat = JSON.stringify(testMetadata, null, 2)
+    const expectedFormat = JSON.stringify(testDescriptor, null, 2)
     expect(content).toEqual(expectedFormat)
 
     const lines = content.split("\n")

@@ -1,4 +1,4 @@
-import { saveMetadata } from "../metadata/save.js"
+import { saveDescriptor } from "../descriptor/save.js"
 import type { Resource } from "./Resource.js"
 
 /**
@@ -11,8 +11,8 @@ export async function saveResource(props: {
 }) {
   const { resource, path } = props
 
-  return saveMetadata({
-    metadata: resource,
+  return saveDescriptor({
+    descriptor: resource,
     path,
   })
 }

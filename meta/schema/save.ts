@@ -1,4 +1,4 @@
-import { saveMetadata } from "../metadata/save.js"
+import { saveDescriptor } from "../descriptor/save.js"
 import type { Schema } from "./Schema.js"
 
 /**
@@ -8,8 +8,8 @@ import type { Schema } from "./Schema.js"
 export async function saveSchema(props: { schema: Schema; path: string }) {
   const { schema, path } = props
 
-  return saveMetadata({
-    metadata: schema,
+  return saveDescriptor({
+    descriptor: schema,
     path,
   })
 }

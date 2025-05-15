@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest"
-import { validateMetadata } from "./validate.js"
+import { validateDescriptor } from "./validate.js"
 
-describe("validateMetadata", () => {
-  it("returns empty array for valid metadata", async () => {
+describe("validateDescriptor", () => {
+  it("returns empty array for valid descriptor", async () => {
     const profile = {
       type: "object",
       required: ["name", "version"],
@@ -13,21 +13,21 @@ describe("validateMetadata", () => {
       },
     }
 
-    const metadata = {
+    const descriptor = {
       name: "test-package",
       version: "1.0.0",
       description: "A test package",
     }
 
-    const result = await validateMetadata({
-      metadata,
+    const result = await validateDescriptor({
+      descriptor,
       profile,
     })
 
     expect(result).toEqual([])
   })
 
-  it("returns validation errors for invalid metadata", async () => {
+  it("returns validation errors for invalid descriptor", async () => {
     const profile = {
       type: "object",
       required: ["name", "version"],
@@ -38,14 +38,14 @@ describe("validateMetadata", () => {
       },
     }
 
-    const metadata = {
+    const descriptor = {
       name: "test-package",
       version: 123,
       description: "A test package with wrong version type",
     }
 
-    const result = await validateMetadata({
-      metadata,
+    const result = await validateDescriptor({
+      descriptor,
       profile,
     })
 
@@ -72,13 +72,13 @@ describe("validateMetadata", () => {
       },
     }
 
-    const metadata = {
+    const descriptor = {
       name: "test-package",
       version: "1.0.0",
     }
 
-    const result = await validateMetadata({
-      metadata,
+    const result = await validateDescriptor({
+      descriptor,
       profile,
     })
 
@@ -96,7 +96,7 @@ describe("validateMetadata", () => {
     }
   })
 
-  it("validates nested objects in the metadata", async () => {
+  it("validates nested objects in the descriptor", async () => {
     const profile = {
       type: "object",
       required: ["name", "version", "author"],
@@ -117,7 +117,7 @@ describe("validateMetadata", () => {
       },
     }
 
-    const metadata = {
+    const descriptor = {
       name: "test-package",
       version: "1.0.0",
       author: {
@@ -126,8 +126,8 @@ describe("validateMetadata", () => {
       },
     }
 
-    const result = await validateMetadata({
-      metadata,
+    const result = await validateDescriptor({
+      descriptor,
       profile,
     })
 

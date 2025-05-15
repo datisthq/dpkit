@@ -1,14 +1,14 @@
 import { loadNodeApis } from "./node.js"
 
 /**
- * Save a metadata (JSON Object) to a file path
+ * Save a descriptor (JSON Object) to a file path
  * Works in Node.js environments
  */
-export async function saveMetadata(props: {
-  metadata: Record<string, any>
+export async function saveDescriptor(props: {
+  descriptor: Record<string, any>
   path: string
 }) {
-  const { metadata, path } = props
+  const { descriptor, path } = props
 
   const node = await loadNodeApis()
   if (!node) {
@@ -17,7 +17,7 @@ export async function saveMetadata(props: {
     )
   }
 
-  const content = JSON.stringify(metadata, null, 2)
+  const content = JSON.stringify(descriptor, null, 2)
 
   await node.fs.mkdir(node.path.dirname(path), { recursive: true })
   await node.fs.writeFile(path, content, "utf-8")
