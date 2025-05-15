@@ -8,6 +8,7 @@ packages:
   - docs
   - dpkit
   - excel
+  - examples
   - json
   - meta
   - ods

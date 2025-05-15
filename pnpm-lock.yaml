@@ -79,6 +79,12 @@ importers:
         specifier: workspace:*
         version: link:../meta
 
+  examples:
+    dependencies:
+      dpkit:
+        specifier: workspace:*
+        version: link:../dpkit
+
   excel: {}
 
   json: {}
