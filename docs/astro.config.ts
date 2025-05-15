@@ -1,7 +1,7 @@
 import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
 import starlightScrollToTop from "starlight-scroll-to-top"
-import starlightTypeDoc from "starlight-typedoc"
+import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc"
 
 export default defineConfig({
   site: "https://dplib.datist.io",
@@ -35,34 +35,20 @@ export default defineConfig({
       plugins: [
         starlightScrollToTop(),
         starlightTypeDoc({
-          entryPoints: ["../dplib", "../meta"],
+          entryPoints: ["../dpkit", "../meta"],
           tsconfig: "../tsconfig.json",
-          typeDoc: { entryPointStrategy: "packages", router: "structure" },
+          typeDoc: { entryPointStrategy: "packages" },
           output: "packages",
           sidebar: {
             label: "Packages",
+            collapsed: true,
           },
         }),
       ],
       sidebar: [
         { label: "Overview", autogenerate: { directory: "overview" } },
         { label: "Guides", autogenerate: { directory: "guides" } },
-        {
-          label: "Reference",
-          autogenerate: { directory: "packages/dplib" },
-          collapsed: true,
-        },
-        {
-          label: "Packages",
-          collapsed: true,
-          items: [
-            {
-              label: "@dplib/meta",
-              autogenerate: { directory: "packages/_dplib/meta" },
-              collapsed: true,
-            },
-          ],
-        },
+        typeDocSidebarGroup,
       ],
       head: [
         {
