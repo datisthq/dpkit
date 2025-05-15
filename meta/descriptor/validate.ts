@@ -15,11 +15,20 @@ export async function validateDescriptor(props: {
 
   const ajv = new Ajv({
     strict: false,
-    loadSchema: path => loadDescriptor({ path, remoteOnly: true }),
+    loadSchema,
   })
 
-  const validate = await ajv.compileAsync(defaultProfile)
+  const profile = descriptor.$schema
+    ? await loadSchema(descriptor.$schema)
+    : defaultProfile
+
+  const validate = await ajv.compileAsync(profile)
   validate(descriptor)
 
   return validate.errors ?? []
+}
+
+async function loadSchema(path: string) {
+  const descriptor = await loadDescriptor({ path, secure: true })
+  return descriptor
 }

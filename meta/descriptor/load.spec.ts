@@ -18,7 +18,6 @@ describe("loadDescriptor", () => {
   })
 
   it("loads a local descriptor from a file path", async () => {
-    // Arrange
     const fixturePath = path.resolve(process.cwd(), "fixtures/schema.json")
     const expectedContent = {
       fields: [
@@ -33,28 +32,22 @@ describe("loadDescriptor", () => {
       ],
     }
 
-    // Act
     const result = await loadDescriptor({ path: fixturePath })
 
-    // Assert
     expect(result).toEqual(expectedContent)
   })
 
   it("throws error when file system is not supported", async () => {
-    // Arrange
     const fixturePath = path.resolve(process.cwd(), "fixtures/schema.json")
 
-    // Mock loadNodeApis to return undefined (simulating browser environment)
     vi.spyOn(nodeModule, "loadNodeApis").mockResolvedValue(undefined)
 
-    // Act & Assert
     await expect(loadDescriptor({ path: fixturePath })).rejects.toThrow(
       "File system is not supported in this environment",
     )
   })
 
   it("loads a remote descriptor from a URL", async () => {
-    // Arrange
     const testUrl = "https://example.com/schema.json"
     const expectedContent = {
       fields: [
@@ -69,36 +62,29 @@ describe("loadDescriptor", () => {
       ],
     }
 
-    // Mock fetch response
     globalThis.fetch = vi.fn().mockResolvedValue({
       json: () => Promise.resolve(expectedContent),
     })
 
-    // Act
     const result = await loadDescriptor({ path: testUrl })
 
-    // Assert
     expect(result).toEqual(expectedContent)
     expect(fetch).toHaveBeenCalledWith(testUrl)
   })
 
   it("throws error for unsupported URL protocol", async () => {
-    // Arrange
     const testUrl = "file:///path/to/schema.json"
 
-    // Act & Assert
     await expect(loadDescriptor({ path: testUrl })).rejects.toThrow(
-      "Unsupported URL protocol: file:",
+      "Unsupported remote protocol: file:",
     )
   })
 
-  it("throws error when remoteOnly is true but path is local", async () => {
-    // Arrange
+  it("throws error when secure is true but path is local", async () => {
     const fixturePath = path.resolve(process.cwd(), "fixtures/schema.json")
 
-    // Act & Assert
     await expect(
-      loadDescriptor({ path: fixturePath, remoteOnly: true }),
-    ).rejects.toThrow("Local descriptors are forbidden")
+      loadDescriptor({ path: fixturePath, secure: true }),
+    ).rejects.toThrow("Cannot load descriptor for security reasons")
   })
 })

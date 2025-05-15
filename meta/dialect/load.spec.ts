@@ -4,20 +4,20 @@ import type { Dialect } from "./Dialect.js"
 import { loadDialect } from "./load.js"
 
 describe("loadDialect", async () => {
-  const getPath = (name: string) => join(__dirname, "fixtures", name)
+  const getFixturePath = (name: string) => join(__dirname, "fixtures", name)
   const descriptor = {
     delimiter: ";",
   }
 
   it("loads a dialect from a local file path", async () => {
-    const dialect = await loadDialect({ path: getPath("valid.json") })
+    const dialect = await loadDialect({ path: getFixturePath("valid.json") })
     expectTypeOf(dialect).toEqualTypeOf<Dialect>()
     expect(dialect).toEqual(descriptor)
   })
 
-  it("throw an error when dialect is invalid", async () => {
+  it("throws an error when dialect is invalid", async () => {
     await expect(
-      loadDialect({ path: getPath("invalid.json") }),
+      loadDialect({ path: getFixturePath("invalid.json") }),
     ).rejects.toThrow()
   })
 })

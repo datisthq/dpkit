@@ -1,4 +1,3 @@
-import type { Descriptor } from "./Descriptor.js"
 import { loadNodeApis } from "./node.js"
 
 /**
@@ -8,53 +7,37 @@ import { loadNodeApis } from "./node.js"
  */
 export async function loadDescriptor(props: {
   path: string
-  remoteOnly?: boolean
+  secure?: boolean
 }) {
-  const url = createRemoteUrl(props.path)
+  const { path } = props
 
-  if (!url && props.remoteOnly) {
-    throw new Error("Local descriptors are forbidden")
+  const isRemote = isRemoteUrl(path)
+  if (!isRemote && props.secure) {
+    throw new Error("Cannot load descriptor for security reasons")
   }
 
-  return url
-    ? await loadRemoteDescriptor(url)
-    : await loadLocalDescriptor(props.path)
+  return isRemoteUrl(path)
+    ? await loadRemoteDescriptor(path)
+    : await loadLocalDescriptor(path)
 }
 
-/**
- * Load a descriptor and throw error if validation fails
- */
-export async function loadDescriptorOrThrow(props: {
-  path: string
-  remoteOnly?: boolean
-  validate?: (descriptor: Descriptor) => string[] | Promise<string[]>
-}) {
-  const descriptor = await loadDescriptor(props)
-
-  if (props.validate) {
-    const errors = await props.validate(descriptor)
-    if (errors.length > 0) {
-      throw new Error(`Invalid descriptor: ${errors.join(", ")}`)
-    }
-  }
-
-  return descriptor
-}
-
-function createRemoteUrl(path: string) {
+function isRemoteUrl(path: string) {
   try {
-    return new URL(path)
+    new URL(path)
+    return true
   } catch {
-    return undefined
+    return false
   }
 }
 
-const REMOTE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:"]
+const ALLOWED_REMOTE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:"]
 
-async function loadRemoteDescriptor(url: URL) {
+async function loadRemoteDescriptor(path: string) {
+  const url = new URL(path)
+
   const protocol = url.protocol.toLowerCase()
-  if (!REMOTE_PROTOCOLS.includes(protocol)) {
-    throw new Error(`Unsupported URL protocol: ${protocol}`)
+  if (!ALLOWED_REMOTE_PROTOCOLS.includes(protocol)) {
+    throw new Error(`Unsupported remote protocol: ${protocol}`)
   }
 
   const response = await fetch(url.toString())
