@@ -16,6 +16,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Naming:** PascalCase for classes/interfaces, camelCase for methods/variables
 - **Ordering:** In a file, high-level items first (public), low-level last (private)
 - **Imports:** ES modules, imports with full path including ".js" file extension
-- **Testing:** Unit tests in `<module>.spec.ts` files
+- **Testing:** Unit tests in `<module>.spec.ts` files; don't add useless comments like "Arrange", "Act", "Assert", etc
 - **Documentation:** Typedoc comments only for public APIs (don't add for files); don't add @params etc directives
 - **Comments:** Never write comments for code

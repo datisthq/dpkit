@@ -1,4 +1,4 @@
-import { saveDescriptor } from "../descriptor/save.js"
+import { saveDescriptor } from "../descriptor/index.js"
 import type { Dialect } from "./Dialect.js"
 
 /**

@@ -1,5 +1,4 @@
-import type { Descriptor } from "../descriptor/Descriptor.js"
-import { validateDescriptor } from "../descriptor/validate.js"
+import { type Descriptor, validateDescriptor } from "../descriptor/index.js"
 import defaultProfile from "./profiles/dialect-1.0.json" with { type: "json" }
 
 /**
