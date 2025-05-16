@@ -20,3 +20,5 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Documentation:** Typedoc comments only for public APIs (don't add for files); don't add @params etc directives
 - **Comments:** Never write comments for code
 - **Todos:** If you asked to resolve TODO, follow the instructions literally
+- **Linting:** Don't run linting as a part of your tasks
+
