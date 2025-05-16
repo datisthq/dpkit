@@ -13,11 +13,7 @@ export default defineConfig({
     coverage: {
       enabled: true,
       reporter: ["html", "json"],
-      exclude: [
-        ...coverageConfigDefaults.exclude,
-        "dpkit/examples/**",
-        "docs/**",
-      ],
+      exclude: [...coverageConfigDefaults.exclude, "docs/**", "examples/**"],
     },
   },
 })

@@ -1,3 +1,5 @@
-export { validatePackage } from "./validate.js"
 export type { Package } from "./Package.js"
-export type { Contributor } from "./Contributor.js"
+export { assertPackage } from "./assert.js"
+export { loadPackage } from "./load.js"
+export { savePackageDescriptor } from "./save.js"
+export { validatePackageDescriptor } from "./validate.js"

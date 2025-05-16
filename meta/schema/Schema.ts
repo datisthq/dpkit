@@ -1,4 +1,4 @@
-import type { Field } from "./Field.js"
+import type { Field } from "../field/index.js"
 
 /**
  * Table Schema definition

@@ -1,34 +1,15 @@
 import { describe, expect, it } from "vitest"
-import { validateMetadata } from "./validate.js"
+import { validateDescriptor } from "./validate.js"
 
-describe("validateMetadata", () => {
-  it("returns empty array for valid metadata", async () => {
-    const profile = {
-      type: "object",
-      required: ["name", "version"],
-      properties: {
-        name: { type: "string" },
-        version: { type: "string" },
-        description: { type: "string" },
-      },
-    }
-
-    const metadata = {
+describe("validateDescriptor", () => {
+  it("returns empty array for valid descriptor", async () => {
+    const descriptor = {
       name: "test-package",
       version: "1.0.0",
       description: "A test package",
     }
 
-    const result = await validateMetadata({
-      metadata,
-      profile,
-    })
-
-    expect(result).toEqual([])
-  })
-
-  it("returns validation errors for invalid metadata", async () => {
-    const profile = {
+    const defaultProfile = {
       type: "object",
       required: ["name", "version"],
       properties: {
@@ -38,22 +19,41 @@ describe("validateMetadata", () => {
       },
     }
 
-    const metadata = {
+    const result = await validateDescriptor({
+      descriptor,
+      defaultProfile,
+    })
+
+    expect(result.valid).toBe(true)
+    expect(result.errors).toEqual([])
+  })
+
+  it("returns validation errors for invalid descriptor", async () => {
+    const defaultProfile = {
+      type: "object",
+      required: ["name", "version"],
+      properties: {
+        name: { type: "string" },
+        version: { type: "string" },
+        description: { type: "string" },
+      },
+    }
+
+    const descriptor = {
       name: "test-package",
       version: 123,
       description: "A test package with wrong version type",
     }
 
-    const result = await validateMetadata({
-      metadata,
-      profile,
+    const result = await validateDescriptor({
+      descriptor,
+      defaultProfile,
     })
 
-    expect(result).not.toBeNull()
-    expect(Array.isArray(result)).toBe(true)
-    expect(result.length).toBeGreaterThan(0)
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBeGreaterThan(0)
 
-    const error = result[0]
+    const error = result.errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("type")
@@ -62,7 +62,7 @@ describe("validateMetadata", () => {
   })
 
   it("returns errors when required fields are missing", async () => {
-    const profile = {
+    const defaultProfile = {
       type: "object",
       required: ["name", "version", "required_field"],
       properties: {
@@ -72,20 +72,20 @@ describe("validateMetadata", () => {
       },
     }
 
-    const metadata = {
+    const descriptor = {
       name: "test-package",
       version: "1.0.0",
     }
 
-    const result = await validateMetadata({
-      metadata,
-      profile,
+    const result = await validateDescriptor({
+      descriptor,
+      defaultProfile,
     })
 
-    expect(Array.isArray(result)).toBe(true)
-    expect(result.length).toBeGreaterThan(0)
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBeGreaterThan(0)
 
-    const error = result[0]
+    const error = result.errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("required")
@@ -96,8 +96,8 @@ describe("validateMetadata", () => {
     }
   })
 
-  it("validates nested objects in the metadata", async () => {
-    const profile = {
+  it("validates nested objects in the descriptor", async () => {
+    const defaultProfile = {
       type: "object",
       required: ["name", "version", "author"],
       properties: {
@@ -117,7 +117,7 @@ describe("validateMetadata", () => {
       },
     }
 
-    const metadata = {
+    const descriptor = {
       name: "test-package",
       version: "1.0.0",
       author: {
@@ -126,15 +126,15 @@ describe("validateMetadata", () => {
       },
     }
 
-    const result = await validateMetadata({
-      metadata,
-      profile,
+    const result = await validateDescriptor({
+      descriptor,
+      defaultProfile,
     })
 
-    expect(Array.isArray(result)).toBe(true)
-    expect(result.length).toBeGreaterThan(0)
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBeGreaterThan(0)
 
-    const hasEmailPatternError = result.some(
+    const hasEmailPatternError = result.errors.some(
       error =>
         error &&
         error.instancePath === "/author/email" &&

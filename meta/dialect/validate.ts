@@ -1,3 +1,11 @@
-export async function validateDialect(dialect: string) {
-  return dialect
+import { type Descriptor, validateDescriptor } from "../descriptor/index.js"
+import defaultProfile from "./profiles/dialect-1.0.json" with { type: "json" }
+
+/**
+ * Validate a Dialect descriptor (JSON Object) against its profile
+ */
+export async function validateDialect(props: {
+  descriptor: Descriptor
+}) {
+  return await validateDescriptor({ ...props, defaultProfile })
 }

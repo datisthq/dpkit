@@ -1,5 +1,5 @@
 /**
- * Metadata that describes the structure of tabular data, such as delimiters,
+ * Descriptor that describes the structure of tabular data, such as delimiters,
  * headers, and other features. Following the Data Package standard:
  * https://datapackage.org/standard/table-dialect/
  */
