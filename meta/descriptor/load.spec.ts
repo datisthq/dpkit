@@ -1,40 +1,37 @@
 import path from "node:path"
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
+import { afterEach, describe, expect, it, vi } from "vitest"
 import { loadDescriptor } from "./load.js"
 import * as nodeModule from "./node.js"
 
 describe("loadDescriptor", () => {
-  // Setup mocks for fetch
-  const originalFetch = globalThis.fetch
+  const fixtureDir = path.join(import.meta.dirname, "fixtures")
+  const getFixturePath = (name: string) => path.join(fixtureDir, name)
+  const expectedDescriptor = {
+    fields: [
+      {
+        name: "id",
+        type: "integer",
+      },
+      {
+        name: "name",
+        type: "string",
+      },
+    ],
+  }
 
-  beforeEach(() => {
-    // Reset mocks before each test
+  const originalFetch = globalThis.fetch
+  afterEach(() => {
+    globalThis.fetch = originalFetch
     vi.resetAllMocks()
   })
 
-  afterEach(() => {
-    // Restore original fetch after each test
-    globalThis.fetch = originalFetch
-  })
-
   it("loads a local descriptor from a file path", async () => {
-    const fixturePath = path.resolve(process.cwd(), "fixtures/schema.json")
-    const expectedContent = {
-      fields: [
-        {
-          name: "id",
-          type: "integer",
-        },
-        {
-          name: "name",
-          type: "string",
-        },
-      ],
-    }
+    const { basepath, descriptor } = await loadDescriptor({
+      path: getFixturePath("schema.json"),
+    })
 
-    const result = await loadDescriptor({ path: fixturePath })
-
-    expect(result).toEqual(expectedContent)
+    expect(basepath).toEqual(fixtureDir)
+    expect(descriptor).toEqual(expectedDescriptor)
   })
 
   it("throws error when file system is not supported", async () => {
@@ -49,26 +46,15 @@ describe("loadDescriptor", () => {
 
   it("loads a remote descriptor from a URL", async () => {
     const testUrl = "https://example.com/schema.json"
-    const expectedContent = {
-      fields: [
-        {
-          name: "id",
-          type: "integer",
-        },
-        {
-          name: "name",
-          type: "string",
-        },
-      ],
-    }
 
     globalThis.fetch = vi.fn().mockResolvedValue({
-      json: () => Promise.resolve(expectedContent),
+      json: () => Promise.resolve(expectedDescriptor),
     })
 
-    const result = await loadDescriptor({ path: testUrl })
+    const { basepath, descriptor } = await loadDescriptor({ path: testUrl })
 
-    expect(result).toEqual(expectedContent)
+    expect(basepath).toEqual("https://example.com")
+    expect(descriptor).toEqual(expectedDescriptor)
     expect(fetch).toHaveBeenCalledWith(testUrl)
   })
 

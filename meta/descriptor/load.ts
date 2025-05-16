@@ -16,9 +16,18 @@ export async function loadDescriptor(props: {
     throw new Error("Cannot load descriptor for security reasons")
   }
 
-  return isRemoteUrl(path)
+  const basepath = await getBasepath(path)
+  const descriptor = isRemoteUrl(path)
     ? await loadRemoteDescriptor(path)
     : await loadLocalDescriptor(path)
+
+  return { basepath, descriptor }
+}
+
+async function getBasepath(path: string) {
+  const node = await loadNodeApis()
+  const sep = node?.path.sep ?? "/"
+  return path.split(sep).slice(0, -1).join(sep)
 }
 
 function isRemoteUrl(path: string) {

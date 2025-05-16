@@ -9,10 +9,8 @@ export async function saveSchema(props: {
   schema: Schema
   path: string
 }) {
-  const { schema, path } = props
-
   return saveDescriptor({
-    descriptor: schema,
-    path,
+    descriptor: props.schema,
+    path: props.path,
   })
 }

@@ -9,10 +9,8 @@ export async function savePackageDescriptor(props: {
   package: Package
   path: string
 }) {
-  const { package: pkg, path } = props
-
   return saveDescriptor({
-    descriptor: pkg,
-    path,
+    descriptor: props.package,
+    path: props.path,
   })
 }

@@ -9,10 +9,8 @@ export async function saveDialect(props: {
   dialect: Dialect
   path: string
 }) {
-  const { dialect, path } = props
-
   return saveDescriptor({
-    descriptor: dialect,
-    path,
+    descriptor: props.dialect,
+    path: props.path,
   })
 }

@@ -6,7 +6,7 @@ import { assertResource } from "./assert.js"
  * Ensures the descriptor is valid against its profile
  */
 export async function loadResource(props: { path: string }) {
-  const descriptor = await loadDescriptor(props)
+  const { descriptor } = await loadDescriptor(props)
   const resource = await assertResource({ descriptor })
   return resource
 }

@@ -9,10 +9,8 @@ export async function saveResourceDescriptor(props: {
   resource: Resource
   path: string
 }) {
-  const { resource, path } = props
-
   return saveDescriptor({
-    descriptor: resource,
-    path,
+    descriptor: props.resource,
+    path: props.path,
   })
 }

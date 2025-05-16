@@ -6,7 +6,7 @@ import { assertSchema } from "./assert.js"
  * Ensures the descriptor is valid against its profile
  */
 export async function loadSchema(props: { path: string }) {
-  const descriptor = await loadDescriptor(props)
+  const { descriptor } = await loadDescriptor(props)
   const schema = await assertSchema({ descriptor })
   return schema
 }
