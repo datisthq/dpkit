@@ -12,12 +12,12 @@ export async function loadResource(props: { path: string }) {
   const { basepath, descriptor } = await loadDescriptor(props)
   const resource = await assertResource({ descriptor })
 
-  await rewriteResourcePaths({ resource, basepath })
+  await rewriteResourcePathsOnLoad({ resource, basepath })
 
   return resource
 }
 
-async function rewriteResourcePaths(props: {
+export async function rewriteResourcePathsOnLoad(props: {
   resource: Resource
   basepath: string
 }) {
