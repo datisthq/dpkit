@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "author": "Evgeny Karev",
-  "repository": "https://github.com/datisthq/dplib",
+  "repository": "https://github.com/datisthq/dpkit",
   "description": "Data Package implementation in TypeScript.",
   "keywords": [
     "data",
@@ -17,7 +17,7 @@
     "cli"
   ],
   "dependencies": {
-    "@dplib/meta": "workspace:*"
+    "@dpkit/meta": "workspace:*"
   },
   "scripts": {
     "build": "tsc --build"

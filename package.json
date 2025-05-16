@@ -1,5 +1,5 @@
 {
-  "name": "dplib",
+  "name": "dpkit",
   "type": "module",
   "private": true,
   "engines": {

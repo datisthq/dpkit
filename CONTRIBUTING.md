@@ -1,22 +1,19 @@
 ---
 title: Contributing
 ---
-# Contributing to dplib
+# Contributing to dpkit
 
-Thank you for your interest in contributing to dplib! This document provides guidelines and instructions for contributing to this project.
+Thank you for your interest in contributing to dpkit! This document provides guidelines and instructions for contributing to this project.
 
 ## Project Overview
 
 Project is a monorepo with the following packages:
 
-- `@dplib/core`: Core functionality with task management and utilities
-- `@dplib/cli`: Command-line interface for running tasks
-- `@dplib/csv`: CSV-related functionality
-- `@dplib/json`: JSON-related functionality
-- `@dplib/excel`: Excel-related functionality
-- `@dplib/ods`: OpenDocument-Spreadsheet-related functionality
-- `@dplib/db`: Database-related functionality
-- `dplib`: Meta-package that re-exports all functionality
+- `@dpkit/meta`: Core metadata functionality
+- `@dpkit/data`: Core data functionality
+- `@dpkit/cli`: Command-line interface for running tasks
+- `@dpkit/<name>`: Domain-specific functionality
+- `dpkit`: All-in-one package that re-exports all functionality
 
 ## Development Environment
 
@@ -29,8 +26,8 @@ Project is a monorepo with the following packages:
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/dplib.ts.git dplib
-   cd dplib
+   git clone https://github.com/yourusername/dpkit.ts.git dpkit
+   cd dpkit
    ```
 
 2. Install dependencies
@@ -115,6 +112,6 @@ When adding new functionality:
 
 ## License
 
-By contributing to dplib, you agree that your contributions will be licensed under the project's license.
+By contributing to dpkit, you agree that your contributions will be licensed under the project's license.
 
 Thank you for your contribution!

@@ -10,5 +10,5 @@ title: Installation
 ## Installation
 
 ```bash
-npm install dplib
+npm install dpkit
 ```

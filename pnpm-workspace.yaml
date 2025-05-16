@@ -1,5 +1,6 @@
 dangerouslyAllowAllBuilds: true
 packages:
+  - bin
   - ckan
   - cli
   - csv
@@ -12,5 +13,7 @@ packages:
   - meta
   - ods
   - parquet
+  - site
+  - ui
   - zenodo
   - zip

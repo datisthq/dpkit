@@ -4,7 +4,7 @@ import starlightScrollToTop from "starlight-scroll-to-top"
 import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc"
 
 export default defineConfig({
-  site: "https://dplib.datist.io",
+  site: "https://dpkit.datist.io",
   srcDir: ".",
   outDir: "build",
   integrations: [
@@ -23,12 +23,12 @@ export default defineConfig({
         {
           icon: "github",
           label: "GitHub",
-          href: "https://github.com/datisthq/dplib",
+          href: "https://github.com/datisthq/dpkit",
         },
       ],
       favicon: "favicon.ico",
       editLink: {
-        baseUrl: "https://github.com/datisthq/dplib/edit/main/",
+        baseUrl: "https://github.com/datisthq/dpkit/edit/main/",
       },
       lastUpdated: true,
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
@@ -55,7 +55,7 @@ export default defineConfig({
           tag: "script",
           attrs: {
             src: "https://plausible.io/js/script.js",
-            "data-domain": "dplib.datist.io",
+            "data-domain": "dpkit.datist.io",
             defer: true,
           },
         },
