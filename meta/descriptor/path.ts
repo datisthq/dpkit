@@ -18,10 +18,14 @@ export async function getBasepath(props: { path: string }) {
 }
 
 export async function normalizePath(props: { path: string; basepath: string }) {
-  const node = await loadNodeApis()
   const isRemote = isRemotePath(props)
+  if (isRemote) {
+    return props.path
+  }
 
-  const sep = isRemote ? (node?.path.sep ?? "/") : "/"
+  const node = await loadNodeApis()
+  const sep = node?.path.sep ?? "/"
+
   return [props.basepath, props.path].join(sep)
 }
 
@@ -29,12 +33,15 @@ export async function denormalizePath(props: {
   path: string
   basepath: string
 }) {
-  const node = await loadNodeApis()
   const isRemote = isRemotePath(props)
+  if (isRemote) {
+    return props.path
+  }
 
-  const sep = isRemote ? (node?.path.sep ?? "/") : "/"
+  const node = await loadNodeApis()
+  const sep = node?.path.sep ?? "/"
+
   const path = props.path.replace(new RegExp(`^${props.basepath}${sep}`), "")
-
   if (props.basepath && props.path === path) {
     throw new Error(`Path ${props.path} is not a subpath of ${props.basepath}`)
   }
