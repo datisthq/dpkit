@@ -4,7 +4,8 @@ import type { Resource } from "./Resource.js"
 import { loadResource } from "./load.js"
 
 describe("loadResource", async () => {
-  const getFixturePath = (name: string) => join(__dirname, "fixtures", name)
+  const fixtureDir = join(__dirname, "fixtures")
+  const getFixturePath = (name: string) => join(fixtureDir, name)
   const descriptor = {
     name: "name",
     path: "table.csv",
@@ -14,8 +15,12 @@ describe("loadResource", async () => {
     const resource = await loadResource({
       path: getFixturePath("resource.json"),
     })
+
     expectTypeOf(resource).toEqualTypeOf<Resource>()
-    expect(resource).toEqual(descriptor)
+    expect(resource).toEqual({
+      ...descriptor,
+      path: getFixturePath("table.csv"),
+    })
   })
 
   it("throws an error when resource is invalid", async () => {
