@@ -1,5 +1,5 @@
-import { Ajv } from "ajv"
 import type { Descriptor } from "./Descriptor.js"
+import type { DescriptorError } from "./Error.js"
 import { validateDescriptor } from "./validate.js"
 
 /**
@@ -7,17 +7,26 @@ import { validateDescriptor } from "./validate.js"
  * It uses Ajv for JSON Schema validation under the hood
  * It returns a list of errors (empty if valid)
  *
- * @throws {Ajv.ValidationError} if `props.orThrow` and the descriptor is invalid
+ * @throws {AssertionError} if validation fails
  */
 export async function assertDescriptor<T extends Descriptor>(props: {
   descriptor: Descriptor
   defaultProfile: Descriptor
 }) {
-  const errors = await validateDescriptor(props)
+  const { valid, errors } = await validateDescriptor(props)
 
-  if (errors.length) {
-    throw new Ajv.ValidationError(errors)
+  if (!valid) {
+    throw new AssertionError(errors)
   }
 
   return props.descriptor as T
+}
+
+export class AssertionError extends Error {
+  readonly errors: DescriptorError[]
+
+  constructor(errors: DescriptorError[]) {
+    super("Assertion failed")
+    this.errors = errors
+  }
 }

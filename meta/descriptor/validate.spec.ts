@@ -24,7 +24,8 @@ describe("validateDescriptor", () => {
       defaultProfile,
     })
 
-    expect(result).toEqual([])
+    expect(result.valid).toBe(true)
+    expect(result.errors).toEqual([])
   })
 
   it("returns validation errors for invalid descriptor", async () => {
@@ -49,11 +50,10 @@ describe("validateDescriptor", () => {
       defaultProfile,
     })
 
-    expect(result).not.toBeNull()
-    expect(Array.isArray(result)).toBe(true)
-    expect(result.length).toBeGreaterThan(0)
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBeGreaterThan(0)
 
-    const error = result[0]
+    const error = result.errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("type")
@@ -82,10 +82,10 @@ describe("validateDescriptor", () => {
       defaultProfile,
     })
 
-    expect(Array.isArray(result)).toBe(true)
-    expect(result.length).toBeGreaterThan(0)
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBeGreaterThan(0)
 
-    const error = result[0]
+    const error = result.errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("required")
@@ -131,10 +131,10 @@ describe("validateDescriptor", () => {
       defaultProfile,
     })
 
-    expect(Array.isArray(result)).toBe(true)
-    expect(result.length).toBeGreaterThan(0)
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBeGreaterThan(0)
 
-    const hasEmailPatternError = result.some(
+    const hasEmailPatternError = result.errors.some(
       error =>
         error &&
         error.instancePath === "/author/email" &&

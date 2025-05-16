@@ -3,7 +3,7 @@ import type { Dialect } from "./Dialect.js"
 import { validateDialect } from "./validate.js"
 
 describe("validateDialect", () => {
-  it("returns empty array for valid dialect", async () => {
+  it("returns valid result for valid dialect", async () => {
     const validDialect: Dialect = {
       delimiter: ";",
     }
@@ -12,7 +12,8 @@ describe("validateDialect", () => {
       descriptor: validDialect,
     })
 
-    expect(result).toEqual([])
+    expect(result.valid).toBe(true)
+    expect(result.errors).toEqual([])
   })
 
   it("returns validation errors for invalid dialect", async () => {
@@ -24,10 +25,10 @@ describe("validateDialect", () => {
       descriptor: invalidDialect,
     })
 
-    expect(Array.isArray(result)).toBe(true)
-    expect(result.length).toBeGreaterThan(0)
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBeGreaterThan(0)
 
-    const error = result[0]
+    const error = result.errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("type")

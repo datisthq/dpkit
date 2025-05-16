@@ -21,7 +21,8 @@ describe("validateSchema", () => {
       descriptor: validSchema,
     })
 
-    expect(result).toEqual([])
+    expect(result.valid).toBe(true)
+    expect(result.errors).toEqual([])
   })
 
   it("returns validation errors for invalid schema", async () => {
@@ -38,10 +39,10 @@ describe("validateSchema", () => {
       descriptor: invalidSchema,
     })
 
-    expect(Array.isArray(result)).toBe(true)
-    expect(result.length).toBeGreaterThan(0)
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBeGreaterThan(0)
 
-    const error = result[0]
+    const error = result.errors[0]
     expect(error).toBeDefined()
     if (error) {
       // The error could be either type or enum depending on schema validation

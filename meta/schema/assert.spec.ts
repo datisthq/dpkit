@@ -1,5 +1,5 @@
-import { Ajv } from "ajv"
 import { describe, expect, expectTypeOf, it } from "vitest"
+import { AssertionError } from "../descriptor/assert.js"
 import type { Schema } from "./Schema.js"
 import { assertSchema } from "./assert.js"
 
@@ -41,6 +41,6 @@ describe("assertSchema", () => {
       assertSchema({
         descriptor: invalidSchema,
       }),
-    ).rejects.toThrow(Ajv.ValidationError)
+    ).rejects.toThrow(AssertionError)
   })
 })

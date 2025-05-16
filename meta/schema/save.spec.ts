@@ -25,7 +25,7 @@ describe("saveSchema", () => {
 
   beforeEach(() => {
     testDir = temporaryDirectory()
-    testPath = path.join(testDir, "valid.json")
+    testPath = path.join(testDir, "schema.json")
   })
 
   afterEach(async () => {

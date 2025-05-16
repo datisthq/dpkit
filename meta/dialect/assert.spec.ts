@@ -1,5 +1,5 @@
-import { Ajv } from "ajv"
 import { describe, expect, expectTypeOf, it } from "vitest"
+import { AssertionError } from "../descriptor/index.js"
 import type { Dialect } from "./Dialect.js"
 import { assertDialect } from "./assert.js"
 
@@ -29,6 +29,6 @@ describe("assertDialect", () => {
       assertDialect({
         descriptor: invalidDialect,
       }),
-    ).rejects.toThrow(Ajv.ValidationError)
+    ).rejects.toThrow(AssertionError)
   })
 })

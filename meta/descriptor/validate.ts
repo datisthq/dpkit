@@ -1,5 +1,6 @@
 import { Ajv } from "ajv"
 import type { Descriptor } from "./Descriptor.js"
+import type { DescriptorError } from "./Error.js"
 import { loadDescriptor } from "./load.js"
 
 /**
@@ -23,9 +24,13 @@ export async function validateDescriptor(props: {
     : defaultProfile
 
   const validate = await ajv.compileAsync(profile)
-  validate(descriptor)
+  const valid = validate(descriptor)
 
-  return validate.errors ?? []
+  const errors: DescriptorError[] = validate.errors
+    ? validate.errors?.map(error => ({ ...error, type: "descriptor" }))
+    : []
+
+  return { valid, errors }
 }
 
 async function loadSchema(path: string) {
