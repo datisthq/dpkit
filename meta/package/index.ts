@@ -1,5 +1,4 @@
 export type { Package } from "./Package.js"
-export type { Contributor } from "./Contributor.js"
 export { assertPackage } from "./assert.js"
 export { loadPackage } from "./load.js"
 export { savePackageDescriptor } from "./save.js"

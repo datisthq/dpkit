@@ -1,6 +1,4 @@
 export type { Resource } from "./Resource.js"
-export type { Source } from "./Source.js"
-export type { License } from "./License.js"
 export type * from "./types/index.js"
 export { assertResource } from "./assert.js"
 export { loadResource } from "./load.js"
