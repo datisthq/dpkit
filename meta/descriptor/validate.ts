@@ -35,6 +35,6 @@ export async function validateDescriptor(props: {
 }
 
 async function loadSchema(path: string) {
-  const descriptor = await loadDescriptor({ path, secure: true })
+  const descriptor = await loadDescriptor({ path, onlyRemote: true })
   return descriptor
 }

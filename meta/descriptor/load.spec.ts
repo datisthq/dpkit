@@ -66,11 +66,11 @@ describe("loadDescriptor", () => {
     )
   })
 
-  it("throws error when secure is true but path is local", async () => {
+  it("throws error when onlyRemote is true but path is local", async () => {
     const fixturePath = path.resolve(process.cwd(), "fixtures/schema.json")
 
     await expect(
-      loadDescriptor({ path: fixturePath, secure: true }),
+      loadDescriptor({ path: fixturePath, onlyRemote: true }),
     ).rejects.toThrow("Cannot load descriptor for security reasons")
   })
 })

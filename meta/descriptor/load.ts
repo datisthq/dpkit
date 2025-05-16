@@ -8,12 +8,12 @@ import { getBasepath, isRemotePath } from "./path.js"
  */
 export async function loadDescriptor(props: {
   path: string
-  secure?: boolean
+  onlyRemote?: boolean
 }) {
   const { path } = props
 
   const isRemote = isRemotePath({ path })
-  if (!isRemote && props.secure) {
+  if (!isRemote && props.onlyRemote) {
     throw new Error("Cannot load descriptor for security reasons")
   }
 
