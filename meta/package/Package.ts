@@ -1,5 +1,5 @@
-import type { Contributor, License, Source } from "../common/index.js"
-import type { Resource } from "../resource/Resource.js"
+import type { License, Resource, Source } from "../resource/index.js"
+import type { Contributor } from "./Contributor.js"
 
 /**
  * Data Package interface based on the Frictionless Data specification
