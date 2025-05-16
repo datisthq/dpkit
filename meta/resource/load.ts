@@ -1,5 +1,5 @@
 import pMap from "p-map"
-import { joinBasepath, loadDescriptor } from "../descriptor/index.js"
+import { loadDescriptor, normalizePath } from "../descriptor/index.js"
 import type { Resource } from "./Resource.js"
 import { assertResource } from "./assert.js"
 import { isTableResource } from "./types/table.js"
@@ -12,12 +12,12 @@ export async function loadResource(props: { path: string }) {
   const { basepath, descriptor } = await loadDescriptor(props)
   const resource = await assertResource({ descriptor })
 
-  await rewriteResourcePaths({ resource, basepath })
+  await normalizeResourcePaths({ resource, basepath })
 
   return resource
 }
 
-async function rewriteResourcePaths(props: {
+export async function normalizeResourcePaths(props: {
   resource: Resource
   basepath: string
 }) {
@@ -25,14 +25,14 @@ async function rewriteResourcePaths(props: {
 
   if (resource.path) {
     resource.path = Array.isArray(resource.path)
-      ? await pMap(resource.path, path => joinBasepath({ path, basepath }))
-      : await joinBasepath({ path: resource.path, basepath })
+      ? await pMap(resource.path, path => normalizePath({ path, basepath }))
+      : await normalizePath({ path: resource.path, basepath })
   }
 
   if (isTableResource(resource)) {
     for (const name of ["dialect", "schema"] as const) {
       if (typeof resource[name] === "string") {
-        resource[name] = await joinBasepath({
+        resource[name] = await normalizePath({
           path: resource[name],
           basepath,
         })

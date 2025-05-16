@@ -17,10 +17,28 @@ export async function getBasepath(props: { path: string }) {
   return props.path.split(sep).slice(0, -1).join(sep)
 }
 
-export async function joinBasepath(props: { path: string; basepath: string }) {
+export async function normalizePath(props: { path: string; basepath: string }) {
   const node = await loadNodeApis()
   const isRemote = isRemotePath(props)
 
   const sep = isRemote ? (node?.path.sep ?? "/") : "/"
   return [props.basepath, props.path].join(sep)
+}
+
+export async function denormalizePath(props: {
+  path: string
+  basepath: string
+}) {
+  const node = await loadNodeApis()
+  const isRemote = isRemotePath(props)
+
+  const sep = isRemote ? (node?.path.sep ?? "/") : "/"
+  const path = props.path.replace(new RegExp(`^${props.basepath}${sep}`), "")
+
+  if (props.basepath && props.path === path) {
+    throw new Error(`Path ${props.path} is not a subpath of ${props.basepath}`)
+  }
+
+  // The standard requires to use Unix-style paths
+  return path.split(sep).join("/")
 }

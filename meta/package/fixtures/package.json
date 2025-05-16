@@ -32,6 +32,7 @@
   ],
   "resources": [
     {
+      "type": "table",
       "name": "name",
       "path": "table.csv",
       "dialect": "dialect.json",
