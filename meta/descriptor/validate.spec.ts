@@ -9,7 +9,7 @@ describe("validateDescriptor", () => {
       description: "A test package",
     }
 
-    const defaultProfile = {
+    const profile = {
       type: "object",
       required: ["name", "version"],
       properties: {
@@ -21,7 +21,7 @@ describe("validateDescriptor", () => {
 
     const result = await validateDescriptor({
       descriptor,
-      defaultProfile,
+      profile,
     })
 
     expect(result.valid).toBe(true)
@@ -29,7 +29,7 @@ describe("validateDescriptor", () => {
   })
 
   it("returns validation errors for invalid descriptor", async () => {
-    const defaultProfile = {
+    const profile = {
       type: "object",
       required: ["name", "version"],
       properties: {
@@ -47,7 +47,7 @@ describe("validateDescriptor", () => {
 
     const result = await validateDescriptor({
       descriptor,
-      defaultProfile,
+      profile,
     })
 
     expect(result.valid).toBe(false)
@@ -62,7 +62,7 @@ describe("validateDescriptor", () => {
   })
 
   it("returns errors when required fields are missing", async () => {
-    const defaultProfile = {
+    const profile = {
       type: "object",
       required: ["name", "version", "required_field"],
       properties: {
@@ -79,7 +79,7 @@ describe("validateDescriptor", () => {
 
     const result = await validateDescriptor({
       descriptor,
-      defaultProfile,
+      profile,
     })
 
     expect(result.valid).toBe(false)
@@ -97,7 +97,7 @@ describe("validateDescriptor", () => {
   })
 
   it("validates nested objects in the descriptor", async () => {
-    const defaultProfile = {
+    const profile = {
       type: "object",
       required: ["name", "version", "author"],
       properties: {
@@ -128,7 +128,7 @@ describe("validateDescriptor", () => {
 
     const result = await validateDescriptor({
       descriptor,
-      defaultProfile,
+      profile,
     })
 
     expect(result.valid).toBe(false)

@@ -8,6 +8,7 @@ import { getBasepath, isRemotePath } from "./path.js"
  */
 export async function loadDescriptor(props: {
   path: string
+  useCache?: boolean
   onlyRemote?: boolean
 }) {
   const { path } = props
@@ -27,7 +28,7 @@ export async function loadDescriptor(props: {
 
 const ALLOWED_REMOTE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:"]
 
-async function loadRemoteDescriptor(props: { path: string }) {
+export async function loadRemoteDescriptor(props: { path: string }) {
   const url = new URL(props.path)
 
   const protocol = url.protocol.toLowerCase()

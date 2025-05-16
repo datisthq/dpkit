@@ -1,14 +1,16 @@
-import { type Descriptor, assertDescriptor } from "../descriptor/index.js"
+import { AssertionError, type Descriptor } from "../descriptor/index.js"
 import type { Resource } from "./Resource.js"
-import defaultProfile from "./profiles/resource-1.0.json" with { type: "json" }
+import { validateResourceDescriptor } from "./validate.js"
 
 /**
  * Assert a Resource descriptor (JSON Object) against its profile
  */
 export async function assertResource(props: { descriptor: Descriptor }) {
-  const resource = await assertDescriptor<Resource>({
-    ...props,
-    defaultProfile,
-  })
-  return resource
+  const { valid, errors } = await validateResourceDescriptor(props)
+
+  if (!valid) {
+    throw new AssertionError(errors)
+  }
+
+  return props.descriptor as Resource
 }

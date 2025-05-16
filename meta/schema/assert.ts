@@ -1,11 +1,16 @@
-import { type Descriptor, assertDescriptor } from "../descriptor/index.js"
+import { AssertionError, type Descriptor } from "../descriptor/index.js"
 import type { Schema } from "./Schema.js"
-import defaultProfile from "./profiles/schema-1.0.json" with { type: "json" }
+import { validateSchema } from "./validate.js"
 
 /**
  * Assert a Schema descriptor (JSON Object) against its profile
  */
 export async function assertSchema(props: { descriptor: Descriptor }) {
-  const schema = await assertDescriptor<Schema>({ ...props, defaultProfile })
-  return schema
+  const { valid, errors } = await validateSchema(props)
+
+  if (!valid) {
+    throw new AssertionError(errors)
+  }
+
+  return props.descriptor as Schema
 }

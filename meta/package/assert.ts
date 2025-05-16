@@ -1,14 +1,16 @@
-import { type Descriptor, assertDescriptor } from "../descriptor/index.js"
+import { AssertionError, type Descriptor } from "../descriptor/index.js"
 import type { Package } from "./Package.js"
-import defaultProfile from "./profiles/package-1.0.json" with { type: "json" }
+import { validatePackageDescriptor } from "./validate.js"
 
 /**
  * Assert a Package descriptor (JSON Object) against its profile
  */
 export async function assertPackage(props: { descriptor: Descriptor }) {
-  const pkg = await assertDescriptor<Package>({
-    ...props,
-    defaultProfile,
-  })
-  return pkg
+  const { valid, errors } = await validatePackageDescriptor(props)
+
+  if (!valid) {
+    throw new AssertionError(errors)
+  }
+
+  return props.descriptor as Package
 }

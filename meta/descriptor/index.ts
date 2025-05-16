@@ -1,6 +1,7 @@
-export { assertDescriptor, AssertionError } from "./assert.js"
 export { loadDescriptor } from "./load.js"
 export { saveDescriptor } from "./save.js"
 export { validateDescriptor } from "./validate.js"
 export type { Descriptor } from "./Descriptor.js"
 export { getBasepath, normalizePath, denormalizePath } from "./path.js"
+export { loadProfile } from "./profile.js"
+export { AssertionError, type DescriptorError } from "./Error.js"
