@@ -16,7 +16,8 @@
     "fair"
   ],
   "dependencies": {
-    "ajv": "^8.17.1"
+    "ajv": "^8.17.1",
+    "p-map": "^7.0.3"
   },
   "scripts": {
     "build": "tsc --build"

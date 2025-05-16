@@ -1,4 +1,5 @@
 import { loadNodeApis } from "./node.js"
+import { getBasepath, isRemotePath } from "./path.js"
 
 /**
  * Load a descriptor (JSON Object) from a file or URL
@@ -11,38 +12,23 @@ export async function loadDescriptor(props: {
 }) {
   const { path } = props
 
-  const isRemote = isRemoteUrl(path)
+  const isRemote = isRemotePath({ path })
   if (!isRemote && props.secure) {
     throw new Error("Cannot load descriptor for security reasons")
   }
 
-  const basepath = await getBasepath(path)
-  const descriptor = isRemoteUrl(path)
-    ? await loadRemoteDescriptor(path)
-    : await loadLocalDescriptor(path)
+  const basepath = await getBasepath({ path })
+  const descriptor = isRemotePath({ path })
+    ? await loadRemoteDescriptor({ path })
+    : await loadLocalDescriptor({ path })
 
   return { basepath, descriptor }
 }
 
-async function getBasepath(path: string) {
-  const node = await loadNodeApis()
-  const sep = node?.path.sep ?? "/"
-  return path.split(sep).slice(0, -1).join(sep)
-}
-
-function isRemoteUrl(path: string) {
-  try {
-    new URL(path)
-    return true
-  } catch {
-    return false
-  }
-}
-
 const ALLOWED_REMOTE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:"]
 
-async function loadRemoteDescriptor(path: string) {
-  const url = new URL(path)
+async function loadRemoteDescriptor(props: { path: string }) {
+  const url = new URL(props.path)
 
   const protocol = url.protocol.toLowerCase()
   if (!ALLOWED_REMOTE_PROTOCOLS.includes(protocol)) {
@@ -55,13 +41,13 @@ async function loadRemoteDescriptor(path: string) {
   return descriptor
 }
 
-async function loadLocalDescriptor(path: string) {
+async function loadLocalDescriptor(props: { path: string }) {
   const node = await loadNodeApis()
   if (!node) {
     throw new Error("File system is not supported in this environment")
   }
 
-  const content = await node.fs.readFile(path, "utf-8")
+  const content = await node.fs.readFile(props.path, "utf-8")
   const descriptor = JSON.parse(content) as Record<string, any>
 
   return descriptor
