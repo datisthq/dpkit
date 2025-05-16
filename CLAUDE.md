@@ -19,3 +19,4 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Testing:** Unit tests in `<module>.spec.ts` files; don't add useless comments like "Arrange", "Act", "Assert", etc
 - **Documentation:** Typedoc comments only for public APIs (don't add for files); don't add @params etc directives
 - **Comments:** Never write comments for code
+- **Todos:** If you asked to resolve TODO, follow the instructions literally
