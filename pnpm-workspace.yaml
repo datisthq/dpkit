@@ -11,4 +11,6 @@ packages:
   - json
   - meta
   - ods
+  - parquet
   - zenodo
+  - zip

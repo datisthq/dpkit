@@ -1,0 +1,22 @@
+{
+  "name": "@dplib/parquet",
+  "type": "module",
+  "main": "build/index.js",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/dplib",
+  "description": "Data Package implementation in TypeScript.",
+  "keywords": [
+    "data",
+    "package",
+    "typescript",
+    "validation",
+    "quality",
+    "fair",
+    "parquet"
+  ],
+  "scripts": {
+    "build": "tsc --build"
+  }
+}

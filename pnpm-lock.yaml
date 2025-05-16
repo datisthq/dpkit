@@ -94,7 +94,11 @@ importers:
 
   ods: {}
 
+  parquet: {}
+
   zenodo: {}
+
+  zip: {}
 
 packages:
 
