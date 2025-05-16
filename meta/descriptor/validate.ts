@@ -15,8 +15,9 @@ export async function validateDescriptor(props: {
   const { descriptor, defaultProfile } = props
 
   const ajv = new Ajv({
-    strict: false,
     loadSchema,
+    strict: false,
+    validateFormats: false,
   })
 
   const profile = descriptor.$schema

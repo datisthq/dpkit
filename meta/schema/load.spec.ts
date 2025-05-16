@@ -19,7 +19,7 @@ describe("loadSchema", () => {
   }
 
   it("loads a schema from a local file path", async () => {
-    const schema = await loadSchema({ path: getFixturePath("valid.json") })
+    const schema = await loadSchema({ path: getFixturePath("schema.json") })
 
     expectTypeOf(schema).toEqualTypeOf<Schema>()
     expect(schema).toEqual(expectedSchema)
@@ -27,7 +27,7 @@ describe("loadSchema", () => {
 
   it("throws an error when schema is invalid", async () => {
     await expect(
-      loadSchema({ path: getFixturePath("invalid.json") }),
+      loadSchema({ path: getFixturePath("schema-invalid.json") }),
     ).rejects.toThrow()
   })
 })
