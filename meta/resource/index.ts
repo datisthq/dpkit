@@ -1,5 +1,5 @@
-export { validateResource } from "./validate.js"
 export type { Resource } from "./Resource.js"
 export type { Source } from "./Source.js"
 export type { License } from "./License.js"
 export type * from "./types/index.js"
+export { saveResourceDescriptor } from "./save.js"

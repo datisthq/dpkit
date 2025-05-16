@@ -5,7 +5,7 @@ import type { Resource } from "./Resource.js"
  * Save a Resource to a file path
  * Works in Node.js environments
  */
-export async function saveResource(props: {
+export async function saveResourceDescriptor(props: {
   resource: Resource
   path: string
 }) {
