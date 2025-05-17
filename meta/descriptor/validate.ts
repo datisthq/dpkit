@@ -1,7 +1,7 @@
 import { Ajv } from "ajv"
 import type { Descriptor } from "./Descriptor.js"
 import type { DescriptorError } from "./Error.js"
-import { loadProfile } from "./profile.js"
+import { loadProfile } from "./profile/load.js"
 
 /**
  * Validate a descriptor (JSON Object) against a JSON Schema
