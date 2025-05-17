@@ -15,9 +15,10 @@ export async function validateDescriptor(props: {
   const { descriptor, profile } = props
 
   const ajv = new Ajv({
-    loadSchema,
     strict: false,
+    validateSchema: false,
     validateFormats: false,
+    loadSchema: path => loadProfile({ path }),
   })
 
   const validate = await ajv.compileAsync(profile)
@@ -28,9 +29,4 @@ export async function validateDescriptor(props: {
     : []
 
   return { valid, errors }
-}
-
-async function loadSchema(path: string) {
-  const profile = await loadProfile({ path })
-  return profile
 }

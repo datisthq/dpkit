@@ -36,12 +36,10 @@ describe("saveDescriptor", () => {
   })
 
   it("should save a descriptor to the specified path", async () => {
-    const result = await saveDescriptor({
+    await saveDescriptor({
       descriptor: testDescriptor,
       path: testPath,
     })
-
-    expect(result).toBe(true)
 
     const fileExists = await fs
       .stat(testPath)
@@ -57,12 +55,10 @@ describe("saveDescriptor", () => {
   it("should save a descriptor to a nested directory path", async () => {
     const nestedPath = path.join(testDir, "nested", "dir", "descriptor.json")
 
-    const result = await saveDescriptor({
+    await saveDescriptor({
       descriptor: testDescriptor,
       path: nestedPath,
     })
-
-    expect(result).toBe(true)
 
     const fileExists = await fs
       .stat(nestedPath)

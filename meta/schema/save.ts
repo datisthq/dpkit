@@ -9,7 +9,7 @@ export async function saveSchema(props: {
   schema: Schema
   path: string
 }) {
-  return saveDescriptor({
+  await saveDescriptor({
     descriptor: props.schema,
     path: props.path,
   })

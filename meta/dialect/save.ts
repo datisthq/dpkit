@@ -9,7 +9,7 @@ export async function saveDialect(props: {
   dialect: Dialect
   path: string
 }) {
-  return saveDescriptor({
+  await saveDescriptor({
     descriptor: props.dialect,
     path: props.path,
   })
