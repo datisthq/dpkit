@@ -7,7 +7,7 @@ type ProcessProps = {
 }
 
 export async function processPackageOnLoad(props: ProcessProps) {
-  processResources(props)
+  await processResources(props)
 }
 
 async function processResources(props: ProcessProps) {

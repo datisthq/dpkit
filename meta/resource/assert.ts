@@ -9,10 +9,6 @@ export async function assertResource(props: {
   basepath?: string
 }) {
   const { errors, resource } = await validateResourceDescriptor(props)
-
-  if (!resource) {
-    throw new AssertionError(errors)
-  }
-
+  if (!resource) throw new AssertionError(errors)
   return resource
 }

@@ -17,29 +17,48 @@ export async function getBasepath(props: { path: string }) {
   return props.path.split(sep).slice(0, -1).join(sep)
 }
 
-export async function normalizePath(props: { path: string; basepath: string }) {
-  const isRemote = isRemotePath(props)
-  if (isRemote) {
+export async function normalizePath(props: {
+  path: string
+  basepath?: string
+}) {
+  if (!props.basepath) {
     return props.path
   }
 
-  const node = await loadNodeApis()
-  const sep = node?.path.sep ?? "/"
+  const isPathRemote = isRemotePath({ path: props.path })
+  if (isPathRemote) {
+    return props.path
+  }
+
+  let sep = "/"
+  const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
+  if (!isBasepathRemote) {
+    const node = await loadNodeApis()
+    sep = node?.path.sep ?? "/"
+  }
 
   return [props.basepath, props.path].join(sep)
 }
 
 export async function denormalizePath(props: {
   path: string
-  basepath: string
+  basepath?: string
 }) {
-  const isRemote = isRemotePath(props)
-  if (isRemote) {
+  if (!props.basepath) {
     return props.path
   }
 
-  const node = await loadNodeApis()
-  const sep = node?.path.sep ?? "/"
+  const isPathRemote = isRemotePath({ path: props.path })
+  if (isPathRemote) {
+    return props.path
+  }
+
+  let sep = "/"
+  const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
+  if (!isBasepathRemote) {
+    const node = await loadNodeApis()
+    sep = node?.path.sep ?? "/"
+  }
 
   const path = props.path.replace(new RegExp(`^${props.basepath}${sep}`), "")
   if (props.basepath && props.path === path) {

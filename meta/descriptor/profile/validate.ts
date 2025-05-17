@@ -1,6 +1,6 @@
-import { Ajv } from "ajv"
 import type { Descriptor } from "../Descriptor.js"
 import type { Profile } from "./Profile.js"
+import { ajv } from "./ajv.js"
 import type { ProfileType } from "./registry.js"
 import { profileRegistry } from "./registry.js"
 
@@ -12,11 +12,6 @@ type ValidateProps = {
 
 export async function validateProfile(props: ValidateProps) {
   const errors: { message: string }[] = []
-
-  const ajv = new Ajv({
-    strict: false,
-    validateFormats: false,
-  })
 
   await ajv.validateSchema(props.descriptor)
   for (const error of ajv.errors ?? []) {
