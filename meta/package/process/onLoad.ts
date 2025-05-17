@@ -7,7 +7,23 @@ type ProcessProps = {
 }
 
 export function processPackageOnLoad(props: ProcessProps) {
+  makeCompatible(props)
   processResources(props)
+}
+
+function makeCompatible(props: ProcessProps) {
+  const { descriptor } = props
+
+  const contributors = descriptor.contributors
+  if (Array.isArray(contributors)) {
+    for (const contributor of contributors) {
+      const role = contributor.role
+      if (role) {
+        contributor.roles = [role]
+        contributor.role = undefined
+      }
+    }
+  }
 }
 
 function processResources(props: ProcessProps) {

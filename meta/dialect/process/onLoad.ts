@@ -5,7 +5,7 @@ type ProcessProps = {
 }
 
 export function processDialectOnLoad(props: ProcessProps) {
-  normalizeProperties(props)
+  makeCompatible(props)
 }
 
-function normalizeProperties(_props: ProcessProps) {}
+function makeCompatible(_props: ProcessProps) {}

@@ -7,7 +7,18 @@ type ProcessProps = {
 }
 
 export function processResourceOnLoad(props: ProcessProps) {
+  makeCompatible(props)
   normalizePaths(props)
+}
+
+function makeCompatible(props: ProcessProps) {
+  const { descriptor } = props
+
+  const path = descriptor.path
+  if (!path) {
+    descriptor.path = descriptor.url
+    descriptor.url = undefined
+  }
 }
 
 function normalizePaths(props: ProcessProps) {
