@@ -1,5 +1,4 @@
 export * from "./dialect/index.js"
-export * from "./field/index.js"
 export * from "./package/index.js"
 export * from "./resource/index.js"
 export * from "./schema/index.js"

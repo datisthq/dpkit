@@ -32,7 +32,7 @@ export async function validateProfile(props: ValidateProps) {
   return {
     errors,
     valid: !errors.length,
-    profile: props.descriptor as Profile,
+    profile: !errors.length ? (props.descriptor as Profile) : undefined,
   }
 }
 
