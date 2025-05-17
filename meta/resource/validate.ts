@@ -19,7 +19,7 @@ export async function validateResourceDescriptor(props: {
   const { valid, errors } = await validateDescriptor({ descriptor, profile })
 
   if (valid) {
-    await processResourceOnLoad({ descriptor, basepath })
+    processResourceOnLoad({ descriptor, basepath })
     resource = descriptor as Resource
   }
 

@@ -1,4 +1,4 @@
-import { loadNodeApis } from "./node.js"
+import { node } from "./node.js"
 import { getBasepath, isRemotePath } from "./path.js"
 
 type LoadProps = {
@@ -14,7 +14,7 @@ type LoadProps = {
 export async function loadDescriptor(props: LoadProps) {
   const { path } = props
 
-  const basepath = await getBasepath({ path })
+  const basepath = getBasepath({ path })
   const descriptor = isRemotePath({ path })
     ? await loadRemoteDescriptor(props)
     : await loadLocalDescriptor(props)
@@ -43,7 +43,6 @@ async function loadLocalDescriptor(props: LoadProps) {
     throw new Error("Cannot load descriptor for security reasons")
   }
 
-  const node = await loadNodeApis()
   if (!node) {
     throw new Error("File system is not supported in this environment")
   }

@@ -1,4 +1,4 @@
-import { loadNodeApis } from "./node.js"
+import { node } from "./node.js"
 
 export function isRemotePath(props: { path: string }) {
   try {
@@ -9,15 +9,14 @@ export function isRemotePath(props: { path: string }) {
   }
 }
 
-export async function getBasepath(props: { path: string }) {
-  const node = await loadNodeApis()
+export function getBasepath(props: { path: string }) {
   const isRemote = isRemotePath(props)
 
   const sep = isRemote ? (node?.path.sep ?? "/") : "/"
   return props.path.split(sep).slice(0, -1).join(sep)
 }
 
-export async function normalizePath(props: {
+export function normalizePath(props: {
   path: string
   basepath?: string
 }) {
@@ -33,14 +32,13 @@ export async function normalizePath(props: {
   let sep = "/"
   const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
   if (!isBasepathRemote) {
-    const node = await loadNodeApis()
     sep = node?.path.sep ?? "/"
   }
 
   return [props.basepath, props.path].join(sep)
 }
 
-export async function denormalizePath(props: {
+export function denormalizePath(props: {
   path: string
   basepath?: string
 }) {
@@ -56,7 +54,6 @@ export async function denormalizePath(props: {
   let sep = "/"
   const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
   if (!isBasepathRemote) {
-    const node = await loadNodeApis()
     sep = node?.path.sep ?? "/"
   }
 

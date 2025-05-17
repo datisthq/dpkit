@@ -4,4 +4,4 @@ type ProcessProps = {
   dialect: Dialect
 }
 
-export async function processDialectOnSave(_props: ProcessProps) {}
+export function processDialectOnSave(_props: ProcessProps) {}

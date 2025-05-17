@@ -11,8 +11,8 @@ export async function saveResourceDescriptor(props: {
   path: string
 }) {
   const { resource, path } = props
-  const basepath = await getBasepath({ path })
+  const basepath = getBasepath({ path })
 
-  await processResourceOnSave({ resource, basepath })
+  processResourceOnSave({ resource, basepath })
   await saveDescriptor({ descriptor: resource, path })
 }

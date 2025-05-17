@@ -19,7 +19,7 @@ export async function validatePackageDescriptor(props: {
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
-    await processPackageOnLoad({ descriptor, basepath })
+    processPackageOnLoad({ descriptor, basepath })
     datapack = descriptor as Package
   }
 

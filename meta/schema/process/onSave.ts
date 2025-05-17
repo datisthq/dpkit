@@ -4,4 +4,4 @@ type ProcessProps = {
   schema: Schema
 }
 
-export async function processSchemaOnSave(_props: ProcessProps) {}
+export function processSchemaOnSave(_props: ProcessProps) {}

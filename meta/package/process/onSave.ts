@@ -6,12 +6,12 @@ type ProcessProps = {
   basepath: string
 }
 
-export async function processPackageOnSave(props: ProcessProps) {
+export function processPackageOnSave(props: ProcessProps) {
   processResources(props)
 }
 
-async function processResources(props: ProcessProps) {
+function processResources(props: ProcessProps) {
   for (const resource of props.datapack.resources) {
-    await processResourceOnSave({ resource, basepath: props.basepath })
+    processResourceOnSave({ resource, basepath: props.basepath })
   }
 }

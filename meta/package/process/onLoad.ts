@@ -6,13 +6,13 @@ type ProcessProps = {
   basepath?: string
 }
 
-export async function processPackageOnLoad(props: ProcessProps) {
-  await processResources(props)
+export function processPackageOnLoad(props: ProcessProps) {
+  processResources(props)
 }
 
-async function processResources(props: ProcessProps) {
+function processResources(props: ProcessProps) {
   for (const resource of props.descriptor.resources) {
-    await processResourceOnLoad({
+    processResourceOnLoad({
       descriptor: resource,
       basepath: props.basepath,
     })

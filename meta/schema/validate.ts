@@ -18,7 +18,7 @@ export async function validateSchema(props: {
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
-    await processSchemaOnLoad({ descriptor })
+    processSchemaOnLoad({ descriptor })
     schema = descriptor as Schema
   }
 

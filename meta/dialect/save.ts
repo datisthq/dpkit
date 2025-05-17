@@ -12,6 +12,6 @@ export async function saveDialect(props: {
 }) {
   const { dialect, path } = props
 
-  await processDialectOnSave({ dialect })
+  processDialectOnSave({ dialect })
   await saveDescriptor({ descriptor: dialect, path })
 }

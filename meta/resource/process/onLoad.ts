@@ -6,26 +6,26 @@ type ProcessProps = {
   basepath?: string
 }
 
-export async function processResourceOnLoad(props: ProcessProps) {
-  await normalizePaths(props)
+export function processResourceOnLoad(props: ProcessProps) {
+  normalizePaths(props)
 }
 
-async function normalizePaths(props: ProcessProps) {
+function normalizePaths(props: ProcessProps) {
   const { descriptor, basepath } = props
 
   if (typeof descriptor.path === "string") {
-    descriptor.path = await normalizePath({ path: descriptor.path, basepath })
+    descriptor.path = normalizePath({ path: descriptor.path, basepath })
   }
 
   if (Array.isArray(descriptor.path)) {
     for (const [index, path] of descriptor.path.entries()) {
-      descriptor.path[index] = await normalizePath({ path, basepath })
+      descriptor.path[index] = normalizePath({ path, basepath })
     }
   }
 
   for (const name of ["dialect", "schema"] as const) {
     if (typeof descriptor[name] === "string") {
-      descriptor[name] = await normalizePath({
+      descriptor[name] = normalizePath({
         path: descriptor[name],
         basepath,
       })

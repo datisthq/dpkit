@@ -12,6 +12,6 @@ export async function saveSchema(props: {
 }) {
   const { schema, path } = props
 
-  await processSchemaOnSave({ schema })
+  processSchemaOnSave({ schema })
   await saveDescriptor({ descriptor: schema, path })
 }

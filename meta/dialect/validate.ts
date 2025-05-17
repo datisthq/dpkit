@@ -18,7 +18,7 @@ export async function validateDialect(props: {
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
-    await processDialectOnLoad({ descriptor })
+    processDialectOnLoad({ descriptor })
     dialect = descriptor as Dialect
   }
 

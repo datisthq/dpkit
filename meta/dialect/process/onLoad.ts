@@ -4,8 +4,8 @@ type ProcessProps = {
   descriptor: Descriptor
 }
 
-export async function processDialectOnLoad(props: ProcessProps) {
+export function processDialectOnLoad(props: ProcessProps) {
   normalizeProperties(props)
 }
 
-async function normalizeProperties(_props: ProcessProps) {}
+function normalizeProperties(_props: ProcessProps) {}
