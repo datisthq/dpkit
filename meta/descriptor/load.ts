@@ -22,7 +22,7 @@ export async function loadDescriptor(props: {
     ? await loadRemoteDescriptor({ path })
     : await loadLocalDescriptor({ path })
 
-  return { basepath, descriptor }
+  return { descriptor, basepath }
 }
 
 const ALLOWED_REMOTE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:"]

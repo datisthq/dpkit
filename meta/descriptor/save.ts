@@ -20,6 +20,4 @@ export async function saveDescriptor(props: {
 
   await node.fs.mkdir(node.path.dirname(path), { recursive: true })
   await node.fs.writeFile(path, content, "utf-8")
-
-  return true
 }
