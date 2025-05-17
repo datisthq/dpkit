@@ -39,12 +39,10 @@ describe("saveSchema", () => {
   })
 
   it("should save a schema to a file and maintain its structure", async () => {
-    const result = await saveSchema({
+    await saveSchema({
       schema: testSchema,
       path: testPath,
     })
-
-    expect(result).toBe(true)
 
     const fileExists = await fs
       .stat(testPath)

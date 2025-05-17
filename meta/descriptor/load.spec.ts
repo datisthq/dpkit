@@ -1,7 +1,6 @@
 import path from "node:path"
 import { afterEach, describe, expect, it, vi } from "vitest"
 import { loadDescriptor } from "./load.js"
-import * as nodeModule from "./node.js"
 
 describe("loadDescriptor", () => {
   const fixtureDir = path.join(import.meta.dirname, "fixtures")
@@ -34,16 +33,6 @@ describe("loadDescriptor", () => {
     expect(descriptor).toEqual(expectedDescriptor)
   })
 
-  it("throws error when file system is not supported", async () => {
-    const fixturePath = path.resolve(process.cwd(), "fixtures/schema.json")
-
-    vi.spyOn(nodeModule, "loadNodeApis").mockResolvedValue(undefined)
-
-    await expect(loadDescriptor({ path: fixturePath })).rejects.toThrow(
-      "File system is not supported in this environment",
-    )
-  })
-
   it("loads a remote descriptor from a URL", async () => {
     const testUrl = "https://example.com/schema.json"
 
@@ -66,11 +55,9 @@ describe("loadDescriptor", () => {
     )
   })
 
-  it("throws error when secure is true but path is local", async () => {
-    const fixturePath = path.resolve(process.cwd(), "fixtures/schema.json")
-
+  it("throws error when onlyRemote is true but path is local", async () => {
     await expect(
-      loadDescriptor({ path: fixturePath, secure: true }),
+      loadDescriptor({ path: getFixturePath("schema.json"), onlyRemote: true }),
     ).rejects.toThrow("Cannot load descriptor for security reasons")
   })
 })

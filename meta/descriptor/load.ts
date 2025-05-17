@@ -1,33 +1,30 @@
-import { loadNodeApis } from "./node.js"
+import { node } from "./node.js"
 import { getBasepath, isRemotePath } from "./path.js"
+
+type LoadProps = {
+  path: string
+  onlyRemote?: boolean
+}
 
 /**
  * Load a descriptor (JSON Object) from a file or URL
  * Uses dynamic imports to work in both Node.js and browser environments
  * Supports HTTP, HTTPS, FTP, and FTPS protocols
  */
-export async function loadDescriptor(props: {
-  path: string
-  secure?: boolean
-}) {
+export async function loadDescriptor(props: LoadProps) {
   const { path } = props
 
-  const isRemote = isRemotePath({ path })
-  if (!isRemote && props.secure) {
-    throw new Error("Cannot load descriptor for security reasons")
-  }
-
-  const basepath = await getBasepath({ path })
+  const basepath = getBasepath({ path })
   const descriptor = isRemotePath({ path })
-    ? await loadRemoteDescriptor({ path })
-    : await loadLocalDescriptor({ path })
+    ? await loadRemoteDescriptor(props)
+    : await loadLocalDescriptor(props)
 
-  return { basepath, descriptor }
+  return { descriptor, basepath }
 }
 
 const ALLOWED_REMOTE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:"]
 
-async function loadRemoteDescriptor(props: { path: string }) {
+async function loadRemoteDescriptor(props: LoadProps) {
   const url = new URL(props.path)
 
   const protocol = url.protocol.toLowerCase()
@@ -41,8 +38,11 @@ async function loadRemoteDescriptor(props: { path: string }) {
   return descriptor
 }
 
-async function loadLocalDescriptor(props: { path: string }) {
-  const node = await loadNodeApis()
+async function loadLocalDescriptor(props: LoadProps) {
+  if (props.onlyRemote) {
+    throw new Error("Cannot load descriptor for security reasons")
+  }
+
   if (!node) {
     throw new Error("File system is not supported in this environment")
   }

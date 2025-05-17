@@ -1,7 +1,6 @@
-import { Ajv } from "ajv"
 import type { Descriptor } from "./Descriptor.js"
 import type { DescriptorError } from "./Error.js"
-import { loadDescriptor } from "./load.js"
+import { ajv } from "./profile/ajv.js"
 
 /**
  * Validate a descriptor (JSON Object) against a JSON Schema
@@ -10,19 +9,9 @@ import { loadDescriptor } from "./load.js"
  */
 export async function validateDescriptor(props: {
   descriptor: Descriptor
-  defaultProfile: Descriptor
+  profile: Descriptor
 }) {
-  const { descriptor, defaultProfile } = props
-
-  const ajv = new Ajv({
-    loadSchema,
-    strict: false,
-    validateFormats: false,
-  })
-
-  const profile = descriptor.$schema
-    ? await loadSchema(descriptor.$schema)
-    : defaultProfile
+  const { descriptor, profile } = props
 
   const validate = await ajv.compileAsync(profile)
   const valid = validate(descriptor)
@@ -32,9 +21,4 @@ export async function validateDescriptor(props: {
     : []
 
   return { valid, errors }
-}
-
-async function loadSchema(path: string) {
-  const descriptor = await loadDescriptor({ path, secure: true })
-  return descriptor
 }

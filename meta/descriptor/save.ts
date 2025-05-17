@@ -1,5 +1,5 @@
 import type { Descriptor } from "./Descriptor.js"
-import { loadNodeApis } from "./node.js"
+import { node } from "./node.js"
 
 /**
  * Save a descriptor (JSON Object) to a file path
@@ -11,7 +11,6 @@ export async function saveDescriptor(props: {
 }) {
   const { descriptor, path } = props
 
-  const node = await loadNodeApis()
   if (!node) {
     throw new Error("File system is not supported in this environment")
   }
@@ -20,6 +19,4 @@ export async function saveDescriptor(props: {
 
   await node.fs.mkdir(node.path.dirname(path), { recursive: true })
   await node.fs.writeFile(path, content, "utf-8")
-
-  return true
 }

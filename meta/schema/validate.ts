@@ -1,5 +1,7 @@
 import { type Descriptor, validateDescriptor } from "../descriptor/index.js"
-import defaultProfile from "./profiles/schema-1.0.json" with { type: "json" }
+import { loadProfile } from "../descriptor/index.js"
+import type { Schema } from "./Schema.js"
+import { processSchemaOnLoad } from "./process/onLoad.js"
 
 /**
  * Validate a Schema descriptor (JSON Object) against its profile
@@ -7,5 +9,20 @@ import defaultProfile from "./profiles/schema-1.0.json" with { type: "json" }
 export async function validateSchema(props: {
   descriptor: Descriptor
 }) {
-  return await validateDescriptor({ ...props, defaultProfile })
+  const { descriptor } = props
+  let schema: Schema | undefined = undefined
+
+  const $schema = props.descriptor.$schema ?? DEFAULT_PROFILE
+  const profile = await loadProfile({ path: $schema })
+
+  const { valid, errors } = await validateDescriptor({ ...props, profile })
+
+  if (valid) {
+    processSchemaOnLoad({ descriptor })
+    schema = descriptor as Schema
+  }
+
+  return { valid, errors, schema }
 }
+
+const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tableschema.json"

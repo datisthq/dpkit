@@ -1,5 +1,7 @@
 import { type Descriptor, validateDescriptor } from "../descriptor/index.js"
-import defaultProfile from "./profiles/dialect-1.0.json" with { type: "json" }
+import { loadProfile } from "../descriptor/index.js"
+import type { Dialect } from "./Dialect.js"
+import { processDialectOnLoad } from "./process/onLoad.js"
 
 /**
  * Validate a Dialect descriptor (JSON Object) against its profile
@@ -7,5 +9,20 @@ import defaultProfile from "./profiles/dialect-1.0.json" with { type: "json" }
 export async function validateDialect(props: {
   descriptor: Descriptor
 }) {
-  return await validateDescriptor({ ...props, defaultProfile })
+  const { descriptor } = props
+  let dialect: Dialect | undefined = undefined
+
+  const $dialect = props.descriptor.$dialect ?? DEFAULT_PROFILE
+  const profile = await loadProfile({ path: $dialect })
+
+  const { valid, errors } = await validateDescriptor({ ...props, profile })
+
+  if (valid) {
+    processDialectOnLoad({ descriptor })
+    dialect = descriptor as Dialect
+  }
+
+  return { valid, errors, dialect }
 }
+
+const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tabledialect.json"

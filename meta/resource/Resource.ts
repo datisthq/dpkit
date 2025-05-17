@@ -1,4 +1,5 @@
-import type { License, Source } from "../common/index.js"
+import type { License } from "./License.js"
+import type { Source } from "./Source.js"
 
 /**
  * Data Resource interface based on the Frictionless Data specification
