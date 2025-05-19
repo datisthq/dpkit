@@ -28,6 +28,13 @@ export interface BaseField<T = BaseConstraints> {
   rdfType?: string
 
   /**
+   * Values representing missing data for this field
+   * Can be a simple array of strings or an array of {value, label} objects
+   * where label provides context for why the data is missing
+   */
+  missingValues?: (string | { value: string; label: string })[]
+
+  /**
    * Validation constraints applied to values
    */
   constraints?: T

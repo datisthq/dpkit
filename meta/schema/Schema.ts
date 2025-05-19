@@ -24,8 +24,10 @@ export interface Schema {
   /**
    * Values representing missing data (optional)
    * Default: [""]
+   * Can be a simple array of strings or an array of {value, label} objects
+   * where label provides context for why the data is missing
    */
-  missingValues?: string[]
+  missingValues?: (string | { value: string; label: string })[]
 
   /**
    * Fields uniquely identifying each row (optional)
