@@ -15,11 +15,11 @@
     "quality",
     "fair"
   ],
+  "scripts": {
+    "build": "tsc --build"
+  },
   "dependencies": {
     "ajv": "^8.17.1",
     "quick-lru": "^7.0.1"
-  },
-  "scripts": {
-    "build": "tsc --build"
   }
 }
