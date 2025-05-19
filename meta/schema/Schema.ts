@@ -1,4 +1,5 @@
 import type { Field } from "./Field/index.js"
+import type { ForeignKey } from "./ForeignKey.js"
 
 /**
  * Table Schema definition
@@ -42,25 +43,5 @@ export interface Schema {
   /**
    * Foreign key relationships (optional)
    */
-  foreignKeys?: {
-    /**
-     * Source field(s) in this schema
-     */
-    fields: string[]
-
-    /**
-     * Reference to fields in another resource
-     */
-    reference: {
-      /**
-       * Target resource name (optional)
-       */
-      resource?: string
-
-      /**
-       * Target field(s) in the referenced resource
-       */
-      fields: string[]
-    }
-  }[]
+  foreignKeys?: ForeignKey[]
 }

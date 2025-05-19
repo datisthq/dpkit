@@ -18,6 +18,17 @@ export interface IntegerField extends BaseField<IntegerConstraints> {
    * Whether number is presented without currency symbols or percent signs
    */
   bareNumber?: boolean
+
+  /**
+   * Categories for enum values
+   * Can be an array of values or an array of {value, label} objects
+   */
+  categories?: number[] | Array<{ value: number; label: string }>
+
+  /**
+   * Whether categories should be considered to have a natural order
+   */
+  categoriesOrdered?: boolean
 }
 
 /**

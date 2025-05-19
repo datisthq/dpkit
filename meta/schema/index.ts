@@ -1,4 +1,5 @@
 export type { Schema } from "./Schema.js"
+export type { ForeignKey } from "./ForeignKey.js"
 
 export { assertSchema } from "./assert.js"
 export { loadSchema } from "./load.js"

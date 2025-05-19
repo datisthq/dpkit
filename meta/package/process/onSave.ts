@@ -1,16 +1,14 @@
 import { processResourceOnSave } from "../../resource/index.js"
 import type { Package } from "../Package.js"
 
-type ProcessProps = {
+export function processPackageOnSave(props: {
   datapack: Package
   basepath: string
-}
-
-export function processPackageOnSave(props: ProcessProps) {
+}) {
   processResources(props)
 }
 
-function processResources(props: ProcessProps) {
+function processResources(props: { datapack: Package; basepath: string }) {
   for (const resource of props.datapack.resources) {
     processResourceOnSave({ resource, basepath: props.basepath })
   }

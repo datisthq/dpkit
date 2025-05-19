@@ -18,6 +18,17 @@ export interface StringField extends BaseField<StringConstraints> {
    * - uuid: valid UUID string
    */
   format?: "default" | "email" | "uri" | "binary" | "uuid" | string
+
+  /**
+   * Categories for enum values
+   * Can be an array of string values or an array of {value, label} objects
+   */
+  categories?: string[] | Array<{ value: string; label: string }>
+
+  /**
+   * Whether categories should be considered to have a natural order
+   */
+  categoriesOrdered?: boolean
 }
 
 /**

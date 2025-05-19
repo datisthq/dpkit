@@ -1,11 +1,19 @@
 import type { Descriptor } from "../../descriptor/index.js"
 
-type ProcessProps = {
-  descriptor: Descriptor
+export function processDialectOnLoad(props: { descriptor: Descriptor }) {
+  compatTable(props)
 }
 
-export function processDialectOnLoad(props: ProcessProps) {
-  makeCompatible(props)
-}
+function compatTable(props: { descriptor: Descriptor }) {
+  const { descriptor } = props
 
-function makeCompatible(_props: ProcessProps) {}
+  const table = descriptor.table
+  if (!table) {
+    return
+  }
+
+  if (typeof table !== "string") {
+    descriptor.table = undefined
+    console.warn(`Ignoring v2.0 incompatible dialect table: ${table}`)
+  }
+}

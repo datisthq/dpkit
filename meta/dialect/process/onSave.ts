@@ -1,7 +1,5 @@
 import type { Dialect } from "../Dialect.js"
 
-type ProcessProps = {
+export function processDialectOnSave(_props: {
   dialect: Dialect
-}
-
-export function processDialectOnSave(_props: ProcessProps) {}
+}) {}

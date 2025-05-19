@@ -2,16 +2,14 @@ import { denormalizePath } from "../../descriptor/index.js"
 import type { Resource } from "../Resource.js"
 import { isTableResource } from "../types/table.js"
 
-type ProcessProps = {
+export function processResourceOnSave(props: {
   resource: Resource
   basepath: string
-}
-
-export function processResourceOnSave(props: ProcessProps) {
+}) {
   denormalizePaths(props)
 }
 
-function denormalizePaths(props: ProcessProps) {
+function denormalizePaths(props: { resource: Resource; basepath?: string }) {
   const { resource, basepath } = props
 
   if (resource.path) {
