@@ -1,15 +1,15 @@
 import type { Descriptor } from "../../descriptor/index.js"
 
-export function processSchemaOnLoad(props: {
+export function normalizeSchema(props: {
   descriptor: Descriptor
 }) {
-  compatFields(props)
-  compatPrimaryKey(props)
-  compatForeignKeys(props)
-  compatUniqueKeys(props)
+  normalizeFields(props)
+  normalizePrimaryKey(props)
+  normalizeForeignKeys(props)
+  normalizeUniqueKeys(props)
 }
 
-function compatFields(props: { descriptor: Descriptor }) {
+function normalizeFields(props: { descriptor: Descriptor }) {
   const { descriptor } = props
 
   const fields = descriptor.fields
@@ -18,15 +18,15 @@ function compatFields(props: { descriptor: Descriptor }) {
   }
 
   for (const field of fields) {
-    compatFieldFormat({ field })
-    compatFieldMissingValues({ field })
-    compatFieldCategories({ field })
-    compatFieldCategoriesOrdered({ field })
-    compatFieldJsonschema({ field })
+    normalizeFieldFormat({ field })
+    normalizeFieldMissingValues({ field })
+    normalizeFieldCategories({ field })
+    normalizeFieldCategoriesOrdered({ field })
+    normalizeFieldJsonschema({ field })
   }
 }
 
-function compatFieldFormat(props: { field: any }) {
+function normalizeFieldFormat(props: { field: any }) {
   const { field } = props
 
   const format = field.format
@@ -41,7 +41,7 @@ function compatFieldFormat(props: { field: any }) {
   }
 }
 
-function compatFieldMissingValues(props: { field: any }) {
+function normalizeFieldMissingValues(props: { field: any }) {
   const { field } = props
 
   const missingValues = field.missingValues
@@ -55,7 +55,7 @@ function compatFieldMissingValues(props: { field: any }) {
   }
 }
 
-function compatFieldCategories(props: { field: any }) {
+function normalizeFieldCategories(props: { field: any }) {
   const { field } = props
 
   const categories = field.categories
@@ -69,7 +69,7 @@ function compatFieldCategories(props: { field: any }) {
   }
 }
 
-function compatFieldCategoriesOrdered(props: { field: any }) {
+function normalizeFieldCategoriesOrdered(props: { field: any }) {
   const { field } = props
 
   const categoriesOrdered = field.categoriesOrdered
@@ -85,7 +85,7 @@ function compatFieldCategoriesOrdered(props: { field: any }) {
   }
 }
 
-function compatFieldJsonschema(props: { field: any }) {
+function normalizeFieldJsonschema(props: { field: any }) {
   const { field } = props
 
   const jsonschema = field.jsonschema
@@ -99,7 +99,7 @@ function compatFieldJsonschema(props: { field: any }) {
   }
 }
 
-function compatPrimaryKey(props: { descriptor: Descriptor }) {
+function normalizePrimaryKey(props: { descriptor: Descriptor }) {
   const { descriptor } = props
 
   const primaryKey = descriptor.primaryKey
@@ -112,7 +112,7 @@ function compatPrimaryKey(props: { descriptor: Descriptor }) {
   }
 }
 
-function compatForeignKeys(props: { descriptor: Descriptor }) {
+function normalizeForeignKeys(props: { descriptor: Descriptor }) {
   const { descriptor } = props
 
   const foreignKeys = descriptor.foreignKeys
@@ -135,7 +135,7 @@ function compatForeignKeys(props: { descriptor: Descriptor }) {
   }
 }
 
-function compatUniqueKeys(props: { descriptor: Descriptor }) {
+function normalizeUniqueKeys(props: { descriptor: Descriptor }) {
   const { descriptor } = props
 
   const uniqueKeys = descriptor.uniqueKeys

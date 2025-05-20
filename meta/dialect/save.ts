@@ -1,6 +1,6 @@
 import { saveDescriptor } from "../descriptor/index.js"
 import type { Dialect } from "./Dialect.js"
-import { processDialectOnSave } from "./process/onSave.js"
+import { denormalizeDialect } from "./process/denormalize.js"
 
 /**
  * Save a Dialect to a file path
@@ -12,6 +12,6 @@ export async function saveDialect(props: {
 }) {
   const { dialect, path } = props
 
-  processDialectOnSave({ dialect })
+  denormalizeDialect({ dialect })
   await saveDescriptor({ descriptor: dialect, path })
 }

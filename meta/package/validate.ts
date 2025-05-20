@@ -1,7 +1,7 @@
 import { type Descriptor, validateDescriptor } from "../descriptor/index.js"
 import { loadProfile } from "../descriptor/index.js"
 import type { Package } from "./Package.js"
-import { processPackageOnLoad } from "./process/onLoad.js"
+import { normalizePackage } from "./process/normalize.js"
 
 /**
  * Validate a Package descriptor (JSON Object) against its profile
@@ -19,7 +19,7 @@ export async function validatePackageDescriptor(props: {
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
-    processPackageOnLoad({ descriptor, basepath })
+    normalizePackage({ descriptor, basepath })
     datapack = descriptor as Package
   }
 

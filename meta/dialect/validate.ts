@@ -1,7 +1,7 @@
 import { type Descriptor, validateDescriptor } from "../descriptor/index.js"
 import { loadProfile } from "../descriptor/index.js"
 import type { Dialect } from "./Dialect.js"
-import { processDialectOnLoad } from "./process/onLoad.js"
+import { normalizeDialect } from "./process/normalize.js"
 
 /**
  * Validate a Dialect descriptor (JSON Object) against its profile
@@ -18,7 +18,7 @@ export async function validateDialect(props: {
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
-    processDialectOnLoad({ descriptor })
+    normalizeDialect({ descriptor })
     dialect = descriptor as Dialect
   }
 

@@ -1,7 +1,7 @@
 import { type Descriptor, validateDescriptor } from "../descriptor/index.js"
 import { loadProfile } from "../descriptor/index.js"
 import type { Schema } from "./Schema.js"
-import { processSchemaOnLoad } from "./process/onLoad.js"
+import { normalizeSchema } from "./process/normalize.js"
 
 /**
  * Validate a Schema descriptor (JSON Object) against its profile
@@ -18,7 +18,7 @@ export async function validateSchema(props: {
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
-    processSchemaOnLoad({ descriptor })
+    normalizeSchema({ descriptor })
     schema = descriptor as Schema
   }
 

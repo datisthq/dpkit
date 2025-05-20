@@ -1,6 +1,6 @@
 import { getBasepath, saveDescriptor } from "../descriptor/index.js"
 import type { Resource } from "./Resource.js"
-import { processResourceOnSave } from "./process/onSave.js"
+import { denormalizeResource } from "./process/denormalize.js"
 
 /**
  * Save a Resource to a file path
@@ -13,6 +13,6 @@ export async function saveResourceDescriptor(props: {
   const { resource, path } = props
   const basepath = getBasepath({ path })
 
-  processResourceOnSave({ resource, basepath })
+  denormalizeResource({ resource, basepath })
   await saveDescriptor({ descriptor: resource, path })
 }

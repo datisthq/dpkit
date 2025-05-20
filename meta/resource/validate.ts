@@ -1,7 +1,7 @@
 import { type Descriptor, validateDescriptor } from "../descriptor/index.js"
 import { loadProfile } from "../descriptor/index.js"
 import type { Resource } from "./Resource.js"
-import { processResourceOnLoad } from "./process/onLoad.js"
+import { normalizeResource } from "./process/normalize.js"
 
 /**
  * Validate a Resource descriptor (JSON Object) against its profile
@@ -19,7 +19,7 @@ export async function validateResourceDescriptor(props: {
   const { valid, errors } = await validateDescriptor({ descriptor, profile })
 
   if (valid) {
-    processResourceOnLoad({ descriptor, basepath })
+    normalizeResource({ descriptor, basepath })
     resource = descriptor as Resource
   }
 

@@ -1,6 +1,6 @@
 import { saveDescriptor } from "../descriptor/index.js"
 import type { Schema } from "./Schema.js"
-import { processSchemaOnSave } from "./process/onSave.js"
+import { denormalizeSchema } from "./process/denormalize.js"
 
 /**
  * Save a Schema to a file path
@@ -12,6 +12,6 @@ export async function saveSchema(props: {
 }) {
   const { schema, path } = props
 
-  processSchemaOnSave({ schema })
+  denormalizeSchema({ schema })
   await saveDescriptor({ descriptor: schema, path })
 }

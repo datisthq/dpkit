@@ -1,10 +1,10 @@
 import type { Descriptor } from "../../descriptor/index.js"
 
-export function processDialectOnLoad(props: { descriptor: Descriptor }) {
-  compatTable(props)
+export function normalizeDialect(props: { descriptor: Descriptor }) {
+  normalizeTable(props)
 }
 
-function compatTable(props: { descriptor: Descriptor }) {
+function normalizeTable(props: { descriptor: Descriptor }) {
   const { descriptor } = props
 
   const table = descriptor.table

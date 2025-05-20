@@ -1,30 +1,16 @@
 import { normalizePath } from "../../descriptor/index.js"
 import type { Descriptor } from "../../descriptor/index.js"
 
-export function processResourceOnLoad(props: {
+export function normalizeResource(props: {
   descriptor: Descriptor
   basepath?: string
 }) {
-  compatPath(props)
-  compatType(props)
+  normalizeType(props)
+  normalizeUrl(props)
   normalizePaths(props)
 }
 
-function compatPath(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
-  const url = descriptor.url
-  if (!url) {
-    return
-  }
-
-  if (!descriptor.path) {
-    descriptor.path = descriptor.url
-    descriptor.url = undefined
-  }
-}
-
-function compatType(props: { descriptor: Descriptor }) {
+function normalizeType(props: { descriptor: Descriptor }) {
   const { descriptor } = props
 
   const type = descriptor.type
@@ -35,6 +21,20 @@ function compatType(props: { descriptor: Descriptor }) {
   if (typeof type !== "string") {
     descriptor.type = undefined
     console.warn(`Ignoring v2.0 incompatible resource type: ${type}`)
+  }
+}
+
+function normalizeUrl(props: { descriptor: Descriptor }) {
+  const { descriptor } = props
+
+  const url = descriptor.url
+  if (!url) {
+    return
+  }
+
+  if (!descriptor.path) {
+    descriptor.path = descriptor.url
+    descriptor.url = undefined
   }
 }
 

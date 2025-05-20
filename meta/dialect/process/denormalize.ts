@@ -1,5 +1,5 @@
 import type { Dialect } from "../Dialect.js"
 
-export function processDialectOnSave(_props: {
+export function denormalizeDialect(_props: {
   dialect: Dialect
 }) {}

@@ -1,6 +1,6 @@
 import { getBasepath, saveDescriptor } from "../descriptor/index.js"
 import type { Package } from "./Package.js"
-import { processPackageOnSave } from "./process/onSave.js"
+import { denormalizePackage } from "./process/denormalize.js"
 
 /**
  * Save a Package to a file path
@@ -13,6 +13,6 @@ export async function savePackageDescriptor(props: {
   const { path } = props
   const basepath = getBasepath({ path })
 
-  processPackageOnSave({ datapack: props.datapack, basepath })
+  denormalizePackage({ datapack: props.datapack, basepath })
   await saveDescriptor({ descriptor: props.datapack, path: props.path })
 }
