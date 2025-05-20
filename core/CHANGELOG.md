@@ -1,4 +1,4 @@
-# @dpkit/meta
+# @dpkit/core
 
 ## 0.1.1
 

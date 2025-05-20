@@ -1,1 +1,3 @@
-export * from "@dpkit/meta"
+export * from "@dpkit/core"
+export * from "@dpkit/file"
+export * from "@dpkit/zip"

@@ -45,13 +45,16 @@ importers:
 
   cli: {}
 
-  csv: {}
-
-  data:
+  core:
     dependencies:
-      '@dpkit/meta':
-        specifier: workspace:*
-        version: link:../meta
+      ajv:
+        specifier: ^8.17.1
+        version: 8.17.1
+      quick-lru:
+        specifier: ^7.0.1
+        version: 7.0.1
+
+  csv: {}
 
   db: {}
 
@@ -81,22 +84,25 @@ importers:
 
   dpkit:
     dependencies:
-      '@dpkit/meta':
+      '@dpkit/core':
         specifier: workspace:*
-        version: link:../meta
+        version: link:../core
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
+      '@dpkit/zip':
+        specifier: workspace:*
+        version: link:../zip
 
   excel: {}
 
-  json: {}
-
-  meta:
+  file:
     dependencies:
-      ajv:
-        specifier: ^8.17.1
-        version: 8.17.1
-      quick-lru:
-        specifier: ^7.0.1
-        version: 7.0.1
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+
+  json: {}
 
   ods: {}
 
@@ -104,18 +110,20 @@ importers:
 
   site: {}
 
+  table: {}
+
   ui: {}
 
   zenodo: {}
 
   zip:
     dependencies:
-      '@dpkit/data':
+      '@dpkit/core':
         specifier: workspace:*
-        version: link:../data
-      '@dpkit/meta':
+        version: link:../core
+      '@dpkit/file':
         specifier: workspace:*
-        version: link:../meta
+        version: link:../file
       yauzl:
         specifier: ^3.2.0
         version: 3.2.0

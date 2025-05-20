@@ -1,6 +1,5 @@
 import { join, relative, resolve, sep } from "node:path"
-import type { Package } from "@dpkit/meta"
-import { getBasepath, isRemotePath } from "@dpkit/meta"
+import { type Package, getBasepath, isRemotePath } from "@dpkit/core"
 
 export function getPackageBasepath(props: { datapack: Package }) {
   const paths: string[] = []

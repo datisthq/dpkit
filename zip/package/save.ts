@@ -1,4 +1,4 @@
-import type { Package } from "@dpkit/meta"
+import type { Package } from "@dpkit/core"
 
 export async function savePackageToZip(props: {
   datapack: Package

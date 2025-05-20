@@ -17,8 +17,8 @@
     "zip"
   ],
   "dependencies": {
-    "@dpkit/data": "workspace:*",
-    "@dpkit/meta": "workspace:*",
+    "@dpkit/core": "workspace:*",
+    "@dpkit/file": "workspace:*",
     "yauzl": "^3.2.0",
     "yazl": "^3.3.1"
   },

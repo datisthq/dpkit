@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/meta",
+  "name": "@dpkit/core",
   "type": "module",
   "main": "build/index.js",
   "version": "0.1.1",
@@ -13,7 +13,8 @@
     "typescript",
     "validation",
     "quality",
-    "fair"
+    "fair",
+    "core"
   ],
   "scripts": {
     "build": "tsc --build"

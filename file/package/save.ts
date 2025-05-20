@@ -1,4 +1,4 @@
-import type { Package } from "@dpkit/meta"
+import type { Package } from "@dpkit/core"
 import { getPackageBasepath } from "./path.js"
 
 export async function savePackageToFolder(props: {
@@ -6,4 +6,5 @@ export async function savePackageToFolder(props: {
   path: string
 }) {
   const basepath = getPackageBasepath(props)
+  console.log(basepath)
 }
