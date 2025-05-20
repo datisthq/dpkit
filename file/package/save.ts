@@ -16,7 +16,9 @@ export async function savePackageToFolder(props: {
   // It ensures that the folder exists
   await saveDescriptor({ descriptor, path: join(folder, "datapackage.json") })
 
-  for (const resource of datapack.resources) {
-    await saveResourceToFolder({ resource, basepath, folder, withRemote })
-  }
+  Promise.all(
+    datapack.resources.map(resource =>
+      saveResourceToFolder({ resource, basepath, folder, withRemote }),
+    ),
+  )
 }

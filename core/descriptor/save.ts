@@ -18,5 +18,5 @@ export async function saveDescriptor(props: {
   const content = JSON.stringify(descriptor, null, 2)
 
   await node.fs.mkdir(node.path.dirname(path), { recursive: true })
-  await node.fs.writeFile(path, content, "utf-8")
+  await node.fs.writeFile(path, content, { encoding: "utf8", flag: "wx" })
 }
