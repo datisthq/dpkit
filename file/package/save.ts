@@ -1,12 +1,18 @@
-import type { Package } from "@dpkit/core"
+import { join } from "node:path"
+import { type Package, denormalizePackage, saveDescriptor } from "@dpkit/core"
 import { getPackageBasepath } from "./path.js"
 
 export async function savePackageToFolder(props: {
-  datapack: Package
   path: string
+  datapack: Package
+  withRemote?: boolean
 }) {
-  const { datapack } = props
+  const { datapack, path } = props
 
   const basepath = getPackageBasepath({ datapack })
+  const descriptor = denormalizePackage({ datapack, basepath })
+
+  await saveDescriptor({ descriptor, path: join(path, "datapackage.json") })
+
   console.log(basepath)
 }

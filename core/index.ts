@@ -1,4 +1,8 @@
-export { isRemotePath, getBasepath } from "./descriptor/index.js"
+export {
+  isRemotePath,
+  getBasepath,
+  saveDescriptor,
+} from "./descriptor/index.js"
 export * from "./dialect/index.js"
 export * from "./package/index.js"
 export * from "./resource/index.js"

@@ -4,7 +4,7 @@ import { isTableResource } from "../types/table.js"
 
 export function denormalizeResource(props: {
   resource: Resource
-  basepath: string
+  basepath?: string
 }) {
   const { basepath } = props
   const resource = globalThis.structuredClone(props.resource)

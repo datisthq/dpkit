@@ -3,7 +3,7 @@ import type { Package } from "../Package.js"
 
 export function denormalizePackage(props: {
   datapack: Package
-  basepath: string
+  basepath?: string
 }) {
   const { basepath } = props
   const datapack = globalThis.structuredClone(props.datapack)
@@ -13,7 +13,7 @@ export function denormalizePackage(props: {
   return datapack
 }
 
-function denormalizeResources(props: { datapack: Package; basepath: string }) {
+function denormalizeResources(props: { datapack: Package; basepath?: string }) {
   const { datapack, basepath } = props
 
   datapack.resources = datapack.resources.map((resource: any) =>
