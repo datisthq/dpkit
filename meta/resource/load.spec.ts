@@ -1,11 +1,12 @@
-import { join } from "node:path"
+import { join, relative } from "node:path"
 import { describe, expect, expectTypeOf, it } from "vitest"
 import type { Resource } from "./Resource.js"
 import { loadResource } from "./load.js"
 
 describe("loadResource", async () => {
-  const fixtureDir = join(__dirname, "fixtures")
-  const getFixturePath = (name: string) => join(fixtureDir, name)
+  const getFixturePath = (name: string) =>
+    relative(process.cwd(), join(__dirname, "fixtures", name))
+
   const descriptor = {
     name: "name",
     path: "table.csv",

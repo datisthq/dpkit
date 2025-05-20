@@ -10,7 +10,7 @@ export interface Package {
    * Unique package identifier
    * Should use lowercase alphanumeric characters, periods, hyphens, and underscores
    */
-  name: string
+  name?: string
 
   /**
    * Package schema URL for validation

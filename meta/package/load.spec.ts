@@ -1,10 +1,11 @@
-import { join } from "node:path"
+import { join, relative } from "node:path"
 import { describe, expect, expectTypeOf, it } from "vitest"
 import type { Package } from "./Package.js"
 import { loadPackage } from "./load.js"
 
 describe("loadPackage", async () => {
-  const getFixturePath = (name: string) => join(__dirname, "fixtures", name)
+  const getFixturePath = (name: string) =>
+    relative(process.cwd(), join(__dirname, "fixtures", name))
 
   it("loads a package from a local file path", async () => {
     const datapack = await loadPackage({ path: getFixturePath("package.json") })

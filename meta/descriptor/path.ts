@@ -42,7 +42,7 @@ export function normalizePath(props: {
     : props.path
 
   // Returns normalized local path
-  return node.path.resolve(path)
+  return node.path.relative(process.cwd(), node.path.resolve(path))
 }
 
 export function denormalizePath(props: {
