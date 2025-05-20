@@ -5,23 +5,14 @@ export function normalizeResource(props: {
   descriptor: Descriptor
   basepath?: string
 }) {
-  normalizeType(props)
-  normalizeUrl(props)
-  normalizePaths(props)
-}
+  const { basepath } = props
+  const descriptor = globalThis.structuredClone(props.descriptor)
 
-function normalizeType(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
+  normalizeUrl({ descriptor })
+  normalizeType({ descriptor })
+  normalizePaths({ descriptor, basepath })
 
-  const type = descriptor.type
-  if (!type) {
-    return
-  }
-
-  if (typeof type !== "string") {
-    descriptor.type = undefined
-    console.warn(`Ignoring v2.0 incompatible resource type: ${type}`)
-  }
+  return descriptor
 }
 
 function normalizeUrl(props: { descriptor: Descriptor }) {
@@ -35,6 +26,20 @@ function normalizeUrl(props: { descriptor: Descriptor }) {
   if (!descriptor.path) {
     descriptor.path = descriptor.url
     descriptor.url = undefined
+  }
+}
+
+function normalizeType(props: { descriptor: Descriptor }) {
+  const { descriptor } = props
+
+  const type = descriptor.type
+  if (!type) {
+    return
+  }
+
+  if (typeof type !== "string") {
+    descriptor.type = undefined
+    console.warn(`Ignoring v2.0 incompatible resource type: ${type}`)
   }
 }
 

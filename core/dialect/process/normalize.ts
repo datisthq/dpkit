@@ -1,7 +1,11 @@
 import type { Descriptor } from "../../descriptor/index.js"
 
 export function normalizeDialect(props: { descriptor: Descriptor }) {
-  normalizeTable(props)
+  const descriptor = globalThis.structuredClone(props.descriptor)
+
+  normalizeTable({ descriptor })
+
+  return descriptor
 }
 
 function normalizeTable(props: { descriptor: Descriptor }) {

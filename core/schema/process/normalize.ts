@@ -1,12 +1,14 @@
 import type { Descriptor } from "../../descriptor/index.js"
 
-export function normalizeSchema(props: {
-  descriptor: Descriptor
-}) {
-  normalizeFields(props)
-  normalizePrimaryKey(props)
-  normalizeForeignKeys(props)
-  normalizeUniqueKeys(props)
+export function normalizeSchema(props: { descriptor: Descriptor }) {
+  const descriptor = globalThis.structuredClone(props.descriptor)
+
+  normalizeFields({ descriptor })
+  normalizePrimaryKey({ descriptor })
+  normalizeForeignKeys({ descriptor })
+  normalizeUniqueKeys({ descriptor })
+
+  return descriptor
 }
 
 function normalizeFields(props: { descriptor: Descriptor }) {

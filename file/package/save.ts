@@ -5,6 +5,8 @@ export async function savePackageToFolder(props: {
   datapack: Package
   path: string
 }) {
-  const basepath = getPackageBasepath(props)
+  const { datapack } = props
+
+  const basepath = getPackageBasepath({ datapack })
   console.log(basepath)
 }

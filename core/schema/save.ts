@@ -12,6 +12,6 @@ export async function saveSchema(props: {
 }) {
   const { schema, path } = props
 
-  denormalizeSchema({ schema })
-  await saveDescriptor({ descriptor: schema, path })
+  const descriptor = denormalizeSchema({ schema })
+  await saveDescriptor({ descriptor, path })
 }

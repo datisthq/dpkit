@@ -19,8 +19,8 @@ export async function validateResourceDescriptor(props: {
   const { valid, errors } = await validateDescriptor({ descriptor, profile })
 
   if (valid) {
-    normalizeResource({ descriptor, basepath })
-    resource = descriptor as Resource
+    // Validation + normalization = we can cast it
+    resource = normalizeResource({ descriptor, basepath }) as Resource
   }
 
   return { valid, errors, resource }

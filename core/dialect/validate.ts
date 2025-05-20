@@ -18,8 +18,8 @@ export async function validateDialect(props: {
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
-    normalizeDialect({ descriptor })
-    dialect = descriptor as Dialect
+    // Validation + normalization = we can cast it
+    dialect = normalizeDialect({ descriptor }) as Dialect
   }
 
   return { valid, errors, dialect }

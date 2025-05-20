@@ -19,8 +19,8 @@ export async function validatePackageDescriptor(props: {
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
-    normalizePackage({ descriptor, basepath })
-    datapack = descriptor as Package
+    // Validation + normalization = we can cast it
+    datapack = normalizePackage({ descriptor, basepath }) as Package
   }
 
   return { valid, errors, datapack }

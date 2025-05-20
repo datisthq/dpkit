@@ -13,6 +13,6 @@ export async function savePackageDescriptor(props: {
   const { datapack, path } = props
   const basepath = getBasepath({ path })
 
-  denormalizePackage({ datapack, basepath })
-  await saveDescriptor({ descriptor: datapack, path: props.path })
+  const descriptor = denormalizePackage({ datapack, basepath })
+  await saveDescriptor({ descriptor, path: props.path })
 }

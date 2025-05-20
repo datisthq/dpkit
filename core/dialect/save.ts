@@ -12,6 +12,6 @@ export async function saveDialect(props: {
 }) {
   const { dialect, path } = props
 
-  denormalizeDialect({ dialect })
-  await saveDescriptor({ descriptor: dialect, path })
+  const descriptor = denormalizeDialect({ dialect })
+  await saveDescriptor({ descriptor, path })
 }

@@ -5,11 +5,18 @@ export function denormalizePackage(props: {
   datapack: Package
   basepath: string
 }) {
-  denormalizeResources(props)
+  const { basepath } = props
+  const datapack = globalThis.structuredClone(props.datapack)
+
+  denormalizeResources({ datapack, basepath })
+
+  return datapack
 }
 
 function denormalizeResources(props: { datapack: Package; basepath: string }) {
-  for (const resource of props.datapack.resources) {
-    denormalizeResource({ resource, basepath: props.basepath })
-  }
+  const { datapack, basepath } = props
+
+  datapack.resources = datapack.resources.map((resource: any) =>
+    denormalizeResource({ resource, basepath }),
+  )
 }

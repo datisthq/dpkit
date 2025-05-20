@@ -13,6 +13,6 @@ export async function saveResourceDescriptor(props: {
   const { resource, path } = props
   const basepath = getBasepath({ path })
 
-  denormalizeResource({ resource, basepath })
-  await saveDescriptor({ descriptor: resource, path })
+  const descriptor = denormalizeResource({ resource, basepath })
+  await saveDescriptor({ descriptor, path })
 }

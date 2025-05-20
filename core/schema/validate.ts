@@ -18,8 +18,8 @@ export async function validateSchema(props: {
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
-    normalizeSchema({ descriptor })
-    schema = descriptor as Schema
+    // Validation + normalization = we can cast it
+    schema = normalizeSchema({ descriptor }) as Schema
   }
 
   return { valid, errors, schema }

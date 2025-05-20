@@ -6,7 +6,12 @@ export function denormalizeResource(props: {
   resource: Resource
   basepath: string
 }) {
-  denormalizePaths(props)
+  const { basepath } = props
+  const resource = globalThis.structuredClone(props.resource)
+
+  denormalizePaths({ resource, basepath })
+
+  return resource
 }
 
 function denormalizePaths(props: { resource: Resource; basepath?: string }) {

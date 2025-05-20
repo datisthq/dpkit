@@ -5,25 +5,35 @@ export function normalizePackage(props: {
   descriptor: Descriptor
   basepath?: string
 }) {
-  normalizeResources(props)
-  normalizeContributors(props)
+  const { basepath } = props
+  const descriptor = globalThis.structuredClone(props.descriptor)
+
+  normalizeResources({ descriptor, basepath })
+  normalizeContributors({ descriptor })
+
+  return descriptor
 }
 
 function normalizeResources(props: {
   descriptor: Descriptor
   basepath?: string
 }) {
-  for (const resource of props.descriptor.resources) {
-    normalizeResource({
-      descriptor: resource,
-      basepath: props.basepath,
-    })
+  const { descriptor, basepath } = props
+
+  if (Array.isArray(descriptor.resources)) {
+    descriptor.resources = descriptor.resources.map((resource: Descriptor) =>
+      normalizeResource({ descriptor: resource, basepath }),
+    )
   }
 }
 
 function normalizeContributors(props: { descriptor: Descriptor }) {
   const { descriptor } = props
+
   const contributors = descriptor.contributors
+  if (!contributors) {
+    return
+  }
 
   if (Array.isArray(contributors)) {
     for (const contributor of contributors) {
