@@ -10,6 +10,7 @@
   "dependencies": {
     "@astrojs/starlight": "0.34.3",
     "astro": "5.7.12",
+    "dpkit": "workspace:*",
     "sharp": "0.34.1",
     "starlight-scroll-to-top": "0.1.1",
     "starlight-typedoc": "0.21.3",

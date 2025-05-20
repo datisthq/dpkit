@@ -66,6 +66,9 @@ importers:
       astro:
         specifier: 5.7.12
         version: 5.7.12(@types/node@22.14.1)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.1)
+      dpkit:
+        specifier: workspace:*
+        version: link:../dpkit
       sharp:
         specifier: 0.34.1
         version: 0.34.1

@@ -1,18 +1,22 @@
 import { join } from "node:path"
 import { type Package, denormalizePackage, saveDescriptor } from "@dpkit/core"
+import { saveResourceToFolder } from "../resource/index.js"
 import { getPackageBasepath } from "./path.js"
 
 export async function savePackageToFolder(props: {
-  path: string
+  folder: string
   datapack: Package
   withRemote?: boolean
 }) {
-  const { datapack, path } = props
+  const { datapack, folder, withRemote } = props
 
   const basepath = getPackageBasepath({ datapack })
   const descriptor = denormalizePackage({ datapack, basepath })
 
-  await saveDescriptor({ descriptor, path: join(path, "datapackage.json") })
+  // It ensures that the folder exists
+  await saveDescriptor({ descriptor, path: join(folder, "datapackage.json") })
 
-  console.log(basepath)
+  for (const resource of datapack.resources) {
+    await saveResourceToFolder({ resource, basepath, folder, withRemote })
+  }
 }
