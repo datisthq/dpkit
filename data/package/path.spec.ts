@@ -35,7 +35,20 @@ describe("getCommonLocalBasepath", () => {
     {
       description: "empty paths array",
       paths: [],
-      basepath: "",
+      basepath: undefined,
+    },
+    {
+      description: "some path are remote",
+      paths: ["https://example.com/table.csv", "data/table.csv"],
+      basepath: "data",
+    },
+    {
+      description: "all paths are remote",
+      paths: [
+        "https://example.com/table1.csv",
+        "https://example.com/table2.csv",
+      ],
+      basepath: undefined,
     },
   ])("$description", ({ paths, basepath }) => {
     expect(getCommonLocalBasepath({ paths })).toEqual(basepath)

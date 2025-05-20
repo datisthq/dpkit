@@ -1,15 +1,33 @@
-import { resolve, relative, join, sep } from "node:path"
+import { join, relative, resolve, sep } from "node:path"
 import type { Package } from "@dpkit/meta"
-import { isRemotePath, getBasepath } from "@dpkit/meta"
+import { getBasepath, isRemotePath } from "@dpkit/meta"
 
 export function getPackageBasepath(props: { datapack: Package }) {
-  console.log(props)
+  const paths: string[] = []
+
+  for (const resource of props.datapack.resources) {
+    if (!resource.path) {
+      continue
+    }
+
+    const resourcePaths = Array.isArray(resource.path)
+      ? resource.path
+      : [resource.path]
+
+    paths.push(...resourcePaths)
+  }
+
+  return getCommonLocalBasepath({ paths })
 }
 
 export function getCommonLocalBasepath(props: { paths: string[] }) {
   const absoluteBasepaths = props.paths
     .filter(path => !isRemotePath({ path }))
     .map(path => resolve(getBasepath({ path })))
+
+  if (!absoluteBasepaths.length) {
+    return undefined
+  }
 
   // On Unix it split the root fs as an empty segment
   const segmentTable = absoluteBasepaths.map(path =>
@@ -28,6 +46,10 @@ export function getCommonLocalBasepath(props: { paths: string[] }) {
 
     column++
     segments.push(segmentColumn[0])
+  }
+
+  if (!segments.length) {
+    throw new Error("Cannot find common basepath")
   }
 
   const basepath = relative(process.cwd(), join(...segments))
