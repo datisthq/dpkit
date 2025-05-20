@@ -3,8 +3,12 @@ import { afterEach, describe, expect, it, vi } from "vitest"
 import { loadDescriptor } from "./load.js"
 
 describe("loadDescriptor", () => {
-  const fixtureDir = path.join(import.meta.dirname, "fixtures")
-  const getFixturePath = (name: string) => path.join(fixtureDir, name)
+  const getFixturePath = (name?: string) =>
+    path.relative(
+      process.cwd(),
+      path.join(import.meta.dirname, "fixtures", name ?? ""),
+    )
+
   const expectedDescriptor = {
     fields: [
       {
@@ -29,7 +33,7 @@ describe("loadDescriptor", () => {
       path: getFixturePath("schema.json"),
     })
 
-    expect(basepath).toEqual(fixtureDir)
+    expect(basepath).toEqual(getFixturePath())
     expect(descriptor).toEqual(expectedDescriptor)
   })
 

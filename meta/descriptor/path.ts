@@ -12,8 +12,17 @@ export function isRemotePath(props: { path: string }) {
 export function getBasepath(props: { path: string }) {
   const isRemote = isRemotePath(props)
 
-  const sep = isRemote ? (node?.path.sep ?? "/") : "/"
-  return props.path.split(sep).slice(0, -1).join(sep)
+  if (isRemote) {
+    const path = new URL(props.path).toString()
+    return path.split("/").slice(0, -1).join("/")
+  }
+
+  if (!node) {
+    throw new Error("File system is not supported in this environment")
+  }
+
+  const path = node.path.resolve(props.path)
+  return node.path.relative(process.cwd(), node.path.parse(path).dir)
 }
 
 export function normalizePath(props: {
