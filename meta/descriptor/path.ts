@@ -20,48 +20,67 @@ export function normalizePath(props: {
   path: string
   basepath?: string
 }) {
-  if (!props.basepath) {
-    return props.path
-  }
-
-  const isPathRemote = isRemotePath({ path: props.path })
-  if (isPathRemote) {
-    return props.path
-  }
-
-  let sep = "/"
   const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
-  if (!isBasepathRemote) {
-    sep = node?.path.sep ?? "/"
+  const isPathRemote = isRemotePath({ path: props.path })
+  const isRemote = isBasepathRemote || isPathRemote
+
+  if (isRemote) {
+    const path = !isPathRemote
+      ? [props.basepath, props.path].join("/")
+      : props.path
+
+    // Returns normalized remote path
+    return new URL(path).toString()
   }
 
-  return [props.basepath, props.path].join(sep)
+  if (!node) {
+    throw new Error("File system is not supported in this environment")
+  }
+
+  const path = props.basepath
+    ? node.path.join(props.basepath, props.path)
+    : props.path
+
+  // Returns normalized local path
+  return node.path.resolve(path)
 }
 
 export function denormalizePath(props: {
   path: string
   basepath?: string
 }) {
-  if (!props.basepath) {
-    return props.path
-  }
-
-  const isPathRemote = isRemotePath({ path: props.path })
-  if (isPathRemote) {
-    return props.path
-  }
-
-  let sep = "/"
   const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
-  if (!isBasepathRemote) {
-    sep = node?.path.sep ?? "/"
+  const isPathRemote = isRemotePath({ path: props.path })
+  const isRemote = isBasepathRemote || isPathRemote
+
+  if (isRemote) {
+    const path = new URL(props.path).toString()
+    if (isPathRemote) {
+      return path
+    }
+
+    const basepath = new URL(props.basepath ?? "").toString()
+    if (!path.startsWith(basepath)) {
+      throw new Error(
+        `Path ${props.path} is not a subpath of ${props.basepath}`,
+      )
+    }
+
+    const relative = props.path.replace(basepath, "")
+    return relative
   }
 
-  const path = props.path.replace(new RegExp(`^${props.basepath}${sep}`), "")
-  if (props.basepath && props.path === path) {
+  if (!node) {
+    throw new Error("File system is not supported in this environment")
+  }
+
+  const path = node.path.resolve(props.path)
+  const basepath = node.path.resolve(props.basepath ?? "")
+
+  if (!path.startsWith(basepath)) {
     throw new Error(`Path ${props.path} is not a subpath of ${props.basepath}`)
   }
 
-  // The standard requires to use Unix-style paths
-  return path.split(sep).join("/")
+  const relative = path.replace(basepath, "")
+  return relative.split(node.path.sep).join("/")
 }

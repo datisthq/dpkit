@@ -16,7 +16,17 @@
     "fair",
     "zip"
   ],
+  "dependencies": {
+    "@dpkit/data": "workspace:*",
+    "@dpkit/meta": "workspace:*",
+    "yauzl": "^3.2.0",
+    "yazl": "^3.3.1"
+  },
   "scripts": {
     "build": "tsc --build"
+  },
+  "devDependencies": {
+    "@types/yauzl": "^2.10.3",
+    "@types/yazl": "^2.4.6"
   }
 }

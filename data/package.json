@@ -17,5 +17,8 @@
   ],
   "scripts": {
     "build": "tsc --build"
+  },
+  "dependencies": {
+    "@dpkit/meta": "workspace:*"
   }
 }

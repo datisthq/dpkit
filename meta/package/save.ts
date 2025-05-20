@@ -14,9 +14,5 @@ export async function savePackageDescriptor(props: {
   const basepath = getBasepath({ path })
 
   processPackageOnSave({ datapack: props.datapack, basepath })
-
-  return saveDescriptor({
-    descriptor: props.datapack,
-    path: props.path,
-  })
+  await saveDescriptor({ descriptor: props.datapack, path: props.path })
 }
