@@ -9,4 +9,5 @@ export {
   getBasepath,
   normalizePath,
   denormalizePath,
+  getBasename,
 } from "./path.js"

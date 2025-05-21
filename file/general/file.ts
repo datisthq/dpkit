@@ -1,7 +1,7 @@
 import { readFileStream } from "./stream/read.js"
 import { writeFileStream } from "./stream/write.js"
 
-export async function saveFile(props: {
+export async function saveFileToDisc(props: {
   sourcePath: string
   targetPath: string
 }) {

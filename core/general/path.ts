@@ -9,6 +9,22 @@ export function isRemotePath(props: { path: string }) {
   }
 }
 
+export function getBasename(props: { path: string }) {
+  const isRemote = isRemotePath(props)
+
+  if (isRemote) {
+    const path = new URL(props.path).toString()
+    return path.split("/").slice(-1)[0] as string
+  }
+
+  if (!node) {
+    throw new Error("File system is not supported in this environment")
+  }
+
+  const path = node.path.resolve(props.path)
+  return node.path.parse(path).base
+}
+
 export function getBasepath(props: { path: string }) {
   const isRemote = isRemotePath(props)
 

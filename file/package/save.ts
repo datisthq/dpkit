@@ -2,7 +2,7 @@ import { join } from "node:path"
 import { mkdir, access } from "node:fs/promises"
 import { denormalizePackage, saveDescriptor } from "@dpkit/core"
 import { saveResourceFile } from "../resource/index.js"
-import { saveFile } from "../general/index.js"
+import { saveFileToDisc } from "../general/index.js"
 import { getPackageBasepath } from "./path.js"
 import type { Descriptor, Package } from "@dpkit/core"
 
@@ -16,16 +16,18 @@ export async function savePackageToFolder(props: {
 
   await createFolderOrThrowIfExist({ folder })
 
-  // There are pros and cons of doing it in parallel (introduce flag?)
   const resourceDescriptors: Descriptor[] = []
   for (const resource of datapack.resources) {
     resourceDescriptors.push(
       await saveResourceFile({
-        folder,
         resource,
         basepath,
         withRemote,
-        saveFile,
+        saveFile: props => {
+          const sourcePath = props.normalizedPath
+          const targetPath = join(folder, props.denormalizedPath)
+          return saveFileToDisc({ sourcePath, targetPath })
+        },
       }),
     )
   }

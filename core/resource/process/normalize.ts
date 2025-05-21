@@ -11,6 +11,8 @@ export function normalizeResource(props: {
   normalizeUrl({ descriptor })
   normalizeType({ descriptor })
   normalizePaths({ descriptor, basepath })
+  // TODO: normalizeDialect
+  // TODO: normalizeSchema
 
   return descriptor
 }

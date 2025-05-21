@@ -1,6 +1,7 @@
 import { denormalizePath } from "../../general/index.js"
 import type { Resource } from "../Resource.js"
 import { isTableResource } from "../types/table.js"
+import type { Descriptor } from "../../general/index.js"
 
 export function denormalizeResource(props: {
   resource: Resource
@@ -10,8 +11,10 @@ export function denormalizeResource(props: {
   const resource = globalThis.structuredClone(props.resource)
 
   denormalizePaths({ resource, basepath })
+  // TODO: denormalizeDialect
+  // TODO: denormalizeSchema
 
-  return resource
+  return resource as Descriptor
 }
 
 function denormalizePaths(props: { resource: Resource; basepath?: string }) {
