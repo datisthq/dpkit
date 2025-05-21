@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { getFilename, isRemotePath } from "./path.js"
+import { getFilename, isRemotePath, getBasepath } from "./path.js"
 
 describe("isRemotePath", () => {
   it.each([
@@ -108,5 +108,57 @@ describe("getFilename", () => {
     },
   ])("$description", ({ path, filename }) => {
     expect(getFilename({ path })).toEqual(filename)
+  })
+})
+
+describe("getBasepath", () => {
+  it.each([
+    {
+      description: "http URL with file",
+      path: "http://example.com/path/to/file.txt",
+      basepath: "http://example.com/path/to",
+    },
+    {
+      description: "https URL with file",
+      path: "https://example.com/path/to/file.txt",
+      basepath: "https://example.com/path/to",
+    },
+    {
+      description: "URL with query parameters",
+      path: "https://example.com/path/to/file.txt?query=param",
+      basepath: "https://example.com/path/to",
+    },
+    {
+      description: "URL with hash",
+      path: "https://example.com/path/to/file.txt#section",
+      basepath: "https://example.com/path/to",
+    },
+    {
+      description: "URL with no file",
+      path: "https://example.com/path/to/",
+      basepath: "https://example.com/path/to",
+    },
+    {
+      description: "URL with only domain",
+      path: "https://example.com",
+      basepath: "https://example.com",
+    },
+    {
+      description: "local file path",
+      path: "some/path/to/file.txt",
+      basepath: "some/path/to",
+    },
+    {
+      description: "local path with no file",
+      path: "some/path/to/",
+      basepath: "some/path",
+    },
+    {
+      description: "root level file",
+      path: "file.txt",
+      basepath: "",
+    },
+  ])("$description", ({ path, basepath }) => {
+    expect(getBasepath({ path })).toEqual(basepath)
   })
 })
