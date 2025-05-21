@@ -1,5 +1,5 @@
-import type { Descriptor } from "./Descriptor.js"
 import { node } from "../node.js"
+import type { Descriptor } from "./Descriptor.js"
 
 /**
  * Save a descriptor (JSON Object) to a file path

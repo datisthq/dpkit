@@ -4,4 +4,4 @@ const datapack = await loadPackage({
   path: "https://raw.githubusercontent.com/datasets/natural-gas/refs/heads/main/datapackage.json",
 })
 
-await savePackageToFolder({ datapack, folder: ".user/gas" })
+await savePackageToFolder({ datapack, folder: ".user/gas", withRemote: true })

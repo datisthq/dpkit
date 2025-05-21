@@ -1,7 +1,7 @@
 import { denormalizePath } from "../../general/index.js"
+import type { Descriptor } from "../../general/index.js"
 import type { Resource } from "../Resource.js"
 import { isTableResource } from "../types/table.js"
-import type { Descriptor } from "../../general/index.js"
 
 export function denormalizeResource(props: {
   resource: Resource

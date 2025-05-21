@@ -9,12 +9,13 @@ export function isRemotePath(props: { path: string }) {
   }
 }
 
-export function getBasename(props: { path: string }) {
+export function getFilename(props: { path: string }) {
   const isRemote = isRemotePath(props)
 
   if (isRemote) {
-    const path = new URL(props.path).toString()
-    return path.split("/").slice(-1)[0] as string
+    const pathname = new URL(props.path).pathname
+    const filename = pathname.split("/").slice(-1)[0]
+    return filename?.includes(".") ? filename : undefined
   }
 
   if (!node) {
@@ -22,7 +23,8 @@ export function getBasename(props: { path: string }) {
   }
 
   const path = node.path.resolve(props.path)
-  return node.path.parse(path).base
+  const filename = node.path.parse(path).base
+  return filename?.includes(".") ? filename : undefined
 }
 
 export function getBasepath(props: { path: string }) {

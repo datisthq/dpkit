@@ -1,10 +1,10 @@
 import type { Resource } from "@dpkit/core"
 import {
-  denormalizeResource,
-  isTableResource,
   denormalizePath,
+  denormalizeResource,
+  getFilename,
   isRemotePath,
-  getBasename,
+  isTableResource,
 } from "@dpkit/core"
 
 export type SaveFile = (props: {
@@ -23,13 +23,19 @@ export async function saveResourceFile(props: {
 
   const saveFile = async (path: string) => {
     const isRemote = isRemotePath({ path })
-
     const normalizedPath = path
-    const denormalizedPath = isRemote
-      ? getBasename({ path })
-      : denormalizePath({ path, basepath })
 
+    if (isRemote) {
+      if (!withRemote) return path
+      const denormalizedPath = getFilename({ path })
+      if (!denormalizedPath) return path
+      await props.saveFile({ normalizedPath, denormalizedPath })
+      return denormalizedPath
+    }
+
+    const denormalizedPath = denormalizePath({ path, basepath })
     await props.saveFile({ normalizedPath, denormalizedPath })
+
     return denormalizedPath
   }
 

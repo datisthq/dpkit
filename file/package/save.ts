@@ -1,10 +1,10 @@
+import { access, mkdir } from "node:fs/promises"
 import { join } from "node:path"
-import { mkdir, access } from "node:fs/promises"
 import { denormalizePackage, saveDescriptor } from "@dpkit/core"
-import { saveResourceFile } from "../resource/index.js"
-import { saveFileToDisc } from "../general/index.js"
-import { getPackageBasepath } from "./path.js"
 import type { Descriptor, Package } from "@dpkit/core"
+import { saveFileToDisc } from "../general/index.js"
+import { saveResourceFile } from "../resource/index.js"
+import { getPackageBasepath } from "./path.js"
 
 export async function savePackageToFolder(props: {
   folder: string

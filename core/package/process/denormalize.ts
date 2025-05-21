@@ -1,6 +1,6 @@
+import type { Descriptor } from "../../general/index.js"
 import { denormalizeResource } from "../../resource/index.js"
 import type { Package } from "../Package.js"
-import type { Descriptor } from "../../general/index.js"
 
 export function denormalizePackage(props: {
   datapack: Package
