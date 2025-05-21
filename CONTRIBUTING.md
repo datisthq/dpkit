@@ -9,8 +9,9 @@ Thank you for your interest in contributing to dpkit! This document provides gui
 
 Project is a monorepo with the following packages:
 
-- `@dpkit/meta`: Core metadata functionality
-- `@dpkit/data`: Core data functionality
+- `@dpkit/core`: Core metadata functionality
+- `@dpkit/file`: File-related functionality
+- `@dpkit/table`: Table-related functionality
 - `@dpkit/cli`: Command-line interface for running tasks
 - `@dpkit/<name>`: Domain-specific functionality
 - `dpkit`: All-in-one package that re-exports all functionality

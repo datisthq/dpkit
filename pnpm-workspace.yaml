@@ -3,17 +3,18 @@ packages:
   - bin
   - ckan
   - cli
+  - core
   - csv
-  - data
   - db
   - docs
   - dpkit
   - excel
+  - file
   - json
-  - meta
   - ods
   - parquet
   - site
+  - table
   - ui
   - zenodo
   - zip

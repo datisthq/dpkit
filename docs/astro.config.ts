@@ -35,7 +35,7 @@ export default defineConfig({
       plugins: [
         starlightScrollToTop(),
         starlightTypeDoc({
-          entryPoints: ["../dpkit", "../meta"],
+          entryPoints: ["../dpkit", "../core", "../file", "../zip"],
           tsconfig: "../tsconfig.json",
           typeDoc: { entryPointStrategy: "packages" },
           output: "packages",

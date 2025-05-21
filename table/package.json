@@ -1,8 +1,8 @@
 {
-  "name": "dpkit",
+  "name": "@dpkit/table",
   "type": "module",
   "main": "build/index.js",
-  "version": "0.1.2",
+  "version": "0.1.0",
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
@@ -14,13 +14,8 @@
     "validation",
     "quality",
     "fair",
-    "cli"
+    "table"
   ],
-  "dependencies": {
-    "@dpkit/core": "workspace:*",
-    "@dpkit/file": "workspace:*",
-    "@dpkit/zip": "workspace:*"
-  },
   "scripts": {
     "build": "tsc --build"
   }
