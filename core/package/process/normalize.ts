@@ -1,4 +1,4 @@
-import type { Descriptor } from "../../descriptor/index.js"
+import type { Descriptor } from "../../general/index.js"
 import { normalizeResource } from "../../resource/index.js"
 
 export function normalizePackage(props: {

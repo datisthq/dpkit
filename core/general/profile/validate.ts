@@ -1,4 +1,4 @@
-import type { Descriptor } from "../Descriptor.js"
+import type { Descriptor } from "../descriptor/Descriptor.js"
 import type { Profile } from "./Profile.js"
 import { ajv } from "./ajv.js"
 import type { ProfileType } from "./registry.js"

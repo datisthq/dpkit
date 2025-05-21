@@ -1,5 +1,5 @@
-import { node } from "./node.js"
-import { getBasepath, isRemotePath } from "./path.js"
+import { node } from "../node.js"
+import { getBasepath, isRemotePath } from "../path.js"
 
 /**
  * Load a descriptor (JSON Object) from a file or URL

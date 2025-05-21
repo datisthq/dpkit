@@ -1,5 +1,5 @@
-import { normalizePath } from "../../descriptor/index.js"
-import type { Descriptor } from "../../descriptor/index.js"
+import { normalizePath } from "../../general/index.js"
+import type { Descriptor } from "../../general/index.js"
 
 export function normalizeResource(props: {
   descriptor: Descriptor

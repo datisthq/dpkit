@@ -1,4 +1,4 @@
-import type { Descriptor } from "../../descriptor/index.js"
+import type { Descriptor } from "../../general/index.js"
 
 export function normalizeSchema(props: { descriptor: Descriptor }) {
   const descriptor = globalThis.structuredClone(props.descriptor)

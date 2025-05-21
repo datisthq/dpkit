@@ -1,4 +1,4 @@
-import { AssertionError, type Descriptor } from "../descriptor/index.js"
+import { AssertionError, type Descriptor } from "../general/index.js"
 import { validateSchema } from "./validate.js"
 
 /**

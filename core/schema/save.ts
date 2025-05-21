@@ -1,4 +1,4 @@
-import { saveDescriptor } from "../descriptor/index.js"
+import { saveDescriptor } from "../general/index.js"
 import type { Schema } from "./Schema.js"
 import { denormalizeSchema } from "./process/denormalize.js"
 

@@ -1,4 +1,4 @@
-import { denormalizePath } from "../../descriptor/index.js"
+import { denormalizePath } from "../../general/index.js"
 import type { Resource } from "../Resource.js"
 import { isTableResource } from "../types/table.js"
 

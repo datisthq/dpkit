@@ -1,4 +1,4 @@
-import { loadDescriptor } from "../descriptor/index.js"
+import { loadDescriptor } from "../general/index.js"
 import { assertSchema } from "./assert.js"
 
 /**

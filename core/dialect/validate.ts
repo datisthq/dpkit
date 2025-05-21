@@ -1,5 +1,5 @@
-import { type Descriptor, validateDescriptor } from "../descriptor/index.js"
-import { loadProfile } from "../descriptor/index.js"
+import { type Descriptor, validateDescriptor } from "../general/index.js"
+import { loadProfile } from "../general/index.js"
 import type { Dialect } from "./Dialect.js"
 import { normalizeDialect } from "./process/normalize.js"
 

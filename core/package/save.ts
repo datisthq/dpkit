@@ -1,4 +1,4 @@
-import { getBasepath, saveDescriptor } from "../descriptor/index.js"
+import { getBasepath, saveDescriptor } from "../general/index.js"
 import type { Package } from "./Package.js"
 import { denormalizePackage } from "./process/denormalize.js"
 

@@ -1,4 +1,4 @@
-import { loadDescriptor } from "../load.js"
+import { loadDescriptor } from "../descriptor/load.js"
 import { cache } from "./cache.js"
 import type { ProfileType } from "./registry.js"
 import { validateProfile } from "./validate.js"
