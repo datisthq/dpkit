@@ -1,5 +1,6 @@
 import { node } from "../node.js"
 import type { Descriptor } from "./Descriptor.js"
+import { stringifyDescriptor } from "./process/stringify.js"
 
 /**
  * Save a descriptor (JSON Object) to a file path
@@ -15,8 +16,8 @@ export async function saveDescriptor(props: {
     throw new Error("File system is not supported in this environment")
   }
 
-  const content = JSON.stringify(descriptor, null, 2)
+  const text = stringifyDescriptor({ descriptor })
 
   await node.fs.mkdir(node.path.dirname(path), { recursive: true })
-  await node.fs.writeFile(path, content, { encoding: "utf8", flag: "wx" })
+  await node.fs.writeFile(path, text, { encoding: "utf8", flag: "wx" })
 }

@@ -1,11 +1,11 @@
-import { describe, expect, it } from "vitest"
 import { relative } from "node:path"
+import { describe, expect, it } from "vitest"
 import {
+  denormalizePath,
+  getBasepath,
   getFilename,
   isRemotePath,
-  getBasepath,
   normalizePath,
-  denormalizePath,
 } from "./path.js"
 
 describe("isRemotePath", () => {

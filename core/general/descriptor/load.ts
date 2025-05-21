@@ -1,5 +1,6 @@
 import { node } from "../node.js"
 import { getBasepath, isRemotePath } from "../path.js"
+import { parseDescriptor } from "./process/parse.js"
 
 /**
  * Load a descriptor (JSON Object) from a file or URL
@@ -46,8 +47,8 @@ async function loadLocalDescriptor(props: { path: string }) {
     throw new Error("File system is not supported in this environment")
   }
 
-  const content = await node.fs.readFile(props.path, "utf-8")
-  const descriptor = JSON.parse(content) as Record<string, any>
+  const text = await node.fs.readFile(props.path, "utf-8")
+  const descriptor = parseDescriptor({ text })
 
   return descriptor
 }

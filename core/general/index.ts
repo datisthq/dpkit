@@ -1,3 +1,5 @@
+export { parseDescriptor } from "./descriptor/process/parse.js"
+export { stringifyDescriptor } from "./descriptor/process/stringify.js"
 export { loadDescriptor } from "./descriptor/load.js"
 export { saveDescriptor } from "./descriptor/save.js"
 export { validateDescriptor } from "./descriptor/validate.js"
