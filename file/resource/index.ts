@@ -1,1 +1,1 @@
-export { saveResourceToFolder } from "./save.js"
+export { saveResourceFile } from "./save.js"

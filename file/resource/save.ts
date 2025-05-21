@@ -1,32 +1,18 @@
 import type { Resource } from "@dpkit/core"
-import { denormalizePath, isRemotePath, isTableResource } from "@dpkit/core"
-import { join } from "node:path"
-import { readFileStream } from "./stream/read.js"
-import { writeFileStream } from "./stream/write.js"
+import { denormalizeResource, isRemotePath, isTableResource } from "@dpkit/core"
+import type { saveFile } from "../general/index.js"
 
-export async function saveResourceToFolder(props: {
+export async function saveResourceFile(props: {
   resource: Resource
   folder: string
   basepath?: string
   withRemote?: boolean
+  saveFile: typeof saveFile
 }) {
   const { resource, basepath, folder, withRemote } = props
-  const files = getResourceFiles({ resource })
+  const descriptor = denormalizeResource({ resource, basepath })
 
-  await Promise.all(
-    files.map(file => saveResourceFile({ file, folder, basepath, withRemote })),
-  )
-}
-
-type ResourceFile = {
-  path: string
-  isRemote: boolean
-}
-
-function getResourceFiles(props: { resource: Resource }) {
-  const { resource } = props
-  const files: ResourceFile[] = []
-
+  // There are pros and cons of doing it in parallel (introduce flag?)
   if (resource.path) {
     const paths = Array.isArray(resource.path) ? resource.path : [resource.path]
 
@@ -46,21 +32,5 @@ function getResourceFiles(props: { resource: Resource }) {
     }
   }
 
-  return files
-}
-
-async function saveResourceFile(props: {
-  file: ResourceFile
-  folder: string
-  basepath?: string
-  // TODO: implement
-  withRemote?: boolean
-}) {
-  const { file, folder, basepath } = props
-
-  const sourcePath = file.path
-  const targetPath = join(folder, denormalizePath({ ...file, basepath }))
-
-  const stream = await readFileStream({ path: sourcePath })
-  await writeFileStream({ stream, path: targetPath })
+  return descriptor
 }
