@@ -2,12 +2,9 @@ import { join } from "node:path"
 import { denormalizePackage, saveDescriptor } from "@dpkit/core"
 import type { Descriptor, Package } from "@dpkit/core"
 import { saveFileToDisc } from "../general/index.js"
+import { assertLocalPathVacant, createFolder } from "../general/index.js"
 import { saveResourceFile } from "../resource/index.js"
-import {
-  assertLocalPathVacant,
-  createFolder,
-  getPackageBasepath,
-} from "./path.js"
+import { getPackageBasepath } from "./path.js"
 
 export async function savePackageToFolder(props: {
   path: string

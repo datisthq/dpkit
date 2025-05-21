@@ -1,2 +1,1 @@
-export { loadPackageFromZip } from "./package/load.js"
-export { savePackageToZip } from "./package/save.js"
+export * from "./package/index.js"
