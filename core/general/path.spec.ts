@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest"
-import { getFilename, isRemotePath, getBasepath } from "./path.js"
+import { relative } from "node:path"
+import {
+  getFilename,
+  isRemotePath,
+  getBasepath,
+  normalizePath,
+} from "./path.js"
 
 describe("isRemotePath", () => {
   it.each([
@@ -160,5 +166,60 @@ describe("getBasepath", () => {
     },
   ])("$description", ({ path, basepath }) => {
     expect(getBasepath({ path })).toEqual(basepath)
+  })
+})
+
+describe("normalizePath", () => {
+  it.each([
+    {
+      description: "local path without basepath",
+      path: "path/to/file.txt",
+      basepath: undefined,
+      normalizedPath: "path/to/file.txt",
+    },
+    {
+      description: "local path with local basepath",
+      path: "file.txt",
+      basepath: "path/to",
+      normalizedPath: "path/to/file.txt",
+    },
+    {
+      description: "remote path",
+      path: "http://example.com/path/to/file.txt",
+      basepath: undefined,
+      normalizedPath: "http://example.com/path/to/file.txt",
+    },
+    {
+      description: "remote path with query string",
+      path: "http://example.com/path/to/file.txt?query=param",
+      basepath: undefined,
+      normalizedPath: "http://example.com/path/to/file.txt?query=param",
+    },
+    {
+      description: "local path with remote basepath",
+      path: "path/to/file.txt",
+      basepath: "http://example.com",
+      normalizedPath: "http://example.com/path/to/file.txt",
+    },
+    {
+      description: "absolute path",
+      path: "/absolute/path/to/file.txt",
+      basepath: undefined,
+      normalizedPath: relative(process.cwd(), "/absolute/path/to/file.txt"),
+    },
+    {
+      description: "local path with absolute basepath",
+      path: "file.txt",
+      basepath: "/absolute/path",
+      normalizedPath: relative(process.cwd(), "/absolute/path/file.txt"),
+    },
+    {
+      description: "path with empty basepath",
+      path: "path/to/file.txt",
+      basepath: "",
+      normalizedPath: "path/to/file.txt",
+    },
+  ])("$description", ({ path, basepath, normalizedPath }) => {
+    expect(normalizePath({ path, basepath })).toEqual(normalizedPath)
   })
 })
