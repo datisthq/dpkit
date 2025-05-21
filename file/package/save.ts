@@ -7,14 +7,14 @@ import { saveResourceFile } from "../resource/index.js"
 import { getPackageBasepath } from "./path.js"
 
 export async function savePackageToFolder(props: {
-  folder: string
+  path: string
   datapack: Package
   withRemote?: boolean
 }) {
-  const { datapack, folder, withRemote } = props
+  const { datapack, path, withRemote } = props
   const basepath = getPackageBasepath({ datapack })
 
-  await createFolderOrThrowIfExist({ folder })
+  await createFolderOrThrowIfExist({ path })
 
   const resourceDescriptors: Descriptor[] = []
   for (const resource of datapack.resources) {
@@ -25,7 +25,7 @@ export async function savePackageToFolder(props: {
         withRemote,
         saveFile: props => {
           const sourcePath = props.normalizedPath
-          const targetPath = join(folder, props.denormalizedPath)
+          const targetPath = join(path, props.denormalizedPath)
           return saveFileToDisc({ sourcePath, targetPath })
         },
       }),
@@ -37,23 +37,23 @@ export async function savePackageToFolder(props: {
     resources: resourceDescriptors,
   }
 
-  await saveDescriptor({ descriptor, path: join(folder, "datapackage.json") })
+  await saveDescriptor({ descriptor, path: join(path, "datapackage.json") })
   return descriptor
 }
 
-async function createFolderOrThrowIfExist(props: { folder: string }) {
-  const isExist = await isFolderExist({ folder: props.folder })
+async function createFolderOrThrowIfExist(props: { path: string }) {
+  const isExist = await isFolderExist({ path: props.path })
 
   if (isExist) {
-    throw new Error(`Folder "${props.folder}" already exists`)
+    throw new Error(`path "${props.path}" already exists`)
   }
 
-  await mkdir(props.folder, { recursive: true })
+  await mkdir(props.path, { recursive: true })
 }
 
-async function isFolderExist(props: { folder: string }) {
+async function isFolderExist(props: { path: string }) {
   try {
-    await access(props.folder)
+    await access(props.path)
     return true
   } catch (error) {
     return false
