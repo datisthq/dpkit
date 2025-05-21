@@ -41,7 +41,11 @@ importers:
 
   bin: {}
 
-  ckan: {}
+  ckan:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
 
   cli: {}
 

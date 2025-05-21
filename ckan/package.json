@@ -16,6 +16,9 @@
     "fair",
     "ckan"
   ],
+  "dependencies": {
+    "@dpkit/core": "workspace:*"
+  },
   "scripts": {
     "build": "tsc --build"
   }
