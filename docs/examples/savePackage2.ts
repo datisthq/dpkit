@@ -1,7 +1,7 @@
 import { loadPackage, savePackageToFolder } from "dpkit"
 
-const datapack = await loadPackage({
+const datapackage = await loadPackage({
   path: "core/package/fixtures/package.json",
 })
 
-await savePackageToFolder({ datapack, path: ".user/test" })
+await savePackageToFolder({ datapackage, folderPath: ".user/test" })

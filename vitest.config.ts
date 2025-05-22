@@ -1,3 +1,4 @@
+import { basename, dirname, join } from "node:path"
 import {
   configDefaults,
   coverageConfigDefaults,
@@ -14,6 +15,12 @@ export default defineConfig({
       enabled: true,
       reporter: ["html", "json"],
       exclude: [...coverageConfigDefaults.exclude, "docs/**", "examples/**"],
+    },
+    resolveSnapshotPath: (testPath, snapExtension) => {
+      return (
+        join(dirname(testPath), "fixtures", "generated", basename(testPath)) +
+        snapExtension
+      )
     },
   },
 })
