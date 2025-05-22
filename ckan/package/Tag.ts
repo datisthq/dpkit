@@ -3,17 +3,17 @@
  */
 export interface CkanTag {
   /**
+   * Tag identifier
+   */
+  id: string
+
+  /**
    * Tag name
    */
   name: string
 
   /**
-   * Tag identifier
-   */
-  id?: string
-
-  /**
    * Tag display name
    */
-  display_name?: string
+  display_name: string
 }

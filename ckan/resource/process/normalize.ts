@@ -1,4 +1,6 @@
 import type { Resource } from "@dpkit/core"
+import { isTableResource } from "@dpkit/core"
+import { normalizeCkanSchema } from "../../schema/index.js"
 import type { CkanResource } from "../Resource.js"
 
 /**
@@ -11,16 +13,11 @@ export function normalizeCkanResource(props: {
 }): Resource {
   const { ckanResource } = props
 
-  // Create the base ckanResource with required properties
   const resource: Resource = {
-    // Use the ckanResource name, properly slugified
     name: slugifyName(ckanResource.name),
-
-    // Map URL to path
     path: ckanResource.url,
   }
 
-  // Conditionally add optional properties
   if (ckanResource.description) {
     resource.description = ckanResource.description
   }
@@ -40,6 +37,13 @@ export function normalizeCkanResource(props: {
 
   if (ckanResource.hash) {
     resource.hash = ckanResource.hash
+  }
+
+  if (ckanResource.schema) {
+    resource.type = "table"
+    if (isTableResource(resource)) {
+      resource.schema = normalizeCkanSchema({ ckanSchema: ckanResource.schema })
+    }
   }
 
   return resource

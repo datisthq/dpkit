@@ -96,13 +96,14 @@ describe("normalizeCkanPackage", () => {
 
   it("handles undefined optional properties", () => {
     // Arrange
-    const ckanPackage: CkanPackage = {
+    const ckanPackage: Partial<CkanPackage> = {
       resources: [],
       tags: [],
       // Only required properties
     }
 
     // Act
+    // @ts-ignore
     const result = normalizeCkanPackage({ ckanPackage })
 
     // Assert

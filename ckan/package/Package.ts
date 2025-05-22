@@ -24,12 +24,12 @@ export interface CkanPackage {
   /**
    * Package identifier
    */
-  id?: string
+  id: string
 
   /**
    * Package name
    */
-  name?: string
+  name: string
 
   /**
    * Package title

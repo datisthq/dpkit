@@ -27,7 +27,7 @@ export function denormalizeCkanResource(props: {
     return undefined
   }
 
-  const ckanResource: CkanResource = { url, name }
+  const ckanResource: Partial<CkanResource> = { url, name }
 
   if (resource.description) {
     ckanResource.description = resource.description

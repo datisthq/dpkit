@@ -94,7 +94,7 @@ describe("denormalizeCkanPackage", () => {
     if (dataPackage.keywords && dataPackage.keywords.length > 0) {
       expect(result.tags).toHaveLength(dataPackage.keywords.length)
       dataPackage.keywords.forEach((keyword, index) => {
-        const tag = result.tags[index]
+        const tag = result.tags?.[index]
         if (tag && keyword) {
           expect(tag.name).toEqual(keyword)
           expect(tag.display_name).toEqual(keyword)
@@ -107,7 +107,7 @@ describe("denormalizeCkanPackage", () => {
 
     // Verify resources exist
     expect(dataPackage.resources.length).toBeGreaterThan(0)
-    expect(result.resources.length).toBeGreaterThan(0)
+    expect(result.resources?.length).toBeGreaterThan(0)
 
     if (dataPackage.resources.length > 0 && result.resources.length > 0) {
       // Verify first resource

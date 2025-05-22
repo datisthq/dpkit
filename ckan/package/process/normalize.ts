@@ -13,21 +13,26 @@ export function normalizeCkanPackage(props: {
 }): Package {
   const { ckanPackage } = props
 
-  // Create base package object
-  const normalizedPackage: Package = {
-    // Map basic properties
+  const datapackage: Package = {
     name: ckanPackage.name,
-    title: ckanPackage.title,
-    description: ckanPackage.notes,
-    version: ckanPackage.version,
-
-    // Initialize empty resources array (will be populated below)
     resources: [],
+  }
+
+  if (ckanPackage.title) {
+    datapackage.title = ckanPackage.title
+  }
+
+  if (ckanPackage.notes) {
+    datapackage.description = ckanPackage.notes
+  }
+
+  if (ckanPackage.version) {
+    datapackage.version = ckanPackage.version
   }
 
   // Process resources
   if (ckanPackage.resources && ckanPackage.resources.length > 0) {
-    normalizedPackage.resources = ckanPackage.resources.map(resource =>
+    datapackage.resources = ckanPackage.resources.map(resource =>
       normalizeCkanResource({ ckanResource: resource }),
     )
   }
@@ -46,7 +51,7 @@ export function normalizeCkanPackage(props: {
       license.path = ckanPackage.license_url
     }
 
-    normalizedPackage.licenses = [license]
+    datapackage.licenses = [license]
   }
 
   // Process contributors
@@ -81,18 +86,16 @@ export function normalizeCkanPackage(props: {
   }
 
   if (contributors.length > 0) {
-    normalizedPackage.contributors = contributors
+    datapackage.contributors = contributors
   }
 
-  // Process tags as keywords
   if (ckanPackage.tags && ckanPackage.tags.length > 0) {
-    normalizedPackage.keywords = ckanPackage.tags.map(tag => tag.name)
+    datapackage.keywords = ckanPackage.tags.map(tag => tag.name)
   }
 
-  // Process creation date if available
   if (ckanPackage.metadata_created) {
-    normalizedPackage.created = ckanPackage.metadata_created
+    datapackage.created = ckanPackage.metadata_created
   }
 
-  return normalizedPackage
+  return datapackage
 }

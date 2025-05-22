@@ -12,13 +12,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Style Guidelines
 - **Formatting:** 2-space indent, UTF-8, LF endings
-- **Types:** Strict TypeScript with null checks
+- **Types:** Strict TypeScript with null checks; don't add return types for functions
 - **Naming:** PascalCase for classes/interfaces, camelCase for methods/variables
 - **Ordering:** In a file, high-level items first (public), low-level last (private)
 - **Imports:** ES modules, imports with full path including ".js" file extension
 - **Testing:** Unit tests in `<module>.spec.ts` files; don't add useless comments like "Arrange", "Act", "Assert", etc
 - **Documentation:** Typedoc comments only for public APIs (don't add for files); don't add @params etc directives
-- **Comments:** Comments starting from `//` are forbidden for you
+- **Comments:** You are forbiddedn to write `//` comments in the code
 - **Todos:** If you asked to resolve TODO, follow the instructions literally
 - **Linting:** Don't run linting as a part of your tasks
+- **Functions:** Use one prope argument in functions instead of positional arguments
 

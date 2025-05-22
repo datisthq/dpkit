@@ -1,4 +1,5 @@
 import type { Package } from "@dpkit/core"
+import type { SetRequired } from "type-fest"
 import type { CkanResource } from "../../resource/Resource.js"
 import { denormalizeCkanResource } from "../../resource/process/denormalize.js"
 import type { CkanPackage } from "../Package.js"
@@ -11,12 +12,10 @@ import type { CkanTag } from "../Tag.js"
  */
 export function denormalizeCkanPackage(props: {
   package: Package
-}): CkanPackage {
+}) {
   const { package: pkg } = props
 
-  // Create base CKAN package
-  const ckanPackage: CkanPackage = {
-    // Initialize required properties
+  const ckanPackage: SetRequired<Partial<CkanPackage>, "resources" | "tags"> = {
     resources: [],
     tags: [],
   }
@@ -63,8 +62,12 @@ export function denormalizeCkanPackage(props: {
 
   // Process keywords as tags
   if (pkg.keywords && pkg.keywords.length > 0) {
+    // TODO: Rebase on something like CkanPackage / NewCkanPackage
+    // with NewCkanTag/Resource etc to separate metadata read from API
+    // and metadata that is mapped from Data Package
+    // @ts-ignore
     ckanPackage.tags = pkg.keywords.map(keyword => {
-      const tag: CkanTag = {
+      const tag: Partial<CkanTag> = {
         name: keyword,
         display_name: keyword,
       }
