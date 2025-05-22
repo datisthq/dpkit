@@ -15,6 +15,7 @@ packages:
   - parquet
   - site
   - table
+  - test
   - ui
   - zenodo
   - zip

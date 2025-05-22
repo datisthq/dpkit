@@ -19,6 +19,9 @@
   "dependencies": {
     "@dpkit/core": "workspace:*"
   },
+  "devDependencies": {
+    "@dpkit/test": "workspace:*"
+  },
   "scripts": {
     "build": "tsc --build"
   }
