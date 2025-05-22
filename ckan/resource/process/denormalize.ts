@@ -12,22 +12,17 @@ export function denormalizeCkanResource(props: {
 }) {
   const { resource } = props
 
-  // Ensure resource has a path
-  if (!resource.path) {
-    throw new Error("Resource must have a path to be converted to CKAN format")
-  }
-
-  const url = Array.isArray(resource.path) ? resource.path[0] : resource.path
-  if (!url) {
+  const path = Array.isArray(resource.path) ? resource.path[0] : resource.path
+  if (!path) {
     return undefined
   }
 
-  const name = resource.title || getFilename({ path: url })
+  const name = resource.title || getFilename({ path })
   if (!name) {
     return undefined
   }
 
-  const ckanResource: Partial<CkanResource> = { url, name }
+  const ckanResource: Partial<CkanResource> = { name }
 
   if (resource.description) {
     ckanResource.description = resource.description

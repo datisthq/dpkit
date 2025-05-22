@@ -12,7 +12,7 @@ export type SaveFile = (props: {
   denormalizedPath: string
 }) => Promise<void>
 
-export async function saveResourceFile(props: {
+export async function saveResourceFiles(props: {
   resource: Resource
   saveFile: SaveFile
   basepath?: string

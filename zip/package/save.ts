@@ -6,7 +6,7 @@ import {
   assertLocalPathVacant,
   getPackageBasepath,
   readFileStream,
-  saveResourceFile,
+  saveResourceFiles,
 } from "@dpkit/file"
 import { ZipFile } from "yazl"
 
@@ -24,7 +24,7 @@ export async function savePackageToZip(props: {
   const resourceDescriptors: Descriptor[] = []
   for (const resource of datapackage.resources) {
     resourceDescriptors.push(
-      await saveResourceFile({
+      await saveResourceFiles({
         resource,
         basepath,
         withRemote,

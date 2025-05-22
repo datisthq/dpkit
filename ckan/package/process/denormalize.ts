@@ -25,7 +25,6 @@ export function denormalizeCkanPackage(props: {
   if (datapackage.title) ckanPackage.title = datapackage.title
   if (datapackage.description) ckanPackage.notes = datapackage.description
   if (datapackage.version) ckanPackage.version = datapackage.version
-  if (datapackage.created) ckanPackage.metadata_created = datapackage.created
 
   // Process license information
   if (datapackage.licenses && datapackage.licenses.length > 0) {

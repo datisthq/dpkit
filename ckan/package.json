@@ -17,7 +17,8 @@
     "ckan"
   ],
   "dependencies": {
-    "@dpkit/core": "workspace:*"
+    "@dpkit/core": "workspace:*",
+    "@dpkit/file": "workspace:*"
   },
   "devDependencies": {
     "@dpkit/test": "workspace:*"

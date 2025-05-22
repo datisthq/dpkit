@@ -49,6 +49,9 @@ importers:
       '@dpkit/core':
         specifier: workspace:*
         version: link:../core
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
     devDependencies:
       '@dpkit/test':
         specifier: workspace:*

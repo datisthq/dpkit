@@ -1,4 +1,5 @@
 import type { Descriptor } from "@dpkit/core"
+import { makeGetCkanApiRequest } from "../general/index.js"
 import type { CkanPackage } from "./Package.js"
 import { normalizeCkanPackage } from "./process/normalize.js"
 
@@ -37,10 +38,10 @@ async function loadCkanPackage(props: { datasetUrl: string }) {
     throw new Error(`Failed to extract package ID from URL: ${datasetUrl}`)
   }
 
-  const response = await makeCkanApiRequest({
-    datasetUrl,
+  const response = await makeGetCkanApiRequest({
+    ckanUrl: datasetUrl,
     action: "package_show",
-    data: { id: packageId },
+    payload: { id: packageId },
   })
 
   if (!response.ok) {
@@ -53,20 +54,6 @@ async function loadCkanPackage(props: { datasetUrl: string }) {
   }
 
   return data.result as CkanPackage
-}
-
-async function makeCkanApiRequest(props: {
-  datasetUrl: string
-  action: string
-  data: Descriptor
-}) {
-  const url = new URL(props.datasetUrl)
-
-  url.pathname = `/api/3/action/${props.action}`
-  url.search = new URLSearchParams(props.data).toString()
-
-  const response = await fetch(url.toString())
-  return response
 }
 
 /**
@@ -95,10 +82,10 @@ async function loadCkanSchema(props: {
 
   // For some readon, datastore_info doesn't work
   // So we use data fetching endpoint that also returns the schema
-  const response = await makeCkanApiRequest({
-    datasetUrl,
+  const response = await makeGetCkanApiRequest({
+    ckanUrl: datasetUrl,
     action: "datastore_search",
-    data: { resource_id: resourceId, limit: 0 },
+    payload: { resource_id: resourceId, limit: 0 },
   })
 
   if (!response.ok) {

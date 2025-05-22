@@ -3,7 +3,7 @@ import { denormalizePackage, saveDescriptor } from "@dpkit/core"
 import type { Descriptor, Package } from "@dpkit/core"
 import { saveFileToDisc } from "../general/index.js"
 import { assertLocalPathVacant, createFolder } from "../general/index.js"
-import { saveResourceFile } from "../resource/index.js"
+import { saveResourceFiles } from "../resource/index.js"
 import { getPackageBasepath } from "./path.js"
 
 export async function savePackageToFolder(props: {
@@ -20,7 +20,7 @@ export async function savePackageToFolder(props: {
   const resourceDescriptors: Descriptor[] = []
   for (const resource of datapackage.resources) {
     resourceDescriptors.push(
-      await saveResourceFile({
+      await saveResourceFiles({
         resource,
         basepath,
         withRemote,
