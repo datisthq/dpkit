@@ -3,15 +3,15 @@ import { denormalizeResource } from "../../resource/index.js"
 import type { Package } from "../Package.js"
 
 export function denormalizePackage(props: {
-  datapack: Package
+  datapackage: Package
   basepath?: string
 }) {
   const { basepath } = props
-  const datapack = globalThis.structuredClone(props.datapack)
+  const datapackage = globalThis.structuredClone(props.datapackage)
 
-  const resources = datapack.resources.map((resource: any) =>
+  const resources = datapackage.resources.map((resource: any) =>
     denormalizeResource({ resource, basepath }),
   )
 
-  return { ...datapack, resources } as Descriptor
+  return { ...datapackage, resources } as Descriptor
 }

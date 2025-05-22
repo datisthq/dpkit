@@ -11,18 +11,18 @@ import {
 import { ZipFile } from "yazl"
 
 export async function savePackageToZip(props: {
-  path: string
-  datapack: Package
+  datapackage: Package
+  archivePath: string
   withRemote?: boolean
 }) {
-  const { path, datapack, withRemote } = props
-  const basepath = getPackageBasepath({ datapack })
+  const { archivePath, datapackage, withRemote } = props
+  const basepath = getPackageBasepath({ datapackage })
 
-  await assertLocalPathVacant({ path })
+  await assertLocalPathVacant({ path: archivePath })
   const zipfile = new ZipFile()
 
   const resourceDescriptors: Descriptor[] = []
-  for (const resource of datapack.resources) {
+  for (const resource of datapackage.resources) {
     resourceDescriptors.push(
       await saveResourceFile({
         resource,
@@ -39,7 +39,7 @@ export async function savePackageToZip(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ datapack, basepath }),
+    ...denormalizePackage({ datapackage, basepath }),
     resources: resourceDescriptors,
   }
 
@@ -49,5 +49,5 @@ export async function savePackageToZip(props: {
   )
 
   zipfile.end()
-  await pipeline(zipfile.outputStream, createWriteStream(path))
+  await pipeline(zipfile.outputStream, createWriteStream(archivePath))
 }

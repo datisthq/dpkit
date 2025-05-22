@@ -7,18 +7,18 @@ import { saveResourceFile } from "../resource/index.js"
 import { getPackageBasepath } from "./path.js"
 
 export async function savePackageToFolder(props: {
-  path: string
-  datapack: Package
+  folderPath: string
+  datapackage: Package
   withRemote?: boolean
 }) {
-  const { path, datapack, withRemote } = props
-  const basepath = getPackageBasepath({ datapack })
+  const { folderPath, datapackage, withRemote } = props
+  const basepath = getPackageBasepath({ datapackage })
 
-  await assertLocalPathVacant({ path })
-  await createFolder({ path })
+  await assertLocalPathVacant({ path: folderPath })
+  await createFolder({ path: folderPath })
 
   const resourceDescriptors: Descriptor[] = []
-  for (const resource of datapack.resources) {
+  for (const resource of datapackage.resources) {
     resourceDescriptors.push(
       await saveResourceFile({
         resource,
@@ -35,10 +35,14 @@ export async function savePackageToFolder(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ datapack, basepath }),
+    ...denormalizePackage({ datapackage, basepath }),
     resources: resourceDescriptors,
   }
 
-  await saveDescriptor({ descriptor, path: join(path, "datapackage.json") })
+  await saveDescriptor({
+    descriptor,
+    path: join(folderPath, "datapackage.json"),
+  })
+
   return descriptor
 }

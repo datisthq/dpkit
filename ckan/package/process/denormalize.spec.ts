@@ -10,7 +10,7 @@ import { normalizeCkanPackage } from "./normalize.js"
 describe("denormalizeCkanPackage", () => {
   it("denormalizes a Frictionless Data Package to a CKAN package", () => {
     // Arrange
-    const dataPackage: Package = {
+    const datapackage: Package = {
       name: "test-package",
       title: "Test Package",
       description: "This is a test package",
@@ -50,32 +50,32 @@ describe("denormalizeCkanPackage", () => {
     }
 
     // Act
-    const result = denormalizeCkanPackage({ package: dataPackage })
+    const result = denormalizeCkanPackage({ datapackage })
 
     // Assert
     // Basic metadata
-    expect(result.name).toEqual(dataPackage.name)
-    expect(result.title).toEqual(dataPackage.title)
-    expect(result.notes).toEqual(dataPackage.description)
-    expect(result.version).toEqual(dataPackage.version)
-    expect(result.metadata_created).toEqual(dataPackage.created)
+    expect(result.name).toEqual(datapackage.name)
+    expect(result.title).toEqual(datapackage.title)
+    expect(result.notes).toEqual(datapackage.description)
+    expect(result.version).toEqual(datapackage.version)
+    expect(result.metadata_created).toEqual(datapackage.created)
 
     // License
     if (
-      dataPackage.licenses &&
-      dataPackage.licenses.length > 0 &&
-      dataPackage.licenses[0]
+      datapackage.licenses &&
+      datapackage.licenses.length > 0 &&
+      datapackage.licenses[0]
     ) {
-      const license = dataPackage.licenses[0]
+      const license = datapackage.licenses[0]
       if (license.name) expect(result.license_id).toEqual(license.name)
       if (license.title) expect(result.license_title).toEqual(license.title)
       if (license.path) expect(result.license_url).toEqual(license.path)
     }
 
     // Contributors
-    if (dataPackage.contributors && dataPackage.contributors.length >= 2) {
-      const author = dataPackage.contributors.find(c => c.role === "author")
-      const maintainer = dataPackage.contributors.find(
+    if (datapackage.contributors && datapackage.contributors.length >= 2) {
+      const author = datapackage.contributors.find(c => c.role === "author")
+      const maintainer = datapackage.contributors.find(
         c => c.role === "maintainer",
       )
 
@@ -91,9 +91,9 @@ describe("denormalizeCkanPackage", () => {
     }
 
     // Tags
-    if (dataPackage.keywords && dataPackage.keywords.length > 0) {
-      expect(result.tags).toHaveLength(dataPackage.keywords.length)
-      dataPackage.keywords.forEach((keyword, index) => {
+    if (datapackage.keywords && datapackage.keywords.length > 0) {
+      expect(result.tags).toHaveLength(datapackage.keywords.length)
+      datapackage.keywords.forEach((keyword, index) => {
         const tag = result.tags?.[index]
         if (tag && keyword) {
           expect(tag.name).toEqual(keyword)
@@ -103,15 +103,15 @@ describe("denormalizeCkanPackage", () => {
     }
 
     // Resources
-    expect(result.resources).toHaveLength(dataPackage.resources.length)
+    expect(result.resources).toHaveLength(datapackage.resources.length)
 
     // Verify resources exist
-    expect(dataPackage.resources.length).toBeGreaterThan(0)
+    expect(datapackage.resources.length).toBeGreaterThan(0)
     expect(result.resources?.length).toBeGreaterThan(0)
 
-    if (dataPackage.resources.length > 0 && result.resources.length > 0) {
+    if (datapackage.resources.length > 0 && result.resources.length > 0) {
       // Verify first resource
-      const firstResource = dataPackage.resources[0]
+      const firstResource = datapackage.resources[0]
       const firstCkanResource = result.resources[0]
 
       expect(firstCkanResource).toBeDefined()
@@ -135,13 +135,13 @@ describe("denormalizeCkanPackage", () => {
 
   it("handles empty resources array", () => {
     // Arrange
-    const dataPackage: Package = {
+    const datapackage: Package = {
       name: "test-package",
       resources: [],
     }
 
     // Act
-    const result = denormalizeCkanPackage({ package: dataPackage })
+    const result = denormalizeCkanPackage({ datapackage })
 
     // Assert
     expect(result.resources).toEqual([])
@@ -149,12 +149,12 @@ describe("denormalizeCkanPackage", () => {
 
   it("handles undefined optional properties", () => {
     // Arrange
-    const dataPackage: Package = {
+    const datapackage: Package = {
       resources: [], // Only required property
     }
 
     // Act
-    const result = denormalizeCkanPackage({ package: dataPackage })
+    const result = denormalizeCkanPackage({ datapackage })
 
     // Assert
     expect(result.name).toBeUndefined()
@@ -178,12 +178,12 @@ describe("denormalizeCkanPackage", () => {
     const originalCkanPackage = ckanPackageFixture as CkanPackage
 
     // Act - First normalize to a Frictionless Data Package
-    const dataPackage = normalizeCkanPackage({
+    const datapackage = normalizeCkanPackage({
       ckanPackage: originalCkanPackage,
     })
 
     // Then denormalize back to a CKAN package
-    const resultCkanPackage = denormalizeCkanPackage({ package: dataPackage })
+    const resultCkanPackage = denormalizeCkanPackage({ datapackage })
 
     // Assert
     // Basic metadata

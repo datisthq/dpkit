@@ -11,7 +11,7 @@ export async function validatePackageDescriptor(props: {
   basepath?: string
 }) {
   const { descriptor, basepath } = props
-  let datapack: Package | undefined = undefined
+  let datapackage: Package | undefined = undefined
 
   const $schema = descriptor.$schema ?? DEFAULT_PROFILE
   const profile = await loadProfile({ path: $schema })
@@ -20,10 +20,10 @@ export async function validatePackageDescriptor(props: {
 
   if (valid) {
     // Validation + normalization = we can cast it
-    datapack = normalizePackage({ descriptor, basepath }) as Package
+    datapackage = normalizePackage({ descriptor, basepath }) as Package
   }
 
-  return { valid, errors, datapack }
+  return { valid, errors, datapackage }
 }
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/datapackage.json"

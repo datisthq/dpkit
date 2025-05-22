@@ -7,12 +7,12 @@ import { denormalizePackage } from "./process/denormalize.js"
  * Works in Node.js environments
  */
 export async function savePackageDescriptor(props: {
-  datapack: Package
+  datapackage: Package
   path: string
 }) {
-  const { datapack, path } = props
+  const { datapackage, path } = props
   const basepath = getBasepath({ path })
 
-  const descriptor = denormalizePackage({ datapack, basepath })
+  const descriptor = denormalizePackage({ datapackage, basepath })
   await saveDescriptor({ descriptor, path: props.path })
 }

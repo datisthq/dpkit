@@ -8,13 +8,15 @@ describe("loadPackage", async () => {
     relative(process.cwd(), join(__dirname, "fixtures", name))
 
   it("loads a package from a local file path", async () => {
-    const datapack = await loadPackage({ path: getFixturePath("package.json") })
+    const datapackage = await loadPackage({
+      path: getFixturePath("package.json"),
+    })
 
-    expectTypeOf(datapack).toEqualTypeOf<Package>()
-    expect(datapack.name).toBe("name")
-    expect(datapack.resources.length).toBeGreaterThan(0)
+    expectTypeOf(datapackage).toEqualTypeOf<Package>()
+    expect(datapackage.name).toBe("name")
+    expect(datapackage.resources.length).toBeGreaterThan(0)
 
-    const resource = datapack.resources[0]
+    const resource = datapackage.resources[0]
     expect(resource).toBeDefined()
 
     if (resource) {

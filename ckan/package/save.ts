@@ -1,7 +1,7 @@
 import type { Package } from "@dpkit/core"
 
 export async function savePackageToCkan(props: {
-  datapack: Package
+  datapackage: Package
 }) {
   console.log(props)
 }

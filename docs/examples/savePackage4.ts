@@ -1,7 +1,7 @@
 import { loadPackageFromZip } from "dpkit"
 
-const { datapack } = await loadPackageFromZip({
-  path: ".user/gas.zip",
+const { datapackage } = await loadPackageFromZip({
+  archivePath: ".user/gas.zip",
 })
 
-console.log(datapack)
+console.log(datapackage)
