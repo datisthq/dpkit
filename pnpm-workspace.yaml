@@ -1,5 +1,6 @@
 dangerouslyAllowAllBuilds: true
 packages:
+  - avro
   - bin
   - ckan
   - cli
