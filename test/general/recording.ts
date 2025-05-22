@@ -1,5 +1,13 @@
+import FetchAdapter from "@pollyjs/adapter-fetch"
 import { Polly } from "@pollyjs/core"
-import { beforeAll, beforeEach, afterAll } from "vitest"
+import FSPersister from "@pollyjs/persister-fs"
+import { afterAll, beforeAll, beforeEach } from "vitest"
+
+// @ts-ignore
+Polly.register(FSPersister)
+
+// @ts-ignore
+Polly.register(FetchAdapter)
 
 /**
  * Sets up Polly for recording and replaying HTTP interactions in tests.
@@ -26,7 +34,7 @@ export function useRecording(
         fs: {
           recordingsDir:
             options.recordingPath ??
-            `${suite.file.filepath.substring(0, suite.file.filepath.lastIndexOf("/"))}/recordings`,
+            `${suite.file.filepath.substring(0, suite.file.filepath.lastIndexOf("/"))}/fixtures/generated`,
         },
       },
     })
@@ -40,6 +48,4 @@ export function useRecording(
   afterAll(async () => {
     await polly.stop()
   })
-
-  return
 }
