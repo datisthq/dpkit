@@ -7,7 +7,7 @@ import {
   readFileStream,
   saveResourceFiles,
 } from "@dpkit/file"
-import { makePostCkanApiRequest } from "../general/index.js"
+import { makeCkanApiRequest } from "../general/index.js"
 import { denormalizeCkanPackage } from "./process/denormalize.js"
 
 export async function savePackageToCkan(props: {
@@ -29,53 +29,54 @@ export async function savePackageToCkan(props: {
     resources: [],
   }
 
-  const response = await makePostCkanApiRequest({
+  const result = await makeCkanApiRequest({
     action: "package_create",
     payload,
     ckanUrl,
     apiKey,
   })
 
-  if (!response.ok) {
-    throw new Error(`Failed to save data package to CKAN: ${datasetName}`)
-  }
-
-  const data = (await response.json()) as Descriptor
-  if (!data.success) {
-    throw new Error(`Failed to save data package to CKAN: ${datasetName}`)
-  }
-
   const url = new URL(ckanUrl)
-  url.pathname = `/dataset/${data.result.name}`
+  url.pathname = `/dataset/${result.name}`
 
+  const resourceDescriptors: Descriptor[] = []
   for (const resource of datapackage.resources) {
-    await saveResourceFiles({
-      resource,
-      basepath,
-      withRemote: true,
-      withoutFolders: true,
-      saveFile: async props => {
-        const payload = {
-          package_id: datasetName,
-          name: props.denormalizedPath,
-        }
+    resourceDescriptors.push(
+      await saveResourceFiles({
+        resource,
+        basepath,
+        withRemote: true,
+        withoutFolders: true,
+        saveFile: async props => {
+          const payload = {
+            package_id: datasetName,
+            name: props.denormalizedPath,
+          }
 
-        const upload = {
-          name: props.denormalizedPath,
-          data: await blob(
-            await readFileStream({ path: props.normalizedPath }),
-          ),
-        }
+          const upload = {
+            name: props.denormalizedPath,
+            data: await blob(
+              await readFileStream({ path: props.normalizedPath }),
+            ),
+          }
 
-        await makePostCkanApiRequest({
-          action: "resource_create",
-          payload,
-          upload,
-          ckanUrl,
-          apiKey,
-        })
-      },
-    })
+          const result = await makeCkanApiRequest({
+            action: "resource_create",
+            payload,
+            upload,
+            ckanUrl,
+            apiKey,
+          })
+
+          return result.url
+        },
+      }),
+    )
+  }
+
+  const descriptor = {
+    ...denormalizePackage({ datapackage, basepath }),
+    resources: resourceDescriptors,
   }
 
   for (const denormalizedPath of ["datapackage.json"]) {
@@ -86,14 +87,10 @@ export async function savePackageToCkan(props: {
 
     const upload = {
       name: denormalizedPath,
-      data: new Blob([
-        stringifyDescriptor({
-          descriptor: denormalizePackage({ datapackage, basepath }),
-        }),
-      ]),
+      data: new Blob([stringifyDescriptor({ descriptor })]),
     }
 
-    await makePostCkanApiRequest({
+    await makeCkanApiRequest({
       action: "resource_create",
       payload,
       upload,
@@ -103,7 +100,7 @@ export async function savePackageToCkan(props: {
   }
 
   return {
-    datasetId: data.result.id,
+    path: result.url,
     datasetUrl: url.toString(),
   }
 }

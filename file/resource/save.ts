@@ -12,7 +12,7 @@ export type SaveFile = (props: {
   propertyIndex: number
   normalizedPath: string
   denormalizedPath: string
-}) => Promise<void>
+}) => Promise<string>
 
 export async function saveResourceFiles(props: {
   resource: Resource
@@ -52,7 +52,7 @@ export async function saveResourceFiles(props: {
       )
     }
 
-    await props.saveFile({
+    denormalizedPath = await props.saveFile({
       propertyName: name,
       propertyIndex: index,
       normalizedPath,

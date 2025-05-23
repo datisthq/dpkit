@@ -33,6 +33,8 @@ export async function savePackageToZip(props: {
             await readFileStream({ path: props.normalizedPath }),
             props.denormalizedPath,
           )
+
+          return props.denormalizedPath
         },
       }),
     )

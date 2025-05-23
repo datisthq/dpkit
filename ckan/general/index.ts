@@ -1,1 +1,1 @@
-export { makeGetCkanApiRequest, makePostCkanApiRequest } from "./request.js"
+export { makeCkanApiRequest } from "./request.js"

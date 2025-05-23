@@ -1,20 +1,6 @@
 import type { Descriptor } from "@dpkit/core"
 
-export async function makeGetCkanApiRequest(props: {
-  ckanUrl: string
-  action: string
-  payload: Descriptor
-}) {
-  const url = new URL(props.ckanUrl)
-
-  url.pathname = `/api/3/action/${props.action}`
-  url.search = new URLSearchParams(props.payload).toString()
-
-  const response = await fetch(url.toString())
-  return response
-}
-
-export async function makePostCkanApiRequest(props: {
+export async function makeCkanApiRequest(props: {
   ckanUrl: string
   action: string
   payload: Descriptor
@@ -49,5 +35,17 @@ export async function makePostCkanApiRequest(props: {
     body,
   })
 
-  return response
+  if (!response.ok) {
+    const errorText = await response.text()
+    throw new Error(
+      `CKAN API error: ${response.status} ${response.statusText}\n${errorText}`,
+    )
+  }
+
+  const data = (await response.json()) as Descriptor
+  if (!data.success) {
+    throw new Error(`CKAN API error: ${data.error}`)
+  }
+
+  return data.result as Descriptor
 }

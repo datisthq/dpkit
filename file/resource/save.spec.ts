@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest"
+import { describe, expect, it } from "vitest"
 import { saveResourceFiles } from "./save.js"
 
 describe("saveResourceFiles", () => {
@@ -104,7 +104,7 @@ describe("saveResourceFiles", () => {
           basepath,
           withRemote,
           withoutFolders,
-          saveFile: vi.fn(),
+          saveFile: async props => props.denormalizedPath,
         }),
       ).toEqual(descriptor)
     },

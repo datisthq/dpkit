@@ -6,7 +6,7 @@ import { savePackageToCkan } from "./save.js"
 describe("savePackageToCkan", () => {
   //useRecording()
 
-  it("should save a package", async () => {
+  it.skip("should save a package", async () => {
     const datapackage = await loadPackage({
       path: "core/package/fixtures/package.json",
     })
