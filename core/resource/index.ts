@@ -1,7 +1,7 @@
 export type { Resource } from "./Resource.js"
 export type * from "./types/index.js"
 export { assertResource } from "./assert.js"
-export { loadResource } from "./load.js"
+export { loadResourceDescriptor } from "./load.js"
 export { saveResourceDescriptor } from "./save.js"
 export { validateResourceDescriptor } from "./validate.js"
 export { normalizeResource } from "./process/normalize.js"
