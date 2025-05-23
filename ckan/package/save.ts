@@ -53,6 +53,7 @@ export async function savePackageToCkan(props: {
       resource,
       basepath,
       withRemote: true,
+      withoutFolders: true,
       saveFile: async props => {
         // TODO: add more metadata
         const formData = new FormData()

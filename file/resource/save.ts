@@ -6,6 +6,7 @@ import {
   isRemotePath,
   isTableResource,
 } from "@dpkit/core"
+import { sep } from "node:path"
 
 export type SaveFile = (props: {
   propertyName: string
@@ -19,8 +20,9 @@ export async function saveResourceFiles(props: {
   saveFile: SaveFile
   basepath?: string
   withRemote?: boolean
+  withoutFolders?: boolean
 }) {
-  const { resource, basepath, withRemote } = props
+  const { resource, basepath, withRemote, withoutFolders } = props
   const descriptor = denormalizeResource({ resource, basepath })
 
   const saveFile = async (path: string, name: string, index: number) => {
@@ -34,6 +36,8 @@ export async function saveResourceFiles(props: {
       const filename = getFilename({ path })
       if (!filename) return path
       denormalizedPath = filename
+    } else if (withoutFolders) {
+      denormalizedPath = denormalizedPath.replaceAll(sep, "-")
     }
 
     await props.saveFile({
