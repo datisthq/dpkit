@@ -41,13 +41,15 @@ function extractDepositId(props: { depositUrl: string }): string | undefined {
   try {
     const url = new URL(props.depositUrl)
     const pathParts = url.pathname.split("/").filter(Boolean)
-    
+
     // Handle both /record/ID and /records/ID formats
-    if (pathParts.length >= 2 && 
-       (pathParts[0] === "record" || pathParts[0] === "records")) {
+    if (
+      pathParts.length >= 2 &&
+      (pathParts[0] === "record" || pathParts[0] === "records")
+    ) {
       return pathParts[1]
     }
-    
+
     return undefined
   } catch (error) {
     return undefined

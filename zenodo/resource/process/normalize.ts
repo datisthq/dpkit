@@ -6,7 +6,9 @@ import type { ZenodoFile } from "../File.js"
  * @param props Object containing the Zenodo file to normalize
  * @returns Normalized Resource object
  */
-export function normalizeZenodoFile(props: { zenodoFile: ZenodoFile }): Resource {
+export function normalizeZenodoFile(props: {
+  zenodoFile: ZenodoFile
+}): Resource {
   const { zenodoFile } = props
 
   const resource: Resource = {
@@ -17,7 +19,7 @@ export function normalizeZenodoFile(props: { zenodoFile: ZenodoFile }): Resource
   }
 
   // Extract file format from filename
-  const fileExtension = zenodoFile.filename.split('.').pop()?.toUpperCase()
+  const fileExtension = zenodoFile.filename.split(".").pop()?.toUpperCase()
   if (fileExtension) {
     resource.format = fileExtension
   }

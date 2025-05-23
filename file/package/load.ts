@@ -1,6 +1,8 @@
 import { join } from "node:path"
-import { loadPackage } from "@dpkit/core"
+import { loadPackageDescriptor } from "@dpkit/core"
 
 export async function loadPackageFromFolder(props: { folderPath: string }) {
-  return loadPackage({ path: join(props.folderPath, "datapackage.json") })
+  return loadPackageDescriptor({
+    path: join(props.folderPath, "datapackage.json"),
+  })
 }

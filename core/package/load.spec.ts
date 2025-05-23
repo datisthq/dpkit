@@ -1,14 +1,14 @@
 import { join, relative } from "node:path"
 import { describe, expect, expectTypeOf, it } from "vitest"
 import type { Package } from "./Package.js"
-import { loadPackage } from "./load.js"
+import { loadPackageDescriptor } from "./load.js"
 
-describe("loadPackage", async () => {
+describe("loadPackageDescriptor", async () => {
   const getFixturePath = (name: string) =>
     relative(process.cwd(), join(__dirname, "fixtures", name))
 
   it("loads a package from a local file path", async () => {
-    const datapackage = await loadPackage({
+    const datapackage = await loadPackageDescriptor({
       path: getFixturePath("package.json"),
     })
 
@@ -33,7 +33,7 @@ describe("loadPackage", async () => {
 
   it("throws an error when package is invalid", async () => {
     await expect(
-      loadPackage({ path: getFixturePath("package-invalid.json") }),
+      loadPackageDescriptor({ path: getFixturePath("package-invalid.json") }),
     ).rejects.toThrow()
   })
 })

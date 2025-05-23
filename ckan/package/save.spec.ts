@@ -1,4 +1,4 @@
-import { loadPackage } from "@dpkit/core"
+import { loadPackageDescriptor } from "@dpkit/core"
 //import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
 import { savePackageToCkan } from "./save.js"
@@ -7,7 +7,7 @@ describe("savePackageToCkan", () => {
   //useRecording()
 
   it.skip("should save a package", async () => {
-    const datapackage = await loadPackage({
+    const datapackage = await loadPackageDescriptor({
       path: "core/package/fixtures/package.json",
     })
 

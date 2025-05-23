@@ -60,5 +60,5 @@ export async function makeZenodoApiRequest(props: {
     )
   }
 
-  return await response.json() as Descriptor
+  return (await response.json()) as Descriptor
 }

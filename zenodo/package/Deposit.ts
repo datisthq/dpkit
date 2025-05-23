@@ -1,5 +1,5 @@
-import type { ZenodoCreator } from "./Creator.js"
 import type { ZenodoFile } from "../resource/File.js"
+import type { ZenodoCreator } from "./Creator.js"
 
 /**
  * Zenodo Deposit interface

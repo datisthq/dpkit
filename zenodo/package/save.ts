@@ -1,6 +1,6 @@
 import { blob } from "node:stream/consumers"
 import type { Package } from "@dpkit/core"
-import { stringifyDescriptor, denormalizePackage } from "@dpkit/core"
+import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
 import {
   getPackageBasepath,
   readFileStream,
@@ -92,9 +92,7 @@ export async function savePackageToZenodo(props: {
   }
 
   // Return deposit information
-  const baseUrl = sandbox
-    ? "https://sandbox.zenodo.org"
-    : "https://zenodo.org"
+  const baseUrl = sandbox ? "https://sandbox.zenodo.org" : "https://zenodo.org"
 
   return {
     depositUrl: `${baseUrl}/record/${depositId}`,

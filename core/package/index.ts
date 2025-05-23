@@ -1,6 +1,6 @@
 export type { Package } from "./Package.js"
 export { assertPackage } from "./assert.js"
-export { loadPackage } from "./load.js"
+export { loadPackageDescriptor } from "./load.js"
 export { savePackageDescriptor } from "./save.js"
 export { validatePackageDescriptor } from "./validate.js"
 export { normalizePackage } from "./process/normalize.js"

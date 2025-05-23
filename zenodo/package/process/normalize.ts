@@ -49,7 +49,7 @@ export function normalizeZenodoDeposit(props: {
         title: creator.name,
         role: "author",
       }
-      
+
       if (creator.affiliation) {
         // Store affiliation in path as there's no dedicated field
         contributor.path = creator.affiliation

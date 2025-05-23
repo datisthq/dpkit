@@ -17,12 +17,12 @@ export function denormalizeZenodoFile(props: {
     return undefined
   }
 
-  let filename = 'unknown'
+  let filename = "unknown"
   if (resource.name) {
     filename = resource.name
-  } else if (typeof resource.path === 'string') {
-    const pathParts = resource.path.split('/')
-    filename = pathParts[pathParts.length - 1] || 'unknown'
+  } else if (typeof resource.path === "string") {
+    const pathParts = resource.path.split("/")
+    filename = pathParts[pathParts.length - 1] || "unknown"
   }
 
   const zenodoFile: Partial<ZenodoFile> = {
