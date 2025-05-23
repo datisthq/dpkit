@@ -55,19 +55,22 @@ export async function savePackageToCkan(props: {
       withRemote: true,
       withoutFolders: true,
       saveFile: async props => {
-        // TODO: add more metadata
-        const formData = new FormData()
-        formData.append("package_id", datasetName)
-        formData.append("name", props.denormalizedPath)
+        const payload = {
+          package_id: datasetName,
+          name: props.denormalizedPath,
+        }
 
-        // TODO: rebase on streaming interface
-        // https://github.com/nodejs/undici/issues/2202#issuecomment-1662008812
-        const stream = await readFileStream({ path: props.normalizedPath })
-        formData.append("upload", await blob(stream), props.denormalizedPath)
+        const upload = {
+          name: props.denormalizedPath,
+          data: await blob(
+            await readFileStream({ path: props.normalizedPath }),
+          ),
+        }
 
         await makePostCkanApiRequest({
           action: "resource_create",
-          payload: formData,
+          payload,
+          upload,
           ckanUrl,
           apiKey,
         })
@@ -75,21 +78,29 @@ export async function savePackageToCkan(props: {
     })
   }
 
-  const descriptor = denormalizePackage({ datapackage, basepath })
-  const file = new Blob([stringifyDescriptor({ descriptor })])
+  for (const denormalizedPath of ["datapackage.json"]) {
+    const payload = {
+      package_id: datasetName,
+      name: denormalizedPath,
+    }
 
-  // TODO: extract data+blob into makePostCkanApiRequest
-  const formData = new FormData()
-  formData.append("package_id", datasetName)
-  formData.append("name", "datapackage.json")
-  formData.append("upload", file, "datapackage.json")
+    const upload = {
+      name: denormalizedPath,
+      data: new Blob([
+        stringifyDescriptor({
+          descriptor: denormalizePackage({ datapackage, basepath }),
+        }),
+      ]),
+    }
 
-  await makePostCkanApiRequest({
-    action: "resource_create",
-    payload: formData,
-    ckanUrl,
-    apiKey,
-  })
+    await makePostCkanApiRequest({
+      action: "resource_create",
+      payload,
+      upload,
+      ckanUrl,
+      apiKey,
+    })
+  }
 
   return {
     datasetId: data.result.id,

@@ -17,26 +17,31 @@ export async function makeGetCkanApiRequest(props: {
 export async function makePostCkanApiRequest(props: {
   ckanUrl: string
   action: string
-  payload: Descriptor | FormData
+  payload: Descriptor
+  upload?: { name: string; data: Blob }
   apiKey?: string
 }) {
-  const url = new URL(props.ckanUrl)
-
-  url.pathname = `/api/3/action/${props.action}`
-
+  let body: string | FormData
   const headers: Descriptor = {}
-  if (!(props.payload instanceof FormData)) {
-    headers["Content-Type"] = "application/json"
-  }
+
+  const url = new URL(props.ckanUrl)
+  url.pathname = `/api/3/action/${props.action}`
 
   if (props.apiKey) {
     headers.Authorization = props.apiKey
   }
 
-  const body =
-    props.payload instanceof FormData
-      ? props.payload
-      : JSON.stringify(props.payload)
+  if (props.upload) {
+    body = new FormData()
+    body.append("upload", props.upload.data, props.upload.name)
+
+    for (const [key, value] of Object.entries(props.payload)) {
+      body.append(key, value)
+    }
+  } else {
+    body = JSON.stringify(props.payload)
+    headers["Content-Type"] = "application/json"
+  }
 
   const response = await fetch(url.toString(), {
     method: "POST",
