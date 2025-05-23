@@ -5,31 +5,37 @@ describe("saveResourceFiles", () => {
   it.each([
     {
       description: "local path",
-      resource: { path: "data/table.csv" },
       basepath: "data",
+      resource: { path: "data/table.csv" },
       descriptor: { path: "table.csv" },
     },
     {
+      description: "local paths",
+      basepath: "data",
+      resource: { path: ["data/table1.csv", "data/table2.csv"] },
+      descriptor: { path: ["table1.csv", "table2.csv"] },
+    },
+    {
       description: "local path and remote path",
+      basepath: "data",
       resource: {
         path: "data/table.csv",
         schema: "https://example.com/schema.json",
       },
-      basepath: "data",
       descriptor: {
         path: "table.csv",
         schema: "https://example.com/schema.json",
       },
     },
     {
-      description: "local path and remote path withRemote",
+      description: "local path and remote path using withRemote",
+      basepath: "data",
+      withRemote: true,
       resource: {
         type: "table",
         path: "data/table.csv",
         schema: "https://example.com/schema.json",
       },
-      basepath: "data",
-      withRemote: true,
       descriptor: {
         type: "table",
         path: "table.csv",
@@ -37,13 +43,36 @@ describe("saveResourceFiles", () => {
       },
     },
     {
+      description: "remote paths with the same filename using withRemote",
+      basepath: "data",
+      withRemote: true,
+      resource: {
+        path: [
+          "http://example1.com/table.csv",
+          "http://example2.com/table.csv",
+          "http://example3.com/table.csv",
+          "http://example4.com/table.csv.zip",
+          "http://example5.com/table.csv.zip",
+        ],
+      },
+      descriptor: {
+        path: [
+          "table.csv",
+          "table-1.csv",
+          "table-2.csv",
+          "table.csv.zip",
+          "table-1.csv.zip",
+        ],
+      },
+    },
+    {
       description: "local paths in different folders",
+      basepath: "data",
       resource: {
         type: "table",
         path: "data/folder1/table.csv",
         schema: "data/folder2/schema.json",
       },
-      basepath: "data",
       descriptor: {
         type: "table",
         path: "folder1/table.csv",
@@ -51,14 +80,14 @@ describe("saveResourceFiles", () => {
       },
     },
     {
-      description: "local paths in different folders withoutFolders",
+      description: "local paths in different folders using withoutFolders",
+      basepath: "data",
+      withoutFolders: true,
       resource: {
         type: "table",
         path: "data/folder1/table.csv",
         schema: "data/folder2/schema.json",
       },
-      basepath: "data",
-      withoutFolders: true,
       descriptor: {
         type: "table",
         path: "folder1-table.csv",

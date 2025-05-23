@@ -108,6 +108,7 @@ export function denormalizePath(props: {
     throw new Error(`Path ${props.path} is not a subpath of ${props.basepath}`)
   }
 
+  // The Data Package standard requires "/" as the path separator
   const relative = node.path.relative(basepath, path)
   return relative.split(node.path.sep).join("/")
 }

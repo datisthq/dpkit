@@ -6,7 +6,6 @@ import {
   isRemotePath,
   isTableResource,
 } from "@dpkit/core"
-import { sep } from "node:path"
 
 export type SaveFile = (props: {
   propertyName: string
@@ -23,13 +22,16 @@ export async function saveResourceFiles(props: {
   withoutFolders?: boolean
 }) {
   const { resource, basepath, withRemote, withoutFolders } = props
+
   const descriptor = denormalizeResource({ resource, basepath })
+  const dedupIndexes = new Map<string, number>()
 
   const saveFile = async (path: string, name: string, index: number) => {
     const isRemote = isRemotePath({ path })
 
-    const normalizedPath = path
+    // Denormalized path always uses "/" as the path separator
     let denormalizedPath = denormalizePath({ path, basepath })
+    const normalizedPath = path
 
     if (isRemote) {
       if (!withRemote) return path
@@ -37,7 +39,17 @@ export async function saveResourceFiles(props: {
       if (!filename) return path
       denormalizedPath = filename
     } else if (withoutFolders) {
-      denormalizedPath = denormalizedPath.replaceAll(sep, "-")
+      denormalizedPath = denormalizedPath.replaceAll("/", "-")
+    }
+
+    const dedupIndex = dedupIndexes.get(denormalizedPath) ?? 0
+    dedupIndexes.set(denormalizedPath, dedupIndex + 1)
+
+    if (dedupIndex) {
+      denormalizedPath = denormalizedPath.replace(
+        /^(.*?)([^\/]+?)(\.[^\/]+(?:\.[^\/]+)*)$/,
+        `$1$2-${dedupIndex}$3`,
+      )
     }
 
     await props.saveFile({
