@@ -49,10 +49,7 @@ export function normalizeCkanResource(props: {
   return resource
 }
 
-/**
- * Normalize a resource name by converting it to a valid identifier
- * Uses a simplified version of the slugify approach from the Python reference
- */
+// TODO: improve and move to core
 function slugifyName(name: string): string {
   return (
     name

@@ -70,21 +70,21 @@ async function loadCkanSchema(props: {
 }) {
   const { datasetUrl, resourceId } = props
 
-  // For some reason, datastore_info doesn't work
-  // So we use data fetching endpoint that also returns the schema
-  const result = await makeCkanApiRequest({
-    ckanUrl: datasetUrl,
-    action: "datastore_search",
-    payload: { resource_id: resourceId, limit: 0 },
-  })
+  try {
+    // For some reason, datastore_info doesn't work
+    // So we use data fetching endpoint that also returns the schema
+    const result = await makeCkanApiRequest({
+      ckanUrl: datasetUrl,
+      action: "datastore_search",
+      payload: { resource_id: resourceId, limit: 0 },
+    })
 
-  if (!result.fields) {
+    const fields = result.fields.filter(
+      (field: any) => field.id !== "_id" && field.id !== "_full_text",
+    )
+
+    return { fields }
+  } catch (error) {
     return undefined
   }
-
-  const fields = result.fields.filter(
-    (field: any) => field.id !== "_id" && field.id !== "_full_text",
-  )
-
-  return { fields }
 }

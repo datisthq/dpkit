@@ -9,6 +9,11 @@ export function isRemotePath(props: { path: string }) {
   }
 }
 
+export function getFormat(props: { path: string }) {
+  const filename = getFilename({ path: props.path })
+  return filename?.split(".").slice(-1)[0]?.toLowerCase()
+}
+
 export function getFilename(props: { path: string }) {
   const isRemote = isRemotePath(props)
 

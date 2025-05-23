@@ -7,6 +7,7 @@ export type { Descriptor } from "./descriptor/Descriptor.js"
 export { loadProfile } from "./profile/load.js"
 export { AssertionError, type DescriptorError } from "./Error.js"
 export {
+  getFormat,
   isRemotePath,
   getBasepath,
   normalizePath,
