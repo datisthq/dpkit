@@ -8,6 +8,8 @@ import {
 } from "@dpkit/core"
 
 export type SaveFile = (props: {
+  propertyName: string
+  propertyIndex: number
   normalizedPath: string
   denormalizedPath: string
 }) => Promise<void>
@@ -21,31 +23,36 @@ export async function saveResourceFiles(props: {
   const { resource, basepath, withRemote } = props
   const descriptor = denormalizeResource({ resource, basepath })
 
-  const saveFile = async (path: string) => {
+  const saveFile = async (path: string, name: string, index: number) => {
     const isRemote = isRemotePath({ path })
+
     const normalizedPath = path
+    let denormalizedPath = denormalizePath({ path, basepath })
 
     if (isRemote) {
       if (!withRemote) return path
-      const denormalizedPath = getFilename({ path })
-      if (!denormalizedPath) return path
-      await props.saveFile({ normalizedPath, denormalizedPath })
-      return denormalizedPath
+      const filename = getFilename({ path })
+      if (!filename) return path
+      denormalizedPath = filename
     }
 
-    const denormalizedPath = denormalizePath({ path, basepath })
-    await props.saveFile({ normalizedPath, denormalizedPath })
+    await props.saveFile({
+      propertyName: name,
+      propertyIndex: index,
+      normalizedPath,
+      denormalizedPath,
+    })
 
     return denormalizedPath
   }
 
   if (typeof resource.path === "string") {
-    descriptor.path = await saveFile(resource.path)
+    descriptor.path = await saveFile(resource.path, "path", 0)
   }
 
   if (Array.isArray(resource.path)) {
     for (const [index, path] of resource.path.entries()) {
-      descriptor.path[index] = await saveFile(path)
+      descriptor.path[index] = await saveFile(path, "path", index)
     }
   }
 
@@ -53,7 +60,7 @@ export async function saveResourceFiles(props: {
     for (const name of ["dialect", "schema"] as const) {
       const path = resource[name]
       if (typeof path === "string") {
-        descriptor[name] = await saveFile(path)
+        descriptor[name] = await saveFile(path, name, 0)
       }
     }
   }
