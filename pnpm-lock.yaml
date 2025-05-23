@@ -103,12 +103,18 @@ importers:
 
   dpkit:
     dependencies:
+      '@dpkit/ckan':
+        specifier: workspace:*
+        version: link:../ckan
       '@dpkit/core':
         specifier: workspace:*
         version: link:../core
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      '@dpkit/zenodo':
+        specifier: workspace:*
+        version: link:../zenodo
       '@dpkit/zip':
         specifier: workspace:*
         version: link:../zip

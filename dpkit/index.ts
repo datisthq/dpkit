@@ -1,3 +1,5 @@
+export * from "@dpkit/ckan"
 export * from "@dpkit/core"
 export * from "@dpkit/file"
+export * from "@dpkit/zenodo"
 export * from "@dpkit/zip"

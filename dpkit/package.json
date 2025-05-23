@@ -17,8 +17,10 @@
     "cli"
   ],
   "dependencies": {
+    "@dpkit/ckan": "workspace:*",
     "@dpkit/core": "workspace:*",
     "@dpkit/file": "workspace:*",
+    "@dpkit/zenodo": "workspace:*",
     "@dpkit/zip": "workspace:*"
   },
   "scripts": {
