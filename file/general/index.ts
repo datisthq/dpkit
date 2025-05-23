@@ -1,5 +1,5 @@
 export { saveFileToDisc } from "./file.js"
 export { readFileStream } from "./stream/read.js"
 export { writeFileStream } from "./stream/write.js"
-export { assertLocalPathVacant } from "./path.js"
+export { assertLocalPathVacant, isLocalPathExist } from "./path.js"
 export { createFolder } from "./folder.js"

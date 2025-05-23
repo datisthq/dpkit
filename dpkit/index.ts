@@ -3,3 +3,6 @@ export * from "@dpkit/core"
 export * from "@dpkit/file"
 export * from "@dpkit/zenodo"
 export * from "@dpkit/zip"
+
+export * from "./general/index.js"
+export * from "./package/index.js"
