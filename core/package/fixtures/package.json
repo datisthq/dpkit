@@ -34,6 +34,7 @@
     {
       "type": "table",
       "name": "name",
+      "format": "csv",
       "path": "table.csv",
       "dialect": "dialect.json",
       "schema": "schema.json"

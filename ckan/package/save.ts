@@ -8,6 +8,7 @@ import {
   saveResourceFiles,
 } from "@dpkit/file"
 import { makeCkanApiRequest } from "../general/index.js"
+import { denormalizeCkanResource } from "../resource/index.js"
 import { denormalizeCkanPackage } from "./process/denormalize.js"
 
 export async function savePackageToCkan(props: {
@@ -48,7 +49,10 @@ export async function savePackageToCkan(props: {
         withRemote: true,
         withoutFolders: true,
         saveFile: async props => {
+          const ckanResource = denormalizeCkanResource({ resource })
+
           const payload = {
+            ...ckanResource,
             package_id: datasetName,
             name: props.denormalizedPath,
           }

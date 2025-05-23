@@ -23,6 +23,7 @@ describe("loadPackage", async () => {
       expect(resource).toEqual({
         type: "table",
         name: "name",
+        format: "csv",
         path: getFixturePath("table.csv"),
         dialect: getFixturePath("dialect.json"),
         schema: getFixturePath("schema.json"),

@@ -1,5 +1,4 @@
 import type { Resource } from "@dpkit/core"
-import { getFilename } from "@dpkit/core"
 import type { CkanResource } from "../Resource.js"
 
 /**
@@ -11,18 +10,7 @@ export function denormalizeCkanResource(props: {
   resource: Resource
 }) {
   const { resource } = props
-
-  const path = Array.isArray(resource.path) ? resource.path[0] : resource.path
-  if (!path) {
-    return undefined
-  }
-
-  const name = resource.title || getFilename({ path })
-  if (!name) {
-    return undefined
-  }
-
-  const ckanResource: Partial<CkanResource> = { name }
+  const ckanResource: Partial<CkanResource> = {}
 
   if (resource.description) {
     ckanResource.description = resource.description
