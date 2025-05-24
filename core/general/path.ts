@@ -1,5 +1,5 @@
-import { node } from "./node.js"
 import Slugger from "github-slugger"
+import { node } from "./node.js"
 
 export function isRemotePath(props: { path: string }) {
   try {

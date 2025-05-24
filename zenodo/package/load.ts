@@ -9,21 +9,21 @@ import { normalizeZenodoPackage } from "./process/normalize.js"
  */
 export async function loadPackageFromZenodo(props: {
   datasetUrl: string
-  sandbox?: boolean
   apiKey?: string
 }) {
-  const { datasetUrl, apiKey, sandbox } = props
+  const { datasetUrl, apiKey } = props
+  const sandbox = new URL(props.datasetUrl).host === "sandbox.zenodo.org"
 
   const recordId = extractRecordId({ datasetUrl })
   if (!recordId) {
     throw new Error(`Failed to extract record ID from URL: ${datasetUrl}`)
   }
 
-  const zenodoPackage = await loadZenodoPackage({
-    recordId,
+  const zenodoPackage = (await makeZenodoApiRequest({
+    endpoint: `/records/${recordId}`,
     apiKey,
     sandbox,
-  })
+  })) as ZenodoPackage
 
   const datapackage = normalizeZenodoPackage({ zenodoPackage })
   return datapackage
@@ -40,24 +40,4 @@ function extractRecordId(props: { datasetUrl: string }): string | undefined {
   const url = new URL(props.datasetUrl)
   const pathParts = url.pathname.split("/").filter(Boolean)
   return pathParts.at(-1)
-}
-
-/**
- * Fetch deposit data from Zenodo API
- */
-async function loadZenodoPackage(props: {
-  recordId: string
-  apiKey?: string
-  sandbox?: boolean
-}): Promise<ZenodoPackage> {
-  const { recordId, apiKey, sandbox } = props
-
-  const endpoint = `/records/${recordId}`
-  const result = await makeZenodoApiRequest({
-    endpoint,
-    apiKey,
-    sandbox,
-  })
-
-  return result as ZenodoPackage
 }

@@ -1,6 +1,6 @@
 import type { Resource } from "@dpkit/core"
+import { getFormat, getName } from "@dpkit/core"
 import type { ZenodoResource } from "../Resource.js"
-import { getName, getFormat } from "@dpkit/core"
 
 /**
  * Normalizes a Zenodo file to Frictionless Data resource format
@@ -9,15 +9,17 @@ import { getName, getFormat } from "@dpkit/core"
  */
 export function normalizeZenodoResource(props: {
   zenodoResource: ZenodoResource
-}): Resource {
+}) {
   const { zenodoResource } = props
 
   const resource: Resource = {
     name: getName({ filename: zenodoResource.key }) ?? zenodoResource.id,
-    path: zenodoResource.links.self,
+    format: getFormat({ filename: zenodoResource.key }),
+    path: zenodoResource.links.self
+      .replace("/api/", "/")
+      .replace(/\/content$/, ""),
     bytes: zenodoResource.size,
     hash: zenodoResource.checksum,
-    format: getFormat({ filename: zenodoResource.key }),
   }
 
   return resource

@@ -1,5 +1,5 @@
 import { blob } from "node:stream/consumers"
-import type { Package } from "@dpkit/core"
+import type { Descriptor, Package } from "@dpkit/core"
 import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
 import {
   getPackageBasepath,
@@ -7,6 +7,7 @@ import {
   saveResourceFiles,
 } from "@dpkit/file"
 import { makeZenodoApiRequest } from "../general/index.js"
+import type { ZenodoPackage } from "./Package.js"
 import { denormalizeZenodoPackage } from "./process/denormalize.js"
 
 /**
@@ -16,87 +17,78 @@ import { denormalizeZenodoPackage } from "./process/denormalize.js"
  */
 export async function savePackageToZenodo(props: {
   datapackage: Package
-  apiKey: string
   sandbox?: boolean
-  publish?: boolean
+  apiKey: string
 }) {
-  const { datapackage, apiKey, sandbox = false, publish = false } = props
+  const { datapackage, apiKey, sandbox = false } = props
+  const basepath = getPackageBasepath({ datapackage })
 
-  // Create a new deposit
-  const depositMetadata = denormalizeZenodoPackage({ datapackage })
-  const deposit = await makeZenodoApiRequest({
+  const newZenodoPackage = denormalizeZenodoPackage({ datapackage })
+  const zenodoPackage = (await makeZenodoApiRequest({
+    payload: newZenodoPackage,
     endpoint: "/deposit/depositions",
     method: "POST",
-    payload: depositMetadata,
     apiKey,
     sandbox,
-  })
+  })) as ZenodoPackage
 
-  // Get the deposit ID and bucket URL for file uploads
-  const depositId = deposit.id as number
-  const bucketUrl = deposit.links.bucket as string
-
-  // Upload resource files
-  const basepath = getPackageBasepath({ datapackage })
-  for (const resource of datapackage.resources || []) {
+  const resourceDescriptors: Descriptor[] = []
+  for (const resource of datapackage.resources) {
     if (!resource.path) continue
 
-    await saveResourceFiles({
-      resource,
-      basepath,
-      withRemote: false,
-      saveFile: async props => {
-        // Upload the file to Zenodo
-        const filename = props.denormalizedPath
-        const fileData = await blob(
-          await readFileStream({ path: props.normalizedPath }),
-        )
+    resourceDescriptors.push(
+      await saveResourceFiles({
+        resource,
+        basepath,
+        withRemote: false,
+        withoutFolders: true,
+        saveFile: async props => {
+          const upload = {
+            name: props.denormalizedPath,
+            data: await blob(
+              await readFileStream({ path: props.normalizedPath }),
+            ),
+          }
 
-        await makeZenodoApiRequest({
-          endpoint: `${bucketUrl}/${filename}`,
-          method: "PUT",
-          upload: {
-            name: filename,
-            data: fileData,
-          },
-          apiKey,
-          sandbox,
-        })
+          // It seems that record and deposition files have different metadata
+          // structure, e.g. size vs filesize etc
+          await makeZenodoApiRequest({
+            endpoint: `/deposit/depositions/${zenodoPackage.id}/files`,
+            method: "POST",
+            upload,
+            apiKey,
+            sandbox,
+          })
 
-        return `${bucketUrl}/${filename}`
-      },
-    })
+          return props.denormalizedPath
+        },
+      }),
+    )
   }
 
-  // Upload datapackage.json as well
-  const descriptor = denormalizePackage({ datapackage, basepath })
-  await makeZenodoApiRequest({
-    endpoint: `${bucketUrl}/datapackage.json`,
-    method: "PUT",
-    upload: {
-      name: "datapackage.json",
-      data: new Blob([stringifyDescriptor({ descriptor })]),
-    },
-    apiKey,
-    sandbox,
-  })
+  const descriptor = {
+    ...denormalizePackage({ datapackage, basepath }),
+    resources: resourceDescriptors,
+  }
 
-  // Publish the deposit if requested
-  if (publish) {
+  for (const denormalizedPath of ["datapackage.json"]) {
+    const upload = {
+      name: denormalizedPath,
+      data: new Blob([stringifyDescriptor({ descriptor })]),
+    }
+
     await makeZenodoApiRequest({
-      endpoint: `/deposit/depositions/${depositId}/actions/publish`,
+      endpoint: `/deposit/depositions/${zenodoPackage.id}/files`,
       method: "POST",
+      upload,
       apiKey,
       sandbox,
     })
   }
 
-  // Return deposit information
-  const baseUrl = sandbox ? "https://sandbox.zenodo.org" : "https://zenodo.org"
-
+  const url = new URL(zenodoPackage.links.html)
   return {
-    depositUrl: `${baseUrl}/record/${depositId}`,
-    depositId: depositId.toString(),
-    doi: deposit.metadata?.doi as string,
+    path: `${url.origin}/records/${zenodoPackage.id}/files/datapackage.json`,
+    datasetUrl: `${url.origin}/uploads/${zenodoPackage.id}`,
   }
 }

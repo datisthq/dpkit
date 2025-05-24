@@ -17,6 +17,7 @@ export interface ZenodoPackage {
     self: string
     html: string
     files: string
+    bucket: string
     publish?: string
     discard?: string
     edit?: string

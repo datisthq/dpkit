@@ -7,7 +7,7 @@ describe("loadPackageFromZenodo", () => {
 
   it("should load a package", async () => {
     const datapackage = await loadPackageFromZenodo({
-      datasetUrl: "https://zenodo.org/records/15496947",
+      datasetUrl: "https://sandbox.zenodo.org/records/260528",
     })
 
     expect(datapackage).toMatchSnapshot()
