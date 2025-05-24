@@ -11,9 +11,8 @@
   "created": "2017-01-01T00:00:00Z",
   "licenses": [
     {
-      "name": "name",
-      "path": "path",
-      "title": "title"
+      "name": "MIT",
+      "title": "MIT"
     }
   ],
   "sources": [
@@ -34,6 +33,7 @@
     {
       "type": "table",
       "name": "name",
+      "format": "csv",
       "path": "table.csv",
       "dialect": "dialect.json",
       "schema": "schema.json"

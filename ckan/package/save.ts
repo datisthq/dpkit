@@ -1,13 +1,18 @@
 import { blob } from "node:stream/consumers"
 import type { Descriptor, Package } from "@dpkit/core"
-import { stringifyDescriptor } from "@dpkit/core"
-import { denormalizePackage } from "@dpkit/core"
+import {
+  denormalizePackage,
+  getFilename,
+  getFormat,
+  stringifyDescriptor,
+} from "@dpkit/core"
 import {
   getPackageBasepath,
   readFileStream,
   saveResourceFiles,
 } from "@dpkit/file"
-import { makePostCkanApiRequest } from "../general/index.js"
+import { makeCkanApiRequest } from "../general/index.js"
+import { denormalizeCkanResource } from "../resource/index.js"
 import { denormalizeCkanPackage } from "./process/denormalize.js"
 
 export async function savePackageToCkan(props: {
@@ -29,69 +34,83 @@ export async function savePackageToCkan(props: {
     resources: [],
   }
 
-  const response = await makePostCkanApiRequest({
+  const result = await makeCkanApiRequest({
     action: "package_create",
     payload,
     ckanUrl,
     apiKey,
   })
 
-  if (!response.ok) {
-    throw new Error(`Failed to save data package to CKAN: ${datasetName}`)
-  }
-
-  const data = (await response.json()) as Descriptor
-  if (!data.success) {
-    throw new Error(`Failed to save data package to CKAN: ${datasetName}`)
-  }
-
   const url = new URL(ckanUrl)
-  url.pathname = `/dataset/${data.result.name}`
+  url.pathname = `/dataset/${result.name}`
 
+  const resourceDescriptors: Descriptor[] = []
   for (const resource of datapackage.resources) {
-    await saveResourceFiles({
-      resource,
-      basepath,
-      withRemote: true,
-      saveFile: async props => {
-        // TODO: add more metadata
-        const formData = new FormData()
-        formData.append("package_id", datasetName)
-        formData.append("name", props.denormalizedPath)
+    resourceDescriptors.push(
+      await saveResourceFiles({
+        resource,
+        basepath,
+        withRemote: true,
+        withoutFolders: true,
+        saveFile: async props => {
+          const filename = getFilename({ path: props.normalizedPath })
+          const ckanResource = denormalizeCkanResource({ resource })
 
-        // TODO: rebase on streaming interface
-        // https://github.com/nodejs/undici/issues/2202#issuecomment-1662008812
-        const stream = await readFileStream({ path: props.normalizedPath })
-        formData.append("upload", await blob(stream), props.denormalizedPath)
+          const payload = {
+            ...ckanResource,
+            package_id: datasetName,
+            name: props.denormalizedPath,
+            format: getFormat({ filename })?.toUpperCase(),
+          }
 
-        await makePostCkanApiRequest({
-          action: "resource_create",
-          payload: formData,
-          ckanUrl,
-          apiKey,
-        })
-      },
+          const upload = {
+            name: props.denormalizedPath,
+            data: await blob(
+              await readFileStream({ path: props.normalizedPath }),
+            ),
+          }
+
+          const result = await makeCkanApiRequest({
+            action: "resource_create",
+            payload,
+            upload,
+            ckanUrl,
+            apiKey,
+          })
+
+          return result.url
+        },
+      }),
+    )
+  }
+
+  const descriptor = {
+    ...denormalizePackage({ datapackage, basepath }),
+    resources: resourceDescriptors,
+  }
+
+  for (const denormalizedPath of ["datapackage.json"]) {
+    const payload = {
+      package_id: datasetName,
+      name: denormalizedPath,
+    }
+
+    const upload = {
+      name: denormalizedPath,
+      data: new Blob([stringifyDescriptor({ descriptor })]),
+    }
+
+    await makeCkanApiRequest({
+      action: "resource_create",
+      payload,
+      upload,
+      ckanUrl,
+      apiKey,
     })
   }
 
-  const descriptor = denormalizePackage({ datapackage, basepath })
-  const file = new Blob([stringifyDescriptor({ descriptor })])
-
-  // TODO: extract data+blob into makePostCkanApiRequest
-  const formData = new FormData()
-  formData.append("package_id", datasetName)
-  formData.append("name", "datapackage.json")
-  formData.append("upload", file, "datapackage.json")
-
-  await makePostCkanApiRequest({
-    action: "resource_create",
-    payload: formData,
-    ckanUrl,
-    apiKey,
-  })
-
   return {
-    datasetId: data.result.id,
+    path: result.url,
     datasetUrl: url.toString(),
   }
 }

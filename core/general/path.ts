@@ -1,3 +1,4 @@
+import Slugger from "github-slugger"
 import { node } from "./node.js"
 
 export function isRemotePath(props: { path: string }) {
@@ -7,6 +8,24 @@ export function isRemotePath(props: { path: string }) {
   } catch {
     return false
   }
+}
+
+export function getName(props: { filename?: string }) {
+  if (!props.filename) {
+    return undefined
+  }
+
+  const name = props.filename.split(".")[0]
+  if (!name) {
+    return undefined
+  }
+
+  const slugger = new Slugger()
+  return slugger.slug(name)
+}
+
+export function getFormat(props: { filename?: string }) {
+  return props.filename?.split(".").slice(-1)[0]?.toLowerCase()
 }
 
 export function getFilename(props: { path: string }) {
@@ -108,6 +127,7 @@ export function denormalizePath(props: {
     throw new Error(`Path ${props.path} is not a subpath of ${props.basepath}`)
   }
 
+  // The Data Package standard requires "/" as the path separator
   const relative = node.path.relative(basepath, path)
   return relative.split(node.path.sep).join("/")
 }

@@ -1,5 +1,4 @@
-import type { Descriptor } from "@dpkit/core"
-import { makeGetCkanApiRequest } from "../general/index.js"
+import { makeCkanApiRequest } from "../general/index.js"
 import type { CkanPackage } from "./Package.js"
 import { normalizeCkanPackage } from "./process/normalize.js"
 
@@ -38,22 +37,13 @@ async function loadCkanPackage(props: { datasetUrl: string }) {
     throw new Error(`Failed to extract package ID from URL: ${datasetUrl}`)
   }
 
-  const response = await makeGetCkanApiRequest({
+  const result = await makeCkanApiRequest({
     ckanUrl: datasetUrl,
     action: "package_show",
     payload: { id: packageId },
   })
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ckan dataset: ${datasetUrl}`)
-  }
-
-  const data = (await response.json()) as Descriptor
-  if (!data.success) {
-    throw new Error(`Failed to fetch ckan dataset: ${datasetUrl}`)
-  }
-
-  return data.result as CkanPackage
+  return result as CkanPackage
 }
 
 /**
@@ -80,26 +70,21 @@ async function loadCkanSchema(props: {
 }) {
   const { datasetUrl, resourceId } = props
 
-  // For some readon, datastore_info doesn't work
-  // So we use data fetching endpoint that also returns the schema
-  const response = await makeGetCkanApiRequest({
-    ckanUrl: datasetUrl,
-    action: "datastore_search",
-    payload: { resource_id: resourceId, limit: 0 },
-  })
+  try {
+    // For some reason, datastore_info doesn't work
+    // So we use data fetching endpoint that also returns the schema
+    const result = await makeCkanApiRequest({
+      ckanUrl: datasetUrl,
+      action: "datastore_search",
+      payload: { resource_id: resourceId, limit: 0 },
+    })
 
-  if (!response.ok) {
+    const fields = result.fields.filter(
+      (field: any) => field.id !== "_id" && field.id !== "_full_text",
+    )
+
+    return { fields }
+  } catch (error) {
     return undefined
   }
-
-  const data = (await response.json()) as Descriptor
-  if (!data.success || !data.result || !data.result.fields) {
-    return undefined
-  }
-
-  const fields = data.result.fields.filter(
-    (field: any) => field.id !== "_id" && field.id !== "_full_text",
-  )
-
-  return { fields }
 }

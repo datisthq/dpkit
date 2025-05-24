@@ -25,10 +25,12 @@ export async function savePackageToFolder(props: {
         basepath,
         withRemote,
         saveFile: async props => {
-          return await saveFileToDisc({
+          await saveFileToDisc({
             sourcePath: props.normalizedPath,
             targetPath: props.denormalizedPath,
           })
+
+          return props.denormalizedPath
         },
       }),
     )

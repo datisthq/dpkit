@@ -1,9 +1,9 @@
 import { join, relative } from "node:path"
 import { describe, expect, expectTypeOf, it } from "vitest"
 import type { Resource } from "./Resource.js"
-import { loadResource } from "./load.js"
+import { loadResourceDescriptor } from "./load.js"
 
-describe("loadResource", async () => {
+describe("loadResourceDescriptor", async () => {
   const getFixturePath = (name: string) =>
     relative(process.cwd(), join(__dirname, "fixtures", name))
 
@@ -13,7 +13,7 @@ describe("loadResource", async () => {
   }
 
   it("loads a resource from a local file path", async () => {
-    const resource = await loadResource({
+    const resource = await loadResourceDescriptor({
       path: getFixturePath("resource.json"),
     })
 
@@ -26,7 +26,7 @@ describe("loadResource", async () => {
 
   it("throws an error when resource is invalid", async () => {
     await expect(
-      loadResource({ path: getFixturePath("resource-invalid.json") }),
+      loadResourceDescriptor({ path: getFixturePath("resource-invalid.json") }),
     ).rejects.toThrow()
   })
 })

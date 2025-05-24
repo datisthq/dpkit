@@ -2,7 +2,7 @@ import { createWriteStream } from "node:fs"
 import { mkdir, rm } from "node:fs/promises"
 import { join } from "node:path"
 import { pipeline } from "node:stream/promises"
-import { loadPackage } from "@dpkit/core"
+import { loadPackageDescriptor } from "@dpkit/core"
 import { temporaryDirectory } from "tempy"
 import yauzl from "yauzl-promise"
 
@@ -28,7 +28,7 @@ export async function loadPackageFromZip(props: { archivePath: string }) {
     await zipfile.close()
   }
 
-  const datapackage = await loadPackage({
+  const datapackage = await loadPackageDescriptor({
     path: join(tempdir, "datapackage.json"),
   })
 
