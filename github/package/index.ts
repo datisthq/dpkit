@@ -1,0 +1,5 @@
+export type { GithubPackage } from "./Package.js"
+export type { GithubOwner } from "./Owner.js"
+export type { GithubLicense } from "./License.js"
+export { loadPackageFromGithub } from "./load.js"
+export { savePackageToGithub } from "./save.js"

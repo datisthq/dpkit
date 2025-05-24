@@ -1,0 +1,62 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`loadPackageFromGithub > should load a package 1`] = `
+{
+  "contributors": [
+    {
+      "path": "https://github.com/roll",
+      "role": "author",
+      "title": "roll",
+    },
+  ],
+  "created": "2021-07-07T14:09:49Z",
+  "description": "ISO 4217 List of Currencies and Currency Codes",
+  "homepage": "https://datahub.io/core/currency-codes",
+  "name": "currency-codes",
+  "resources": [
+    {
+      "bytes": 1752,
+      "format": "md",
+      "hash": "sha1:9c36869b88dfad9b9d610734966270b7e883b707",
+      "name": "readme",
+      "path": "README.md",
+    },
+    {
+      "bytes": 47281,
+      "format": "xml",
+      "hash": "sha1:42609efee29fb5a7d98935b806ea135e3f455653",
+      "name": "table_a1",
+      "path": "archive/table_a1.xml",
+    },
+    {
+      "bytes": 29349,
+      "format": "xml",
+      "hash": "sha1:b2a569c403e6917aa466d0973d3b3f677821530f",
+      "name": "table_a2",
+      "path": "archive/table_a2.xml",
+    },
+    {
+      "bytes": 17472,
+      "format": "csv",
+      "hash": "sha1:2c803df30c1d09e1c7f5de6661ca38f8e627d65b",
+      "name": "codes-all",
+      "path": "data/codes-all.csv",
+    },
+    {
+      "bytes": 2019,
+      "format": "json",
+      "hash": "sha1:dfca466367e0b3d23294df83b72101cb5b084c09",
+      "name": "datapackage",
+      "path": "datapackage.json",
+    },
+    {
+      "bytes": 3098,
+      "format": "sh",
+      "hash": "sha1:4632c9933cd6c76331301efa71dc5cd183c6dc89",
+      "name": "runall",
+      "path": "scripts/runall.sh",
+    },
+  ],
+  "title": "roll/currency-codes",
+}
+`;

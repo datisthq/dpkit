@@ -11,6 +11,7 @@ packages:
   - dpkit
   - excel
   - file
+  - github
   - json
   - ods
   - parquet
