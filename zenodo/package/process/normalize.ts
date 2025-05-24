@@ -1,23 +1,23 @@
 import type { Contributor, License, Package } from "@dpkit/core"
-import { normalizeZenodoFile } from "../../resource/process/normalize.js"
-import type { ZenodoDeposit } from "../Deposit.js"
+import { normalizeZenodoResource } from "../../resource/index.js"
+import type { ZenodoPackage } from "../Package.js"
 
 /**
  * Normalizes a Zenodo deposit to Frictionless Data package format
  * @param props Object containing the Zenodo deposit to normalize
  * @returns Normalized Package object
  */
-export function normalizeZenodoDeposit(props: {
-  zenodoDeposit: ZenodoDeposit
+export function normalizeZenodoPackage(props: {
+  zenodoPackage: ZenodoPackage
 }): Package {
-  const { zenodoDeposit } = props
+  const { zenodoPackage } = props
 
   const datapackage: Package = {
-    name: `deposit-${zenodoDeposit.id}`,
+    name: `record-${zenodoPackage.id}`,
     resources: [],
   }
 
-  const metadata = zenodoDeposit.metadata
+  const metadata = zenodoPackage.metadata
 
   // Basic metadata
   datapackage.title = metadata.title
@@ -28,9 +28,9 @@ export function normalizeZenodoDeposit(props: {
   }
 
   // Process files/resources
-  if (zenodoDeposit.files && zenodoDeposit.files.length > 0) {
-    datapackage.resources = zenodoDeposit.files.map(file =>
-      normalizeZenodoFile({ zenodoFile: file }),
+  if (zenodoPackage.files && zenodoPackage.files.length > 0) {
+    datapackage.resources = zenodoPackage.files.map(zenodoResource =>
+      normalizeZenodoResource({ zenodoResource }),
     )
   }
 

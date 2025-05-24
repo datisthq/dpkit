@@ -1,6 +1,6 @@
 import { makeZenodoApiRequest } from "../general/index.js"
-import type { ZenodoDeposit } from "./Deposit.js"
-import { normalizeZenodoDeposit } from "./process/normalize.js"
+import type { ZenodoPackage } from "./Package.js"
+import { normalizeZenodoPackage } from "./process/normalize.js"
 
 /**
  * Load a package from a Zenodo deposit
@@ -8,24 +8,24 @@ import { normalizeZenodoDeposit } from "./process/normalize.js"
  * @returns Package object
  */
 export async function loadPackageFromZenodo(props: {
-  depositUrl: string
-  apiKey?: string
+  datasetUrl: string
   sandbox?: boolean
+  apiKey?: string
 }) {
-  const { depositUrl, apiKey, sandbox = false } = props
+  const { datasetUrl, apiKey, sandbox } = props
 
-  const depositId = extractDepositId({ depositUrl })
-  if (!depositId) {
-    throw new Error(`Failed to extract deposit ID from URL: ${depositUrl}`)
+  const recordId = extractRecordId({ datasetUrl })
+  if (!recordId) {
+    throw new Error(`Failed to extract record ID from URL: ${datasetUrl}`)
   }
 
-  const zenodoDeposit = await loadZenodoDeposit({
-    depositId,
+  const zenodoPackage = await loadZenodoPackage({
+    recordId,
     apiKey,
     sandbox,
   })
 
-  const datapackage = normalizeZenodoDeposit({ zenodoDeposit })
+  const datapackage = normalizeZenodoPackage({ zenodoPackage })
   return datapackage
 }
 
@@ -33,45 +33,31 @@ export async function loadPackageFromZenodo(props: {
  * Extract deposit ID from URL
  *
  * Examples:
- * - https://zenodo.org/record/1234567
  * - https://zenodo.org/records/1234567
- * - https://sandbox.zenodo.org/record/1234567
+ * - https://sandbox.zenodo.org/records/1234567
  */
-function extractDepositId(props: { depositUrl: string }): string | undefined {
-  try {
-    const url = new URL(props.depositUrl)
-    const pathParts = url.pathname.split("/").filter(Boolean)
-
-    // Handle both /record/ID and /records/ID formats
-    if (
-      pathParts.length >= 2 &&
-      (pathParts[0] === "record" || pathParts[0] === "records")
-    ) {
-      return pathParts[1]
-    }
-
-    return undefined
-  } catch (error) {
-    return undefined
-  }
+function extractRecordId(props: { datasetUrl: string }): string | undefined {
+  const url = new URL(props.datasetUrl)
+  const pathParts = url.pathname.split("/").filter(Boolean)
+  return pathParts.at(-1)
 }
 
 /**
  * Fetch deposit data from Zenodo API
  */
-async function loadZenodoDeposit(props: {
-  depositId: string
+async function loadZenodoPackage(props: {
+  recordId: string
   apiKey?: string
   sandbox?: boolean
-}): Promise<ZenodoDeposit> {
-  const { depositId, apiKey, sandbox } = props
+}): Promise<ZenodoPackage> {
+  const { recordId, apiKey, sandbox } = props
 
-  const endpoint = `/deposit/depositions/${depositId}`
+  const endpoint = `/records/${recordId}`
   const result = await makeZenodoApiRequest({
     endpoint,
     apiKey,
     sandbox,
   })
 
-  return result as ZenodoDeposit
+  return result as ZenodoPackage
 }

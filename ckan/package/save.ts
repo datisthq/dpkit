@@ -1,6 +1,11 @@
 import { blob } from "node:stream/consumers"
 import type { Descriptor, Package } from "@dpkit/core"
-import { denormalizePackage, getFormat, stringifyDescriptor } from "@dpkit/core"
+import {
+  denormalizePackage,
+  getFilename,
+  getFormat,
+  stringifyDescriptor,
+} from "@dpkit/core"
 import {
   getPackageBasepath,
   readFileStream,
@@ -48,13 +53,14 @@ export async function savePackageToCkan(props: {
         withRemote: true,
         withoutFolders: true,
         saveFile: async props => {
+          const filename = getFilename({ path: props.normalizedPath })
           const ckanResource = denormalizeCkanResource({ resource })
 
           const payload = {
             ...ckanResource,
             package_id: datasetName,
             name: props.denormalizedPath,
-            format: getFormat({ path: props.normalizedPath })?.toUpperCase(),
+            format: getFormat({ filename })?.toUpperCase(),
           }
 
           const upload = {

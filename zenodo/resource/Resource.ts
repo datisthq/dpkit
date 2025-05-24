@@ -1,21 +1,21 @@
 /**
  * Zenodo File interface
  */
-export interface ZenodoFile {
+export interface ZenodoResource {
   /**
    * File identifier
    */
   id: string
 
   /**
-   * File name
+   * File key
    */
-  filename: string
+  key: string
 
   /**
    * File size in bytes
    */
-  filesize: number
+  size: number
 
   /**
    * File checksum
@@ -27,6 +27,5 @@ export interface ZenodoFile {
    */
   links: {
     self: string
-    download: string
   }
 }

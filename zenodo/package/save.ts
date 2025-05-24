@@ -7,7 +7,7 @@ import {
   saveResourceFiles,
 } from "@dpkit/file"
 import { makeZenodoApiRequest } from "../general/index.js"
-import { denormalizeZenodoDeposit } from "./process/denormalize.js"
+import { denormalizeZenodoPackage } from "./process/denormalize.js"
 
 /**
  * Save a package to Zenodo
@@ -23,7 +23,7 @@ export async function savePackageToZenodo(props: {
   const { datapackage, apiKey, sandbox = false, publish = false } = props
 
   // Create a new deposit
-  const depositMetadata = denormalizeZenodoDeposit({ datapackage })
+  const depositMetadata = denormalizeZenodoPackage({ datapackage })
   const deposit = await makeZenodoApiRequest({
     endpoint: "/deposit/depositions",
     method: "POST",

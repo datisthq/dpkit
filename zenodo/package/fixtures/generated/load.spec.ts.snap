@@ -1,0 +1,65 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`loadPackageFromZenodo > should load a package 1`] = `
+{
+  "contributors": [
+    {
+      "role": "author",
+      "title": "Pandit Deendayal Petroleum University",
+    },
+  ],
+  "created": "2025-05-23",
+  "description": "<p>&nbsp;</p>
+<p>This dataset contains preprocessed option data for Tesla Inc. (TSLA), curated for time-series modeling of implied volatility (IV). The dataset spans multiple strike prices and both call and put options. Each row corresponds to a unique combination of date, strike price, and option type, along with relevant financial features.</p>
+<p><strong>Key columns include:</strong></p>
+<ul>
+<li>
+<p>DATE: Date of the option quote (in YYYY-MM-DD format)</p>
+</li>
+<li>
+<p>Strike Price: Strike price of the option</p>
+</li>
+<li>
+<p>cp_flag: Option type &mdash; Call (c) or Put (p)</p>
+</li>
+<li>
+<p>SP/CP: Ratio of spot price to strike price</p>
+</li>
+<li>
+<p>r: Risk-free interest rate</p>
+</li>
+<li>
+<p>time to maturity: Time to expiration (in years)</p>
+</li>
+<li>
+<p>real_iv: Realized implied volatility (target variable)</p>
+</li>
+</ul>
+<p>&nbsp;</p>",
+  "licenses": [
+    {
+      "name": {
+        "id": "cc-by-4.0",
+      },
+    },
+  ],
+  "name": "record-15496947",
+  "resources": [
+    {
+      "bytes": 1035799239,
+      "format": "csv",
+      "hash": "md5:63722cfae0ee22bfa5fabcd1720a3d7c",
+      "name": "1_sorted_tsla",
+      "path": "https://zenodo.org/api/records/15496947/files/1_sorted_tsla.csv/content",
+    },
+    {
+      "bytes": 3361,
+      "format": "py",
+      "hash": "md5:33f26a3f1a56eba099d02edceefdea68",
+      "name": "thesis",
+      "path": "https://zenodo.org/api/records/15496947/files/thesis.py/content",
+    },
+  ],
+  "title": "Tesla option chain Data",
+}
+`;

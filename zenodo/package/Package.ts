@@ -1,10 +1,10 @@
-import type { ZenodoFile } from "../resource/File.js"
+import type { ZenodoResource } from "../resource/index.js"
 import type { ZenodoCreator } from "./Creator.js"
 
 /**
  * Zenodo Deposit interface
  */
-export interface ZenodoDeposit {
+export interface ZenodoPackage {
   /**
    * Deposit identifier
    */
@@ -96,7 +96,7 @@ export interface ZenodoDeposit {
   /**
    * Files associated with the deposit
    */
-  files: ZenodoFile[]
+  files: ZenodoResource[]
 
   /**
    * State of the deposit

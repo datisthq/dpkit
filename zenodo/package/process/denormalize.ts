@@ -1,19 +1,19 @@
 import type { Package } from "@dpkit/core"
 import type { ZenodoCreator } from "../Creator.js"
-import type { ZenodoDeposit } from "../Deposit.js"
+import type { ZenodoPackage } from "../Package.js"
 
 /**
  * Denormalizes a Frictionless Data Package to Zenodo Deposit metadata format
  * @param props Object containing the Package to denormalize
  * @returns Zenodo metadata object for deposit creation/update
  */
-export function denormalizeZenodoDeposit(props: {
+export function denormalizeZenodoPackage(props: {
   datapackage: Package
-}): Partial<ZenodoDeposit> {
+}): Partial<ZenodoPackage> {
   const { datapackage } = props
 
   // Build metadata object
-  const metadata: Partial<ZenodoDeposit["metadata"]> = {
+  const metadata: Partial<ZenodoPackage["metadata"]> = {
     upload_type: "dataset", // Default to dataset type
   }
 
@@ -105,6 +105,6 @@ export function denormalizeZenodoDeposit(props: {
 
   // Return Zenodo deposit structure
   return {
-    metadata: metadata as ZenodoDeposit["metadata"],
+    metadata: metadata as ZenodoPackage["metadata"],
   }
 }

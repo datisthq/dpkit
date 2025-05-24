@@ -1,4 +1,5 @@
 import { node } from "./node.js"
+import Slugger from "github-slugger"
 
 export function isRemotePath(props: { path: string }) {
   try {
@@ -9,9 +10,22 @@ export function isRemotePath(props: { path: string }) {
   }
 }
 
-export function getFormat(props: { path: string }) {
-  const filename = getFilename({ path: props.path })
-  return filename?.split(".").slice(-1)[0]?.toLowerCase()
+export function getName(props: { filename?: string }) {
+  if (!props.filename) {
+    return undefined
+  }
+
+  const name = props.filename.split(".")[0]
+  if (!name) {
+    return undefined
+  }
+
+  const slugger = new Slugger()
+  return slugger.slug(name)
+}
+
+export function getFormat(props: { filename?: string }) {
+  return props.filename?.split(".").slice(-1)[0]?.toLowerCase()
 }
 
 export function getFilename(props: { path: string }) {

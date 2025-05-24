@@ -35,11 +35,7 @@ export async function makeZenodoApiRequest(props: {
 
     if (payload) {
       for (const [key, value] of Object.entries(payload)) {
-        if (typeof value === "object" && value !== null) {
-          body.append(key, JSON.stringify(value))
-        } else {
-          body.append(key, String(value))
-        }
+        body.append(key, JSON.stringify(value))
       }
     }
   } else if (payload) {

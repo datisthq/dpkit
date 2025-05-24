@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import type { ZenodoFile } from "../File.js"
+import type { ZenodoResource } from "../Resource.js"
 
 /**
  * Denormalizes a Frictionless Data resource to Zenodo file format
@@ -8,9 +8,9 @@ import type { ZenodoFile } from "../File.js"
  * @param props Object containing the Resource to denormalize
  * @returns Partial Zenodo File object with available information
  */
-export function denormalizeZenodoFile(props: {
+export function denormalizeZenodoResource(props: {
   resource: Resource
-}): Partial<ZenodoFile> | undefined {
+}): Partial<ZenodoResource> | undefined {
   const { resource } = props
 
   if (!resource.path) {
@@ -25,17 +25,17 @@ export function denormalizeZenodoFile(props: {
     filename = pathParts[pathParts.length - 1] || "unknown"
   }
 
-  const zenodoFile: Partial<ZenodoFile> = {
+  const zenodoResource: Partial<ZenodoResource> = {
     filename,
   }
 
   if (resource.bytes) {
-    zenodoFile.filesize = resource.bytes
+    zenodoResource.filesize = resource.bytes
   }
 
   if (resource.hash) {
-    zenodoFile.checksum = resource.hash
+    zenodoResource.checksum = resource.hash
   }
 
-  return zenodoFile
+  return zenodoResource
 }
