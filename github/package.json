@@ -1,0 +1,29 @@
+{
+  "name": "@dpkit/github",
+  "type": "module",
+  "main": "build/index.js",
+  "version": "0.2.0",
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/dpkit",
+  "description": "Data Package implementation in TypeScript.",
+  "keywords": [
+    "data",
+    "package",
+    "typescript",
+    "validation",
+    "quality",
+    "fair",
+    "github"
+  ],
+  "dependencies": {
+    "@dpkit/core": "workspace:*",
+    "@dpkit/file": "workspace:*"
+  },
+  "devDependencies": {
+    "@dpkit/test": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsc --build"
+  }
+}
