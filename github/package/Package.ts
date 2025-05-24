@@ -1,11 +1,11 @@
-import type { GitHubResource } from "../resource/Resource.js"
-import type { GitHubLicense } from "./License.js"
-import type { GitHubOwner } from "./Owner.js"
+import type { GithubResource } from "../resource/index.js"
+import type { GithubLicense } from "./License.js"
+import type { GithubOwner } from "./Owner.js"
 
 /**
- * GitHub repository as a package
+ * Github repository as a package
  */
-export interface GitHubPackage {
+export interface GithubPackage {
   /**
    * Repository identifier
    */
@@ -24,7 +24,7 @@ export interface GitHubPackage {
   /**
    * Repository owner
    */
-  owner: GitHubOwner
+  owner: GithubOwner
 
   /**
    * Repository description
@@ -69,7 +69,7 @@ export interface GitHubPackage {
   /**
    * Repository license
    */
-  license: GitHubLicense | null
+  license: GithubLicense | null
 
   /**
    * Repository default branch
@@ -102,5 +102,5 @@ export interface GitHubPackage {
   /**
    * Repository resources
    */
-  resources?: GitHubResource[]
+  resources?: GithubResource[]
 }

@@ -1,3 +1,3 @@
-export type { GitHubResource } from "./Resource.js"
-export { normalizeGitHubResource } from "./process/normalize.js"
-export { denormalizeGitHubResource } from "./process/denormalize.js"
+export type { GithubResource } from "./Resource.js"
+export { normalizeGithubResource } from "./process/normalize.js"
+export { denormalizeGithubResource } from "./process/denormalize.js"

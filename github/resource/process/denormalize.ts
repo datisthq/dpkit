@@ -1,16 +1,16 @@
 import type { Resource } from "@dpkit/core"
-import type { GitHubResource } from "../Resource.js"
+import type { GithubResource } from "../Resource.js"
 
 /**
- * Denormalizes a Frictionless Data resource to GitHub file format
+ * Denormalizes a Frictionless Data resource to Github file format
  * This is primarily used for file uploads/updates
  * @param props Object containing the Resource to denormalize
- * @returns Partial GitHub Resource object for API operations
+ * @returns Partial Github Resource object for API operations
  */
-export function denormalizeGitHubResource(props: {
+export function denormalizeGithubResource(props: {
   resource: Resource
   content?: string
-}): Partial<GitHubResource> {
+}): Partial<GithubResource> {
   const { resource, content } = props
 
   if (!resource.path && !resource.name) {
@@ -24,7 +24,7 @@ export function denormalizeGitHubResource(props: {
       ? resource.path.split("/").pop() || "unknown"
       : "unknown")
 
-  const githubResource: Partial<GitHubResource> = {
+  const githubResource: Partial<GithubResource> = {
     name,
     path: resource.name, // Use resource name as path within repo
   }

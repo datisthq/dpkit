@@ -1,29 +1,26 @@
 import type { Resource } from "@dpkit/core"
-import { getFormat } from "@dpkit/core"
-import type { GitHubResource } from "../Resource.js"
+import { getFilename, getFormat, getName } from "@dpkit/core"
+import type { GithubResource } from "../Resource.js"
 
 /**
- * Normalizes a GitHub file to Frictionless Data resource format
- * @param props Object containing the GitHub file to normalize
+ * Normalizes a Github file to Frictionless Data resource format
+ * @param props Object containing the Github file to normalize
  * @returns Normalized Resource object
  */
-export function normalizeGitHubResource(props: {
-  githubResource: GitHubResource
-}): Resource {
+export function normalizeGithubResource(props: {
+  githubResource: GithubResource
+}) {
   const { githubResource } = props
 
-  const resource: Resource = {
-    name: githubResource.name,
-    path: githubResource.download_url,
-    bytes: githubResource.size,
-    hash: githubResource.sha,
-  }
+  const path = githubResource.path
+  const filename = getFilename({ path })
 
-  // Extract file format from name
-  const format = getFormat({ filename: githubResource.name })
-  if (format) {
-    resource.format = format
-  }
+  const name = getName({ filename }) ?? githubResource.sha
+  const format = getFormat({ filename })
 
+  const bytes = githubResource.size
+  const hash = `sha1:${githubResource.sha}`
+
+  const resource: Resource = { name, path, bytes, hash, format }
   return resource
 }

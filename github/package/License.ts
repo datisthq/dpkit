@@ -1,7 +1,7 @@
 /**
  * GitHub repository license
  */
-export interface GitHubLicense {
+export interface GithubLicense {
   /**
    * License key
    */

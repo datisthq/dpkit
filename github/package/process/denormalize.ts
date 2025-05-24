@@ -1,19 +1,19 @@
 import type { Package } from "@dpkit/core"
-import type { GitHubPackage } from "../Package.js"
+import type { GithubPackage } from "../Package.js"
 
 /**
- * Denormalizes a Frictionless Data Package to GitHub repository metadata format
+ * Denormalizes a Frictionless Data Package to Github repository metadata format
  * Note: This is primarily used when creating a new repository
  * @param props Object containing the Package to denormalize
- * @returns GitHub repository creation payload
+ * @returns Github repository creation payload
  */
-export function denormalizeGitHubPackage(props: {
+export function denormalizeGithubPackage(props: {
   datapackage: Package
 }) {
   const { datapackage } = props
 
   // Build repository creation payload
-  const repoPayload: Partial<GitHubPackage> & {
+  const repoPayload: Partial<GithubPackage> & {
     auto_init?: boolean
     has_issues?: boolean
     has_projects?: boolean

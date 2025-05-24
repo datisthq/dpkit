@@ -133,6 +133,19 @@ importers:
         specifier: 3.1.0
         version: 3.1.0
 
+  github:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
+
   json: {}
 
   ods: {}

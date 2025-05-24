@@ -1,7 +1,7 @@
 /**
  * GitHub repository owner
  */
-export interface GitHubOwner {
+export interface GithubOwner {
   /**
    * Owner login name
    */

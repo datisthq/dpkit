@@ -1,1 +1,1 @@
-export * from "./request.js"
+export { makeGithubApiRequest } from "./request.js"

@@ -1,14 +1,14 @@
 import type { Contributor, License, Package } from "@dpkit/core"
-import { normalizeGitHubResource } from "../../resource/process/normalize.js"
-import type { GitHubPackage } from "../Package.js"
+import { normalizeGithubResource } from "../../resource/process/normalize.js"
+import type { GithubPackage } from "../Package.js"
 
 /**
- * Normalizes a GitHub repository to Frictionless Data package format
- * @param props Object containing the GitHub repository to normalize
+ * Normalizes a Github repository to Frictionless Data package format
+ * @param props Object containing the Github repository to normalize
  * @returns Normalized Package object
  */
-export function normalizeGitHubPackage(props: {
-  githubPackage: GitHubPackage
+export function normalizeGithubPackage(props: {
+  githubPackage: GithubPackage
 }): Package {
   const { githubPackage } = props
 
@@ -60,8 +60,9 @@ export function normalizeGitHubPackage(props: {
   // Process resources
   if (githubPackage.resources && githubPackage.resources.length > 0) {
     datapackage.resources = githubPackage.resources
-      .filter(resource => resource.type === "file") // Only include files, not directories
-      .map(resource => normalizeGitHubResource({ githubResource: resource }))
+      .filter(resource => !resource.path.startsWith("."))
+      .filter(resource => resource.type === "blob")
+      .map(resource => normalizeGithubResource({ githubResource: resource }))
   }
 
   // Process topics as keywords

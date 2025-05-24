@@ -1,8 +1,8 @@
 import type { Descriptor } from "@dpkit/core"
 
-export interface GitHubApiRequestProps {
+export interface GithubApiRequestProps {
   /**
-   * GitHub API endpoint path
+   * Github API endpoint path
    */
   endpoint: string
 
@@ -26,48 +26,27 @@ export interface GitHubApiRequestProps {
   }
 
   /**
-   * GitHub personal access token
+   * Github personal access token
    */
-  apiKey: string
-
-  /**
-   * Repository owner/organization
-   */
-  owner: string
-
-  /**
-   * Repository name
-   */
-  repo: string
+  apiKey?: string
 }
 
 /**
- * Makes a request to the GitHub API
+ * Makes a request to the Github API
  */
-export async function makeGitHubApiRequest(props: GitHubApiRequestProps) {
-  const {
-    endpoint,
-    method = "GET",
-    payload,
-    upload,
-    apiKey,
-    owner,
-    repo,
-  } = props
+export async function makeGithubApiRequest(props: GithubApiRequestProps) {
+  const { endpoint, method = "GET", payload, upload, apiKey } = props
 
   let body: string | FormData | undefined
-  const headers: Descriptor = {
-    Accept: "application/vnd.github+json",
-    Authorization: `Bearer ${apiKey}`,
-    "X-GitHub-Api-Version": "2022-11-28",
+  const headers: Descriptor = {}
+
+  if (apiKey) {
+    headers["Authorization"] = `Bearer ${apiKey}`
   }
 
   // Create full API URL
   const baseUrl = "https://api.github.com"
-  let url = `${baseUrl}${endpoint}`
-
-  // Replace :owner and :repo placeholders if present
-  url = url.replace(/:owner/g, owner).replace(/:repo/g, repo)
+  const url = `${baseUrl}${endpoint}`
 
   if (upload) {
     body = new FormData()
@@ -96,7 +75,7 @@ export async function makeGitHubApiRequest(props: GitHubApiRequestProps) {
   if (!response.ok) {
     const errorText = await response.text()
     throw new Error(
-      `GitHub API error: ${response.status} ${response.statusText}\n${errorText}`,
+      `Github API error: ${response.status} ${response.statusText}\n${errorText}`,
     )
   }
 

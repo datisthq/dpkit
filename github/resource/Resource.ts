@@ -1,7 +1,7 @@
 /**
  * GitHub repository file content
  */
-export interface GitHubResource {
+export interface GithubResource {
   /**
    * File name
    */
@@ -13,9 +13,9 @@ export interface GitHubResource {
   path: string
 
   /**
-   * File type (file, dir, symlink)
+   * File type
    */
-  type: "file" | "dir" | "symlink"
+  type: string
 
   /**
    * File size in bytes
