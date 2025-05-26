@@ -19,9 +19,9 @@ export default defineConfig({
   outDir: "build",
   integrations: [
     starlight({
-      title: "Data Package in TypeScript",
+      title: "dpkit",
       description:
-        "Data Package is a standard consisting of a set of simple yet extensible specifications to describe datasets, data files and tabular data. It is a data definition language (DDL) and data API that facilitates findability, accessibility, interoperability, and reusability (FAIR) of data.",
+        "dpkit is a fast TypeScript data management framework based on the Data Package standard. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub",
       customCss: ["/assets/styles.css"],
       components: {
         SocialIcons: "./components/Header/SocialIcons.astro",
