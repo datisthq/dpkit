@@ -1,7 +1,7 @@
 import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
 import starlightScrollToTop from "starlight-scroll-to-top"
-import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc"
+import starlightTypeDoc from "starlight-typedoc"
 
 const PACKAGES = {
   dpkit: "../dpkit",
@@ -23,6 +23,9 @@ export default defineConfig({
       description:
         "Data Package is a standard consisting of a set of simple yet extensible specifications to describe datasets, data files and tabular data. It is a data definition language (DDL) and data API that facilitates findability, accessibility, interoperability, and reusability (FAIR) of data.",
       customCss: ["/assets/styles.css"],
+      components: {
+        SocialIcons: "./components/Header/SocialIcons.astro",
+      },
       logo: {
         light: "/assets/logo-light.svg",
         dark: "/assets/logo-dark.svg",
