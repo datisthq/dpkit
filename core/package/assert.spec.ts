@@ -5,7 +5,7 @@ import { assertPackage } from "./assert.js"
 
 describe("assertPackage", () => {
   it("returns typed package when valid", async () => {
-    const validPackage: Package = {
+    const descriptor = {
       name: "example-package",
       resources: [
         {
@@ -15,12 +15,12 @@ describe("assertPackage", () => {
       ],
     }
 
-    const result = await assertPackage({
-      descriptor: validPackage,
+    const datapackage = await assertPackage({
+      descriptor,
     })
 
-    expectTypeOf(result).toEqualTypeOf<Package>()
-    expect(result).toEqual(validPackage)
+    expectTypeOf(datapackage).toEqualTypeOf<Package>()
+    expect(datapackage).toEqual(descriptor)
   })
 
   it("throws AssertionError when package is invalid", async () => {

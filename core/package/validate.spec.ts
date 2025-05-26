@@ -1,10 +1,9 @@
 import { describe, expect, it } from "vitest"
-import type { Package } from "./Package.js"
 import { validatePackageDescriptor } from "./validate.js"
 
 describe("validatePackageDescriptor", () => {
   it("returns valid result for valid package", async () => {
-    const validPackage: Package = {
+    const descriptor = {
       name: "example-package",
       resources: [
         {
@@ -15,7 +14,7 @@ describe("validatePackageDescriptor", () => {
     }
 
     const result = await validatePackageDescriptor({
-      descriptor: validPackage,
+      descriptor,
     })
 
     expect(result.valid).toBe(true)

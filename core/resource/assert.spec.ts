@@ -5,19 +5,19 @@ import { assertResource } from "./assert.js"
 
 describe("assertResource", () => {
   it("returns typed resource when valid", async () => {
-    const validResource: Resource = {
+    const descriptor = {
       name: "example-resource",
       path: "data.csv",
       format: "csv",
       encoding: "utf-8",
     }
 
-    const result = await assertResource({
-      descriptor: validResource,
+    const resource = await assertResource({
+      descriptor,
     })
 
-    expectTypeOf(result).toEqualTypeOf<Resource>()
-    expect(result).toEqual(validResource)
+    expectTypeOf(resource).toEqualTypeOf<Resource>()
+    expect(resource).toEqual(descriptor)
   })
 
   it("throws AssertionError when resource is invalid", async () => {

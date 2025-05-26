@@ -1,15 +1,14 @@
 import { describe, expect, it } from "vitest"
-import type { Dialect } from "./Dialect.js"
 import { validateDialect } from "./validate.js"
 
 describe("validateDialect", () => {
   it("returns valid result for valid dialect", async () => {
-    const validDialect: Dialect = {
+    const descriptor = {
       delimiter: ";",
     }
 
     const result = await validateDialect({
-      descriptor: validDialect,
+      descriptor,
     })
 
     expect(result.valid).toBe(true)

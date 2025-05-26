@@ -1,1 +1,1 @@
-export type Descriptor = Record<string, any>
+export type Descriptor = Record<string, unknown>

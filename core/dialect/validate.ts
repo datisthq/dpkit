@@ -12,9 +12,12 @@ export async function validateDialect(props: {
   const { descriptor } = props
   let dialect: Dialect | undefined = undefined
 
-  const $dialect = props.descriptor.$dialect ?? DEFAULT_PROFILE
-  const profile = await loadProfile({ path: $dialect })
+  const $schema =
+    typeof props.descriptor.$schema === "string"
+      ? props.descriptor.$schema
+      : DEFAULT_PROFILE
 
+  const profile = await loadProfile({ path: $schema })
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {

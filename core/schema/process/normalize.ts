@@ -1,3 +1,4 @@
+import invariant from "tiny-invariant"
 import type { Descriptor } from "../../general/index.js"
 
 export function normalizeSchema(props: { descriptor: Descriptor }) {
@@ -19,6 +20,11 @@ function normalizeFields(props: { descriptor: Descriptor }) {
     return
   }
 
+  invariant(
+    Array.isArray(fields),
+    "Fields being an array is guaranteed by the validation",
+  )
+
   for (const field of fields) {
     normalizeFieldFormat({ field })
     normalizeFieldMissingValues({ field })
@@ -28,7 +34,7 @@ function normalizeFields(props: { descriptor: Descriptor }) {
   }
 }
 
-function normalizeFieldFormat(props: { field: any }) {
+function normalizeFieldFormat(props: { field: Descriptor }) {
   const { field } = props
 
   const format = field.format
@@ -43,7 +49,7 @@ function normalizeFieldFormat(props: { field: any }) {
   }
 }
 
-function normalizeFieldMissingValues(props: { field: any }) {
+function normalizeFieldMissingValues(props: { field: Descriptor }) {
   const { field } = props
 
   const missingValues = field.missingValues
@@ -57,7 +63,7 @@ function normalizeFieldMissingValues(props: { field: any }) {
   }
 }
 
-function normalizeFieldCategories(props: { field: any }) {
+function normalizeFieldCategories(props: { field: Descriptor }) {
   const { field } = props
 
   const categories = field.categories
@@ -71,7 +77,7 @@ function normalizeFieldCategories(props: { field: any }) {
   }
 }
 
-function normalizeFieldCategoriesOrdered(props: { field: any }) {
+function normalizeFieldCategoriesOrdered(props: { field: Descriptor }) {
   const { field } = props
 
   const categoriesOrdered = field.categoriesOrdered
@@ -87,7 +93,7 @@ function normalizeFieldCategoriesOrdered(props: { field: any }) {
   }
 }
 
-function normalizeFieldJsonschema(props: { field: any }) {
+function normalizeFieldJsonschema(props: { field: Descriptor }) {
   const { field } = props
 
   const jsonschema = field.jsonschema
@@ -148,6 +154,7 @@ function normalizeUniqueKeys(props: { descriptor: Descriptor }) {
   if (!Array.isArray(uniqueKeys)) {
     descriptor.uniqueKeys = undefined
     console.warn(`Ignoring v2.0 incompatible uniqueKeys: ${uniqueKeys}`)
+    return
   }
 
   for (const uniqueKey of uniqueKeys) {

@@ -13,14 +13,20 @@ export async function validateResourceDescriptor(props: {
   const { descriptor, basepath } = props
   let resource: Resource | undefined = undefined
 
-  const $schema = props.descriptor.$schema ?? DEFAULT_PROFILE
-  const profile = await loadProfile({ path: $schema })
+  const $schema =
+    typeof props.descriptor.$schema === "string"
+      ? props.descriptor.$schema
+      : DEFAULT_PROFILE
 
+  const profile = await loadProfile({ path: $schema })
   const { valid, errors } = await validateDescriptor({ descriptor, profile })
 
   if (valid) {
     // Validation + normalization = we can cast it
-    resource = normalizeResource({ descriptor, basepath }) as Resource
+    resource = normalizeResource({
+      descriptor,
+      basepath,
+    }) as unknown as Resource
   }
 
   return { valid, errors, resource }

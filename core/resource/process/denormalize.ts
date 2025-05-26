@@ -14,7 +14,7 @@ export function denormalizeResource(props: {
   // TODO: denormalizeDialect
   // TODO: denormalizeSchema
 
-  return resource as Descriptor
+  return resource as unknown as Descriptor
 }
 
 function denormalizePaths(props: { resource: Resource; basepath?: string }) {

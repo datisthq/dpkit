@@ -12,14 +12,17 @@ export async function validateSchema(props: {
   const { descriptor } = props
   let schema: Schema | undefined = undefined
 
-  const $schema = props.descriptor.$schema ?? DEFAULT_PROFILE
-  const profile = await loadProfile({ path: $schema })
+  const $schema =
+    typeof props.descriptor.$schema === "string"
+      ? props.descriptor.$schema
+      : DEFAULT_PROFILE
 
+  const profile = await loadProfile({ path: $schema })
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
     // Validation + normalization = we can cast it
-    schema = normalizeSchema({ descriptor }) as Schema
+    schema = normalizeSchema({ descriptor }) as unknown as Schema
   }
 
   return { valid, errors, schema }

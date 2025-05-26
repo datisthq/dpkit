@@ -1,10 +1,9 @@
 import { describe, expect, it } from "vitest"
-import type { Resource } from "./Resource.js"
 import { validateResourceDescriptor } from "./validate.js"
 
 describe("validateResourceDescriptor", () => {
   it("returns valid result for valid resource", async () => {
-    const validResource: Resource = {
+    const descriptor = {
       name: "example-resource",
       path: "data.csv",
       format: "csv",
@@ -12,7 +11,7 @@ describe("validateResourceDescriptor", () => {
     }
 
     const result = await validateResourceDescriptor({
-      descriptor: validResource,
+      descriptor,
     })
 
     expect(result.valid).toBe(true)
