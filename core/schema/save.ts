@@ -13,5 +13,11 @@ export async function saveSchema(props: {
   const { schema, path } = props
 
   const descriptor = denormalizeSchema({ schema })
+
+  descriptor.$schema =
+    descriptor.$schema ?? descriptor.profile ?? CURRENT_PROFILE
+
   await saveDescriptor({ descriptor, path })
 }
+
+const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/tableschema.json"

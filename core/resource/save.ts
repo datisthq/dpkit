@@ -11,8 +11,14 @@ export async function saveResourceDescriptor(props: {
   path: string
 }) {
   const { resource, path } = props
-  const basepath = getBasepath({ path })
 
+  const basepath = getBasepath({ path })
   const descriptor = denormalizeResource({ resource, basepath })
+
+  descriptor.$schema =
+    descriptor.$schema ?? descriptor.profile ?? CURRENT_PROFILE
+
   await saveDescriptor({ descriptor, path })
 }
+
+const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/dataresource.json"

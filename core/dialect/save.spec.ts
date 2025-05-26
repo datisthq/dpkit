@@ -45,10 +45,21 @@ describe("saveDialect", () => {
 
     const content = await fs.readFile(testPath, "utf-8")
     const parsedContent = JSON.parse(content)
-    expect(parsedContent).toEqual(testDialect)
 
+    // Remove $schema property for test comparison
+    const { $schema, ...dialectWithoutSchema } = parsedContent
+    expect(dialectWithoutSchema).toEqual(testDialect)
+    expect($schema).toBe(
+      "https://datapackage.org/profiles/2.0/tabledialect.json",
+    )
+
+    // Create expected format with $schema for comparison
+    const expectedWithSchema = {
+      ...testDialect,
+      $schema: "https://datapackage.org/profiles/2.0/tabledialect.json",
+    }
     // Verify the pretty formatting
-    const expectedFormat = JSON.stringify(testDialect, null, 2)
+    const expectedFormat = JSON.stringify(expectedWithSchema, null, 2)
     expect(content).toEqual(expectedFormat)
   })
 })
