@@ -1,5 +1,7 @@
 ---
 title: Contributing
+sidebar:
+  order: 2
 ---
 # Contributing to dpkit
 

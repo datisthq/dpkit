@@ -3,6 +3,16 @@ import { defineConfig } from "astro/config"
 import starlightScrollToTop from "starlight-scroll-to-top"
 import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc"
 
+const PACKAGES = {
+  dpkit: "../dpkit",
+  "@dpkit/ckan": "../ckan",
+  "@dpkit/core": "../core",
+  "@dpkit/github": "../github",
+  "@dpkit/file": "../file",
+  "@dpkit/zenodo": "../zenodo",
+  "@dpkit/zip": "../zip",
+}
+
 export default defineConfig({
   site: "https://dpkit.datist.io",
   srcDir: ".",
@@ -35,9 +45,9 @@ export default defineConfig({
       plugins: [
         starlightScrollToTop(),
         starlightTypeDoc({
-          entryPoints: ["../dpkit", "../core", "../file", "../zip"],
+          entryPoints: generatePackageEntrypoints(),
           tsconfig: "../tsconfig.json",
-          typeDoc: { entryPointStrategy: "packages" },
+          typeDoc: { entryPointStrategy: "packages", router: "structure" },
           output: "packages",
           sidebar: {
             label: "Packages",
@@ -48,7 +58,11 @@ export default defineConfig({
       sidebar: [
         { label: "Overview", autogenerate: { directory: "overview" } },
         { label: "Guides", autogenerate: { directory: "guides" } },
-        typeDocSidebarGroup,
+        {
+          label: "Packages",
+          collapsed: true,
+          items: generatePackageSidebars(),
+        },
       ],
       head: [
         {
@@ -63,3 +77,38 @@ export default defineConfig({
     }),
   ],
 })
+
+function generatePackageEntrypoints() {
+  return Object.values(PACKAGES)
+}
+
+function generatePackageSidebars() {
+  return Object.entries(PACKAGES).map(([name, path]) =>
+    generatePackageSidebar({ name }),
+  )
+}
+
+function generatePackageSidebar(props: { name: string }) {
+  const name = props.name
+  const slug = name.replace("@", "_")
+
+  return {
+    label: name,
+    collapsed: true,
+    items: [
+      {
+        label: "Overview",
+        slug: `packages/${slug}/overview`,
+      },
+      {
+        label: "Changelog",
+        slug: `packages/${slug}/changelog`,
+      },
+      {
+        label: "API Reference",
+        autogenerate: { directory: `packages/${slug}/index` },
+        //collapsed: true,
+      },
+    ],
+  }
+}
