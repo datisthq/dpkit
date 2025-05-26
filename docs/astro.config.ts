@@ -27,9 +27,9 @@ export default defineConfig({
         SocialIcons: "./components/Header/SocialIcons.astro",
       },
       logo: {
-        light: "/assets/logo-light.svg",
-        dark: "/assets/logo-dark.svg",
-        alt: "Data Package Logo",
+        light: "/assets/logo-light.png",
+        dark: "/assets/logo-dark.png",
+        alt: "DPKit Logo",
         replacesTitle: true,
       },
       social: [
@@ -39,7 +39,7 @@ export default defineConfig({
           href: "https://github.com/datisthq/dpkit",
         },
       ],
-      favicon: "favicon.ico",
+      favicon: "favicon.png",
       editLink: {
         baseUrl: "https://github.com/datisthq/dpkit/edit/main/",
       },

@@ -6,15 +6,15 @@
 
 :root[data-theme="light"] {
   --purple-hsl: 209, 85%, 65%;
-  --sl-color-text-accent: #6fa7da;
-  --sl-color-banner-bg: #6fa7da;
-  /* --sl-color-bg-inline-code: #6fa7da; */
+  --sl-color-text-accent: #228be6;
+  --sl-color-banner-bg: #228be6;
+  /* --sl-color-bg-inline-code: #228be6; */
 }
 
 :root[data-theme="dark"] {
-  --sl-color-text-accent: #6fa7da;
-  --sl-color-banner-bg: #6fa7da;
-  /* --sl-color-bg-inline-code: #6fa7da; */
+  --sl-color-text-accent: #228be6;
+  --sl-color-banner-bg: #228be6;
+  /* --sl-color-bg-inline-code: #228be6; */
 }
 
 /* Scrollbar */
