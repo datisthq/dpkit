@@ -29,7 +29,7 @@ export default defineConfig({
       logo: {
         light: "/assets/logo-light.png",
         dark: "/assets/logo-dark.png",
-        alt: "DPKit Logo",
+        alt: "DPkit Logo",
         replacesTitle: true,
       },
       social: [

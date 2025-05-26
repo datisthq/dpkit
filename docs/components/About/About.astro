@@ -1,15 +1,15 @@
 ---
 import { Image } from "astro:assets"
-import datist from "./datist.png"
+import logo from "../../assets/about.png"
 ---
 
 <article class="sl-flex not-content" aria-labelledby="about-astro-heading">
   <small id="about-astro-heading">
     Brought to you by
   </small>
-  <div><Image src={datist} alt="Datist" /></div>
-  We are bringing technological innovation and consultancy services to open data field.
-  <a href="https://datist.io">Learn about Datist</a>.
+  <div><Image src={logo} alt="Datist" width={300} /></div>
+    <p>We are bringing technological innovation and consultancy<br> services to open data field.
+      <a href="https://datist.io">Learn about Datist<a></p>
 </article>
 
 <style>
@@ -33,6 +33,7 @@ import datist from "./datist.png"
   }
   img {
     border-radius: 15px;
+    background-color: white;
   }
   div {
     padding: 5px;
