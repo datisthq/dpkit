@@ -32,32 +32,24 @@ import { CardGrid, LinkCard, Card } from "@astrojs/starlight/components"
 
 <h2>Features</h2>
 
-The Data Package standard is a comprehensive set of **specifications** that collectively define a framework for organizing, documenting, and sharing data in a structured and interoperable manner -- [EXPLORE THE STANDARD](/standard/data-package)
-
 <CardGrid>
-  <ClickableCard title="Data Package" icon="open-book" href="/standard/data-package">
-    A simple container format to describe a coherent collection of data (a dataset),
-    including its contributors, licenses, etc.
-  </ClickableCard>
-  <ClickableCard title="Data Resource" icon="rocket" href="/standard/data-resource">
-    A simple format to describe a data resource such as an individual table or file,
-    including its name, format, path, etc.
-  </ClickableCard>
-  <ClickableCard title="Table Dialect" icon="document" href="/standard/table-dialect">
-    A simple format to describe the dialect of a tabular data file, including its
-    delimiter, header rows, escape characters, etc.
-  </ClickableCard>
-  <ClickableCard title="Table Schema" icon="puzzle" href="/standard/table-schema">
-    A simple format to describe tabular data, including field names, types, constraints,
-    missing values, foreign keys, etc.
-  </ClickableCard>
+  <Card title="Fast" icon="rocket">
+    Data operation is backed by Polars, an extremely fast DataFrame library.
+  </Card>
+  <Card title="Complete" icon="document">
+    The framework supports various data formats and data platform integrations.
+  </Card>
+  <Card title="Standard" icon="open-book">
+    The framework is 100% compatible with the Data Package (v2) standard.
+  </Card>
+  <Card title="Pluggable" icon="puzzle">
+    Easy-to-use plugin system to extend the framework with custom data formats and data platforms.
+  </Card>
 </CardGrid>
 
 <div style="margin-bottom: 5em"></div>
 
 <h2>Documentation</h2>
-
-Read the Data Package documentation to learn more about the project:
 
 <CardGrid>
   <LinkCard title="Installation" href="/overview/installation" />
