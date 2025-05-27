@@ -12,6 +12,7 @@ import {
   saveResourceFiles,
 } from "@dpkit/file"
 import { makeCkanApiRequest } from "../general/index.js"
+import type { CkanResource } from "../resource/index.js"
 import { denormalizeCkanResource } from "../resource/index.js"
 import { denormalizeCkanPackage } from "./process/denormalize.js"
 
@@ -70,7 +71,7 @@ export async function savePackageToCkan(props: {
             ),
           }
 
-          const result = await makeCkanApiRequest({
+          const result = await makeCkanApiRequest<CkanResource>({
             action: "resource_create",
             payload,
             upload,

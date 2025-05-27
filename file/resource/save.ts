@@ -68,6 +68,7 @@ export async function saveResourceFiles(props: {
 
   if (Array.isArray(resource.path)) {
     for (const [index, path] of resource.path.entries()) {
+      // @ts-ignore
       descriptor.path[index] = await saveFile(path, "path", index)
     }
   }

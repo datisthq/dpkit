@@ -77,4 +77,11 @@ export interface Resource {
    * License information
    */
   licenses?: License[]
+
+  // TODO: review if it's a good way of handling it or it will
+  // be better to make plugins responsible for user package loading
+  /**
+   * Indicates if the resource contains a user defined `datapackage.json`
+   */
+  "dpkit:isUserPackage"?: boolean
 }

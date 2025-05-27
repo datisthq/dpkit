@@ -18,6 +18,10 @@ export function normalizeCkanResource(props: {
     path: ckanResource.url,
   }
 
+  if (ckanResource.url.endsWith("/datapackage.json")) {
+    resource["dpkit:isUserPackage"] = true
+  }
+
   if (ckanResource.description) {
     resource.description = ckanResource.description
   }

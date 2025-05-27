@@ -1,3 +1,4 @@
+import { mergePackage } from "@dpkit/core"
 import { makeZenodoApiRequest } from "../general/index.js"
 import type { ZenodoPackage } from "./Package.js"
 import { normalizeZenodoPackage } from "./process/normalize.js"
@@ -19,13 +20,16 @@ export async function loadPackageFromZenodo(props: {
     throw new Error(`Failed to extract record ID from URL: ${datasetUrl}`)
   }
 
-  const zenodoPackage = (await makeZenodoApiRequest({
+  const zenodoPackage = await makeZenodoApiRequest<ZenodoPackage>({
     endpoint: `/records/${recordId}`,
     apiKey,
     sandbox,
-  })) as ZenodoPackage
+  })
 
-  const datapackage = normalizeZenodoPackage({ zenodoPackage })
+  const datapackage = mergePackage({
+    datapackage: normalizeZenodoPackage({ zenodoPackage }),
+  })
+
   return datapackage
 }
 

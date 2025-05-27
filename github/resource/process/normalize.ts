@@ -22,5 +22,10 @@ export function normalizeGithubResource(props: {
   const hash = `sha1:${githubResource.sha}`
 
   const resource: Resource = { name, path, bytes, hash, format }
+
+  if (githubResource.path === "datapackage.json") {
+    resource["dpkit:isUserPackage"] = true
+  }
+
   return resource
 }

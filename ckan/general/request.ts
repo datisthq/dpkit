@@ -1,6 +1,6 @@
 import type { Descriptor } from "@dpkit/core"
 
-export async function makeCkanApiRequest(props: {
+export async function makeCkanApiRequest<T = Descriptor>(props: {
   ckanUrl: string
   action: string
   payload: Descriptor
@@ -8,7 +8,7 @@ export async function makeCkanApiRequest(props: {
   apiKey?: string
 }) {
   let body: string | FormData
-  const headers: Descriptor = {}
+  const headers: Record<string, any> = {}
 
   const url = new URL(props.ckanUrl)
   url.pathname = `/api/3/action/${props.action}`
@@ -47,5 +47,5 @@ export async function makeCkanApiRequest(props: {
     throw new Error(`CKAN API error: ${data.error}`)
   }
 
-  return data.result as Descriptor
+  return data.result as T
 }

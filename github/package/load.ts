@@ -1,4 +1,6 @@
+import { mergePackage } from "@dpkit/core"
 import { makeGithubApiRequest } from "../general/index.js"
+import type { GithubResource } from "../resource/index.js"
 import type { GithubPackage } from "./Package.js"
 import { normalizeGithubPackage } from "./process/normalize.js"
 
@@ -19,20 +21,23 @@ export async function loadPackageFromGithub(props: {
     throw new Error(`Failed to extract repository info from URL: ${repoUrl}`)
   }
 
-  const githubPackage = (await makeGithubApiRequest({
+  const githubPackage = await makeGithubApiRequest<GithubPackage>({
     endpoint: `/repos/${owner}/${repo}`,
     apiKey,
-  })) as GithubPackage
+  })
 
   const ref = githubPackage.default_branch
   githubPackage.resources = (
-    await makeGithubApiRequest({
+    await makeGithubApiRequest<{ tree: GithubResource[] }>({
       endpoint: `/repos/${owner}/${repo}/git/trees/${ref}?recursive=1`,
       apiKey,
     })
   ).tree
 
-  const datapackage = normalizeGithubPackage({ githubPackage })
+  const datapackage = mergePackage({
+    datapackage: normalizeGithubPackage({ githubPackage }),
+  })
+
   return datapackage
 }
 

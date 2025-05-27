@@ -1,3 +1,4 @@
+import { mergePackage } from "@dpkit/core"
 import { makeCkanApiRequest } from "../general/index.js"
 import type { CkanPackage } from "./Package.js"
 import { normalizeCkanPackage } from "./process/normalize.js"
@@ -22,7 +23,10 @@ export async function loadPackageFromCkan(props: { datasetUrl: string }) {
     }
   }
 
-  const datapackage = normalizeCkanPackage({ ckanPackage })
+  const datapackage = mergePackage({
+    datapackage: normalizeCkanPackage({ ckanPackage }),
+  })
+
   return datapackage
 }
 
@@ -37,13 +41,13 @@ async function loadCkanPackage(props: { datasetUrl: string }) {
     throw new Error(`Failed to extract package ID from URL: ${datasetUrl}`)
   }
 
-  const result = await makeCkanApiRequest({
+  const result = await makeCkanApiRequest<CkanPackage>({
     ckanUrl: datasetUrl,
     action: "package_show",
     payload: { id: packageId },
   })
 
-  return result as CkanPackage
+  return result
 }
 
 /**
@@ -79,6 +83,7 @@ async function loadCkanSchema(props: {
       payload: { resource_id: resourceId, limit: 0 },
     })
 
+    // @ts-ignore
     const fields = result.fields.filter(
       (field: any) => field.id !== "_id" && field.id !== "_full_text",
     )
