@@ -1,5 +1,7 @@
-import { normalizePath } from "../../general/index.js"
+import { normalizeDialect } from "../../dialect/index.js"
+import { isDescriptor, normalizePath } from "../../general/index.js"
 import type { Descriptor } from "../../general/index.js"
+import { normalizeSchema } from "../../schema/index.js"
 
 export function normalizeResource(props: {
   descriptor: Descriptor
@@ -11,8 +13,7 @@ export function normalizeResource(props: {
   normalizeUrl({ descriptor })
   normalizeType({ descriptor })
   normalizePaths({ descriptor, basepath })
-  // TODO: normalizeDialect
-  // TODO: normalizeSchema
+  normalizeDialectAndSchema({ descriptor })
 
   return descriptor
 }
@@ -65,5 +66,17 @@ function normalizePaths(props: { descriptor: Descriptor; basepath?: string }) {
         basepath,
       })
     }
+  }
+}
+
+function normalizeDialectAndSchema(props: { descriptor: Descriptor }) {
+  const { descriptor } = props
+
+  if (isDescriptor(descriptor.dialect)) {
+    descriptor.dialect = normalizeDialect({ descriptor: descriptor.dialect })
+  }
+
+  if (isDescriptor(descriptor.schema)) {
+    descriptor.schema = normalizeSchema({ descriptor: descriptor.schema })
   }
 }
