@@ -3,6 +3,8 @@ import { loadProfile } from "../general/index.js"
 import type { Schema } from "./Schema.js"
 import { normalizeSchema } from "./process/normalize.js"
 
+const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tableschema.json"
+
 /**
  * Validate a Schema descriptor (JSON Object) against its profile
  */
@@ -27,5 +29,3 @@ export async function validateSchema(props: {
 
   return { valid, errors, schema }
 }
-
-const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tableschema.json"

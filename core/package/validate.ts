@@ -3,6 +3,8 @@ import { loadProfile } from "../general/index.js"
 import type { Package } from "./Package.js"
 import { normalizePackage } from "./process/normalize.js"
 
+const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/datapackage.json"
+
 /**
  * Validate a Package descriptor (JSON Object) against its profile
  */
@@ -31,5 +33,3 @@ export async function validatePackageDescriptor(props: {
 
   return { valid, errors, datapackage }
 }
-
-const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/datapackage.json"

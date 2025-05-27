@@ -3,6 +3,8 @@ import { loadProfile } from "../general/index.js"
 import type { Dialect } from "./Dialect.js"
 import { normalizeDialect } from "./process/normalize.js"
 
+const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tabledialect.json"
+
 /**
  * Validate a Dialect descriptor (JSON Object) against its profile
  */
@@ -27,5 +29,3 @@ export async function validateDialect(props: {
 
   return { valid, errors, dialect }
 }
-
-const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tabledialect.json"

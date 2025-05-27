@@ -2,6 +2,8 @@ import { saveDescriptor } from "../general/index.js"
 import type { Dialect } from "./Dialect.js"
 import { denormalizeDialect } from "./process/denormalize.js"
 
+const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/tabledialect.json"
+
 /**
  * Save a Dialect to a file path
  * Works in Node.js environments
@@ -19,5 +21,3 @@ export async function saveDialect(props: {
 
   await saveDescriptor({ descriptor, path })
 }
-
-const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/tabledialect.json"
