@@ -1,5 +1,22 @@
 # dpkit
 
+## 0.3.0
+
+### Minor Changes
+
+- edfde49: General framework improvements
+
+### Patch Changes
+
+- Updated dependencies [edfde49]
+  - @dpkit/camtrap@0.2.0
+  - @dpkit/github@0.4.0
+  - @dpkit/zenodo@0.3.0
+  - @dpkit/ckan@0.3.0
+  - @dpkit/core@0.3.0
+  - @dpkit/file@0.4.0
+  - @dpkit/zip@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
