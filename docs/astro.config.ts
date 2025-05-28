@@ -5,10 +5,11 @@ import starlightTypeDoc from "starlight-typedoc"
 
 const PACKAGES = {
   dpkit: "../dpkit",
+  "@dpkit/camtrap": "../camtrap",
   "@dpkit/ckan": "../ckan",
   "@dpkit/core": "../core",
-  "@dpkit/github": "../github",
   "@dpkit/file": "../file",
+  "@dpkit/github": "../github",
   "@dpkit/zenodo": "../zenodo",
   "@dpkit/zip": "../zip",
 }
