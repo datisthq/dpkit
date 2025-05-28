@@ -36,5 +36,5 @@ export interface TableResource extends Resource {
    * Describes fields in the table, constraints, etc.
    * @see https://datapackage.org/standard/table-schema/
    */
-  schema: string | Schema
+  schema?: string | Schema
 }
