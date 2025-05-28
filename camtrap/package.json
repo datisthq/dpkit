@@ -16,10 +16,10 @@
     "fair",
     "camtrap"
   ],
-  "dependencies": {
-    "@dpkit/core": "workspace:*"
-  },
   "scripts": {
     "build": "tsc --build"
+  },
+  "dependencies": {
+    "@dpkit/core": "workspace:*"
   }
 }

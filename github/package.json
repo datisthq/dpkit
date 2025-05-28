@@ -16,14 +16,14 @@
     "fair",
     "github"
   ],
+  "scripts": {
+    "build": "tsc --build"
+  },
   "dependencies": {
     "@dpkit/core": "workspace:*",
     "@dpkit/file": "workspace:*"
   },
   "devDependencies": {
     "@dpkit/test": "workspace:*"
-  },
-  "scripts": {
-    "build": "tsc --build"
   }
 }
