@@ -27,8 +27,8 @@ importers:
         specifier: 9.1.6
         version: 9.1.6
       npm-check-updates:
-        specifier: 17.1.4
-        version: 17.1.4
+        specifier: 17.1.18
+        version: 17.1.18
       tempy:
         specifier: 3.1.0
         version: 3.1.0
@@ -2431,8 +2431,8 @@ packages:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
 
-  npm-check-updates@17.1.4:
-    resolution: {integrity: sha512-crOUeN2GngqlkRCFQ/zi1zsneWd9IGZgIfAWYGAuhYiPnfbBTmJBL7Yq1wI0e1dsW8CfWc+h348WmfCREqeOBA==}
+  npm-check-updates@17.1.18:
+    resolution: {integrity: sha512-bkUy2g4v1i+3FeUf5fXMLbxmV95eG4/sS7lYE32GrUeVgQRfQEk39gpskksFunyaxQgTIdrvYbnuNbO/pSUSqw==}
     engines: {node: ^18.18.0 || >=20.0.0, npm: '>=8.12.1'}
     hasBin: true
 
@@ -6179,7 +6179,7 @@ snapshots:
 
   normalize-path@3.0.0: {}
 
-  npm-check-updates@17.1.4: {}
+  npm-check-updates@17.1.18: {}
 
   nth-check@2.1.1:
     dependencies:
