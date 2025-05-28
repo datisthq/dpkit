@@ -27,11 +27,12 @@ exports[`loadPackageFromZenodo > should load a package 1`] = `
   "resources": [
     {
       "bytes": 272,
-      "dpkit:isUserPackage": false,
       "format": "csv",
       "hash": "md5:5ac1b92a57ec809c546ea90334c845c9",
       "name": "openaq_measurements_pm10_japan_20250527_095520",
       "path": "https://zenodo.org/records/15525711/files/openaq_measurements_PM10_Japan_20250527_095520.csv",
+      "zenodo:key": undefined,
+      "zenodo:url": undefined,
     },
   ],
   "title": "PM10 Concentration in Japan",
@@ -343,6 +344,8 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
           "tag-id",
         ],
       },
+      "zenodo:key": undefined,
+      "zenodo:url": undefined,
     },
     {
       "encoding": "UTF-8",
@@ -548,8 +551,12 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
             },
           },
         ],
-        "primaryKey": "event-id",
+        "primaryKey": [
+          "event-id",
+        ],
       },
+      "zenodo:key": undefined,
+      "zenodo:url": undefined,
     },
     {
       "encoding": "UTF-8",
@@ -699,8 +706,12 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
             },
           },
         ],
-        "primaryKey": "event-id",
+        "primaryKey": [
+          "event-id",
+        ],
       },
+      "zenodo:key": undefined,
+      "zenodo:url": undefined,
     },
   ],
   "title": "O_ASSEN - Eurasian oystercatchers (Haematopus ostralegus, Haematopodidae) breeding in Assen (the Netherlands)",

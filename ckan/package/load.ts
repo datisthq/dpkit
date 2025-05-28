@@ -1,4 +1,4 @@
-import { mergePackage } from "@dpkit/core"
+import { mergePackages } from "@dpkit/core"
 import { makeCkanApiRequest } from "../general/index.js"
 import type { CkanPackage } from "./Package.js"
 import { normalizeCkanPackage } from "./process/normalize.js"
@@ -11,7 +11,16 @@ import { normalizeCkanPackage } from "./process/normalize.js"
 export async function loadPackageFromCkan(props: { datasetUrl: string }) {
   const { datasetUrl } = props
 
-  const ckanPackage = await loadCkanPackage({ datasetUrl })
+  const packageId = extractPackageId({ datasetUrl })
+  if (!packageId) {
+    throw new Error(`Failed to extract package ID from URL: ${datasetUrl}`)
+  }
+
+  const ckanPackage = await makeCkanApiRequest<CkanPackage>({
+    ckanUrl: datasetUrl,
+    action: "package_show",
+    payload: { id: packageId },
+  })
 
   for (const resource of ckanPackage.resources) {
     const resourceId = resource.id
@@ -23,31 +32,18 @@ export async function loadPackageFromCkan(props: { datasetUrl: string }) {
     }
   }
 
-  const datapackage = mergePackage({
-    datapackage: normalizeCkanPackage({ ckanPackage }),
+  const systemPackage = normalizeCkanPackage({ ckanPackage })
+  const userPackagePath = systemPackage.resources
+    .filter(resource => resource["ckan:key"] === "datapackage.json")
+    .map(resource => resource["ckan:url"])
+    .at(0)
+
+  const datapackage = await mergePackages({ systemPackage, userPackagePath })
+  datapackage.resources = datapackage.resources.map(resource => {
+    return { ...resource, "ckan:key": undefined, "ckan:url": undefined }
   })
 
   return datapackage
-}
-
-/**
- * Fetch package data from CKAN API
- */
-async function loadCkanPackage(props: { datasetUrl: string }) {
-  const { datasetUrl } = props
-
-  const packageId = extractPackageId({ datasetUrl })
-  if (!packageId) {
-    throw new Error(`Failed to extract package ID from URL: ${datasetUrl}`)
-  }
-
-  const result = await makeCkanApiRequest<CkanPackage>({
-    ckanUrl: datasetUrl,
-    action: "package_show",
-    payload: { id: packageId },
-  })
-
-  return result
 }
 
 /**

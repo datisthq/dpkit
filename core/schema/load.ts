@@ -1,6 +1,6 @@
 import { loadDescriptor } from "../general/index.js"
-import { assertSchema } from "./assert.js"
 import type { Schema } from "./Schema.js"
+import { assertSchema } from "./assert.js"
 
 /**
  * Load a Schema descriptor (JSON Object) from a file or URL

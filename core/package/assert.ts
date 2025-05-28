@@ -1,6 +1,6 @@
 import { AssertionError, type Descriptor } from "../general/index.js"
-import { validatePackageDescriptor } from "./validate.js"
 import type { Package } from "./Package.js"
+import { validatePackageDescriptor } from "./validate.js"
 
 /**
  * Assert a Package descriptor (JSON Object) against its profile

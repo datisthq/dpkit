@@ -1,6 +1,6 @@
 import { AssertionError, type Descriptor } from "../general/index.js"
-import { validateResourceDescriptor } from "./validate.js"
 import type { Resource } from "./Resource.js"
+import { validateResourceDescriptor } from "./validate.js"
 
 /**
  * Assert a Resource descriptor (JSON Object) against its profile

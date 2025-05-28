@@ -1,6 +1,6 @@
 import { loadDescriptor } from "../general/index.js"
-import { assertResource } from "./assert.js"
 import type { Resource } from "./Resource.js"
+import { assertResource } from "./assert.js"
 
 /**
  * Load a Resource descriptor (JSON Object) from a file or URL

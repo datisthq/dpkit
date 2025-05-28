@@ -1,6 +1,6 @@
 import { loadDescriptor } from "../general/index.js"
-import { assertPackage } from "./assert.js"
 import type { Package } from "./Package.js"
+import { assertPackage } from "./assert.js"
 
 /**
  * Load a Package descriptor (JSON Object) from a file or URL

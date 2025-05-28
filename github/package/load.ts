@@ -1,4 +1,4 @@
-import { mergePackage } from "@dpkit/core"
+import { mergePackages } from "@dpkit/core"
 import { makeGithubApiRequest } from "../general/index.js"
 import type { GithubResource } from "../resource/index.js"
 import type { GithubPackage } from "./Package.js"
@@ -34,8 +34,15 @@ export async function loadPackageFromGithub(props: {
     })
   ).tree
 
-  const datapackage = mergePackage({
-    datapackage: normalizeGithubPackage({ githubPackage }),
+  const systemPackage = normalizeGithubPackage({ githubPackage })
+  const userPackagePath = systemPackage.resources
+    .filter(resource => resource["github:key"] === "datapackage.json")
+    .map(resource => resource["github:url"])
+    .at(0)
+
+  const datapackage = await mergePackages({ systemPackage, userPackagePath })
+  datapackage.resources = datapackage.resources.map(resource => {
+    return { ...resource, "github:key": undefined, "github:url": undefined }
   })
 
   return datapackage

@@ -1,5 +1,4 @@
 import { getFormat, getName } from "@dpkit/core"
-import { normalizeFileLink } from "../../general/index.js"
 import type { ZenodoResource } from "../Resource.js"
 
 /**
@@ -11,15 +10,21 @@ export function normalizeZenodoResource(props: {
   zenodoResource: ZenodoResource
 }) {
   const { zenodoResource } = props
+  const path = normalizePath({ link: zenodoResource.links.self })
 
   const resource = {
+    path,
     name: getName({ filename: zenodoResource.key }) ?? zenodoResource.id,
     format: getFormat({ filename: zenodoResource.key }),
-    path: normalizeFileLink({ link: zenodoResource.links.self }),
     bytes: zenodoResource.size,
     hash: zenodoResource.checksum,
-    "dpkit:isUserPackage": zenodoResource.key === "datapackage.json",
+    "zenodo:key": zenodoResource.key,
+    "zenodo:url": path,
   }
 
   return resource
+}
+
+function normalizePath(props: { link: string }) {
+  return props.link.replace("/api/", "/").replace(/\/content$/, "")
 }

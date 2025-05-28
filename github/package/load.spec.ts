@@ -5,9 +5,15 @@ import { loadPackageFromGithub } from "./load.js"
 describe("loadPackageFromGithub", () => {
   useRecording()
 
-  // TODO: add a test without user package merging
-  // TODO: fix remote paths normalization
-  it.skip("should load a package", async () => {
+  it("should load a package", async () => {
+    const datapackage = await loadPackageFromGithub({
+      repoUrl: "https://github.com/roll/data",
+    })
+
+    expect(datapackage).toMatchSnapshot()
+  })
+
+  it("should merge datapackage.json if present", async () => {
     const datapackage = await loadPackageFromGithub({
       repoUrl: "https://github.com/roll/currency-codes",
     })

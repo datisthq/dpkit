@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import { isTableResource } from "@dpkit/core"
+import { getFilename, isTableResource } from "@dpkit/core"
 import { normalizeCkanSchema } from "../../schema/index.js"
 import type { CkanResource } from "../Resource.js"
 
@@ -16,10 +16,8 @@ export function normalizeCkanResource(props: {
   const resource: Resource = {
     name: slugifyName(ckanResource.name),
     path: ckanResource.url,
-  }
-
-  if (ckanResource.url.endsWith("/datapackage.json")) {
-    resource["dpkit:isUserPackage"] = true
+    "ckan:key": getFilename({ path: ckanResource.url }),
+    "ckan:url": ckanResource.url,
   }
 
   if (ckanResource.description) {

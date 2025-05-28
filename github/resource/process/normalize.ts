@@ -9,23 +9,28 @@ import type { GithubResource } from "../Resource.js"
  */
 export function normalizeGithubResource(props: {
   githubResource: GithubResource
+  defaultBranch: string
 }) {
   const { githubResource } = props
 
-  const path = githubResource.path
+  const path = normalizePath({ ...githubResource, ref: props.defaultBranch })
   const filename = getFilename({ path })
 
-  const name = getName({ filename }) ?? githubResource.sha
-  const format = getFormat({ filename })
-
-  const bytes = githubResource.size
-  const hash = `sha1:${githubResource.sha}`
-
-  const resource: Resource = { name, path, bytes, hash, format }
-
-  if (githubResource.path === "datapackage.json") {
-    resource["dpkit:isUserPackage"] = true
+  const resource: Resource = {
+    path,
+    name: getName({ filename }) ?? githubResource.sha,
+    bytes: githubResource.size,
+    hash: `sha1:${githubResource.sha}`,
+    format: getFormat({ filename }),
+    "github:key": githubResource.path,
+    "github:url": path,
   }
 
   return resource
+}
+
+function normalizePath(props: { url: string; ref: string; path: string }) {
+  const url = new URL(props.url)
+  const [owner, repo] = url.pathname.split("/").slice(2)
+  return `https://raw.githubusercontent.com/${owner}/${repo}/refs/heads/${props.ref}/${props.path}`
 }

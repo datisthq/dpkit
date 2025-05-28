@@ -1,4 +1,4 @@
-import { mergePackage } from "@dpkit/core"
+import { mergePackages } from "@dpkit/core"
 import { makeZenodoApiRequest } from "../general/index.js"
 import type { ZenodoPackage } from "./Package.js"
 import { normalizeZenodoPackage } from "./process/normalize.js"
@@ -26,8 +26,15 @@ export async function loadPackageFromZenodo(props: {
     sandbox,
   })
 
-  const datapackage = mergePackage({
-    datapackage: normalizeZenodoPackage({ zenodoPackage }),
+  const systemPackage = normalizeZenodoPackage({ zenodoPackage })
+  const userPackagePath = systemPackage.resources
+    .filter(resource => resource["zenodo:key"] === "datapackage.json")
+    .map(resource => resource["zenodo:url"])
+    .at(0)
+
+  const datapackage = await mergePackages({ systemPackage, userPackagePath })
+  datapackage.resources = datapackage.resources.map(resource => {
+    return { ...resource, "zenodo:key": undefined, "zenodo:url": undefined }
   })
 
   return datapackage
