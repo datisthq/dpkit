@@ -71,12 +71,17 @@ export function normalizePath(props: {
   const isRemote = isBasepathRemote || isPathRemote
 
   if (isRemote) {
-    const path = !isPathRemote
-      ? [props.basepath, props.path].join("/")
-      : props.path
+    const path = new URL(
+      !isPathRemote ? [props.basepath, props.path].join("/") : props.path,
+    ).toString()
 
-    // Returns normalized remote path
-    return new URL(path).toString()
+    if (!path.startsWith(props.basepath ?? "")) {
+      throw new Error(
+        `Path ${props.path} is not a subpath of ${props.basepath}`,
+      )
+    }
+
+    return path
   }
 
   if (!node) {
@@ -87,7 +92,10 @@ export function normalizePath(props: {
     ? node.path.join(props.basepath, props.path)
     : props.path
 
-  // Returns normalized local path
+  if (node.path.relative(props.basepath ?? "", path).startsWith("..")) {
+    throw new Error(`Path ${props.path} is not a subpath of ${props.basepath}`)
+  }
+
   return node.path.relative(process.cwd(), node.path.resolve(path))
 }
 

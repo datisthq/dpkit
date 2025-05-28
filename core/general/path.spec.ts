@@ -203,12 +203,6 @@ describe("normalizePath", () => {
       normalizedPath: "http://example.com/path/to/file.txt",
     },
     {
-      description: "absolute path",
-      path: "/absolute/path/to/file.txt",
-      basepath: undefined,
-      normalizedPath: relative(process.cwd(), "/absolute/path/to/file.txt"),
-    },
-    {
       description: "local path with absolute basepath",
       path: "file.txt",
       basepath: "/absolute/path",
@@ -222,6 +216,26 @@ describe("normalizePath", () => {
     },
   ])("$description", ({ path, basepath, normalizedPath }) => {
     expect(normalizePath({ path, basepath })).toEqual(normalizedPath)
+  })
+
+  it.each([
+    {
+      description: "absolute path",
+      path: "/absolute/path/to/file.txt",
+      basepath: undefined,
+    },
+    {
+      description: "local traversed path",
+      path: "../file.txt",
+      basepath: "/folder",
+    },
+    {
+      description: "remote traversed path",
+      path: "../file.txt",
+      basepath: "http://example.com/data",
+    },
+  ])("$description -- throw", ({ path, basepath }) => {
+    expect(() => normalizePath({ path, basepath })).toThrow()
   })
 })
 
