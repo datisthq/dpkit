@@ -5,7 +5,6 @@ import { loadProfile } from "../general/index.js"
 import { loadSchema } from "../schema/index.js"
 import type { Resource } from "./Resource.js"
 import { normalizeResource } from "./process/normalize.js"
-import { isTableResource } from "./types/table.js"
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/dataresource.json"
 
@@ -53,7 +52,7 @@ export async function validateResourceDescriptor<
 async function validateDialectIfExternal(props: { resource: Resource }) {
   const { resource } = props
 
-  if (isTableResource(resource) && typeof resource.dialect === "string") {
+  if (typeof resource.dialect === "string") {
     try {
       await loadDialect({ path: resource.dialect })
     } catch (error) {
@@ -69,7 +68,7 @@ async function validateDialectIfExternal(props: { resource: Resource }) {
 async function validateSchemaIfExternal(props: { resource: Resource }) {
   const { resource } = props
 
-  if (isTableResource(resource) && typeof resource.schema === "string") {
+  if (typeof resource.schema === "string") {
     try {
       await loadSchema({ path: resource.schema })
     } catch (error) {

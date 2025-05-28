@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import { getFilename, isTableResource } from "@dpkit/core"
+import { getFilename } from "@dpkit/core"
 import { normalizeCkanSchema } from "../../schema/index.js"
 import type { CkanResource } from "../Resource.js"
 
@@ -43,9 +43,7 @@ export function normalizeCkanResource(props: {
 
   if (ckanResource.schema) {
     resource.type = "table"
-    if (isTableResource(resource)) {
-      resource.schema = normalizeCkanSchema({ ckanSchema: ckanResource.schema })
-    }
+    resource.schema = normalizeCkanSchema({ ckanSchema: ckanResource.schema })
   }
 
   return resource

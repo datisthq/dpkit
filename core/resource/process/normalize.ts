@@ -13,7 +13,9 @@ export function normalizeResource(props: {
   normalizeUrl({ descriptor })
   normalizeType({ descriptor })
   normalizePaths({ descriptor, basepath })
-  normalizeDialectAndSchema({ descriptor })
+
+  normalizeResourceDialect({ descriptor })
+  normalizeResourceSchema({ descriptor })
 
   return descriptor
 }
@@ -69,12 +71,16 @@ function normalizePaths(props: { descriptor: Descriptor; basepath?: string }) {
   }
 }
 
-function normalizeDialectAndSchema(props: { descriptor: Descriptor }) {
+function normalizeResourceDialect(props: { descriptor: Descriptor }) {
   const { descriptor } = props
 
   if (isDescriptor(descriptor.dialect)) {
     descriptor.dialect = normalizeDialect({ descriptor: descriptor.dialect })
   }
+}
+
+function normalizeResourceSchema(props: { descriptor: Descriptor }) {
+  const { descriptor } = props
 
   if (isDescriptor(descriptor.schema)) {
     descriptor.schema = normalizeSchema({ descriptor: descriptor.schema })

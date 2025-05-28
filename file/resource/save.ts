@@ -4,8 +4,8 @@ import {
   denormalizeResource,
   getFilename,
   isRemotePath,
-  isTableResource,
 } from "@dpkit/core"
+import invariant from "tiny-invariant"
 
 export type SaveFile = (props: {
   propertyName: string
@@ -67,18 +67,16 @@ export async function saveResourceFiles(props: {
   }
 
   if (Array.isArray(resource.path)) {
+    invariant(Array.isArray(descriptor.path), "Multipart as resource.path")
     for (const [index, path] of resource.path.entries()) {
-      // @ts-ignore
       descriptor.path[index] = await saveFile(path, "path", index)
     }
   }
 
-  if (isTableResource(resource)) {
-    for (const name of ["dialect", "schema"] as const) {
-      const path = resource[name]
-      if (typeof path === "string") {
-        descriptor[name] = await saveFile(path, name, 0)
-      }
+  for (const name of ["dialect", "schema"] as const) {
+    const path = resource[name]
+    if (typeof path === "string") {
+      descriptor[name] = await saveFile(path, name, 0)
     }
   }
 
