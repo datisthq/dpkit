@@ -34,6 +34,7 @@ export async function loadPackageFromZenodo(props: {
 
   const datapackage = await mergePackages({ systemPackage, userPackagePath })
   datapackage.resources = datapackage.resources.map(resource => {
+    // TODO: remove these keys completely
     return { ...resource, "zenodo:key": undefined, "zenodo:url": undefined }
   })
 

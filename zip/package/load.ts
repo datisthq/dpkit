@@ -6,7 +6,9 @@ import { loadPackageDescriptor } from "@dpkit/core"
 import { temporaryDirectory } from "tempy"
 import yauzl from "yauzl-promise"
 
-export async function loadPackageFromZip(props: { archivePath: string }) {
+export async function loadPackageFromZip(props: {
+  archivePath: string
+}) {
   const tempdir = temporaryDirectory()
   const zipfile = await yauzl.open(props.archivePath)
 

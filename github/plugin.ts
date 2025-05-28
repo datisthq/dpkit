@@ -3,7 +3,10 @@ import { isRemotePath } from "@dpkit/core"
 import { loadPackageFromGithub } from "./package/load.js"
 
 export class GithubPlugin implements Plugin {
-  async loadPackage(props: { source: string; options?: Descriptor }) {
+  async loadPackage(props: {
+    source: string
+    options?: Descriptor
+  }) {
     const isRemote = isRemotePath({ path: props.source })
     if (!isRemote) return undefined
 

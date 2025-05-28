@@ -10,6 +10,7 @@ export function normalizeResource(props: {
   const { basepath } = props
   const descriptor = globalThis.structuredClone(props.descriptor)
 
+  normalizeProfile({ descriptor })
   normalizeUrl({ descriptor })
   normalizeType({ descriptor })
   normalizePaths({ descriptor, basepath })
@@ -18,6 +19,11 @@ export function normalizeResource(props: {
   normalizeResourceSchema({ descriptor })
 
   return descriptor
+}
+
+function normalizeProfile(props: { descriptor: Descriptor }) {
+  const { descriptor } = props
+  descriptor.$schema = descriptor.$schema ?? descriptor.profile
 }
 
 function normalizeUrl(props: { descriptor: Descriptor }) {

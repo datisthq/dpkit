@@ -42,6 +42,7 @@ export async function loadPackageFromGithub(props: {
 
   const datapackage = await mergePackages({ systemPackage, userPackagePath })
   datapackage.resources = datapackage.resources.map(resource => {
+    // TODO: remove these keys completely
     return { ...resource, "github:key": undefined, "github:url": undefined }
   })
 

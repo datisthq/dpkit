@@ -8,18 +8,10 @@ export async function mergePackages(props: {
   systemPackage: Package
   userPackagePath?: string
 }) {
-  const { systemPackage, userPackagePath } = props
-
-  const userPackage = userPackagePath
-    ? await loadPackageDescriptor({ path: userPackagePath })
+  const systemPackage = props.systemPackage
+  const userPackage = props.userPackagePath
+    ? await loadPackageDescriptor({ path: props.userPackagePath })
     : undefined
 
-  if (!userPackage) {
-    return props.systemPackage
-  }
-
-  // NOTE:
-  // Currently, it uses oversimplified logic till
-  // we get use feedback on the desired merging strategies
-  return { ...systemPackage, resources: userPackage.resources }
+  return { ...systemPackage, ...userPackage }
 }

@@ -3,7 +3,10 @@ import { isRemotePath } from "@dpkit/core"
 import { loadPackageFromZenodo } from "./package/load.js"
 
 export class ZenodoPlugin implements Plugin {
-  async loadPackage(props: { source: string; options?: Descriptor }) {
+  async loadPackage(props: {
+    source: string
+    options?: Descriptor
+  }) {
     const isRemote = isRemotePath({ path: props.source })
     if (!isRemote) return undefined
 

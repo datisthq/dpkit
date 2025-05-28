@@ -15,9 +15,7 @@ export async function saveDialect(props: {
   const { dialect, path } = props
 
   const descriptor = denormalizeDialect({ dialect })
-
-  descriptor.$schema =
-    descriptor.$schema ?? descriptor.profile ?? CURRENT_PROFILE
+  descriptor.$schema = descriptor.$schema ?? CURRENT_PROFILE
 
   await saveDescriptor({ descriptor, path })
 }

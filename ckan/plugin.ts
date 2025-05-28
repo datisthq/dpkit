@@ -3,7 +3,10 @@ import { isRemotePath } from "@dpkit/core"
 import { loadPackageFromCkan } from "./package/load.js"
 
 export class CkanPlugin implements Plugin {
-  async loadPackage(props: { source: string; options?: Descriptor }) {
+  async loadPackage(props: {
+    source: string
+    options?: Descriptor
+  }) {
     const isRemote = isRemotePath({ path: props.source })
     if (!isRemote) return undefined
 
@@ -11,7 +14,9 @@ export class CkanPlugin implements Plugin {
     if (!withDataset) return undefined
 
     const cleanup = async () => {}
-    const datapackage = await loadPackageFromCkan({ datasetUrl: props.source })
+    const datapackage = await loadPackageFromCkan({
+      datasetUrl: props.source,
+    })
 
     return { datapackage, cleanup }
   }

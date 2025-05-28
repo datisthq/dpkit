@@ -8,7 +8,9 @@ import { normalizeCkanPackage } from "./process/normalize.js"
  * @param props Object containing the URL to the CKAN package
  * @returns Package object and cleanup function
  */
-export async function loadPackageFromCkan(props: { datasetUrl: string }) {
+export async function loadPackageFromCkan(props: {
+  datasetUrl: string
+}) {
   const { datasetUrl } = props
 
   const packageId = extractPackageId({ datasetUrl })
@@ -40,6 +42,7 @@ export async function loadPackageFromCkan(props: { datasetUrl: string }) {
 
   const datapackage = await mergePackages({ systemPackage, userPackagePath })
   datapackage.resources = datapackage.resources.map(resource => {
+    // TODO: remove these keys completely
     return { ...resource, "ckan:key": undefined, "ckan:url": undefined }
   })
 

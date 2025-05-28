@@ -2,16 +2,16 @@ import type { Descriptor } from "./general/index.js"
 import type { Package } from "./package/index.js"
 
 export interface Plugin {
-  loadPackage?: (props: {
+  loadPackage?(props: {
     source: string
     options?: Descriptor
-  }) => Promise<
+  }): Promise<
     undefined | { datapackage: Package; cleanup?: () => Promise<void> }
   >
 
-  savePackage?: (props: {
+  savePackage?(props: {
     datapackage: Package
     target: string
     options?: Descriptor
-  }) => Promise<undefined | { path?: string }>
+  }): Promise<undefined | { path?: string }>
 }

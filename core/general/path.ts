@@ -66,14 +66,15 @@ export function normalizePath(props: {
   path: string
   basepath?: string
 }) {
-  const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
   const isPathRemote = isRemotePath({ path: props.path })
-  const isRemote = isBasepathRemote || isPathRemote
+  const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
 
-  if (isRemote) {
-    const path = new URL(
-      !isPathRemote ? [props.basepath, props.path].join("/") : props.path,
-    ).toString()
+  if (isPathRemote) {
+    return new URL(props.path).toString()
+  }
+
+  if (isBasepathRemote) {
+    const path = new URL([props.basepath, props.path].join("/")).toString()
 
     if (!path.startsWith(props.basepath ?? "")) {
       throw new Error(
@@ -103,17 +104,17 @@ export function denormalizePath(props: {
   path: string
   basepath?: string
 }) {
-  const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
   const isPathRemote = isRemotePath({ path: props.path })
-  const isRemote = isBasepathRemote || isPathRemote
+  const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
 
-  if (isRemote) {
-    const path = new URL(props.path).toString()
-    if (isPathRemote) {
-      return path
-    }
+  if (isPathRemote) {
+    return new URL(props.path).toString()
+  }
 
+  if (isBasepathRemote) {
+    const path = props.path
     const basepath = new URL(props.basepath ?? "").toString()
+
     if (!path.startsWith(basepath)) {
       throw new Error(
         `Path ${props.path} is not a subpath of ${props.basepath}`,

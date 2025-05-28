@@ -2,7 +2,10 @@ import type { Descriptor, Package, Plugin } from "@dpkit/core"
 import { loadPackageFromZip, savePackageToZip } from "./package/index.js"
 
 export class ZipPlugin implements Plugin {
-  async loadPackage(props: { source: string; options?: Descriptor }) {
+  async loadPackage(props: {
+    source: string
+    options?: Descriptor
+  }) {
     const isZip = props.source.endsWith(".zip")
     if (!isZip) return undefined
 
