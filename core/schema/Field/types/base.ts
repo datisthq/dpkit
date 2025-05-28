@@ -1,7 +1,9 @@
+import type { Metadata } from "../../../general/index.js"
+
 /**
  * Base field properties common to all field types
  */
-export interface BaseField<T = BaseConstraints> {
+export interface BaseField<T = BaseConstraints> extends Metadata {
   /**
    * Name of the field matching the column name
    */

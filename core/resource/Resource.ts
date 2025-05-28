@@ -1,3 +1,4 @@
+import type { Metadata } from "../general/index.js"
 import type { License } from "./License.js"
 import type { Source } from "./Source.js"
 
@@ -5,7 +6,7 @@ import type { Source } from "./Source.js"
  * Data Resource interface based on the Frictionless Data specification
  * @see https://datapackage.org/standard/data-resource/
  */
-export interface Resource {
+export interface Resource extends Metadata {
   /**
    * Unique resource identifier
    * Should use lowercase alphanumeric characters, periods, hyphens, and underscores
@@ -77,11 +78,4 @@ export interface Resource {
    * License information
    */
   licenses?: License[]
-
-  // TODO: review if it's a good way of handling it or it will
-  // be better to make plugins responsible for user package loading
-  /**
-   * Indicates if the resource contains a user defined `datapackage.json`
-   */
-  "dpkit:isUserPackage"?: boolean
 }

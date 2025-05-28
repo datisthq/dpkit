@@ -1,3 +1,4 @@
+import type { Metadata } from "../general/index.js"
 import type { Field } from "./Field/index.js"
 import type { ForeignKey } from "./ForeignKey.js"
 
@@ -5,7 +6,7 @@ import type { ForeignKey } from "./ForeignKey.js"
  * Table Schema definition
  * Based on the specification at https://datapackage.org/standard/table-schema/
  */
-export interface Schema {
+export interface Schema extends Metadata {
   /**
    * Fields in this schema (required)
    */
