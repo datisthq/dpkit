@@ -115,6 +115,9 @@ importers:
 
   dpkit:
     dependencies:
+      '@dpkit/camtrap':
+        specifier: workspace:*
+        version: link:../camtrap
       '@dpkit/ckan':
         specifier: workspace:*
         version: link:../ckan
@@ -124,6 +127,9 @@ importers:
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      '@dpkit/github':
+        specifier: workspace:*
+        version: link:../github
       '@dpkit/zenodo':
         specifier: workspace:*
         version: link:../zenodo
@@ -132,6 +138,8 @@ importers:
         version: link:../zip
 
   excel: {}
+
+  extend: {}
 
   file:
     dependencies:
@@ -160,8 +168,6 @@ importers:
   ods: {}
 
   parquet: {}
-
-  site: {}
 
   table: {}
 

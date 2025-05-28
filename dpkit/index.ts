@@ -1,6 +1,8 @@
+export * from "@dpkit/camtrap"
 export * from "@dpkit/ckan"
 export * from "@dpkit/core"
 export * from "@dpkit/file"
+export * from "@dpkit/github"
 export * from "@dpkit/zenodo"
 export * from "@dpkit/zip"
 

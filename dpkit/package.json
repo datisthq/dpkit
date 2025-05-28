@@ -17,9 +17,11 @@
     "cli"
   ],
   "dependencies": {
+    "@dpkit/camtrap": "workspace:*",
     "@dpkit/ckan": "workspace:*",
     "@dpkit/core": "workspace:*",
     "@dpkit/file": "workspace:*",
+    "@dpkit/github": "workspace:*",
     "@dpkit/zenodo": "workspace:*",
     "@dpkit/zip": "workspace:*"
   },

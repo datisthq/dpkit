@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/site",
+  "name": "@dpkit/extend",
   "type": "module",
   "main": "build/index.js",
   "version": "0.1.0",
@@ -14,7 +14,7 @@
     "validation",
     "quality",
     "fair",
-    "site"
+    "extend"
   ],
   "scripts": {
     "build": "tsc --build"

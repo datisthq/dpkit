@@ -11,12 +11,12 @@ packages:
   - docs
   - dpkit
   - excel
+  - extend
   - file
   - github
   - json
   - ods
   - parquet
-  - site
   - table
   - test
   - ui
