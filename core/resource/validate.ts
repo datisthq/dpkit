@@ -12,12 +12,14 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/dataresource.json"
 /**
  * Validate a Resource descriptor (JSON Object) against its profile
  */
-export async function validateResourceDescriptor(props: {
+export async function validateResourceDescriptor<
+  T extends Resource = Resource,
+>(props: {
   descriptor: Descriptor
   basepath?: string
 }) {
   const { descriptor, basepath } = props
-  let resource: Resource | undefined = undefined
+  let resource: T | undefined = undefined
 
   const $schema =
     typeof props.descriptor.$schema === "string"
@@ -29,10 +31,7 @@ export async function validateResourceDescriptor(props: {
 
   if (valid) {
     // Validation + normalization = we can cast it
-    resource = normalizeResource({
-      descriptor,
-      basepath,
-    }) as unknown as Resource
+    resource = normalizeResource({ descriptor, basepath }) as T
   }
 
   if (resource) {

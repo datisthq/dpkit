@@ -8,11 +8,11 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tabledialect.json"
 /**
  * Validate a Dialect descriptor (JSON Object) against its profile
  */
-export async function validateDialect(props: {
+export async function validateDialect<T extends Dialect = Dialect>(props: {
   descriptor: Descriptor
 }) {
   const { descriptor } = props
-  let dialect: Dialect | undefined = undefined
+  let dialect: T | undefined = undefined
 
   const $schema =
     typeof props.descriptor.$schema === "string"
@@ -24,7 +24,7 @@ export async function validateDialect(props: {
 
   if (valid) {
     // Validation + normalization = we can cast it
-    dialect = normalizeDialect({ descriptor }) as Dialect
+    dialect = normalizeDialect({ descriptor }) as T
   }
 
   return { valid, errors, dialect }
