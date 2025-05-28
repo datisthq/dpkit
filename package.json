@@ -10,7 +10,7 @@
     "build": "pnpm -r build",
     "bump": "ncu -ws -u",
     "ci:install": "pnpm install --ignore-scripts",
-    "ci:publish": "pnpm -r publish --access public && changeset tag",
+    "ci:publish": "pnpm -r publish --access public --ignore-scripts && changeset tag",
     "check": "pnpm run lint && pnpm run type",
     "coverage": "vitest --ui",
     "format": "biome check --write",
