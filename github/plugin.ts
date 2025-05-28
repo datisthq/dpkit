@@ -1,9 +1,9 @@
-import type { Descriptor, Plugin, Package } from "@dpkit/core"
+import type { Descriptor, Plugin } from "@dpkit/core"
 import { isRemotePath } from "@dpkit/core"
 import { loadPackageFromGithub } from "./package/load.js"
 
 export class GithubPlugin implements Plugin {
-  async loadPackage<T extends Package = Package>(props: {
+  async loadPackage(props: {
     source: string
     options?: Descriptor
   }) {
@@ -14,7 +14,7 @@ export class GithubPlugin implements Plugin {
     if (!isGithub) return undefined
 
     const cleanup = async () => {}
-    const datapackage = await loadPackageFromGithub<T>({
+    const datapackage = await loadPackageFromGithub({
       repoUrl: props.source,
     })
 

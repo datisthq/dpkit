@@ -1,5 +1,4 @@
 import { mergePackages } from "@dpkit/core"
-import type { Package } from "@dpkit/core"
 import { makeCkanApiRequest } from "../general/index.js"
 import type { CkanPackage } from "./Package.js"
 import { normalizeCkanPackage } from "./process/normalize.js"
@@ -9,7 +8,7 @@ import { normalizeCkanPackage } from "./process/normalize.js"
  * @param props Object containing the URL to the CKAN package
  * @returns Package object and cleanup function
  */
-export async function loadPackageFromCkan<T extends Package = Package>(props: {
+export async function loadPackageFromCkan(props: {
   datasetUrl: string
 }) {
   const { datasetUrl } = props
@@ -41,7 +40,7 @@ export async function loadPackageFromCkan<T extends Package = Package>(props: {
     .map(resource => resource["ckan:url"])
     .at(0)
 
-  const datapackage = await mergePackages<T>({ systemPackage, userPackagePath })
+  const datapackage = await mergePackages({ systemPackage, userPackagePath })
   datapackage.resources = datapackage.resources.map(resource => {
     // TODO: remove these keys completely
     return { ...resource, "ckan:key": undefined, "ckan:url": undefined }

@@ -1,7 +1,6 @@
 import { mergePackages } from "@dpkit/core"
 import { makeZenodoApiRequest } from "../general/index.js"
 import type { ZenodoPackage } from "./Package.js"
-import type { Package } from "@dpkit/core"
 import { normalizeZenodoPackage } from "./process/normalize.js"
 
 /**
@@ -9,9 +8,7 @@ import { normalizeZenodoPackage } from "./process/normalize.js"
  * @param props Object containing the URL to the Zenodo deposit
  * @returns Package object
  */
-export async function loadPackageFromZenodo<
-  T extends Package = Package,
->(props: {
+export async function loadPackageFromZenodo(props: {
   datasetUrl: string
   apiKey?: string
 }) {
@@ -35,7 +32,7 @@ export async function loadPackageFromZenodo<
     .map(resource => resource["zenodo:url"])
     .at(0)
 
-  const datapackage = await mergePackages<T>({ systemPackage, userPackagePath })
+  const datapackage = await mergePackages({ systemPackage, userPackagePath })
   datapackage.resources = datapackage.resources.map(resource => {
     // TODO: remove these keys completely
     return { ...resource, "zenodo:key": undefined, "zenodo:url": undefined }

@@ -1,9 +1,9 @@
-import type { Descriptor, Plugin, Package } from "@dpkit/core"
+import type { Descriptor, Plugin } from "@dpkit/core"
 import { isRemotePath } from "@dpkit/core"
 import { loadPackageFromCkan } from "./package/load.js"
 
 export class CkanPlugin implements Plugin {
-  async loadPackage<T extends Package>(props: {
+  async loadPackage(props: {
     source: string
     options?: Descriptor
   }) {
@@ -14,7 +14,7 @@ export class CkanPlugin implements Plugin {
     if (!withDataset) return undefined
 
     const cleanup = async () => {}
-    const datapackage = await loadPackageFromCkan<T>({
+    const datapackage = await loadPackageFromCkan({
       datasetUrl: props.source,
     })
 

@@ -1,5 +1,4 @@
 import { mergePackages } from "@dpkit/core"
-import type { Package } from "@dpkit/core"
 import { makeGithubApiRequest } from "../general/index.js"
 import type { GithubResource } from "../resource/index.js"
 import type { GithubPackage } from "./Package.js"
@@ -10,9 +9,7 @@ import { normalizeGithubPackage } from "./process/normalize.js"
  * @param props Object containing the URL to the Github repository
  * @returns Package object
  */
-export async function loadPackageFromGithub<
-  T extends Package = Package,
->(props: {
+export async function loadPackageFromGithub(props: {
   repoUrl: string
   apiKey?: string
 }) {
@@ -43,7 +40,7 @@ export async function loadPackageFromGithub<
     .map(resource => resource["github:url"])
     .at(0)
 
-  const datapackage = await mergePackages<T>({ systemPackage, userPackagePath })
+  const datapackage = await mergePackages({ systemPackage, userPackagePath })
   datapackage.resources = datapackage.resources.map(resource => {
     // TODO: remove these keys completely
     return { ...resource, "github:key": undefined, "github:url": undefined }

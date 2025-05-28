@@ -1,10 +1,10 @@
 import { stat } from "node:fs/promises"
-import type { Descriptor, Plugin, Package } from "@dpkit/core"
+import type { Descriptor, Plugin } from "@dpkit/core"
 import { isRemotePath } from "@dpkit/core"
 import { loadPackageFromFolder } from "./package/index.js"
 
 export class FilePlugin implements Plugin {
-  async loadPackage<T extends Package>(props: {
+  async loadPackage(props: {
     source: string
     options?: Descriptor
   }) {
@@ -15,7 +15,7 @@ export class FilePlugin implements Plugin {
     if (!isFolder) return undefined
 
     const cleanup = async () => {}
-    const datapackage = await loadPackageFromFolder<T>({
+    const datapackage = await loadPackageFromFolder({
       folderPath: props.source,
     })
 
