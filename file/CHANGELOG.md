@@ -1,5 +1,16 @@
 # @dpkit/file
 
+## 0.5.0
+
+### Minor Changes
+
+- 089afce: Removed permissive generics
+
+### Patch Changes
+
+- Updated dependencies [089afce]
+  - @dpkit/core@0.4.0
+
 ## 0.4.0
 
 ### Minor Changes
