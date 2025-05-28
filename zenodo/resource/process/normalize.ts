@@ -10,7 +10,7 @@ export function normalizeZenodoResource(props: {
   zenodoResource: ZenodoResource
 }) {
   const { zenodoResource } = props
-  const path = normalizePath({ link: zenodoResource.links.self })
+  const path = normalizeZenodoPath({ link: zenodoResource.links.self })
 
   const resource = {
     path,
@@ -25,6 +25,6 @@ export function normalizeZenodoResource(props: {
   return resource
 }
 
-function normalizePath(props: { link: string }) {
+function normalizeZenodoPath(props: { link: string }) {
   return props.link.replace("/api/", "/").replace(/\/content$/, "")
 }

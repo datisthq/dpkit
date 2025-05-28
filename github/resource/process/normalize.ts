@@ -13,9 +13,12 @@ export function normalizeGithubResource(props: {
 }) {
   const { githubResource } = props
 
-  const path = normalizePath({ ...githubResource, ref: props.defaultBranch })
-  const filename = getFilename({ path })
+  const path = normalizeGithubPath({
+    ...githubResource,
+    ref: props.defaultBranch,
+  })
 
+  const filename = getFilename({ path })
   const resource: Resource = {
     path,
     name: getName({ filename }) ?? githubResource.sha,
@@ -29,7 +32,11 @@ export function normalizeGithubResource(props: {
   return resource
 }
 
-function normalizePath(props: { url: string; ref: string; path: string }) {
+function normalizeGithubPath(props: {
+  url: string
+  ref: string
+  path: string
+}) {
   const url = new URL(props.url)
   const [owner, repo] = url.pathname.split("/").slice(2)
   return `https://raw.githubusercontent.com/${owner}/${repo}/refs/heads/${props.ref}/${props.path}`
