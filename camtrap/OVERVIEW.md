@@ -1,2 +1,2 @@
-# @dpkit/ckan
+# @dpkit/camtrap
 
