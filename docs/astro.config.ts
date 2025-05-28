@@ -1,7 +1,17 @@
 import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
 import starlightScrollToTop from "starlight-scroll-to-top"
-import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc"
+import starlightTypeDoc from "starlight-typedoc"
+
+const PACKAGES = {
+  dpkit: "../dpkit",
+  "@dpkit/ckan": "../ckan",
+  "@dpkit/core": "../core",
+  "@dpkit/github": "../github",
+  "@dpkit/file": "../file",
+  "@dpkit/zenodo": "../zenodo",
+  "@dpkit/zip": "../zip",
+}
 
 export default defineConfig({
   site: "https://dpkit.datist.io",
@@ -9,14 +19,17 @@ export default defineConfig({
   outDir: "build",
   integrations: [
     starlight({
-      title: "Data Package in TypeScript",
+      title: "dpkit",
       description:
-        "Data Package is a standard consisting of a set of simple yet extensible specifications to describe datasets, data files and tabular data. It is a data definition language (DDL) and data API that facilitates findability, accessibility, interoperability, and reusability (FAIR) of data.",
+        "dpkit is a fast TypeScript data management framework based on the Data Package standard. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub",
       customCss: ["/assets/styles.css"],
+      components: {
+        SocialIcons: "./components/Header/SocialIcons.astro",
+      },
       logo: {
-        light: "/assets/logo-light.svg",
-        dark: "/assets/logo-dark.svg",
-        alt: "Data Package Logo",
+        light: "/assets/logo-light.png",
+        dark: "/assets/logo-dark.png",
+        alt: "DPkit Logo",
         replacesTitle: true,
       },
       social: [
@@ -26,7 +39,7 @@ export default defineConfig({
           href: "https://github.com/datisthq/dpkit",
         },
       ],
-      favicon: "favicon.ico",
+      favicon: "favicon.png",
       editLink: {
         baseUrl: "https://github.com/datisthq/dpkit/edit/main/",
       },
@@ -35,9 +48,9 @@ export default defineConfig({
       plugins: [
         starlightScrollToTop(),
         starlightTypeDoc({
-          entryPoints: ["../dpkit", "../core", "../file", "../zip"],
+          entryPoints: generatePackageEntrypoints(),
           tsconfig: "../tsconfig.json",
-          typeDoc: { entryPointStrategy: "packages" },
+          typeDoc: { entryPointStrategy: "packages", router: "structure" },
           output: "packages",
           sidebar: {
             label: "Packages",
@@ -48,7 +61,11 @@ export default defineConfig({
       sidebar: [
         { label: "Overview", autogenerate: { directory: "overview" } },
         { label: "Guides", autogenerate: { directory: "guides" } },
-        typeDocSidebarGroup,
+        {
+          label: "Packages",
+          collapsed: true,
+          items: generatePackageSidebars(),
+        },
       ],
       head: [
         {
@@ -63,3 +80,38 @@ export default defineConfig({
     }),
   ],
 })
+
+function generatePackageEntrypoints() {
+  return Object.values(PACKAGES)
+}
+
+function generatePackageSidebars() {
+  return Object.entries(PACKAGES).map(([name, path]) =>
+    generatePackageSidebar({ name }),
+  )
+}
+
+function generatePackageSidebar(props: { name: string }) {
+  const name = props.name
+  const slug = name.replace("@", "_")
+
+  return {
+    label: name,
+    collapsed: true,
+    items: [
+      {
+        label: "Overview",
+        slug: `packages/${slug}/overview`,
+      },
+      {
+        label: "Changelog",
+        slug: `packages/${slug}/changelog`,
+      },
+      {
+        label: "API Reference",
+        autogenerate: { directory: `packages/${slug}/index` },
+        //collapsed: true,
+      },
+    ],
+  }
+}

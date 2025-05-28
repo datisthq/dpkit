@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
-  "description": "Data Package implementation in TypeScript.",
+  "description": "Fast TypeScript data management framework based on the Data Package standard",
   "keywords": [
     "data",
     "package",
@@ -17,9 +17,11 @@
     "cli"
   ],
   "dependencies": {
+    "@dpkit/camtrap": "workspace:*",
     "@dpkit/ckan": "workspace:*",
     "@dpkit/core": "workspace:*",
     "@dpkit/file": "workspace:*",
+    "@dpkit/github": "workspace:*",
     "@dpkit/zenodo": "workspace:*",
     "@dpkit/zip": "workspace:*"
   },

@@ -13,56 +13,56 @@ describe("isRemotePath", () => {
     {
       description: "http URL",
       path: "http://example.com/path/to/file.txt",
-      expected: true,
+      isRemote: true,
     },
     {
       description: "https URL",
       path: "https://example.com/path/to/file.txt",
-      expected: true,
+      isRemote: true,
     },
     {
       description: "ftp URL",
       path: "ftp://example.com/path/to/file.txt",
-      expected: true,
+      isRemote: true,
     },
     {
       description: "file URL",
       path: "file:///path/to/file.txt",
-      expected: true,
+      isRemote: true,
     },
     {
       description: "absolute path",
       path: "/path/to/file.txt",
-      expected: false,
+      isRemote: false,
     },
     {
       description: "relative path",
       path: "path/to/file.txt",
-      expected: false,
+      isRemote: false,
     },
     {
       description: "current directory path",
       path: "./file.txt",
-      expected: false,
+      isRemote: false,
     },
     {
       description: "parent directory path",
       path: "../file.txt",
-      expected: false,
+      isRemote: false,
     },
     {
       description: "empty string",
       path: "",
-      expected: false,
+      isRemote: false,
     },
     {
       // new URL considers this to be a valid URL
       description: "protocol without slashes",
       path: "http:example.com",
-      expected: true,
+      isRemote: true,
     },
-  ])("$description", ({ path, expected }) => {
-    expect(isRemotePath({ path })).toBe(expected)
+  ])("$description", ({ path, isRemote }) => {
+    expect(isRemotePath({ path })).toBe(isRemote)
   })
 })
 
@@ -203,12 +203,6 @@ describe("normalizePath", () => {
       normalizedPath: "http://example.com/path/to/file.txt",
     },
     {
-      description: "absolute path",
-      path: "/absolute/path/to/file.txt",
-      basepath: undefined,
-      normalizedPath: relative(process.cwd(), "/absolute/path/to/file.txt"),
-    },
-    {
       description: "local path with absolute basepath",
       path: "file.txt",
       basepath: "/absolute/path",
@@ -222,6 +216,26 @@ describe("normalizePath", () => {
     },
   ])("$description", ({ path, basepath, normalizedPath }) => {
     expect(normalizePath({ path, basepath })).toEqual(normalizedPath)
+  })
+
+  it.each([
+    {
+      description: "absolute path",
+      path: "/absolute/path/to/file.txt",
+      basepath: undefined,
+    },
+    {
+      description: "local traversed path",
+      path: "../file.txt",
+      basepath: "/folder",
+    },
+    {
+      description: "remote traversed path",
+      path: "../file.txt",
+      basepath: "http://example.com/data",
+    },
+  ])("$description -- throw", ({ path, basepath }) => {
+    expect(() => normalizePath({ path, basepath })).toThrow()
   })
 })
 

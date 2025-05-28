@@ -1,3 +1,4 @@
+import { mergePackages } from "@dpkit/core"
 import { makeCkanApiRequest } from "../general/index.js"
 import type { CkanPackage } from "./Package.js"
 import { normalizeCkanPackage } from "./process/normalize.js"
@@ -10,7 +11,16 @@ import { normalizeCkanPackage } from "./process/normalize.js"
 export async function loadPackageFromCkan(props: { datasetUrl: string }) {
   const { datasetUrl } = props
 
-  const ckanPackage = await loadCkanPackage({ datasetUrl })
+  const packageId = extractPackageId({ datasetUrl })
+  if (!packageId) {
+    throw new Error(`Failed to extract package ID from URL: ${datasetUrl}`)
+  }
+
+  const ckanPackage = await makeCkanApiRequest<CkanPackage>({
+    ckanUrl: datasetUrl,
+    action: "package_show",
+    payload: { id: packageId },
+  })
 
   for (const resource of ckanPackage.resources) {
     const resourceId = resource.id
@@ -22,28 +32,18 @@ export async function loadPackageFromCkan(props: { datasetUrl: string }) {
     }
   }
 
-  const datapackage = normalizeCkanPackage({ ckanPackage })
-  return datapackage
-}
+  const systemPackage = normalizeCkanPackage({ ckanPackage })
+  const userPackagePath = systemPackage.resources
+    .filter(resource => resource["ckan:key"] === "datapackage.json")
+    .map(resource => resource["ckan:url"])
+    .at(0)
 
-/**
- * Fetch package data from CKAN API
- */
-async function loadCkanPackage(props: { datasetUrl: string }) {
-  const { datasetUrl } = props
-
-  const packageId = extractPackageId({ datasetUrl })
-  if (!packageId) {
-    throw new Error(`Failed to extract package ID from URL: ${datasetUrl}`)
-  }
-
-  const result = await makeCkanApiRequest({
-    ckanUrl: datasetUrl,
-    action: "package_show",
-    payload: { id: packageId },
+  const datapackage = await mergePackages({ systemPackage, userPackagePath })
+  datapackage.resources = datapackage.resources.map(resource => {
+    return { ...resource, "ckan:key": undefined, "ckan:url": undefined }
   })
 
-  return result as CkanPackage
+  return datapackage
 }
 
 /**
@@ -79,6 +79,7 @@ async function loadCkanSchema(props: {
       payload: { resource_id: resourceId, limit: 0 },
     })
 
+    // @ts-ignore
     const fields = result.fields.filter(
       (field: any) => field.id !== "_id" && field.id !== "_full_text",
     )

@@ -1,6 +1,6 @@
 import type { Descriptor } from "@dpkit/core"
 
-export async function makeZenodoApiRequest(props: {
+export async function makeZenodoApiRequest<T = Descriptor>(props: {
   endpoint: string
   method?: "GET" | "POST" | "PUT" | "DELETE"
   payload?: Descriptor
@@ -18,7 +18,7 @@ export async function makeZenodoApiRequest(props: {
   } = props
 
   let body: string | FormData | undefined
-  const headers: Descriptor = {}
+  const headers: Record<string, any> = {}
 
   const baseUrl = sandbox
     ? "https://sandbox.zenodo.org/api"
@@ -56,5 +56,5 @@ export async function makeZenodoApiRequest(props: {
     )
   }
 
-  return (await response.json()) as Descriptor
+  return (await response.json()) as T
 }

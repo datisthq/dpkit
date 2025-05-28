@@ -3,26 +3,29 @@ import { loadProfile } from "../general/index.js"
 import type { Dialect } from "./Dialect.js"
 import { normalizeDialect } from "./process/normalize.js"
 
+const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tabledialect.json"
+
 /**
  * Validate a Dialect descriptor (JSON Object) against its profile
  */
-export async function validateDialect(props: {
+export async function validateDialect<T extends Dialect = Dialect>(props: {
   descriptor: Descriptor
 }) {
   const { descriptor } = props
-  let dialect: Dialect | undefined = undefined
+  let dialect: T | undefined = undefined
 
-  const $dialect = props.descriptor.$dialect ?? DEFAULT_PROFILE
-  const profile = await loadProfile({ path: $dialect })
+  const $schema =
+    typeof props.descriptor.$schema === "string"
+      ? props.descriptor.$schema
+      : DEFAULT_PROFILE
 
+  const profile = await loadProfile({ path: $schema })
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
     // Validation + normalization = we can cast it
-    dialect = normalizeDialect({ descriptor }) as Dialect
+    dialect = normalizeDialect({ descriptor }) as T
   }
 
   return { valid, errors, dialect }
 }
-
-const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tabledialect.json"

@@ -24,7 +24,7 @@ export class ZipPlugin implements Plugin {
     await savePackageToZip({
       datapackage: props.datapackage,
       archivePath: props.target,
-      withRemote: props.options?.withRemote,
+      withRemote: !!props.options?.withRemote,
     })
 
     return { path: undefined }

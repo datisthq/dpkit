@@ -49,6 +49,8 @@ The criteria underpinning collection units and the methodology by which they are
   "resources": [
     {
       "bytes": 896648,
+      "ckan:key": undefined,
+      "ckan:url": undefined,
       "description": "Collection-level records describing the holdings of the Natural History Museum as of April 2025. See the dataset description and the other resources in this repository for more detail on navigating and interpreting this data:
 
 - [Data dictionary](https://data.nhm.ac.uk/dataset/join-the-dots-collection-level-descriptions/resource/09b2f07b-9e77-44b7-8645-ddcba1266629)
@@ -206,6 +208,8 @@ The criteria underpinning collection units and the methodology by which they are
     },
     {
       "bytes": 5868,
+      "ckan:key": undefined,
+      "ckan:url": undefined,
       "description": "Description of the fields found in [JtD collection-level records](https://data.nhm.ac.uk/dataset/join-the-dots-collection-level-descriptions/resource/660de433-447b-40ad-9aaf-77c98f8c2ba9)",
       "format": "csv",
       "mediatype": "text/csv",
@@ -243,6 +247,8 @@ The criteria underpinning collection units and the methodology by which they are
     },
     {
       "bytes": 8108818,
+      "ckan:key": undefined,
+      "ckan:url": undefined,
       "description": "Documentation produced for NHM staff in 2018: a thorough overview of the Join the Dots data, processes and rationale. Some elements of the JtD framework have been amended slightly since this document was assembled, but it remains a useful reference for navigating the collection-level dataset presented in this package. ",
       "format": "pdf",
       "mediatype": "application/pdf",

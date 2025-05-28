@@ -1,8 +1,61 @@
 ---
-title: Data Package in TypeScript
-head:
-  - tag: title
-    content: Data Package in TypeScript
+title: dpkit
+template: splash
+editUrl: false
+lastUpdated: false
+hero:
+  tagline: |
+    dpkit is a fast <strong>TypeScript data management</strong> framework based on the <strong>Data Package standard</strong>. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub.
+  image:
+    file: ../../assets/hero.png
+    alt: Data Packages Illustration
+  actions:
+    - text: Get Started
+      link: /overview/installation/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/datisthq/dpkit
+      icon: external
+      variant: secondary
+banner:
+  content: |
+    <p>
+      The project is currently in <strong>active development</strong>.
+      Please follow the <a href="https://datist.io/blog/">Datist Blog</a> for news and announcements.
+    </p>
 ---
 
-Data Package implementation in TypeScript. Data Package is a standard consisting of a set of simple yet extensible specifications to describe datasets, data files and tabular data. It is a data definition language (DDL) and data API that facilitates findability, accessibility, interoperability, and reusability (FAIR) of data.
+import About from "../../components/About/About.astro"
+import ClickableCard from "../../components/Card/Clickable.astro"
+import { CardGrid, LinkCard, Card } from "@astrojs/starlight/components"
+
+<h2>Features</h2>
+
+<CardGrid>
+  <Card title="Fast" icon="rocket">
+    Data operation is backed by Polars, an extremely fast DataFrame library.
+  </Card>
+  <Card title="Complete" icon="document">
+    The framework supports various data formats and data platform integrations.
+  </Card>
+  <Card title="Standard" icon="open-book">
+    The framework is 100% compatible with the Data Package (v2) standard.
+  </Card>
+  <Card title="Pluggable" icon="puzzle">
+    Easy-to-use plugin system to extend the framework with custom data formats and data platforms.
+  </Card>
+</CardGrid>
+
+<div style="margin-bottom: 5em"></div>
+
+<h2>Documentation</h2>
+
+<CardGrid>
+  <LinkCard title="Installation" href="/overview/installation" />
+  <LinkCard title="Contributing" href="/overview/contributing" />
+  <LinkCard title="Guides" href="/guides/validation" />
+  <LinkCard title="Packages" href="/packages/dpkit/overview" />
+</CardGrid>
+
+<About />

@@ -4,6 +4,7 @@ import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
 import { getPackageBasepath, readFileStream } from "@dpkit/file"
 import { saveResourceFiles } from "@dpkit/file"
 import { makeGithubApiRequest } from "../general/index.js"
+import type { GithubPackage } from "./Package.js"
 
 /**
  * Save a package to a Github repository
@@ -19,7 +20,7 @@ export async function savePackageToGithub(props: {
   const { datapackage, apiKey, org, repo } = props
   const basepath = getPackageBasepath({ datapackage })
 
-  const githubPackage = await makeGithubApiRequest({
+  const githubPackage = await makeGithubApiRequest<GithubPackage>({
     endpoint: org ? `/orgs/${org}/repos` : "/user/repos",
     payload: { name: repo, auto_init: true },
     method: "POST",

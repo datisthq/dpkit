@@ -5,7 +5,7 @@ import { assertSchema } from "./assert.js"
 
 describe("assertSchema", () => {
   it("returns typed schema when valid", async () => {
-    const validSchema: Schema = {
+    const descriptor = {
       fields: [
         {
           name: "id",
@@ -19,12 +19,12 @@ describe("assertSchema", () => {
       primaryKey: ["id"],
     }
 
-    const result = await assertSchema({
-      descriptor: validSchema,
+    const schema = await assertSchema({
+      descriptor,
     })
 
-    expectTypeOf(result).toEqualTypeOf<Schema>()
-    expect(result).toEqual(validSchema)
+    expectTypeOf(schema).toEqualTypeOf<Schema>()
+    expect(schema).toEqual(descriptor)
   })
 
   it("throws ValidationError when schema is invalid", async () => {

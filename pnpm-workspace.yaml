@@ -2,6 +2,7 @@ dangerouslyAllowAllBuilds: true
 packages:
   - avro
   - bin
+  - camtrap
   - ckan
   - cli
   - core
@@ -10,12 +11,12 @@ packages:
   - docs
   - dpkit
   - excel
+  - extend
   - file
   - github
   - json
   - ods
   - parquet
-  - site
   - table
   - test
   - ui

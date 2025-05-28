@@ -1,4 +1,5 @@
 {
   "entryPoints": ["index.ts"],
+  "projectDocuments": ["CHANGELOG.md", "OVERVIEW.md"],
   "skipErrorChecking": true
 }

@@ -1,8 +1,8 @@
 ---
 title: Contributing
+sidebar:
+  order: 2
 ---
-# Contributing to dpkit
-
 Thank you for your interest in contributing to dpkit! This document provides guidelines and instructions for contributing to this project.
 
 ## Project Overview

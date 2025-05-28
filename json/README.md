@@ -1,3 +1,3 @@
 # @dpkit/json
 
-Data Package implementation in TypeScript. Data Package is a standard consisting of a set of simple yet extensible specifications to describe datasets, data files and tabular data. It is a data definition language (DDL) and data API that facilitates findability, accessibility, interoperability, and reusability (FAIR) of data. For more information, please visit the [documentation portal](https://dpkit.datist.io).
+dpkit is a fast TypeScript data management framework based on the Data Package standard. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub. For more information, please visit the [documentation portal](https://dpkit.datist.io).

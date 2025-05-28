@@ -34,11 +34,13 @@ export interface GithubApiRequestProps {
 /**
  * Makes a request to the Github API
  */
-export async function makeGithubApiRequest(props: GithubApiRequestProps) {
+export async function makeGithubApiRequest<T = Descriptor>(
+  props: GithubApiRequestProps,
+) {
   const { endpoint, method = "GET", payload, upload, apiKey } = props
 
   let body: string | FormData | undefined
-  const headers: Descriptor = {}
+  const headers: Record<string, any> = {}
 
   if (apiKey) {
     headers["Authorization"] = `Bearer ${apiKey}`
@@ -72,17 +74,12 @@ export async function makeGithubApiRequest(props: GithubApiRequestProps) {
     body,
   })
 
-  if (!response.ok) {
+  if (!response.ok || response.status === 204) {
     const errorText = await response.text()
     throw new Error(
       `Github API error: ${response.status} ${response.statusText}\n${errorText}`,
     )
   }
 
-  // Check for no content responses
-  if (response.status === 204) {
-    return {}
-  }
-
-  return (await response.json()) as Descriptor
+  return (await response.json()) as T
 }

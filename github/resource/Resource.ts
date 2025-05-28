@@ -3,17 +3,17 @@
  */
 export interface GithubResource {
   /**
-   * File name
-   */
-  name: string
-
-  /**
    * File path within repository
    */
   path: string
 
   /**
-   * File type
+   * File mode e.g. `100755`
+   */
+  mode: string
+
+  /**
+   * File type e.g. `blob`
    */
   type: string
 
@@ -23,32 +23,12 @@ export interface GithubResource {
   size: number
 
   /**
-   * File SHA
+   * File SHA-1
    */
   sha: string
 
   /**
-   * File URL for viewing in browser
+   * File url on GitHub API
    */
-  html_url: string
-
-  /**
-   * File download URL
-   */
-  download_url: string
-
-  /**
-   * File Git URL
-   */
-  git_url: string
-
-  /**
-   * File content (base64 encoded)
-   */
-  content?: string
-
-  /**
-   * File encoding
-   */
-  encoding?: string
+  url: string
 }

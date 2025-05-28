@@ -11,28 +11,14 @@ export function denormalizeGithubResource(props: {
   resource: Resource
   content?: string
 }): Partial<GithubResource> {
-  const { resource, content } = props
+  const { resource } = props
 
   if (!resource.path && !resource.name) {
     return {}
   }
 
-  // Get the filename from path or name
-  const name =
-    resource.name ||
-    (typeof resource.path === "string"
-      ? resource.path.split("/").pop() || "unknown"
-      : "unknown")
-
   const githubResource: Partial<GithubResource> = {
-    name,
     path: resource.name, // Use resource name as path within repo
-  }
-
-  // Include content if provided
-  if (content) {
-    githubResource.content = content
-    githubResource.encoding = "base64"
   }
 
   return githubResource

@@ -52,9 +52,20 @@ describe("saveSchema", () => {
 
     const content = await fs.readFile(testPath, "utf-8")
     const parsedContent = JSON.parse(content)
-    expect(parsedContent).toEqual(testSchema)
 
-    const expectedFormat = JSON.stringify(testSchema, null, 2)
+    // Remove $schema property for test comparison
+    const { $schema, ...schemaWithoutSchema } = parsedContent
+    expect(schemaWithoutSchema).toEqual(testSchema)
+    expect($schema).toBe(
+      "https://datapackage.org/profiles/2.0/tableschema.json",
+    )
+
+    // Create expected format with $schema for comparison
+    const expectedWithSchema = {
+      ...testSchema,
+      $schema: "https://datapackage.org/profiles/2.0/tableschema.json",
+    }
+    const expectedFormat = JSON.stringify(expectedWithSchema, null, 2)
     expect(content).toEqual(expectedFormat)
   })
 })

@@ -1,3 +1,4 @@
+import type { Metadata } from "../general/index.js"
 import type { License, Resource, Source } from "../resource/index.js"
 import type { Contributor } from "./Contributor.js"
 
@@ -5,7 +6,7 @@ import type { Contributor } from "./Contributor.js"
  * Data Package interface based on the Frictionless Data specification
  * @see https://datapackage.org/standard/data-package/
  */
-export interface Package {
+export interface Package extends Metadata {
   /**
    * Unique package identifier
    * Should use lowercase alphanumeric characters, periods, hyphens, and underscores

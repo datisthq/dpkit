@@ -1,0 +1,22 @@
+{
+  "name": "@dpkit/extend",
+  "type": "module",
+  "main": "build/index.js",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/dpkit",
+  "description": "Fast TypeScript data management framework based on the Data Package standard",
+  "keywords": [
+    "data",
+    "package",
+    "typescript",
+    "validation",
+    "quality",
+    "fair",
+    "extend"
+  ],
+  "scripts": {
+    "build": "tsc --build"
+  }
+}

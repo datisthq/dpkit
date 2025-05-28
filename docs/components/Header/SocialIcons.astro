@@ -1,0 +1,27 @@
+---
+import Default from "@astrojs/starlight/components/SocialIcons.astro"
+import type { Props } from "@astrojs/starlight/props"
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<a href="https://datist.io/">
+  <strong>Datist</strong>
+</a>
+
+<a href="https://datapackage.org/">
+  <strong>Data Package</strong>
+</a>
+
+<!-- Add styles to mimic the default links appearance. -->
+<style>
+  a {
+    color: var(--sl-color-text-accent);
+    margin: -0.5em;
+    padding: 0.5em;
+  }
+
+  a:hover {
+    opacity: 0.66;
+  }
+</style>

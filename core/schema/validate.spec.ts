@@ -1,10 +1,9 @@
 import { describe, expect, it } from "vitest"
-import type { Schema } from "./Schema.js"
 import { validateSchema } from "./validate.js"
 
 describe("validateSchema", () => {
   it("returns empty array for valid schema", async () => {
-    const validSchema: Schema = {
+    const descriptor = {
       fields: [
         {
           name: "id",
@@ -18,7 +17,7 @@ describe("validateSchema", () => {
     }
 
     const result = await validateSchema({
-      descriptor: validSchema,
+      descriptor,
     })
 
     expect(result.valid).toBe(true)

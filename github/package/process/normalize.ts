@@ -62,7 +62,12 @@ export function normalizeGithubPackage(props: {
     datapackage.resources = githubPackage.resources
       .filter(resource => !resource.path.startsWith("."))
       .filter(resource => resource.type === "blob")
-      .map(resource => normalizeGithubResource({ githubResource: resource }))
+      .map(resource =>
+        normalizeGithubResource({
+          githubResource: resource,
+          defaultBranch: githubPackage.default_branch,
+        }),
+      )
   }
 
   // Process topics as keywords

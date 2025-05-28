@@ -1,9 +1,11 @@
+import type { Metadata } from "../general/index.js"
+
 /**
  * Descriptor that describes the structure of tabular data, such as delimiters,
  * headers, and other features. Following the Data Package standard:
  * https://datapackage.org/standard/table-dialect/
  */
-export interface Dialect {
+export interface Dialect extends Metadata {
   /**
    * The name of this dialect
    */

@@ -3,26 +3,29 @@ import { loadProfile } from "../general/index.js"
 import type { Schema } from "./Schema.js"
 import { normalizeSchema } from "./process/normalize.js"
 
+const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tableschema.json"
+
 /**
  * Validate a Schema descriptor (JSON Object) against its profile
  */
-export async function validateSchema(props: {
+export async function validateSchema<T extends Schema = Schema>(props: {
   descriptor: Descriptor
 }) {
   const { descriptor } = props
-  let schema: Schema | undefined = undefined
+  let schema: T | undefined = undefined
 
-  const $schema = props.descriptor.$schema ?? DEFAULT_PROFILE
+  const $schema =
+    typeof props.descriptor.$schema === "string"
+      ? props.descriptor.$schema
+      : DEFAULT_PROFILE
+
   const profile = await loadProfile({ path: $schema })
-
   const { valid, errors } = await validateDescriptor({ ...props, profile })
 
   if (valid) {
     // Validation + normalization = we can cast it
-    schema = normalizeSchema({ descriptor }) as Schema
+    schema = normalizeSchema({ descriptor }) as T
   }
 
   return { valid, errors, schema }
 }
-
-const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tableschema.json"

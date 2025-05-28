@@ -5,18 +5,18 @@ import { assertDialect } from "./assert.js"
 
 describe("assertDialect", () => {
   it("returns typed dialect when valid", async () => {
-    const validDialect: Dialect = {
+    const descriptor = {
       delimiter: ";",
       header: true,
       skipInitialSpace: true,
     }
 
-    const result = await assertDialect({
-      descriptor: validDialect,
+    const dialect = await assertDialect({
+      descriptor,
     })
 
-    expectTypeOf(result).toEqualTypeOf<Dialect>()
-    expect(result).toEqual(validDialect)
+    expectTypeOf(dialect).toEqualTypeOf<Dialect>()
+    expect(dialect).toEqual(descriptor)
   })
 
   it("throws ValidationError when dialect is invalid", async () => {

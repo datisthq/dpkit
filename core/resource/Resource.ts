@@ -1,11 +1,14 @@
+import type { Dialect } from "../dialect/Dialect.js"
+import type { Metadata } from "../general/index.js"
+import type { Schema } from "../schema/Schema.js"
 import type { License } from "./License.js"
 import type { Source } from "./Source.js"
 
 /**
- * Data Resource interface based on the Frictionless Data specification
+ * Data Resource interface based on the Data Package standard
  * @see https://datapackage.org/standard/data-resource/
  */
-export interface Resource {
+export interface Resource extends Metadata {
   /**
    * Unique resource identifier
    * Should use lowercase alphanumeric characters, periods, hyphens, and underscores
@@ -22,7 +25,7 @@ export interface Resource {
    * Inline data content instead of referencing an external file
    * Either path or data must be provided
    */
-  data?: unknown
+  data?: unknown | unknown[][] | Record<string, unknown>[]
 
   /**
    * The resource type
@@ -77,4 +80,18 @@ export interface Resource {
    * License information
    */
   licenses?: License[]
+
+  /**
+   * Table dialect specification
+   * Describes delimiters, quote characters, etc.
+   * @see https://datapackage.org/standard/table-dialect/
+   */
+  dialect?: string | Dialect
+
+  /**
+   * Schema for the tabular data
+   * Describes fields in the table, constraints, etc.
+   * @see https://datapackage.org/standard/table-schema/
+   */
+  schema?: string | Schema
 }
