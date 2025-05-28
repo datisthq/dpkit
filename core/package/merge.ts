@@ -4,22 +4,14 @@ import { loadPackageDescriptor } from "./load.js"
 /**
  * Merges a system data package into a user data package if provided
  */
-export async function mergePackages(props: {
+export async function mergePackages<T extends Package>(props: {
   systemPackage: Package
   userPackagePath?: string
 }) {
-  const { systemPackage, userPackagePath } = props
-
-  const userPackage = userPackagePath
-    ? await loadPackageDescriptor({ path: userPackagePath })
+  const systemPackage = props.systemPackage
+  const userPackage = props.userPackagePath
+    ? await loadPackageDescriptor<T>({ path: props.userPackagePath })
     : undefined
 
-  if (!userPackage) {
-    return props.systemPackage
-  }
-
-  // NOTE:
-  // Currently, it uses oversimplified logic till
-  // we get use feedback on the desired merging strategies
-  return { ...systemPackage, resources: userPackage.resources }
+  return { ...systemPackage, ...userPackage } as T
 }
