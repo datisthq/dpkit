@@ -105,13 +105,13 @@ importers:
         version: 0.1.1(@astrojs/starlight@0.34.3(astro@5.7.12(@types/node@22.14.1)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.1)))
       starlight-typedoc:
         specifier: 0.21.3
-        version: 0.21.3(@astrojs/starlight@0.34.3(astro@5.7.12(@types/node@22.14.1)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.1)))(typedoc-plugin-markdown@4.6.3(typedoc@0.28.4(typescript@5.8.3)))(typedoc@0.28.4(typescript@5.8.3))
+        version: 0.21.3(@astrojs/starlight@0.34.3(astro@5.7.12(@types/node@22.14.1)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.1)))(typedoc-plugin-markdown@4.6.3(typedoc@0.28.5(typescript@5.8.3)))(typedoc@0.28.5(typescript@5.8.3))
       typedoc:
-        specifier: 0.28.4
-        version: 0.28.4(typescript@5.8.3)
+        specifier: 0.28.5
+        version: 0.28.5(typescript@5.8.3)
       typedoc-plugin-markdown:
         specifier: 4.6.3
-        version: 4.6.3(typedoc@0.28.4(typescript@5.8.3))
+        version: 4.6.3(typedoc@0.28.5(typescript@5.8.3))
 
   dpkit:
     dependencies:
@@ -3083,8 +3083,8 @@ packages:
     peerDependencies:
       typedoc: 0.28.x
 
-  typedoc@0.28.4:
-    resolution: {integrity: sha512-xKvKpIywE1rnqqLgjkoq0F3wOqYaKO9nV6YkkSat6IxOWacUCc/7Es0hR3OPmkIqkPoEn7U3x+sYdG72rstZQA==}
+  typedoc@0.28.5:
+    resolution: {integrity: sha512-5PzUddaA9FbaarUzIsEc4wNXCiO4Ot3bJNeMF2qKpYlTmM9TTaSHQ7162w756ERCkXER/+o2purRG6YOAv6EMA==}
     engines: {node: '>= 18', pnpm: '>= 10'}
     hasBin: true
     peerDependencies:
@@ -6808,12 +6808,12 @@ snapshots:
     dependencies:
       '@astrojs/starlight': 0.34.3(astro@5.7.12(@types/node@22.14.1)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.1))
 
-  starlight-typedoc@0.21.3(@astrojs/starlight@0.34.3(astro@5.7.12(@types/node@22.14.1)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.1)))(typedoc-plugin-markdown@4.6.3(typedoc@0.28.4(typescript@5.8.3)))(typedoc@0.28.4(typescript@5.8.3)):
+  starlight-typedoc@0.21.3(@astrojs/starlight@0.34.3(astro@5.7.12(@types/node@22.14.1)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.1)))(typedoc-plugin-markdown@4.6.3(typedoc@0.28.5(typescript@5.8.3)))(typedoc@0.28.5(typescript@5.8.3)):
     dependencies:
       '@astrojs/starlight': 0.34.3(astro@5.7.12(@types/node@22.14.1)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.1))
       github-slugger: 2.0.0
-      typedoc: 0.28.4(typescript@5.8.3)
-      typedoc-plugin-markdown: 4.6.3(typedoc@0.28.4(typescript@5.8.3))
+      typedoc: 0.28.5(typescript@5.8.3)
+      typedoc-plugin-markdown: 4.6.3(typedoc@0.28.5(typescript@5.8.3))
 
   statuses@2.0.1: {}
 
@@ -6939,11 +6939,11 @@ snapshots:
       media-typer: 0.3.0
       mime-types: 2.1.35
 
-  typedoc-plugin-markdown@4.6.3(typedoc@0.28.4(typescript@5.8.3)):
+  typedoc-plugin-markdown@4.6.3(typedoc@0.28.5(typescript@5.8.3)):
     dependencies:
-      typedoc: 0.28.4(typescript@5.8.3)
+      typedoc: 0.28.5(typescript@5.8.3)
 
-  typedoc@0.28.4(typescript@5.8.3):
+  typedoc@0.28.5(typescript@5.8.3):
     dependencies:
       '@gerrit0/mini-shiki': 3.4.0
       lunr: 2.3.9
