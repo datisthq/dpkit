@@ -1,5 +1,18 @@
 # dpkit
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [089afce]
+  - @dpkit/camtrap@0.3.0
+  - @dpkit/github@0.5.0
+  - @dpkit/zenodo@0.4.0
+  - @dpkit/ckan@0.4.0
+  - @dpkit/core@0.4.0
+  - @dpkit/file@0.5.0
+  - @dpkit/zip@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes
