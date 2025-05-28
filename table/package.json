@@ -9,7 +9,10 @@
   "description": "Data Package implementation in TypeScript.",
   "keywords": [
     "data",
-    "package",
+    "polars",
+    "dataframe",
+    "datapackage",
+    "tableschema",
     "typescript",
     "validation",
     "quality",

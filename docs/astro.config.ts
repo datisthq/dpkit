@@ -21,7 +21,7 @@ export default defineConfig({
     starlight({
       title: "dpkit",
       description:
-        "dpkit is a fast TypeScript data management framework based on the Data Package standard. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub",
+        "dpkit is a fast TypeScript data management framework built on top of the Data Package standard and Polars DataFrames. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub",
       customCss: ["/assets/styles.css"],
       components: {
         SocialIcons: "./components/Header/SocialIcons.astro",

@@ -3,7 +3,7 @@ import type { License, Resource, Source } from "../resource/index.js"
 import type { Contributor } from "./Contributor.js"
 
 /**
- * Data Package interface based on the Frictionless Data specification
+ * Data Package interface built on top of the Frictionless Data specification
  * @see https://datapackage.org/standard/data-package/
  */
 export interface Package extends Metadata {

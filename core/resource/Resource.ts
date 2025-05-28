@@ -5,7 +5,7 @@ import type { License } from "./License.js"
 import type { Source } from "./Source.js"
 
 /**
- * Data Resource interface based on the Data Package standard
+ * Data Resource interface built on top of the Data Package standard and Polars DataFrames
  * @see https://datapackage.org/standard/data-resource/
  */
 export interface Resource extends Metadata {

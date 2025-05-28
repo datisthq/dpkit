@@ -2,7 +2,7 @@ import type { Package } from "@dpkit/core"
 import type { Contributor, License } from "@dpkit/core"
 
 /**
- * Camera Trap Data Package interface based on the TDWG specification
+ * Camera Trap Data Package interface built on top of the TDWG specification
  * @see https://camtrap-dp.tdwg.org/metadata/
  */
 export interface CamtrapPackage extends Package {
