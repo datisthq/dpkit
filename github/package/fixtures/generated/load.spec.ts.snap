@@ -109,25 +109,48 @@ exports[`loadPackageFromGithub > should load a package 1`] = `
 
 exports[`loadPackageFromGithub > should merge datapackage.json if present 1`] = `
 {
+  "$schema": undefined,
   "contributors": [
     {
-      "path": "https://github.com/roll",
-      "role": "author",
-      "title": "roll",
+      "email": "rufus.pollock@okfn.org",
+      "role": undefined,
+      "roles": [
+        "maintainer",
+      ],
+      "title": "Rufus Pollock",
+    },
+    {
+      "email": "kdkusano@gmail.com",
+      "title": "Kristofer D. Kusano",
     },
   ],
   "created": "2021-07-07T14:09:49Z",
   "description": "ISO 4217 List of Currencies and Currency Codes",
-  "homepage": "https://datahub.io/core/currency-codes",
+  "homepage": "http://www.iso.org/iso/currency_codes",
+  "keywords": [
+    "iso",
+    "iso-4217",
+    "currency",
+    "codes",
+  ],
+  "licenses": [
+    {
+      "name": "ODC-PDDL-1.0",
+      "path": "http://opendatacommons.org/licenses/pddl/",
+      "title": "Open Data Commons Public Domain Dedication and License v1.0",
+    },
+  ],
   "name": "currency-codes",
   "resources": [
     {
+      "$schema": undefined,
       "github:key": undefined,
       "github:url": undefined,
       "mimetype": "text/csv",
       "name": "codes-all",
       "path": "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/data/codes-all.csv",
       "schema": {
+        "$schema": undefined,
         "fields": [
           {
             "description": "Country or region name",
@@ -168,6 +191,13 @@ exports[`loadPackageFromGithub > should merge datapackage.json if present 1`] = 
       "size": "16863",
     },
   ],
-  "title": "roll/currency-codes",
+  "sources": [
+    {
+      "email": "office@currency-iso.org",
+      "name": "SIX Interbank Clearing Ltd (on behalf of ISO)",
+      "title": "SIX Interbank Clearing Ltd (on behalf of ISO)",
+    },
+  ],
+  "title": "ISO 4217 Currency Codes",
 }
 `;

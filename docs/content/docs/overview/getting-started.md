@@ -35,14 +35,31 @@ dpkit is built with type safety in mind. It uses TypeScript to provide type defi
 
 ## Usage
 
-Here is an example of loading a Camtrap DP package from Zenodo preserving full type-safety of the extension and merging system Zenodo metadata into a user data package:
+Here is an example of loading a Camtrap DP package from Zenodo merging system Zenodo metadata into a user data package and validating its metadata:
 
 ```ts
-import { loadPackage, type CamtrapPackage } from "dpkit"
+import { loadPackage } from "dpkit"
 
-const { datapackage } = await loadPackage<CamtrapPackage>({
+const { datapackage } = await loadPackage({
   source: "https://zenodo.org/records/10053903",
 })
 
 console.log(datapackage)
+```
+
+Example of using a Data Package extension in type-safe manner:
+
+```ts
+import { loadPackage, assertCamtrapPackage } from "dpkit"
+
+const { datapackage } = await loadPackage({
+  source:
+    "https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.1/example/datapackage.json",
+})
+
+const camtrapPackage = await assertCamtrapPackage({ datapackage })
+
+console.log(camtrapPackage.taxonomic)
+console.log(camtrapPackage.project.title)
+console.log(camtrapPackage.bibliographicCitation)
 ```

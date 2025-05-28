@@ -41,6 +41,7 @@ exports[`loadPackageFromZenodo > should load a package 1`] = `
 
 exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = `
 {
+  "$schema": "tabular-data-package",
   "contributors": [
     {
       "path": "Vogelwerkgroep Assen",
@@ -91,6 +92,7 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
 </ul>
 <h2>Acknowledgements</h2>
 <p>These data were collected by Bert Dijkstra and Rinus Dillerop from Vogelwerkgroep Assen, in collaboration with the Netherlands Institute of Ecology (NIOO-KNAW), Sovon, Radboud University and the University of Amsterdam (UvA). Funding was provided by the Prins Bernard Cultuurfonds Drenthe, municipality of Assen, IJsvogelfonds (from Birdlife Netherlands and Nationale Postcodeloterij) and the Waterleiding Maatschappij Drenthe. The dataset was published with funding from Stichting NLBIF - Netherlands Biodiversity Information Facility.</p>",
+  "id": "https://doi.org/10.5281/zenodo.10053903",
   "keywords": [
     "animal movement",
     "animal tracking",
@@ -112,8 +114,10 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
     },
   ],
   "name": "record-10053903",
+  "profile": "tabular-data-package",
   "resources": [
     {
+      "$schema": "tabular-data-resource",
       "encoding": "UTF-8",
       "format": "csv",
       "mediatype": "text/csv",
@@ -121,6 +125,7 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
       "path": "https://zenodo.org/records/10053903/files/O_ASSEN-reference-data.csv",
       "profile": "tabular-data-resource",
       "schema": {
+        "$schema": undefined,
         "fields": [
           {
             "description": "A unique identifier for the tag, provided by the data owner. If the data owner does not provide a tag ID, an internal Movebank tag identifier may sometimes be shown. Example: '2342'; Units: none; Entity described: tag",
@@ -348,6 +353,7 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
       "zenodo:url": undefined,
     },
     {
+      "$schema": "tabular-data-resource",
       "encoding": "UTF-8",
       "format": "csv",
       "mediatype": "text/csv",
@@ -358,6 +364,7 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
       ],
       "profile": "tabular-data-resource",
       "schema": {
+        "$schema": undefined,
         "fields": [
           {
             "description": "An identifier for the set of values associated with each event, i.e. sensor measurement. A unique event ID is assigned to every time-location or other time-measurement record in Movebank. If multiple measurements are included within a single row of a data file, they will share an event ID. If users import the same sensor measurement to Movebank multiple times, a separate event ID will be assigned to each. Example: '14328243575'; Units: none; Entity described: event",
@@ -559,6 +566,7 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
       "zenodo:url": undefined,
     },
     {
+      "$schema": "tabular-data-resource",
       "encoding": "UTF-8",
       "format": "csv",
       "mediatype": "text/csv",
@@ -569,6 +577,7 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
       ],
       "profile": "tabular-data-resource",
       "schema": {
+        "$schema": undefined,
         "fields": [
           {
             "description": "An identifier for the set of values associated with each event, i.e. sensor measurement. A unique event ID is assigned to every time-location or other time-measurement record in Movebank. If multiple measurements are included within a single row of a data file, they will share an event ID. If users import the same sensor measurement to Movebank multiple times, a separate event ID will be assigned to each. Example: '14328243575'; Units: none; Entity described: event",

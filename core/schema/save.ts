@@ -15,9 +15,7 @@ export async function saveSchema(props: {
   const { schema, path } = props
 
   const descriptor = denormalizeSchema({ schema })
-
-  descriptor.$schema =
-    descriptor.$schema ?? descriptor.profile ?? CURRENT_PROFILE
+  descriptor.$schema = descriptor.$schema ?? CURRENT_PROFILE
 
   await saveDescriptor({ descriptor, path })
 }
