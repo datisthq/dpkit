@@ -1,0 +1,25 @@
+{
+  "name": "@dpkit/camtrap",
+  "type": "module",
+  "main": "build/index.js",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/dpkit",
+  "description": "Fast TypeScript data management framework based on the Data Package standard",
+  "keywords": [
+    "data",
+    "package",
+    "typescript",
+    "validation",
+    "quality",
+    "fair",
+    "camtrap"
+  ],
+  "dependencies": {
+    "@dpkit/core": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsc --build"
+  }
+}

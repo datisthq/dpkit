@@ -46,6 +46,12 @@ importers:
 
   bin: {}
 
+  camtrap:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+
   ckan:
     dependencies:
       '@dpkit/core':
