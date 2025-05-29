@@ -1,17 +1,23 @@
-import type { Schema, Field } from "@dpkit/core"
-import type { PolarsSchema } from "../Schema.js"
+import type { Field, Schema } from "@dpkit/core"
 import type { DataType } from "nodejs-polars"
+import type { PolarsSchema } from "../Schema.js"
 
 /**
  * Converts a Polars schema to a Data Package Table Schema
  */
-export function convertSchemaFromPolars(props: { schema: PolarsSchema }): Schema {
+export function convertSchemaFromPolars(props: {
+  schema: PolarsSchema
+}): Schema {
   const { schema } = props
-  
-  if (!schema || typeof schema !== "object" || Object.keys(schema).length === 0) {
+
+  if (
+    !schema ||
+    typeof schema !== "object" ||
+    Object.keys(schema).length === 0
+  ) {
     throw new Error("Invalid Polars schema: schema must be a non-empty object")
   }
-  
+
   const fields: Field[] = []
 
   // Convert each field in the Polars schema to a Table Schema field
@@ -19,11 +25,13 @@ export function convertSchemaFromPolars(props: { schema: PolarsSchema }): Schema
     if (!name) {
       throw new Error("Invalid field name: field name cannot be empty")
     }
-    
+
     if (!dtype) {
-      throw new Error(`Invalid data type for field '${name}': data type cannot be empty`)
+      throw new Error(
+        `Invalid data type for field '${name}': data type cannot be empty`,
+      )
     }
-    
+
     const field = convertPolarsFieldToTableField(name, dtype)
     fields.push(field)
   }
@@ -34,14 +42,17 @@ export function convertSchemaFromPolars(props: { schema: PolarsSchema }): Schema
 /**
  * Converts a Polars field to a Table Schema field
  */
-function convertPolarsFieldToTableField(name: string, dtype: string | DataType): Field {
+function convertPolarsFieldToTableField(
+  name: string,
+  dtype: string | DataType,
+): Field {
   if (!name) {
     throw new Error("Field name is required")
   }
-  
+
   // If dtype is a string, we use it directly, otherwise extract the variant
-  const dataType = typeof dtype === "string" ? dtype : (dtype?.variant || "")
-  
+  const dataType = typeof dtype === "string" ? dtype : dtype?.variant || ""
+
   if (!dataType) {
     throw new Error(`Unable to determine data type for field '${name}'`)
   }
@@ -58,7 +69,7 @@ function convertPolarsFieldToTableField(name: string, dtype: string | DataType):
     case "UInt64":
       return {
         name,
-        type: "integer"
+        type: "integer",
       }
 
     // Float types
@@ -66,63 +77,63 @@ function convertPolarsFieldToTableField(name: string, dtype: string | DataType):
     case "Float64":
       return {
         name,
-        type: "number"
+        type: "number",
       }
 
     // Boolean type
     case "Bool":
       return {
         name,
-        type: "boolean"
+        type: "boolean",
       }
 
     // String type
     case "Utf8":
       return {
         name,
-        type: "string"
+        type: "string",
       }
 
     // Date type
     case "Date":
       return {
         name,
-        type: "date"
+        type: "date",
       }
 
     // Time type
     case "Time":
       return {
         name,
-        type: "time"
+        type: "time",
       }
 
     // Datetime type (with or without timezone)
     case "Datetime":
       return {
         name,
-        type: "datetime"
+        type: "datetime",
       }
 
     // List type
     case "List":
       return {
         name,
-        type: "array"
+        type: "array",
       }
 
     // Struct type
     case "Struct":
       return {
         name,
-        type: "object"
+        type: "object",
       }
 
     // Default to any type for unsupported types
     default:
       return {
         name,
-        type: "any"
+        type: "any",
       }
   }
 }

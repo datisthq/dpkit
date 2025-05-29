@@ -1,4 +1,4 @@
-import type { Schema, Field } from "@dpkit/core"
+import type { Field, Schema } from "@dpkit/core"
 import type { PolarsSchema } from "../Schema.js"
 
 /**
@@ -6,19 +6,19 @@ import type { PolarsSchema } from "../Schema.js"
  */
 export function convertSchemaToPolars(props: { schema: Schema }): PolarsSchema {
   const { schema } = props
-  
+
   if (!schema) {
     throw new Error("Invalid schema: schema cannot be null or undefined")
   }
-  
+
   if (!schema.fields || !Array.isArray(schema.fields)) {
     throw new Error("Invalid schema: schema must have a fields array")
   }
-  
+
   if (schema.fields.length === 0) {
     throw new Error("Invalid schema: schema must have at least one field")
   }
-  
+
   const polarsSchema: PolarsSchema = {}
 
   // Convert each field in the Table Schema to a Polars data type
@@ -26,11 +26,11 @@ export function convertSchemaToPolars(props: { schema: Schema }): PolarsSchema {
     if (!field.name) {
       throw new Error("Invalid field: name is required")
     }
-    
+
     if (!field.type) {
       throw new Error(`Invalid field '${field.name}': type is required`)
     }
-    
+
     const polarsDtype = convertTableFieldToPolarsType(field)
     polarsSchema[field.name] = polarsDtype
   }
@@ -45,11 +45,11 @@ function convertTableFieldToPolarsType(field: Field): string {
   if (!field) {
     throw new Error("Invalid field: field cannot be null or undefined")
   }
-  
+
   if (!field.type) {
     throw new Error(`Invalid field '${field.name}': type is required`)
   }
-  
+
   switch (field.type) {
     // String type
     case "string":
