@@ -23,6 +23,7 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "nodejs-polars": "^0.18.0"
+    "nodejs-polars": "^0.18.0",
+    "@dpkit/core": "workspace:*"
   }
 }

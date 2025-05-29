@@ -178,6 +178,9 @@ importers:
 
   table:
     dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
       nodejs-polars:
         specifier: ^0.18.0
         version: 0.18.0
