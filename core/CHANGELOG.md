@@ -1,5 +1,11 @@
 # @dpkit/core
 
+## 0.5.0
+
+### Minor Changes
+
+- a1b5e95: Allow metadata input for assert/validate functions
+
 ## 0.4.0
 
 ### Minor Changes
