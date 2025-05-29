@@ -30,6 +30,6 @@
   },
   "devDependencies": {
     "@types/yauzl-promise": "^4.0.1",
-    "@types/yazl": "^2.4.6"
+    "@types/yazl": "^3.0.0"
   }
 }
