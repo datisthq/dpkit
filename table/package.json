@@ -21,5 +21,8 @@
   ],
   "scripts": {
     "build": "tsc --build"
+  },
+  "dependencies": {
+    "nodejs-polars": "^0.18.0"
   }
 }
