@@ -4,7 +4,7 @@ sidebar:
   order: 1
 ---
 
-This guide will help you get started with dpkit. If you are new to the core framework's tecnhologies, please take a look at the [Data Package standard](https://datapackage.org/) and [Polars DataFrames](https://pola-rs.github.io/polars) documentation.
+This guide will help you get started with dpkit. If you are new to the core framework's tecnhologies, please take a look at the [Data Package standard](https://datapackage.org/) and [Polars DataFrames](https://pola.rs/) documentation.
 
 
 ## Installation
