@@ -9,20 +9,21 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/datapackage.json"
  * Validate a Package descriptor (JSON Object) against its profile
  */
 export async function validatePackageDescriptor(props: {
-  descriptor: Descriptor
+  descriptor: Descriptor | Package
   basepath?: string
 }) {
-  const { descriptor, basepath } = props
-  let datapackage: Package | undefined = undefined
+  const { basepath } = props
+  const descriptor = props.descriptor as Descriptor
 
   const $schema =
-    typeof props.descriptor.$schema === "string"
-      ? props.descriptor.$schema
+    typeof descriptor.$schema === "string"
+      ? descriptor.$schema
       : DEFAULT_PROFILE
 
   const profile = await loadProfile({ path: $schema })
-  const { valid, errors } = await validateDescriptor({ ...props, profile })
+  const { valid, errors } = await validateDescriptor({ descriptor, profile })
 
+  let datapackage: Package | undefined = undefined
   if (valid) {
     // Validation + normalization = we can cast it
     datapackage = normalizePackage({

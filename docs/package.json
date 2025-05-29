@@ -16,5 +16,8 @@
     "starlight-typedoc": "0.21.3",
     "typedoc": "0.28.5",
     "typedoc-plugin-markdown": "4.6.3"
+  },
+  "devDependencies": {
+    "tempy": "3.1.0"
   }
 }

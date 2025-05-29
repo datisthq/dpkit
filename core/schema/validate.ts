@@ -8,23 +8,23 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tableschema.json"
 /**
  * Validate a Schema descriptor (JSON Object) against its profile
  */
-export async function validateSchema<T extends Schema = Schema>(props: {
-  descriptor: Descriptor
+export async function validateSchema(props: {
+  descriptor: Descriptor | Schema
 }) {
-  const { descriptor } = props
-  let schema: T | undefined = undefined
+  const descriptor = props.descriptor as Descriptor
 
   const $schema =
-    typeof props.descriptor.$schema === "string"
-      ? props.descriptor.$schema
+    typeof descriptor.$schema === "string"
+      ? descriptor.$schema
       : DEFAULT_PROFILE
 
   const profile = await loadProfile({ path: $schema })
-  const { valid, errors } = await validateDescriptor({ ...props, profile })
+  const { valid, errors } = await validateDescriptor({ descriptor, profile })
 
+  let schema: Schema | undefined = undefined
   if (valid) {
     // Validation + normalization = we can cast it
-    schema = normalizeSchema({ descriptor }) as T
+    schema = normalizeSchema({ descriptor }) as unknown as Schema
   }
 
   return { valid, errors, schema }

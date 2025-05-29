@@ -1,8 +1,5 @@
-import {
-  AssertionError,
-  type Package,
-  validatePackageDescriptor,
-} from "@dpkit/core"
+import { AssertionError, validatePackageDescriptor } from "@dpkit/core"
+import type { Descriptor, Package } from "@dpkit/core"
 import type { CamtrapPackage } from "./Package.js"
 
 const SUPPORTED_PROFILES = [
@@ -14,17 +11,20 @@ const SUPPORTED_PROFILES = [
  * Assert a Package descriptor (JSON Object) against its profile
  */
 export async function assertCamtrapPackage(props: {
-  datapackage: Package
+  descriptor: Descriptor | Package
 }) {
-  if (!SUPPORTED_PROFILES.includes(props.datapackage.$schema ?? "")) {
-    throw new Error(
-      `Unsupported Camtrap DP profile: ${props.datapackage.$schema}`,
-    )
+  const descriptor = props.descriptor as Descriptor
+
+  const isCamtrap =
+    typeof descriptor.$schema === "string" &&
+    SUPPORTED_PROFILES.includes(descriptor.$schema)
+
+  if (!isCamtrap) {
+    throw new Error(`Unsupported Camtrap profile "${descriptor.$schema}"`)
   }
 
   const { errors, datapackage } = await validatePackageDescriptor({
-    // @ts-ignore (TODO: figure out descriptor/package boundary here)
-    descriptor: props.datapackage,
+    descriptor,
   })
 
   if (!datapackage) throw new AssertionError(errors)

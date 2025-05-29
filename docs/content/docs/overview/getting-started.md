@@ -33,9 +33,9 @@ Use **Node.js v24+** to be able to run TypeScript files directly with the `node`
 
 dpkit is built with type safety in mind. It uses TypeScript to provide type definitions for all packages and to enforce type safety throughout the framework. It's highly reccomended to setup a TypeScript aware environment to work with the project.
 
-## Usage
+## Examples
 
-Here is an example of loading a Camtrap DP package from Zenodo merging system Zenodo metadata into a user data package and validating its metadata:
+Loading a Camtrap DP package from Zenodo merging system Zenodo metadata into a user data package and validating its metadata:
 
 ```ts
 import { loadPackage } from "dpkit"
@@ -45,9 +45,15 @@ const { datapackage } = await loadPackage({
 })
 
 console.log(datapackage)
+//{
+//  id: 'https://doi.org/10.5281/zenodo.10053903',
+//  profile: 'tabular-data-package',
+//  ...
+//}
+
 ```
 
-Example of using a Data Package extension in type-safe manner:
+Example of using a Data Package extension in type-safe manner. Not supported properties will indicate type errors in your IDE:
 
 ```ts
 import { loadPackage, assertCamtrapPackage } from "dpkit"
@@ -59,7 +65,64 @@ const { datapackage } = await loadPackage({
 
 const camtrapPackage = await assertCamtrapPackage({ datapackage })
 
-console.log(camtrapPackage.taxonomic)
 console.log(camtrapPackage.project.title)
+// Management of Invasive Coypu and muskrAt in Europe
 console.log(camtrapPackage.bibliographicCitation)
+// Desmet P, Neukermans A, Van der beeck D, Cartuyvels E (2022)...
 ```
+
+Validating an in-memory package descriptor:
+
+```ts
+import { validatePackageDescriptor } from "dpkit"
+
+const { valid, errors } = await validatePackageDescriptor({
+  descriptor: { name: "package" },
+})
+
+console.log(valid)
+// false
+console.log(errors)
+//[
+//  {
+//    instancePath: '',
+//    schemaPath: '#/required',
+//    keyword: 'required',
+//    params: { missingProperty: 'resources' },
+//    message: "must have required property 'resources'",
+//    type: 'descriptor'
+//  }
+//]
+```
+
+Loading a package from a remote descriptor and saving it locally as a zip archive, and then using it as a local data package:
+
+```ts
+import {
+  loadPackageDescriptor,
+  savePackageToZip,
+  loadPackageFromZip,
+} from "dpkit"
+import { temporaryFileTask } from "tempy"
+
+const sourcePackage = await loadPackageDescriptor({
+  path: "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
+})
+
+await temporaryFileTask(
+  async archivePath => {
+    await savePackageToZip({ datapackage: sourcePackage, archivePath })
+    const { datapackage: targetPackage, cleanup } = await loadPackageFromZip({ archivePath })
+    console.log(targetPackage)
+    //{
+    //  name: 'currency-codes',
+    //  title: 'ISO 4217 Currency Codes',
+    await cleanup()
+  },
+  { extension: "zip" },
+)
+```
+
+## Reference
+
+See **API Reference** of each individual package for more details. Note, that `dpkit` package re-exports most of the functionality.

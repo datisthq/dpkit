@@ -1,15 +1,14 @@
 import { loadDescriptor } from "../general/index.js"
-import type { Dialect } from "./Dialect.js"
 import { assertDialect } from "./assert.js"
 
 /**
  * Load a Dialect descriptor (JSON Object) from a file or URL
  * Ensures the descriptor is valid against its profile
  */
-export async function loadDialect<T extends Dialect = Dialect>(props: {
+export async function loadDialect(props: {
   path: string
 }) {
   const { descriptor } = await loadDescriptor(props)
-  const dialect = await assertDialect<T>({ descriptor })
+  const dialect = await assertDialect({ descriptor })
   return dialect
 }
