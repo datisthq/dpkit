@@ -16,14 +16,14 @@ import { denormalizeZenodoPackage } from "./process/denormalize.js"
  * @returns Object with the deposit URL and DOI
  */
 export async function savePackageToZenodo(props: {
-  datapackage: Package
+  dataPackage: Package
   sandbox?: boolean
   apiKey: string
 }) {
-  const { datapackage, apiKey, sandbox = false } = props
-  const basepath = getPackageBasepath({ datapackage })
+  const { dataPackage, apiKey, sandbox = false } = props
+  const basepath = getPackageBasepath({ dataPackage })
 
-  const newZenodoPackage = denormalizeZenodoPackage({ datapackage })
+  const newZenodoPackage = denormalizeZenodoPackage({ dataPackage })
   const zenodoPackage = (await makeZenodoApiRequest({
     payload: newZenodoPackage,
     endpoint: "/deposit/depositions",
@@ -33,7 +33,7 @@ export async function savePackageToZenodo(props: {
   })) as ZenodoPackage
 
   const resourceDescriptors: Descriptor[] = []
-  for (const resource of datapackage.resources) {
+  for (const resource of dataPackage.resources) {
     if (!resource.path) continue
 
     resourceDescriptors.push(
@@ -67,7 +67,7 @@ export async function savePackageToZenodo(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ datapackage, basepath }),
+    ...denormalizePackage({ dataPackage, basepath }),
     resources: resourceDescriptors,
   }
 

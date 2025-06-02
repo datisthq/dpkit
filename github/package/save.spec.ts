@@ -7,12 +7,12 @@ describe("savePackageToGithub", () => {
   //useRecording()
 
   it.skip("should save a package", async () => {
-    const datapackage = await loadPackageDescriptor({
+    const dataPackage = await loadPackageDescriptor({
       path: "core/package/fixtures/package.json",
     })
 
     const result = await savePackageToGithub({
-      datapackage,
+      dataPackage,
       apiKey: "<key>",
       repo: "test",
     })

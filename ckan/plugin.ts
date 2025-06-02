@@ -14,10 +14,10 @@ export class CkanPlugin implements Plugin {
     if (!withDataset) return undefined
 
     const cleanup = async () => {}
-    const datapackage = await loadPackageFromCkan({
+    const dataPackage = await loadPackageFromCkan({
       datasetUrl: props.source,
     })
 
-    return { datapackage, cleanup }
+    return { dataPackage, cleanup }
   }
 }

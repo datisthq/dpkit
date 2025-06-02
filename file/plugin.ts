@@ -15,10 +15,10 @@ export class FilePlugin implements Plugin {
     if (!isFolder) return undefined
 
     const cleanup = async () => {}
-    const datapackage = await loadPackageFromFolder({
+    const dataPackage = await loadPackageFromFolder({
       folderPath: props.source,
     })
 
-    return { datapackage, cleanup }
+    return { dataPackage, cleanup }
   }
 }

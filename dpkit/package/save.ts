@@ -3,7 +3,7 @@ import { savePackageDescriptor } from "@dpkit/core"
 import { dpkit } from "../general/index.js"
 
 export async function savePackage(props: {
-  datapackage: Package
+  dataPackage: Package
   target: string
   options?: Descriptor
 }) {
@@ -14,7 +14,7 @@ export async function savePackage(props: {
 
   if (props.target.endsWith("datapackage.json")) {
     return await savePackageDescriptor({
-      datapackage: props.datapackage,
+      dataPackage: props.dataPackage,
       path: props.target,
     })
   }

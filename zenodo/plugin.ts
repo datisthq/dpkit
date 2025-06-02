@@ -14,10 +14,10 @@ export class ZenodoPlugin implements Plugin {
     if (!isZenodo) return undefined
 
     const cleanup = async () => {}
-    const datapackage = await loadPackageFromZenodo({
+    const dataPackage = await loadPackageFromZenodo({
       datasetUrl: props.source,
     })
 
-    return { datapackage, cleanup }
+    return { dataPackage, cleanup }
   }
 }

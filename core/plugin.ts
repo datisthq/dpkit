@@ -6,11 +6,11 @@ export interface Plugin {
     source: string
     options?: Descriptor
   }): Promise<
-    undefined | { datapackage: Package; cleanup?: () => Promise<void> }
+    undefined | { dataPackage: Package; cleanup?: () => Promise<void> }
   >
 
   savePackage?(props: {
-    datapackage: Package
+    dataPackage: Package
     target: string
     options?: Descriptor
   }): Promise<undefined | { path?: string }>

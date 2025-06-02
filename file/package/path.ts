@@ -1,10 +1,10 @@
 import { join, relative, resolve, sep } from "node:path"
 import { type Package, getBasepath, isRemotePath } from "@dpkit/core"
 
-export function getPackageBasepath(props: { datapackage: Package }) {
+export function getPackageBasepath(props: { dataPackage: Package }) {
   const paths: string[] = []
 
-  for (const resource of props.datapackage.resources) {
+  for (const resource of props.dataPackage.resources) {
     if (!resource.path) {
       continue
     }

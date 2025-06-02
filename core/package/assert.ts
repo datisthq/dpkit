@@ -9,7 +9,7 @@ export async function assertPackage(props: {
   descriptor: Descriptor | Package
   basepath?: string
 }) {
-  const { errors, datapackage } = await validatePackageDescriptor(props)
-  if (!datapackage) throw new AssertionError(errors)
-  return datapackage
+  const { errors, dataPackage } = await validatePackageDescriptor(props)
+  if (!dataPackage) throw new AssertionError(errors)
+  return dataPackage
 }

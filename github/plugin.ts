@@ -14,10 +14,10 @@ export class GithubPlugin implements Plugin {
     if (!isGithub) return undefined
 
     const cleanup = async () => {}
-    const datapackage = await loadPackageFromGithub({
+    const dataPackage = await loadPackageFromGithub({
       repoUrl: props.source,
     })
 
-    return { datapackage, cleanup }
+    return { dataPackage, cleanup }
   }
 }

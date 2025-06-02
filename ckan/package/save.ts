@@ -17,16 +17,16 @@ import { denormalizeCkanResource } from "../resource/index.js"
 import { denormalizeCkanPackage } from "./process/denormalize.js"
 
 export async function savePackageToCkan(props: {
-  datapackage: Package
+  dataPackage: Package
   apiKey: string
   ckanUrl: string
   ownerOrg: string
   datasetName: string
 }) {
-  const { datapackage, ckanUrl, apiKey, datasetName, ownerOrg } = props
+  const { dataPackage, ckanUrl, apiKey, datasetName, ownerOrg } = props
 
-  const basepath = getPackageBasepath({ datapackage })
-  const ckanPackage = denormalizeCkanPackage({ datapackage })
+  const basepath = getPackageBasepath({ dataPackage })
+  const ckanPackage = denormalizeCkanPackage({ dataPackage })
 
   const payload = {
     ...ckanPackage,
@@ -46,7 +46,7 @@ export async function savePackageToCkan(props: {
   url.pathname = `/dataset/${result.name}`
 
   const resourceDescriptors: Descriptor[] = []
-  for (const resource of datapackage.resources) {
+  for (const resource of dataPackage.resources) {
     resourceDescriptors.push(
       await saveResourceFiles({
         resource,
@@ -86,7 +86,7 @@ export async function savePackageToCkan(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ datapackage, basepath }),
+    ...denormalizePackage({ dataPackage, basepath }),
     resources: resourceDescriptors,
   }
 

@@ -12,13 +12,13 @@ import type { GithubPackage } from "./Package.js"
  * @returns Object with the repository URL
  */
 export async function savePackageToGithub(props: {
-  datapackage: Package
+  dataPackage: Package
   apiKey: string
   repo: string
   org?: string
 }) {
-  const { datapackage, apiKey, org, repo } = props
-  const basepath = getPackageBasepath({ datapackage })
+  const { dataPackage, apiKey, org, repo } = props
+  const basepath = getPackageBasepath({ dataPackage })
 
   const githubPackage = await makeGithubApiRequest<GithubPackage>({
     endpoint: org ? `/orgs/${org}/repos` : "/user/repos",
@@ -28,7 +28,7 @@ export async function savePackageToGithub(props: {
   })
 
   const resourceDescriptors: Descriptor[] = []
-  for (const resource of datapackage.resources) {
+  for (const resource of dataPackage.resources) {
     if (!resource.path) continue
 
     resourceDescriptors.push(
@@ -59,7 +59,7 @@ export async function savePackageToGithub(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ datapackage, basepath }),
+    ...denormalizePackage({ dataPackage, basepath }),
     resources: resourceDescriptors,
   }
 
@@ -81,7 +81,7 @@ export async function savePackageToGithub(props: {
   }
 
   return {
-    path: `https://raw.githubusercontent.com/${githubPackage.owner.login}/${repo}/refs/heads/main/datapackage.json`,
+    path: `https://raw.githubusercontent.com/${githubPackage.owner.login}/${repo}/refs/heads/main/dataPackage.json`,
     repoUrl: githubPackage.html_url,
   }
 }

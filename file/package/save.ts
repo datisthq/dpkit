@@ -8,17 +8,17 @@ import { getPackageBasepath } from "./path.js"
 
 export async function savePackageToFolder(props: {
   folderPath: string
-  datapackage: Package
+  dataPackage: Package
   withRemote?: boolean
 }) {
-  const { folderPath, datapackage, withRemote } = props
-  const basepath = getPackageBasepath({ datapackage })
+  const { folderPath, dataPackage, withRemote } = props
+  const basepath = getPackageBasepath({ dataPackage })
 
   await assertLocalPathVacant({ path: folderPath })
   await createFolder({ path: folderPath })
 
   const resourceDescriptors: Descriptor[] = []
-  for (const resource of datapackage.resources) {
+  for (const resource of dataPackage.resources) {
     resourceDescriptors.push(
       await saveResourceFiles({
         resource,
@@ -37,7 +37,7 @@ export async function savePackageToFolder(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ datapackage, basepath }),
+    ...denormalizePackage({ dataPackage, basepath }),
     resources: resourceDescriptors,
   }
 

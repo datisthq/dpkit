@@ -8,9 +8,9 @@ import type { ZenodoPackage } from "../Package.js"
  * @returns Zenodo metadata object for deposit creation/update
  */
 export function denormalizeZenodoPackage(props: {
-  datapackage: Package
+  dataPackage: Package
 }): Partial<ZenodoPackage> {
-  const { datapackage } = props
+  const { dataPackage } = props
 
   // Build metadata object
   const metadata: Partial<ZenodoPackage["metadata"]> = {
@@ -18,37 +18,37 @@ export function denormalizeZenodoPackage(props: {
   }
 
   // Basic metadata
-  if (datapackage.title) {
-    metadata.title = datapackage.title
+  if (dataPackage.title) {
+    metadata.title = dataPackage.title
   }
 
-  if (datapackage.description) {
-    metadata.description = datapackage.description
-  } else if (datapackage.title) {
+  if (dataPackage.description) {
+    metadata.description = dataPackage.description
+  } else if (dataPackage.title) {
     // Fallback to title if no description is provided (required by Zenodo)
-    metadata.description = datapackage.title
+    metadata.description = dataPackage.title
   } else {
     metadata.description = "Dataset created with @dpkit/zenodo"
   }
 
-  if (datapackage.version) {
-    metadata.version = datapackage.version
+  if (dataPackage.version) {
+    metadata.version = dataPackage.version
   }
 
   // Process license information
-  if (datapackage.licenses && datapackage.licenses.length > 0) {
-    const license = datapackage.licenses[0]
+  if (dataPackage.licenses && dataPackage.licenses.length > 0) {
+    const license = dataPackage.licenses[0]
     if (license?.name) {
       metadata.license = license.name
     }
   }
 
   // Process contributors as creators
-  if (datapackage.contributors && datapackage.contributors.length > 0) {
+  if (dataPackage.contributors && dataPackage.contributors.length > 0) {
     const creators: ZenodoCreator[] = []
 
     // First look for authors
-    const authors = datapackage.contributors.filter(c => c.role === "author")
+    const authors = dataPackage.contributors.filter(c => c.role === "author")
     if (authors.length > 0) {
       authors.forEach(author => {
         const creator: ZenodoCreator = {
@@ -63,7 +63,7 @@ export function denormalizeZenodoPackage(props: {
       })
     } else {
       // If no authors, use any contributor
-      const firstContributor = datapackage.contributors[0]
+      const firstContributor = dataPackage.contributors[0]
       if (firstContributor) {
         const creator: ZenodoCreator = {
           name: firstContributor.title,
@@ -99,8 +99,8 @@ export function denormalizeZenodoPackage(props: {
   }
 
   // Process keywords
-  if (datapackage.keywords && datapackage.keywords.length > 0) {
-    metadata.keywords = datapackage.keywords
+  if (dataPackage.keywords && dataPackage.keywords.length > 0) {
+    metadata.keywords = dataPackage.keywords
   }
 
   // Return Zenodo deposit structure

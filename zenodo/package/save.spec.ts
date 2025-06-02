@@ -7,12 +7,12 @@ describe("savePackageToZenodo", () => {
   //useRecording()
 
   it.skip("should save a package", async () => {
-    const datapackage = await loadPackageDescriptor({
+    const dataPackage = await loadPackageDescriptor({
       path: "core/package/fixtures/package.json",
     })
 
     const result = await savePackageToZenodo({
-      datapackage,
+      dataPackage,
       apiKey: "<key>",
       sandbox: true,
     })

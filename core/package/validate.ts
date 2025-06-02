@@ -23,14 +23,14 @@ export async function validatePackageDescriptor(props: {
   const profile = await loadProfile({ path: $schema })
   const { valid, errors } = await validateDescriptor({ descriptor, profile })
 
-  let datapackage: Package | undefined = undefined
+  let dataPackage: Package | undefined = undefined
   if (valid) {
     // Validation + normalization = we can cast it
-    datapackage = normalizePackage({
+    dataPackage = normalizePackage({
       descriptor,
       basepath,
     }) as unknown as Package
   }
 
-  return { valid, errors, datapackage }
+  return { valid, errors, dataPackage }
 }

@@ -30,13 +30,13 @@ export async function loadPackageFromZip(props: {
     await zipfile.close()
   }
 
-  const datapackage = await loadPackageDescriptor({
-    path: join(tempdir, "datapackage.json"),
+  const dataPackage = await loadPackageDescriptor({
+    path: join(tempdir, "dataPackage.json"),
   })
 
   const cleanup = async () => {
     await rm(tempdir, { recursive: true, force: true })
   }
 
-  return { datapackage, cleanup }
+  return { dataPackage, cleanup }
 }

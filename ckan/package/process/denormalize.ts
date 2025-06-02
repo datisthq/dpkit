@@ -11,9 +11,9 @@ import type { CkanTag } from "../Tag.js"
  * @returns Denormalized CKAN Package object
  */
 export function denormalizeCkanPackage(props: {
-  datapackage: Package
+  dataPackage: Package
 }) {
-  const { datapackage } = props
+  const { dataPackage } = props
 
   const ckanPackage: SetRequired<Partial<CkanPackage>, "resources" | "tags"> = {
     resources: [],
@@ -21,14 +21,14 @@ export function denormalizeCkanPackage(props: {
   }
 
   // Basic metadata
-  if (datapackage.name) ckanPackage.name = datapackage.name
-  if (datapackage.title) ckanPackage.title = datapackage.title
-  if (datapackage.description) ckanPackage.notes = datapackage.description
-  if (datapackage.version) ckanPackage.version = datapackage.version
+  if (dataPackage.name) ckanPackage.name = dataPackage.name
+  if (dataPackage.title) ckanPackage.title = dataPackage.title
+  if (dataPackage.description) ckanPackage.notes = dataPackage.description
+  if (dataPackage.version) ckanPackage.version = dataPackage.version
 
   // Process license information
-  if (datapackage.licenses && datapackage.licenses.length > 0) {
-    const license = datapackage.licenses[0] // Use first license
+  if (dataPackage.licenses && dataPackage.licenses.length > 0) {
+    const license = dataPackage.licenses[0] // Use first license
 
     if (license?.name) ckanPackage.license_id = license.name
     if (license?.title) ckanPackage.license_title = license.title
@@ -36,16 +36,16 @@ export function denormalizeCkanPackage(props: {
   }
 
   // Process contributors
-  if (datapackage.contributors) {
+  if (dataPackage.contributors) {
     // Find author (contributor with role 'author')
-    const author = datapackage.contributors.find(c => c.role === "author")
+    const author = dataPackage.contributors.find(c => c.role === "author")
     if (author) {
       ckanPackage.author = author.title
       if (author.email) ckanPackage.author_email = author.email
     }
 
     // Find maintainer (contributor with role 'maintainer')
-    const maintainer = datapackage.contributors.find(
+    const maintainer = dataPackage.contributors.find(
       c => c.role === "maintainer",
     )
     if (maintainer) {
@@ -55,19 +55,19 @@ export function denormalizeCkanPackage(props: {
   }
 
   // Process resources
-  if (datapackage.resources && datapackage.resources.length > 0) {
-    ckanPackage.resources = datapackage.resources
+  if (dataPackage.resources && dataPackage.resources.length > 0) {
+    ckanPackage.resources = dataPackage.resources
       .map(resource => denormalizeCkanResource({ resource }))
       .filter((resource): resource is CkanResource => resource !== undefined)
   }
 
   // Process keywords as tags
-  if (datapackage.keywords && datapackage.keywords.length > 0) {
+  if (dataPackage.keywords && dataPackage.keywords.length > 0) {
     // TODO: Rebase on something like CkanPackage / NewCkanPackage
     // with NewCkanTag/Resource etc to separate metadata read from API
     // and metadata that is mapped from Data Package
     // @ts-ignore
-    ckanPackage.tags = datapackage.keywords.map(keyword => {
+    ckanPackage.tags = dataPackage.keywords.map(keyword => {
       const tag: Partial<CkanTag> = {
         name: keyword,
         display_name: keyword,

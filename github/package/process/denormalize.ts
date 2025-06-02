@@ -8,9 +8,9 @@ import type { GithubPackage } from "../Package.js"
  * @returns Github repository creation payload
  */
 export function denormalizeGithubPackage(props: {
-  datapackage: Package
+  dataPackage: Package
 }) {
-  const { datapackage } = props
+  const { dataPackage } = props
 
   // Build repository creation payload
   const repoPayload: Partial<GithubPackage> & {
@@ -19,7 +19,7 @@ export function denormalizeGithubPackage(props: {
     has_projects?: boolean
     has_wiki?: boolean
   } = {
-    name: datapackage.name,
+    name: dataPackage.name,
     private: false,
     auto_init: true,
     has_issues: true,
@@ -28,19 +28,19 @@ export function denormalizeGithubPackage(props: {
   }
 
   // Basic metadata
-  if (datapackage.description) {
-    repoPayload.description = datapackage.description
-  } else if (datapackage.title) {
-    repoPayload.description = datapackage.title
+  if (dataPackage.description) {
+    repoPayload.description = dataPackage.description
+  } else if (dataPackage.title) {
+    repoPayload.description = dataPackage.title
   }
 
-  if (datapackage.homepage) {
-    repoPayload.homepage = datapackage.homepage
+  if (dataPackage.homepage) {
+    repoPayload.homepage = dataPackage.homepage
   }
 
   // Include topics if there are keywords
-  if (datapackage.keywords && datapackage.keywords.length > 0) {
-    repoPayload.topics = datapackage.keywords
+  if (dataPackage.keywords && dataPackage.keywords.length > 0) {
+    repoPayload.topics = dataPackage.keywords
   }
 
   return repoPayload

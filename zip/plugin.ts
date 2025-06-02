@@ -9,15 +9,15 @@ export class ZipPlugin implements Plugin {
     const isZip = props.source.endsWith(".zip")
     if (!isZip) return undefined
 
-    const { datapackage, cleanup } = await loadPackageFromZip({
+    const { dataPackage, cleanup } = await loadPackageFromZip({
       archivePath: props.source,
     })
 
-    return { datapackage, cleanup }
+    return { dataPackage, cleanup }
   }
 
   async savePackage(props: {
-    datapackage: Package
+    dataPackage: Package
     target: string
     options?: Descriptor
   }) {
@@ -25,7 +25,7 @@ export class ZipPlugin implements Plugin {
     if (!isZip) return undefined
 
     await savePackageToZip({
-      datapackage: props.datapackage,
+      dataPackage: props.dataPackage,
       archivePath: props.target,
       withRemote: !!props.options?.withRemote,
     })

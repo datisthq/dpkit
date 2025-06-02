@@ -23,10 +23,10 @@ export async function assertCamtrapPackage(props: {
     throw new Error(`Unsupported Camtrap profile "${descriptor.$schema}"`)
   }
 
-  const { errors, datapackage } = await validatePackageDescriptor({
+  const { errors, dataPackage } = await validatePackageDescriptor({
     descriptor,
   })
 
-  if (!datapackage) throw new AssertionError(errors)
-  return datapackage as CamtrapPackage
+  if (!dataPackage) throw new AssertionError(errors)
+  return dataPackage as CamtrapPackage
 }
