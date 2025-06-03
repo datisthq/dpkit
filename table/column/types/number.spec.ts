@@ -9,6 +9,7 @@ describe("parseNumberColumn", () => {
     ["2", 2.0, {}],
     ["1000", 1000.0, {}],
     ["1.5", 1.5, {}],
+    // biome-ignore lint/suspicious: tests
     ["3.14159", 3.14159, {}],
     ["-42", -42.0, {}],
     ["-3.14", -3.14, {}],
@@ -39,8 +40,16 @@ describe("parseNumberColumn", () => {
     ["1.5%", 1.5, { bareNumber: false }],
     ["$1,000.00", null, { bareNumber: true }],
     ["$1,000.00", 1000.0, { bareNumber: false, groupChar: "," }],
-    ["€ 1.000,00", 1000.0, { bareNumber: false, groupChar: ".", decimalChar: "," }],
-    ["1.000,00 €", 1000.0, { bareNumber: false, groupChar: ".", decimalChar: "," }],
+    [
+      "€ 1.000,00",
+      1000.0,
+      { bareNumber: false, groupChar: ".", decimalChar: "," },
+    ],
+    [
+      "1.000,00 €",
+      1000.0,
+      { bareNumber: false, groupChar: ".", decimalChar: "," },
+    ],
 
     // Complex cases with multiple options
     ["1,234.56", 1234.56, { groupChar: "," }],
@@ -48,7 +57,11 @@ describe("parseNumberColumn", () => {
     ["$1,234.56", null, { bareNumber: true, groupChar: "," }],
     ["$1,234.56", 1234.56, { bareNumber: false, groupChar: "," }],
     ["1,234.56$", 1234.56, { bareNumber: false, groupChar: "," }],
-    ["1.234,56 €", 1234.56, { bareNumber: false, groupChar: ".", decimalChar: "," }],
+    [
+      "1.234,56 €",
+      1234.56,
+      { bareNumber: false, groupChar: ".", decimalChar: "," },
+    ],
   ])("$0 -> $1 $2", async (cell, value, options) => {
     const column = Series("name", [cell], DataType.Utf8)
     const field = { name: "name", type: "number", ...options }
