@@ -10,8 +10,14 @@ We need a function that converts a `PolarsSchema` object to a data package Table
 
 We need a function that converts a data package Table `Schema` object to a `PolarsSchema` object.
 
+### 3. Implment `parseNumberColumn` function and its specs
+
+- Use `parseIntegerColumn` as a reference
+- Use https://github.com/frictionlessdata/frictionless-py/blob/main/frictionless/fields/number.py
+- Use https://github.com/frictionlessdata/frictionless-py/blob/main/frictionless/fields/__spec__/test_number.py
+
 ## References
 
-- [Polars Field](https://github.com/pola-rs/nodejs-polars/blob/main/polars/datatypes/field.ts)
-- [Polars DataType](https://github.com/pola-rs/nodejs-polars/blob/main/polars/datatypes/datatype.ts)
+- https://github.com/pola-rs/nodejs-polars/blob/main/polars/datatypes/field.ts
+- https://github.com/pola-rs/nodejs-polars/blob/main/polars/datatypes/datatype.ts
 
