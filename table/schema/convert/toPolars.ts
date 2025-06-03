@@ -106,7 +106,6 @@ function convertTableFieldToPolarsType(field: Field): string {
       return "Utf8"
 
     // Default fallback
-    case "any":
     default:
       return "Utf8"
   }
