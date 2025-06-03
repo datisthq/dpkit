@@ -1,4 +1,3 @@
-import type { Resource } from "@dpkit/core"
 import { describe, expect, it } from "vitest"
 import { readInlineResourceTable } from "./read.js"
 

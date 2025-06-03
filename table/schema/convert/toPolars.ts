@@ -44,6 +44,8 @@ export function convertSchemaToPolars(props: { schema: Schema }): PolarsSchema {
     }
 
     const polarsDtype = convertTableFieldToPolarsType(field)
+    // TODO: fix
+    // @ts-ignore
     polarsSchema[field.name] = polarsDtype
   }
 

@@ -1,4 +1,4 @@
-import type { Metadata } from "../../../general/index.js"
+import type { Metadata } from "../../general/index.js"
 
 /**
  * Base field properties common to all field types
