@@ -1,4 +1,4 @@
-import type { Resource, Schema } from "@dpkit/core"
+import type { Resource } from "@dpkit/core"
 import { loadSchema } from "@dpkit/core"
 import { DataFrame, Series } from "nodejs-polars"
 import { convertSchemaToPolars } from "../schema/index.js"
@@ -22,7 +22,6 @@ async function getPolarsSeries(props: { resource: Resource }) {
   return Object.fromEntries(
     Object.entries(polarsSchema).map(([key, type]) => {
       const values = polarsData[key] ?? []
-      console.log(key, values, type)
       return [key, Series(key, values, type)]
     }),
   )
@@ -32,17 +31,33 @@ type PolarsData = Record<string, unknown[]>
 
 function getPolarsData(props: { resource: Resource }) {
   const { resource } = props
-  const polarsData: PolarsData = {}
 
   if (!Array.isArray(resource.data)) {
-    return polarsData
+    return {}
   }
 
   const isArrays = resource.data.every(row => Array.isArray(row))
 
-  return isArrays
+  const polarsData = isArrays
     ? getPolarsDataFromArrays({ data: resource.data })
     : getPolarsDataFromObjects({ data: resource.data })
+
+  const maxLength = Math.max(
+    ...Object.values(polarsData).map(values => values.length),
+  )
+
+  // Pad shorter columns with nulls
+  for (const key in polarsData) {
+    const values = polarsData[key] ?? []
+    if (values.length < maxLength) {
+      polarsData[key] = [
+        ...values,
+        ...Array(maxLength - values.length).fill(null),
+      ]
+    }
+  }
+
+  return polarsData
 }
 
 function getPolarsDataFromArrays(props: { data: unknown[][] }) {
