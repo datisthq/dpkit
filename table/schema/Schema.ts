@@ -1,3 +1,3 @@
 import type { DataType } from "nodejs-polars"
 
-export type PolarsSchema = string[] | Record<string, DataType>
+export type PolarsSchema = Record<string, DataType>

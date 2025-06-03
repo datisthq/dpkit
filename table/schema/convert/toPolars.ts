@@ -1,4 +1,16 @@
 import type { Field, Schema } from "@dpkit/core"
+import {
+  Bool,
+  Date,
+  Datetime,
+  Float64,
+  Int64,
+  List,
+  Object,
+  Struct,
+  Time,
+  Utf8,
+} from "nodejs-polars"
 import type { PolarsSchema } from "../Schema.js"
 
 /**
@@ -41,72 +53,38 @@ export function convertSchemaToPolars(props: { schema: Schema }): PolarsSchema {
 /**
  * Converts a Table Schema field to a Polars data type string
  */
-function convertTableFieldToPolarsType(field: Field): string {
-  if (!field) {
-    throw new Error("Invalid field: field cannot be null or undefined")
-  }
-
-  if (!field.type) {
-    throw new Error(`Invalid field '${field.name}': type is required`)
-  }
-
+function convertTableFieldToPolarsType(field: Field) {
   switch (field.type) {
-    // String type
     case "string":
-      return "Utf8"
+      return Utf8
 
-    // Number type
     case "number":
-      return "Float64"
+      return Float64
 
-    // Integer type
     case "integer":
-      return "Int64"
+      return Int64
 
-    // Boolean type
     case "boolean":
-      return "Bool"
+      return Bool
 
-    // Date type
     case "date":
-      return "Date"
+      return Date
 
-    // Time type
     case "time":
-      return "Time"
+      return Time
 
-    // Datetime type
     case "datetime":
-      return "Datetime"
+      return Datetime
 
-    // Array or list types
     case "array":
     case "list":
-      return "List"
-
-    // Object type
-    case "object":
-      return "Struct"
-
-    // GeoJSON types
-    case "geojson":
-      return "Utf8"
-
-    // Geopoint type
     case "geopoint":
-      return "List"
+      return List
 
-    // Duration type
-    case "duration":
-      return "Utf8"
+    case "object":
+      return Struct
 
-    // Year and yearmonth types
-    case "year":
-    case "yearmonth":
-      return "Utf8"
-
-    // Default fallback
     default:
-      return "Utf8"
+      return Object
   }
 }
