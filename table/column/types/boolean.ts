@@ -1,6 +1,6 @@
 import type { BooleanField } from "@dpkit/core"
 import { DataType } from "nodejs-polars"
-import { col } from "nodejs-polars"
+import { col, lit, when } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
 const DEFAULT_TRUE_VALUES = ["true", "True", "TRUE", "1"]
@@ -16,11 +16,15 @@ export function parseBooleanColumn(props: {
   const trueValues = field.trueValues || DEFAULT_TRUE_VALUES
   const falseValues = field.falseValues || DEFAULT_FALSE_VALUES
 
-  // TODO:
-  // Implement this function to make corresponding spec to pass as it is
-  // First, normalize the values like "1" -> "true"
-  // Second, use polars' when().then().otherwise() to convert to boolean
+  for (const value of trueValues) expr = expr.replace(value, "1")
+  for (const value of falseValues) expr = expr.replace(value, "0")
 
-  expr = expr.cast(DataType.Bool)
-  return expr
+  expr = expr.cast(DataType.Int8)
+
+  return when(expr.eq(1))
+    .then(lit(true))
+    .when(expr.eq(0))
+    .then(lit(false))
+    .otherwise(lit(null))
+    .alias(field.name)
 }

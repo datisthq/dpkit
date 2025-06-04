@@ -2,7 +2,7 @@ import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { parseBooleanColumn } from "./boolean.js"
 
-describe.skip("parseBooleanColumn", () => {
+describe("parseBooleanColumn", () => {
   it.each([
     // Default true values
     ["true", true, {}],
@@ -22,6 +22,7 @@ describe.skip("parseBooleanColumn", () => {
     ["truthy", null, {}],
     ["falsy", null, {}],
     ["2", null, {}],
+    ["-100", null, {}],
     ["t", null, {}],
     ["f", null, {}],
     ["3.14", null, {}],
@@ -46,6 +47,7 @@ describe.skip("parseBooleanColumn", () => {
   ])("%s -> %s %o", (cell, value, options) => {
     const field = { name: "name", type: "boolean" as const, ...options }
     const df = DataFrame({ name: [cell] }).select(parseBooleanColumn({ field }))
-    expect(df.getColumn("name").get(0)).toEqual(value)
+    // For some reason, getColumn("name").get(0) throws an error
+    expect(df.toRecords()[0]?.name).toEqual(value)
   })
 })
