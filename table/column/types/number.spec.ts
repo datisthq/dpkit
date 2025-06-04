@@ -1,4 +1,4 @@
-import { DataType, Series } from "nodejs-polars"
+import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { parseNumberColumn } from "./number.js"
 
@@ -63,10 +63,8 @@ describe("parseNumberColumn", () => {
       { bareNumber: false, groupChar: ".", decimalChar: "," },
     ],
   ])("$0 -> $1 $2", async (cell, value, options) => {
-    const column = Series("name", [cell], DataType.Utf8)
-    const field = { name: "name", type: "number", ...options }
-
-    // @ts-ignore
-    expect(parseNumberColumn({ column, field }).toArray()).toEqual([value])
+    const field = { name: "name", type: "number" as const, ...options }
+    const df = DataFrame({ name: [cell] }).select(parseNumberColumn({ field }))
+    expect(df.getColumn("name").get(0)).toEqual(value)
   })
 })
