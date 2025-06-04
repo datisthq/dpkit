@@ -4,6 +4,7 @@ import type { Expr } from "nodejs-polars"
 import { parseBooleanColumn } from "./types/boolean.js"
 import { parseIntegerColumn } from "./types/integer.js"
 import { parseNumberColumn } from "./types/number.js"
+import { parseYearColumn } from "./types/year.js"
 
 const DEFAULT_MISSING_VALUES = [""]
 
@@ -24,6 +25,8 @@ export function parseColumn(props: { field: Field; expr?: Expr }) {
       return parseNumberColumn({ field, expr })
     case "boolean":
       return parseBooleanColumn({ field, expr })
+    case "year":
+      return parseYearColumn({ field, expr })
     default:
       return expr
   }
