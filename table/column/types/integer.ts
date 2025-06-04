@@ -25,7 +25,10 @@ export function parseIntegerColumn(props: {
     // Handle group character (thousands separator)
     if (field.groupChar) {
       // Escape special characters for regex
-      const escapedGroupChar = field.groupChar.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      const escapedGroupChar = field.groupChar.replace(
+        /[.*+?^${}()|[\]\\]/g,
+        "\\$&",
+      )
       column = column.str.replaceAll(escapedGroupChar, "")
     }
 

@@ -15,11 +15,12 @@ export function parseNumberColumn(props: {
     // Extract the decimal and group characters
     const decimalChar = field.decimalChar || "."
     const groupChar = field.groupChar || ""
-    
+
     // Handle non-bare numbers (with currency symbols, percent signs, etc.)
     if (field.bareNumber === false) {
       // Remove leading non-digit characters (except minus sign and allowed decimal points)
-      const allowedDecimalChars = decimalChar === "." ? "\\." : `\\.${decimalChar}`
+      const allowedDecimalChars =
+        decimalChar === "." ? "\\." : `\\.${decimalChar}`
       column = column.str.replaceAll(`^[^\\d\\-${allowedDecimalChars}]+`, "")
       // Remove trailing non-digit characters
       column = column.str.replaceAll(`[^\\d${allowedDecimalChars}]+$`, "")
@@ -37,10 +38,13 @@ export function parseNumberColumn(props: {
       // Standard case: first remove group characters
       if (groupChar) {
         // Escape special characters for regex
-        const escapedGroupChar = groupChar.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+        const escapedGroupChar = groupChar.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&",
+        )
         column = column.str.replaceAll(escapedGroupChar, "")
       }
-      
+
       // Then handle decimal character
       if (decimalChar && decimalChar !== ".") {
         column = column.str.replaceAll(decimalChar, ".")
