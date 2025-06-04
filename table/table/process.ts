@@ -4,7 +4,7 @@ import type { Expr } from "nodejs-polars"
 import { DataType } from "nodejs-polars"
 import { col } from "nodejs-polars"
 import { parseColumn } from "../column/index.js"
-import type { PolarsSchema } from "../schema/index.js"
+import type { PolarsSchema } from "../polars/index.js"
 import type { Table } from "./Table.js"
 
 export async function processTable(props: {

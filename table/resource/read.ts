@@ -1,8 +1,7 @@
 import type { Resource } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
+import type { PolarsData } from "../polars/index.js"
 import { processTable } from "../table/index.js"
-
-type PolarsData = Record<string, unknown[]>
 
 export async function readInlineResourceTable(props: { resource: Resource }) {
   const { resource } = props
