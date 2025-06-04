@@ -1,5 +1,5 @@
 import type { Table } from "./Table.js"
 
-export async function inferTableSchema(props: { table: Table }) {
+export async function inferTable(props: { table: Table }) {
   console.log(props)
 }

@@ -1,46 +1,30 @@
 import type { Resource } from "@dpkit/core"
-import { loadSchema } from "@dpkit/core"
-import { DataFrame, Series } from "nodejs-polars"
-import { convertSchemaToPolars } from "../schema/index.js"
-
-export async function readInlineResourceTable(props: { resource: Resource }) {
-  const { resource } = props
-  const polarsSeries = await getPolarsSeries({ resource })
-  return DataFrame(polarsSeries).lazy()
-}
-
-async function getPolarsSeries(props: { resource: Resource }) {
-  const { resource } = props
-
-  const polarsData = getPolarsData({ resource })
-  const polarsSchema = await getPolarsSchema({ resource })
-
-  if (!polarsSchema) {
-    return polarsData
-  }
-
-  return Object.fromEntries(
-    Object.entries(polarsSchema).map(([key, type]) => {
-      const values = polarsData[key] ?? []
-      return [key, Series(key, values, type)]
-    }),
-  )
-}
+import { DataFrame } from "nodejs-polars"
+import { processTable } from "../table/index.js"
 
 type PolarsData = Record<string, unknown[]>
 
-function getPolarsData(props: { resource: Resource }) {
+export async function readInlineResourceTable(props: { resource: Resource }) {
   const { resource } = props
 
-  if (!Array.isArray(resource.data)) {
+  const polarsData = getPolarsData({ data: resource.data })
+  const table = DataFrame(polarsData).lazy()
+
+  return processTable({ table, schema: resource.schema })
+}
+
+function getPolarsData(props: { data: Resource["data"] }) {
+  const { data } = props
+
+  if (!Array.isArray(data)) {
     return {}
   }
 
-  const isArrays = resource.data.every(row => Array.isArray(row))
+  const isArrays = data.every(row => Array.isArray(row))
 
   const polarsData = isArrays
-    ? getPolarsDataFromArrays({ data: resource.data })
-    : getPolarsDataFromObjects({ data: resource.data })
+    ? getPolarsDataFromArrays({ data })
+    : getPolarsDataFromObjects({ data })
 
   const maxLength = Math.max(
     ...Object.values(polarsData).map(values => values.length),
@@ -95,19 +79,4 @@ function getPolarsDataFromObjects(props: { data: Record<string, unknown>[] }) {
   }
 
   return polarsData
-}
-
-async function getPolarsSchema(props: { resource: Resource }) {
-  const { resource } = props
-
-  if (!resource.schema) {
-    return undefined
-  }
-
-  const schema =
-    typeof resource.schema === "string"
-      ? await loadSchema({ path: resource.schema })
-      : resource.schema
-
-  return convertSchemaToPolars({ schema })
 }
