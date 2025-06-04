@@ -19,4 +19,3 @@ export function parseDatetimeColumn(props: {
 
   return expr.str.strptime(DataType.Datetime, format)
 }
-

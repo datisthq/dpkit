@@ -6,6 +6,7 @@ import { parseDateColumn } from "./types/date.js"
 import { parseDatetimeColumn } from "./types/datetime.js"
 import { parseIntegerColumn } from "./types/integer.js"
 import { parseNumberColumn } from "./types/number.js"
+import { parseTimeColumn } from "./types/time.js"
 import { parseYearColumn } from "./types/year.js"
 
 const DEFAULT_MISSING_VALUES = [""]
@@ -31,6 +32,8 @@ export function parseColumn(props: { field: Field; expr?: Expr }) {
       return parseDateColumn({ field, expr })
     case "datetime":
       return parseDatetimeColumn({ field, expr })
+    case "time":
+      return parseTimeColumn({ field, expr })
     case "year":
       return parseYearColumn({ field, expr })
     default:
