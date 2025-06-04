@@ -15,8 +15,11 @@ export function parseBooleanColumn(props: {
 
   const trueValues = field.trueValues || DEFAULT_TRUE_VALUES
   const falseValues = field.falseValues || DEFAULT_FALSE_VALUES
-  trueValues
-  falseValues
+
+  // TODO:
+  // Implement this function to make corresponding spec to pass as it is
+  // First, normalize the values like "1" -> "true"
+  // Second, use polars' when().then().otherwise() to convert to boolean
 
   expr = expr.cast(DataType.Bool)
   return expr
