@@ -1,10 +1,14 @@
 import type { IntegerField } from "@dpkit/core"
 import { DataType } from "nodejs-polars"
 import { col } from "nodejs-polars"
+import type { Expr } from "nodejs-polars"
 
-export function parseIntegerColumn(props: { field: IntegerField }) {
+export function parseIntegerColumn(props: {
+  field: IntegerField
+  expr?: Expr
+}) {
   const { field } = props
-  let expr = col(field.name)
+  let expr = props.expr ?? col(field.name)
 
   // First, trim whitespace
   expr = expr.str.strip()

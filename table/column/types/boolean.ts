@@ -1,24 +1,23 @@
 import type { BooleanField } from "@dpkit/core"
 import { DataType } from "nodejs-polars"
-import type { Column } from "../Column.js"
+import { col } from "nodejs-polars"
+import type { Expr } from "nodejs-polars"
 
 const DEFAULT_TRUE_VALUES = ["true", "True", "TRUE", "1"]
 const DEFAULT_FALSE_VALUES = ["false", "False", "FALSE", "0"]
 
 export function parseBooleanColumn(props: {
-  column: Column
   field: BooleanField
+  expr?: Expr
 }) {
-  let { column, field } = props
+  const { field } = props
+  let expr = props.expr ?? col(field.name)
 
-  if (column.dtype.equals(DataType.String)) {
-    const trueValues = field.trueValues || DEFAULT_TRUE_VALUES
-    const falseValues = field.falseValues || DEFAULT_FALSE_VALUES
-    trueValues
-    falseValues
+  const trueValues = field.trueValues || DEFAULT_TRUE_VALUES
+  const falseValues = field.falseValues || DEFAULT_FALSE_VALUES
+  trueValues
+  falseValues
 
-    column = column.cast(DataType.Bool)
-  }
-
-  return column
+  expr = expr.cast(DataType.Bool)
+  return expr
 }

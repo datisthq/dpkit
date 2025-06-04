@@ -1,23 +1,34 @@
 import type { Field } from "@dpkit/core"
-import type { Column } from "./Column.js"
+import { col } from "nodejs-polars"
+import type { Expr } from "nodejs-polars"
 import { parseBooleanColumn } from "./types/boolean.js"
 import { parseIntegerColumn } from "./types/integer.js"
 import { parseNumberColumn } from "./types/number.js"
 
-export function parseColumn(props: { column: Column; field: Field }) {
-  const { column, field } = props
+const DEFAULT_MISSING_VALUES = [""]
+
+export function parseColumn(props: { field: Field; expr?: Expr }) {
+  const { field } = props
+  let expr = props.expr ?? col(field.name)
+
+  const missingValues = field.missingValues ?? DEFAULT_MISSING_VALUES
+  for (const source of missingValues) {
+    const target = typeof source === "string" ? source : source.value
+    if (target) expr = expr.str.replaceAll(`^${escapeRegex(target)}$`, "")
+  }
 
   switch (field.type) {
     case "integer":
-      return parseIntegerColumn({ column, field })
-
+      return parseIntegerColumn({ field, expr })
     case "number":
-      return parseNumberColumn({ column, field })
-
+      return parseNumberColumn({ field, expr })
     case "boolean":
-      return parseBooleanColumn({ column, field })
-
+      return parseBooleanColumn({ field, expr })
     default:
-      return column
+      return expr
   }
+}
+
+function escapeRegex(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }

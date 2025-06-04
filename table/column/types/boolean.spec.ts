@@ -1,4 +1,4 @@
-import { DataType, Series } from "nodejs-polars"
+import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { parseBooleanColumn } from "./boolean.js"
 
@@ -44,10 +44,8 @@ describe.skip("parseBooleanColumn", () => {
     ["non", false, { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
     ["no", false, { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
   ])("%s -> %s %o", (cell, value, options) => {
-    const column = Series("name", [cell], DataType.Utf8)
-    const field = { name: "name", type: "boolean", ...options }
-
-    // @ts-ignore
-    expect(parseBooleanColumn({ column, field }).toArray()).toEqual([value])
+    const field = { name: "name", type: "boolean" as const, ...options }
+    const df = DataFrame({ name: [cell] }).select(parseBooleanColumn({ field }))
+    expect(df.getColumn("name").get(0)).toEqual(value)
   })
 })

@@ -1,10 +1,11 @@
 import type { NumberField } from "@dpkit/core"
 import { DataType } from "nodejs-polars"
 import { col } from "nodejs-polars"
+import type { Expr } from "nodejs-polars"
 
-export function parseNumberColumn(props: { field: NumberField }) {
+export function parseNumberColumn(props: { field: NumberField; expr?: Expr }) {
   const { field } = props
-  let expr = col(field.name)
+  let expr = props.expr ?? col(field.name)
 
   // Extract the decimal and group characters
   const decimalChar = field.decimalChar || "."
