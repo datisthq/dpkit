@@ -1,5 +1,4 @@
-Port the following tests as `date.spec.ts`:
+Implement `parseDatetimeColumn` and its specs. Mimic `parseDateColumn` implementation.
 
-- https://github.com/frictionlessdata/frictionless-py/blob/main/frictionless/fields/__spec__/test_date.py
-
-Don't write an implementation and don't run tests.
+Use these tests as references:
+- https://github.com/frictionlessdata/frictionless-py/blob/main/frictionless/fields/__spec__/test_datetime.py

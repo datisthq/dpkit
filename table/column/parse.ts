@@ -2,6 +2,8 @@ import type { Field } from "@dpkit/core"
 import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import { parseBooleanColumn } from "./types/boolean.js"
+import { parseDateColumn } from "./types/date.js"
+import { parseDatetimeColumn } from "./types/datetime.js"
 import { parseIntegerColumn } from "./types/integer.js"
 import { parseNumberColumn } from "./types/number.js"
 import { parseYearColumn } from "./types/year.js"
@@ -25,6 +27,10 @@ export function parseColumn(props: { field: Field; expr?: Expr }) {
       return parseNumberColumn({ field, expr })
     case "boolean":
       return parseBooleanColumn({ field, expr })
+    case "date":
+      return parseDateColumn({ field, expr })
+    case "datetime":
+      return parseDatetimeColumn({ field, expr })
     case "year":
       return parseYearColumn({ field, expr })
     default:
