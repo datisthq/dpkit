@@ -47,7 +47,6 @@ describe("parseBooleanColumn", () => {
   ])("%s -> %s %o", (cell, value, options) => {
     const field = { name: "name", type: "boolean" as const, ...options }
     const df = DataFrame({ name: [cell] }).select(parseBooleanColumn({ field }))
-    // For some reason, getColumn("name").get(0) throws an error
     expect(df.toRecords()[0]?.name).toEqual(value)
   })
 })

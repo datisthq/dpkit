@@ -1,15 +1,14 @@
 import type { Resource } from "@dpkit/core"
+import type { PolarsData } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
-import type { PolarsData } from "../polars/index.js"
-import { processTable } from "../table/index.js"
 
-export async function readInlineResourceTable(props: { resource: Resource }) {
+export async function draftInlineTable(props: { resource: Resource }) {
   const { resource } = props
 
   const polarsData = getPolarsData({ data: resource.data })
   const table = DataFrame(polarsData).lazy()
 
-  return processTable({ table, schema: resource.schema })
+  return table
 }
 
 function getPolarsData(props: { data: Resource["data"] }) {

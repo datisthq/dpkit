@@ -170,6 +170,18 @@ importers:
         specifier: workspace:*
         version: link:../test
 
+  inline:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
+      nodejs-polars:
+        specifier: ^0.18.0
+        version: 0.18.0
+
   json: {}
 
   ods: {}

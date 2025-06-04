@@ -1,0 +1,30 @@
+{
+  "name": "@dpkit/inline",
+  "type": "module",
+  "main": "build/index.js",
+  "version": "0.3.0",
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/dpkit",
+  "description": "Data Package implementation in TypeScript.",
+  "keywords": [
+    "data",
+    "polars",
+    "dataframe",
+    "datapackage",
+    "tableschema",
+    "typescript",
+    "validation",
+    "quality",
+    "fair",
+    "inline"
+  ],
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "nodejs-polars": "^0.18.0",
+    "@dpkit/core": "workspace:*",
+    "@dpkit/table": "workspace:*"
+  }
+}
