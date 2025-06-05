@@ -174,6 +174,23 @@ describe("processTable (exact)", () => {
         { id: 2, name: "中文" },
       ],
     },
+    {
+      description: "should read type errors as nulls",
+      table: DataFrame({
+        id: [1, 2],
+        name: ["english", "中文"],
+      }).lazy(),
+      schema: {
+        fields: [
+          { name: "id", type: "integer" },
+          { name: "name", type: "integer" },
+        ],
+      },
+      records: [
+        { id: 1, name: null },
+        { id: 2, name: null },
+      ],
+    },
   ])("$description", async ({ table, schema, records }) => {
     // @ts-ignore
     const ldf = await processTable({ table, schema })
