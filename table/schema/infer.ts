@@ -108,6 +108,16 @@ function createRegexMapping(props: {
     "^\\d{2}-\\d{2}-\\d{4}$": monthFirst
       ? { type: "date", format: "%m-%d-%Y" }
       : { type: "date", format: "%d-%m-%Y" },
+    "^\\d{2}\\.\\d{2}\\.\\d{4}$": monthFirst
+      ? { type: "date", format: "%m.%d.%Y" }
+      : { type: "date", format: "%d.%m.%Y" },
+      
+    // Time
+    "^\\d{2}:\\d{2}:\\d{2}$": { type: "time" },
+    "^\\d{2}:\\d{2}$": { type: "time", format: "%H:%M" },
+    "^\\d{1,2}:\\d{2}:\\d{2}\\s*(am|pm|AM|PM)$": { type: "time", format: "%I:%M:%S %p" },
+    "^\\d{1,2}:\\d{2}\\s*(am|pm|AM|PM)$": { type: "time", format: "%I:%M %p" },
+    "^\\d{2}:\\d{2}:\\d{2}[+-]\\d{2}:?\\d{2}$": { type: "time" },
 
     // Object
     "^\\{": { type: "object" },

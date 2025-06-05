@@ -166,4 +166,50 @@ describe("inferSchema", () => {
     expect(await inferSchema({ table })).toEqual(schemaDefault)
     expect(await inferSchema({ table, monthFirst: true })).toEqual(schemaMonthFirst)
   })
+
+  it("should infer times with standard format", async () => {
+    const table = DataFrame({
+      fullTime: ["14:30:45", "08:15:30", "23:59:59"],
+      shortTime: ["14:30", "08:15", "23:59"],
+    }).lazy()
+
+    const schema = {
+      fields: [
+        { name: "fullTime", type: "time" },
+        { name: "shortTime", type: "time", format: "%H:%M" },
+      ],
+    }
+
+    expect(await inferSchema({ table })).toEqual(schema)
+  })
+
+  it("should infer times with 12-hour format", async () => {
+    const table = DataFrame({
+      fullTime: ["2:30:45 PM", "8:15:30 AM", "11:59:59 PM"],
+      shortTime: ["2:30 PM", "8:15 AM", "11:59 PM"],
+    }).lazy()
+
+    const schema = {
+      fields: [
+        { name: "fullTime", type: "time", format: "%I:%M:%S %p" },
+        { name: "shortTime", type: "time", format: "%I:%M %p" },
+      ],
+    }
+
+    expect(await inferSchema({ table })).toEqual(schema)
+  })
+
+  it("should infer times with timezone offset", async () => {
+    const table = DataFrame({
+      name: ["14:30:45+01:00", "08:15:30-05:00", "23:59:59+00:00"],
+    }).lazy()
+
+    const schema = {
+      fields: [
+        { name: "name", type: "time" },
+      ],
+    }
+
+    expect(await inferSchema({ table })).toEqual(schema)
+  })
 })
