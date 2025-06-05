@@ -99,6 +99,16 @@ function createRegexMapping(props: {
     // Boolean
     "^(true|True|TRUE|false|False|FALSE)$": { type: "boolean" },
 
+    // Date
+    "^\\d{4}-\\d{2}-\\d{2}$": { type: "date" },
+    "^\\d{4}/\\d{2}/\\d{2}$": { type: "date", format: "%Y/%m/%d" },
+    "^\\d{2}/\\d{2}/\\d{4}$": monthFirst
+      ? { type: "date", format: "%m/%d/%Y" }
+      : { type: "date", format: "%d/%m/%Y" },
+    "^\\d{2}-\\d{2}-\\d{4}$": monthFirst
+      ? { type: "date", format: "%m-%d-%Y" }
+      : { type: "date", format: "%d-%m-%Y" },
+
     // Object
     "^\\{": { type: "object" },
 

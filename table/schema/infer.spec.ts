@@ -104,4 +104,66 @@ describe("inferSchema", () => {
 
     expect(await inferSchema({ table })).toEqual(schema)
   })
+
+  it("should infer dates with ISO format", async () => {
+    const table = DataFrame({
+      name1: ["2023-01-15", "2023-02-20", "2023-03-25"],
+    }).lazy()
+
+    const schema = {
+      fields: [
+        { name: "name1", type: "date" },
+      ],
+    }
+
+    expect(await inferSchema({ table })).toEqual(schema)
+  })
+
+  it("should infer dates with slash format", async () => {
+    const table = DataFrame({
+      yearFirst: ["2023/01/15", "2023/02/20", "2023/03/25"],
+      dayMonth: ["15/01/2023", "20/02/2023", "25/03/2023"],
+      monthDay: ["01/15/2023", "02/20/2023", "03/25/2023"],
+    }).lazy()
+
+    const schemaDefault = {
+      fields: [
+        { name: "yearFirst", type: "date", format: "%Y/%m/%d" },
+        { name: "dayMonth", type: "date", format: "%d/%m/%Y" },
+        { name: "monthDay", type: "date", format: "%d/%m/%Y" },
+      ],
+    }
+
+    const schemaMonthFirst = {
+      fields: [
+        { name: "yearFirst", type: "date", format: "%Y/%m/%d" },
+        { name: "dayMonth", type: "date", format: "%m/%d/%Y" },
+        { name: "monthDay", type: "date", format: "%m/%d/%Y" },
+      ],
+    }
+
+    expect(await inferSchema({ table })).toEqual(schemaDefault)
+    expect(await inferSchema({ table, monthFirst: true })).toEqual(schemaMonthFirst)
+  })
+
+  it("should infer dates with hyphen format", async () => {
+    const table = DataFrame({
+      dayMonth: ["15-01-2023", "20-02-2023", "25-03-2023"],
+    }).lazy()
+
+    const schemaDefault = {
+      fields: [
+        { name: "dayMonth", type: "date", format: "%d-%m-%Y" },
+      ],
+    }
+
+    const schemaMonthFirst = {
+      fields: [
+        { name: "dayMonth", type: "date", format: "%m-%d-%Y" },
+      ],
+    }
+
+    expect(await inferSchema({ table })).toEqual(schemaDefault)
+    expect(await inferSchema({ table, monthFirst: true })).toEqual(schemaMonthFirst)
+  })
 })
