@@ -11,8 +11,9 @@ import type { Table } from "./Table.js"
 export async function processTable(props: {
   table: Table
   schema?: Schema | string
+  sampleSize?: number
 }) {
-  const { table } = props
+  const { table, sampleSize = 100 } = props
 
   if (!props.schema) {
     return table
@@ -23,7 +24,7 @@ export async function processTable(props: {
       ? await loadSchema({ path: props.schema })
       : props.schema
 
-  const sample = await table.head(100).collect()
+  const sample = await table.head(sampleSize).collect()
   const polarsSchema = sample.schema
 
   return table.select(processColumns({ schema, polarsSchema }))
