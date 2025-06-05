@@ -111,13 +111,32 @@ function createRegexMapping(props: {
     "^\\d{2}\\.\\d{2}\\.\\d{4}$": monthFirst
       ? { type: "date", format: "%m.%d.%Y" }
       : { type: "date", format: "%d.%m.%Y" },
-      
+
     // Time
     "^\\d{2}:\\d{2}:\\d{2}$": { type: "time" },
     "^\\d{2}:\\d{2}$": { type: "time", format: "%H:%M" },
-    "^\\d{1,2}:\\d{2}:\\d{2}\\s*(am|pm|AM|PM)$": { type: "time", format: "%I:%M:%S %p" },
+    "^\\d{1,2}:\\d{2}:\\d{2}\\s*(am|pm|AM|PM)$": {
+      type: "time",
+      format: "%I:%M:%S %p",
+    },
     "^\\d{1,2}:\\d{2}\\s*(am|pm|AM|PM)$": { type: "time", format: "%I:%M %p" },
     "^\\d{2}:\\d{2}:\\d{2}[+-]\\d{2}:?\\d{2}$": { type: "time" },
+
+    // Datetime - ISO format
+    "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z?$": { type: "datetime" },
+    "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[+-]\\d{2}:?\\d{2}$": {
+      type: "datetime",
+    },
+    "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$": {
+      type: "datetime",
+      format: "%Y-%m-%d %H:%M:%S",
+    },
+    "^\\d{2}/\\d{2}/\\d{4} \\d{2}:\\d{2}$": monthFirst
+      ? { type: "datetime", format: "%m/%d/%Y %H:%M" }
+      : { type: "datetime", format: "%d/%m/%Y %H:%M" },
+    "^\\d{2}/\\d{2}/\\d{4} \\d{2}:\\d{2}:\\d{2}$": monthFirst
+      ? { type: "datetime", format: "%m/%d/%Y %H:%M:%S" }
+      : { type: "datetime", format: "%d/%m/%Y %H:%M:%S" },
 
     // Object
     "^\\{": { type: "object" },

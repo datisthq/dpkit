@@ -111,9 +111,7 @@ describe("inferSchema", () => {
     }).lazy()
 
     const schema = {
-      fields: [
-        { name: "name1", type: "date" },
-      ],
+      fields: [{ name: "name1", type: "date" }],
     }
 
     expect(await inferSchema({ table })).toEqual(schema)
@@ -143,7 +141,9 @@ describe("inferSchema", () => {
     }
 
     expect(await inferSchema({ table })).toEqual(schemaDefault)
-    expect(await inferSchema({ table, monthFirst: true })).toEqual(schemaMonthFirst)
+    expect(await inferSchema({ table, monthFirst: true })).toEqual(
+      schemaMonthFirst,
+    )
   })
 
   it("should infer dates with hyphen format", async () => {
@@ -152,19 +152,17 @@ describe("inferSchema", () => {
     }).lazy()
 
     const schemaDefault = {
-      fields: [
-        { name: "dayMonth", type: "date", format: "%d-%m-%Y" },
-      ],
+      fields: [{ name: "dayMonth", type: "date", format: "%d-%m-%Y" }],
     }
 
     const schemaMonthFirst = {
-      fields: [
-        { name: "dayMonth", type: "date", format: "%m-%d-%Y" },
-      ],
+      fields: [{ name: "dayMonth", type: "date", format: "%m-%d-%Y" }],
     }
 
     expect(await inferSchema({ table })).toEqual(schemaDefault)
-    expect(await inferSchema({ table, monthFirst: true })).toEqual(schemaMonthFirst)
+    expect(await inferSchema({ table, monthFirst: true })).toEqual(
+      schemaMonthFirst,
+    )
   })
 
   it("should infer times with standard format", async () => {
@@ -205,11 +203,93 @@ describe("inferSchema", () => {
     }).lazy()
 
     const schema = {
+      fields: [{ name: "name", type: "time" }],
+    }
+
+    expect(await inferSchema({ table })).toEqual(schema)
+  })
+
+  it("should infer datetimes with ISO format", async () => {
+    const table = DataFrame({
+      standard: [
+        "2023-01-15T14:30:45",
+        "2023-02-20T08:15:30",
+        "2023-03-25T23:59:59",
+      ],
+      utc: [
+        "2023-01-15T14:30:45Z",
+        "2023-02-20T08:15:30Z",
+        "2023-03-25T23:59:59Z",
+      ],
+      withTz: [
+        "2023-01-15T14:30:45+01:00",
+        "2023-02-20T08:15:30-05:00",
+        "2023-03-25T23:59:59+00:00",
+      ],
+      withSpace: [
+        "2023-01-15 14:30:45",
+        "2023-02-20 08:15:30",
+        "2023-03-25 23:59:59",
+      ],
+    }).lazy()
+
+    const schema = {
       fields: [
-        { name: "name", type: "time" },
+        { name: "standard", type: "datetime" },
+        { name: "utc", type: "datetime" },
+        { name: "withTz", type: "datetime" },
+        { name: "withSpace", type: "datetime", format: "%Y-%m-%d %H:%M:%S" },
       ],
     }
 
     expect(await inferSchema({ table })).toEqual(schema)
+  })
+
+  it("should infer datetimes with custom formats", async () => {
+    const table = DataFrame({
+      shortDayMonth: [
+        "15/01/2023 14:30",
+        "20/02/2023 08:15",
+        "25/03/2023 23:59",
+      ],
+      fullDayMonth: [
+        "15/01/2023 14:30:45",
+        "20/02/2023 08:15:30",
+        "25/03/2023 23:59:59",
+      ],
+      shortMonthDay: [
+        "01/15/2023 14:30",
+        "02/20/2023 08:15",
+        "03/25/2023 23:59",
+      ],
+      fullMonthDay: [
+        "01/15/2023 14:30:45",
+        "02/20/2023 08:15:30",
+        "03/25/2023 23:59:59",
+      ],
+    }).lazy()
+
+    const schemaDefault = {
+      fields: [
+        { name: "shortDayMonth", type: "datetime", format: "%d/%m/%Y %H:%M" },
+        { name: "fullDayMonth", type: "datetime", format: "%d/%m/%Y %H:%M:%S" },
+        { name: "shortMonthDay", type: "datetime", format: "%d/%m/%Y %H:%M" },
+        { name: "fullMonthDay", type: "datetime", format: "%d/%m/%Y %H:%M:%S" },
+      ],
+    }
+
+    const schemaMonthFirst = {
+      fields: [
+        { name: "shortDayMonth", type: "datetime", format: "%m/%d/%Y %H:%M" },
+        { name: "fullDayMonth", type: "datetime", format: "%m/%d/%Y %H:%M:%S" },
+        { name: "shortMonthDay", type: "datetime", format: "%m/%d/%Y %H:%M" },
+        { name: "fullMonthDay", type: "datetime", format: "%m/%d/%Y %H:%M:%S" },
+      ],
+    }
+
+    expect(await inferSchema({ table })).toEqual(schemaDefault)
+    expect(await inferSchema({ table, monthFirst: true })).toEqual(
+      schemaMonthFirst,
+    )
   })
 })
