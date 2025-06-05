@@ -7,25 +7,35 @@ export async function inferSchema(props: {
   table: Table
   sampleSize?: number
   confidence?: number
+  commaDecimal?: boolean
+  monthFirst?: boolean
 }) {
   const { table, sampleSize = 100, confidence = 0.9 } = props
   const schema: Schema = {
     fields: [],
   }
 
+  const typeMapping = createTypeMapping()
+  const regexMapping = createRegexMapping(props)
+
   const sample = await table.head(sampleSize).collect()
   const polarsFields = getPolarsFields({ polarsSchema: sample.schema })
 
+  const failureThreshold =
+    sample.height - Math.floor(sample.height * confidence) || 1
+
   for (const polarsField of polarsFields) {
     const name = polarsField.name
-    const type = TYPE_MAPPING[polarsField.type.variant] ?? "any"
+    const type = typeMapping[polarsField.type.variant] ?? "any"
 
     let field = { name, type }
 
     if (type === "string") {
-      for (const [regex, patch] of Object.entries(REGEX_MAPPING)) {
-        const matches = sample.filter(col(name).str.contains(regex)).height
-        if (matches / sample.height >= confidence) {
+      for (const [regex, patch] of Object.entries(regexMapping)) {
+        const failures = sample
+          .filter(col(name).str.contains(regex).not())
+          .head(failureThreshold).height
+        if (failures < failureThreshold) {
           field = { ...field, ...patch }
           break
         }
@@ -38,33 +48,63 @@ export async function inferSchema(props: {
   return schema
 }
 
-const TYPE_MAPPING: Record<string, Field["type"]> = {
-  Array: "array",
-  Bool: "boolean",
-  Categorical: "string",
-  Date: "date",
-  Datetime: "datetime",
-  Decimal: "number",
-  Float32: "number",
-  Float64: "number",
-  Int16: "integer",
-  Int32: "integer",
-  Int64: "integer",
-  Int8: "integer",
-  List: "array",
-  Null: "any",
-  Object: "object",
-  String: "string",
-  Struct: "object",
-  Time: "time",
-  UInt16: "integer",
-  UInt32: "integer",
-  UInt64: "integer",
-  UInt8: "integer",
-  Utf8: "string",
+function createTypeMapping() {
+  const mapping: Record<string, Field["type"]> = {
+    Array: "array",
+    Bool: "boolean",
+    Categorical: "string",
+    Date: "date",
+    Datetime: "datetime",
+    Decimal: "number",
+    Float32: "number",
+    Float64: "number",
+    Int16: "integer",
+    Int32: "integer",
+    Int64: "integer",
+    Int8: "integer",
+    List: "array",
+    Null: "any",
+    Object: "object",
+    String: "string",
+    Struct: "object",
+    Time: "time",
+    UInt16: "integer",
+    UInt32: "integer",
+    UInt64: "integer",
+    UInt8: "integer",
+    Utf8: "string",
+  }
+
+  return mapping
 }
 
-const REGEX_MAPPING: Record<string, Record<string, string>> = {
-  "^\\d+$": { type: "integer" },
-  "^[,\\d]+$": { type: "integer", groupChar: "," },
+function createRegexMapping(props: {
+  commaDecimal?: boolean
+  monthFirst?: boolean
+}) {
+  const { commaDecimal, monthFirst } = props
+
+  const mapping: Record<string, Partial<Field>> = {
+    // Numeric
+    "^\\d+$": { type: "integer" },
+    "^[,\\d]+$": commaDecimal
+      ? { type: "number" }
+      : { type: "integer", groupChar: "," },
+    "^\\d+\\.\\d+$": commaDecimal
+      ? { type: "integer", groupChar: "." }
+      : { type: "number" },
+    "^[,\\d]+\\.\\d+$": { type: "number", groupChar: "," },
+    "^[.\\d]+\\,\\d+$": { type: "number", groupChar: ".", decimalChar: "," },
+
+    // Boolean
+    "^(true|True|TRUE|false|False|FALSE)$": { type: "boolean" },
+
+    // Object
+    "^\\{": { type: "object" },
+
+    // Array
+    "^\\[": { type: "array" },
+  }
+
+  return mapping
 }
