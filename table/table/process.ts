@@ -2,9 +2,10 @@ import type { Schema } from "@dpkit/core"
 import { loadSchema } from "@dpkit/core"
 import type { Expr } from "nodejs-polars"
 import { DataType } from "nodejs-polars"
-import { col } from "nodejs-polars"
+import { col, lit } from "nodejs-polars"
 import { parseColumn } from "../column/index.js"
 import type { PolarsSchema } from "../polars/index.js"
+import { getPolarsFields } from "../polars/index.js"
 import type { Table } from "./Table.js"
 
 export async function processTable(props: {
@@ -32,17 +33,26 @@ function processColumns(props: { schema: Schema; polarsSchema: PolarsSchema }) {
   const { schema, polarsSchema } = props
   const exprs: Expr[] = []
 
-  for (const field of schema.fields) {
-    const polarsType = polarsSchema[field.name]
-    if (polarsType) {
-      let expr = col(field.name)
+  const polarsFields = getPolarsFields({ polarsSchema })
+  const fieldsMatch = schema.fieldsMatch ?? "exact"
 
-      if (polarsType.equals(DataType.String)) {
+  for (const [index, field] of schema.fields.entries()) {
+    let expr = lit(null).alias(field.name)
+
+    const polarsField =
+      fieldsMatch !== "exact"
+        ? polarsFields.find(polarsField => polarsField.name === field.name)
+        : polarsFields[index]
+
+    if (polarsField) {
+      expr = col(field.name)
+
+      if (polarsField.type.equals(DataType.String)) {
         expr = parseColumn({ field, expr })
       }
-
-      exprs.push(expr)
     }
+
+    exprs.push(expr)
   }
 
   return exprs
