@@ -19,6 +19,15 @@ describe("inferSchema", () => {
         ],
       },
     },
+    {
+      description: "should infer integers",
+      table: DataFrame({
+        name: ["1", "2", "3"],
+      }).lazy(),
+      schema: {
+        fields: [{ name: "name", type: "integer" }],
+      },
+    },
   ])("$description", async ({ table, schema }) => {
     expect(await inferSchema({ table })).toEqual(schema)
   })
