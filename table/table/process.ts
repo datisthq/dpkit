@@ -45,7 +45,7 @@ function processColumns(props: { schema: Schema; polarsSchema: PolarsSchema }) {
         : polarsFields[index]
 
     if (polarsField) {
-      expr = col(field.name)
+      expr = col(polarsField.name).alias(field.name)
 
       if (polarsField.type.equals(DataType.String)) {
         expr = parseColumn({ field, expr })
