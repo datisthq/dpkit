@@ -2,7 +2,7 @@ import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { processTable } from "./process.js"
 
-describe("processTable (exact)", () => {
+describe("processTable", () => {
   it.each([
     {
       description: "should work without schema",
