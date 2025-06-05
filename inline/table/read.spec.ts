@@ -136,7 +136,6 @@ describe("readInlineTable", () => {
     // @ts-ignore
     const table = await readInlineTable({ resource })
     const df = await table.collect()
-    console.log(df)
 
     expect(records).toEqual(df.toRecords())
   })

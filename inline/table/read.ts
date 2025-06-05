@@ -10,10 +10,11 @@ export async function readInlineTable(props: {
   const { resource } = props
 
   const polarsData = getPolarsData({ data: resource.data })
-  let table = DataFrame(polarsData).lazy()
+  const schema = resource.schema
 
+  let table = DataFrame(polarsData).lazy()
   if (!props.dontProcess) {
-    table = await processTable({ table })
+    table = await processTable({ table, schema })
   }
 
   return table
