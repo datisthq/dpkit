@@ -9,6 +9,9 @@ export interface Plugin {
 
   savePackage?(
     dataPackage: Package,
-    options: { target: string },
+    options: {
+      target: string
+      withRemote?: boolean
+    },
   ): Promise<undefined | { path?: string }>
 }

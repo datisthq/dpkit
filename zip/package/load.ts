@@ -6,11 +6,9 @@ import { loadPackageDescriptor } from "@dpkit/core"
 import { temporaryDirectory } from "tempy"
 import yauzl from "yauzl-promise"
 
-export async function loadPackageFromZip(props: {
-  archivePath: string
-}) {
+export async function loadPackageFromZip(archivePath: string) {
   const tempdir = temporaryDirectory()
-  const zipfile = await yauzl.open(props.archivePath)
+  const zipfile = await yauzl.open(archivePath)
 
   try {
     for await (const entry of zipfile) {
@@ -30,9 +28,9 @@ export async function loadPackageFromZip(props: {
     await zipfile.close()
   }
 
-  const dataPackage = await loadPackageDescriptor({
-    path: join(tempdir, "dataPackage.json"),
-  })
+  const dataPackage = await loadPackageDescriptor(
+    join(tempdir, "dataPackage.json"),
+  )
 
   const cleanup = async () => {
     await rm(tempdir, { recursive: true, force: true })
