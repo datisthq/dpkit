@@ -3,6 +3,7 @@ import { DataType } from "nodejs-polars"
 import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
+// TODO: support categories
 export function parseIntegerColumn(
   field: IntegerField,
   options?: {

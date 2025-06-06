@@ -12,6 +12,7 @@ import { parseIntegerColumn } from "./types/integer.js"
 import { parseListColumn } from "./types/list.js"
 import { parseNumberColumn } from "./types/number.js"
 import { parseObjectColumn } from "./types/object.js"
+import { parseStringColumn } from "./types/string.js"
 import { parseTimeColumn } from "./types/time.js"
 import { parseYearColumn } from "./types/year.js"
 import { parseYearmonthColumn } from "./types/yearmonth.js"
@@ -28,6 +29,8 @@ export function parseColumn(field: Field, options?: { expr?: Expr }) {
   }
 
   switch (field.type) {
+    case "string":
+      return parseStringColumn(field, { expr })
     case "integer":
       return parseIntegerColumn(field, { expr })
     case "number":
