@@ -5,6 +5,7 @@ import { parseArrayColumn } from "./types/array.js"
 import { parseBooleanColumn } from "./types/boolean.js"
 import { parseDateColumn } from "./types/date.js"
 import { parseDatetimeColumn } from "./types/datetime.js"
+import { parseDurationColumn } from "./types/duration.js"
 import { parseGeojsonColumn } from "./types/geojson.js"
 import { parseGeopointColumn } from "./types/geopoint.js"
 import { parseIntegerColumn } from "./types/integer.js"
@@ -53,6 +54,8 @@ export function parseColumn(field: Field, options?: { expr?: Expr }) {
       return parseObjectColumn(field, { expr })
     case "geojson":
       return parseGeojsonColumn(field, { expr })
+    case "duration":
+      return parseDurationColumn(field, { expr })
     default:
       return expr
   }
