@@ -13,6 +13,7 @@ packages:
   - excel
   - extend
   - file
+  - folder
   - github
   - inline
   - json

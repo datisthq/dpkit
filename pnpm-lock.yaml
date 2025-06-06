@@ -131,6 +131,9 @@ importers:
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      '@dpkit/folder':
+        specifier: workspace:*
+        version: link:../folder
       '@dpkit/github':
         specifier: workspace:*
         version: link:../github
@@ -156,6 +159,15 @@ importers:
       tiny-invariant:
         specifier: ^1.3.3
         version: 1.3.3
+
+  folder:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
 
   github:
     dependencies:

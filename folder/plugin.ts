@@ -3,7 +3,7 @@ import type { Plugin } from "@dpkit/core"
 import { isRemotePath } from "@dpkit/core"
 import { loadPackageFromFolder } from "./package/index.js"
 
-export class FilePlugin implements Plugin {
+export class FolderPlugin implements Plugin {
   async loadPackage(source: string) {
     const isRemote = isRemotePath(source)
     if (isRemote) return undefined
