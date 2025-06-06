@@ -8,6 +8,7 @@ import { parseDatetimeColumn } from "./types/datetime.js"
 import { parseGeojsonColumn } from "./types/geojson.js"
 import { parseGeopointColumn } from "./types/geopoint.js"
 import { parseIntegerColumn } from "./types/integer.js"
+import { parseListColumn } from "./types/list.js"
 import { parseNumberColumn } from "./types/number.js"
 import { parseObjectColumn } from "./types/object.js"
 import { parseTimeColumn } from "./types/time.js"
@@ -42,6 +43,8 @@ export function parseColumn(field: Field, options?: { expr?: Expr }) {
       return parseYearColumn(field, { expr })
     case "yearmonth":
       return parseYearmonthColumn(field, { expr })
+    case "list":
+      return parseListColumn(field, { expr })
     case "array":
       return parseArrayColumn(field, { expr })
     case "geopoint":

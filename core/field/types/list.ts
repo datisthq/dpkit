@@ -17,7 +17,14 @@ export interface ListField extends BaseField<ListConstraints> {
   /**
    * Type of items in the list
    */
-  itemType?: string
+  itemType?:
+    | "string"
+    | "integer"
+    | "number"
+    | "boolean"
+    | "datetime"
+    | "date"
+    | "time"
 }
 
 /**
