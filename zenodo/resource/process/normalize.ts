@@ -6,16 +6,13 @@ import type { ZenodoResource } from "../Resource.js"
  * @param props Object containing the Zenodo file to normalize
  * @returns Normalized Resource object
  */
-export function normalizeZenodoResource(props: {
-  zenodoResource: ZenodoResource
-}) {
-  const { zenodoResource } = props
-  const path = normalizeZenodoPath({ link: zenodoResource.links.self })
+export function normalizeZenodoResource(zenodoResource: ZenodoResource) {
+  const path = normalizeZenodoPath(zenodoResource.links.self)
 
   const resource = {
     path,
-    name: getName({ filename: zenodoResource.key }) ?? zenodoResource.id,
-    format: getFormat({ filename: zenodoResource.key }),
+    name: getName(zenodoResource.key) ?? zenodoResource.id,
+    format: getFormat(zenodoResource.key),
     bytes: zenodoResource.size,
     hash: zenodoResource.checksum,
     "zenodo:key": zenodoResource.key,
@@ -25,6 +22,6 @@ export function normalizeZenodoResource(props: {
   return resource
 }
 
-function normalizeZenodoPath(props: { link: string }) {
-  return props.link.replace("/api/", "/").replace(/\/content$/, "")
+function normalizeZenodoPath(link: string) {
+  return link.replace("/api/", "/").replace(/\/content$/, "")
 }

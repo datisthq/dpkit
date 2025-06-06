@@ -6,17 +6,17 @@ describe("loadPackageFromZenodo", () => {
   useRecording()
 
   it("should load a package", async () => {
-    const datapackage = await loadPackageFromZenodo({
-      datasetUrl: "https://zenodo.org/records/15525711",
-    })
+    const datapackage = await loadPackageFromZenodo(
+      "https://zenodo.org/records/15525711",
+    )
 
     expect(datapackage).toMatchSnapshot()
   })
 
   it("shoule merge datapackage.json if present", async () => {
-    const datapackage = await loadPackageFromZenodo({
-      datasetUrl: "https://zenodo.org/records/10053903",
-    })
+    const datapackage = await loadPackageFromZenodo(
+      "https://zenodo.org/records/10053903",
+    )
 
     expect(datapackage).toMatchSnapshot()
   })

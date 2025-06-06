@@ -7,11 +7,9 @@ import type { ZenodoPackage } from "../Package.js"
  * @param props Object containing the Package to denormalize
  * @returns Zenodo metadata object for deposit creation/update
  */
-export function denormalizeZenodoPackage(props: {
-  dataPackage: Package
-}): Partial<ZenodoPackage> {
-  const { dataPackage } = props
-
+export function denormalizeZenodoPackage(
+  dataPackage: Package,
+): Partial<ZenodoPackage> {
   // Build metadata object
   const metadata: Partial<ZenodoPackage["metadata"]> = {
     upload_type: "dataset", // Default to dataset type

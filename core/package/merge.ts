@@ -9,6 +9,7 @@ export async function mergePackages(options: {
   userPackagePath?: string
 }) {
   const systemPackage = options.systemPackage
+
   const userPackage = options.userPackagePath
     ? await loadPackageDescriptor(options.userPackagePath)
     : undefined
