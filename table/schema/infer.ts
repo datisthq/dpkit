@@ -1,6 +1,6 @@
 import type { Field, Schema } from "@dpkit/core"
 import { col } from "nodejs-polars"
-import { getPolarsFields } from "../polars/index.js"
+import { getPolarsSchema } from "../schema/index.js"
 import type { Table } from "../table/index.js"
 
 export async function inferSchema(props: {
@@ -19,12 +19,12 @@ export async function inferSchema(props: {
   const regexMapping = createRegexMapping(props)
 
   const sample = await table.head(sampleSize).collect()
-  const polarsFields = getPolarsFields({ polarsSchema: sample.schema })
+  const polarsSchema = getPolarsSchema({ typeMapping: sample.schema })
 
   const failureThreshold =
     sample.height - Math.floor(sample.height * confidence) || 1
 
-  for (const polarsField of polarsFields) {
+  for (const polarsField of polarsSchema.fields) {
     const name = polarsField.name
     const type = typeMapping[polarsField.type.variant] ?? "any"
 

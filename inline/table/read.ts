@@ -1,5 +1,4 @@
 import type { Resource } from "@dpkit/core"
-import type { PolarsData } from "@dpkit/table"
 import { processTable } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 
@@ -19,6 +18,8 @@ export async function readInlineTable(props: {
 
   return table
 }
+
+export type PolarsData = Record<string, unknown[]>
 
 function getPolarsData(props: { data: Resource["data"] }) {
   const { data } = props

@@ -1,7 +1,7 @@
 import type { Schema } from "@dpkit/core"
 import { loadSchema } from "@dpkit/core"
-import { getPolarsFields } from "../polars/index.js"
-import type { PolarsField } from "../polars/index.js"
+import { getPolarsSchema } from "../schema/index.js"
+import type { PolarsSchema } from "../schema/index.js"
 //import { validateColumn } from "../column/index.js"
 import type { ColumnError, TableError } from "./Error.js"
 import type { Table } from "./Table.js"
@@ -20,20 +20,21 @@ export async function validateTable(props: {
       : props.schema
 
   const sample = await table.head(sampleSize).collect()
-  const polarsFields = getPolarsFields({ polarsSchema: sample.schema })
+  const polarsSchema = getPolarsSchema({ typeMapping: sample.schema })
 
-  validateStructure({ schema, polarsFields })
+  validateStructure({ schema, polarsSchema })
 
   return errors
 }
 
 function validateStructure(props: {
   schema: Schema
-  polarsFields: PolarsField[]
+  polarsSchema: PolarsSchema
 }) {
-  const { schema, polarsFields } = props
+  const { schema, polarsSchema } = props
   const errors: ColumnError[] = []
 
+  const polarsFields = polarsSchema.fields
   const fieldsMatch = schema.fieldsMatch ?? "exact"
 
   if (fieldsMatch === "exact") {

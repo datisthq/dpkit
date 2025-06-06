@@ -4,8 +4,8 @@ import type { Expr } from "nodejs-polars"
 import { DataType } from "nodejs-polars"
 import { col, lit } from "nodejs-polars"
 import { parseColumn } from "../column/index.js"
-import type { PolarsSchema } from "../polars/index.js"
-import { getPolarsFields } from "../polars/index.js"
+import type { PolarsSchema } from "../schema/index.js"
+import { getPolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
 
 export async function processTable(props: {
@@ -25,7 +25,7 @@ export async function processTable(props: {
       : props.schema
 
   const sample = await table.head(sampleSize).collect()
-  const polarsSchema = sample.schema
+  const polarsSchema = getPolarsSchema({ typeMapping: sample.schema })
 
   return table.select(processColumns({ schema, polarsSchema }))
 }
@@ -34,7 +34,7 @@ function processColumns(props: { schema: Schema; polarsSchema: PolarsSchema }) {
   const { schema, polarsSchema } = props
   const exprs: Expr[] = []
 
-  const polarsFields = getPolarsFields({ polarsSchema })
+  const polarsFields = polarsSchema.fields
   const fieldsMatch = schema.fieldsMatch ?? "exact"
 
   for (const [index, field] of schema.fields.entries()) {
