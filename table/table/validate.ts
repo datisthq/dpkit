@@ -25,8 +25,18 @@ export async function validateTable(props: {
   const structureErrors = validateStructure({ schema, polarsSchema })
   errors.push(...structureErrors)
 
+  const polarsFields = polarsSchema.fields
+  const fieldsMatch = schema.fieldsMatch ?? "exact"
+
   const columnErrorGroups = await Promise.all(
-    schema.fields.map(field => validateColumn({ field })),
+    schema.fields.map((field, index) => {
+      const polarsField =
+        fieldsMatch !== "exact"
+          ? polarsFields.find(polarsField => polarsField.name === field.name)
+          : polarsFields[index]
+
+      return polarsField ? validateColumn({ table, field, polarsField }) : []
+    }),
   )
 
   for (const columnErrors of columnErrorGroups) {
