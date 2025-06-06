@@ -256,4 +256,3 @@ describe("processTable", () => {
     expect(df.toRecords()).toEqual(records)
   })
 })
-
