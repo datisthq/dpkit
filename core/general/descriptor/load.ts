@@ -7,29 +7,29 @@ import { parseDescriptor } from "./process/parse.js"
  * Uses dynamic imports to work in both Node.js and browser environments
  * Supports HTTP, HTTPS, FTP, and FTPS protocols
  */
-export async function loadDescriptor(props: {
-  path: string
-  onlyRemote?: boolean
-}) {
-  const { path } = props
-
-  const isRemote = isRemotePath({ path })
-  if (!isRemote && props.onlyRemote) {
+export async function loadDescriptor(
+  path: string,
+  options?: {
+    onlyRemote?: boolean
+  },
+) {
+  const isRemote = isRemotePath(path)
+  if (!isRemote && options?.onlyRemote) {
     throw new Error("Cannot load descriptor for security reasons")
   }
 
-  const basepath = getBasepath({ path })
+  const basepath = getBasepath(path)
   const descriptor = isRemote
-    ? await loadRemoteDescriptor(props)
-    : await loadLocalDescriptor(props)
+    ? await loadRemoteDescriptor(path)
+    : await loadLocalDescriptor(path)
 
   return { descriptor, basepath }
 }
 
 const ALLOWED_REMOTE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:"]
 
-async function loadRemoteDescriptor(props: { path: string }) {
-  const url = new URL(props.path)
+async function loadRemoteDescriptor(path: string) {
+  const url = new URL(path)
 
   const protocol = url.protocol.toLowerCase()
   if (!ALLOWED_REMOTE_PROTOCOLS.includes(protocol)) {
@@ -42,13 +42,13 @@ async function loadRemoteDescriptor(props: { path: string }) {
   return descriptor
 }
 
-async function loadLocalDescriptor(props: { path: string }) {
+async function loadLocalDescriptor(path: string) {
   if (!node) {
     throw new Error("File system is not supported in this environment")
   }
 
-  const text = await node.fs.readFile(props.path, "utf-8")
-  const descriptor = parseDescriptor({ text })
+  const text = await node.fs.readFile(path, "utf-8")
+  const descriptor = parseDescriptor(text)
 
   return descriptor
 }

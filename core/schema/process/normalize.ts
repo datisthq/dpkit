@@ -2,26 +2,23 @@ import invariant from "tiny-invariant"
 import { normalizeField } from "../../field/index.js"
 import type { Descriptor } from "../../general/index.js"
 
-export function normalizeSchema(props: { descriptor: Descriptor }) {
-  const descriptor = globalThis.structuredClone(props.descriptor)
+export function normalizeSchema(descriptor: Descriptor) {
+  descriptor = globalThis.structuredClone(descriptor)
 
-  normalizeProfile({ descriptor })
-  normalizeFields({ descriptor })
-  normalizePrimaryKey({ descriptor })
-  normalizeForeignKeys({ descriptor })
-  normalizeUniqueKeys({ descriptor })
+  normalizeProfile(descriptor)
+  normalizeFields(descriptor)
+  normalizePrimaryKey(descriptor)
+  normalizeForeignKeys(descriptor)
+  normalizeUniqueKeys(descriptor)
 
   return descriptor
 }
 
-function normalizeProfile(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
+function normalizeProfile(descriptor: Descriptor) {
   descriptor.$schema = descriptor.$schema ?? descriptor.profile
 }
 
-function normalizeFields(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeFields(descriptor: Descriptor) {
   const fields = descriptor.fields
   if (!fields) {
     return
@@ -37,9 +34,7 @@ function normalizeFields(props: { descriptor: Descriptor }) {
   }
 }
 
-function normalizePrimaryKey(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizePrimaryKey(descriptor: Descriptor) {
   const primaryKey = descriptor.primaryKey
   if (!primaryKey) {
     return
@@ -50,9 +45,7 @@ function normalizePrimaryKey(props: { descriptor: Descriptor }) {
   }
 }
 
-function normalizeForeignKeys(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeForeignKeys(descriptor: Descriptor) {
   const foreignKeys = descriptor.foreignKeys
   if (!foreignKeys) {
     return
@@ -73,9 +66,7 @@ function normalizeForeignKeys(props: { descriptor: Descriptor }) {
   }
 }
 
-function normalizeUniqueKeys(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeUniqueKeys(descriptor: Descriptor) {
   const uniqueKeys = descriptor.uniqueKeys
   if (!uniqueKeys) {
     return

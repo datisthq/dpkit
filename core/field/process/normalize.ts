@@ -1,86 +1,76 @@
 import type { Descriptor } from "../../general/index.js"
 
-export function normalizeField(props: { descriptor: Descriptor }) {
-  const field = globalThis.structuredClone(props.descriptor)
+export function normalizeField(descriptor: Descriptor) {
+  descriptor = globalThis.structuredClone(descriptor)
 
-  normalizeFieldFormat({ field })
-  normalizeFieldMissingValues({ field })
-  normalizeFieldCategories({ field })
-  normalizeFieldCategoriesOrdered({ field })
-  normalizeFieldJsonschema({ field })
+  normalizeFieldFormat(descriptor)
+  normalizeFieldMissingValues(descriptor)
+  normalizeFieldCategories(descriptor)
+  normalizeFieldCategoriesOrdered(descriptor)
+  normalizeFieldJsonschema(descriptor)
 
-  return field
+  return descriptor
 }
 
-function normalizeFieldFormat(props: { field: Descriptor }) {
-  const { field } = props
-
-  const format = field.format
+function normalizeFieldFormat(descriptor: Descriptor) {
+  const format = descriptor.format
   if (!format) {
     return
   }
 
   if (typeof format === "string") {
     if (format.startsWith("fmt:")) {
-      field.format = format.slice(4)
+      descriptor.format = format.slice(4)
     }
   }
 }
 
-function normalizeFieldMissingValues(props: { field: Descriptor }) {
-  const { field } = props
-
-  const missingValues = field.missingValues
+function normalizeFieldMissingValues(descriptor: Descriptor) {
+  const missingValues = descriptor.missingValues
   if (!missingValues) {
     return
   }
 
   if (!Array.isArray(missingValues)) {
-    field.missingValues = undefined
+    descriptor.missingValues = undefined
     console.warn(`Ignoring v2.0 incompatible missingValues: ${missingValues}`)
   }
 }
 
-function normalizeFieldCategories(props: { field: Descriptor }) {
-  const { field } = props
-
-  const categories = field.categories
+function normalizeFieldCategories(descriptor: Descriptor) {
+  const categories = descriptor.categories
   if (!categories) {
     return
   }
 
   if (categories && !Array.isArray(categories)) {
-    field.categories = undefined
+    descriptor.categories = undefined
     console.warn(`Ignoring v2.0 incompatible categories: ${categories}`)
   }
 }
 
-function normalizeFieldCategoriesOrdered(props: { field: Descriptor }) {
-  const { field } = props
-
-  const categoriesOrdered = field.categoriesOrdered
+function normalizeFieldCategoriesOrdered(descriptor: Descriptor) {
+  const categoriesOrdered = descriptor.categoriesOrdered
   if (!categoriesOrdered) {
     return
   }
 
   if (typeof categoriesOrdered !== "boolean") {
-    field.categoriesOrdered = undefined
+    descriptor.categoriesOrdered = undefined
     console.warn(
       `Ignoring v2.0 incompatible categoriesOrdered: ${categoriesOrdered}`,
     )
   }
 }
 
-function normalizeFieldJsonschema(props: { field: Descriptor }) {
-  const { field } = props
-
-  const jsonschema = field.jsonschema
+function normalizeFieldJsonschema(descriptor: Descriptor) {
+  const jsonschema = descriptor.jsonschema
   if (!jsonschema) {
     return
   }
 
   if (typeof jsonschema !== "object") {
-    field.jsonschema = undefined
+    descriptor.jsonschema = undefined
     console.warn(`Ignoring v2.0 incompatible jsonschema: ${jsonschema}`)
   }
 }

@@ -32,10 +32,7 @@ describe("saveDialect", () => {
   })
 
   it("should save a dialect to a file and maintain its structure", async () => {
-    await saveDialect({
-      dialect: testDialect,
-      path: testPath,
-    })
+    await saveDialect(testDialect, { path: testPath })
 
     const fileExists = await fs
       .stat(testPath)

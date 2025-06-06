@@ -7,13 +7,13 @@ import type { Descriptor } from "./Descriptor.js"
  * It uses Ajv for JSON Schema validation under the hood
  * It returns a list of errors (empty if valid)
  */
-export async function validateDescriptor(props: {
-  descriptor: Descriptor
-  profile: Descriptor
-}) {
-  const { descriptor, profile } = props
-
-  const validate = await ajv.compileAsync(profile)
+export async function validateDescriptor(
+  descriptor: Descriptor,
+  options: {
+    profile: Descriptor
+  },
+) {
+  const validate = await ajv.compileAsync(options.profile)
   const valid = validate(descriptor)
 
   const errors: MetadataError[] = validate.errors

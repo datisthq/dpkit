@@ -11,9 +11,7 @@ describe("assertDialect", () => {
       skipInitialSpace: true,
     }
 
-    const dialect = await assertDialect({
-      descriptor,
-    })
+    const dialect = await assertDialect(descriptor)
 
     expectTypeOf(dialect).toEqualTypeOf<Dialect>()
     expect(dialect).toEqual(descriptor)
@@ -25,10 +23,6 @@ describe("assertDialect", () => {
       header: "yes", // Should be a boolean
     }
 
-    await expect(
-      assertDialect({
-        descriptor: invalidDialect,
-      }),
-    ).rejects.toThrow(AssertionError)
+    await expect(assertDialect(invalidDialect)).rejects.toThrow(AssertionError)
   })
 })

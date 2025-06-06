@@ -1,41 +1,39 @@
 import type { Descriptor } from "../../general/index.js"
 import { normalizeResource } from "../../resource/index.js"
 
-export function normalizePackage(props: {
-  descriptor: Descriptor
-  basepath?: string
-}) {
-  const { basepath } = props
-  const descriptor = globalThis.structuredClone(props.descriptor)
+export function normalizePackage(
+  descriptor: Descriptor,
+  options: {
+    basepath?: string
+  },
+) {
+  descriptor = globalThis.structuredClone(descriptor)
 
-  normalizeProfile({ descriptor })
-  normalizeResources({ descriptor, basepath })
-  normalizeContributors({ descriptor })
+  normalizeProfile(descriptor)
+  normalizeResources(descriptor, options)
+  normalizeContributors(descriptor)
 
   return descriptor
 }
 
-function normalizeProfile(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
+function normalizeProfile(descriptor: Descriptor) {
   descriptor.$schema = descriptor.$schema ?? descriptor.profile
 }
 
-function normalizeResources(props: {
-  descriptor: Descriptor
-  basepath?: string
-}) {
-  const { descriptor, basepath } = props
-
+function normalizeResources(
+  descriptor: Descriptor,
+  options: {
+    basepath?: string
+  },
+) {
   if (Array.isArray(descriptor.resources)) {
     descriptor.resources = descriptor.resources.map((resource: Descriptor) =>
-      normalizeResource({ descriptor: resource, basepath }),
+      normalizeResource(resource, { basepath: options.basepath }),
     )
   }
 }
 
-function normalizeContributors(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeContributors(descriptor: Descriptor) {
   const contributors = descriptor.contributors
   if (!contributors) {
     return

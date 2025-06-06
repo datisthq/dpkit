@@ -5,11 +5,17 @@ import { validatePackageDescriptor } from "./validate.js"
 /**
  * Assert a Package descriptor (JSON Object) against its profile
  */
-export async function assertPackage(props: {
-  descriptor: Descriptor | Package
-  basepath?: string
-}) {
-  const { errors, dataPackage } = await validatePackageDescriptor(props)
+export async function assertPackage(
+  descriptorOrPackage: Descriptor | Package,
+  options?: {
+    basepath?: string
+  },
+) {
+  const { errors, dataPackage } = await validatePackageDescriptor(
+    descriptorOrPackage,
+    options,
+  )
+
   if (!dataPackage) throw new AssertionError(errors)
   return dataPackage
 }

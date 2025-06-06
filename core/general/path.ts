@@ -1,21 +1,21 @@
 import Slugger from "github-slugger"
 import { node } from "./node.js"
 
-export function isRemotePath(props: { path: string }) {
+export function isRemotePath(path: string) {
   try {
-    new URL(props.path)
+    new URL(path)
     return true
   } catch {
     return false
   }
 }
 
-export function getName(props: { filename?: string }) {
-  if (!props.filename) {
+export function getName(filename?: string) {
+  if (!filename) {
     return undefined
   }
 
-  const name = props.filename.split(".")[0]
+  const name = filename.split(".")[0]
   if (!name) {
     return undefined
   }
@@ -24,15 +24,15 @@ export function getName(props: { filename?: string }) {
   return slugger.slug(name)
 }
 
-export function getFormat(props: { filename?: string }) {
-  return props.filename?.split(".").slice(-1)[0]?.toLowerCase()
+export function getFormat(filename?: string) {
+  return filename?.split(".").slice(-1)[0]?.toLowerCase()
 }
 
-export function getFilename(props: { path: string }) {
-  const isRemote = isRemotePath(props)
+export function getFilename(path: string) {
+  const isRemote = isRemotePath(path)
 
   if (isRemote) {
-    const pathname = new URL(props.path).pathname
+    const pathname = new URL(path).pathname
     const filename = pathname.split("/").slice(-1)[0]
     return filename?.includes(".") ? filename : undefined
   }
@@ -41,84 +41,74 @@ export function getFilename(props: { path: string }) {
     throw new Error("File system is not supported in this environment")
   }
 
-  const path = node.path.resolve(props.path)
-  const filename = node.path.parse(path).base
+  const resolvedPath = node.path.resolve(path)
+  const filename = node.path.parse(resolvedPath).base
   return filename?.includes(".") ? filename : undefined
 }
 
-export function getBasepath(props: { path: string }) {
-  const isRemote = isRemotePath(props)
+export function getBasepath(path: string) {
+  const isRemote = isRemotePath(path)
 
   if (isRemote) {
-    const path = new URL(props.path).toString()
-    return path.split("/").slice(0, -1).join("/")
+    const normalizedPath = new URL(path).toString()
+    return normalizedPath.split("/").slice(0, -1).join("/")
   }
 
   if (!node) {
     throw new Error("File system is not supported in this environment")
   }
 
-  const path = node.path.resolve(props.path)
-  return node.path.relative(process.cwd(), node.path.parse(path).dir)
+  const resolvedPath = node.path.resolve(path)
+  return node.path.relative(process.cwd(), node.path.parse(resolvedPath).dir)
 }
 
-export function normalizePath(props: {
-  path: string
-  basepath?: string
-}) {
-  const isPathRemote = isRemotePath({ path: props.path })
-  const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
+export function normalizePath(path: string, options: { basepath?: string }) {
+  const isPathRemote = isRemotePath(path)
+  const isBasepathRemote = isRemotePath(options.basepath ?? "")
 
   if (isPathRemote) {
-    return new URL(props.path).toString()
+    return new URL(path).toString()
   }
 
   if (isBasepathRemote) {
-    const path = new URL([props.basepath, props.path].join("/")).toString()
+    const normalizedPath = new URL([options.basepath, path].join("/")).toString()
 
-    if (!path.startsWith(props.basepath ?? "")) {
-      throw new Error(
-        `Path ${props.path} is not a subpath of ${props.basepath}`,
-      )
+    if (!normalizedPath.startsWith(options.basepath ?? "")) {
+      throw new Error(`Path ${path} is not a subpath of ${options.basepath}`)
     }
 
-    return path
+    return normalizedPath
   }
 
   if (!node) {
     throw new Error("File system is not supported in this environment")
   }
 
-  const path = props.basepath
-    ? node.path.join(props.basepath, props.path)
-    : props.path
+  const normalizedPath = options.basepath
+    ? node.path.join(options.basepath, path)
+    : path
 
-  if (node.path.relative(props.basepath ?? "", path).startsWith("..")) {
-    throw new Error(`Path ${props.path} is not a subpath of ${props.basepath}`)
+  const relativePath = node.path.relative(options.basepath ?? "", normalizedPath)
+  if (relativePath.startsWith("..")) {
+    throw new Error(`Path ${path} is not a subpath of ${options.basepath}`)
   }
 
-  return node.path.relative(process.cwd(), node.path.resolve(path))
+  return node.path.relative(process.cwd(), node.path.resolve(normalizedPath))
 }
 
-export function denormalizePath(props: {
-  path: string
-  basepath?: string
-}) {
-  const isPathRemote = isRemotePath({ path: props.path })
-  const isBasepathRemote = isRemotePath({ path: props.basepath ?? "" })
+export function denormalizePath(path: string, options: { basepath?: string }) {
+  const isPathRemote = isRemotePath(path)
+  const isBasepathRemote = isRemotePath(options.basepath ?? "")
 
   if (isPathRemote) {
-    return new URL(props.path).toString()
+    return new URL(path).toString()
   }
 
   if (isBasepathRemote) {
-    const path = props.path
-    const basepath = new URL(props.basepath ?? "").toString()
+    const basepath = new URL(options.basepath ?? "").toString()
 
     if (!path.startsWith(basepath)) {
-      throw new Error(
-        `Path ${props.path} is not a subpath of ${props.basepath}`,
-      )
+      throw new Error(`Path ${path} is not a subpath of ${options.basepath}`)
     }
 
     const relative = path.replace(`${basepath}/`, "")
@@ -129,11 +119,11 @@ export function denormalizePath(props: {
     throw new Error("File system is not supported in this environment")
   }
 
-  const path = node.path.resolve(props.path)
-  const basepath = node.path.resolve(props.basepath ?? "")
+  const normalizedPath = node.path.resolve(path)
+  const basepath = node.path.resolve(normalizedPath, options.basepath ?? "")
 
   if (!path.startsWith(basepath)) {
-    throw new Error(`Path ${props.path} is not a subpath of ${props.basepath}`)
+    throw new Error(`Path ${path} is not a subpath of ${options.basepath}`)
   }
 
   // The Data Package standard requires "/" as the path separator

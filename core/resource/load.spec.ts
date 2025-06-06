@@ -13,9 +13,9 @@ describe("loadResourceDescriptor", async () => {
   }
 
   it("loads a resource from a local file path", async () => {
-    const resource = await loadResourceDescriptor({
-      path: getFixturePath("resource.json"),
-    })
+    const resource = await loadResourceDescriptor(
+      getFixturePath("resource.json"),
+    )
 
     expectTypeOf(resource).toEqualTypeOf<Resource>()
     expect(resource).toEqual({
@@ -26,7 +26,7 @@ describe("loadResourceDescriptor", async () => {
 
   it("throws an error when resource is invalid", async () => {
     await expect(
-      loadResourceDescriptor({ path: getFixturePath("resource-invalid.json") }),
+      loadResourceDescriptor(getFixturePath("resource-invalid.json")),
     ).rejects.toThrow()
   })
 })
