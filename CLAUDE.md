@@ -21,5 +21,3 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Comments:** You are forbiddedn to write `//` comments in the code
 - **Todos:** If you asked to resolve TODO, follow the instructions literally
 - **Linting:** Don't run linting as a part of your tasks
-- **Functions:** Use one prope argument in functions instead of positional arguments
-
