@@ -6,6 +6,7 @@ import { parseDateColumn } from "./types/date.js"
 import { parseDatetimeColumn } from "./types/datetime.js"
 import { parseIntegerColumn } from "./types/integer.js"
 import { parseNumberColumn } from "./types/number.js"
+import { parseObjectColumn } from "./types/object.js"
 import { parseTimeColumn } from "./types/time.js"
 import { parseYearColumn } from "./types/year.js"
 
@@ -35,6 +36,8 @@ export function parseColumn(field: Field, options?: { expr?: Expr }) {
       return parseTimeColumn(field, { expr })
     case "year":
       return parseYearColumn(field, { expr })
+    case "object":
+      return parseObjectColumn(field, { expr })
     default:
       return expr
   }
