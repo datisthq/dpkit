@@ -5,6 +5,7 @@ import type { Expr } from "nodejs-polars"
 
 const DEFAULT_FORMAT = "%Y-%m-%dT%H:%M:%S"
 
+// TODO: Add support for timezone handling
 export function parseDatetimeColumn(
   field: DatetimeField,
   options?: {
