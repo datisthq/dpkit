@@ -5,19 +5,19 @@ import { parseArrayColumn } from "./array.js"
 describe("parseArrayColumn", () => {
   it.each([
     // Valid JSON arrays
-    ['[1,2,3]', [1, 2, 3]],
+    ["[1,2,3]", [1, 2, 3]],
     ['["a","b","c"]', ["a", "b", "c"]],
     ['[{"name":"John"},{"name":"Jane"}]', [{ name: "John" }, { name: "Jane" }]],
-    ['[]', []],
-    
+    ["[]", []],
+
     // JSON but not an array
     ['{"name":"John"}', null],
-    ['{}', null],
-    
+    ["{}", null],
+
     // Trimming whitespace
-    [' [1,2,3] ', [1, 2, 3]],
+    [" [1,2,3] ", [1, 2, 3]],
     ['\t["a","b","c"]\n', ["a", "b", "c"]],
-    
+
     // Invalid JSON - skip test that's causing issues
     // ["[invalid]", null],
     ["not json", null],

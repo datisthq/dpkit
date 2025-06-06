@@ -20,6 +20,7 @@ export function parseGeopointColumn(
     // Add more validation:
     // - Check the length of the list is 2 (no list.lenghts in polars currently)
     // - Check the values are within -180..180 and -90..90
+    // - Return null instead of list if any of the values are out of range
   }
 
   if (format === "object") {

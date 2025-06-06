@@ -6,11 +6,13 @@ import { parseBooleanColumn } from "./types/boolean.js"
 import { parseDateColumn } from "./types/date.js"
 import { parseDatetimeColumn } from "./types/datetime.js"
 import { parseGeojsonColumn } from "./types/geojson.js"
+import { parseGeopointColumn } from "./types/geopoint.js"
 import { parseIntegerColumn } from "./types/integer.js"
 import { parseNumberColumn } from "./types/number.js"
 import { parseObjectColumn } from "./types/object.js"
 import { parseTimeColumn } from "./types/time.js"
 import { parseYearColumn } from "./types/year.js"
+import { parseYearmonthColumn } from "./types/yearmonth.js"
 
 const DEFAULT_MISSING_VALUES = [""]
 
@@ -38,8 +40,12 @@ export function parseColumn(field: Field, options?: { expr?: Expr }) {
       return parseTimeColumn(field, { expr })
     case "year":
       return parseYearColumn(field, { expr })
+    case "yearmonth":
+      return parseYearmonthColumn(field, { expr })
     case "array":
       return parseArrayColumn(field, { expr })
+    case "geopoint":
+      return parseGeopointColumn(field, { expr })
     case "object":
       return parseObjectColumn(field, { expr })
     case "geojson":
