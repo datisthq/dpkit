@@ -53,7 +53,7 @@ export function denormalizeCkanPackage(dataPackage: Package) {
   // Process resources
   if (dataPackage.resources && dataPackage.resources.length > 0) {
     ckanPackage.resources = dataPackage.resources
-      .map(resource => denormalizeCkanResource({ resource }))
+      .map(resource => denormalizeCkanResource(resource))
       .filter((resource): resource is CkanResource => resource !== undefined)
   }
 

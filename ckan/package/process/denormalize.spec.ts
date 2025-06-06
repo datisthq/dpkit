@@ -178,9 +178,7 @@ describe("denormalizeCkanPackage", () => {
     const originalCkanPackage = ckanPackageFixture as CkanPackage
 
     // Act - First normalize to a Frictionless Data Package
-    const dataPackage = normalizeCkanPackage({
-      ckanPackage: originalCkanPackage,
-    })
+    const dataPackage = normalizeCkanPackage(originalCkanPackage)
 
     // Then denormalize back to a CKAN package
     const resultCkanPackage = denormalizeCkanPackage(dataPackage)

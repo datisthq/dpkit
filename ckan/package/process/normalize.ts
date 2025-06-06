@@ -29,7 +29,7 @@ export function normalizeCkanPackage(ckanPackage: CkanPackage): Package {
   // Process resources
   if (ckanPackage.resources && ckanPackage.resources.length > 0) {
     datapackage.resources = ckanPackage.resources.map(resource =>
-      normalizeCkanResource({ ckanResource: resource }),
+      normalizeCkanResource(resource),
     )
   }
 

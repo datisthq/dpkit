@@ -50,14 +50,13 @@ export async function savePackageToCkan(
   const resourceDescriptors: Descriptor[] = []
   for (const resource of dataPackage.resources) {
     resourceDescriptors.push(
-      await saveResourceFiles({
-        resource,
+      await saveResourceFiles(resource, {
         basepath,
         withRemote: true,
         withoutFolders: true,
         saveFile: async props => {
           const filename = getFilename(props.normalizedPath)
-          const ckanResource = denormalizeCkanResource({ resource })
+          const ckanResource = denormalizeCkanResource(resource)
 
           const payload = {
             ...ckanResource,
@@ -68,9 +67,7 @@ export async function savePackageToCkan(
 
           const upload = {
             name: props.denormalizedPath,
-            data: await blob(
-              await readFileStream({ path: props.normalizedPath }),
-            ),
+            data: await blob(await readFileStream(props.normalizedPath)),
           }
 
           const result = await makeCkanApiRequest<CkanResource>({
