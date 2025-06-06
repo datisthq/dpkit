@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { loadSchema } from "@dpkit/core"
+import { validateColumn } from "../column/index.js"
+import type { TableError } from "../error/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
-//import { validateColumn } from "../column/index.js"
-import type { StructureError, TableError } from "./Error.js"
 import type { Table } from "./Table.js"
 
 export async function validateTable(props: {
@@ -22,9 +22,19 @@ export async function validateTable(props: {
   const sample = await table.head(sampleSize).collect()
   const polarsSchema = getPolarsSchema({ typeMapping: sample.schema })
 
-  validateStructure({ schema, polarsSchema })
+  const structureErrors = validateStructure({ schema, polarsSchema })
+  errors.push(...structureErrors)
 
-  return errors
+  const columnErrorGroups = await Promise.all(
+    schema.fields.map(field => validateColumn({ field })),
+  )
+
+  for (const columnErrors of columnErrorGroups) {
+    errors.push(...columnErrors)
+  }
+
+  const valid = errors.length === 0
+  return { valid, errors }
 }
 
 function validateStructure(props: {
@@ -32,49 +42,91 @@ function validateStructure(props: {
   polarsSchema: PolarsSchema
 }) {
   const { schema, polarsSchema } = props
-  const errors: StructureError[] = []
+
+  const errors: TableError[] = []
+  const fieldsMatch = schema.fieldsMatch ?? "exact"
 
   const fields = schema.fields
   const polarsFields = polarsSchema.fields
-  const fieldsMatch = schema.fieldsMatch ?? "exact"
+
+  const names = fields.map(field => field.name)
+  const polarsNames = polarsFields.map(field => field.name)
+
+  const extraFields = polarsFields.length - fields.length
+  const missingFields = fields.length - polarsFields.length
+
+  const extraNames = arrayDiff(polarsNames, names)
+  const missingNames = arrayDiff(names, polarsNames)
 
   if (fieldsMatch === "exact") {
-    const extraFields = polarsFields.length - fields.length
-    const missingFields = fields.length - polarsFields.length
-
     if (extraFields > 0) {
       errors.push({
+        fieldsMatch,
         type: "structure",
-        message: `Extra fields: ${extraFields}`,
+        category: "extra",
+        fieldNames: extraNames,
       })
     }
 
     if (missingFields > 0) {
       errors.push({
+        fieldsMatch,
         type: "structure",
-        message: `Missing fields: ${missingFields}`,
+        category: "missing",
+        fieldNames: missingNames,
       })
     }
   }
 
   if (fieldsMatch === "equal") {
-    const names = fields.map(field => field.name)
-    const polarsNames = polarsFields.map(field => field.name)
-
-    const extraNames = arrayDiff(polarsNames, names)
-    const missingNames = arrayDiff(names, polarsNames)
-
     if (extraNames.length > 0) {
       errors.push({
+        fieldsMatch,
         type: "structure",
-        message: `Extra fields: ${extraNames.join(", ")}`,
+        category: "extra",
+        fieldNames: extraNames,
       })
     }
 
     if (missingNames.length > 0) {
       errors.push({
+        fieldsMatch,
         type: "structure",
-        message: `Missing fields: ${missingNames.join(", ")}`,
+        category: "missing",
+        fieldNames: missingNames,
+      })
+    }
+  }
+
+  if (fieldsMatch === "subset") {
+    if (missingNames.length > 0) {
+      errors.push({
+        fieldsMatch,
+        type: "structure",
+        category: "missing",
+        fieldNames: missingNames,
+      })
+    }
+  }
+
+  if (fieldsMatch === "superset") {
+    if (extraNames.length > 0) {
+      errors.push({
+        fieldsMatch,
+        type: "structure",
+        category: "extra",
+        fieldNames: extraNames,
+      })
+    }
+  }
+
+  if (fieldsMatch === "partial") {
+    if (missingNames.length === fields.length) {
+      errors.push({
+        fieldsMatch,
+        type: "structure",
+        category: "missing",
+        fieldNames: missingNames,
       })
     }
   }
@@ -82,6 +134,6 @@ function validateStructure(props: {
   return errors
 }
 
-function arrayDiff(a, b) {
+function arrayDiff(a: string[], b: string[]) {
   return a.filter(x => !b.includes(x))
 }
