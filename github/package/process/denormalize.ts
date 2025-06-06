@@ -7,11 +7,7 @@ import type { GithubPackage } from "../Package.js"
  * @param props Object containing the Package to denormalize
  * @returns Github repository creation payload
  */
-export function denormalizeGithubPackage(props: {
-  dataPackage: Package
-}) {
-  const { dataPackage } = props
-
+export function denormalizeGithubPackage(dataPackage: Package) {
   // Build repository creation payload
   const repoPayload: Partial<GithubPackage> & {
     auto_init?: boolean

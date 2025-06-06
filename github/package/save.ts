@@ -11,14 +11,16 @@ import type { GithubPackage } from "./Package.js"
  * @param props Object containing the package to save and Github details
  * @returns Object with the repository URL
  */
-export async function savePackageToGithub(props: {
-  dataPackage: Package
-  apiKey: string
-  repo: string
-  org?: string
-}) {
-  const { dataPackage, apiKey, org, repo } = props
-  const basepath = getPackageBasepath({ dataPackage })
+export async function savePackageToGithub(
+  dataPackage: Package,
+  options: {
+    apiKey: string
+    repo: string
+    org?: string
+  },
+) {
+  const { apiKey, org, repo } = options
+  const basepath = getPackageBasepath(dataPackage)
 
   const githubPackage = await makeGithubApiRequest<GithubPackage>({
     endpoint: org ? `/orgs/${org}/repos` : "/user/repos",
@@ -32,12 +34,11 @@ export async function savePackageToGithub(props: {
     if (!resource.path) continue
 
     resourceDescriptors.push(
-      await saveResourceFiles({
-        resource,
+      await saveResourceFiles(resource, {
         basepath,
         withRemote: false,
         saveFile: async props => {
-          const stream = await readFileStream({ path: props.normalizedPath })
+          const stream = await readFileStream(props.normalizedPath)
 
           const payload = {
             path: props.denormalizedPath,
@@ -59,7 +60,7 @@ export async function savePackageToGithub(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ dataPackage, basepath }),
+    ...denormalizePackage(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 

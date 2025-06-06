@@ -7,11 +7,7 @@ import type { GithubPackage } from "../Package.js"
  * @param props Object containing the Github repository to normalize
  * @returns Normalized Package object
  */
-export function normalizeGithubPackage(props: {
-  githubPackage: GithubPackage
-}): Package {
-  const { githubPackage } = props
-
+export function normalizeGithubPackage(githubPackage: GithubPackage): Package {
   const datapackage: Package = {
     name: githubPackage.name,
     resources: [],
@@ -63,8 +59,7 @@ export function normalizeGithubPackage(props: {
       .filter(resource => !resource.path.startsWith("."))
       .filter(resource => resource.type === "blob")
       .map(resource =>
-        normalizeGithubResource({
-          githubResource: resource,
+        normalizeGithubResource(resource, {
           defaultBranch: githubPackage.default_branch,
         }),
       )

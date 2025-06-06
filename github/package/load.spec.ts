@@ -6,17 +6,17 @@ describe("loadPackageFromGithub", () => {
   useRecording()
 
   it("should load a package", async () => {
-    const datapackage = await loadPackageFromGithub({
-      repoUrl: "https://github.com/roll/data",
-    })
+    const datapackage = await loadPackageFromGithub(
+      "https://github.com/roll/data",
+    )
 
     expect(datapackage).toMatchSnapshot()
   })
 
   it("should merge datapackage.json if present", async () => {
-    const datapackage = await loadPackageFromGithub({
-      repoUrl: "https://github.com/roll/currency-codes",
-    })
+    const datapackage = await loadPackageFromGithub(
+      "https://github.com/roll/currency-codes",
+    )
 
     expect(datapackage).toMatchSnapshot()
   })
