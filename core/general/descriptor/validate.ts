@@ -1,4 +1,4 @@
-import type { DescriptorError } from "../Error.js"
+import type { MetadataError } from "../Error.js"
 import { ajv } from "../profile/ajv.js"
 import type { Descriptor } from "./Descriptor.js"
 
@@ -16,8 +16,8 @@ export async function validateDescriptor(props: {
   const validate = await ajv.compileAsync(profile)
   const valid = validate(descriptor)
 
-  const errors: DescriptorError[] = validate.errors
-    ? validate.errors?.map(error => ({ ...error, type: "descriptor" }))
+  const errors: MetadataError[] = validate.errors
+    ? validate.errors?.map(error => ({ ...error, type: "metadata" }))
     : []
 
   return { valid, errors }

@@ -7,7 +7,7 @@ export type { Descriptor } from "./descriptor/Descriptor.js"
 export type { Metadata } from "./metadata/Metadata.js"
 export { isDescriptor } from "./descriptor/Descriptor.js"
 export { loadProfile } from "./profile/load.js"
-export { AssertionError, type DescriptorError } from "./Error.js"
+export { AssertionError, type MetadataError } from "./Error.js"
 export {
   getName,
   getFormat,
