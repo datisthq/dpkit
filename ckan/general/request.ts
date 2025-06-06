@@ -1,6 +1,6 @@
 import type { Descriptor } from "@dpkit/core"
 
-export async function makeCkanApiRequest<T = Descriptor>(props: {
+export async function makeCkanApiRequest<T = Descriptor>(options: {
   ckanUrl: string
   action: string
   payload: Descriptor
@@ -10,22 +10,22 @@ export async function makeCkanApiRequest<T = Descriptor>(props: {
   let body: string | FormData
   const headers: Record<string, any> = {}
 
-  const url = new URL(props.ckanUrl)
-  url.pathname = `/api/3/action/${props.action}`
+  const url = new URL(options.ckanUrl)
+  url.pathname = `/api/3/action/${options.action}`
 
-  if (props.apiKey) {
-    headers.Authorization = props.apiKey
+  if (options.apiKey) {
+    headers.Authorization = options.apiKey
   }
 
-  if (props.upload) {
+  if (options.upload) {
     body = new FormData()
-    body.append("upload", props.upload.data, props.upload.name)
+    body.append("upload", options.upload.data, options.upload.name)
 
-    for (const [key, value] of Object.entries(props.payload)) {
+    for (const [key, value] of Object.entries(options.payload)) {
       body.append(key, value)
     }
   } else {
-    body = JSON.stringify(props.payload)
+    body = JSON.stringify(options.payload)
     headers["Content-Type"] = "application/json"
   }
 

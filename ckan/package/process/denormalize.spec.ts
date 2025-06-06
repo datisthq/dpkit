@@ -50,7 +50,7 @@ describe("denormalizeCkanPackage", () => {
     }
 
     // Act
-    const result = denormalizeCkanPackage({ dataPackage })
+    const result = denormalizeCkanPackage(dataPackage)
 
     // Assert
     // Basic metadata
@@ -141,7 +141,7 @@ describe("denormalizeCkanPackage", () => {
     }
 
     // Act
-    const result = denormalizeCkanPackage({ dataPackage })
+    const result = denormalizeCkanPackage(dataPackage)
 
     // Assert
     expect(result.resources).toEqual([])
@@ -154,7 +154,7 @@ describe("denormalizeCkanPackage", () => {
     }
 
     // Act
-    const result = denormalizeCkanPackage({ dataPackage })
+    const result = denormalizeCkanPackage(dataPackage)
 
     // Assert
     expect(result.name).toBeUndefined()
@@ -183,7 +183,7 @@ describe("denormalizeCkanPackage", () => {
     })
 
     // Then denormalize back to a CKAN package
-    const resultCkanPackage = denormalizeCkanPackage({ dataPackage })
+    const resultCkanPackage = denormalizeCkanPackage(dataPackage)
 
     // Assert
     // Basic metadata

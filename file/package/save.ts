@@ -6,22 +6,23 @@ import { assertLocalPathVacant, createFolder } from "../general/index.js"
 import { saveResourceFiles } from "../resource/index.js"
 import { getPackageBasepath } from "./path.js"
 
-export async function savePackageToFolder(props: {
-  folderPath: string
-  dataPackage: Package
-  withRemote?: boolean
-}) {
-  const { folderPath, dataPackage, withRemote } = props
-  const basepath = getPackageBasepath({ dataPackage })
+export async function savePackageToFolder(
+  dataPackage: Package,
+  options: {
+    folderPath: string
+    withRemote?: boolean
+  },
+) {
+  const basepath = getPackageBasepath(dataPackage)
+  const { folderPath, withRemote } = options
 
-  await assertLocalPathVacant({ path: folderPath })
-  await createFolder({ path: folderPath })
+  await assertLocalPathVacant(folderPath)
+  await createFolder(folderPath)
 
   const resourceDescriptors: Descriptor[] = []
   for (const resource of dataPackage.resources) {
     resourceDescriptors.push(
-      await saveResourceFiles({
-        resource,
+      await saveResourceFiles(resource, {
         basepath,
         withRemote,
         saveFile: async props => {
@@ -37,12 +38,11 @@ export async function savePackageToFolder(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ dataPackage, basepath }),
+    ...denormalizePackage(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 
-  await saveDescriptor({
-    descriptor,
+  await saveDescriptor(descriptor, {
     path: join(folderPath, "datapackage.json"),
   })
 

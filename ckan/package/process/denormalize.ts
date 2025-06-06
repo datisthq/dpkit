@@ -10,11 +10,7 @@ import type { CkanTag } from "../Tag.js"
  * @param props Object containing the Package to denormalize
  * @returns Denormalized CKAN Package object
  */
-export function denormalizeCkanPackage(props: {
-  dataPackage: Package
-}) {
-  const { dataPackage } = props
-
+export function denormalizeCkanPackage(dataPackage: Package) {
   const ckanPackage: SetRequired<Partial<CkanPackage>, "resources" | "tags"> = {
     resources: [],
     tags: [],

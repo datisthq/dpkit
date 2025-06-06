@@ -7,9 +7,7 @@ import type { CkanSchema } from "../Schema.js"
  * @param props Object containing the Table Schema to denormalize
  * @returns A denormalized CKAN Schema object
  */
-export function denormalizeCkanSchema(props: { schema: Schema }): CkanSchema {
-  const { schema } = props
-
+export function denormalizeCkanSchema(schema: Schema): CkanSchema {
   const fields = schema.fields.map(denormalizeCkanField)
 
   return { fields }

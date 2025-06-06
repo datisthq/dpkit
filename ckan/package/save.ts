@@ -16,17 +16,19 @@ import type { CkanResource } from "../resource/index.js"
 import { denormalizeCkanResource } from "../resource/index.js"
 import { denormalizeCkanPackage } from "./process/denormalize.js"
 
-export async function savePackageToCkan(props: {
-  dataPackage: Package
-  apiKey: string
-  ckanUrl: string
-  ownerOrg: string
-  datasetName: string
-}) {
-  const { dataPackage, ckanUrl, apiKey, datasetName, ownerOrg } = props
+export async function savePackageToCkan(
+  dataPackage: Package,
+  options: {
+    apiKey: string
+    ckanUrl: string
+    ownerOrg: string
+    datasetName: string
+  },
+) {
+  const { apiKey, ckanUrl, ownerOrg, datasetName } = options
 
-  const basepath = getPackageBasepath({ dataPackage })
-  const ckanPackage = denormalizeCkanPackage({ dataPackage })
+  const basepath = getPackageBasepath(dataPackage)
+  const ckanPackage = denormalizeCkanPackage(dataPackage)
 
   const payload = {
     ...ckanPackage,
@@ -38,8 +40,8 @@ export async function savePackageToCkan(props: {
   const result = await makeCkanApiRequest({
     action: "package_create",
     payload,
-    ckanUrl,
-    apiKey,
+    ckanUrl: ckanUrl,
+    apiKey: apiKey,
   })
 
   const url = new URL(ckanUrl)
@@ -54,14 +56,14 @@ export async function savePackageToCkan(props: {
         withRemote: true,
         withoutFolders: true,
         saveFile: async props => {
-          const filename = getFilename({ path: props.normalizedPath })
+          const filename = getFilename(props.normalizedPath)
           const ckanResource = denormalizeCkanResource({ resource })
 
           const payload = {
             ...ckanResource,
             package_id: datasetName,
             name: props.denormalizedPath,
-            format: getFormat({ filename })?.toUpperCase(),
+            format: getFormat(filename)?.toUpperCase(),
           }
 
           const upload = {
@@ -86,7 +88,7 @@ export async function savePackageToCkan(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ dataPackage, basepath }),
+    ...denormalizePackage(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 

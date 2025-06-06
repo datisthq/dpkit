@@ -8,12 +8,8 @@ import { normalizeCkanPackage } from "./process/normalize.js"
  * @param props Object containing the URL to the CKAN package
  * @returns Package object and cleanup function
  */
-export async function loadPackageFromCkan(props: {
-  datasetUrl: string
-}) {
-  const { datasetUrl } = props
-
-  const packageId = extractPackageId({ datasetUrl })
+export async function loadPackageFromCkan(datasetUrl: string) {
+  const packageId = extractPackageId(datasetUrl)
   if (!packageId) {
     throw new Error(`Failed to extract package ID from URL: ${datasetUrl}`)
   }
@@ -34,7 +30,7 @@ export async function loadPackageFromCkan(props: {
     }
   }
 
-  const systemPackage = normalizeCkanPackage({ ckanPackage })
+  const systemPackage = normalizeCkanPackage(ckanPackage)
   const userPackagePath = systemPackage.resources
     .filter(resource => resource["ckan:key"] === "datapackage.json")
     .map(resource => resource["ckan:url"])
@@ -58,8 +54,8 @@ export async function loadPackageFromCkan(props: {
  * - https://open.africa/dataset/pib-annual-senegal
  * - https://data.nhm.ac.uk/dataset/join-the-dots-collection-level-descriptions
  */
-function extractPackageId(props: { datasetUrl: string }) {
-  const url = new URL(props.datasetUrl)
+function extractPackageId(datasetUrl: string) {
+  const url = new URL(datasetUrl)
   const pathParts = url.pathname.split("/").filter(Boolean)
   return pathParts.at(-1)
 }
@@ -67,19 +63,17 @@ function extractPackageId(props: { datasetUrl: string }) {
 /**
  * Fetch resource schema data from CKAN datastore
  */
-async function loadCkanSchema(props: {
+async function loadCkanSchema(options: {
   datasetUrl: string
   resourceId: string
 }) {
-  const { datasetUrl, resourceId } = props
-
   try {
     // For some reason, datastore_info doesn't work
     // So we use data fetching endpoint that also returns the schema
     const result = await makeCkanApiRequest({
-      ckanUrl: datasetUrl,
+      ckanUrl: options.datasetUrl,
       action: "datastore_search",
-      payload: { resource_id: resourceId, limit: 0 },
+      payload: { resource_id: options.resourceId, limit: 0 },
     })
 
     // @ts-ignore
