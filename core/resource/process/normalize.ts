@@ -50,7 +50,10 @@ function normalizeType(descriptor: Descriptor) {
   }
 }
 
-function normalizePaths(descriptor: Descriptor, options?: { basepath?: string }) {
+function normalizePaths(
+  descriptor: Descriptor,
+  options?: { basepath?: string },
+) {
   const basepath = options?.basepath
 
   if (typeof descriptor.path === "string") {

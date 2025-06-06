@@ -21,7 +21,7 @@ describe("parseDateColumn", () => {
     ["21/11/06", null, { format: "invalid" }],
   ])("%s -> %s %o", (cell, expected, options) => {
     const field = { name: "name", type: "date" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(parseDateColumn({ field }))
+    const df = DataFrame({ name: [cell] }).select(parseDateColumn(field))
     expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })

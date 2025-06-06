@@ -11,9 +11,8 @@ import { parseYearColumn } from "./types/year.js"
 
 const DEFAULT_MISSING_VALUES = [""]
 
-export function parseColumn(props: { field: Field; expr?: Expr }) {
-  const { field } = props
-  let expr = props.expr ?? col(field.name)
+export function parseColumn(field: Field, options?: { expr?: Expr }) {
+  let expr = options?.expr ?? col(field.name)
 
   const missingValues = field.missingValues ?? DEFAULT_MISSING_VALUES
   for (const source of missingValues) {
@@ -23,19 +22,19 @@ export function parseColumn(props: { field: Field; expr?: Expr }) {
 
   switch (field.type) {
     case "integer":
-      return parseIntegerColumn({ field, expr })
+      return parseIntegerColumn(field, { expr })
     case "number":
-      return parseNumberColumn({ field, expr })
+      return parseNumberColumn(field, { expr })
     case "boolean":
-      return parseBooleanColumn({ field, expr })
+      return parseBooleanColumn(field, { expr })
     case "date":
-      return parseDateColumn({ field, expr })
+      return parseDateColumn(field, { expr })
     case "datetime":
-      return parseDatetimeColumn({ field, expr })
+      return parseDatetimeColumn(field, { expr })
     case "time":
-      return parseTimeColumn({ field, expr })
+      return parseTimeColumn(field, { expr })
     case "year":
-      return parseYearColumn({ field, expr })
+      return parseYearColumn(field, { expr })
     default:
       return expr
   }

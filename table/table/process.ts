@@ -8,30 +8,35 @@ import type { PolarsSchema } from "../schema/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
 
-export async function processTable(props: {
-  table: Table
-  schema?: Schema | string
-  sampleSize?: number
-}) {
-  const { table, sampleSize = 100 } = props
+export async function processTable(
+  table: Table,
+  options?: {
+    schema?: Schema | string
+    sampleSize?: number
+  },
+) {
+  const { sampleSize = 100 } = options ?? {}
 
-  if (!props.schema) {
+  if (!options?.schema) {
     return table
   }
 
   const schema =
-    typeof props.schema === "string"
-      ? await loadSchema({ path: props.schema })
-      : props.schema
+    typeof options.schema === "string"
+      ? await loadSchema(options.schema)
+      : options.schema
 
   const sample = await table.head(sampleSize).collect()
-  const polarsSchema = getPolarsSchema({ typeMapping: sample.schema })
+  const polarsSchema = getPolarsSchema(sample.schema)
 
   return table.select(processColumns({ schema, polarsSchema }))
 }
 
-function processColumns(props: { schema: Schema; polarsSchema: PolarsSchema }) {
-  const { schema, polarsSchema } = props
+function processColumns(options: {
+  schema: Schema
+  polarsSchema: PolarsSchema
+}) {
+  const { schema, polarsSchema } = options
   const exprs: Expr[] = []
 
   const polarsFields = polarsSchema.fields
@@ -49,7 +54,7 @@ function processColumns(props: { schema: Schema; polarsSchema: PolarsSchema }) {
       expr = col(polarsField.name).alias(field.name)
 
       if (polarsField.type.equals(DataType.String)) {
-        expr = parseColumn({ field, expr })
+        expr = parseColumn(field, { expr })
       }
     }
 

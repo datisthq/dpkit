@@ -18,7 +18,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(true)
       expect(result.errors).toEqual([])
     })
@@ -37,7 +37,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(true)
     })
   })
@@ -56,7 +56,7 @@ describe("validateTable", () => {
       ],
     }
 
-    const result = await validateTable({ table, schema })
+    const result = await validateTable(table, { schema })
     expect(result.valid).toBe(false)
     expect(result.errors).toContainEqual({
       fieldsMatch: "exact",
@@ -78,7 +78,7 @@ describe("validateTable", () => {
       ],
     }
 
-    const result = await validateTable({ table, schema })
+    const result = await validateTable(table, { schema })
     expect(result.valid).toBe(false)
     expect(result.errors).toContainEqual({
       fieldsMatch: "exact",
@@ -103,7 +103,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(true)
       expect(result.errors).toEqual([])
     })
@@ -123,7 +123,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
         fieldsMatch: "equal",
@@ -146,7 +146,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
         fieldsMatch: "equal",
@@ -173,7 +173,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(true)
       expect(result.errors).toEqual([])
     })
@@ -192,7 +192,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(true)
       expect(result.errors).toEqual([])
     })
@@ -210,7 +210,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
         fieldsMatch: "subset",
@@ -235,7 +235,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(true)
       expect(result.errors).toEqual([])
     })
@@ -254,7 +254,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(true)
       expect(result.errors).toEqual([])
     })
@@ -274,7 +274,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
         fieldsMatch: "superset",
@@ -300,7 +300,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(true)
       expect(result.errors).toEqual([])
     })
@@ -319,7 +319,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable({ table, schema })
+      const result = await validateTable(table, { schema })
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
         fieldsMatch: "partial",

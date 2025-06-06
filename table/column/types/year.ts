@@ -3,9 +3,8 @@ import { DataType, lit, when } from "nodejs-polars"
 import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
-export function parseYearColumn(props: { field: YearField; expr?: Expr }) {
-  const { field } = props
-  let expr = props.expr ?? col(field.name)
+export function parseYearColumn(field: YearField, options?: { expr?: Expr }) {
+  let expr = options?.expr ?? col(field.name)
 
   expr = expr.str.strip()
 

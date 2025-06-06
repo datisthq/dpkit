@@ -18,7 +18,7 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table })).toEqual(schema)
+    expect(await inferSchema(table)).toEqual(schema)
   })
 
   it("should infer numeric", async () => {
@@ -38,7 +38,7 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table })).toEqual(schema)
+    expect(await inferSchema(table)).toEqual(schema)
   })
 
   it("should infer numeric (commaDecimal)", async () => {
@@ -54,7 +54,7 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table, commaDecimal: true })).toEqual(schema)
+    expect(await inferSchema(table, { commaDecimal: true })).toEqual(schema)
   })
 
   it("should infer booleans", async () => {
@@ -70,7 +70,7 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table })).toEqual(schema)
+    expect(await inferSchema(table)).toEqual(schema)
   })
 
   it("should infer objects", async () => {
@@ -86,7 +86,7 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table })).toEqual(schema)
+    expect(await inferSchema(table)).toEqual(schema)
   })
 
   it("should infer arrays", async () => {
@@ -102,7 +102,7 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table })).toEqual(schema)
+    expect(await inferSchema(table)).toEqual(schema)
   })
 
   it("should infer dates with ISO format", async () => {
@@ -114,7 +114,7 @@ describe("inferSchema", () => {
       fields: [{ name: "name1", type: "date" }],
     }
 
-    expect(await inferSchema({ table })).toEqual(schema)
+    expect(await inferSchema(table)).toEqual(schema)
   })
 
   it("should infer dates with slash format", async () => {
@@ -140,8 +140,8 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table })).toEqual(schemaDefault)
-    expect(await inferSchema({ table, monthFirst: true })).toEqual(
+    expect(await inferSchema(table)).toEqual(schemaDefault)
+    expect(await inferSchema(table, { monthFirst: true })).toEqual(
       schemaMonthFirst,
     )
   })
@@ -159,8 +159,8 @@ describe("inferSchema", () => {
       fields: [{ name: "dayMonth", type: "date", format: "%m-%d-%Y" }],
     }
 
-    expect(await inferSchema({ table })).toEqual(schemaDefault)
-    expect(await inferSchema({ table, monthFirst: true })).toEqual(
+    expect(await inferSchema(table)).toEqual(schemaDefault)
+    expect(await inferSchema(table, { monthFirst: true })).toEqual(
       schemaMonthFirst,
     )
   })
@@ -178,7 +178,7 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table })).toEqual(schema)
+    expect(await inferSchema(table)).toEqual(schema)
   })
 
   it("should infer times with 12-hour format", async () => {
@@ -194,7 +194,7 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table })).toEqual(schema)
+    expect(await inferSchema(table)).toEqual(schema)
   })
 
   it("should infer times with timezone offset", async () => {
@@ -206,7 +206,7 @@ describe("inferSchema", () => {
       fields: [{ name: "name", type: "time" }],
     }
 
-    expect(await inferSchema({ table })).toEqual(schema)
+    expect(await inferSchema(table)).toEqual(schema)
   })
 
   it("should infer datetimes with ISO format", async () => {
@@ -242,7 +242,7 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table })).toEqual(schema)
+    expect(await inferSchema(table)).toEqual(schema)
   })
 
   it("should infer datetimes with custom formats", async () => {
@@ -287,8 +287,8 @@ describe("inferSchema", () => {
       ],
     }
 
-    expect(await inferSchema({ table })).toEqual(schemaDefault)
-    expect(await inferSchema({ table, monthFirst: true })).toEqual(
+    expect(await inferSchema(table)).toEqual(schemaDefault)
+    expect(await inferSchema(table, { monthFirst: true })).toEqual(
       schemaMonthFirst,
     )
   })

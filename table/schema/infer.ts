@@ -3,23 +3,25 @@ import { col } from "nodejs-polars"
 import { getPolarsSchema } from "../schema/index.js"
 import type { Table } from "../table/index.js"
 
-export async function inferSchema(props: {
-  table: Table
-  sampleSize?: number
-  confidence?: number
-  commaDecimal?: boolean
-  monthFirst?: boolean
-}) {
-  const { table, sampleSize = 100, confidence = 0.9 } = props
+export async function inferSchema(
+  table: Table,
+  options?: {
+    sampleSize?: number
+    confidence?: number
+    commaDecimal?: boolean
+    monthFirst?: boolean
+  },
+) {
+  const { sampleSize = 100, confidence = 0.9 } = options ?? {}
   const schema: Schema = {
     fields: [],
   }
 
   const typeMapping = createTypeMapping()
-  const regexMapping = createRegexMapping(props)
+  const regexMapping = createRegexMapping(options)
 
   const sample = await table.head(sampleSize).collect()
-  const polarsSchema = getPolarsSchema({ typeMapping: sample.schema })
+  const polarsSchema = getPolarsSchema(sample.schema)
 
   const failureThreshold =
     sample.height - Math.floor(sample.height * confidence) || 1
@@ -78,11 +80,11 @@ function createTypeMapping() {
   return mapping
 }
 
-function createRegexMapping(props: {
+function createRegexMapping(options?: {
   commaDecimal?: boolean
   monthFirst?: boolean
 }) {
-  const { commaDecimal, monthFirst } = props
+  const { commaDecimal, monthFirst } = options ?? {}
 
   const mapping: Record<string, Partial<Field>> = {
     // Numeric

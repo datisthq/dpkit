@@ -28,9 +28,7 @@ describe.skip("parseDatetimeColumn", () => {
     ["21/11/06 16:30", null, { format: "invalid" }],
   ])("%s -> %s %o", (cell, expected, options) => {
     const field = { name: "name", type: "datetime" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(
-      parseDatetimeColumn({ field }),
-    )
+    const df = DataFrame({ name: [cell] }).select(parseDatetimeColumn(field))
     expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })

@@ -5,10 +5,10 @@ export interface PolarsSchema {
   fields: PolarsField[]
 }
 
-export function getPolarsSchema(props: {
-  typeMapping: Record<string, DataType>
-}): PolarsSchema {
-  const entries = Object.entries(props.typeMapping)
+export function getPolarsSchema(
+  typeMapping: Record<string, DataType>,
+): PolarsSchema {
+  const entries = Object.entries(typeMapping)
   const fields = entries.map(([name, type]) => ({ name, type }))
 
   return { fields }

@@ -21,7 +21,7 @@ describe("parseYearColumn", () => {
     ["123", null],
   ])("%s -> %s", (cell, value) => {
     const field = { name: "name", type: "year" as const }
-    const df = DataFrame({ name: [cell] }).select(parseYearColumn({ field }))
+    const df = DataFrame({ name: [cell] }).select(parseYearColumn(field))
     expect(df.getColumn("name").get(0)).toEqual(value)
   })
 })

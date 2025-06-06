@@ -3,12 +3,13 @@ import { DataType } from "nodejs-polars"
 import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
-export function parseIntegerColumn(props: {
-  field: IntegerField
-  expr?: Expr
-}) {
-  const { field } = props
-  let expr = props.expr ?? col(field.name)
+export function parseIntegerColumn(
+  field: IntegerField,
+  options?: {
+    expr?: Expr
+  },
+) {
+  let expr = options?.expr ?? col(field.name)
 
   // First, trim whitespace
   expr = expr.str.strip()

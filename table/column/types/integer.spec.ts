@@ -52,7 +52,7 @@ describe("parseIntegerColumn", () => {
     ["000,001", 1, { groupChar: "," }],
   ])("$0 -> $1 $2", async (cell, value, options) => {
     const field = { name: "name", type: "integer" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(parseIntegerColumn({ field }))
+    const df = DataFrame({ name: [cell] }).select(parseIntegerColumn(field))
     expect(df.getColumn("name").get(0)).toEqual(value)
   })
 })

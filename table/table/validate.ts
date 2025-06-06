@@ -6,21 +6,23 @@ import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
 
-export async function validateTable(props: {
-  table: Table
-  schema: Schema | string
-  sampleSize?: number
-}) {
-  const { table, sampleSize = 100 } = props
+export async function validateTable(
+  table: Table,
+  options: {
+    schema: Schema | string
+    sampleSize?: number
+  },
+) {
+  const { sampleSize = 100 } = options
   const errors: TableError[] = []
 
   const schema =
-    typeof props.schema === "string"
-      ? await loadSchema({ path: props.schema })
-      : props.schema
+    typeof options.schema === "string"
+      ? await loadSchema(options.schema)
+      : options.schema
 
   const sample = await table.head(sampleSize).collect()
-  const polarsSchema = getPolarsSchema({ typeMapping: sample.schema })
+  const polarsSchema = getPolarsSchema(sample.schema)
 
   const structureErrors = validateStructure({ schema, polarsSchema })
   errors.push(...structureErrors)
@@ -35,7 +37,7 @@ export async function validateTable(props: {
           ? polarsFields.find(polarsField => polarsField.name === field.name)
           : polarsFields[index]
 
-      return polarsField ? validateColumn({ table, field, polarsField }) : []
+      return polarsField ? validateColumn(table, { field, polarsField }) : []
     }),
   )
 

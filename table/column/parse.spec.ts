@@ -10,7 +10,7 @@ describe("parseColumn", () => {
     ["n/a", null, { missingValues: ["n/a"] }],
   ])("$0 -> $1 $2", async (cell, value, options) => {
     const field = { name: "name", type: "integer" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(parseColumn({ field }))
+    const df = DataFrame({ name: [cell] }).select(parseColumn(field))
     expect(df.getColumn("name").get(0)).toEqual(value)
   })
 })

@@ -25,7 +25,7 @@ describe("parseTimeColumn", () => {
     //["06:00", null, { format: "invalid" }],
   ])("$0 -> $1 $2", (cell, expected, options) => {
     const field = { name: "name", type: "time" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(parseTimeColumn({ field }))
+    const df = DataFrame({ name: [cell] }).select(parseTimeColumn(field))
     expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })

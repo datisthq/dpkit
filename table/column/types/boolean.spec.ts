@@ -46,7 +46,7 @@ describe("parseBooleanColumn", () => {
     ["no", false, { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
   ])("%s -> %s %o", (cell, value, options) => {
     const field = { name: "name", type: "boolean" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(parseBooleanColumn({ field }))
+    const df = DataFrame({ name: [cell] }).select(parseBooleanColumn(field))
     expect(df.toRecords()[0]?.name).toEqual(value)
   })
 })

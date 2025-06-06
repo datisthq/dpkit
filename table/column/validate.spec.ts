@@ -20,7 +20,7 @@ describe("validateColumn", () => {
       type: DataType.String,
     }
 
-    const errors = await validateColumn({ table, field, polarsField })
+    const errors = await validateColumn(table, { field, polarsField })
 
     expect(errors).toHaveLength(2)
     expect(errors).toContainEqual({
@@ -52,7 +52,7 @@ describe("validateColumn", () => {
       type: DataType.String,
     }
 
-    const errors = await validateColumn({ table, field, polarsField })
+    const errors = await validateColumn(table, { field, polarsField })
 
     expect(errors).toHaveLength(2)
     expect(errors).toContainEqual({
@@ -84,7 +84,7 @@ describe("validateColumn", () => {
       type: DataType.String,
     }
 
-    const errors = await validateColumn({ table, field, polarsField })
+    const errors = await validateColumn(table, { field, polarsField })
 
     expect(errors).toHaveLength(1)
     expect(errors).toContainEqual({
@@ -110,7 +110,7 @@ describe("validateColumn", () => {
       type: DataType.String,
     }
 
-    const errors = await validateColumn({ table, field, polarsField })
+    const errors = await validateColumn(table, { field, polarsField })
 
     expect(errors).toHaveLength(3)
     expect(errors).toContainEqual({
@@ -148,7 +148,7 @@ describe("validateColumn", () => {
       type: DataType.String,
     }
 
-    const errors = await validateColumn({ table, field, polarsField })
+    const errors = await validateColumn(table, { field, polarsField })
 
     expect(errors).toHaveLength(3)
     expect(errors).toContainEqual({
@@ -186,7 +186,7 @@ describe("validateColumn", () => {
       type: DataType.String,
     }
 
-    const errors = await validateColumn({ table, field, polarsField })
+    const errors = await validateColumn(table, { field, polarsField })
 
     expect(errors).toHaveLength(3)
     expect(errors).toContainEqual({
@@ -229,7 +229,7 @@ describe("validateColumn", () => {
       type: DataType.String,
     }
 
-    const errors = await validateColumn({ table, field, polarsField })
+    const errors = await validateColumn(table, { field, polarsField })
 
     // Adjust the expectations to match actual behavior
     expect(errors.length).toBeGreaterThan(0)
@@ -265,7 +265,7 @@ describe("validateColumn", () => {
       type: DataType.String,
     }
 
-    const errors = await validateColumn({ table, field, polarsField })
+    const errors = await validateColumn(table, { field, polarsField })
 
     expect(errors).toHaveLength(0)
   })
@@ -285,7 +285,7 @@ describe("validateColumn", () => {
       type: DataType.Bool,
     }
 
-    const errors = await validateColumn({ table, field, polarsField })
+    const errors = await validateColumn(table, { field, polarsField })
 
     // Since the column isn't string type, validateColumn will not process it
     expect(errors).toHaveLength(0)

@@ -5,9 +5,8 @@ import type { Expr } from "nodejs-polars"
 
 const DEFAULT_FORMAT = "%H:%M:%S"
 
-export function parseTimeColumn(props: { field: TimeField; expr?: Expr }) {
-  const { field } = props
-  const expr = props.expr ?? col(field.name)
+export function parseTimeColumn(field: TimeField, options?: { expr?: Expr }) {
+  const expr = options?.expr ?? col(field.name)
 
   let format = DEFAULT_FORMAT
   if (field.format && field.format !== "default" && field.format !== "any") {
