@@ -3,7 +3,7 @@ import type { Expr } from "nodejs-polars"
 import { lit } from "nodejs-polars"
 
 // TODO: Support other types
-export function detectCellMinimumError(field: Field, target: Expr) {
+export function isCellMinimumError(field: Field, target: Expr) {
   if (!["integer", "number"].includes(field.type ?? "")) {
     return lit(false)
   }

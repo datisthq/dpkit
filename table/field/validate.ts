@@ -3,8 +3,8 @@ import { DataType, col } from "nodejs-polars"
 import type { TableError } from "../error/index.js"
 import type { Table } from "../table/index.js"
 import type { PolarsField } from "./Field.js"
-import { detectCellRequiredError } from "./checks/required.js"
-import { detectCellTypeError } from "./checks/type.js"
+import { isCellRequiredError } from "./checks/required.js"
+import { isCellTypeError } from "./checks/type.js"
 import { parseField } from "./parse.js"
 
 export async function validateField(
@@ -108,8 +108,8 @@ async function validateCells(
     .select([
       col("number"),
       col("source"),
-      detectCellTypeError(source, target).alias("cell/type"),
-      detectCellRequiredError(field, target).alias("cell/required"),
+      isCellTypeError(source, target).alias("cell/type"),
+      isCellRequiredError(field, target).alias("cell/required"),
     ])
     .filter(col("cell/type").eq(true).or(col("cell/required").eq(true)))
     .head(100)
