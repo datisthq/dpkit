@@ -5,6 +5,7 @@ import type {
   CellMaximumError,
   CellMinLengthError,
   CellMinimumError,
+  CellPatternError,
   CellRequiredError,
   CellTypeError,
 } from "./Cell.js"
@@ -23,3 +24,4 @@ export type TableError =
   | CellExclusiveMaximumError
   | CellMinLengthError
   | CellMaxLengthError
+  | CellPatternError

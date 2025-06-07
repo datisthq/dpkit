@@ -7,6 +7,7 @@ import { isCellMaxLenghtError } from "./checks/maxLength.js"
 import { isCellMaximumError } from "./checks/maximum.js"
 import { isCellMinLenghtError } from "./checks/minLength.js"
 import { isCellMinimumError } from "./checks/minimum.js"
+import { isCellPatternError } from "./checks/pattern.js"
 import { isCellRequiredError } from "./checks/required.js"
 import { isCellTypeError } from "./checks/type.js"
 import { parseField } from "./parse.js"
@@ -102,7 +103,12 @@ async function validateCells(
   const target = col("target")
   const errors: TableError[] = []
 
-  // TODO: Return early is it's a string field without format/constraints
+  // String with nothing to validate
+  if (field.type === "string") {
+    if (!field.format && !field.constraints) {
+      return errors
+    }
+  }
 
   const errorsTable = await table
     .withRowCount()
@@ -124,6 +130,7 @@ async function validateCells(
       isCellMaximumError(field, target, true).alias("cell/exclusiveMaximum"),
       isCellMinLenghtError(field, target).alias("cell/minLength"),
       isCellMaxLenghtError(field, target).alias("cell/maxLength"),
+      isCellPatternError(field, target).alias("cell/pattern"),
     ])
     .filter(
       col("cell/type")
@@ -134,7 +141,8 @@ async function validateCells(
         .or(col("cell/exclusiveMinimum").eq(true))
         .or(col("cell/exclusiveMaximum").eq(true))
         .or(col("cell/minLength").eq(true))
-        .or(col("cell/maxLength").eq(true)),
+        .or(col("cell/maxLength").eq(true))
+        .or(col("cell/pattern").eq(true)),
     )
     .head(invalidRowsLimit)
     .collect()
@@ -149,6 +157,7 @@ async function validateCells(
       "cell/exclusiveMaximum",
       "cell/minLength",
       "cell/maxLength",
+      "cell/pattern",
     ] as const) {
       if (record[type] === true) {
         errors.push({

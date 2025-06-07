@@ -37,3 +37,7 @@ export interface CellMinLengthError extends BaseCellError {
 export interface CellMaxLengthError extends BaseCellError {
   type: "cell/maxLength"
 }
+
+export interface CellPatternError extends BaseCellError {
+  type: "cell/pattern"
+}

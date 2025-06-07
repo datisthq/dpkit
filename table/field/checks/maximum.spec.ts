@@ -83,4 +83,3 @@ describe("validateField (cell/maximum)", () => {
     })
   })
 })
-

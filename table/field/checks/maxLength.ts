@@ -11,13 +11,7 @@ export function isCellMaxLenghtError(field: Field, target: Expr) {
       return lit(false)
     }
 
-    try {
-      const parsedMaxLength =
-        typeof maxLength === "string" ? Number.parseInt(maxLength) : maxLength
-      return target.gt(parsedMaxLength)
-    } catch (error) {
-      return lit(true)
-    }
+    return target.str.lengths().gt(maxLength)
   }
 
   return lit(false)

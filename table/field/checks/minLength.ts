@@ -11,13 +11,7 @@ export function isCellMinLenghtError(field: Field, target: Expr) {
       return lit(false)
     }
 
-    try {
-      const parsedMinLength =
-        typeof minLength === "string" ? Number.parseInt(minLength) : minLength
-      return target.lt(parsedMinLength)
-    } catch (error) {
-      return lit(true)
-    }
+    return target.str.lengths().lt(minLength)
   }
 
   return lit(false)
