@@ -3,7 +3,7 @@ import { loadSchema } from "@dpkit/core"
 import type { Expr } from "nodejs-polars"
 import { DataType } from "nodejs-polars"
 import { col, lit } from "nodejs-polars"
-import { parseColumn } from "../column/index.js"
+import { parseField } from "../field/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
@@ -29,10 +29,10 @@ export async function processTable(
   const sample = await table.head(sampleSize).collect()
   const polarsSchema = getPolarsSchema(sample.schema)
 
-  return table.select(processColumns({ schema, polarsSchema }))
+  return table.select(processFields({ schema, polarsSchema }))
 }
 
-function processColumns(options: {
+function processFields(options: {
   schema: Schema
   polarsSchema: PolarsSchema
 }) {
@@ -54,7 +54,7 @@ function processColumns(options: {
       expr = col(polarsField.name).alias(field.name)
 
       if (polarsField.type.equals(DataType.String)) {
-        expr = parseColumn(field, { expr })
+        expr = parseField(field, { expr })
       }
     }
 

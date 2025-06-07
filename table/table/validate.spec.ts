@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest"
 import { validateTable } from "./validate.js"
 
 describe("validateTable", () => {
-  describe("structure validation with fieldsMatch='exact'", () => {
+  describe("fields validation with fieldsMatch='exact'", () => {
     it("should pass when fields exactly match", async () => {
       const table = DataFrame({
         id: [1, 2],
@@ -60,7 +60,7 @@ describe("validateTable", () => {
     expect(result.valid).toBe(false)
     expect(result.errors).toContainEqual({
       fieldsMatch: "exact",
-      type: "structure",
+      type: "fields",
       category: "extra",
       fieldNames: ["age"],
     })
@@ -82,13 +82,13 @@ describe("validateTable", () => {
     expect(result.valid).toBe(false)
     expect(result.errors).toContainEqual({
       fieldsMatch: "exact",
-      type: "structure",
+      type: "fields",
       category: "missing",
       fieldNames: ["name"],
     })
   })
 
-  describe("structure validation with fieldsMatch='equal'", () => {
+  describe("fields validation with fieldsMatch='equal'", () => {
     it("should pass when field names match regardless of order", async () => {
       const table = DataFrame({
         name: ["John", "Jane"],
@@ -127,7 +127,7 @@ describe("validateTable", () => {
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
         fieldsMatch: "equal",
-        type: "structure",
+        type: "fields",
         category: "extra",
         fieldNames: ["age"],
       })
@@ -150,14 +150,14 @@ describe("validateTable", () => {
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
         fieldsMatch: "equal",
-        type: "structure",
+        type: "fields",
         category: "missing",
         fieldNames: ["name"],
       })
     })
   })
 
-  describe("structure validation with fieldsMatch='subset'", () => {
+  describe("fields validation with fieldsMatch='subset'", () => {
     it("should pass when data contains all schema fields", async () => {
       const table = DataFrame({
         id: [1, 2],
@@ -214,14 +214,14 @@ describe("validateTable", () => {
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
         fieldsMatch: "subset",
-        type: "structure",
+        type: "fields",
         category: "missing",
         fieldNames: ["name"],
       })
     })
   })
 
-  describe("structure validation with fieldsMatch='superset'", () => {
+  describe("fields validation with fieldsMatch='superset'", () => {
     it("should pass when schema contains all data fields", async () => {
       const table = DataFrame({
         id: [1, 2],
@@ -278,14 +278,14 @@ describe("validateTable", () => {
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
         fieldsMatch: "superset",
-        type: "structure",
+        type: "fields",
         category: "extra",
         fieldNames: ["age"],
       })
     })
   })
 
-  describe("structure validation with fieldsMatch='partial'", () => {
+  describe("fields validation with fieldsMatch='partial'", () => {
     it("should pass when at least one field matches", async () => {
       const table = DataFrame({
         id: [1, 2],
@@ -323,7 +323,7 @@ describe("validateTable", () => {
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
         fieldsMatch: "partial",
-        type: "structure",
+        type: "fields",
         category: "missing",
         fieldNames: ["id", "name"],
       })

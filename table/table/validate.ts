@@ -1,7 +1,7 @@
 import type { Schema } from "@dpkit/core"
 import { loadSchema } from "@dpkit/core"
-import { validateColumn } from "../column/index.js"
 import type { TableError } from "../error/index.js"
+import { validateField } from "../field/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
@@ -37,7 +37,7 @@ export async function validateTable(
           ? polarsFields.find(polarsField => polarsField.name === field.name)
           : polarsFields[index]
 
-      return polarsField ? validateColumn(table, { field, polarsField }) : []
+      return polarsField ? validateField(field, { table, polarsField }) : []
     }),
   )
 
