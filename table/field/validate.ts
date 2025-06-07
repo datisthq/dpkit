@@ -3,6 +3,7 @@ import { DataType, col } from "nodejs-polars"
 import type { TableError } from "../error/index.js"
 import type { Table } from "../table/index.js"
 import type { PolarsField } from "./Field.js"
+import { isCellEnumError } from "./checks/enum.js"
 import { isCellMaxLenghtError } from "./checks/maxLength.js"
 import { isCellMaximumError } from "./checks/maximum.js"
 import { isCellMinLenghtError } from "./checks/minLength.js"
@@ -133,6 +134,7 @@ async function validateCells(
       isCellMaxLenghtError(field, target).alias("cell/maxLength"),
       isCellPatternError(field, target).alias("cell/pattern"),
       isCellUniqueError(field, target).alias("cell/unique"),
+      isCellEnumError(field, target).alias("cell/enum"),
     ])
     .filter(
       col("cell/type")
@@ -145,7 +147,8 @@ async function validateCells(
         .or(col("cell/minLength").eq(true))
         .or(col("cell/maxLength").eq(true))
         .or(col("cell/pattern").eq(true))
-        .or(col("cell/unique").eq(true)),
+        .or(col("cell/unique").eq(true))
+        .or(col("cell/enum").eq(true)),
     )
     .head(invalidRowsLimit)
     .collect()
@@ -162,6 +165,7 @@ async function validateCells(
       "cell/maxLength",
       "cell/pattern",
       "cell/unique",
+      "cell/enum",
     ] as const) {
       if (record[type] === true) {
         errors.push({

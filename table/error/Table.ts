@@ -1,4 +1,5 @@
 import type {
+  CellEnumError,
   CellExclusiveMaximumError,
   CellExclusiveMinimumError,
   CellMaxLengthError,
@@ -27,3 +28,4 @@ export type TableError =
   | CellMaxLengthError
   | CellPatternError
   | CellUniqueError
+  | CellEnumError

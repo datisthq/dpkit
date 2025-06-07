@@ -45,3 +45,7 @@ export interface CellPatternError extends BaseCellError {
 export interface CellUniqueError extends BaseCellError {
   type: "cell/unique"
 }
+
+export interface CellEnumError extends BaseCellError {
+  type: "cell/enum"
+}
