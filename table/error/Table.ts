@@ -8,6 +8,7 @@ import type {
   CellPatternError,
   CellRequiredError,
   CellTypeError,
+  CellUniqueError,
 } from "./Cell.js"
 import type { FieldNameError, FieldTypeError } from "./Field.js"
 import type { FieldsError } from "./Fields.js"
@@ -25,3 +26,4 @@ export type TableError =
   | CellMinLengthError
   | CellMaxLengthError
   | CellPatternError
+  | CellUniqueError

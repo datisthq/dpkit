@@ -10,6 +10,7 @@ import { isCellMinimumError } from "./checks/minimum.js"
 import { isCellPatternError } from "./checks/pattern.js"
 import { isCellRequiredError } from "./checks/required.js"
 import { isCellTypeError } from "./checks/type.js"
+import { isCellUniqueError } from "./checks/unique.js"
 import { parseField } from "./parse.js"
 
 export async function validateField(
@@ -131,6 +132,7 @@ async function validateCells(
       isCellMinLenghtError(field, target).alias("cell/minLength"),
       isCellMaxLenghtError(field, target).alias("cell/maxLength"),
       isCellPatternError(field, target).alias("cell/pattern"),
+      isCellUniqueError(field, target).alias("cell/unique"),
     ])
     .filter(
       col("cell/type")
@@ -142,7 +144,8 @@ async function validateCells(
         .or(col("cell/exclusiveMaximum").eq(true))
         .or(col("cell/minLength").eq(true))
         .or(col("cell/maxLength").eq(true))
-        .or(col("cell/pattern").eq(true)),
+        .or(col("cell/pattern").eq(true))
+        .or(col("cell/unique").eq(true)),
     )
     .head(invalidRowsLimit)
     .collect()
@@ -158,6 +161,7 @@ async function validateCells(
       "cell/minLength",
       "cell/maxLength",
       "cell/pattern",
+      "cell/unique",
     ] as const) {
       if (record[type] === true) {
         errors.push({
