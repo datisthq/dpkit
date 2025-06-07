@@ -24,13 +24,13 @@ export async function validateTable(
   const sample = await table.head(sampleSize).collect()
   const polarsSchema = getPolarsSchema(sample.schema)
 
-  const structureErrors = validateStructure({ schema, polarsSchema })
+  const structureErrors = validateFields({ schema, polarsSchema })
   errors.push(...structureErrors)
 
   const polarsFields = polarsSchema.fields
   const fieldsMatch = schema.fieldsMatch ?? "exact"
 
-  const columnErrorGroups = await Promise.all(
+  const fieldErrorGroups = await Promise.all(
     schema.fields.map((field, index) => {
       const polarsField =
         fieldsMatch !== "exact"
@@ -41,15 +41,15 @@ export async function validateTable(
     }),
   )
 
-  for (const columnErrors of columnErrorGroups) {
-    errors.push(...columnErrors)
+  for (const fieldErrors of fieldErrorGroups) {
+    errors.push(...fieldErrors)
   }
 
   const valid = errors.length === 0
   return { valid, errors }
 }
 
-function validateStructure(props: {
+function validateFields(props: {
   schema: Schema
   polarsSchema: PolarsSchema
 }) {

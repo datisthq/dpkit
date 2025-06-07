@@ -13,7 +13,7 @@ describe("validateTable", () => {
 
       const schema: Schema = {
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -23,7 +23,7 @@ describe("validateTable", () => {
       expect(result.errors).toEqual([])
     })
 
-    it("should pass when fields have the same length", async () => {
+    it("should not have fields error when fields same length", async () => {
       const table = DataFrame({
         id: [1, 2],
         age: [30, 25],
@@ -32,13 +32,19 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "exact",
         fields: [
-          { name: "id", type: "integer" },
-          { name: "name", type: "string" },
+          { name: "id", type: "number" },
+          { name: "name", type: "number" },
         ],
       }
 
       const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(true)
+      expect(result.errors).toEqual([
+        {
+          type: "field/name",
+          fieldName: "name",
+          actualFieldName: "age",
+        },
+      ])
     })
   })
 
@@ -51,7 +57,7 @@ describe("validateTable", () => {
 
     const schema: Schema = {
       fields: [
-        { name: "id", type: "integer" },
+        { name: "id", type: "number" },
         { name: "name", type: "string" },
       ],
     }
@@ -73,7 +79,7 @@ describe("validateTable", () => {
 
     const schema: Schema = {
       fields: [
-        { name: "id", type: "integer" },
+        { name: "id", type: "number" },
         { name: "name", type: "string" },
       ],
     }
@@ -98,7 +104,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "equal",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -118,7 +124,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "equal",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -141,7 +147,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "equal",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -168,7 +174,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "subset",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -187,7 +193,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "subset",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -205,7 +211,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "subset",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -230,7 +236,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "superset",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -249,7 +255,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "superset",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -269,7 +275,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "superset",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -295,7 +301,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "partial",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
@@ -314,7 +320,7 @@ describe("validateTable", () => {
       const schema: Schema = {
         fieldsMatch: "partial",
         fields: [
-          { name: "id", type: "integer" },
+          { name: "id", type: "number" },
           { name: "name", type: "string" },
         ],
       }
