@@ -1,4 +1,4 @@
-import type { CellConstraintError, CellTypeError } from "./Cell.js"
+import type { CellRequiredError, CellTypeError } from "./Cell.js"
 import type { FieldNameError, FieldTypeError } from "./Field.js"
 import type { FieldsError } from "./Fields.js"
 
@@ -7,4 +7,4 @@ export type TableError =
   | FieldNameError
   | FieldTypeError
   | CellTypeError
-  | CellConstraintError
+  | CellRequiredError

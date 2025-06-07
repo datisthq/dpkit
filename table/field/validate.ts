@@ -3,6 +3,8 @@ import { DataType, col } from "nodejs-polars"
 import type { TableError } from "../error/index.js"
 import type { Table } from "../table/index.js"
 import type { PolarsField } from "./Field.js"
+import { detectCellRequiredError } from "./checks/required.js"
+import { detectCellTypeError } from "./checks/type.js"
 import { parseField } from "./parse.js"
 
 export async function validateField(
@@ -21,9 +23,9 @@ export async function validateField(
   const typeErrors = validateFieldType(field, polarsField)
   errors.push(...typeErrors)
 
-  if (polarsField.type.equals(DataType.String)) {
-    const typeErros = await validateCellTypes(field, table)
-    errors.push(...typeErros)
+  if (!typeErrors.length) {
+    const cellErros = await validateCells(field, table, polarsField)
+    errors.push(...cellErros)
   }
 
   return errors
@@ -80,32 +82,48 @@ function validateFieldType(field: Field, polarsField: PolarsField) {
   return errors
 }
 
-async function validateCellTypes(field: Field, table: Table) {
+const ERROR_TYPES = ["cell/type", "cell/required"] as const
+
+async function validateCells(
+  field: Field,
+  table: Table,
+  polarsField: PolarsField,
+) {
   const errors: TableError[] = []
 
-  const failures = await table
+  const source = col("source")
+  const target = col("target")
+
+  const errorsTable = await table
     .withRowCount()
     .select([
       col("row_nr").add(1).alias("number"),
-      col(field.name).alias("source"),
-      parseField(field, { expr: col(field.name) }).alias("target"),
+      col(polarsField.name).alias("source"),
+      polarsField.type.equals(DataType.String)
+        ? parseField(field, { expr: col(polarsField.name) }).alias("target")
+        : col(polarsField.name).alias("target"),
     ])
     .select([
       col("number"),
       col("source"),
-      col("source").isNotNull().and(col("target").isNull()).alias("type"),
+      detectCellTypeError(source, target).alias("cell/type"),
+      detectCellRequiredError(field, target).alias("cell/required"),
     ])
-    .filter(col("type").eq(true))
+    .filter(col("cell/type").eq(true).or(col("cell/required").eq(true)))
     .head(100)
     .collect()
 
-  for (const failure of failures.toRecords() as any[]) {
-    errors.push({
-      type: "cell/type",
-      cell: failure.source,
-      fieldName: field.name,
-      rowNumber: failure.number,
-    })
+  for (const record of errorsTable.toRecords() as any[]) {
+    for (const type of ERROR_TYPES) {
+      if (record[type] === true) {
+        errors.push({
+          type,
+          fieldName: field.name,
+          rowNumber: record.number,
+          cell: record.source ?? "",
+        })
+      }
+    }
   }
 
   return errors
