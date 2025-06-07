@@ -46,7 +46,7 @@ async function validateCellTypes(
 
   for (const failure of failures.toRecords() as any[]) {
     errors.push({
-      type: "type",
+      type: "cell/type",
       cell: failure.source,
       fieldName: field.name,
       rowNumber: failure.number,

@@ -1,4 +1,10 @@
-import type { StructureError } from "./Structure.js"
-import type { TypeError } from "./Type.js"
+import type { CellConstraintError, CellTypeError } from "./Cell.js"
+import type { FieldNameError, FieldTypeError } from "./Field.js"
+import type { FieldsError } from "./Fields.js"
 
-export type TableError = StructureError | TypeError
+export type TableError =
+  | FieldsError
+  | FieldNameError
+  | FieldTypeError
+  | CellTypeError
+  | CellConstraintError

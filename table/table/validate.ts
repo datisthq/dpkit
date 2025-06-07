@@ -74,7 +74,7 @@ function validateStructure(props: {
     if (extraFields > 0) {
       errors.push({
         fieldsMatch,
-        type: "structure",
+        type: "fields",
         category: "extra",
         fieldNames: extraNames,
       })
@@ -83,7 +83,7 @@ function validateStructure(props: {
     if (missingFields > 0) {
       errors.push({
         fieldsMatch,
-        type: "structure",
+        type: "fields",
         category: "missing",
         fieldNames: missingNames,
       })
@@ -94,7 +94,7 @@ function validateStructure(props: {
     if (extraNames.length > 0) {
       errors.push({
         fieldsMatch,
-        type: "structure",
+        type: "fields",
         category: "extra",
         fieldNames: extraNames,
       })
@@ -103,7 +103,7 @@ function validateStructure(props: {
     if (missingNames.length > 0) {
       errors.push({
         fieldsMatch,
-        type: "structure",
+        type: "fields",
         category: "missing",
         fieldNames: missingNames,
       })
@@ -114,7 +114,7 @@ function validateStructure(props: {
     if (missingNames.length > 0) {
       errors.push({
         fieldsMatch,
-        type: "structure",
+        type: "fields",
         category: "missing",
         fieldNames: missingNames,
       })
@@ -125,7 +125,7 @@ function validateStructure(props: {
     if (extraNames.length > 0) {
       errors.push({
         fieldsMatch,
-        type: "structure",
+        type: "fields",
         category: "extra",
         fieldNames: extraNames,
       })
@@ -136,7 +136,7 @@ function validateStructure(props: {
     if (missingNames.length === fields.length) {
       errors.push({
         fieldsMatch,
-        type: "structure",
+        type: "fields",
         category: "missing",
         fieldNames: missingNames,
       })
