@@ -3,17 +3,17 @@ import type { Expr } from "nodejs-polars"
 import { lit } from "nodejs-polars"
 
 // TODO: Support other types
-export function isCellMinimumError(
+export function isCellMaximumError(
   field: Field,
   target: Expr,
   isExclusive?: boolean,
 ) {
   if (field.type === "integer" || field.type === "number") {
-    const minimum = isExclusive
-      ? field.constraints?.exclusiveMinimum
-      : field.constraints?.minimum
+    const maximum = isExclusive
+      ? field.constraints?.exclusiveMaximum
+      : field.constraints?.maximum
 
-    if (minimum === undefined) {
+    if (maximum === undefined) {
       return lit(false)
     }
 
@@ -21,9 +21,9 @@ export function isCellMinimumError(
       field.type === "integer" ? Number.parseInt : Number.parseFloat
 
     try {
-      const parsedMinimum =
-        typeof minimum === "string" ? parser(minimum) : minimum
-      return isExclusive ? target.lt(parsedMinimum) : target.ltEq(parsedMinimum)
+      const parsedMaximum =
+        typeof maximum === "string" ? parser(maximum) : maximum
+      return isExclusive ? target.gt(parsedMaximum) : target.gtEq(parsedMaximum)
     } catch (error) {
       return lit(true)
     }

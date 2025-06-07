@@ -32,12 +32,22 @@ export interface NumberConstraints extends BaseConstraints {
   /**
    * Minimum allowed value
    */
-  minimum?: number
+  minimum?: number | string
 
   /**
    * Maximum allowed value
    */
-  maximum?: number
+  maximum?: number | string
+
+  /**
+   * Exclusive minimum allowed value
+   */
+  exclusiveMinimum?: number | string
+
+  /**
+   * Exclusive maximum allowed value
+   */
+  exclusiveMaximum?: number | string
 
   /**
    * Restrict values to a specified set

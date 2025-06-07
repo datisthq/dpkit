@@ -3,6 +3,8 @@ import { DataType, col } from "nodejs-polars"
 import type { TableError } from "../error/index.js"
 import type { Table } from "../table/index.js"
 import type { PolarsField } from "./Field.js"
+import { isCellMaximumError } from "./checks/maximum.js"
+import { isCellMinimumError } from "./checks/minimum.js"
 import { isCellRequiredError } from "./checks/required.js"
 import { isCellTypeError } from "./checks/type.js"
 import { parseField } from "./parse.js"
@@ -12,9 +14,10 @@ export async function validateField(
   options: {
     table: Table
     polarsField: PolarsField
+    invalidRowsLimit?: number
   },
 ) {
-  const { table, polarsField } = options
+  const { table, polarsField, invalidRowsLimit = 100 } = options
   const errors: TableError[] = []
 
   const nameErrors = validateFieldName(field, polarsField)
@@ -24,7 +27,12 @@ export async function validateField(
   errors.push(...typeErrors)
 
   if (!typeErrors.length) {
-    const cellErros = await validateCells(field, table, polarsField)
+    const cellErros = await validateCells(
+      field,
+      table,
+      polarsField,
+      invalidRowsLimit,
+    )
     errors.push(...cellErros)
   }
 
@@ -88,6 +96,7 @@ async function validateCells(
   field: Field,
   table: Table,
   polarsField: PolarsField,
+  invalidRowsLimit: number,
 ) {
   const errors: TableError[] = []
 
@@ -110,9 +119,13 @@ async function validateCells(
       col("source"),
       isCellTypeError(source, target).alias("cell/type"),
       isCellRequiredError(field, target).alias("cell/required"),
+      isCellMinimumError(field, target).alias("cell/minimum"),
+      isCellMaximumError(field, target).alias("cell/maximum"),
+      isCellMinimumError(field, target, true).alias("cell/exclusiveMinimum"),
+      isCellMaximumError(field, target, true).alias("cell/exclusiveMaximum"),
     ])
     .filter(col("cell/type").eq(true).or(col("cell/required").eq(true)))
-    .head(100)
+    .head(invalidRowsLimit)
     .collect()
 
   for (const record of errorsTable.toRecords() as any[]) {
