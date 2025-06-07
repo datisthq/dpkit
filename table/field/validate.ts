@@ -3,7 +3,9 @@ import { DataType, col } from "nodejs-polars"
 import type { TableError } from "../error/index.js"
 import type { Table } from "../table/index.js"
 import type { PolarsField } from "./Field.js"
+import { isCellMaxLenghtError } from "./checks/maxLength.js"
 import { isCellMaximumError } from "./checks/maximum.js"
+import { isCellMinLenghtError } from "./checks/minLength.js"
 import { isCellMinimumError } from "./checks/minimum.js"
 import { isCellRequiredError } from "./checks/required.js"
 import { isCellTypeError } from "./checks/type.js"
@@ -90,20 +92,17 @@ function validateFieldType(field: Field, polarsField: PolarsField) {
   return errors
 }
 
-const ERROR_TYPES = ["cell/type", "cell/required"] as const
-
 async function validateCells(
   field: Field,
   table: Table,
   polarsField: PolarsField,
   invalidRowsLimit: number,
 ) {
+  const source = col("source")
+  const target = col("target")
   const errors: TableError[] = []
 
   // TODO: Return early is it's a string field without format/constraints
-
-  const source = col("source")
-  const target = col("target")
 
   const errorsTable = await table
     .withRowCount()
@@ -123,13 +122,34 @@ async function validateCells(
       isCellMaximumError(field, target).alias("cell/maximum"),
       isCellMinimumError(field, target, true).alias("cell/exclusiveMinimum"),
       isCellMaximumError(field, target, true).alias("cell/exclusiveMaximum"),
+      isCellMinLenghtError(field, target).alias("cell/minLength"),
+      isCellMaxLenghtError(field, target).alias("cell/maxLength"),
     ])
-    .filter(col("cell/type").eq(true).or(col("cell/required").eq(true)))
+    .filter(
+      col("cell/type")
+        .eq(true)
+        .or(col("cell/required").eq(true))
+        .or(col("cell/minimum").eq(true))
+        .or(col("cell/maximum").eq(true))
+        .or(col("cell/exclusiveMinimum").eq(true))
+        .or(col("cell/exclusiveMaximum").eq(true))
+        .or(col("cell/minLength").eq(true))
+        .or(col("cell/maxLength").eq(true)),
+    )
     .head(invalidRowsLimit)
     .collect()
 
   for (const record of errorsTable.toRecords() as any[]) {
-    for (const type of ERROR_TYPES) {
+    for (const type of [
+      "cell/type",
+      "cell/required",
+      "cell/minimum",
+      "cell/maximum",
+      "cell/exclusiveMinimum",
+      "cell/exclusiveMaximum",
+      "cell/minLength",
+      "cell/maxLength",
+    ] as const) {
       if (record[type] === true) {
         errors.push({
           type,

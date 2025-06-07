@@ -23,7 +23,7 @@ export function isCellMaximumError(
     try {
       const parsedMaximum =
         typeof maximum === "string" ? parser(maximum) : maximum
-      return isExclusive ? target.gt(parsedMaximum) : target.gtEq(parsedMaximum)
+      return isExclusive ? target.gtEq(parsedMaximum) : target.gt(parsedMaximum)
     } catch (error) {
       return lit(true)
     }

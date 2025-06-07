@@ -23,7 +23,7 @@ export function isCellMinimumError(
     try {
       const parsedMinimum =
         typeof minimum === "string" ? parser(minimum) : minimum
-      return isExclusive ? target.lt(parsedMinimum) : target.ltEq(parsedMinimum)
+      return isExclusive ? target.ltEq(parsedMinimum) : target.lt(parsedMinimum)
     } catch (error) {
       return lit(true)
     }

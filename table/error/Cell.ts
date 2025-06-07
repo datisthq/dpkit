@@ -13,3 +13,27 @@ export interface CellTypeError extends BaseCellError {
 export interface CellRequiredError extends BaseCellError {
   type: "cell/required"
 }
+
+export interface CellMinimumError extends BaseCellError {
+  type: "cell/minimum"
+}
+
+export interface CellMaximumError extends BaseCellError {
+  type: "cell/maximum"
+}
+
+export interface CellExclusiveMinimumError extends BaseCellError {
+  type: "cell/exclusiveMinimum"
+}
+
+export interface CellExclusiveMaximumError extends BaseCellError {
+  type: "cell/exclusiveMaximum"
+}
+
+export interface CellMinLengthError extends BaseCellError {
+  type: "cell/minLength"
+}
+
+export interface CellMaxLengthError extends BaseCellError {
+  type: "cell/maxLength"
+}
