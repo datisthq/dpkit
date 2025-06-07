@@ -59,7 +59,11 @@ describe("parseListField", () => {
       ["1,a,3", [1, null, 3]],
       ["1.5,2,3", [null, 2, 3]],
     ])("%s -> %s", (cell, value) => {
-      const field = { name: "name", type: "list" as const, itemType: "integer" }
+      const field = {
+        name: "name",
+        type: "list" as const,
+        itemType: "integer" as const,
+      }
       const df = DataFrame({ name: [cell] }).select(parseListField(field))
       expect(df.toRecords()[0]?.name).toEqual(value)
     })
@@ -89,7 +93,11 @@ describe("parseListField", () => {
       // Invalid numbers become null
       ["1.1,a,3.3", [1.1, null, 3.3]],
     ])("%s -> %s", (cell, value) => {
-      const field = { name: "name", type: "list" as const, itemType: "number" }
+      const field = {
+        name: "name",
+        type: "list" as const,
+        itemType: "number" as const,
+      }
       const df = DataFrame({ name: [cell] }).select(parseListField(field))
       expect(df.toRecords()[0]?.name).toEqual(value)
     })

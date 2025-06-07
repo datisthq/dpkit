@@ -90,8 +90,12 @@ async function validateCellTypes(field: Field, table: Table) {
       col(field.name).alias("source"),
       parseField(field, { expr: col(field.name) }).alias("target"),
     ])
-    .filter(col("source").isNotNull())
-    .filter(col("target").isNull())
+    .select([
+      col("number"),
+      col("source"),
+      col("source").isNotNull().and(col("target").isNull()).alias("type"),
+    ])
+    .filter(col("type").eq(true))
     .head(100)
     .collect()
 
