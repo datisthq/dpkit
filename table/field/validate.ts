@@ -91,6 +91,8 @@ async function validateCells(
 ) {
   const errors: TableError[] = []
 
+  // TODO: Return early is it's a string field without format/constraints
+
   const source = col("source")
   const target = col("target")
 
