@@ -3,6 +3,7 @@ import type { Expr } from "nodejs-polars"
 import { lit } from "nodejs-polars"
 
 // TODO: Support other types
+// TODO: Support checking field.categories?
 export function isCellEnumError(field: Field, target: Expr) {
   if (field.type === "string") {
     const rawEnum = field.constraints?.enum
