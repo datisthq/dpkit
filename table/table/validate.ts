@@ -6,6 +6,7 @@ import { validateField } from "../field/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
+import { checkCellType } from "./checks/type.js"
 import { processFields } from "./process.js"
 
 export async function validateTable(
@@ -16,7 +17,7 @@ export async function validateTable(
     invalidRowsLimit?: number
   },
 ) {
-  const { sampleSize = 100 } = options
+  const { sampleSize = 100, invalidRowsLimit = 100 } = options
   const errors: TableError[] = []
 
   const schema =
@@ -27,26 +28,16 @@ export async function validateTable(
   const sample = await table.head(sampleSize).collect()
   const polarsSchema = getPolarsSchema(sample.schema)
 
-  const structureErrors = validateFields({ schema, polarsSchema })
-  errors.push(...structureErrors)
+  const fieldErrors = validateFields({ schema, polarsSchema })
+  errors.push(...fieldErrors)
 
-  const polarsFields = polarsSchema.fields
-  const fieldsMatch = schema.fieldsMatch ?? "exact"
-
-  const fieldErrorGroups = await Promise.all(
-    schema.fields.map((field, index) => {
-      const polarsField =
-        fieldsMatch !== "exact"
-          ? polarsFields.find(polarsField => polarsField.name === field.name)
-          : polarsFields[index]
-
-      return polarsField ? validateField(field, { table, polarsField }) : []
-    }),
+  const checkErrors = await validateChecks(
+    table,
+    schema,
+    polarsSchema,
+    invalidRowsLimit,
   )
-
-  for (const fieldErrors of fieldErrorGroups) {
-    errors.push(...fieldErrors)
-  }
+  errors.push(...checkErrors)
 
   const valid = errors.length === 0
   return { valid, errors }
@@ -132,11 +123,21 @@ function validateFields(props: {
     }
   }
 
+  for (const [index, field] of schema.fields.entries()) {
+    const polarsField =
+      fieldsMatch !== "exact"
+        ? polarsFields.find(polarsField => polarsField.name === field.name)
+        : polarsFields[index]
+
+    if (polarsField) {
+      const fieldErrors = validateField(field, { polarsField })
+      errors.push(...fieldErrors)
+    }
+  }
+
   return errors
 }
 
-// TODO: remove
-// @ts-ignore
 async function validateChecks(
   table: Table,
   schema: Schema,
@@ -157,12 +158,22 @@ async function validateChecks(
     return expr.alias(`target:${name}`)
   })
 
-  table = table.select([...sources, ...targets, lit(false).alias("error")])
+  table = table
+    .withRowCount()
+    .select([
+      col("row_nr").add(1).alias("number"),
+      lit(false).alias("error"),
+      ...sources,
+      ...targets,
+    ])
 
-  // Pass through checks
+  for (const check of [checkCellType]) {
+    table = check(table, schema)
+  }
 
   const dfErrors = await table
     .filter(col("error").eq(true))
+    // TODO: drop target columns here to reduce memory usage
     .head(invalidRowsLimit)
     .collect()
 
@@ -173,7 +184,7 @@ async function validateChecks(
         errors.push({
           type: type as any,
           fieldName: name as any,
-          rowNumber: record,
+          rowNumber: record.number,
           cell: record[`source:${name}`] ?? "",
         })
       }
