@@ -76,18 +76,14 @@ function validateFields(props: {
   if (fieldsMatch === "exact") {
     if (extraFields > 0) {
       errors.push({
-        fieldsMatch,
-        type: "fields",
-        category: "extra",
+        type: "fields/extra",
         fieldNames: extraNames,
       })
     }
 
     if (missingFields > 0) {
       errors.push({
-        fieldsMatch,
-        type: "fields",
-        category: "missing",
+        type: "fields/missing",
         fieldNames: missingNames,
       })
     }
@@ -96,18 +92,14 @@ function validateFields(props: {
   if (fieldsMatch === "equal") {
     if (extraNames.length > 0) {
       errors.push({
-        fieldsMatch,
-        type: "fields",
-        category: "extra",
+        type: "fields/extra",
         fieldNames: extraNames,
       })
     }
 
     if (missingNames.length > 0) {
       errors.push({
-        fieldsMatch,
-        type: "fields",
-        category: "missing",
+        type: "fields/missing",
         fieldNames: missingNames,
       })
     }
@@ -116,9 +108,7 @@ function validateFields(props: {
   if (fieldsMatch === "subset") {
     if (missingNames.length > 0) {
       errors.push({
-        fieldsMatch,
-        type: "fields",
-        category: "missing",
+        type: "fields/missing",
         fieldNames: missingNames,
       })
     }
@@ -127,9 +117,7 @@ function validateFields(props: {
   if (fieldsMatch === "superset") {
     if (extraNames.length > 0) {
       errors.push({
-        fieldsMatch,
-        type: "fields",
-        category: "extra",
+        type: "fields/extra",
         fieldNames: extraNames,
       })
     }
@@ -138,9 +126,7 @@ function validateFields(props: {
   if (fieldsMatch === "partial") {
     if (missingNames.length === fields.length) {
       errors.push({
-        fieldsMatch,
-        type: "fields",
-        category: "missing",
+        type: "fields/missing",
         fieldNames: missingNames,
       })
     }

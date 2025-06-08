@@ -65,9 +65,7 @@ describe("validateTable", () => {
     const result = await validateTable(table, { schema })
     expect(result.valid).toBe(false)
     expect(result.errors).toContainEqual({
-      fieldsMatch: "exact",
-      type: "fields",
-      category: "extra",
+      type: "fields/extra",
       fieldNames: ["age"],
     })
   })
@@ -87,9 +85,7 @@ describe("validateTable", () => {
     const result = await validateTable(table, { schema })
     expect(result.valid).toBe(false)
     expect(result.errors).toContainEqual({
-      fieldsMatch: "exact",
-      type: "fields",
-      category: "missing",
+      type: "fields/missing",
       fieldNames: ["name"],
     })
   })
@@ -132,9 +128,7 @@ describe("validateTable", () => {
       const result = await validateTable(table, { schema })
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
-        fieldsMatch: "equal",
-        type: "fields",
-        category: "extra",
+        type: "fields/extra",
         fieldNames: ["age"],
       })
     })
@@ -155,9 +149,7 @@ describe("validateTable", () => {
       const result = await validateTable(table, { schema })
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
-        fieldsMatch: "equal",
-        type: "fields",
-        category: "missing",
+        type: "fields/missing",
         fieldNames: ["name"],
       })
     })
@@ -219,9 +211,7 @@ describe("validateTable", () => {
       const result = await validateTable(table, { schema })
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
-        fieldsMatch: "subset",
-        type: "fields",
-        category: "missing",
+        type: "fields/missing",
         fieldNames: ["name"],
       })
     })
@@ -283,9 +273,7 @@ describe("validateTable", () => {
       const result = await validateTable(table, { schema })
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
-        fieldsMatch: "superset",
-        type: "fields",
-        category: "extra",
+        type: "fields/extra",
         fieldNames: ["age"],
       })
     })
@@ -328,9 +316,7 @@ describe("validateTable", () => {
       const result = await validateTable(table, { schema })
       expect(result.valid).toBe(false)
       expect(result.errors).toContainEqual({
-        fieldsMatch: "partial",
-        type: "fields",
-        category: "missing",
+        type: "fields/missing",
         fieldNames: ["id", "name"],
       })
     })

@@ -1,9 +1,13 @@
-import type { Schema } from "@dpkit/core"
 import type { BaseTableError } from "./Base.js"
 
-export interface FieldsError extends BaseTableError {
-  type: "fields"
-  category: "extra" | "missing"
+export interface BaseFieldsError extends BaseTableError {
   fieldNames: string[]
-  fieldsMatch: Schema["fieldsMatch"]
+}
+
+export interface FieldsMissingError extends BaseFieldsError {
+  type: "fields/missing"
+}
+
+export interface FieldsExtraError extends BaseFieldsError {
+  type: "fields/extra"
 }
