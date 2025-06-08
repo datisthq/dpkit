@@ -173,8 +173,8 @@ async function validateChecks(
         errors.push({
           type: type as any,
           fieldName: name as any,
-          rowNumber: record.number,
-          cell: record.source ?? "",
+          rowNumber: record,
+          cell: record[`source:${name}`] ?? "",
         })
       }
     }
