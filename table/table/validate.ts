@@ -135,6 +135,8 @@ function validateFields(props: {
   return errors
 }
 
+// TODO: remove
+// @ts-ignore
 async function validateChecks(
   table: Table,
   schema: Schema,
