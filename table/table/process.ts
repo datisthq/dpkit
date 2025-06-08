@@ -29,15 +29,15 @@ export async function processTable(
   const sample = await table.head(sampleSize).collect()
   const polarsSchema = getPolarsSchema(sample.schema)
 
-  return table.select(processFields({ schema, polarsSchema }))
+  return table.select(Object.values(processFields(schema, polarsSchema)))
 }
 
-function processFields(options: {
-  schema: Schema
-  polarsSchema: PolarsSchema
-}) {
-  const { schema, polarsSchema } = options
-  const exprs: Expr[] = []
+export function processFields(
+  schema: Schema,
+  polarsSchema: PolarsSchema,
+  options?: { dontParse?: boolean },
+) {
+  const exprs: Record<string, Expr> = {}
 
   const polarsFields = polarsSchema.fields
   const fieldsMatch = schema.fieldsMatch ?? "exact"
@@ -53,12 +53,12 @@ function processFields(options: {
     if (polarsField) {
       expr = col(polarsField.name).alias(field.name)
 
-      if (polarsField.type.equals(DataType.String)) {
+      if (!options?.dontParse && polarsField.type.equals(DataType.String)) {
         expr = parseField(field, { expr })
       }
     }
 
-    exprs.push(expr)
+    exprs[field.name] = expr
   }
 
   return exprs

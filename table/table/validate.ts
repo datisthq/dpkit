@@ -1,16 +1,19 @@
 import type { Schema } from "@dpkit/core"
 import { loadSchema } from "@dpkit/core"
+import { col, lit } from "nodejs-polars"
 import type { TableError } from "../error/index.js"
 import { validateField } from "../field/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
+import { processFields } from "./process.js"
 
 export async function validateTable(
   table: Table,
   options: {
     schema: Schema | string
     sampleSize?: number
+    invalidRowsLimit?: number
   },
 ) {
   const { sampleSize = 100 } = options
@@ -140,6 +143,52 @@ function validateFields(props: {
         category: "missing",
         fieldNames: missingNames,
       })
+    }
+  }
+
+  return errors
+}
+
+async function validateChecks(
+  table: Table,
+  schema: Schema,
+  polarsSchema: PolarsSchema,
+  invalidRowsLimit: number,
+) {
+  const errors: TableError[] = []
+
+  const sources = Object.entries(
+    processFields(schema, polarsSchema, { dontParse: true }),
+  ).map(([name, expr]) => {
+    return expr.alias(`source:${name}`)
+  })
+
+  const targets = Object.entries(
+    processFields(schema, polarsSchema, { dontParse: false }),
+  ).map(([name, expr]) => {
+    return expr.alias(`target:${name}`)
+  })
+
+  table = table.select([...sources, ...targets, lit(false).alias("error")])
+
+  // Pass through checks
+
+  const dfErrors = await table
+    .filter(col("error").eq(true))
+    .head(invalidRowsLimit)
+    .collect()
+
+  for (const record of dfErrors.toRecords() as any[]) {
+    for (const [key, value] of Object.entries(record)) {
+      const [kind, type, name] = key.split(":")
+      if (kind === "error" && type && name && value === true) {
+        errors.push({
+          type: type as any,
+          fieldName: name as any,
+          rowNumber: record.number,
+          cell: record.source ?? "",
+        })
+      }
     }
   }
 
