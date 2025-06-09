@@ -29,22 +29,22 @@ export async function validateTable(
   const sample = await table.head(sampleSize).collect()
   const polarsSchema = getPolarsSchema(sample.schema)
 
-  const fieldErrors = validateFields({ schema, polarsSchema })
-  errors.push(...fieldErrors)
+  const matchErrors = validateFieldsMatch({ schema, polarsSchema })
+  errors.push(...matchErrors)
 
-  const checkErrors = await validateChecks(
+  const fieldErrors = await validateFields(
     table,
     schema,
     polarsSchema,
     invalidRowsLimit,
   )
-  errors.push(...checkErrors)
+  errors.push(...fieldErrors)
 
   const valid = errors.length === 0
   return { valid, errors }
 }
 
-function validateFields(props: {
+function validateFieldsMatch(props: {
   schema: Schema
   polarsSchema: PolarsSchema
 }) {
@@ -124,19 +124,10 @@ function validateFields(props: {
     }
   }
 
-  for (const [index, field] of schema.fields.entries()) {
-    const polarsField = matchField(index, field, schema, polarsSchema)
-
-    if (polarsField) {
-      const fieldErrors = validateField(field, { polarsField })
-      errors.push(...fieldErrors)
-    }
-  }
-
   return errors
 }
 
-async function validateChecks(
+async function validateFields(
   table: Table,
   schema: Schema,
   polarsSchema: PolarsSchema,
@@ -165,8 +156,27 @@ async function validateChecks(
       ...targets,
     ])
 
-  for (const check of [checkCellType]) {
-    table = check(table, schema)
+  // Row-level checks
+  // TODO: implement row-level checks
+
+  for (const [index, field] of schema.fields.entries()) {
+    const polarsField = matchField(index, field, schema, polarsSchema)
+
+    if (!polarsField) {
+      continue
+    }
+
+    const fieldErrors = validateField(field, { polarsField })
+    errors.push(...fieldErrors)
+
+    if (fieldErrors.find(error => error.type === "cell/type")) {
+      continue
+    }
+
+    // Cell-level checks
+    for (const check of [checkCellType]) {
+      table = check(table, field)
+    }
   }
 
   const dfErrors = await table
@@ -178,7 +188,15 @@ async function validateChecks(
   for (const record of dfErrors.toRecords() as any[]) {
     for (const [key, value] of Object.entries(record)) {
       const [kind, type, name] = key.split(":")
-      if (kind === "error" && type && name && value === true) {
+      if (kind !== "error" || value !== true) {
+        continue
+      }
+
+      // Row-level dfErrors
+      // TODO: implement row-level errors
+
+      // Cell-level errors
+      if (type && name) {
         errors.push({
           type: type as any,
           fieldName: name as any,
