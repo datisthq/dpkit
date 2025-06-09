@@ -15,6 +15,7 @@ import { checkCellMinimum } from "./checks/minimum.js"
 import { checkCellPattern } from "./checks/pattern.js"
 import { checkCellRequired } from "./checks/required.js"
 import { checkCellType } from "./checks/type.js"
+//import { checkCellUnique } from "./checks/unique.js"
 import { processFields } from "./process.js"
 
 export async function validateTable(
@@ -191,6 +192,7 @@ async function validateFields(
     table = checkCellMaximum(table, field, { isExclusive: true })
     table = checkCellMinLength(table, field)
     table = checkCellMaxLength(table, field)
+    //table = checkCellUnique(table, field)
   }
 
   const dfErrors = await table
