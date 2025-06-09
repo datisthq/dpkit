@@ -8,7 +8,9 @@ import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
 import { checkCellEnum } from "./checks/enum.js"
+import { checkCellMaxLength } from "./checks/maxLength.js"
 import { checkCellMaximum } from "./checks/maximum.js"
+import { checkCellMinLength } from "./checks/minLength.js"
 import { checkCellMinimum } from "./checks/minimum.js"
 import { checkCellPattern } from "./checks/pattern.js"
 import { checkCellRequired } from "./checks/required.js"
@@ -183,10 +185,12 @@ async function validateFields(
     table = checkCellRequired(table, field)
     table = checkCellPattern(table, field)
     table = checkCellEnum(table, field)
-    table = checkCellMaximum(table, field)
     table = checkCellMinimum(table, field)
-    table = checkCellMaximum(table, field, { isExclusive: true })
+    table = checkCellMaximum(table, field)
     table = checkCellMinimum(table, field, { isExclusive: true })
+    table = checkCellMaximum(table, field, { isExclusive: true })
+    table = checkCellMinLength(table, field)
+    table = checkCellMaxLength(table, field)
   }
 
   const dfErrors = await table
