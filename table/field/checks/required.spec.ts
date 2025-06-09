@@ -1,7 +1,7 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame, DataType } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../validate.js"
+import { validateTable } from "../../table/index.js"
 
 describe("validateTable (cell/required)", () => {
   it("should report a cell/required error", async () => {

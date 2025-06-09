@@ -1,7 +1,7 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../validate.js"
+import { validateTable } from "../../table/index.js"
 
 describe("validateTable (cell/minLength)", () => {
   it("should not report errors for string values that meet the minLength constraint", async () => {

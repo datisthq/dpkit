@@ -1,26 +1,41 @@
 import type { Field } from "@dpkit/core"
 import type { TableError } from "../error/index.js"
+import type { Table } from "../table/index.js"
 import type { PolarsField } from "./Field.js"
+import { checkCellEnum } from "./checks/enum.js"
+import { checkCellMaxLength } from "./checks/maxLength.js"
+import { checkCellMaximum } from "./checks/maximum.js"
+import { checkCellMinLength } from "./checks/minLength.js"
+import { checkCellMinimum } from "./checks/minimum.js"
+import { checkCellPattern } from "./checks/pattern.js"
+import { checkCellRequired } from "./checks/required.js"
+import { checkCellType } from "./checks/type.js"
+//import { checkCellUnique } from "./checks/unique.js"
 
 export function validateField(
   field: Field,
   options: {
+    errorTable: Table
     polarsField: PolarsField
   },
 ) {
   const { polarsField } = options
   const errors: TableError[] = []
 
-  const nameErrors = validateFieldName(field, polarsField)
+  const nameErrors = validateName(field, polarsField)
   errors.push(...nameErrors)
 
-  const typeErrors = validateFieldType(field, polarsField)
+  const typeErrors = validateType(field, polarsField)
   errors.push(...typeErrors)
 
-  return errors
+  const errorTable = !typeErrors.length
+    ? validateCells(field, options.errorTable)
+    : options.errorTable
+
+  return { errors, errorTable }
 }
 
-function validateFieldName(field: Field, polarsField: PolarsField) {
+function validateName(field: Field, polarsField: PolarsField) {
   const errors: TableError[] = []
 
   if (field.name !== polarsField.name) {
@@ -34,7 +49,7 @@ function validateFieldName(field: Field, polarsField: PolarsField) {
   return errors
 }
 
-function validateFieldType(field: Field, polarsField: PolarsField) {
+function validateType(field: Field, polarsField: PolarsField) {
   const errors: TableError[] = []
 
   const mapping: Record<string, Field["type"]> = {
@@ -69,4 +84,19 @@ function validateFieldType(field: Field, polarsField: PolarsField) {
   }
 
   return errors
+}
+
+function validateCells(field: Field, errorTable: Table) {
+  errorTable = checkCellType(field, errorTable)
+  errorTable = checkCellRequired(field, errorTable)
+  errorTable = checkCellPattern(field, errorTable)
+  errorTable = checkCellEnum(field, errorTable)
+  errorTable = checkCellMinimum(field, errorTable)
+  errorTable = checkCellMaximum(field, errorTable)
+  errorTable = checkCellMinimum(field, errorTable, { isExclusive: true })
+  errorTable = checkCellMaximum(field, errorTable, { isExclusive: true })
+  errorTable = checkCellMinLength(field, errorTable)
+  errorTable = checkCellMaxLength(field, errorTable)
+  //errorTable = checkCellUnique(field, errorTable)
+  return errorTable
 }

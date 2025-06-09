@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../validate.js"
+import { validateTable } from "../../table/index.js"
 
-describe("validateTable (cell/maximum)", () => {
+describe("validateTable (cell/minimum)", () => {
   it("should not report errors for valid values", async () => {
     const table = DataFrame({
       price: [10.5, 20.75, 30.0],
@@ -14,7 +14,7 @@ describe("validateTable (cell/maximum)", () => {
         {
           name: "price",
           type: "number",
-          constraints: { maximum: 50 },
+          constraints: { minimum: 5 },
         },
       ],
     }
@@ -25,7 +25,7 @@ describe("validateTable (cell/maximum)", () => {
 
   it("should report an error for invalid values", async () => {
     const table = DataFrame({
-      temperature: [20.5, 30.0, 40, 50.5],
+      temperature: [20.5, 30.0, 40, 3.5],
     }).lazy()
 
     const schema: Schema = {
@@ -33,24 +33,24 @@ describe("validateTable (cell/maximum)", () => {
         {
           name: "temperature",
           type: "number",
-          constraints: { maximum: 40 },
+          constraints: { minimum: 10 },
         },
       ],
     }
 
     const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/maximum")).toHaveLength(1)
+    expect(errors.filter(e => e.type === "cell/minimum")).toHaveLength(1)
     expect(errors).toContainEqual({
-      type: "cell/maximum",
+      type: "cell/minimum",
       fieldName: "temperature",
       rowNumber: 4,
-      cell: 50.5,
+      cell: 3.5,
     })
   })
 
   it("should report an error for invalid values (exclusive)", async () => {
     const table = DataFrame({
-      temperature: [20.5, 30.0, 40.0, 50.5],
+      temperature: [20.5, 30.0, 10.0, 5.5],
     }).lazy()
 
     const schema: Schema = {
@@ -58,24 +58,26 @@ describe("validateTable (cell/maximum)", () => {
         {
           name: "temperature",
           type: "number",
-          constraints: { exclusiveMaximum: 40 },
+          constraints: { exclusiveMinimum: 10 },
         },
       ],
     }
 
     const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/exclusiveMaximum")).toHaveLength(2)
+    expect(errors.filter(e => e.type === "cell/exclusiveMinimum")).toHaveLength(
+      2,
+    )
     expect(errors).toContainEqual({
-      type: "cell/exclusiveMaximum",
+      type: "cell/exclusiveMinimum",
       fieldName: "temperature",
       rowNumber: 3,
-      cell: 40.0,
+      cell: 10.0,
     })
     expect(errors).toContainEqual({
-      type: "cell/exclusiveMaximum",
+      type: "cell/exclusiveMinimum",
       fieldName: "temperature",
       rowNumber: 4,
-      cell: 50.5,
+      cell: 5.5,
     })
   })
 })

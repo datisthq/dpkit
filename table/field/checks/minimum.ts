@@ -1,10 +1,10 @@
 import type { Field } from "@dpkit/core"
 import { col, lit } from "nodejs-polars"
-import type { Table } from "../Table.js"
+import type { Table } from "../../table/index.js"
 
 export function checkCellMinimum(
-  table: Table,
   field: Field,
+  errorTable: Table,
   options?: {
     isExclusive?: boolean
   },
@@ -27,7 +27,7 @@ export function checkCellMinimum(
         const parsedMinimum =
           typeof minimum === "string" ? parser(minimum) : minimum
 
-        table = table
+        errorTable = errorTable
           .withColumn(
             options?.isExclusive
               ? target.ltEq(parsedMinimum).alias(column)
@@ -35,12 +35,12 @@ export function checkCellMinimum(
           )
           .withColumn(col("error").or(col(column)).alias("error"))
       } catch (error) {
-        table = table
+        errorTable = errorTable
           .withColumn(lit(true).alias(column))
           .withColumn(lit(true).alias("error"))
       }
     }
   }
 
-  return table
+  return errorTable
 }

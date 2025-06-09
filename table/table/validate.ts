@@ -7,15 +7,6 @@ import { validateField } from "../field/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
-import { checkCellEnum } from "./checks/enum.js"
-import { checkCellMaxLength } from "./checks/maxLength.js"
-import { checkCellMaximum } from "./checks/maximum.js"
-import { checkCellMinLength } from "./checks/minLength.js"
-import { checkCellMinimum } from "./checks/minimum.js"
-import { checkCellPattern } from "./checks/pattern.js"
-import { checkCellRequired } from "./checks/required.js"
-import { checkCellType } from "./checks/type.js"
-//import { checkCellUnique } from "./checks/unique.js"
 import { processFields } from "./process.js"
 
 export async function validateTable(
@@ -155,7 +146,7 @@ async function validateFields(
     return expr.alias(`target:${name}`)
   })
 
-  table = table
+  let errorTable = table
     .withRowCount()
     .select([
       col("row_nr").add(1).alias("number"),
@@ -169,48 +160,29 @@ async function validateFields(
 
   for (const [index, field] of schema.fields.entries()) {
     const polarsField = matchField(index, field, schema, polarsSchema)
-
     if (!polarsField) {
       continue
     }
 
-    // TODO: move this logic to validateField
-
-    const fieldErrors = validateField(field, { polarsField })
-    errors.push(...fieldErrors)
-
-    if (fieldErrors.find(error => error.type === "cell/type")) {
-      continue
-    }
-
-    // Cell-level checks
-    table = checkCellType(table, field)
-    table = checkCellRequired(table, field)
-    table = checkCellPattern(table, field)
-    table = checkCellEnum(table, field)
-    table = checkCellMinimum(table, field)
-    table = checkCellMaximum(table, field)
-    table = checkCellMinimum(table, field, { isExclusive: true })
-    table = checkCellMaximum(table, field, { isExclusive: true })
-    table = checkCellMinLength(table, field)
-    table = checkCellMaxLength(table, field)
-    //table = checkCellUnique(table, field)
+    const result = validateField(field, { errorTable, polarsField })
+    errorTable = result.errorTable
+    errors.push(...result.errors)
   }
 
-  const dfErrors = await table
+  const errorFrame = await errorTable
     .filter(col("error").eq(true))
     // TODO: drop target columns here to reduce memory usage
     .head(invalidRowsLimit)
     .collect()
 
-  for (const record of dfErrors.toRecords() as any[]) {
+  for (const record of errorFrame.toRecords() as any[]) {
     for (const [key, value] of Object.entries(record)) {
       const [kind, type, name] = key.split(":")
       if (kind !== "error" || value !== true) {
         continue
       }
 
-      // Row-level dfErrors
+      // Row-level errors
       // TODO: implement row-level errors
 
       // Cell-level errors

@@ -1,8 +1,8 @@
 import type { Field } from "@dpkit/core"
 import { col } from "nodejs-polars"
-import type { Table } from "../Table.js"
+import type { Table } from "../../table/index.js"
 
-export function checkCellMinLength(table: Table, field: Field) {
+export function checkCellMinLength(field: Field, errorTable: Table) {
   if (field.type === "string") {
     const minLength = field.constraints?.minLength
 
@@ -10,11 +10,11 @@ export function checkCellMinLength(table: Table, field: Field) {
       const target = col(`target:${field.name}`)
       const column = `error:cell/minLength:${field.name}`
 
-      table = table
+      errorTable = errorTable
         .withColumn(target.str.lengths().lt(minLength).alias(column))
         .withColumn(col("error").or(col(column)).alias("error"))
     }
   }
 
-  return table
+  return errorTable
 }

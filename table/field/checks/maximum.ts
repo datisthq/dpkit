@@ -1,10 +1,10 @@
 import type { Field } from "@dpkit/core"
 import { col, lit } from "nodejs-polars"
-import type { Table } from "../Table.js"
+import type { Table } from "../../table/index.js"
 
 export function checkCellMaximum(
-  table: Table,
   field: Field,
+  errorTable: Table,
   options?: {
     isExclusive?: boolean
   },
@@ -28,7 +28,7 @@ export function checkCellMaximum(
         const parsedMaximum =
           typeof maximum === "string" ? parser(maximum) : maximum
 
-        table = table
+        errorTable = errorTable
           .withColumn(
             options?.isExclusive
               ? target.gtEq(parsedMaximum).alias(column)
@@ -36,12 +36,12 @@ export function checkCellMaximum(
           )
           .withColumn(col("error").or(col(column)).alias("error"))
       } catch (error) {
-        table = table
+        errorTable = errorTable
           .withColumn(lit(true).alias(column))
           .withColumn(lit(true).alias("error"))
       }
     }
   }
 
-  return table
+  return errorTable
 }
