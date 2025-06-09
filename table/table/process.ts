@@ -3,6 +3,7 @@ import { loadSchema } from "@dpkit/core"
 import type { Expr } from "nodejs-polars"
 import { DataType } from "nodejs-polars"
 import { col, lit } from "nodejs-polars"
+import { matchField } from "../field/index.js"
 import { parseField } from "../field/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import { getPolarsSchema } from "../schema/index.js"
@@ -39,16 +40,9 @@ export function processFields(
 ) {
   const exprs: Record<string, Expr> = {}
 
-  const polarsFields = polarsSchema.fields
-  const fieldsMatch = schema.fieldsMatch ?? "exact"
-
   for (const [index, field] of schema.fields.entries()) {
+    const polarsField = matchField(index, field, schema, polarsSchema)
     let expr = lit(null).alias(field.name)
-
-    const polarsField =
-      fieldsMatch !== "exact"
-        ? polarsFields.find(polarsField => polarsField.name === field.name)
-        : polarsFields[index]
 
     if (polarsField) {
       expr = col(polarsField.name).alias(field.name)

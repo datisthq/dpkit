@@ -2,6 +2,7 @@ import type { Schema } from "@dpkit/core"
 import { loadSchema } from "@dpkit/core"
 import { col, lit } from "nodejs-polars"
 import type { TableError } from "../error/index.js"
+import { matchField } from "../field/index.js"
 import { validateField } from "../field/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
@@ -124,10 +125,7 @@ function validateFields(props: {
   }
 
   for (const [index, field] of schema.fields.entries()) {
-    const polarsField =
-      fieldsMatch !== "exact"
-        ? polarsFields.find(polarsField => polarsField.name === field.name)
-        : polarsFields[index]
+    const polarsField = matchField(index, field, schema, polarsSchema)
 
     if (polarsField) {
       const fieldErrors = validateField(field, { polarsField })
