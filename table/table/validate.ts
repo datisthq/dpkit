@@ -7,6 +7,7 @@ import { validateField } from "../field/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
+import { checkCellPattern } from "./checks/pattern.js"
 import { checkCellRequired } from "./checks/required.js"
 import { checkCellType } from "./checks/type.js"
 import { processFields } from "./process.js"
@@ -175,7 +176,7 @@ async function validateFields(
     }
 
     // Cell-level checks
-    for (const check of [checkCellType, checkCellRequired]) {
+    for (const check of [checkCellType, checkCellRequired, checkCellPattern]) {
       table = check(table, field)
     }
   }
