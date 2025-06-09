@@ -174,6 +174,8 @@ async function validateFields(
       continue
     }
 
+    // TODO: move this logic to validateField
+
     const fieldErrors = validateField(field, { polarsField })
     errors.push(...fieldErrors)
 
