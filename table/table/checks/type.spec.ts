@@ -1,10 +1,10 @@
 import type { Schema } from "@dpkit/core"
-import { DataFrame, DataType } from "nodejs-polars"
+import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { validateTable } from "../validate.js"
 
 describe("validateTable", () => {
-  it.only("should validate string to integer conversion errors", async () => {
+  it("should validate string to integer conversion errors", async () => {
     const table = DataFrame({
       id: ["1", "bad", "3", "4x"],
     }).lazy()
@@ -35,17 +35,11 @@ describe("validateTable", () => {
       price: ["10.5", "twenty", "30.75", "$40"],
     }).lazy()
 
-    const field: Field = {
-      name: "price",
-      type: "number",
+    const schema: Schema = {
+      fields: [{ name: "price", type: "number" }],
     }
 
-    const polarsField: PolarsField = {
-      name: "price",
-      type: DataType.String,
-    }
-
-    const errors = await validateField(field, { table, polarsField })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(2)
     expect(errors).toContainEqual({
@@ -67,17 +61,11 @@ describe("validateTable", () => {
       active: ["true", "yes", "false", "0", "1"],
     }).lazy()
 
-    const field: Field = {
-      name: "active",
-      type: "boolean",
+    const schema: Schema = {
+      fields: [{ name: "active", type: "boolean" }],
     }
 
-    const polarsField: PolarsField = {
-      name: "active",
-      type: DataType.String,
-    }
-
-    const errors = await validateField(field, { table, polarsField })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(1)
     expect(errors).toContainEqual({
@@ -93,17 +81,11 @@ describe("validateTable", () => {
       created: ["2023-01-15", "Jan 15, 2023", "20230115", "not-a-date"],
     }).lazy()
 
-    const field: Field = {
-      name: "created",
-      type: "date",
+    const schema: Schema = {
+      fields: [{ name: "created", type: "date" }],
     }
 
-    const polarsField: PolarsField = {
-      name: "created",
-      type: DataType.String,
-    }
-
-    const errors = await validateField(field, { table, polarsField })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(3)
     expect(errors).toContainEqual({
@@ -131,17 +113,11 @@ describe("validateTable", () => {
       time: ["14:30:00", "2:30pm", "invalid", "14h30"],
     }).lazy()
 
-    const field: Field = {
-      name: "time",
-      type: "time",
+    const schema: Schema = {
+      fields: [{ name: "time", type: "time" }],
     }
 
-    const polarsField: PolarsField = {
-      name: "time",
-      type: DataType.String,
-    }
-
-    const errors = await validateField(field, { table, polarsField })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(3)
     expect(errors).toContainEqual({
@@ -169,17 +145,11 @@ describe("validateTable", () => {
       year: ["2023", "23", "MMXXIII", "two-thousand-twenty-three"],
     }).lazy()
 
-    const field: Field = {
-      name: "year",
-      type: "year",
+    const schema: Schema = {
+      fields: [{ name: "year", type: "year" }],
     }
 
-    const polarsField: PolarsField = {
-      name: "year",
-      type: DataType.String,
-    }
-
-    const errors = await validateField(field, { table, polarsField })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(3)
     expect(errors).toContainEqual({
@@ -212,17 +182,11 @@ describe("validateTable", () => {
       ],
     }).lazy()
 
-    const field: Field = {
-      name: "timestamp",
-      type: "datetime",
+    const schema: Schema = {
+      fields: [{ name: "timestamp", type: "datetime" }],
     }
 
-    const polarsField: PolarsField = {
-      name: "timestamp",
-      type: DataType.String,
-    }
-
-    const errors = await validateField(field, { table, polarsField })
+    const { errors } = await validateTable(table, { schema })
 
     // Adjust the expectations to match actual behavior
     expect(errors.length).toBeGreaterThan(0)
@@ -248,17 +212,11 @@ describe("validateTable", () => {
       id: ["1", "2", "3", "4"],
     }).lazy()
 
-    const field: Field = {
-      name: "id",
-      type: "integer",
+    const schema: Schema = {
+      fields: [{ name: "id", type: "integer" }],
     }
 
-    const polarsField: PolarsField = {
-      name: "id",
-      type: DataType.String,
-    }
-
-    const errors = await validateField(field, { table, polarsField })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(0)
   })
@@ -268,17 +226,11 @@ describe("validateTable", () => {
       is_active: [true, false, 1, 0],
     }).lazy()
 
-    const field: Field = {
-      name: "is_active",
-      type: "boolean",
+    const schema: Schema = {
+      fields: [{ name: "is_active", type: "boolean" }],
     }
 
-    const polarsField: PolarsField = {
-      name: "is_active",
-      type: DataType.Bool,
-    }
-
-    const errors = await validateField(field, { table, polarsField })
+    const { errors } = await validateTable(table, { schema })
 
     // Since the column isn't string type, validateField will not process it
     expect(errors).toHaveLength(0)
