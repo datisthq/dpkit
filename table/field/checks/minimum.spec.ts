@@ -44,7 +44,7 @@ describe("validateTable (cell/minimum)", () => {
       type: "cell/minimum",
       fieldName: "temperature",
       rowNumber: 4,
-      cell: 3.5,
+      cell: "3.5",
     })
   })
 
@@ -71,13 +71,13 @@ describe("validateTable (cell/minimum)", () => {
       type: "cell/exclusiveMinimum",
       fieldName: "temperature",
       rowNumber: 3,
-      cell: 10.0,
+      cell: "10",
     })
     expect(errors).toContainEqual({
       type: "cell/exclusiveMinimum",
       fieldName: "temperature",
       rowNumber: 4,
-      cell: 5.5,
+      cell: "5.5",
     })
   })
 })

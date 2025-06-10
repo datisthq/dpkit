@@ -4,6 +4,7 @@ import { col, lit } from "nodejs-polars"
 import type { TableError } from "../error/index.js"
 import { matchField } from "../field/index.js"
 import { validateField } from "../field/index.js"
+import { validateRows } from "../row/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
@@ -161,11 +162,15 @@ async function validateFields(
   for (const [index, field] of schema.fields.entries()) {
     const polarsField = matchField(index, field, schema, polarsSchema)
     if (polarsField) {
-      const result = validateField(field, { errorTable, polarsField })
-      errorTable = result.errorTable
-      errors.push(...result.errors)
+      const fieldResult = validateField(field, { errorTable, polarsField })
+      errorTable = fieldResult.errorTable
+      errors.push(...fieldResult.errors)
     }
   }
+
+  const rowsResult = validateRows(schema, errorTable)
+  errorTable = rowsResult.errorTable
+  errors.push(...rowsResult.errors)
 
   const errorFrame = await errorTable
     .filter(col("error").eq(true))
@@ -176,13 +181,28 @@ async function validateFields(
   for (const record of errorFrame.toRecords() as any[]) {
     for (const [key, value] of Object.entries(record)) {
       const [kind, type, name] = key.split(":")
+
       if (kind === "error" && value === true && type && name) {
-        errors.push({
-          type: type as any,
-          fieldName: name as any,
-          rowNumber: record.number,
-          cell: record[`source:${name}`] ?? "",
-        })
+        const rowNumber = record.number
+
+        // Cell-level errors
+        if (type.startsWith("cell/")) {
+          errors.push({
+            rowNumber,
+            type: type as any,
+            fieldName: name as any,
+            cell: (record[`source:${name}`] ?? "").toString(),
+          })
+        }
+
+        // Row-level errors
+        if (type.startsWith("row/")) {
+          errors.push({
+            rowNumber,
+            type: type as any,
+            fieldNames: name.split(","),
+          })
+        }
       }
     }
   }

@@ -6,4 +6,5 @@ export interface BaseRowError extends BaseTableError {
 
 export interface RowUniqueError extends BaseRowError {
   type: "row/unique"
+  fieldNames: string[]
 }

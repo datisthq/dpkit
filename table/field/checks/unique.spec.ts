@@ -46,7 +46,7 @@ describe("validateTable (cell/unique)", () => {
       type: "cell/unique",
       fieldName: "id",
       rowNumber: 4,
-      cell: 2,
+      cell: "2",
     })
   })
 

@@ -44,7 +44,7 @@ describe("validateTable (cell/maximum)", () => {
       type: "cell/maximum",
       fieldName: "temperature",
       rowNumber: 4,
-      cell: 50.5,
+      cell: "50.5",
     })
   })
 
@@ -71,13 +71,13 @@ describe("validateTable (cell/maximum)", () => {
       type: "cell/exclusiveMaximum",
       fieldName: "temperature",
       rowNumber: 3,
-      cell: 40.0,
+      cell: "40",
     })
     expect(errors).toContainEqual({
       type: "cell/exclusiveMaximum",
       fieldName: "temperature",
       rowNumber: 4,
-      cell: 50.5,
+      cell: "50.5",
     })
   })
 })
