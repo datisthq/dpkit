@@ -1,6 +1,6 @@
-# @dpkit/inline
+# @dpkit/folder
 
-## 0.4.0
+## 0.6.0
 
 ### Minor Changes
 
@@ -9,5 +9,5 @@
 ### Patch Changes
 
 - Updated dependencies [7f4531a]
-  - @dpkit/table@0.4.0
   - @dpkit/core@0.6.0
+  - @dpkit/file@0.6.0
