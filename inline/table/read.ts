@@ -13,7 +13,7 @@ export async function readInlineTable(props: {
 
   let table = DataFrame(polarsData).lazy()
   if (!props.dontProcess) {
-    table = await processTable({ table, schema })
+    table = await processTable(table, { schema })
   }
 
   return table
