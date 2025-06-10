@@ -6,10 +6,10 @@ describe("loadPackageFromCkan", () => {
   useRecording()
 
   it("should load a package", async () => {
-    const datapackage = await loadPackageFromCkan(
+    const dataPackage = await loadPackageFromCkan(
       "https://data.nhm.ac.uk/dataset/join-the-dots-collection-level-descriptions",
     )
 
-    expect(datapackage).toMatchSnapshot()
+    expect(dataPackage).toMatchSnapshot()
   })
 })

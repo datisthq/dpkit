@@ -84,6 +84,16 @@ importers:
 
   csv: {}
 
+  datahub:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
+
   db: {}
 
   docs:
@@ -128,6 +138,9 @@ importers:
       '@dpkit/core':
         specifier: workspace:*
         version: link:../core
+      '@dpkit/datahub':
+        specifier: workspace:*
+        version: link:../datahub
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
@@ -137,6 +150,12 @@ importers:
       '@dpkit/github':
         specifier: workspace:*
         version: link:../github
+      '@dpkit/inline':
+        specifier: workspace:*
+        version: link:../inline
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
       '@dpkit/zenodo':
         specifier: workspace:*
         version: link:../zenodo
