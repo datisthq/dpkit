@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest"
 import { validateTable } from "../../table/index.js"
 
 // TODO: recover
-describe.skip("validateTable (cell/unique)", () => {
+describe("validateTable (cell/unique)", () => {
   it("should not report errors when all values are unique", async () => {
     const table = DataFrame({
       id: [1, 2, 3, 4, 5],
@@ -90,7 +90,7 @@ describe.skip("validateTable (cell/unique)", () => {
       fields: [
         {
           name: "id",
-          type: "integer",
+          type: "number",
           constraints: { unique: true },
         },
       ],

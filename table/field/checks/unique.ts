@@ -12,10 +12,7 @@ export function checkCellUnique(field: Field, errorTable: Table) {
 
     errorTable = errorTable
       .withColumn(
-        when(target.isNotNull())
-          .then(target.isFirstDistinct().not())
-          .otherwise(lit(false))
-          .alias(errorName),
+        target.isNotNull().and(target.isFirstDistinct().not()).alias(errorName),
       )
       .withColumn(col("error").or(col(errorName)).alias("error"))
   }
