@@ -1,5 +1,11 @@
 # @dpkit/core
 
+## 0.6.0
+
+### Minor Changes
+
+- 40a9ff1: Implemented table/inline packages
+
 ## 0.5.0
 
 ### Minor Changes

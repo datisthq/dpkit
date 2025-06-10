@@ -1,4 +1,4 @@
-# @dpkit/datahub
+# @dpkit/folder
 
 ## 0.6.0
 
@@ -10,3 +10,4 @@
 
 - Updated dependencies [40a9ff1]
   - @dpkit/core@0.6.0
+  - @dpkit/file@0.6.0
