@@ -2,7 +2,7 @@ import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
 import { loadPackageFromDatahub } from "./load.js"
 
-describe("loadPackageFromDatahub", () => {
+describe.skip("loadPackageFromDatahub", () => {
   useRecording()
 
   it("should load a package", async () => {

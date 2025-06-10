@@ -18,12 +18,9 @@ export async function loadDescriptor(
     throw new Error("Cannot load descriptor for security reasons")
   }
 
-  const basepath = getBasepath(path)
-  const descriptor = isRemote
+  return isRemote
     ? await loadRemoteDescriptor(path)
     : await loadLocalDescriptor(path)
-
-  return { descriptor, basepath }
 }
 
 const ALLOWED_REMOTE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:"]
@@ -38,8 +35,9 @@ async function loadRemoteDescriptor(path: string) {
 
   const response = await fetch(url.toString())
   const descriptor = (await response.json()) as Record<string, any>
+  const basepath = getBasepath(response.url ?? path) // supports redirects
 
-  return descriptor
+  return { descriptor, basepath }
 }
 
 async function loadLocalDescriptor(path: string) {
@@ -49,6 +47,7 @@ async function loadLocalDescriptor(path: string) {
 
   const text = await node.fs.readFile(path, "utf-8")
   const descriptor = parseDescriptor(text)
+  const basepath = getBasepath(path)
 
-  return descriptor
+  return { descriptor, basepath }
 }
