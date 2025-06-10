@@ -4,15 +4,8 @@ import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
 // TODO: support categories
-export function parseIntegerField(
-  field: IntegerField,
-  options?: {
-    expr?: Expr
-  },
-) {
-  let expr = options?.expr ?? col(field.name)
-
-  // First, trim whitespace
+export function parseIntegerField(field: IntegerField, expr?: Expr) {
+  expr = expr ?? col(field.name)
   expr = expr.str.strip()
 
   // Handle non-bare numbers (with currency symbols, percent signs, etc.)

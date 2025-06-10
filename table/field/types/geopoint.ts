@@ -2,13 +2,8 @@ import type { GeopointField } from "@dpkit/core"
 import { DataType, col, lit } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
-export function parseGeopointField(
-  field: GeopointField,
-  options?: { expr?: Expr },
-) {
-  let expr = options?.expr ?? col(field.name)
-
-  // Trim whitespace
+export function parseGeopointField(field: GeopointField, expr?: Expr) {
+  expr = expr ?? col(field.name)
   expr = expr.str.strip()
 
   // Default format is "lon,lat" string

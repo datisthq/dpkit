@@ -30,35 +30,35 @@ export function parseField(field: Field, options?: { expr?: Expr }) {
 
   switch (field.type) {
     case "string":
-      return parseStringField(field, { expr })
+      return parseStringField(field, expr)
     case "integer":
-      return parseIntegerField(field, { expr })
+      return parseIntegerField(field, expr)
     case "number":
-      return parseNumberField(field, { expr })
+      return parseNumberField(field, expr)
     case "boolean":
-      return parseBooleanField(field, { expr })
+      return parseBooleanField(field, expr)
     case "date":
-      return parseDateField(field, { expr })
+      return parseDateField(field, expr)
     case "datetime":
-      return parseDatetimeField(field, { expr })
+      return parseDatetimeField(field, expr)
     case "time":
-      return parseTimeField(field, { expr })
+      return parseTimeField(field, expr)
     case "year":
-      return parseYearField(field, { expr })
+      return parseYearField(field, expr)
     case "yearmonth":
-      return parseYearmonthField(field, { expr })
+      return parseYearmonthField(field, expr)
     case "list":
-      return parseListField(field, { expr })
+      return parseListField(field, expr)
     case "array":
-      return parseArrayField(field, { expr })
+      return parseArrayField(field, expr)
     case "geopoint":
-      return parseGeopointField(field, { expr })
+      return parseGeopointField(field, expr)
     case "object":
-      return parseObjectField(field, { expr })
+      return parseObjectField(field, expr)
     case "geojson":
-      return parseGeojsonField(field, { expr })
+      return parseGeojsonField(field, expr)
     case "duration":
-      return parseDurationField(field, { expr })
+      return parseDurationField(field, expr)
     default:
       return expr
   }

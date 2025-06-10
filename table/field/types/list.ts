@@ -2,10 +2,11 @@ import type { ListField } from "@dpkit/core"
 import { DataType, col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
-export function parseListField(field: ListField, options?: { expr?: Expr }) {
-  let expr = options?.expr ?? col(field.name)
-
-  // Trim whitespace
+// TODO:
+// Add more validation:
+// - Return null instead of list if all array values are nulls?
+export function parseListField(field: ListField, expr?: Expr) {
+  expr = expr ?? col(field.name)
   expr = expr.str.strip()
 
   const delimiter = field.delimiter ?? ","
@@ -19,9 +20,6 @@ export function parseListField(field: ListField, options?: { expr?: Expr }) {
   if (field.itemType === "time") dtype = DataType.Time
 
   expr = expr.str.split(delimiter).cast(DataType.List(dtype))
-  // TODO:
-  // Add more validation:
-  // - Return null instead of list if all array values are nulls?
 
   return expr
 }

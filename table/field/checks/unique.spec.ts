@@ -14,7 +14,7 @@ describe.skip("validateTable (cell/unique)", () => {
       fields: [
         {
           name: "id",
-          type: "integer",
+          type: "number",
           constraints: { unique: true },
         },
       ],
@@ -33,13 +33,14 @@ describe.skip("validateTable (cell/unique)", () => {
       fields: [
         {
           name: "id",
-          type: "integer",
+          type: "number",
           constraints: { unique: true },
         },
       ],
     }
 
     const { errors } = await validateTable(table, { schema })
+
     expect(errors.filter(e => e.type === "cell/unique")).toHaveLength(1)
     expect(errors).toContainEqual({
       type: "cell/unique",

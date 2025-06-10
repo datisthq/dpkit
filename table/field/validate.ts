@@ -10,7 +10,7 @@ import { checkCellMinimum } from "./checks/minimum.js"
 import { checkCellPattern } from "./checks/pattern.js"
 import { checkCellRequired } from "./checks/required.js"
 import { checkCellType } from "./checks/type.js"
-//import { checkCellUnique } from "./checks/unique.js"
+import { checkCellUnique } from "./checks/unique.js"
 
 export function validateField(
   field: Field,
@@ -97,6 +97,6 @@ function validateCells(field: Field, errorTable: Table) {
   errorTable = checkCellMaximum(field, errorTable, { isExclusive: true })
   errorTable = checkCellMinLength(field, errorTable)
   errorTable = checkCellMaxLength(field, errorTable)
-  //errorTable = checkCellUnique(field, errorTable)
+  errorTable = checkCellUnique(field, errorTable)
   return errorTable
 }

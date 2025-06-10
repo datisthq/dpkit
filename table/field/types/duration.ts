@@ -4,13 +4,8 @@ import type { Expr } from "nodejs-polars"
 
 // TODO: raise an issue on nodejs-polars repo as this is not supported yet
 // So we do nothing on this column type for now
-export function parseDurationField(
-  field: DurationField,
-  options?: { expr?: Expr },
-) {
-  let expr = options?.expr ?? col(field.name)
-
-  // Trim whitespace
+export function parseDurationField(field: DurationField, expr?: Expr) {
+  expr = expr ?? col(field.name)
   expr = expr.str.strip()
 
   return expr

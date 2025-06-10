@@ -6,13 +6,9 @@ import type { Expr } from "nodejs-polars"
 const DEFAULT_TRUE_VALUES = ["true", "True", "TRUE", "1"]
 const DEFAULT_FALSE_VALUES = ["false", "False", "FALSE", "0"]
 
-export function parseBooleanField(
-  field: BooleanField,
-  options?: {
-    expr?: Expr
-  },
-) {
-  let expr = options?.expr ?? col(field.name)
+export function parseBooleanField(field: BooleanField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+  expr = expr.str.strip()
 
   const trueValues = field.trueValues || DEFAULT_TRUE_VALUES
   const falseValues = field.falseValues || DEFAULT_FALSE_VALUES

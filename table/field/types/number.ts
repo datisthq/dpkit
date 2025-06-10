@@ -3,11 +3,9 @@ import { DataType } from "nodejs-polars"
 import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
-export function parseNumberField(
-  field: NumberField,
-  options?: { expr?: Expr },
-) {
-  let expr = options?.expr ?? col(field.name)
+export function parseNumberField(field: NumberField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+  expr = expr.str.strip()
 
   // Extract the decimal and group characters
   const decimalChar = field.decimalChar || "."
