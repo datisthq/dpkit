@@ -7,7 +7,8 @@ export function matchField(
   schema: Schema,
   polarsSchema: PolarsSchema,
 ) {
-  return schema.fieldsMatch !== "exact"
+  const fieldsMatch = schema.fieldsMatch ?? "exact"
+  return fieldsMatch !== "exact"
     ? polarsSchema.fields.find(polarsField => polarsField.name === field.name)
     : polarsSchema.fields[index]
 }
