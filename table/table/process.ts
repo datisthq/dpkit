@@ -48,7 +48,7 @@ export function processFields(
       expr = col(polarsField.name).alias(field.name)
 
       if (!options?.dontParse && polarsField.type.equals(DataType.String)) {
-        expr = parseField(field, { expr })
+        expr = parseField(field, { expr, schema })
       }
     }
 

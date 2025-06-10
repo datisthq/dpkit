@@ -6,6 +6,7 @@ import type { Expr } from "nodejs-polars"
 // Add more validation:
 // - Validate regex if format provided and it can be performant (e.g. uuid)
 // - Validate categories
+// TODO: support categoriesOrder
 export function parseStringField(field: StringField, expr?: Expr) {
   expr = expr ?? col(field.name)
   expr = expr.str.strip()

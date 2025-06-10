@@ -4,6 +4,7 @@ import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
 // TODO: support categories
+// TODO: support categoriesOrder
 export function parseIntegerField(field: IntegerField, expr?: Expr) {
   expr = expr ?? col(field.name)
   expr = expr.str.strip()

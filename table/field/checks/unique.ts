@@ -1,5 +1,5 @@
 import type { Field } from "@dpkit/core"
-import { col, lit, when } from "nodejs-polars"
+import { col } from "nodejs-polars"
 import type { Table } from "../../table/index.js"
 
 // TODO: Support schema.primaryKey and schema.uniqueKeys

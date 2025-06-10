@@ -1,5 +1,5 @@
 import type { Schema } from "@dpkit/core"
-import { DataFrame, DataType } from "nodejs-polars"
+import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { validateTable } from "../../table/index.js"
 

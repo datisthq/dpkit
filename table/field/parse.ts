@@ -1,5 +1,5 @@
-import type { Field } from "@dpkit/core"
-import { col } from "nodejs-polars"
+import type { Field, Schema } from "@dpkit/core"
+import { col, lit, when } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import { parseArrayField } from "./types/array.js"
 import { parseBooleanField } from "./types/boolean.js"
@@ -19,13 +19,26 @@ import { parseYearmonthField } from "./types/yearmonth.js"
 
 const DEFAULT_MISSING_VALUES = [""]
 
-export function parseField(field: Field, options?: { expr?: Expr }) {
+export function parseField(
+  field: Field,
+  options?: { expr?: Expr; schema?: Schema },
+) {
   let expr = options?.expr ?? col(field.name)
 
-  const missingValues = field.missingValues ?? DEFAULT_MISSING_VALUES
-  for (const source of missingValues) {
-    const target = typeof source === "string" ? source : source.value
-    if (target) expr = expr.str.replaceAll(`^${escapeRegex(target)}$`, "")
+  const missingValues =
+    field.missingValues ??
+    options?.schema?.missingValues ??
+    DEFAULT_MISSING_VALUES
+
+  const flattenMissingValues = missingValues.map(item =>
+    typeof item === "string" ? item : item.value,
+  )
+
+  if (flattenMissingValues.length) {
+    expr = when(expr.isIn(flattenMissingValues))
+      .then(lit(null))
+      .otherwise(expr)
+      .alias(field.name)
   }
 
   switch (field.type) {
@@ -62,8 +75,4 @@ export function parseField(field: Field, options?: { expr?: Expr }) {
     default:
       return expr
   }
-}
-
-function escapeRegex(value: string) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }
