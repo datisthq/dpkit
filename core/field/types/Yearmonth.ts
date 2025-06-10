@@ -1,4 +1,4 @@
-import type { BaseConstraints, BaseField } from "./base.js"
+import type { BaseConstraints, BaseField } from "./Base.js"
 
 /**
  * Year and month field type
