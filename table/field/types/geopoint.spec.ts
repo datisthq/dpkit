@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { parseGeopointField } from "./geopoint.js"
+import { processTable } from "../../table/index.js"
 
 describe("parseGeopointField", () => {
   describe("default format", () => {
@@ -22,9 +22,15 @@ describe("parseGeopointField", () => {
       //["90.50,lat", null],
       //["lon,45.50", null],
       //["90.50,45.50,0", null],
-    ])("%s -> %s", (cell, value) => {
-      const field = { name: "name", type: "geopoint" as const }
-      const df = DataFrame({ name: [cell] }).select(parseGeopointField(field))
+    ])("%s -> %s", async (cell, value) => {
+      const table = DataFrame({ name: [cell] }).lazy()
+      const schema = {
+        fields: [{ name: "name", type: "geopoint" as const }],
+      }
+
+      const ldf = await processTable(table, { schema })
+      const df = await ldf.collect()
+
       expect(df.toRecords()[0]?.name).toEqual(value)
     })
   })
@@ -47,13 +53,17 @@ describe("parseGeopointField", () => {
       ["[90.50]", null],
       ["[90.50, 45.50, 0]", null],
       ["['lon', 'lat']", null],
-    ])("%s -> %s", (cell, value) => {
-      const field = {
-        name: "name",
-        type: "geopoint" as const,
-        format: "array" as const,
+    ])("%s -> %s", async (cell, value) => {
+      const table = DataFrame({ name: [cell] }).lazy()
+      const schema = {
+        fields: [
+          { name: "name", type: "geopoint" as const, format: "array" as const },
+        ],
       }
-      const df = DataFrame({ name: [cell] }).select(parseGeopointField(field))
+
+      const ldf = await processTable(table, { schema })
+      const df = await ldf.collect()
+
       expect(df.getColumn("name").get(0)).toEqual(value)
     })
   })
@@ -76,13 +86,21 @@ describe("parseGeopointField", () => {
       ['{"longitude": 90.50, "latitude": 45.50}', null],
       ['{"lon": 90.50}', null],
       ['{"lat": 45.50}', null],
-    ])("%s -> %s", (cell, value) => {
-      const field = {
-        name: "name",
-        type: "geopoint" as const,
-        format: "object" as const,
+    ])("%s -> %s", async (cell, value) => {
+      const table = DataFrame({ name: [cell] }).lazy()
+      const schema = {
+        fields: [
+          {
+            name: "name",
+            type: "geopoint" as const,
+            format: "object" as const,
+          },
+        ],
       }
-      const df = DataFrame({ name: [cell] }).select(parseGeopointField(field))
+
+      const ldf = await processTable(table, { schema })
+      const df = await ldf.collect()
+
       expect(df.getColumn("name").get(0)).toEqual(value)
     })
   })

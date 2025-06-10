@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { parseObjectField } from "./object.js"
+import { processTable } from "../../table/index.js"
 
 describe("parseObjectField", () => {
   it.each([
@@ -24,9 +24,15 @@ describe("parseObjectField", () => {
     ["", null],
     ["null", null],
     ["undefined", null],
-  ])("%s -> %s", (cell, value) => {
-    const field = { name: "name", type: "object" as const }
-    const df = DataFrame({ name: [cell] }).select(parseObjectField(field))
+  ])("%s -> %s", async (cell, value) => {
+    const table = DataFrame({ name: [cell] }).lazy()
+    const schema = {
+      fields: [{ name: "name", type: "object" as const }],
+    }
+
+    const ldf = await processTable(table, { schema })
+    const df = await ldf.collect()
+
     const res = df.getColumn("name").get(0)
     expect(res ? JSON.parse(res) : res).toEqual(value)
   })

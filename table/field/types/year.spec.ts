@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { parseYearField } from "./year.js"
+import { processTable } from "../../table/index.js"
 
 describe("parseYearField", () => {
   it.each([
@@ -19,9 +19,15 @@ describe("parseYearField", () => {
     ["bad", null],
     ["12345", null],
     ["123", null],
-  ])("%s -> %s", (cell, value) => {
-    const field = { name: "name", type: "year" as const }
-    const df = DataFrame({ name: [cell] }).select(parseYearField(field))
+  ])("%s -> %s", async (cell, value) => {
+    const table = DataFrame({ name: [cell] }).lazy()
+    const schema = {
+      fields: [{ name: "name", type: "year" as const }],
+    }
+
+    const ldf = await processTable(table, { schema })
+    const df = await ldf.collect()
+
     expect(df.getColumn("name").get(0)).toEqual(value)
   })
 })

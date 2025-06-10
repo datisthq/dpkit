@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { parseListField } from "./list.js"
+import { processTable } from "../../table/index.js"
 
 describe("parseListField", () => {
   describe("default settings (string items, comma delimiter)", () => {
@@ -27,9 +27,15 @@ describe("parseListField", () => {
 
       // Null handling
       //[null, null],
-    ])("%s -> %s", (cell, value) => {
-      const field = { name: "name", type: "list" as const }
-      const df = DataFrame({ name: [cell] }).select(parseListField(field))
+    ])("%s -> %s", async (cell, value) => {
+      const table = DataFrame({ name: [cell] }).lazy()
+      const schema = {
+        fields: [{ name: "name", type: "list" as const }],
+      }
+
+      const ldf = await processTable(table, { schema })
+      const df = await ldf.collect()
+
       expect(df.toRecords()[0]?.name).toEqual(value)
     })
   })
@@ -58,13 +64,17 @@ describe("parseListField", () => {
       // Invalid integers become null
       ["1,a,3", [1, null, 3]],
       ["1.5,2,3", [null, 2, 3]],
-    ])("%s -> %s", (cell, value) => {
-      const field = {
-        name: "name",
-        type: "list" as const,
-        itemType: "integer" as const,
+    ])("%s -> %s", async (cell, value) => {
+      const table = DataFrame({ name: [cell] }).lazy()
+      const schema = {
+        fields: [
+          { name: "name", type: "list" as const, itemType: "integer" as const },
+        ],
       }
-      const df = DataFrame({ name: [cell] }).select(parseListField(field))
+
+      const ldf = await processTable(table, { schema })
+      const df = await ldf.collect()
+
       expect(df.toRecords()[0]?.name).toEqual(value)
     })
   })
@@ -92,13 +102,17 @@ describe("parseListField", () => {
 
       // Invalid numbers become null
       ["1.1,a,3.3", [1.1, null, 3.3]],
-    ])("%s -> %s", (cell, value) => {
-      const field = {
-        name: "name",
-        type: "list" as const,
-        itemType: "number" as const,
+    ])("%s -> %s", async (cell, value) => {
+      const table = DataFrame({ name: [cell] }).lazy()
+      const schema = {
+        fields: [
+          { name: "name", type: "list" as const, itemType: "number" as const },
+        ],
       }
-      const df = DataFrame({ name: [cell] }).select(parseListField(field))
+
+      const ldf = await processTable(table, { schema })
+      const df = await ldf.collect()
+
       expect(df.toRecords()[0]?.name).toEqual(value)
     })
   })
@@ -120,9 +134,15 @@ describe("parseListField", () => {
 
       // Empty items in list
       ["a;;c", ["a", "", "c"]],
-    ])("%s -> %s", (cell, value) => {
-      const field = { name: "name", type: "list" as const, delimiter: ";" }
-      const df = DataFrame({ name: [cell] }).select(parseListField(field))
+    ])("%s -> %s", async (cell, value) => {
+      const table = DataFrame({ name: [cell] }).lazy()
+      const schema = {
+        fields: [{ name: "name", type: "list" as const, delimiter: ";" }],
+      }
+
+      const ldf = await processTable(table, { schema })
+      const df = await ldf.collect()
+
       expect(df.toRecords()[0]?.name).toEqual(value)
     })
   })

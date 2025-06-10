@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { parseDatetimeField } from "./datetime.js"
+import { processTable } from "../../table/index.js"
 
 // TODO: Enable this test suite
 // Currently, it seems to have a weird datetime translation bug on the Polars side
@@ -26,9 +26,15 @@ describe.skip("parseDatetimeField", () => {
 
     // Invalid format
     ["21/11/06 16:30", null, { format: "invalid" }],
-  ])("%s -> %s %o", (cell, expected, options) => {
-    const field = { name: "name", type: "datetime" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(parseDatetimeField(field))
+  ])("%s -> %s %o", async (cell, expected, options) => {
+    const table = DataFrame({ name: [cell] }).lazy()
+    const schema = {
+      fields: [{ name: "name", type: "datetime" as const, ...options }],
+    }
+
+    const ldf = await processTable(table, { schema })
+    const df = await ldf.collect()
+
     expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })

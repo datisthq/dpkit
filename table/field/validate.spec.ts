@@ -3,7 +3,7 @@ import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { validateTable } from "../table/validate.js"
 
-describe("validateTable field validation", () => {
+describe("validateField", () => {
   describe("field name validation", () => {
     it("should report an error when field names don't match", async () => {
       const table = DataFrame({

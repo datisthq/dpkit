@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { parseBooleanField } from "./boolean.js"
+import { processTable } from "../../table/index.js"
 
 describe("parseBooleanField", () => {
   it.each([
@@ -44,9 +44,15 @@ describe("parseBooleanField", () => {
     ["si", true, { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
     ["non", false, { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
     ["no", false, { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
-  ])("%s -> %s %o", (cell, value, options) => {
-    const field = { name: "name", type: "boolean" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(parseBooleanField(field))
+  ])("%s -> %s %o", async (cell, value, options) => {
+    const table = DataFrame({ name: [cell] }).lazy()
+    const schema = {
+      fields: [{ name: "name", type: "boolean" as const, ...options }],
+    }
+
+    const ldf = await processTable(table, { schema })
+    const df = await ldf.collect()
+
     expect(df.toRecords()[0]?.name).toEqual(value)
   })
 })

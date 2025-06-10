@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { parseDateField } from "./date.js"
+import { processTable } from "../../table/index.js"
 
 describe("parseDateField", () => {
   it.each([
@@ -19,9 +19,15 @@ describe("parseDateField", () => {
 
     // Invalid format
     ["21/11/06", null, { format: "invalid" }],
-  ])("%s -> %s %o", (cell, expected, options) => {
-    const field = { name: "name", type: "date" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(parseDateField(field))
+  ])("%s -> %s %o", async (cell, expected, options) => {
+    const table = DataFrame({ name: [cell] }).lazy()
+    const schema = {
+      fields: [{ name: "name", type: "date" as const, ...options }],
+    }
+
+    const ldf = await processTable(table, { schema })
+    const df = await ldf.collect()
+
     expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })

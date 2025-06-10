@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { parseIntegerField } from "./integer.js"
+import { processTable } from "../../table/index.js"
 
 describe("parseIntegerField", () => {
   it.each([
@@ -51,8 +51,15 @@ describe("parseIntegerField", () => {
     [" -1,000 ", -1000, { groupChar: "," }],
     ["000,001", 1, { groupChar: "," }],
   ])("$0 -> $1 $2", async (cell, value, options) => {
-    const field = { name: "name", type: "integer" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(parseIntegerField(field))
+    const table = DataFrame({ name: [cell] }).lazy()
+    const schema = {
+      fields: [{ name: "name", type: "integer" as const, ...options }],
+    }
+
+    const ldf = await processTable(table, { schema })
+    const df = await ldf.collect()
+
+    expect(df.getColumn("name").get(0)).toEqual(value)
     expect(df.getColumn("name").get(0)).toEqual(value)
   })
 })

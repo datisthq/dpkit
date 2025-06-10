@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { parseTimeField } from "./time.js"
+import { processTable } from "../../table/index.js"
 
 describe("parseTimeField", () => {
   it.each([
@@ -23,9 +23,15 @@ describe("parseTimeField", () => {
 
     // Invalid format
     //["06:00", null, { format: "invalid" }],
-  ])("$0 -> $1 $2", (cell, expected, options) => {
-    const field = { name: "name", type: "time" as const, ...options }
-    const df = DataFrame({ name: [cell] }).select(parseTimeField(field))
+  ])("$0 -> $1 $2", async (cell, expected, options) => {
+    const table = DataFrame({ name: [cell] }).lazy()
+    const schema = {
+      fields: [{ name: "name", type: "time" as const, ...options }],
+    }
+
+    const ldf = await processTable(table, { schema })
+    const df = await ldf.collect()
+
     expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })
