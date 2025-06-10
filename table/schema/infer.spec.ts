@@ -6,7 +6,6 @@ import { inferSchema } from "./infer.js"
 describe("inferSchema", () => {
   it("should infer from native types", async () => {
     const table = DataFrame({
-      // TODO: support inferring integers from floats?
       integer: Series("integer", [1, 2], DataType.Int32),
       number: [1.1, 2.2],
     }).lazy()

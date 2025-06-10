@@ -133,6 +133,7 @@ async function validateFields(
   invalidRowsLimit: number,
 ) {
   const errors: TableError[] = []
+  const targetNames: string[] = []
 
   const sources = Object.entries(
     processFields(schema, polarsSchema, { dontParse: true }),
@@ -143,7 +144,9 @@ async function validateFields(
   const targets = Object.entries(
     processFields(schema, polarsSchema, { dontParse: false }),
   ).map(([name, expr]) => {
-    return expr.alias(`target:${name}`)
+    const targetName = `target:${name}`
+    targetNames.push(targetName)
+    return expr.alias(targetName)
   })
 
   let errorTable = table
@@ -155,38 +158,25 @@ async function validateFields(
       ...targets,
     ])
 
-  // Row-level checks
-  // TODO: implement row-level checks
-
   for (const [index, field] of schema.fields.entries()) {
     const polarsField = matchField(index, field, schema, polarsSchema)
-    if (!polarsField) {
-      continue
+    if (polarsField) {
+      const result = validateField(field, { errorTable, polarsField })
+      errorTable = result.errorTable
+      errors.push(...result.errors)
     }
-
-    const result = validateField(field, { errorTable, polarsField })
-    errorTable = result.errorTable
-    errors.push(...result.errors)
   }
 
   const errorFrame = await errorTable
     .filter(col("error").eq(true))
-    // TODO: drop target columns here to reduce memory usage
     .head(invalidRowsLimit)
+    .drop(targetNames)
     .collect()
 
   for (const record of errorFrame.toRecords() as any[]) {
     for (const [key, value] of Object.entries(record)) {
       const [kind, type, name] = key.split(":")
-      if (kind !== "error" || value !== true) {
-        continue
-      }
-
-      // Row-level errors
-      // TODO: implement row-level errors
-
-      // Cell-level errors
-      if (type && name) {
+      if (kind === "error" && value === true && type && name) {
         errors.push({
           type: type as any,
           fieldName: name as any,
