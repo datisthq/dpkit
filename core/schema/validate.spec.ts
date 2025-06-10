@@ -16,16 +16,14 @@ describe("validateSchema", () => {
       ],
     }
 
-    const result = await validateSchema({
-      descriptor,
-    })
+    const result = await validateSchema(descriptor)
 
     expect(result.valid).toBe(true)
     expect(result.errors).toEqual([])
   })
 
   it("returns validation errors for invalid schema", async () => {
-    const invalidSchema = {
+    const descriptor = {
       fields: [
         {
           name: "id",
@@ -34,9 +32,7 @@ describe("validateSchema", () => {
       ],
     }
 
-    const result = await validateSchema({
-      descriptor: invalidSchema,
-    })
+    const result = await validateSchema(descriptor)
 
     expect(result.valid).toBe(false)
     expect(result.errors.length).toBeGreaterThan(0)

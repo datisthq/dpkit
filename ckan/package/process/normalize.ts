@@ -8,11 +8,7 @@ import type { CkanPackage } from "../Package.js"
  * @param props Object containing the CKAN package to normalize
  * @returns Normalized Package object
  */
-export function normalizeCkanPackage(props: {
-  ckanPackage: CkanPackage
-}): Package {
-  const { ckanPackage } = props
-
+export function normalizeCkanPackage(ckanPackage: CkanPackage): Package {
   const datapackage: Package = {
     name: ckanPackage.name,
     resources: [],
@@ -33,7 +29,7 @@ export function normalizeCkanPackage(props: {
   // Process resources
   if (ckanPackage.resources && ckanPackage.resources.length > 0) {
     datapackage.resources = ckanPackage.resources.map(resource =>
-      normalizeCkanResource({ ckanResource: resource }),
+      normalizeCkanResource(resource),
     )
   }
 

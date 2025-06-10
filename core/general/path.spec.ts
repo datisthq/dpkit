@@ -62,7 +62,7 @@ describe("isRemotePath", () => {
       isRemote: true,
     },
   ])("$description", ({ path, isRemote }) => {
-    expect(isRemotePath({ path })).toBe(isRemote)
+    expect(isRemotePath(path)).toBe(isRemote)
   })
 })
 
@@ -114,7 +114,7 @@ describe("getFilename", () => {
       filename: undefined,
     },
   ])("$description", ({ path, filename }) => {
-    expect(getFilename({ path })).toEqual(filename)
+    expect(getFilename(path)).toEqual(filename)
   })
 })
 
@@ -166,7 +166,7 @@ describe("getBasepath", () => {
       basepath: "",
     },
   ])("$description", ({ path, basepath }) => {
-    expect(getBasepath({ path })).toEqual(basepath)
+    expect(getBasepath(path)).toEqual(basepath)
   })
 })
 
@@ -215,7 +215,7 @@ describe("normalizePath", () => {
       normalizedPath: "path/to/file.txt",
     },
   ])("$description", ({ path, basepath, normalizedPath }) => {
-    expect(normalizePath({ path, basepath })).toEqual(normalizedPath)
+    expect(normalizePath(path, { basepath })).toEqual(normalizedPath)
   })
 
   it.each([
@@ -235,7 +235,7 @@ describe("normalizePath", () => {
       basepath: "http://example.com/data",
     },
   ])("$description -- throw", ({ path, basepath }) => {
-    expect(() => normalizePath({ path, basepath })).toThrow()
+    expect(() => normalizePath(path, { basepath })).toThrow()
   })
 })
 
@@ -278,6 +278,6 @@ describe("denormalizePath", () => {
       denormalizedPath: "data/file.csv",
     },
   ])("$description", ({ path, basepath, denormalizedPath }) => {
-    expect(denormalizePath({ path, basepath })).toEqual(denormalizedPath)
+    expect(denormalizePath(path, { basepath })).toEqual(denormalizedPath)
   })
 })

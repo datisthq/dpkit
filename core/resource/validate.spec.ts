@@ -10,9 +10,7 @@ describe("validateResourceDescriptor", () => {
       encoding: "utf-8",
     }
 
-    const result = await validateResourceDescriptor({
-      descriptor,
-    })
+    const result = await validateResourceDescriptor(descriptor)
 
     expect(result.valid).toBe(true)
     expect(result.errors).toEqual([])
@@ -24,9 +22,7 @@ describe("validateResourceDescriptor", () => {
       path: true, // Should be a string or array of strings
     }
 
-    const result = await validateResourceDescriptor({
-      descriptor: invalidResource,
-    })
+    const result = await validateResourceDescriptor(invalidResource)
 
     expect(result.valid).toBe(false)
     expect(result.errors.length).toBeGreaterThan(0)

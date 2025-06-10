@@ -11,7 +11,7 @@ describe("normalizeCkanPackage", () => {
     const ckanPackage = ckanPackageFixture as CkanPackage
 
     // Act
-    const result = normalizeCkanPackage({ ckanPackage })
+    const result = normalizeCkanPackage(ckanPackage)
 
     // Assert
     // Basic metadata
@@ -88,7 +88,7 @@ describe("normalizeCkanPackage", () => {
     }
 
     // Act
-    const result = normalizeCkanPackage({ ckanPackage })
+    const result = normalizeCkanPackage(ckanPackage)
 
     // Assert
     expect(result.resources).toEqual([])
@@ -104,7 +104,7 @@ describe("normalizeCkanPackage", () => {
 
     // Act
     // @ts-ignore
-    const result = normalizeCkanPackage({ ckanPackage })
+    const result = normalizeCkanPackage(ckanPackage)
 
     // Assert
     expect(result.name).toBeUndefined()

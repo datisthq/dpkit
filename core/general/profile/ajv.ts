@@ -5,5 +5,5 @@ export const ajv = new Ajv({
   strict: false,
   validateSchema: false,
   validateFormats: false,
-  loadSchema: path => loadProfile({ path }),
+  loadSchema: loadProfile,
 })

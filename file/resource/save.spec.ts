@@ -98,9 +98,8 @@ describe("saveResourceFiles", () => {
     "$description",
     async ({ resource, basepath, withRemote, withoutFolders, descriptor }) => {
       expect(
-        await saveResourceFiles({
-          // @ts-ignore
-          resource,
+        // @ts-ignore
+        await saveResourceFiles(resource, {
           basepath,
           withRemote,
           withoutFolders,

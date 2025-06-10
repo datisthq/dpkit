@@ -1,9 +1,7 @@
 import type { Resource } from "@dpkit/core"
 import type { ZenodoResource } from "../Resource.js"
 
-export function denormalizeZenodoResource(props: { resource: Resource }) {
-  const { resource } = props
-
+export function denormalizeZenodoResource(resource: Resource) {
   const zenodoResource: Partial<ZenodoResource> = {
     key: resource.name,
   }

@@ -40,11 +40,9 @@ Loading a Camtrap DP package from Zenodo merging system Zenodo metadata into a u
 ```ts
 import { loadPackage } from "dpkit"
 
-const { datapackage } = await loadPackage({
-  source: "https://zenodo.org/records/10053903",
-})
+const { dataPackage } = await loadPackage("https://zenodo.org/records/10053903")
 
-console.log(datapackage)
+console.log(dataPackage)
 //{
 //  id: 'https://doi.org/10.5281/zenodo.10053903',
 //  profile: 'tabular-data-package',
@@ -58,12 +56,9 @@ Example of using a Data Package extension in type-safe manner. Not supported pro
 ```ts
 import { loadPackage, assertCamtrapPackage } from "dpkit"
 
-const { datapackage } = await loadPackage({
-  source:
-    "https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.1/example/datapackage.json",
-})
+const { dataPackage } = await loadPackage("https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.1/example/datapackage.json")
 
-const camtrapPackage = await assertCamtrapPackage({ datapackage })
+const camtrapPackage = await assertCamtrapPackage(dataPackage)
 
 console.log(camtrapPackage.project.title)
 // Management of Invasive Coypu and muskrAt in Europe
@@ -76,9 +71,7 @@ Validating an in-memory package descriptor:
 ```ts
 import { validatePackageDescriptor } from "dpkit"
 
-const { valid, errors } = await validatePackageDescriptor({
-  descriptor: { name: "package" },
-})
+const { valid, errors } = await validatePackageDescriptor({ name: "package" })
 
 console.log(valid)
 // false
@@ -105,14 +98,13 @@ import {
 } from "dpkit"
 import { temporaryFileTask } from "tempy"
 
-const sourcePackage = await loadPackageDescriptor({
-  path: "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
-})
+const sourcePackage = await loadPackageDescriptor("https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
+)
 
 await temporaryFileTask(
   async archivePath => {
-    await savePackageToZip({ datapackage: sourcePackage, archivePath })
-    const { datapackage: targetPackage, cleanup } = await loadPackageFromZip({ archivePath })
+    await savePackageToZip(sourcePackage, { archivePath })
+    const { dataPackage: targetPackage, cleanup } = await loadPackageFromZip(archivePath)
     console.log(targetPackage)
     //{
     //  name: 'currency-codes',

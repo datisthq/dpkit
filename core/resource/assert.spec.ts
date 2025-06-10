@@ -12,9 +12,7 @@ describe("assertResource", () => {
       encoding: "utf-8",
     }
 
-    const resource = await assertResource({
-      descriptor,
-    })
+    const resource = await assertResource(descriptor)
 
     expectTypeOf(resource).toEqualTypeOf<Resource>()
     expect(resource).toEqual(descriptor)
@@ -26,10 +24,8 @@ describe("assertResource", () => {
       path: true, // Should be a string or array of strings
     }
 
-    await expect(
-      assertResource({
-        descriptor: invalidResource,
-      }),
-    ).rejects.toThrow(AssertionError)
+    await expect(assertResource(invalidResource)).rejects.toThrow(
+      AssertionError,
+    )
   })
 })

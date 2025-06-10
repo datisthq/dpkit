@@ -13,23 +13,19 @@ describe("validatePackageDescriptor", () => {
       ],
     }
 
-    const result = await validatePackageDescriptor({
-      descriptor,
-    })
+    const result = await validatePackageDescriptor(descriptor)
 
     expect(result.valid).toBe(true)
     expect(result.errors).toEqual([])
   })
 
   it("returns validation errors for invalid package", async () => {
-    const invalidPackage = {
+    const descriptor = {
       name: 123, // Should be a string
       resources: "not-an-array", // Should be an array
     }
 
-    const result = await validatePackageDescriptor({
-      descriptor: invalidPackage,
-    })
+    const result = await validatePackageDescriptor(descriptor)
 
     expect(result.valid).toBe(false)
     expect(result.errors.length).toBeGreaterThan(0)

@@ -1,10 +1,10 @@
 import { join, relative, resolve, sep } from "node:path"
 import { type Package, getBasepath, isRemotePath } from "@dpkit/core"
 
-export function getPackageBasepath(props: { datapackage: Package }) {
+export function getPackageBasepath(dataPackage: Package) {
   const paths: string[] = []
 
-  for (const resource of props.datapackage.resources) {
+  for (const resource of dataPackage.resources) {
     if (!resource.path) {
       continue
     }
@@ -16,13 +16,13 @@ export function getPackageBasepath(props: { datapackage: Package }) {
     paths.push(...resourcePaths)
   }
 
-  return getCommonLocalBasepath({ paths })
+  return getCommonLocalBasepath(paths)
 }
 
-export function getCommonLocalBasepath(props: { paths: string[] }) {
-  const absoluteBasepaths = props.paths
-    .filter(path => !isRemotePath({ path }))
-    .map(path => resolve(getBasepath({ path })))
+export function getCommonLocalBasepath(paths: string[]) {
+  const absoluteBasepaths = paths
+    .filter(path => !isRemotePath(path))
+    .map(path => resolve(getBasepath(path)))
 
   if (!absoluteBasepaths.length) {
     return undefined

@@ -84,6 +84,16 @@ importers:
 
   csv: {}
 
+  datahub:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
+
   db: {}
 
   docs:
@@ -128,12 +138,24 @@ importers:
       '@dpkit/core':
         specifier: workspace:*
         version: link:../core
+      '@dpkit/datahub':
+        specifier: workspace:*
+        version: link:../datahub
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      '@dpkit/folder':
+        specifier: workspace:*
+        version: link:../folder
       '@dpkit/github':
         specifier: workspace:*
         version: link:../github
+      '@dpkit/inline':
+        specifier: workspace:*
+        version: link:../inline
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
       '@dpkit/zenodo':
         specifier: workspace:*
         version: link:../zenodo
@@ -157,6 +179,15 @@ importers:
         specifier: ^1.3.3
         version: 1.3.3
 
+  folder:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
+
   github:
     dependencies:
       '@dpkit/core':
@@ -170,13 +201,32 @@ importers:
         specifier: workspace:*
         version: link:../test
 
+  inline:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
+      nodejs-polars:
+        specifier: ^0.18.0
+        version: 0.18.0
+
   json: {}
 
   ods: {}
 
   parquet: {}
 
-  table: {}
+  table:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      nodejs-polars:
+        specifier: ^0.18.0
+        version: 0.18.0
 
   test:
     dependencies:
@@ -2454,6 +2504,58 @@ packages:
 
   node-mock-http@1.0.0:
     resolution: {integrity: sha512-0uGYQ1WQL1M5kKvGRXWQ3uZCHtLTO8hln3oBjIusM75WoesZ909uQJs/Hb946i2SS+Gsrhkaa6iAO17jRIv6DQ==}
+
+  nodejs-polars-android-arm64@0.18.0:
+    resolution: {integrity: sha512-ksmL8X2xsMkI9WMlzRw7Mt7csIDfNJVDlyybSDMMAfO1YWfC2aCFUroFc8UnXVK+8bIZXB7W+k1ZzTRhtSxPsQ==}
+    engines: {node: '>= 16'}
+    cpu: [arm64]
+    os: [android]
+
+  nodejs-polars-darwin-arm64@0.18.0:
+    resolution: {integrity: sha512-Hs8pbyPZCvOLSVoPx6X07vmYu1NmGAvLFYVHry945alesjsMOXZ//9D8psKOsZAh8WRU36CHXHSS18+RxdzLyA==}
+    engines: {node: '>= 16'}
+    cpu: [arm64]
+    os: [darwin]
+
+  nodejs-polars-darwin-x64@0.18.0:
+    resolution: {integrity: sha512-AmLHJ4a4ufTAFohr7b7cQmPvn1Owl6AQBwwows447GfwEO65lu0PSUcmJbeiGJcLtjM9Dji6uiJdadRnGXC4sw==}
+    engines: {node: '>= 16'}
+    cpu: [x64]
+    os: [darwin]
+
+  nodejs-polars-linux-arm64-gnu@0.18.0:
+    resolution: {integrity: sha512-lqOA0b6XXd/8D0q4tfrlr9g+awN/lz1WoWlDJXlYDCXeEdiPzodHuKOROi/J8cwcM6RpiWLWviFkJ2FkxZBv7w==}
+    engines: {node: '>= 16'}
+    cpu: [arm64]
+    os: [linux]
+
+  nodejs-polars-linux-arm64-musl@0.18.0:
+    resolution: {integrity: sha512-lylaOGB3c94UBpsDt4XtrS2RJymgICfAnMVlbvN+2bftejh7blDaYTJeLvZr4POHfltpWeSXjl28Zck7goDJCA==}
+    engines: {node: '>= 16'}
+    cpu: [arm64]
+    os: [linux]
+
+  nodejs-polars-linux-x64-gnu@0.18.0:
+    resolution: {integrity: sha512-Gk6HJba0Hrea6yjDEj0u4jArWgry+s8/17g646vJdlcAWoaQYXDdfCseObGjtTqajVkFf2msrn76KWZ2Nadq5A==}
+    engines: {node: '>= 16'}
+    cpu: [x64]
+    os: [linux]
+
+  nodejs-polars-linux-x64-musl@0.18.0:
+    resolution: {integrity: sha512-KAb72TGTphCUfTZj1mMyDAJ+/3pgifAucWjdCr6aO3Jw4XHJVu6mMRhfDUZgIGWilpwADwPLHnqPjs+qydOoCg==}
+    engines: {node: '>= 16'}
+    cpu: [x64]
+    os: [linux]
+
+  nodejs-polars-win32-x64-msvc@0.18.0:
+    resolution: {integrity: sha512-jQJST6yDmY/q4kBCCErSaxNrJClL7Dpk7IsdoPrFHXaFzL25nmDxfgow7VWDaEiE45jNL7TXANAgDs7dT61H2Q==}
+    engines: {node: '>= 16'}
+    cpu: [x64]
+    os: [win32]
+
+  nodejs-polars@0.18.0:
+    resolution: {integrity: sha512-TN0InAOCzXS2Nrpr+8Sh9oAvILBjIoKMscz9P5XDJ+Q2F6EMb39Um9gwRzJ2kmEqYsufw6NwsafgbY41xKwVWg==}
+    engines: {node: '>= 18'}
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -6210,6 +6312,41 @@ snapshots:
       whatwg-url: 5.0.0
 
   node-mock-http@1.0.0: {}
+
+  nodejs-polars-android-arm64@0.18.0:
+    optional: true
+
+  nodejs-polars-darwin-arm64@0.18.0:
+    optional: true
+
+  nodejs-polars-darwin-x64@0.18.0:
+    optional: true
+
+  nodejs-polars-linux-arm64-gnu@0.18.0:
+    optional: true
+
+  nodejs-polars-linux-arm64-musl@0.18.0:
+    optional: true
+
+  nodejs-polars-linux-x64-gnu@0.18.0:
+    optional: true
+
+  nodejs-polars-linux-x64-musl@0.18.0:
+    optional: true
+
+  nodejs-polars-win32-x64-msvc@0.18.0:
+    optional: true
+
+  nodejs-polars@0.18.0:
+    optionalDependencies:
+      nodejs-polars-android-arm64: 0.18.0
+      nodejs-polars-darwin-arm64: 0.18.0
+      nodejs-polars-darwin-x64: 0.18.0
+      nodejs-polars-linux-arm64-gnu: 0.18.0
+      nodejs-polars-linux-arm64-musl: 0.18.0
+      nodejs-polars-linux-x64-gnu: 0.18.0
+      nodejs-polars-linux-x64-musl: 0.18.0
+      nodejs-polars-win32-x64-msvc: 0.18.0
 
   normalize-path@3.0.0: {}
 

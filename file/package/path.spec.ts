@@ -51,6 +51,6 @@ describe("getCommonLocalBasepath", () => {
       basepath: undefined,
     },
   ])("$description", ({ paths, basepath }) => {
-    expect(getCommonLocalBasepath({ paths })).toEqual(basepath)
+    expect(getCommonLocalBasepath(paths)).toEqual(basepath)
   })
 })

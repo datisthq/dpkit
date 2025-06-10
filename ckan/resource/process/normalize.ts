@@ -8,15 +8,11 @@ import type { CkanResource } from "../Resource.js"
  * @param props Object containing the CKAN resource to normalize
  * @returns Normalized Resource object
  */
-export function normalizeCkanResource(props: {
-  ckanResource: CkanResource
-}): Resource {
-  const { ckanResource } = props
-
+export function normalizeCkanResource(ckanResource: CkanResource): Resource {
   const resource: Resource = {
     name: slugifyName(ckanResource.name),
     path: ckanResource.url,
-    "ckan:key": getFilename({ path: ckanResource.url }),
+    "ckan:key": getFilename(ckanResource.url),
     "ckan:url": ckanResource.url,
   }
 
@@ -43,7 +39,7 @@ export function normalizeCkanResource(props: {
 
   if (ckanResource.schema) {
     resource.type = "table"
-    resource.schema = normalizeCkanSchema({ ckanSchema: ckanResource.schema })
+    resource.schema = normalizeCkanSchema(ckanResource.schema)
   }
 
   return resource

@@ -18,9 +18,7 @@ import type { CkanSchema } from "../Schema.js"
  * @param props Object containing the CKAN schema to normalize
  * @returns A normalized Table Schema object
  */
-export function normalizeCkanSchema(props: { ckanSchema: CkanSchema }): Schema {
-  const { ckanSchema } = props
-
+export function normalizeCkanSchema(ckanSchema: CkanSchema): Schema {
   const fields = ckanSchema.fields.map(normalizeCkanField)
 
   return { fields }

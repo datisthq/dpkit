@@ -151,42 +151,44 @@ exports[`loadPackageFromGithub > should merge datapackage.json if present 1`] = 
       "path": "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/data/codes-all.csv",
       "schema": {
         "$schema": undefined,
-        "fields": [
-          {
-            "description": "Country or region name",
-            "name": "Entity",
-            "type": "string",
-          },
-          {
-            "description": "Name of the currency",
-            "name": "Currency",
-            "type": "string",
-          },
-          {
-            "description": "3 digit alphabetic code for the currency",
-            "name": "AlphabeticCode",
-            "title": "Alphabetic Code",
-            "type": "string",
-          },
-          {
-            "description": "3 digit numeric code",
-            "name": "NumericCode",
-            "title": "Numeric Code",
-            "type": "number",
-          },
-          {
-            "description": "",
-            "name": "MinorUnit",
-            "title": "Minor Unit",
-            "type": "string",
-          },
-          {
-            "description": "Date currency withdrawn (values can be ranges or months",
-            "name": "WithdrawalDate",
-            "title": "Withdrawal Date",
-            "type": "string",
-          },
-        ],
+        "descriptor": {
+          "fields": [
+            {
+              "description": "Country or region name",
+              "name": "Entity",
+              "type": "string",
+            },
+            {
+              "description": "Name of the currency",
+              "name": "Currency",
+              "type": "string",
+            },
+            {
+              "description": "3 digit alphabetic code for the currency",
+              "name": "AlphabeticCode",
+              "title": "Alphabetic Code",
+              "type": "string",
+            },
+            {
+              "description": "3 digit numeric code",
+              "name": "NumericCode",
+              "title": "Numeric Code",
+              "type": "number",
+            },
+            {
+              "description": "",
+              "name": "MinorUnit",
+              "title": "Minor Unit",
+              "type": "string",
+            },
+            {
+              "description": "Date currency withdrawn (values can be ranges or months",
+              "name": "WithdrawalDate",
+              "title": "Withdrawal Date",
+              "type": "string",
+            },
+          ],
+        },
       },
       "size": "16863",
     },

@@ -7,12 +7,9 @@ import type { GithubResource } from "../Resource.js"
  * @param props Object containing the Resource to denormalize
  * @returns Partial Github Resource object for API operations
  */
-export function denormalizeGithubResource(props: {
-  resource: Resource
-  content?: string
-}): Partial<GithubResource> {
-  const { resource } = props
-
+export function denormalizeGithubResource(
+  resource: Resource,
+): Partial<GithubResource> {
   if (!resource.path && !resource.name) {
     return {}
   }

@@ -10,27 +10,28 @@ import {
 } from "@dpkit/file"
 import { ZipFile } from "yazl"
 
-export async function savePackageToZip(props: {
-  datapackage: Package
-  archivePath: string
-  withRemote?: boolean
-}) {
-  const { archivePath, datapackage, withRemote } = props
-  const basepath = getPackageBasepath({ datapackage })
+export async function savePackageToZip(
+  dataPackage: Package,
+  options: {
+    archivePath: string
+    withRemote?: boolean
+  },
+) {
+  const { archivePath, withRemote } = options
+  const basepath = getPackageBasepath(dataPackage)
 
-  await assertLocalPathVacant({ path: archivePath })
+  await assertLocalPathVacant(archivePath)
   const zipfile = new ZipFile()
 
   const resourceDescriptors: Descriptor[] = []
-  for (const resource of datapackage.resources) {
+  for (const resource of dataPackage.resources) {
     resourceDescriptors.push(
-      await saveResourceFiles({
-        resource,
+      await saveResourceFiles(resource, {
         basepath,
         withRemote,
         saveFile: async props => {
           zipfile.addReadStream(
-            await readFileStream({ path: props.normalizedPath }),
+            await readFileStream(props.normalizedPath),
             props.denormalizedPath,
           )
 
@@ -41,7 +42,7 @@ export async function savePackageToZip(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ datapackage, basepath }),
+    ...denormalizePackage(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 

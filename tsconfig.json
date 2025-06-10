@@ -19,7 +19,6 @@
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": false,
-    "experimentalDecorators": true,
     "inlineSourceMap": true,
     "inlineSources": true,
     "skipLibCheck": true

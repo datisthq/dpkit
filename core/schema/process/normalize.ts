@@ -1,26 +1,24 @@
 import invariant from "tiny-invariant"
+import { normalizeField } from "../../field/index.js"
 import type { Descriptor } from "../../general/index.js"
 
-export function normalizeSchema(props: { descriptor: Descriptor }) {
-  const descriptor = globalThis.structuredClone(props.descriptor)
+export function normalizeSchema(descriptor: Descriptor) {
+  descriptor = globalThis.structuredClone(descriptor)
 
-  normalizeProfile({ descriptor })
-  normalizeFields({ descriptor })
-  normalizePrimaryKey({ descriptor })
-  normalizeForeignKeys({ descriptor })
-  normalizeUniqueKeys({ descriptor })
+  normalizeProfile(descriptor)
+  normalizeFields(descriptor)
+  normalizePrimaryKey(descriptor)
+  normalizeForeignKeys(descriptor)
+  normalizeUniqueKeys(descriptor)
 
   return descriptor
 }
 
-function normalizeProfile(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
+function normalizeProfile(descriptor: Descriptor) {
   descriptor.$schema = descriptor.$schema ?? descriptor.profile
 }
 
-function normalizeFields(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeFields(descriptor: Descriptor) {
   const fields = descriptor.fields
   if (!fields) {
     return
@@ -32,90 +30,11 @@ function normalizeFields(props: { descriptor: Descriptor }) {
   )
 
   for (const field of fields) {
-    normalizeFieldFormat({ field })
-    normalizeFieldMissingValues({ field })
-    normalizeFieldCategories({ field })
-    normalizeFieldCategoriesOrdered({ field })
-    normalizeFieldJsonschema({ field })
+    normalizeField({ descriptor: field })
   }
 }
 
-function normalizeFieldFormat(props: { field: Descriptor }) {
-  const { field } = props
-
-  const format = field.format
-  if (!format) {
-    return
-  }
-
-  if (typeof format === "string") {
-    if (format.startsWith("fmt:")) {
-      field.format = format.slice(4)
-    }
-  }
-}
-
-function normalizeFieldMissingValues(props: { field: Descriptor }) {
-  const { field } = props
-
-  const missingValues = field.missingValues
-  if (!missingValues) {
-    return
-  }
-
-  if (!Array.isArray(missingValues)) {
-    field.missingValues = undefined
-    console.warn(`Ignoring v2.0 incompatible missingValues: ${missingValues}`)
-  }
-}
-
-function normalizeFieldCategories(props: { field: Descriptor }) {
-  const { field } = props
-
-  const categories = field.categories
-  if (!categories) {
-    return
-  }
-
-  if (categories && !Array.isArray(categories)) {
-    field.categories = undefined
-    console.warn(`Ignoring v2.0 incompatible categories: ${categories}`)
-  }
-}
-
-function normalizeFieldCategoriesOrdered(props: { field: Descriptor }) {
-  const { field } = props
-
-  const categoriesOrdered = field.categoriesOrdered
-  if (!categoriesOrdered) {
-    return
-  }
-
-  if (typeof categoriesOrdered !== "boolean") {
-    field.categoriesOrdered = undefined
-    console.warn(
-      `Ignoring v2.0 incompatible categoriesOrdered: ${categoriesOrdered}`,
-    )
-  }
-}
-
-function normalizeFieldJsonschema(props: { field: Descriptor }) {
-  const { field } = props
-
-  const jsonschema = field.jsonschema
-  if (!jsonschema) {
-    return
-  }
-
-  if (typeof jsonschema !== "object") {
-    field.jsonschema = undefined
-    console.warn(`Ignoring v2.0 incompatible jsonschema: ${jsonschema}`)
-  }
-}
-
-function normalizePrimaryKey(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizePrimaryKey(descriptor: Descriptor) {
   const primaryKey = descriptor.primaryKey
   if (!primaryKey) {
     return
@@ -126,9 +45,7 @@ function normalizePrimaryKey(props: { descriptor: Descriptor }) {
   }
 }
 
-function normalizeForeignKeys(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeForeignKeys(descriptor: Descriptor) {
   const foreignKeys = descriptor.foreignKeys
   if (!foreignKeys) {
     return
@@ -149,9 +66,7 @@ function normalizeForeignKeys(props: { descriptor: Descriptor }) {
   }
 }
 
-function normalizeUniqueKeys(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeUniqueKeys(descriptor: Descriptor) {
   const uniqueKeys = descriptor.uniqueKeys
   if (!uniqueKeys) {
     return

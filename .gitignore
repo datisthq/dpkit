@@ -43,6 +43,9 @@ pids
 # Storybook
 *storybook.log
 
+# Notebooks
+.ipynb_checkpoints/
+
 # React
 .react-router/
 

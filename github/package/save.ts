@@ -11,14 +11,16 @@ import type { GithubPackage } from "./Package.js"
  * @param props Object containing the package to save and Github details
  * @returns Object with the repository URL
  */
-export async function savePackageToGithub(props: {
-  datapackage: Package
-  apiKey: string
-  repo: string
-  org?: string
-}) {
-  const { datapackage, apiKey, org, repo } = props
-  const basepath = getPackageBasepath({ datapackage })
+export async function savePackageToGithub(
+  dataPackage: Package,
+  options: {
+    apiKey: string
+    repo: string
+    org?: string
+  },
+) {
+  const { apiKey, org, repo } = options
+  const basepath = getPackageBasepath(dataPackage)
 
   const githubPackage = await makeGithubApiRequest<GithubPackage>({
     endpoint: org ? `/orgs/${org}/repos` : "/user/repos",
@@ -28,16 +30,15 @@ export async function savePackageToGithub(props: {
   })
 
   const resourceDescriptors: Descriptor[] = []
-  for (const resource of datapackage.resources) {
+  for (const resource of dataPackage.resources) {
     if (!resource.path) continue
 
     resourceDescriptors.push(
-      await saveResourceFiles({
-        resource,
+      await saveResourceFiles(resource, {
         basepath,
         withRemote: false,
         saveFile: async props => {
-          const stream = await readFileStream({ path: props.normalizedPath })
+          const stream = await readFileStream(props.normalizedPath)
 
           const payload = {
             path: props.denormalizedPath,
@@ -59,7 +60,7 @@ export async function savePackageToGithub(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ datapackage, basepath }),
+    ...denormalizePackage(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 
@@ -81,7 +82,7 @@ export async function savePackageToGithub(props: {
   }
 
   return {
-    path: `https://raw.githubusercontent.com/${githubPackage.owner.login}/${repo}/refs/heads/main/datapackage.json`,
+    path: `https://raw.githubusercontent.com/${githubPackage.owner.login}/${repo}/refs/heads/main/dataPackage.json`,
     repoUrl: githubPackage.html_url,
   }
 }

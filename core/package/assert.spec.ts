@@ -15,24 +15,18 @@ describe("assertPackage", () => {
       ],
     }
 
-    const datapackage = await assertPackage({
-      descriptor,
-    })
+    const datapackage = await assertPackage(descriptor)
 
     expectTypeOf(datapackage).toEqualTypeOf<Package>()
     expect(datapackage).toEqual(descriptor)
   })
 
   it("throws AssertionError when package is invalid", async () => {
-    const invalidPackage = {
+    const descriptor = {
       name: 123, // Should be a string
       resources: "not-an-array", // Should be an array
     }
 
-    await expect(
-      assertPackage({
-        descriptor: invalidPackage,
-      }),
-    ).rejects.toThrow(AssertionError)
+    await expect(assertPackage(descriptor)).rejects.toThrow(AssertionError)
   })
 })

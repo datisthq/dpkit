@@ -4,13 +4,13 @@ import { dirname } from "node:path"
 import type { Readable } from "node:stream"
 import { pipeline } from "node:stream/promises"
 
-export async function writeFileStream(props: {
-  stream: Readable
-  path: string
-}) {
-  const { stream, path } = props
-
+export async function writeFileStream(
+  stream: Readable,
+  options: {
+    path: string
+  },
+) {
   // The "wx" flag ensures that the file won't overwrite an existing file
-  await mkdir(dirname(path), { recursive: true })
-  await pipeline(stream, createWriteStream(path, { flags: "wx" }))
+  await mkdir(dirname(options.path), { recursive: true })
+  await pipeline(stream, createWriteStream(options.path, { flags: "wx" }))
 }
