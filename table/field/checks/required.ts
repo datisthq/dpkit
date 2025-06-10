@@ -5,11 +5,11 @@ import type { Table } from "../../table/index.js"
 export function checkCellRequired(field: Field, errorTable: Table) {
   if (field.constraints?.required) {
     const target = col(`target:${field.name}`)
-    const column = `error:cell/required:${field.name}`
+    const errorName = `error:cell/required:${field.name}`
 
     errorTable = errorTable
-      .withColumn(target.isNull().alias(column))
-      .withColumn(col("error").or(col(column)).alias("error"))
+      .withColumn(target.isNull().alias(errorName))
+      .withColumn(col("error").or(col(errorName)).alias("error"))
   }
 
   return errorTable

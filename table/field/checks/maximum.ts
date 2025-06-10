@@ -16,7 +16,7 @@ export function checkCellMaximum(
 
     if (maximum !== undefined) {
       const target = col(`target:${field.name}`)
-      const column = options?.isExclusive
+      const errorName = options?.isExclusive
         ? `error:cell/exclusiveMaximum:${field.name}`
         : `error:cell/maximum:${field.name}`
 
@@ -31,13 +31,13 @@ export function checkCellMaximum(
         errorTable = errorTable
           .withColumn(
             options?.isExclusive
-              ? target.gtEq(parsedMaximum).alias(column)
-              : target.gt(parsedMaximum).alias(column),
+              ? target.gtEq(parsedMaximum).alias(errorName)
+              : target.gt(parsedMaximum).alias(errorName),
           )
-          .withColumn(col("error").or(col(column)).alias("error"))
+          .withColumn(col("error").or(col(errorName)).alias("error"))
       } catch (error) {
         errorTable = errorTable
-          .withColumn(lit(true).alias(column))
+          .withColumn(lit(true).alias(errorName))
           .withColumn(lit(true).alias("error"))
       }
     }

@@ -16,7 +16,7 @@ export function checkCellMinimum(
 
     if (minimum !== undefined) {
       const target = col(`target:${field.name}`)
-      const column = options?.isExclusive
+      const errorName = options?.isExclusive
         ? `error:cell/exclusiveMinimum:${field.name}`
         : `error:cell/minimum:${field.name}`
 
@@ -30,13 +30,13 @@ export function checkCellMinimum(
         errorTable = errorTable
           .withColumn(
             options?.isExclusive
-              ? target.ltEq(parsedMinimum).alias(column)
-              : target.lt(parsedMinimum).alias(column),
+              ? target.ltEq(parsedMinimum).alias(errorName)
+              : target.lt(parsedMinimum).alias(errorName),
           )
-          .withColumn(col("error").or(col(column)).alias("error"))
+          .withColumn(col("error").or(col(errorName)).alias("error"))
       } catch (error) {
         errorTable = errorTable
-          .withColumn(lit(true).alias(column))
+          .withColumn(lit(true).alias(errorName))
           .withColumn(lit(true).alias("error"))
       }
     }

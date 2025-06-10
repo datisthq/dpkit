@@ -8,11 +8,11 @@ export function checkCellEnum(field: Field, errorTable: Table) {
 
     if (rawEnum) {
       const target = col(`target:${field.name}`)
-      const column = `error:cell/enum:${field.name}`
+      const errorName = `error:cell/enum:${field.name}`
 
       errorTable = errorTable
-        .withColumn(target.isIn(rawEnum).not().alias(column))
-        .withColumn(col("error").or(col(column)).alias("error"))
+        .withColumn(target.isIn(rawEnum).not().alias(errorName))
+        .withColumn(col("error").or(col(errorName)).alias("error"))
     }
   }
 

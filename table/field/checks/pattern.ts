@@ -8,11 +8,11 @@ export function checkCellPattern(field: Field, errorTable: Table) {
 
     if (pattern) {
       const target = col(`target:${field.name}`)
-      const column = `error:cell/pattern:${field.name}`
+      const errorName = `error:cell/pattern:${field.name}`
 
       errorTable = errorTable
-        .withColumn(target.str.contains(pattern).not().alias(column))
-        .withColumn(col("error").or(col(column)).alias("error"))
+        .withColumn(target.str.contains(pattern).not().alias(errorName))
+        .withColumn(col("error").or(col(errorName)).alias("error"))
     }
   }
 

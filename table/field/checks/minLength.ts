@@ -8,11 +8,11 @@ export function checkCellMinLength(field: Field, errorTable: Table) {
 
     if (minLength !== undefined) {
       const target = col(`target:${field.name}`)
-      const column = `error:cell/minLength:${field.name}`
+      const errorName = `error:cell/minLength:${field.name}`
 
       errorTable = errorTable
-        .withColumn(target.str.lengths().lt(minLength).alias(column))
-        .withColumn(col("error").or(col(column)).alias("error"))
+        .withColumn(target.str.lengths().lt(minLength).alias(errorName))
+        .withColumn(col("error").or(col(errorName)).alias("error"))
     }
   }
 

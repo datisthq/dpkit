@@ -8,11 +8,11 @@ export function checkCellMaxLength(field: Field, errorTable: Table) {
 
     if (maxLength !== undefined) {
       const target = col(`target:${field.name}`)
-      const column = `error:cell/maxLength:${field.name}`
+      const errorName = `error:cell/maxLength:${field.name}`
 
       errorTable = errorTable
-        .withColumn(target.str.lengths().gt(maxLength).alias(column))
-        .withColumn(col("error").or(col(column)).alias("error"))
+        .withColumn(target.str.lengths().gt(maxLength).alias(errorName))
+        .withColumn(col("error").or(col(errorName)).alias("error"))
     }
   }
 

@@ -8,16 +8,16 @@ export function checkCellUnique(field: Field, errorTable: Table) {
 
   if (unique) {
     const target = col(`target:${field.name}`)
-    const column = `error:cell/unique:${field.name}`
+    const errorName = `error:cell/unique:${field.name}`
 
     errorTable = errorTable
       .withColumn(
         when(target.isNotNull())
           .then(target.isFirstDistinct().not())
           .otherwise(lit(false))
-          .alias(column),
+          .alias(errorName),
       )
-      .withColumn(col("error").or(col(column)).alias("error"))
+      .withColumn(col("error").or(col(errorName)).alias("error"))
   }
 
   return errorTable
