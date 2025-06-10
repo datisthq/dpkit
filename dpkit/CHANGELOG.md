@@ -1,5 +1,26 @@
 # dpkit
 
+## 0.4.0
+
+### Minor Changes
+
+- 40a9ff1: Implemented table/inline packages
+
+### Patch Changes
+
+- Updated dependencies [40a9ff1]
+  - @dpkit/camtrap@0.5.0
+  - @dpkit/datahub@0.6.0
+  - @dpkit/folder@0.6.0
+  - @dpkit/github@0.6.0
+  - @dpkit/inline@0.4.0
+  - @dpkit/zenodo@0.5.0
+  - @dpkit/table@0.4.0
+  - @dpkit/ckan@0.5.0
+  - @dpkit/core@0.6.0
+  - @dpkit/file@0.6.0
+  - @dpkit/zip@0.5.0
+
 ## 0.3.2
 
 ### Patch Changes
