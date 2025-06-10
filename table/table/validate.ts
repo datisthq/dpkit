@@ -13,7 +13,7 @@ import { processFields } from "./process.js"
 export async function validateTable(
   table: Table,
   options: {
-    schema: Schema | string
+    schema?: Schema | string
     sampleSize?: number
     invalidRowsLimit?: number
   },
@@ -21,24 +21,26 @@ export async function validateTable(
   const { sampleSize = 100, invalidRowsLimit = 100 } = options
   const errors: TableError[] = []
 
-  const schema =
-    typeof options.schema === "string"
-      ? await loadSchema(options.schema)
-      : options.schema
+  if (options.schema) {
+    const schema =
+      typeof options.schema === "string"
+        ? await loadSchema(options.schema)
+        : options.schema
 
-  const sample = await table.head(sampleSize).collect()
-  const polarsSchema = getPolarsSchema(sample.schema)
+    const sample = await table.head(sampleSize).collect()
+    const polarsSchema = getPolarsSchema(sample.schema)
 
-  const matchErrors = validateFieldsMatch({ schema, polarsSchema })
-  errors.push(...matchErrors)
+    const matchErrors = validateFieldsMatch({ schema, polarsSchema })
+    errors.push(...matchErrors)
 
-  const fieldErrors = await validateFields(
-    table,
-    schema,
-    polarsSchema,
-    invalidRowsLimit,
-  )
-  errors.push(...fieldErrors)
+    const fieldErrors = await validateFields(
+      table,
+      schema,
+      polarsSchema,
+      invalidRowsLimit,
+    )
+    errors.push(...fieldErrors)
+  }
 
   const valid = errors.length === 0
   return { valid, errors }

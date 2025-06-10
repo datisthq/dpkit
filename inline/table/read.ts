@@ -2,17 +2,17 @@ import type { Resource } from "@dpkit/core"
 import { processTable } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 
-export async function readInlineTable(props: {
-  resource: Resource
-  dontProcess?: boolean
-}) {
-  const { resource } = props
-
+export async function readInlineTable(
+  resource: Resource,
+  options?: {
+    dontProcess?: boolean
+  },
+) {
   const polarsData = getPolarsData({ data: resource.data })
   const schema = resource.schema
 
   let table = DataFrame(polarsData).lazy()
-  if (!props.dontProcess) {
+  if (!options?.dontProcess) {
     table = await processTable(table, { schema })
   }
 

@@ -26,14 +26,14 @@ const resource = {
   ]
 }
 
-const table = await readInlineTable({ resource })
+const table = await readInlineTable(resource)
 ```
 
 ### Object Format Data
 
 ```typescript
 const resource = {
-  name: "languages", 
+  name: "languages",
   type: "table",
   data: [
     { id: 1, name: "english" },
@@ -41,15 +41,15 @@ const resource = {
   ]
 }
 
-const table = await readInlineTable({ resource })
+const table = await readInlineTable(resource)
 ```
 
-### With Schema Validation
+### With Processing Based on Schema
 
 ```typescript
 const resource = {
   name: "languages",
-  type: "table", 
+  type: "table",
   data: [
     ["id", "name"],
     [1, "english"],
@@ -63,6 +63,42 @@ const resource = {
   }
 }
 
-const table = await readInlineTable({ resource })
+const table = await readInlineTable(resource)
+```
+
+### Inline Resource Validation
+
+```typescript
+import { validateInlineTable } from "@dpkit/inline"
+
+const resource = {
+  name: "languages",
+  type: "table",
+  data: [
+    ["id", "name"],
+    [1, "english"],
+    [2, "中文"]
+  ],
+  schema: {
+    fields: [
+      { name: "id", type: "integer" },
+      { name: "name", type: "integer" }
+    ]
+  }
+}
+
+const {valid, errors} = await validateInlineTable(resource)
+//{
+//  type: "cell/type",
+//  fieldName: "name",
+//  rowNumber: 1,
+//  cell: "english",
+//}
+//{
+//  type: "cell/type",
+//  fieldName: "name",
+//  rowNumber: 2,
+//  cell: "中文",
+//}
 ```
 
