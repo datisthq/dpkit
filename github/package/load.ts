@@ -9,14 +9,16 @@ import { normalizeGithubPackage } from "./process/normalize.js"
  * @param props Object containing the URL to the Github repository
  * @returns Package object
  */
-export async function loadPackageFromGithub(props: {
-  repoUrl: string
-  apiKey?: string
-}) {
-  const { repoUrl, apiKey } = props
+export async function loadPackageFromGithub(
+  repoUrl: string,
+  options?: {
+    apiKey?: string
+  },
+) {
+  const { apiKey } = options ?? {}
 
   // Extract owner and repo from URL
-  const { owner, repo } = extractRepositoryInfo({ repoUrl })
+  const { owner, repo } = extractRepositoryInfo(repoUrl)
   if (!owner || !repo) {
     throw new Error(`Failed to extract repository info from URL: ${repoUrl}`)
   }
@@ -34,7 +36,7 @@ export async function loadPackageFromGithub(props: {
     })
   ).tree
 
-  const systemPackage = normalizeGithubPackage({ githubPackage })
+  const systemPackage = normalizeGithubPackage(githubPackage)
   const userPackagePath = systemPackage.resources
     .filter(resource => resource["github:key"] === "datapackage.json")
     .map(resource => resource["github:url"])
@@ -55,8 +57,8 @@ export async function loadPackageFromGithub(props: {
  * Examples:
  * - https://github.com/owner/repo
  */
-function extractRepositoryInfo(props: { repoUrl: string }) {
-  const url = new URL(props.repoUrl)
+function extractRepositoryInfo(repoUrl: string) {
+  const url = new URL(repoUrl)
   const [owner, repo] = url.pathname.split("/").filter(Boolean)
   return { owner, repo }
 }

@@ -1,3 +1,3 @@
-export function normalizeFileLink(props: { link: string }) {
-  return props.link.replace("/api/", "/").replace(/\/content$/, "")
+export function normalizeFileLink(link: string) {
+  return link.replace("/api/", "/").replace(/\/content$/, "")
 }

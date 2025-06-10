@@ -20,9 +20,7 @@ describe("validateDialect", () => {
       delimiter: 1, // Should be a string
     }
 
-    const result = await validateDialect({
-      descriptor: invalidDialect,
-    })
+    const result = await validateDialect(invalidDialect)
 
     expect(result.valid).toBe(false)
     expect(result.errors.length).toBeGreaterThan(0)

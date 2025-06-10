@@ -7,13 +7,16 @@ packages:
   - cli
   - core
   - csv
+  - datahub
   - db
   - docs
   - dpkit
   - excel
   - extend
   - file
+  - folder
   - github
+  - inline
   - json
   - ods
   - parquet

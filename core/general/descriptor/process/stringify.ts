@@ -1,5 +1,5 @@
 import type { Descriptor } from "../Descriptor.js"
 
-export function stringifyDescriptor(props: { descriptor: Descriptor }) {
-  return JSON.stringify(props.descriptor, null, 2)
+export function stringifyDescriptor(descriptor: Descriptor) {
+  return JSON.stringify(descriptor, null, 2)
 }

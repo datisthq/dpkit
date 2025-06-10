@@ -1,8 +1,6 @@
 import { validatePackageDescriptor } from "dpkit"
 
-const { valid, errors } = await validatePackageDescriptor({
-  descriptor: { name: "package" },
-})
+const { valid, errors } = await validatePackageDescriptor({ name: "package" })
 
 console.log(valid)
 // false

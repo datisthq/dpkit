@@ -29,9 +29,9 @@ describe("loadDescriptor", () => {
   })
 
   it("loads a local descriptor from a file path", async () => {
-    const { basepath, descriptor } = await loadDescriptor({
-      path: getFixturePath("schema.json"),
-    })
+    const { basepath, descriptor } = await loadDescriptor(
+      getFixturePath("schema.json"),
+    )
 
     expect(basepath).toEqual(getFixturePath())
     expect(descriptor).toEqual(expectedDescriptor)
@@ -44,7 +44,7 @@ describe("loadDescriptor", () => {
       json: () => Promise.resolve(expectedDescriptor),
     })
 
-    const { basepath, descriptor } = await loadDescriptor({ path: testUrl })
+    const { basepath, descriptor } = await loadDescriptor(testUrl)
 
     expect(basepath).toEqual("https://example.com")
     expect(descriptor).toEqual(expectedDescriptor)
@@ -54,14 +54,14 @@ describe("loadDescriptor", () => {
   it("throws error for unsupported URL protocol", async () => {
     const testUrl = "file:///path/to/schema.json"
 
-    await expect(loadDescriptor({ path: testUrl })).rejects.toThrow(
+    await expect(loadDescriptor(testUrl)).rejects.toThrow(
       "Unsupported remote protocol: file:",
     )
   })
 
   it("throws error when onlyRemote is true but path is local", async () => {
     await expect(
-      loadDescriptor({ path: getFixturePath("schema.json"), onlyRemote: true }),
+      loadDescriptor(getFixturePath("schema.json"), { onlyRemote: true }),
     ).rejects.toThrow("Cannot load descriptor for security reasons")
   })
 })

@@ -8,9 +8,9 @@ describe("loadPackageDescriptor", async () => {
     relative(process.cwd(), join(__dirname, "fixtures", name))
 
   it("loads a package from a local file path", async () => {
-    const datapackage = await loadPackageDescriptor({
-      path: getFixturePath("package.json"),
-    })
+    const datapackage = await loadPackageDescriptor(
+      getFixturePath("package.json"),
+    )
 
     expectTypeOf(datapackage).toEqualTypeOf<Package>()
     expect(datapackage.name).toBe("name")
@@ -33,7 +33,7 @@ describe("loadPackageDescriptor", async () => {
 
   it("throws an error when package is invalid", async () => {
     await expect(
-      loadPackageDescriptor({ path: getFixturePath("package-invalid.json") }),
+      loadPackageDescriptor(getFixturePath("package-invalid.json")),
     ).rejects.toThrow()
   })
 })

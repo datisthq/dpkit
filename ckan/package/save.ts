@@ -16,17 +16,19 @@ import type { CkanResource } from "../resource/index.js"
 import { denormalizeCkanResource } from "../resource/index.js"
 import { denormalizeCkanPackage } from "./process/denormalize.js"
 
-export async function savePackageToCkan(props: {
-  datapackage: Package
-  apiKey: string
-  ckanUrl: string
-  ownerOrg: string
-  datasetName: string
-}) {
-  const { datapackage, ckanUrl, apiKey, datasetName, ownerOrg } = props
+export async function savePackageToCkan(
+  dataPackage: Package,
+  options: {
+    apiKey: string
+    ckanUrl: string
+    ownerOrg: string
+    datasetName: string
+  },
+) {
+  const { apiKey, ckanUrl, ownerOrg, datasetName } = options
 
-  const basepath = getPackageBasepath({ datapackage })
-  const ckanPackage = denormalizeCkanPackage({ datapackage })
+  const basepath = getPackageBasepath(dataPackage)
+  const ckanPackage = denormalizeCkanPackage(dataPackage)
 
   const payload = {
     ...ckanPackage,
@@ -38,37 +40,34 @@ export async function savePackageToCkan(props: {
   const result = await makeCkanApiRequest({
     action: "package_create",
     payload,
-    ckanUrl,
-    apiKey,
+    ckanUrl: ckanUrl,
+    apiKey: apiKey,
   })
 
   const url = new URL(ckanUrl)
   url.pathname = `/dataset/${result.name}`
 
   const resourceDescriptors: Descriptor[] = []
-  for (const resource of datapackage.resources) {
+  for (const resource of dataPackage.resources) {
     resourceDescriptors.push(
-      await saveResourceFiles({
-        resource,
+      await saveResourceFiles(resource, {
         basepath,
         withRemote: true,
         withoutFolders: true,
         saveFile: async props => {
-          const filename = getFilename({ path: props.normalizedPath })
-          const ckanResource = denormalizeCkanResource({ resource })
+          const filename = getFilename(props.normalizedPath)
+          const ckanResource = denormalizeCkanResource(resource)
 
           const payload = {
             ...ckanResource,
             package_id: datasetName,
             name: props.denormalizedPath,
-            format: getFormat({ filename })?.toUpperCase(),
+            format: getFormat(filename)?.toUpperCase(),
           }
 
           const upload = {
             name: props.denormalizedPath,
-            data: await blob(
-              await readFileStream({ path: props.normalizedPath }),
-            ),
+            data: await blob(await readFileStream(props.normalizedPath)),
           }
 
           const result = await makeCkanApiRequest<CkanResource>({
@@ -86,7 +85,7 @@ export async function savePackageToCkan(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ datapackage, basepath }),
+    ...denormalizePackage(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 

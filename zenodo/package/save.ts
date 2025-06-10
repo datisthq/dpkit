@@ -15,15 +15,17 @@ import { denormalizeZenodoPackage } from "./process/denormalize.js"
  * @param props Object containing the package to save and Zenodo API details
  * @returns Object with the deposit URL and DOI
  */
-export async function savePackageToZenodo(props: {
-  datapackage: Package
-  sandbox?: boolean
-  apiKey: string
-}) {
-  const { datapackage, apiKey, sandbox = false } = props
-  const basepath = getPackageBasepath({ datapackage })
+export async function savePackageToZenodo(
+  dataPackage: Package,
+  options: {
+    sandbox?: boolean
+    apiKey: string
+  },
+) {
+  const { apiKey, sandbox = false } = options
+  const basepath = getPackageBasepath(dataPackage)
 
-  const newZenodoPackage = denormalizeZenodoPackage({ datapackage })
+  const newZenodoPackage = denormalizeZenodoPackage(dataPackage)
   const zenodoPackage = (await makeZenodoApiRequest({
     payload: newZenodoPackage,
     endpoint: "/deposit/depositions",
@@ -33,21 +35,18 @@ export async function savePackageToZenodo(props: {
   })) as ZenodoPackage
 
   const resourceDescriptors: Descriptor[] = []
-  for (const resource of datapackage.resources) {
+  for (const resource of dataPackage.resources) {
     if (!resource.path) continue
 
     resourceDescriptors.push(
-      await saveResourceFiles({
-        resource,
+      await saveResourceFiles(resource, {
         basepath,
         withRemote: false,
         withoutFolders: true,
         saveFile: async props => {
           const upload = {
             name: props.denormalizedPath,
-            data: await blob(
-              await readFileStream({ path: props.normalizedPath }),
-            ),
+            data: await blob(await readFileStream(props.normalizedPath)),
           }
 
           // It seems that record and deposition files have different metadata
@@ -67,7 +66,7 @@ export async function savePackageToZenodo(props: {
   }
 
   const descriptor = {
-    ...denormalizePackage({ datapackage, basepath }),
+    ...denormalizePackage(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 

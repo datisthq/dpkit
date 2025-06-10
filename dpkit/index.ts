@@ -1,8 +1,12 @@
 export * from "@dpkit/camtrap"
 export * from "@dpkit/ckan"
 export * from "@dpkit/core"
+export * from "@dpkit/datahub"
 export * from "@dpkit/file"
+export * from "@dpkit/folder"
 export * from "@dpkit/github"
+export * from "@dpkit/inline"
+export * from "@dpkit/table"
 export * from "@dpkit/zenodo"
 export * from "@dpkit/zip"
 

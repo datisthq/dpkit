@@ -19,16 +19,14 @@ describe("assertSchema", () => {
       primaryKey: ["id"],
     }
 
-    const schema = await assertSchema({
-      descriptor,
-    })
+    const schema = await assertSchema(descriptor)
 
     expectTypeOf(schema).toEqualTypeOf<Schema>()
     expect(schema).toEqual(descriptor)
   })
 
   it("throws ValidationError when schema is invalid", async () => {
-    const invalidSchema = {
+    const descriptor = {
       fields: [
         {
           name: "id",
@@ -37,10 +35,6 @@ describe("assertSchema", () => {
       ],
     }
 
-    await expect(
-      assertSchema({
-        descriptor: invalidSchema,
-      }),
-    ).rejects.toThrow(AssertionError)
+    await expect(assertSchema(descriptor)).rejects.toThrow(AssertionError)
   })
 })

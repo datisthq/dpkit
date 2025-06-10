@@ -7,11 +7,7 @@ import type { ZenodoPackage } from "../Package.js"
  * @param props Object containing the Zenodo deposit to normalize
  * @returns Normalized Package object
  */
-export function normalizeZenodoPackage(props: {
-  zenodoPackage: ZenodoPackage
-}): Package {
-  const { zenodoPackage } = props
-
+export function normalizeZenodoPackage(zenodoPackage: ZenodoPackage): Package {
   const datapackage: Package = {
     name: `record-${zenodoPackage.id}`,
     resources: [],
@@ -30,7 +26,7 @@ export function normalizeZenodoPackage(props: {
   // Process files/resources
   if (zenodoPackage.files && zenodoPackage.files.length > 0) {
     datapackage.resources = zenodoPackage.files.map(zenodoResource =>
-      normalizeZenodoResource({ zenodoResource }),
+      normalizeZenodoResource(zenodoResource),
     )
   }
 

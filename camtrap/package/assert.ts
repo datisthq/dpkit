@@ -10,10 +10,10 @@ const SUPPORTED_PROFILES = [
 /**
  * Assert a Package descriptor (JSON Object) against its profile
  */
-export async function assertCamtrapPackage(props: {
-  descriptor: Descriptor | Package
-}) {
-  const descriptor = props.descriptor as Descriptor
+export async function assertCamtrapPackage(
+  descriptorOrPackage: Descriptor | Package,
+) {
+  const descriptor = descriptorOrPackage as Descriptor
 
   const isCamtrap =
     typeof descriptor.$schema === "string" &&
@@ -23,10 +23,8 @@ export async function assertCamtrapPackage(props: {
     throw new Error(`Unsupported Camtrap profile "${descriptor.$schema}"`)
   }
 
-  const { errors, datapackage } = await validatePackageDescriptor({
-    descriptor,
-  })
+  const { errors, dataPackage } = await validatePackageDescriptor(descriptor)
 
-  if (!datapackage) throw new AssertionError(errors)
-  return datapackage as CamtrapPackage
+  if (!dataPackage) throw new AssertionError(errors)
+  return dataPackage as CamtrapPackage
 }

@@ -7,24 +7,24 @@ import type { GithubResource } from "../Resource.js"
  * @param props Object containing the Github file to normalize
  * @returns Normalized Resource object
  */
-export function normalizeGithubResource(props: {
-  githubResource: GithubResource
-  defaultBranch: string
-}) {
-  const { githubResource } = props
-
+export function normalizeGithubResource(
+  githubResource: GithubResource,
+  options: {
+    defaultBranch: string
+  },
+) {
   const path = normalizeGithubPath({
     ...githubResource,
-    ref: props.defaultBranch,
+    ref: options.defaultBranch,
   })
 
-  const filename = getFilename({ path })
+  const filename = getFilename(path)
   const resource: Resource = {
     path,
-    name: getName({ filename }) ?? githubResource.sha,
+    name: getName(filename) ?? githubResource.sha,
     bytes: githubResource.size,
     hash: `sha1:${githubResource.sha}`,
-    format: getFormat({ filename }),
+    format: getFormat(filename),
     "github:key": githubResource.path,
     "github:url": path,
   }
@@ -32,12 +32,12 @@ export function normalizeGithubResource(props: {
   return resource
 }
 
-function normalizeGithubPath(props: {
+function normalizeGithubPath(options: {
   url: string
   ref: string
   path: string
 }) {
-  const url = new URL(props.url)
+  const url = new URL(options.url)
   const [owner, repo] = url.pathname.split("/").slice(2)
-  return `https://raw.githubusercontent.com/${owner}/${repo}/refs/heads/${props.ref}/${props.path}`
+  return `https://raw.githubusercontent.com/${owner}/${repo}/refs/heads/${options.ref}/${options.path}`
 }

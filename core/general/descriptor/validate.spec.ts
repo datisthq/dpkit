@@ -19,10 +19,7 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const result = await validateDescriptor({
-      descriptor,
-      profile,
-    })
+    const result = await validateDescriptor(descriptor, { profile })
 
     expect(result.valid).toBe(true)
     expect(result.errors).toEqual([])
@@ -45,10 +42,7 @@ describe("validateDescriptor", () => {
       description: "A test package with wrong version type",
     }
 
-    const result = await validateDescriptor({
-      descriptor,
-      profile,
-    })
+    const result = await validateDescriptor(descriptor, { profile })
 
     expect(result.valid).toBe(false)
     expect(result.errors.length).toBeGreaterThan(0)
@@ -77,10 +71,7 @@ describe("validateDescriptor", () => {
       version: "1.0.0",
     }
 
-    const result = await validateDescriptor({
-      descriptor,
-      profile,
-    })
+    const result = await validateDescriptor(descriptor, { profile })
 
     expect(result.valid).toBe(false)
     expect(result.errors.length).toBeGreaterThan(0)
@@ -126,10 +117,7 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const result = await validateDescriptor({
-      descriptor,
-      profile,
-    })
+    const result = await validateDescriptor(descriptor, { profile })
 
     expect(result.valid).toBe(false)
     expect(result.errors.length).toBeGreaterThan(0)

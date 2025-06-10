@@ -7,35 +7,37 @@ import {
 } from "@dpkit/core"
 import invariant from "tiny-invariant"
 
-export type SaveFile = (props: {
+export type SaveFile = (options: {
   propertyName: string
   propertyIndex: number
   normalizedPath: string
   denormalizedPath: string
 }) => Promise<string>
 
-export async function saveResourceFiles(props: {
-  resource: Resource
-  saveFile: SaveFile
-  basepath?: string
-  withRemote?: boolean
-  withoutFolders?: boolean
-}) {
-  const { resource, basepath, withRemote, withoutFolders } = props
+export async function saveResourceFiles(
+  resource: Resource,
+  options: {
+    saveFile: SaveFile
+    basepath?: string
+    withRemote?: boolean
+    withoutFolders?: boolean
+  },
+) {
+  const { basepath, withRemote, withoutFolders } = options
 
-  const descriptor = denormalizeResource({ resource, basepath })
+  const descriptor = denormalizeResource(resource, { basepath })
   const dedupIndexes = new Map<string, number>()
 
   const saveFile = async (path: string, name: string, index: number) => {
-    const isRemote = isRemotePath({ path })
+    const isRemote = isRemotePath(path)
 
     // Denormalized path always uses "/" as the path separator
-    let denormalizedPath = denormalizePath({ path, basepath })
+    let denormalizedPath = denormalizePath(path, { basepath })
     const normalizedPath = path
 
     if (isRemote) {
       if (!withRemote) return path
-      const filename = getFilename({ path })
+      const filename = getFilename(path)
       if (!filename) return path
       denormalizedPath = filename
     } else if (withoutFolders) {
@@ -52,7 +54,7 @@ export async function saveResourceFiles(props: {
       )
     }
 
-    denormalizedPath = await props.saveFile({
+    denormalizedPath = await options.saveFile({
       propertyName: name,
       propertyIndex: index,
       normalizedPath,

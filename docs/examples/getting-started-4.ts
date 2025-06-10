@@ -5,16 +5,15 @@ import {
 } from "dpkit"
 import { temporaryFileTask } from "tempy"
 
-const sourcePackage = await loadPackageDescriptor({
-  path: "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
-})
+const sourcePackage = await loadPackageDescriptor(
+  "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
+)
 
 await temporaryFileTask(
   async archivePath => {
-    await savePackageToZip({ datapackage: sourcePackage, archivePath })
-    const { datapackage: targetPackage, cleanup } = await loadPackageFromZip({
-      archivePath,
-    })
+    await savePackageToZip(sourcePackage, { archivePath })
+    const { dataPackage: targetPackage, cleanup } =
+      await loadPackageFromZip(archivePath)
     console.log(targetPackage)
     await cleanup()
   },

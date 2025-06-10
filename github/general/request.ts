@@ -1,43 +1,20 @@
 import type { Descriptor } from "@dpkit/core"
 
-export interface GithubApiRequestProps {
-  /**
-   * Github API endpoint path
-   */
+/**
+ * Makes a request to the Github API
+ */
+export async function makeGithubApiRequest<T = Descriptor>(options: {
   endpoint: string
-
-  /**
-   * HTTP method for the request
-   */
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
-
-  /**
-   * Request payload
-   */
   payload?: Descriptor
-
-  /**
-   * File to upload
-   */
+  apiKey?: string
   upload?: {
     name: string
     data: Blob
     path?: string // Path within repository
   }
-
-  /**
-   * Github personal access token
-   */
-  apiKey?: string
-}
-
-/**
- * Makes a request to the Github API
- */
-export async function makeGithubApiRequest<T = Descriptor>(
-  props: GithubApiRequestProps,
-) {
-  const { endpoint, method = "GET", payload, upload, apiKey } = props
+}) {
+  const { endpoint, method = "GET", payload, upload, apiKey } = options
 
   let body: string | FormData | undefined
   const headers: Record<string, any> = {}

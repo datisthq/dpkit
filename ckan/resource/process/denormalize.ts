@@ -6,10 +6,7 @@ import type { CkanResource } from "../Resource.js"
  * @param props Object containing the Resource to denormalize
  * @returns Denormalized CKAN Resource object
  */
-export function denormalizeCkanResource(props: {
-  resource: Resource
-}) {
-  const { resource } = props
+export function denormalizeCkanResource(resource: Resource) {
   const ckanResource: Partial<CkanResource> = {}
 
   if (resource.description) {

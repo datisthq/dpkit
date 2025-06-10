@@ -1,5 +1,5 @@
+import type { Field } from "../field/index.js"
 import type { Metadata } from "../general/index.js"
-import type { Field } from "./Field/index.js"
 import type { ForeignKey } from "./ForeignKey.js"
 
 /**

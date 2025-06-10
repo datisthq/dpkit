@@ -39,10 +39,7 @@ describe("saveSchema", () => {
   })
 
   it("should save a schema to a file and maintain its structure", async () => {
-    await saveSchema({
-      schema: testSchema,
-      path: testPath,
-    })
+    await saveSchema(testSchema, { path: testPath })
 
     const fileExists = await fs
       .stat(testPath)

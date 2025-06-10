@@ -3,32 +3,30 @@ import { isDescriptor, normalizePath } from "../../general/index.js"
 import type { Descriptor } from "../../general/index.js"
 import { normalizeSchema } from "../../schema/index.js"
 
-export function normalizeResource(props: {
-  descriptor: Descriptor
-  basepath?: string
-}) {
-  const { basepath } = props
-  const descriptor = globalThis.structuredClone(props.descriptor)
+export function normalizeResource(
+  descriptor: Descriptor,
+  options?: {
+    basepath?: string
+  },
+) {
+  descriptor = globalThis.structuredClone(descriptor)
 
-  normalizeProfile({ descriptor })
-  normalizeUrl({ descriptor })
-  normalizeType({ descriptor })
-  normalizePaths({ descriptor, basepath })
+  normalizeProfile(descriptor)
+  normalizeUrl(descriptor)
+  normalizeType(descriptor)
+  normalizePaths(descriptor, options)
 
-  normalizeResourceDialect({ descriptor })
-  normalizeResourceSchema({ descriptor })
+  normalizeResourceDialect(descriptor)
+  normalizeResourceSchema(descriptor)
 
   return descriptor
 }
 
-function normalizeProfile(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
+function normalizeProfile(descriptor: Descriptor) {
   descriptor.$schema = descriptor.$schema ?? descriptor.profile
 }
 
-function normalizeUrl(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeUrl(descriptor: Descriptor) {
   const url = descriptor.url
   if (!url) {
     return
@@ -40,9 +38,7 @@ function normalizeUrl(props: { descriptor: Descriptor }) {
   }
 }
 
-function normalizeType(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeType(descriptor: Descriptor) {
   const type = descriptor.type
   if (!type) {
     return
@@ -54,40 +50,38 @@ function normalizeType(props: { descriptor: Descriptor }) {
   }
 }
 
-function normalizePaths(props: { descriptor: Descriptor; basepath?: string }) {
-  const { descriptor, basepath } = props
+function normalizePaths(
+  descriptor: Descriptor,
+  options?: { basepath?: string },
+) {
+  const basepath = options?.basepath
 
   if (typeof descriptor.path === "string") {
-    descriptor.path = normalizePath({ path: descriptor.path, basepath })
+    descriptor.path = normalizePath(descriptor.path, { basepath })
   }
 
   if (Array.isArray(descriptor.path)) {
     for (const [index, path] of descriptor.path.entries()) {
-      descriptor.path[index] = normalizePath({ path, basepath })
+      descriptor.path[index] = normalizePath(path, { basepath })
     }
   }
 
   for (const name of ["dialect", "schema"] as const) {
     if (typeof descriptor[name] === "string") {
-      descriptor[name] = normalizePath({
-        path: descriptor[name],
+      descriptor[name] = normalizePath(descriptor[name], {
         basepath,
       })
     }
   }
 }
 
-function normalizeResourceDialect(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeResourceDialect(descriptor: Descriptor) {
   if (isDescriptor(descriptor.dialect)) {
     descriptor.dialect = normalizeDialect({ descriptor: descriptor.dialect })
   }
 }
 
-function normalizeResourceSchema(props: { descriptor: Descriptor }) {
-  const { descriptor } = props
-
+function normalizeResourceSchema(descriptor: Descriptor) {
   if (isDescriptor(descriptor.schema)) {
     descriptor.schema = normalizeSchema({ descriptor: descriptor.schema })
   }

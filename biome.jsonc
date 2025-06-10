@@ -31,6 +31,9 @@
       "correctness": {
         "useExhaustiveDependencies": "off"
       },
+      "performance": {
+        "noDelete": "off"
+      },
       "security": {
         "noDangerouslySetInnerHtml": "off"
       },

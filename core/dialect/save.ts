@@ -8,14 +8,14 @@ const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/tabledialect.json"
  * Save a Dialect to a file path
  * Works in Node.js environments
  */
-export async function saveDialect(props: {
-  dialect: Dialect
-  path: string
-}) {
-  const { dialect, path } = props
-
-  const descriptor = denormalizeDialect({ dialect })
+export async function saveDialect(
+  dialect: Dialect,
+  options: {
+    path: string
+  },
+) {
+  const descriptor = denormalizeDialect(dialect)
   descriptor.$schema = descriptor.$schema ?? CURRENT_PROFILE
 
-  await saveDescriptor({ descriptor, path })
+  await saveDescriptor(descriptor, { path: options.path })
 }

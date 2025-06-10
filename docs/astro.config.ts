@@ -8,8 +8,11 @@ const PACKAGES = {
   "@dpkit/camtrap": "../camtrap",
   "@dpkit/ckan": "../ckan",
   "@dpkit/core": "../core",
+  "@dpkit/datahub": "../datahub",
   "@dpkit/file": "../file",
   "@dpkit/github": "../github",
+  "@dpkit/inline": "../inline",
+  "@dpkit/table": "../table",
   "@dpkit/zenodo": "../zenodo",
   "@dpkit/zip": "../zip",
 }

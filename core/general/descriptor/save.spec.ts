@@ -36,10 +36,7 @@ describe("saveDescriptor", () => {
   })
 
   it("should save a descriptor to the specified path", async () => {
-    await saveDescriptor({
-      descriptor: testDescriptor,
-      path: testPath,
-    })
+    await saveDescriptor(testDescriptor, { path: testPath })
 
     const fileExists = await fs
       .stat(testPath)
@@ -55,10 +52,7 @@ describe("saveDescriptor", () => {
   it("should save a descriptor to a nested directory path", async () => {
     const nestedPath = path.join(testDir, "nested", "dir", "descriptor.json")
 
-    await saveDescriptor({
-      descriptor: testDescriptor,
-      path: nestedPath,
-    })
+    await saveDescriptor(testDescriptor, { path: nestedPath })
 
     const fileExists = await fs
       .stat(nestedPath)
@@ -72,10 +66,7 @@ describe("saveDescriptor", () => {
   })
 
   it("should use pretty formatting with 2-space indentation", async () => {
-    await saveDescriptor({
-      descriptor: testDescriptor,
-      path: testPath,
-    })
+    await saveDescriptor(testDescriptor, { path: testPath })
 
     const content = await fs.readFile(testPath, "utf-8")
     const expectedFormat = JSON.stringify(testDescriptor, null, 2)
