@@ -64,3 +64,6 @@ dist/
 .astro/
 /docs/content/docs/packages/
 **/.claude/settings.local.json
+AGENTS.md
+CLAUDE.md
+.cursor/
