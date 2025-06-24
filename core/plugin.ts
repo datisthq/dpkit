@@ -17,5 +17,5 @@ export interface Plugin {
     },
   ): Promise<undefined | { path?: string }>
 
-  readTable?(resource: Resource): Promise<LazyDataFrame | undefined>
+  readTable?(resource: Partial<Resource>): Promise<LazyDataFrame | undefined>
 }

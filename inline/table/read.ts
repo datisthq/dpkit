@@ -3,7 +3,7 @@ import { processTable } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 
 export async function readInlineTable(
-  resource: Resource,
+  resource: Partial<Resource>,
   options?: {
     dontProcess?: boolean
   },
