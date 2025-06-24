@@ -1,13 +1,11 @@
 import type { Resource } from "@dpkit/core"
 import { processTable } from "@dpkit/table"
+import type { ReadTableOptions } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 
 export async function readInlineTable(
   resource: Partial<Resource>,
-  options?: {
-    sampleSize?: number
-    dontProcess?: boolean
-  },
+  options?: ReadTableOptions,
 ) {
   const polarsData = getPolarsData({ data: resource.data })
   const schema = resource.schema

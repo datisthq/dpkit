@@ -1,14 +1,17 @@
 import type { Resource } from "@dpkit/core"
-import { dpkit } from "../general/index.js"
+import { validateTable as validateTableLowLevel } from "@dpkit/table"
+import { readTable } from "./read.js"
 
 export async function validateTable(
   resource: Partial<Resource>,
   options?: { sampleSize?: number; invalidRowsLimit?: number },
 ) {
-  for (const plugin of dpkit.plugins) {
-    const result = await plugin.validateTable?.(resource, options)
-    if (result) return result
-  }
+  const table = await readTable(resource, {
+    dontProcess: true,
+  })
 
-  throw new Error(`No plugin can validate the table: ${resource}`)
+  return await validateTableLowLevel(table, {
+    schema: resource.schema,
+    ...options,
+  })
 }
