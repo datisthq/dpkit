@@ -1,11 +1,70 @@
-import type { Resource } from "@dpkit/core"
+import type { Dialect, Resource } from "@dpkit/core"
+import { isRemotePath } from "@dpkit/core"
+import { loadDialect } from "@dpkit/core"
 import type { ReadTableOptions } from "@dpkit/table"
-import { DataFrame } from "nodejs-polars"
+import { processTable } from "@dpkit/table"
+import { DataFrame, scanCSV } from "nodejs-polars"
+import type { ScanCsvOptions } from "nodejs-polars"
 
 export async function readCsvTable(
   resource: Partial<Resource>,
   options?: ReadTableOptions,
 ) {
-  console.log(resource, options)
-  return DataFrame().lazy()
+  const dialect =
+    typeof resource.dialect === "string"
+      ? await loadDialect(resource.dialect)
+      : resource.dialect
+
+  const scanSource = getScanSource(resource)
+  const scanOptions = getScanOptions(resource, dialect)
+
+  if (!scanSource) {
+    return DataFrame().lazy()
+  }
+
+  let table = scanCSV(scanSource, scanOptions)
+
+  // TODO: support more dialect options like `skipRows`
+
+  if (!options?.dontProcess) {
+    table = await processTable(table, { schema: resource.schema })
+  }
+
+  return table
+}
+
+// TODO: support remote paths
+// TODO: support multipart paths
+function getScanSource(resource: Partial<Resource>) {
+  if (typeof resource.path !== "string") {
+    return undefined
+  }
+
+  if (isRemotePath(resource.path)) {
+    return undefined
+  }
+
+  return resource.path
+}
+
+function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
+  const options: Partial<ScanCsvOptions> = {
+    inferSchemaLength: 0,
+    truncateRaggedLines: true,
+  }
+
+  if (resource.encoding) {
+    options.encoding = resource.encoding
+  }
+
+  if (dialect) {
+    options.hasHeader = dialect.header
+    options.sep = dialect.delimiter
+    options.eolChar = dialect.lineTerminator
+    options.quoteChar = dialect.quoteChar
+    //options.escapeChar = dialect.escapeChar
+    options.commentChar = dialect.commentChar
+  }
+
+  return options
 }
