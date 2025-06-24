@@ -1,4 +1,5 @@
 export * from "@dpkit/camtrap"
+export * from "@dpkit/csv"
 export * from "@dpkit/ckan"
 export * from "@dpkit/core"
 export * from "@dpkit/datahub"
@@ -12,3 +13,4 @@ export * from "@dpkit/zip"
 
 export * from "./general/index.js"
 export * from "./package/index.js"
+export * from "./table/index.js"
