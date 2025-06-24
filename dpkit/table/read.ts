@@ -1,6 +1,6 @@
 import type { Resource } from "@dpkit/core"
 import type { Table } from "@dpkit/table"
-import { dpkit } from "../general/index.js"
+import { dpkit } from "../plugin.js"
 
 export async function readTable(
   resource: Partial<Resource>,

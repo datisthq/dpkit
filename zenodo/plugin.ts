@@ -4,10 +4,7 @@ import { loadPackageFromZenodo } from "./package/load.js"
 
 export class ZenodoPlugin implements Plugin {
   async loadPackage(source: string) {
-    const isRemote = isRemotePath(source)
-    if (!isRemote) return undefined
-
-    const isZenodo = new URL(source).hostname.endsWith("zenodo.org")
+    const isZenodo = getIsZenodo(source)
     if (!isZenodo) return undefined
 
     const cleanup = async () => {}
@@ -15,4 +12,11 @@ export class ZenodoPlugin implements Plugin {
 
     return { dataPackage, cleanup }
   }
+}
+
+function getIsZenodo(path: string) {
+  const isRemote = isRemotePath(path)
+  if (!isRemote) return false
+
+  return new URL(path).hostname.endsWith("zenodo.org")
 }

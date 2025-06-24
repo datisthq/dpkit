@@ -1,5 +1,5 @@
 import { loadPackageDescriptor } from "@dpkit/core"
-import { dpkit } from "../general/index.js"
+import { dpkit } from "../plugin.js"
 
 export async function loadPackage(source: string) {
   for (const plugin of dpkit.plugins) {

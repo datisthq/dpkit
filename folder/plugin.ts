@@ -5,10 +5,7 @@ import { loadPackageFromFolder } from "./package/index.js"
 
 export class FolderPlugin implements Plugin {
   async loadPackage(source: string) {
-    const isRemote = isRemotePath(source)
-    if (isRemote) return undefined
-
-    const isFolder = (await stat(source)).isDirectory()
+    const isFolder = getIsFolder(source)
     if (!isFolder) return undefined
 
     const cleanup = async () => {}
@@ -16,4 +13,11 @@ export class FolderPlugin implements Plugin {
 
     return { dataPackage, cleanup }
   }
+}
+
+async function getIsFolder(path: string) {
+  const isRemote = isRemotePath(path)
+  if (isRemote) return false
+
+  return (await stat(path)).isDirectory()
 }

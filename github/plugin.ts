@@ -4,10 +4,7 @@ import { loadPackageFromGithub } from "./package/load.js"
 
 export class GithubPlugin implements Plugin {
   async loadPackage(source: string) {
-    const isRemote = isRemotePath(source)
-    if (!isRemote) return undefined
-
-    const isGithub = new URL(source).hostname === "github.com"
+    const isGithub = getIsGithub(source)
     if (!isGithub) return undefined
 
     const cleanup = async () => {}
@@ -15,4 +12,11 @@ export class GithubPlugin implements Plugin {
 
     return { dataPackage, cleanup }
   }
+}
+
+function getIsGithub(path: string) {
+  const isRemote = isRemotePath(path)
+  if (!isRemote) return false
+
+  return new URL(path).hostname === "github.com"
 }
