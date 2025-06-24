@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.js"
+import { inspectTable } from "../../table/index.js"
 
-describe("validateTable (cell/minimum)", () => {
+describe("inspectTable (cell/minimum)", () => {
   it("should not report errors for valid values", async () => {
     const table = DataFrame({
       price: [10.5, 20.75, 30.0],
@@ -19,7 +19,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
@@ -38,7 +38,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/minimum")).toHaveLength(1)
     expect(errors).toContainEqual({
       type: "cell/minimum",
@@ -63,7 +63,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/exclusiveMinimum")).toHaveLength(
       2,
     )

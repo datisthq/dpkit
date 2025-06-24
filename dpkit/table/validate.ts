@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import { validateTable as validateTableLowLevel } from "@dpkit/table"
+import { inspectTable } from "@dpkit/table"
 import { readTable } from "./read.js"
 
 export async function validateTable(
@@ -10,8 +10,11 @@ export async function validateTable(
     dontProcess: true,
   })
 
-  return await validateTableLowLevel(table, {
+  const errors = await inspectTable(table, {
     schema: resource.schema,
     ...options,
   })
+
+  const valid = errors.length === 0
+  return { valid, errors }
 }

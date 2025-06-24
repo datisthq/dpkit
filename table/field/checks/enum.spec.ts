@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.js"
+import { inspectTable } from "../../table/index.js"
 
-describe("validateTable (cell/enum)", () => {
+describe("inspectTable (cell/enum)", () => {
   it("should not report errors for string values that are in the enum", async () => {
     const table = DataFrame({
       status: ["pending", "approved", "rejected", "pending"],
@@ -21,7 +21,7 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
@@ -42,7 +42,7 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/enum")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "cell/enum",
@@ -75,7 +75,7 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/enum")).toHaveLength(0)
   })
 
@@ -96,7 +96,7 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/enum")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "cell/enum",

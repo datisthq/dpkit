@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.js"
+import { inspectTable } from "../../table/index.js"
 
-describe("validateTable (cell/minLength)", () => {
+describe("inspectTable (cell/minLength)", () => {
   it("should not report errors for string values that meet the minLength constraint", async () => {
     const table = DataFrame({
       code: ["A123", "B456", "C789"],
@@ -19,7 +19,7 @@ describe("validateTable (cell/minLength)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
@@ -38,7 +38,7 @@ describe("validateTable (cell/minLength)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/minLength")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "cell/minLength",

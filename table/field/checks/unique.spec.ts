@@ -1,10 +1,10 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.js"
+import { inspectTable } from "../../table/index.js"
 
 // TODO: recover
-describe("validateTable (cell/unique)", () => {
+describe("inspectTable (cell/unique)", () => {
   it("should not report errors when all values are unique", async () => {
     const table = DataFrame({
       id: [1, 2, 3, 4, 5],
@@ -20,7 +20,7 @@ describe("validateTable (cell/unique)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
@@ -39,7 +39,7 @@ describe("validateTable (cell/unique)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors.filter(e => e.type === "cell/unique")).toHaveLength(1)
     expect(errors).toContainEqual({
@@ -65,7 +65,7 @@ describe("validateTable (cell/unique)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/unique")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "cell/unique",
@@ -96,7 +96,7 @@ describe("validateTable (cell/unique)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 })

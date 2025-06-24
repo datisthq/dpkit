@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.js"
+import { inspectTable } from "../../table/index.js"
 
-describe("validateTable (cell/pattern)", () => {
+describe("inspectTable (cell/pattern)", () => {
   it("should not report errors for string values that match the pattern", async () => {
     const table = DataFrame({
       email: ["john@example.com", "alice@domain.org", "test@test.io"],
@@ -21,7 +21,7 @@ describe("validateTable (cell/pattern)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
@@ -42,7 +42,7 @@ describe("validateTable (cell/pattern)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/pattern")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "cell/pattern",

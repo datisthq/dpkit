@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "./validate.js"
+import { inspectTable } from "./inspect.js"
 
-describe("validateTable", () => {
+describe("inspectTable", () => {
   describe("fields validation with fieldsMatch='exact'", () => {
     it("should pass when fields exactly match", async () => {
       const table = DataFrame({
@@ -18,9 +18,9 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(true)
-      expect(result.errors).toEqual([])
+      const errors = await inspectTable(table, { schema })
+
+      expect(errors).toEqual([])
     })
 
     it("should not have fields error when fields same length", async () => {
@@ -37,8 +37,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.errors).toEqual([
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toEqual([
         {
           type: "field/name",
           fieldName: "name",
@@ -62,9 +62,8 @@ describe("validateTable", () => {
       ],
     }
 
-    const result = await validateTable(table, { schema })
-    expect(result.valid).toBe(false)
-    expect(result.errors).toContainEqual({
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toContainEqual({
       type: "fields/extra",
       fieldNames: ["age"],
     })
@@ -82,9 +81,8 @@ describe("validateTable", () => {
       ],
     }
 
-    const result = await validateTable(table, { schema })
-    expect(result.valid).toBe(false)
-    expect(result.errors).toContainEqual({
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toContainEqual({
       type: "fields/missing",
       fieldNames: ["name"],
     })
@@ -105,9 +103,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(true)
-      expect(result.errors).toEqual([])
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toEqual([])
     })
 
     it("should detect extra fields", async () => {
@@ -125,9 +122,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(false)
-      expect(result.errors).toContainEqual({
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toContainEqual({
         type: "fields/extra",
         fieldNames: ["age"],
       })
@@ -146,9 +142,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(false)
-      expect(result.errors).toContainEqual({
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toContainEqual({
         type: "fields/missing",
         fieldNames: ["name"],
       })
@@ -171,9 +166,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(true)
-      expect(result.errors).toEqual([])
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toEqual([])
     })
 
     it("should pass when data contains exact schema fields", async () => {
@@ -190,9 +184,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(true)
-      expect(result.errors).toEqual([])
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toEqual([])
     })
 
     it("should detect missing fields", async () => {
@@ -208,9 +201,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(false)
-      expect(result.errors).toContainEqual({
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toContainEqual({
         type: "fields/missing",
         fieldNames: ["name"],
       })
@@ -231,9 +223,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(true)
-      expect(result.errors).toEqual([])
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toEqual([])
     })
 
     it("should pass when schema contains exact data fields", async () => {
@@ -250,9 +241,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(true)
-      expect(result.errors).toEqual([])
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toEqual([])
     })
 
     it("should detect extra fields", async () => {
@@ -270,9 +260,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(false)
-      expect(result.errors).toContainEqual({
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toContainEqual({
         type: "fields/extra",
         fieldNames: ["age"],
       })
@@ -294,9 +283,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(true)
-      expect(result.errors).toEqual([])
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toEqual([])
     })
 
     it("should detect when no fields match", async () => {
@@ -313,9 +301,8 @@ describe("validateTable", () => {
         ],
       }
 
-      const result = await validateTable(table, { schema })
-      expect(result.valid).toBe(false)
-      expect(result.errors).toContainEqual({
+      const errors = await inspectTable(table, { schema })
+      expect(errors).toContainEqual({
         type: "fields/missing",
         fieldNames: ["id", "name"],
       })

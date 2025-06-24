@@ -1,4 +1,4 @@
 export { parseField } from "./parse.js"
-export { validateField } from "./validate.js"
+export { inspectField } from "./inspect.js"
 export type { PolarsField } from "./Field.js"
 export { matchField } from "./match.js"
