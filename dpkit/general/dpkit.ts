@@ -1,17 +1,17 @@
 import { CkanPlugin } from "@dpkit/ckan"
-import type { Plugin } from "@dpkit/core"
 import { CsvPlugin } from "@dpkit/csv"
 import { DatahubPlugin } from "@dpkit/datahub"
 import { FolderPlugin } from "@dpkit/folder"
 import { GithubPlugin } from "@dpkit/github"
 import { InlinePlugin } from "@dpkit/inline"
+import type { TablePlugin } from "@dpkit/table"
 import { ZenodoPlugin } from "@dpkit/zenodo"
 import { ZipPlugin } from "@dpkit/zip"
 
 export class Dpkit {
-  plugins: Plugin[] = []
+  plugins: TablePlugin[] = []
 
-  register(PluginClass: new () => Plugin) {
+  register(PluginClass: new () => TablePlugin) {
     this.plugins.unshift(new PluginClass())
   }
 }

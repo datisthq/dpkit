@@ -81,10 +81,6 @@ importers:
       tiny-invariant:
         specifier: ^1.3.3
         version: 1.3.3
-    devDependencies:
-      nodejs-polars:
-        specifier: ^0.18.0
-        version: 0.18.0
 
   csv:
     dependencies:
