@@ -148,6 +148,9 @@ importers:
       '@dpkit/core':
         specifier: workspace:*
         version: link:../core
+      '@dpkit/csv':
+        specifier: workspace:*
+        version: link:../csv
       '@dpkit/datahub':
         specifier: workspace:*
         version: link:../datahub
