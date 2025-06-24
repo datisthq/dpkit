@@ -18,4 +18,8 @@ export interface Plugin {
   ): Promise<undefined | { path?: string }>
 
   readTable?(resource: Partial<Resource>): Promise<LazyDataFrame | undefined>
+
+  validateTable?(
+    resource: Partial<Resource>,
+  ): Promise<{ valid: boolean; errors: unknown[] } | undefined>
 }
