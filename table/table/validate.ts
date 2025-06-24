@@ -12,16 +12,16 @@ import { processFields } from "./process.js"
 
 export async function validateTable(
   table: Table,
-  options: {
+  options?: {
     schema?: Schema | string
     sampleSize?: number
     invalidRowsLimit?: number
   },
 ) {
-  const { sampleSize = 100, invalidRowsLimit = 100 } = options
+  const { sampleSize = 100, invalidRowsLimit = 100 } = options ?? {}
   const errors: TableError[] = []
 
-  if (options.schema) {
+  if (options?.schema) {
     const schema =
       typeof options.schema === "string"
         ? await loadSchema(options.schema)
