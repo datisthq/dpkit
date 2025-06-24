@@ -1,4 +1,6 @@
+import type { LazyDataFrame } from "nodejs-polars"
 import type { Package } from "./package/index.js"
+import type { Resource } from "./resource/index.js"
 
 export interface Plugin {
   loadPackage?(
@@ -14,4 +16,6 @@ export interface Plugin {
       withRemote?: boolean
     },
   ): Promise<undefined | { path?: string }>
+
+  readTable?(resource: Resource): Promise<LazyDataFrame | undefined>
 }
