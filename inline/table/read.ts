@@ -5,6 +5,7 @@ import { DataFrame } from "nodejs-polars"
 export async function readInlineTable(
   resource: Partial<Resource>,
   options?: {
+    sampleSize?: number
     dontProcess?: boolean
   },
 ) {

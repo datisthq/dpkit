@@ -18,7 +18,7 @@ export class Dpkit {
 
 export const dpkit = new Dpkit()
 
-// Package functions
+// Core functions
 dpkit.register(CkanPlugin)
 dpkit.register(DatahubPlugin)
 dpkit.register(GithubPlugin)

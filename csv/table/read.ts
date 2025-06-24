@@ -4,6 +4,7 @@ import { DataFrame } from "nodejs-polars"
 export async function readCsvTable(
   resource: Partial<Resource>,
   options?: {
+    sampleSize?: number
     dontProcess?: boolean
   },
 ) {
