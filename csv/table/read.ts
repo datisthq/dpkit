@@ -1,4 +1,5 @@
 import type { Resource } from "@dpkit/core"
+import { DataFrame } from "nodejs-polars"
 
 export async function readCsvTable(
   resource: Resource,
@@ -6,5 +7,6 @@ export async function readCsvTable(
     dontProcess?: boolean
   },
 ) {
-  return { resource, options }
+  console.log(resource, options)
+  return DataFrame().lazy()
 }
