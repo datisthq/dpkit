@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@dpkit/core": "workspace:*",
+    "@dpkit/file": "workspace:*",
     "@dpkit/table": "workspace:*",
     "csv-sniffer": "^0.1.1",
     "nodejs-polars": "^0.18.0"
