@@ -2,7 +2,7 @@ import { createReadStream } from "node:fs"
 import { Readable } from "node:stream"
 import { isRemotePath } from "@dpkit/core"
 
-export async function readFileStream(
+export async function loadFileStream(
   pathOrPaths: string | string[],
   options?: { index?: number },
 ) {
@@ -17,13 +17,13 @@ export async function readFileStream(
 
   const isRemote = isRemotePath(path)
   const stream = isRemote
-    ? await readRemoteFileStream(path)
-    : await readLocalFileStream(path)
+    ? await loadRemoteFileStream(path)
+    : await loadLocalFileStream(path)
 
   return stream
 }
 
-async function readRemoteFileStream(path: string) {
+async function loadRemoteFileStream(path: string) {
   const response = await fetch(path)
   if (!response.body) {
     throw new Error(`Cannot stream remote resource: ${path}`)
@@ -32,6 +32,6 @@ async function readRemoteFileStream(path: string) {
   return Readable.fromWeb(response.body)
 }
 
-async function readLocalFileStream(path: string) {
+async function loadLocalFileStream(path: string) {
   return createReadStream(path)
 }

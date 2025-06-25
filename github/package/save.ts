@@ -1,7 +1,7 @@
 import { buffer } from "node:stream/consumers"
 import type { Descriptor, Package } from "@dpkit/core"
 import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
-import { getPackageBasepath, readFileStream } from "@dpkit/file"
+import { getPackageBasepath, loadFileStream } from "@dpkit/file"
 import { saveResourceFiles } from "@dpkit/file"
 import { makeGithubApiRequest } from "../general/index.js"
 import type { GithubPackage } from "./Package.js"
@@ -38,7 +38,7 @@ export async function savePackageToGithub(
         basepath,
         withRemote: false,
         saveFile: async props => {
-          const stream = await readFileStream(props.normalizedPath)
+          const stream = await loadFileStream(props.normalizedPath)
 
           const payload = {
             path: props.denormalizedPath,

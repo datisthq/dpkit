@@ -1,10 +1,10 @@
-import { readFileStream } from "./stream/read.js"
-import { writeFileStream } from "./stream/write.js"
+import { loadFileStream } from "./stream/load.js"
+import { saveFileStream } from "./stream/save.js"
 
 export async function saveFileToDisc(options: {
   sourcePath: string
   targetPath: string
 }) {
-  const stream = await readFileStream(options.sourcePath)
-  await writeFileStream(stream, { path: options.targetPath })
+  const stream = await loadFileStream(options.sourcePath)
+  await saveFileStream(stream, { path: options.targetPath })
 }

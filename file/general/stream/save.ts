@@ -4,7 +4,7 @@ import { dirname } from "node:path"
 import type { Readable } from "node:stream"
 import { pipeline } from "node:stream/promises"
 
-export async function writeFileStream(
+export async function saveFileStream(
   stream: Readable,
   options: {
     path: string
