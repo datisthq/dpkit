@@ -26,5 +26,8 @@
     "nodejs-polars": "^0.18.0",
     "@dpkit/core": "workspace:*",
     "@dpkit/table": "workspace:*"
+  },
+  "devDependencies": {
+    "tempy": "^3.1.0"
   }
 }

@@ -48,14 +48,12 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
     options.encoding = resource.encoding
   }
 
-  if (dialect) {
-    options.hasHeader = dialect.header
-    options.sep = dialect.delimiter
-    options.eolChar = dialect.lineTerminator
-    options.quoteChar = dialect.quoteChar
-    //options.escapeChar = dialect.escapeChar
-    options.commentChar = dialect.commentChar
-  }
+  options.hasHeader = dialect?.header !== false
+  options.sep = dialect?.delimiter ?? ","
+  //options.eolChar = dialect?.lineTerminator ?? "\r\n"
+  options.quoteChar = dialect?.quoteChar
+  //options.escapeChar = dialect?.escapeChar
+  options.commentChar = dialect?.commentChar
 
   return options
 }
