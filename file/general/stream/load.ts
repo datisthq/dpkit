@@ -1,10 +1,13 @@
 import { createReadStream } from "node:fs"
-import { Readable } from "node:stream"
+import { Readable, Transform } from "node:stream"
 import { isRemotePath } from "@dpkit/core"
 
 export async function loadFileStream(
   pathOrPaths: string | string[],
-  options?: { index?: number },
+  options?: {
+    index?: number
+    maxBytes?: number
+  },
 ) {
   const index = options?.index ?? 0
 
@@ -23,15 +26,44 @@ export async function loadFileStream(
   return stream
 }
 
-async function loadRemoteFileStream(path: string) {
+// TODO: support maxBytes
+async function loadRemoteFileStream(
+  path: string,
+  options?: { maxBytes?: number },
+) {
   const response = await fetch(path)
   if (!response.body) {
     throw new Error(`Cannot stream remote resource: ${path}`)
   }
 
-  return Readable.fromWeb(response.body)
+  let stream = Readable.fromWeb(response.body)
+
+  if (options?.maxBytes) {
+    stream = limitBytesStream(stream, options.maxBytes)
+  }
+
+  return stream
 }
 
-async function loadLocalFileStream(path: string) {
-  return createReadStream(path)
+async function loadLocalFileStream(
+  path: string,
+  options?: { maxBytes?: number },
+) {
+  return createReadStream(path, { end: options?.maxBytes })
+}
+
+function limitBytesStream(inputStream: Readable, maxBytes: number) {
+  let total = 0
+  return inputStream.pipe(
+    new Transform({
+      transform(chunk, _encoding, callback) {
+        total += chunk.length
+        if (total > maxBytes) {
+          callback(new Error("Byte limit exceeded"))
+        } else {
+          callback(null, chunk)
+        }
+      },
+    }),
+  )
 }
