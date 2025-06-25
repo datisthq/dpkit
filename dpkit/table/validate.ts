@@ -10,11 +10,8 @@ export async function validateTable(
     dontProcess: true,
   })
 
-  const errors = await inspectTable(table, {
+  return await inspectTable(table, {
     schema: resource.schema,
     ...options,
   })
-
-  const valid = errors.length === 0
-  return { valid, errors }
 }

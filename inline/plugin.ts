@@ -1,13 +1,13 @@
 import type { Resource } from "@dpkit/core"
-import type { ReadTableOptions, TablePlugin } from "@dpkit/table"
-import { readInlineTable } from "./table/index.js"
+import type { TablePlugin } from "@dpkit/table"
+import { loadInlineTable } from "./table/index.js"
 
 export class InlinePlugin implements TablePlugin {
-  async readTable(resource: Resource, options?: ReadTableOptions) {
+  async loadTable(resource: Resource) {
     const isInline = getIsInline(resource)
     if (!isInline) return undefined
 
-    return await readInlineTable(resource, options)
+    return await loadInlineTable(resource)
   }
 }
 

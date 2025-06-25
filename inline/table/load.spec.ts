@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
-import { readInlineTable } from "./read.js"
+import { loadInlineTable } from "./load.js"
 
-describe("readInlineTable", () => {
+describe("loadInlineTable", () => {
   it.each([
     {
       description: "should handle no data",
@@ -33,42 +33,6 @@ describe("readInlineTable", () => {
       records: [
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
-      ],
-    },
-    {
-      description: "should read with schema",
-      data: [
-        ["id", "name"],
-        [1, "english"],
-        [2, "中文"],
-      ],
-      schema: {
-        fields: [
-          { name: "id", type: "integer" },
-          { name: "name", type: "string" },
-        ],
-      },
-      records: [
-        { id: 1, name: "english" },
-        { id: 2, name: "中文" },
-      ],
-    },
-    {
-      description: "should read type errors as nulls",
-      data: [
-        ["id", "name"],
-        [1, "english"],
-        [2, "中文"],
-      ],
-      schema: {
-        fields: [
-          { name: "id", type: "integer" },
-          { name: "name", type: "integer" },
-        ],
-      },
-      records: [
-        { id: 1, name: null },
-        { id: 2, name: null },
       ],
     },
     {
@@ -134,7 +98,7 @@ describe("readInlineTable", () => {
     const resource = { name: "test", type: "table", data, schema }
 
     // @ts-ignore
-    const table = await readInlineTable(resource)
+    const table = await loadInlineTable(resource)
     const df = await table.collect()
 
     expect(records).toEqual(df.toRecords())

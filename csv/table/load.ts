@@ -1,15 +1,10 @@
 import type { Dialect, Resource } from "@dpkit/core"
 import { isRemotePath } from "@dpkit/core"
 import { loadDialect } from "@dpkit/core"
-import type { ReadTableOptions } from "@dpkit/table"
-import { processTable } from "@dpkit/table"
 import { DataFrame, scanCSV } from "nodejs-polars"
 import type { ScanCsvOptions } from "nodejs-polars"
 
-export async function readCsvTable(
-  resource: Partial<Resource>,
-  options?: ReadTableOptions,
-) {
+export async function loadCsvTable(resource: Partial<Resource>) {
   const dialect =
     typeof resource.dialect === "string"
       ? await loadDialect(resource.dialect)
@@ -22,13 +17,9 @@ export async function readCsvTable(
     return DataFrame().lazy()
   }
 
-  let table = scanCSV(scanSource, scanOptions)
+  const table = scanCSV(scanSource, scanOptions)
 
   // TODO: support more dialect options like `skipRows`
-
-  if (!options?.dontProcess) {
-    table = await processTable(table, { schema: resource.schema })
-  }
 
   return table
 }

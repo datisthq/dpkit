@@ -1,2 +1,2 @@
-export { readCsvTable } from "./read.js"
-export { writeCsvTable } from "./write.js"
+export { loadCsvTable } from "./load.js"
+export { saveCsvTable } from "./save.js"
