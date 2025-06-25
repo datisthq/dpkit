@@ -3,17 +3,20 @@ import type { Table } from "@dpkit/table"
 import { inferSchema, processTable } from "@dpkit/table"
 import { dpkit } from "../plugin.js"
 
+// TODO: implement inferDialect
+
 export async function readTable(
   resource: Partial<Resource>,
   options?: {
+    infer?: boolean | "dialect" | "schema"
     sampleSize?: number
-    // TODO: implement
-    //inferDialect?: boolean
-    inferSchema?: boolean
     dontProcess?: boolean
   },
 ): Promise<Table> {
-  const { sampleSize } = options ?? {}
+  const { infer, sampleSize } = options ?? {}
+
+  //const withInferDialect = infer === true || infer === "dialect"
+  const withInferSchema = infer === true || infer === "schema"
 
   let table: Table | undefined
   for (const plugin of dpkit.plugins) {
@@ -26,7 +29,7 @@ export async function readTable(
   }
 
   let schema = resource.schema
-  if (!schema) {
+  if (!schema && withInferSchema) {
     schema = await inferSchema(table, { sampleSize })
   }
 
