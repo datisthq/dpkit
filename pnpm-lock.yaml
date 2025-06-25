@@ -90,6 +90,9 @@ importers:
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
+      csv-sniffer:
+        specifier: ^0.1.1
+        version: 0.1.1
       nodejs-polars:
         specifier: ^0.18.0
         version: 0.18.0
@@ -1608,6 +1611,9 @@ packages:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
     hasBin: true
+
+  csv-sniffer@0.1.1:
+    resolution: {integrity: sha512-HMFcKMGCaJNBtkEk1RYZxngODTx0gQnN5x494fWJizua2mdoM1h/LRooZQMkxx5RRHNP0mowlTw9xiS7QhXt/g==}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -4994,6 +5000,8 @@ snapshots:
       source-map-js: 1.2.1
 
   cssesc@3.0.0: {}
+
+  csv-sniffer@0.1.1: {}
 
   debug@2.6.9:
     dependencies:
