@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import { inferResourceFormat } from "@dpkit/core"
+import { inferFormat } from "@dpkit/core"
 import type { InferDialectOptions, TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { inferCsvDialect } from "./dialect/index.js"
@@ -32,6 +32,6 @@ export class CsvPlugin implements TablePlugin {
 }
 
 function getIsCsv(resource: Partial<Resource>) {
-  const format = inferResourceFormat(resource)
+  const format = inferFormat(resource)
   return ["csv", "tsv"].includes(format ?? "")
 }

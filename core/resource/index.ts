@@ -1,5 +1,5 @@
 export type { Resource } from "./Resource.js"
-export { inferResourceFormat } from "./infer.js"
+export { inferFormat } from "./infer.js"
 export { assertResource } from "./assert.js"
 export { loadResourceDescriptor } from "./load.js"
 export { saveResourceDescriptor } from "./save.js"
