@@ -1,5 +1,4 @@
 import type { Schema } from "@dpkit/core"
-import { loadSchema } from "@dpkit/core"
 import { col, lit } from "nodejs-polars"
 import type { TableError } from "../error/index.js"
 import { matchField } from "../field/index.js"
@@ -13,21 +12,16 @@ import { processFields } from "./process.js"
 export async function inspectTable(
   table: Table,
   options?: {
-    schema?: Schema | string
-    sampleSize?: number
+    schema?: Schema
+    sampleRows?: number
     invalidRowsLimit?: number
   },
 ) {
-  const { sampleSize = 100, invalidRowsLimit = 100 } = options ?? {}
+  const { schema, sampleRows = 100, invalidRowsLimit = 100 } = options ?? {}
   const errors: TableError[] = []
 
-  if (options?.schema) {
-    const schema =
-      typeof options.schema === "string"
-        ? await loadSchema(options.schema)
-        : options.schema
-
-    const sample = await table.head(sampleSize).collect()
+  if (schema) {
+    const sample = await table.head(sampleRows).collect()
     const polarsSchema = getPolarsSchema(sample.schema)
 
     const matchErrors = inspectFieldsMatch({ schema, polarsSchema })
