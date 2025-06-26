@@ -3,16 +3,15 @@ import { col } from "nodejs-polars"
 import { getPolarsSchema } from "../schema/index.js"
 import type { Table } from "../table/index.js"
 
-export async function inferSchema(
-  table: Table,
-  options?: {
-    sampleSize?: number
-    confidence?: number
-    commaDecimal?: boolean
-    monthFirst?: boolean
-  },
-) {
-  const { sampleSize = 100, confidence = 0.9 } = options ?? {}
+export type InferSchemaOptions = {
+  sampleRows?: number
+  confidence?: number
+  commaDecimal?: boolean
+  monthFirst?: boolean
+}
+
+export async function inferSchema(table: Table, options?: InferSchemaOptions) {
+  const { sampleRows = 100, confidence = 0.9 } = options ?? {}
   const schema: Schema = {
     fields: [],
   }
@@ -20,7 +19,7 @@ export async function inferSchema(
   const typeMapping = createTypeMapping()
   const regexMapping = createRegexMapping(options)
 
-  const sample = await table.head(sampleSize).collect()
+  const sample = await table.head(sampleRows).collect()
   const polarsSchema = getPolarsSchema(sample.schema)
 
   const failureThreshold =

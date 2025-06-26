@@ -2,44 +2,30 @@ import type { Resource } from "@dpkit/core"
 import type { Table } from "@dpkit/table"
 import { inferSchema, processTable } from "@dpkit/table"
 import { inferDialect } from "../dialect/index.js"
-import { dpkit } from "../plugin.js"
+import { loadTable } from "./load.js"
 
 export async function readTable(
   resource: Partial<Resource>,
   options?: {
     infer?: boolean | "dialect" | "schema"
-    sampleSize?: number
-    dontProcess?: boolean
   },
 ): Promise<Table> {
-  const { infer, sampleSize } = options ?? {}
+  const { infer } = options ?? {}
 
   const withInferDialect = infer === true || infer === "dialect"
   const withInferSchema = infer === true || infer === "schema"
 
   let dialect = resource.dialect
   if (!dialect && withInferDialect) {
-    dialect = await inferDialect(resource, { sampleSize })
+    dialect = await inferDialect(resource)
   }
 
-  let table: Table | undefined
-  for (const plugin of dpkit.plugins) {
-    table = await plugin.loadTable?.({ ...resource, dialect })
-    if (table) break
-  }
-
-  if (!table) {
-    throw new Error(`No plugin can load the table: ${resource}`)
-  }
+  const table = await loadTable({ ...resource, dialect })
 
   let schema = resource.schema
   if (!schema && withInferSchema) {
-    schema = await inferSchema(table, { sampleSize })
+    schema = await inferSchema(table)
   }
 
-  if (!options?.dontProcess) {
-    table = await processTable(table, { schema })
-  }
-
-  return table
+  return await processTable(table, { schema })
 }

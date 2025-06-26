@@ -12,6 +12,7 @@ import type { Table } from "./Table.js"
 export async function processTable(
   table: Table,
   options?: {
+    // TODO: can't accept path to schema because there is not basepath available
     schema?: Schema | string
     sampleSize?: number
   },

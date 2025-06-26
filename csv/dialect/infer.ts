@@ -10,11 +10,14 @@ export async function inferCsvDialect(
   resource: Partial<Resource>,
   options?: InferDialectOptions,
 ) {
-  const { sampleSize = 10_000 } = options ?? {}
+  const { sampleBytes = 10_000 } = options ?? {}
   const dialect: Dialect = {}
 
   if (resource.path) {
-    const stream = await loadFileStream(resource.path, { maxBytes: sampleSize })
+    const stream = await loadFileStream(resource.path, {
+      maxBytes: sampleBytes,
+    })
+
     const sample = await text(stream)
 
     const CsvSniffer = CsvSnifferFactory()
