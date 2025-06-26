@@ -1,14 +1,9 @@
 import type { Resource } from "@dpkit/core"
 import type { Table } from "@dpkit/table"
 import { processTable } from "@dpkit/table"
-import { loadTable } from "./load.js"
-import type { LoadTableOptions } from "./load.js"
+import { inferTable } from "./infer.js"
 
-export async function readTable(
-  resource: Partial<Resource>,
-  options?: LoadTableOptions,
-): Promise<Table> {
-  const { table, schema } = await loadTable(resource, options)
-
+export async function readTable(resource: Partial<Resource>): Promise<Table> {
+  const { table, schema } = await inferTable(resource)
   return await processTable(table, { schema })
 }

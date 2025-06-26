@@ -1,13 +1,11 @@
 import type { Resource } from "@dpkit/core"
 import { inspectTable } from "@dpkit/table"
-import { loadTable } from "./load.js"
-import type { LoadTableOptions } from "./load.js"
+import { inferTable } from "./infer.js"
 
-export async function validateTable(
-  resource: Partial<Resource>,
-  options?: LoadTableOptions,
-) {
-  const { table, schema } = await loadTable(resource, options)
+export async function validateTable(resource: Partial<Resource>) {
+  const { table, schema } = await inferTable(resource)
+  const errors = await inspectTable(table, { schema })
 
-  return await inspectTable(table, { schema })
+  const valid = errors.length === 0
+  return { valid, errors }
 }
