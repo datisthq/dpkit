@@ -2,6 +2,7 @@ import type { Dialect, Plugin, Resource } from "@dpkit/core"
 import type { Table } from "./table/index.js"
 
 export type InferDialectOptions = { sampleBytes?: number }
+export type SaveTableOptions = { path: string; dialect?: Dialect }
 
 export interface TablePlugin extends Plugin {
   inferDialect?(
@@ -10,4 +11,9 @@ export interface TablePlugin extends Plugin {
   ): Promise<Dialect | undefined>
 
   loadTable?(resource: Partial<Resource>): Promise<Table | undefined>
+
+  saveTable?(
+    table: Table,
+    options: SaveTableOptions,
+  ): Promise<string | undefined>
 }

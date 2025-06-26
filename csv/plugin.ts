@@ -1,26 +1,37 @@
 import type { Resource } from "@dpkit/core"
 import { inferResourceFormat } from "@dpkit/core"
 import type { InferDialectOptions, TablePlugin } from "@dpkit/table"
+import type { SaveTableOptions, Table } from "@dpkit/table"
 import { inferCsvDialect } from "./dialect/index.js"
-import { loadCsvTable } from "./table/index.js"
+import { loadCsvTable, saveCsvTable } from "./table/index.js"
 
 export class CsvPlugin implements TablePlugin {
-  async inferDialect(resource: Resource, options?: InferDialectOptions) {
+  async inferDialect(
+    resource: Partial<Resource>,
+    options?: InferDialectOptions,
+  ) {
     const isCsv = getIsCsv(resource)
     if (!isCsv) return undefined
 
     return await inferCsvDialect(resource, options)
   }
 
-  async loadTable(resource: Resource) {
+  async loadTable(resource: Partial<Resource>) {
     const isCsv = getIsCsv(resource)
     if (!isCsv) return undefined
 
     return await loadCsvTable(resource)
   }
+
+  async saveTable(table: Table, options: SaveTableOptions) {
+    const isCsv = getIsCsv({ path: options.path })
+    if (!isCsv) return undefined
+
+    return await saveCsvTable(table, options)
+  }
 }
 
-function getIsCsv(resource: Resource) {
+function getIsCsv(resource: Partial<Resource>) {
   const format = inferResourceFormat(resource)
   return ["csv", "tsv"].includes(format ?? "")
 }

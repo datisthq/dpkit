@@ -1,7 +1,7 @@
 import { getFilename, getFormat } from "../general/index.js"
 import type { Resource } from "./Resource.js"
 
-export function inferResourceFormat(resource: Resource) {
+export function inferResourceFormat(resource: Partial<Resource>) {
   let format = resource.format
 
   if (!format) {
