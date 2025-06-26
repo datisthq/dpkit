@@ -11,6 +11,7 @@ export * from "@dpkit/table"
 export * from "@dpkit/zenodo"
 export * from "@dpkit/zip"
 
+export * from "./dialect/index.js"
 export * from "./package/index.js"
 export * from "./table/index.js"
 export * from "./plugin.js"
