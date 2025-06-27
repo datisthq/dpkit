@@ -52,9 +52,16 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
 
   options.hasHeader = dialect?.header !== false
   options.sep = dialect?.delimiter ?? ","
-  //options.eolChar = dialect?.lineTerminator ?? "\r\n"
-  options.quoteChar = dialect?.quoteChar
+
+  // TODO: enable after this polars issues is fixed
+  // https://github.com/pola-rs/nodejs-polars/issues/333
+  //options.eolChar = dialect?.lineTerminator ?? "\n"
+
+  // TODO: try convince nodejs-polars to support escapeChar
+  // https://github.com/pola-rs/polars/issues/3074
   //options.escapeChar = dialect?.escapeChar
+
+  options.quoteChar = dialect?.quoteChar
   options.commentChar = dialect?.commentChar
 
   return options

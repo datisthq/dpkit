@@ -84,7 +84,7 @@ describe("loadCsvTable", () => {
       ])
     })
 
-    // TODO: it dons't work; polars bug?
+    // Polars bug
     it.skip("should handle custom line terminator", async () => {
       const path = await writeTempFile("id,name|1,alice|2,bob")
       const table = await loadCsvTable({
@@ -95,6 +95,23 @@ describe("loadCsvTable", () => {
       expect((await table.collect()).toRecords()).toEqual([
         { id: "1", name: "alice" },
         { id: "2", name: "bob" },
+      ])
+    })
+
+    // No polars support
+    it.skip("should handle escape char", async () => {
+      const path = await writeTempFile(
+        "id,name\n1,apple|,fruits\n2,orange|,fruits",
+      )
+
+      const table = await loadCsvTable({
+        path,
+        dialect: { escapeChar: "|" },
+      })
+
+      expect((await table.collect()).toRecords()).toEqual([
+        { id: "1", name: "apple,fruits" },
+        { id: "2", name: "orange,fruits" },
       ])
     })
 
