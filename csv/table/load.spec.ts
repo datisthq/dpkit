@@ -57,6 +57,16 @@ describe("loadCsvTable", () => {
   })
 
   describe("dialect variations", () => {
+    it("should handle windows line terminator by default", async () => {
+      const path = await writeTempFile("id,name\r\n1,english\r\n2,中文")
+      const table = await loadCsvTable({ path })
+
+      expect((await table.collect()).toRecords()).toEqual([
+        { id: "1", name: "english" },
+        { id: "2", name: "中文" },
+      ])
+    })
+
     it("should handle custom delimiter", async () => {
       const path = await writeTempFile("id|name\n1|alice\n2|bob")
       const table = await loadCsvTable({
@@ -84,7 +94,6 @@ describe("loadCsvTable", () => {
       ])
     })
 
-    // Polars bug
     it.skip("should handle custom line terminator", async () => {
       const path = await writeTempFile("id,name|1,alice|2,bob")
       const table = await loadCsvTable({
@@ -98,7 +107,6 @@ describe("loadCsvTable", () => {
       ])
     })
 
-    // No polars support
     it.skip("should handle escape char", async () => {
       const path = await writeTempFile(
         "id,name\n1,apple|,fruits\n2,orange|,fruits",
@@ -131,7 +139,7 @@ describe("loadCsvTable", () => {
       ])
     })
 
-    it.skip("should handle comment character", async () => {
+    it("should handle comment character", async () => {
       const path = await writeTempFile(
         "# This is a comment\nid,name\n1,alice\n# Another comment\n2,bob",
       )
@@ -150,15 +158,14 @@ describe("loadCsvTable", () => {
 
     it("should handle multiple dialect options together", async () => {
       const path = await writeTempFile(
-        "id|'full name'|age\r\n1|'alice smith'|25\r\n2|'bob jones'|30",
+        "#comment\nid|'full name'|age\n1|'alice smith'|25\n2|'bob jones'|30",
       )
       const table = await loadCsvTable({
         path,
         dialect: {
           delimiter: "|",
           quoteChar: "'",
-          //lineTerminator: "\r\n",
-          //commentChar: "#",
+          commentChar: "#",
           header: true,
         },
       })

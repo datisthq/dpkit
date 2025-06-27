@@ -62,7 +62,11 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
   //options.escapeChar = dialect?.escapeChar
 
   options.quoteChar = dialect?.quoteChar
-  options.commentChar = dialect?.commentChar
+
+  // TODO: remove ts-ignore when issues is fixed
+  // https://github.com/pola-rs/nodejs-polars/issues/334
+  // @ts-ignore
+  options.commentPrefix = dialect?.commentChar
 
   return options
 }
