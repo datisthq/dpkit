@@ -1,4 +1,5 @@
-export { saveFileToDisc } from "./file.js"
+export { saveFileToDisc } from "./file/save.js"
+export { createTempFile } from "./file/temp.js"
 export { loadFileStream } from "./stream/load.js"
 export { saveFileStream } from "./stream/save.js"
 export { assertLocalPathVacant, isLocalPathExist } from "./path.js"

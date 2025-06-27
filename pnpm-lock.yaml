@@ -195,6 +195,9 @@ importers:
       '@dpkit/core':
         specifier: workspace:*
         version: link:../core
+      exit-hook:
+        specifier: ^4.0.0
+        version: 4.0.0
       tempy:
         specifier: 3.1.0
         version: 3.1.0
@@ -210,6 +213,9 @@ importers:
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      exit-hook:
+        specifier: ^4.0.0
+        version: 4.0.0
 
   github:
     dependencies:
@@ -1818,6 +1824,10 @@ packages:
 
   eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
+
+  exit-hook@4.0.0:
+    resolution: {integrity: sha512-Fqs7ChZm72y40wKjOFXBKg7nJZvQJmewP5/7LtePDdnah/+FH9Hp5sgMujSCMPXlxOAW2//1jrW9pnsY7o20vQ==}
+    engines: {node: '>=18'}
 
   expect-type@1.2.1:
     resolution: {integrity: sha512-/kP8CAwxzLVEeFrMm4kMmy4CCDlpipyA7MYLVrdJIkV0fYF0UaigQHRsxHiuY/GEea+bh4KSv3TIlgr+2UL6bw==}
@@ -5197,6 +5207,8 @@ snapshots:
   etag@1.8.1: {}
 
   eventemitter3@5.0.1: {}
+
+  exit-hook@4.0.0: {}
 
   expect-type@1.2.1: {}
 

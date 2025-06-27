@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@dpkit/core": "workspace:*",
-    "@dpkit/file": "workspace:*"
+    "@dpkit/file": "workspace:*",
+    "exit-hook": "^4.0.0"
   }
 }

@@ -1,5 +1,5 @@
-import { loadFileStream } from "./stream/load.js"
-import { saveFileStream } from "./stream/save.js"
+import { loadFileStream } from "../stream/load.js"
+import { saveFileStream } from "../stream/save.js"
 
 export async function saveFileToDisc(options: {
   sourcePath: string
