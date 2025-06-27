@@ -1,7 +1,8 @@
 import type { Dialect, Resource } from "@dpkit/core"
 import { loadDialect } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
-import { DataFrame, scanCSV } from "nodejs-polars"
+import type { Table } from "@dpkit/table"
+import { DataFrame, col, scanCSV } from "nodejs-polars"
 import type { ScanCsvOptions } from "nodejs-polars"
 import { Utf8, concat } from "nodejs-polars"
 
@@ -37,6 +38,10 @@ export async function loadCsvTable(resource: Partial<Resource>) {
     ])
   }
 
+  if (dialect?.skipInitialSpace) {
+    table = stipInitialSpace(table)
+  }
+
   return table
 }
 
@@ -70,4 +75,12 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
   options.commentPrefix = dialect?.commentChar
 
   return options
+}
+
+function stipInitialSpace(table: Table) {
+  return table.select(
+    // TODO: rebase on stripCharsStart when it's fixed in polars
+    // https://github.com/pola-rs/nodejs-polars/blob/51dc97fb5e77e55d69060d074ad5c365131b3f96/polars/lazy/expr/string.ts#L681C5-L681C20
+    table.columns.map(name => col(name).str.strip().as(name)),
+  )
 }

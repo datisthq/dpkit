@@ -170,6 +170,20 @@ describe("loadCsvTable", () => {
       ])
     })
 
+    it("should handle skip initial space", async () => {
+      const path = await writeTempFile("id,name,category\n1, alice, fruits\n2,  bob,  vegetables\n3,charlie,grains")
+      const table = await loadCsvTable({
+        path,
+        dialect: { skipInitialSpace: true },
+      })
+
+      expect((await table.collect()).toRecords()).toEqual([
+        { id: "1", name: "alice", category: "fruits" },
+        { id: "2", name: "bob", category: "vegetables" },
+        { id: "3", name: "charlie", category: "grains" },
+      ])
+    })
+
     it("should handle multiple dialect options together", async () => {
       const path = await writeTempFile(
         "#comment\nid|'full name'|age\n1|'alice smith'|25\n2|'bob jones'|30",
