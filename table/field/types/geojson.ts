@@ -7,7 +7,6 @@ import type { Expr } from "nodejs-polars"
 // So we just make a basic check and return as it is
 export function parseGeojsonField(field: GeojsonField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   return when(expr.str.contains("^\\{")).then(expr).otherwise(lit(null))
 }

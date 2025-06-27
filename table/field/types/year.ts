@@ -5,7 +5,6 @@ import type { Expr } from "nodejs-polars"
 
 export function parseYearField(field: YearField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   expr = when(expr.str.lengths().eq(4))
     .then(expr)

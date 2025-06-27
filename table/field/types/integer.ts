@@ -7,7 +7,6 @@ import type { Expr } from "nodejs-polars"
 // TODO: support categoriesOrder
 export function parseIntegerField(field: IntegerField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   // Handle non-bare numbers (with currency symbols, percent signs, etc.)
   if (field.bareNumber === false) {

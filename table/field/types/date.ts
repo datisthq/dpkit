@@ -7,7 +7,6 @@ const DEFAULT_FORMAT = "%Y-%m-%d"
 
 export function parseDateField(field: DateField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   let format = DEFAULT_FORMAT
   if (field.format && field.format !== "default" && field.format !== "any") {

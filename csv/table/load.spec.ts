@@ -139,6 +139,38 @@ describe("loadCsvTable", () => {
       ])
     })
 
+    it("should handle double quote by default", async () => {
+      const path = await writeTempFile(
+        'id,name\n1,"alice""smith"\n2,"bob""jones"',
+      )
+
+      const table = await loadCsvTable({
+        path,
+        dialect: { doubleQuote: true },
+      })
+
+      expect((await table.collect()).toRecords()).toEqual([
+        { id: "1", name: 'alice"smith' },
+        { id: "2", name: 'bob"jones' },
+      ])
+    })
+
+    it.skip("should handle disabling double quote", async () => {
+      const path = await writeTempFile(
+        'id,name\n1,"alice""smith"\n2,"bob""jones"',
+      )
+
+      const table = await loadCsvTable({
+        path,
+        dialect: { doubleQuote: false },
+      })
+
+      expect((await table.collect()).toRecords()).toEqual([
+        { id: "1", name: "alicesmith" },
+        { id: "2", name: "bobjones" },
+      ])
+    })
+
     it("should handle comment character", async () => {
       const path = await writeTempFile(
         "# This is a comment\nid,name\n1,alice\n# Another comment\n2,bob",
@@ -157,7 +189,9 @@ describe("loadCsvTable", () => {
     })
 
     it("should handle null sequence", async () => {
-      const path = await writeTempFile("id,name,age\n1,alice,25\n2,N/A,30\n3,bob,N/A")
+      const path = await writeTempFile(
+        "id,name,age\n1,alice,25\n2,N/A,30\n3,bob,N/A",
+      )
       const table = await loadCsvTable({
         path,
         dialect: { nullSequence: "N/A" },
@@ -171,7 +205,9 @@ describe("loadCsvTable", () => {
     })
 
     it("should handle skip initial space", async () => {
-      const path = await writeTempFile("id,name,category\n1, alice, fruits\n2,  bob,  vegetables\n3,charlie,grains")
+      const path = await writeTempFile(
+        "id,name,category\n1, alice, fruits\n2,  bob,  vegetables\n3,charlie,grains",
+      )
       const table = await loadCsvTable({
         path,
         dialect: { skipInitialSpace: true },

@@ -66,8 +66,11 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
   // https://github.com/pola-rs/polars/issues/3074
   //options.escapeChar = dialect?.escapeChar
 
-  options.quoteChar = dialect?.quoteChar
+  options.quoteChar = dialect?.quoteChar ?? '"'
   options.nullValues = dialect?.nullSequence
+
+  // TODO: try convincing nodejs-polars to support doubleQuote
+  //options.doubleQuote = dialect?.doubleQuote ?? true
 
   // TODO: remove ts-ignore when issues is fixed
   // https://github.com/pola-rs/nodejs-polars/issues/334

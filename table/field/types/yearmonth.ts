@@ -9,7 +9,6 @@ import type { Expr } from "nodejs-polars"
 // - Return null instead of list if any of the values are out of range
 export function parseYearmonthField(field: YearmonthField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   expr = expr.str.split("-").cast(DataType.List(DataType.Int16))
 
