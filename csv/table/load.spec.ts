@@ -1,8 +1,11 @@
 import { writeTempFile } from "@dpkit/file"
+import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
 import { loadCsvTable } from "./load.js"
 
 describe("loadCsvTable", () => {
+  useRecording()
+
   describe("file variations", () => {
     it("should load local file", async () => {
       const path = await writeTempFile("id,name\n1,english\n2,中文")
@@ -14,7 +17,7 @@ describe("loadCsvTable", () => {
       ])
     })
 
-    it("should load local multipart file", async () => {
+    it("should load local file (multipart)", async () => {
       const path1 = await writeTempFile("id,name\n1,english")
       const path2 = await writeTempFile("2,中文\n3,german")
       const table = await loadCsvTable({ path: [path1, path2] })
@@ -34,6 +37,21 @@ describe("loadCsvTable", () => {
       expect((await table.collect()).toRecords()).toEqual([
         { id: "1", name: "english" },
         { id: "2", name: "中国人" },
+      ])
+    })
+
+    it("should load remote file (multipart)", async () => {
+      const table = await loadCsvTable({
+        path: [
+          "https://gist.githubusercontent.com/roll/d20416f5e6dfc3fc1a7c4eef8452d581/raw/1c9cd1a020389921bf83e5a0395bb00c6b27402d/tabl1.csv",
+          "https://gist.githubusercontent.com/roll/ba1c358f1daa994f8094633669d60f50/raw/03e0e54f9d4df7ff08b0d0db937fe5d720d8dfe6/table2.csv",
+        ],
+      })
+
+      expect((await table.collect()).toRecords()).toEqual([
+        { id: "1", name: "english" },
+        { id: "2", name: "中国人" },
+        { id: "3", name: "german" },
       ])
     })
   })
