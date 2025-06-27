@@ -156,6 +156,20 @@ describe("loadCsvTable", () => {
       ])
     })
 
+    it("should handle null sequence", async () => {
+      const path = await writeTempFile("id,name,age\n1,alice,25\n2,N/A,30\n3,bob,N/A")
+      const table = await loadCsvTable({
+        path,
+        dialect: { nullSequence: "N/A" },
+      })
+
+      expect((await table.collect()).toRecords()).toEqual([
+        { id: "1", name: "alice", age: "25" },
+        { id: "2", name: null, age: "30" },
+        { id: "3", name: "bob", age: null },
+      ])
+    })
+
     it("should handle multiple dialect options together", async () => {
       const path = await writeTempFile(
         "#comment\nid|'full name'|age\n1|'alice smith'|25\n2|'bob jones'|30",
