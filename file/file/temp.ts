@@ -4,11 +4,11 @@ import exitHook from "exit-hook"
 import { temporaryFile } from "tempy"
 
 export async function writeTempFile(
-  content: string,
+  content: string | Buffer,
   options?: { persist?: boolean },
 ) {
   const path = getTempFilePath(options)
-  await writeFile(path, content, "utf8")
+  await writeFile(path, content)
   return path
 }
 

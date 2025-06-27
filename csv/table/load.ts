@@ -14,9 +14,6 @@ export async function loadCsvTable(resource: Partial<Resource>) {
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   const scanOptions = getScanOptions(resource, dialect)
 
-  console.log(firstPath)
-  console.log(restPaths)
-
   if (!firstPath) {
     return DataFrame().lazy()
   }

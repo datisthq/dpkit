@@ -1,67 +1,66 @@
-import { temporaryWriteTask } from "tempy"
+import { writeTempFile } from "@dpkit/file"
 import { describe, expect, it } from "vitest"
 import { inferCsvDialect } from "./infer.js"
 
 describe("inferCsvDialect", () => {
   it("should infer a simple CSV file", async () => {
-    temporaryWriteTask("id,name\n1,english\n2,中文", async path => {
-      const dialect = await inferCsvDialect({ path })
-      expect(dialect).toEqual({
-        delimiter: ",",
-      })
+    const path = await writeTempFile("id,name\n1,english\n2,中文")
+    const dialect = await inferCsvDialect({ path })
+
+    expect(dialect).toEqual({
+      delimiter: ",",
     })
   })
 
   it("should infer quoteChar", async () => {
-    temporaryWriteTask('id,name\n1,"John Doe"\n2,"Jane Smith"', async path => {
-      const dialect = await inferCsvDialect({ path })
-      expect(dialect).toEqual({
-        delimiter: ",",
-        quoteChar: '"',
-      })
+    const path = await writeTempFile('id,name\n1,"John Doe"\n2,"Jane Smith"')
+    const dialect = await inferCsvDialect({ path })
+
+    expect(dialect).toEqual({
+      delimiter: ",",
+      quoteChar: '"',
     })
   })
 
   it("should infer quoteChar with single quotes", async () => {
-    temporaryWriteTask("id,name\n1,'John Doe'\n2,'Jane Smith'", async path => {
-      const dialect = await inferCsvDialect({ path })
-      expect(dialect).toEqual({
-        delimiter: ",",
-        quoteChar: "'",
-      })
+    const path = await writeTempFile("id,name\n1,'John Doe'\n2,'Jane Smith'")
+    const dialect = await inferCsvDialect({ path })
+
+    expect(dialect).toEqual({
+      delimiter: ",",
+      quoteChar: "'",
     })
   })
 
   it("should infer header false when no header present", async () => {
-    temporaryWriteTask("1,english\n2,中文\n3,español", async path => {
-      const dialect = await inferCsvDialect({ path })
-      expect(dialect).toEqual({
-        delimiter: ",",
-        header: false,
-      })
+    const path = await writeTempFile("1,english\n2,中文\n3,español")
+    const dialect = await inferCsvDialect({ path })
+
+    expect(dialect).toEqual({
+      delimiter: ",",
+      header: false,
     })
   })
 
   it("should not set header when header is present", async () => {
-    temporaryWriteTask("id,name\n1,english\n2,中文", async path => {
-      const dialect = await inferCsvDialect({ path })
-      expect(dialect).toEqual({
-        delimiter: ",",
-      })
+    const path = await writeTempFile("id,name\n1,english\n2,中文")
+    const dialect = await inferCsvDialect({ path })
+
+    expect(dialect).toEqual({
+      delimiter: ",",
     })
   })
 
   // TODO: recover if possible with csv-sniffer
   it.skip("should infer complex CSV with quotes and header", async () => {
-    temporaryWriteTask(
+    const path = await writeTempFile(
       'name,description\n"Product A","A great product with, commas"\n"Product B","Another product"',
-      async path => {
-        const dialect = await inferCsvDialect({ path })
-        expect(dialect).toEqual({
-          delimiter: ",",
-          quoteChar: '"',
-        })
-      },
     )
+
+    const dialect = await inferCsvDialect({ path })
+    expect(dialect).toEqual({
+      delimiter: ",",
+      quoteChar: '"',
+    })
   })
 })
