@@ -7,7 +7,7 @@ import { getTempFolderPath } from "@dpkit/folder"
 import yauzl from "yauzl-promise"
 
 export async function loadPackageFromZip(archivePath: string) {
-  const basepath = getTempFolderPath({ cleanup: true })
+  const basepath = getTempFolderPath()
   const zipfile = await yauzl.open(archivePath)
 
   try {

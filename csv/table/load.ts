@@ -1,8 +1,9 @@
 import type { Dialect, Resource } from "@dpkit/core"
-import { isRemotePath } from "@dpkit/core"
 import { loadDialect } from "@dpkit/core"
+import { prefetchFiles } from "@dpkit/file"
 import { DataFrame, scanCSV } from "nodejs-polars"
 import type { ScanCsvOptions } from "nodejs-polars"
+import { concat } from "nodejs-polars"
 
 export async function loadCsvTable(resource: Partial<Resource>) {
   const dialect =
@@ -10,32 +11,28 @@ export async function loadCsvTable(resource: Partial<Resource>) {
       ? await loadDialect(resource.dialect)
       : resource.dialect
 
-  const scanSource = getScanSource(resource)
+  const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   const scanOptions = getScanOptions(resource, dialect)
 
-  if (!scanSource) {
+  console.log(firstPath)
+  console.log(restPaths)
+
+  if (!firstPath) {
     return DataFrame().lazy()
   }
 
-  const table = scanCSV(scanSource, scanOptions)
+  let table = scanCSV(firstPath, scanOptions)
 
-  // TODO: support more dialect options like `skipRows`
+  if (restPaths.length) {
+    table = concat([
+      table,
+      ...restPaths.map(path =>
+        scanCSV(path, { ...scanOptions, hasHeader: false }),
+      ),
+    ])
+  }
 
   return table
-}
-
-// TODO: support remote paths
-// TODO: support multipart paths
-function getScanSource(resource: Partial<Resource>) {
-  if (typeof resource.path !== "string") {
-    return undefined
-  }
-
-  if (isRemotePath(resource.path)) {
-    return undefined
-  }
-
-  return resource.path
 }
 
 function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
