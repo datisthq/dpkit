@@ -39,7 +39,7 @@ export async function loadCsvTable(resource: Partial<Resource>) {
   }
 
   if (dialect?.skipInitialSpace) {
-    table = stipInitialSpace(table)
+    table = stripInitialSpace(table)
   }
 
   return table
@@ -80,7 +80,7 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
   return options
 }
 
-function stipInitialSpace(table: Table) {
+function stripInitialSpace(table: Table) {
   return table.select(
     // TODO: rebase on stripCharsStart when it's fixed in polars
     // https://github.com/pola-rs/nodejs-polars/blob/51dc97fb5e77e55d69060d074ad5c365131b3f96/polars/lazy/expr/string.ts#L681C5-L681C20
