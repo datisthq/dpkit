@@ -2,14 +2,16 @@ import { rmSync } from "node:fs"
 import exitHook from "exit-hook"
 import { temporaryDirectory } from "tempy"
 
-export function createTempFolder() {
+export function getTempFolderPath(options?: { cleanup?: boolean }) {
   const path = temporaryDirectory()
 
-  exitHook(() => {
-    try {
-      rmSync(path, { recursive: true, force: true })
-    } catch {}
-  })
+  if (options?.cleanup) {
+    exitHook(() => {
+      try {
+        rmSync(path, { recursive: true, force: true })
+      } catch {}
+    })
+  }
 
   return path
 }

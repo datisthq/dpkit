@@ -2,14 +2,16 @@ import { unlinkSync } from "node:fs"
 import exitHook from "exit-hook"
 import { temporaryFile } from "tempy"
 
-export function createTempFile() {
+export function getTempFilePath(options?: { cleanup?: boolean }) {
   const path = temporaryFile()
 
-  exitHook(() => {
-    try {
-      unlinkSync(path)
-    } catch {}
-  })
+  if (options?.cleanup) {
+    exitHook(() => {
+      try {
+        unlinkSync(path)
+      } catch {}
+    })
+  }
 
   return path
 }

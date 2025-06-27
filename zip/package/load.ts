@@ -3,11 +3,11 @@ import { mkdir } from "node:fs/promises"
 import { join } from "node:path"
 import { pipeline } from "node:stream/promises"
 import { loadPackageDescriptor } from "@dpkit/core"
-import { createTempFolder } from "@dpkit/folder"
+import { getTempFolderPath } from "@dpkit/folder"
 import yauzl from "yauzl-promise"
 
 export async function loadPackageFromZip(archivePath: string) {
-  const basepath = createTempFolder()
+  const basepath = getTempFolderPath({ cleanup: true })
   const zipfile = await yauzl.open(archivePath)
 
   try {
