@@ -57,7 +57,7 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
   // https://github.com/pola-rs/nodejs-polars/issues/333
   //options.eolChar = dialect?.lineTerminator ?? "\n"
 
-  // TODO: try convince nodejs-polars to support escapeChar
+  // TODO: try convincing nodejs-polars to support escapeChar
   // https://github.com/pola-rs/polars/issues/3074
   //options.escapeChar = dialect?.escapeChar
 

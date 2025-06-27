@@ -67,7 +67,7 @@ export default defineConfig({
         { label: "Guides", autogenerate: { directory: "guides" } },
         {
           label: "Packages",
-          //collapsed: true,
+          collapsed: true,
           items: generatePackageSidebars(),
         },
       ],
