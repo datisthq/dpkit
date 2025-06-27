@@ -188,6 +188,21 @@ describe("loadCsvTable", () => {
       ])
     })
 
+    it("should support commentRows", async () => {
+      const path = await writeTempFile("id,name\n1,alice\ncomment\n2,bob")
+
+      const table = await loadCsvTable({
+        path,
+        dialect: { commentRows: [3] },
+      })
+
+      const records = (await table.collect()).toRecords()
+      expect(records).toEqual([
+        { id: "1", name: "alice" },
+        { id: "2", name: "bob" },
+      ])
+    })
+
     it("should handle null sequence", async () => {
       const path = await writeTempFile(
         "id,name,age\n1,alice,25\n2,N/A,30\n3,bob,N/A",

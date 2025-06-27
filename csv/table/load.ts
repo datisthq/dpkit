@@ -38,6 +38,10 @@ export async function loadCsvTable(resource: Partial<Resource>) {
     ])
   }
 
+  if (dialect?.commentRows) {
+    table = skipCommentRows(table, dialect.commentRows)
+  }
+
   if (dialect?.skipInitialSpace) {
     table = stripInitialSpace(table)
   }
@@ -78,6 +82,17 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
   options.commentPrefix = dialect?.commentChar
 
   return options
+}
+
+function skipCommentRows(table: Table, commentRows: number[]) {
+  return (
+    table
+      .withRowCount()
+      // TODO: take into account header/headerRows
+      // It's zero-based + we need to take into account header as well
+      .filter(col("row_nr").add(2).isIn(commentRows).not())
+      .drop("row_nr")
+  )
 }
 
 function stripInitialSpace(table: Table) {
