@@ -6,9 +6,8 @@ export class ZipPlugin implements Plugin {
     const isZip = getIsZip(source)
     if (!isZip) return undefined
 
-    const { dataPackage, cleanup } = await loadPackageFromZip(source)
-
-    return { dataPackage, cleanup }
+    const dataPackage = await loadPackageFromZip(source)
+    return dataPackage
   }
 
   async savePackage(

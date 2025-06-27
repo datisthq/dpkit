@@ -292,6 +292,9 @@ importers:
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      '@dpkit/folder':
+        specifier: workspace:*
+        version: link:../folder
       yauzl-promise:
         specifier: ^4.0.0
         version: 4.0.0

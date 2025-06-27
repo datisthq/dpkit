@@ -8,10 +8,8 @@ export class FolderPlugin implements Plugin {
     const isFolder = getIsFolder(source)
     if (!isFolder) return undefined
 
-    const cleanup = async () => {}
     const dataPackage = await loadPackageFromFolder(source)
-
-    return { dataPackage, cleanup }
+    return dataPackage
   }
 }
 

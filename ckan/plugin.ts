@@ -7,10 +7,8 @@ export class CkanPlugin implements Plugin {
     const isCkan = getIsCkan(source)
     if (!isCkan) return undefined
 
-    const cleanup = async () => {}
     const dataPackage = await loadPackageFromCkan(source)
-
-    return { dataPackage, cleanup }
+    return dataPackage
   }
 }
 

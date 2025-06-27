@@ -8,9 +8,8 @@ export async function loadPackage(source: string) {
   }
 
   if (source.endsWith("datapackage.json")) {
-    const cleanup = async () => {}
     const dataPackage = await loadPackageDescriptor(source)
-    return { dataPackage, cleanup }
+    return dataPackage
   }
 
   throw new Error(`No plugin can load the package: ${source}`)

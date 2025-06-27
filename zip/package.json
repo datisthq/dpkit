@@ -25,6 +25,7 @@
   "dependencies": {
     "@dpkit/core": "workspace:*",
     "@dpkit/file": "workspace:*",
+    "@dpkit/folder": "workspace:*",
     "yauzl-promise": "^4.0.0",
     "yazl": "^3.3.1"
   },

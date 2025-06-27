@@ -7,10 +7,8 @@ export class DatahubPlugin implements Plugin {
     const isDatahub = getIsDatahub(source)
     if (!isDatahub) return undefined
 
-    const cleanup = async () => {}
     const dataPackage = await loadPackageFromDatahub(source)
-
-    return { dataPackage, cleanup }
+    return dataPackage
   }
 }
 

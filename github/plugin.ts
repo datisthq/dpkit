@@ -7,10 +7,8 @@ export class GithubPlugin implements Plugin {
     const isGithub = getIsGithub(source)
     if (!isGithub) return undefined
 
-    const cleanup = async () => {}
     const dataPackage = await loadPackageFromGithub(source)
-
-    return { dataPackage, cleanup }
+    return dataPackage
   }
 }
 

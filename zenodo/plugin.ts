@@ -7,10 +7,8 @@ export class ZenodoPlugin implements Plugin {
     const isZenodo = getIsZenodo(source)
     if (!isZenodo) return undefined
 
-    const cleanup = async () => {}
     const dataPackage = await loadPackageFromZenodo(source)
-
-    return { dataPackage, cleanup }
+    return dataPackage
   }
 }
 
