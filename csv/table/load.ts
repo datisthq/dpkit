@@ -3,7 +3,7 @@ import { loadDialect } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
 import { DataFrame, scanCSV } from "nodejs-polars"
 import type { ScanCsvOptions } from "nodejs-polars"
-import { concat } from "nodejs-polars"
+import { Utf8, concat } from "nodejs-polars"
 
 export async function loadCsvTable(resource: Partial<Resource>) {
   const dialect =
@@ -20,11 +20,19 @@ export async function loadCsvTable(resource: Partial<Resource>) {
 
   let table = scanCSV(firstPath, scanOptions)
 
+  const polarsSchema = Object.fromEntries(
+    table.columns.map(name => [name, Utf8]),
+  )
+
   if (restPaths.length) {
     table = concat([
       table,
       ...restPaths.map(path =>
-        scanCSV(path, { ...scanOptions, hasHeader: false }),
+        scanCSV(path, {
+          ...scanOptions,
+          hasHeader: false,
+          schema: polarsSchema,
+        }),
       ),
     ])
   }
