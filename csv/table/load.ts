@@ -38,12 +38,9 @@ export async function loadCsvTable(resource: Partial<Resource>) {
     ])
   }
 
-  if (dialect?.commentRows) {
-    table = skipCommentRows(table, dialect.commentRows)
-  }
-
-  if (dialect?.skipInitialSpace) {
-    table = stripInitialSpace(table)
+  if (dialect) {
+    table = skipCommentRows(table, dialect)
+    table = stripInitialSpace(table, dialect)
   }
 
   return table
@@ -59,6 +56,7 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
     options.encoding = resource.encoding
   }
 
+  options.skipRows = getRowsToSkip(dialect)
   options.hasHeader = dialect?.header !== false
   options.sep = dialect?.delimiter ?? ","
 
@@ -84,18 +82,41 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
   return options
 }
 
-function skipCommentRows(table: Table, commentRows: number[]) {
+function skipCommentRows(table: Table, dialect: Dialect) {
+  const rowOffset = getRowOffset(dialect)
+  if (!dialect?.commentRows) {
+    return table
+  }
+
   return table
     .withRowCount()
     .withColumn(col("row_nr").add(1))
-    .filter(col("row_nr").add(1).isIn(commentRows).not())
+    .filter(col("row_nr").add(rowOffset).isIn(dialect.commentRows).not())
     .drop("row_nr")
 }
 
-function stripInitialSpace(table: Table) {
+function stripInitialSpace(table: Table, dialect: Dialect) {
+  if (!dialect?.skipInitialSpace) {
+    return table
+  }
+
   return table.select(
     // TODO: rebase on stripCharsStart when it's fixed in polars
-    // https://github.com/pola-rs/nodejs-polars/blob/51dc97fb5e77e55d69060d074ad5c365131b3f96/polars/lazy/expr/string.ts#L681C5-L681C20
+    // https://github.com/pola-rs/nodejs-polars/issues/336
     table.columns.map(name => col(name).str.strip().as(name)),
   )
+}
+
+function getRowsToSkip(dialect?: Dialect) {
+  const headerRows = getHeaderRows(dialect)
+  return headerRows[0] ? headerRows[0] - 1 : 0
+}
+
+function getRowOffset(dialect?: Dialect) {
+  const headerRows = getHeaderRows(dialect)
+  return headerRows[0] ?? 0
+}
+
+function getHeaderRows(dialect?: Dialect) {
+  return dialect?.header !== false ? (dialect?.headerRows ?? [1]) : []
 }

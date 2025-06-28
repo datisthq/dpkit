@@ -188,12 +188,44 @@ describe("loadCsvTable", () => {
       ])
     })
 
+    it("should support headerRows", async () => {
+      const path = await writeTempFile("#comment\nid,name\n1,alice\n2,bob")
+
+      const table = await loadCsvTable({
+        path,
+        dialect: { headerRows: [2] },
+      })
+
+      const records = (await table.collect()).toRecords()
+      expect(records).toEqual([
+        { id: "1", name: "alice" },
+        { id: "2", name: "bob" },
+      ])
+    })
+
     it("should support commentRows", async () => {
       const path = await writeTempFile("id,name\n1,alice\ncomment\n2,bob")
 
       const table = await loadCsvTable({
         path,
         dialect: { commentRows: [3] },
+      })
+
+      const records = (await table.collect()).toRecords()
+      expect(records).toEqual([
+        { id: "1", name: "alice" },
+        { id: "2", name: "bob" },
+      ])
+    })
+
+    it("should support headerRows and commentRows", async () => {
+      const path = await writeTempFile(
+        "#comment\nid,name\n1,alice\n#comment\n2,bob",
+      )
+
+      const table = await loadCsvTable({
+        path,
+        dialect: { headerRows: [2], commentRows: [4] },
       })
 
       const records = (await table.collect()).toRecords()
