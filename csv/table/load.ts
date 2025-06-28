@@ -85,14 +85,11 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
 }
 
 function skipCommentRows(table: Table, commentRows: number[]) {
-  return (
-    table
-      .withRowCount()
-      // TODO: take into account header/headerRows
-      // It's zero-based + we need to take into account header as well
-      .filter(col("row_nr").add(2).isIn(commentRows).not())
-      .drop("row_nr")
-  )
+  return table
+    .withRowCount()
+    .withColumn(col("row_nr").add(1))
+    .filter(col("row_nr").add(1).isIn(commentRows).not())
+    .drop("row_nr")
 }
 
 function stripInitialSpace(table: Table) {

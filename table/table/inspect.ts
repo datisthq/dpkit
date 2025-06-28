@@ -148,7 +148,7 @@ async function inspectFields(
   let errorTable = table
     .withRowCount()
     .select([
-      col("row_nr").add(1).alias("number"),
+      col("row_nr").add(1),
       lit(false).alias("error"),
       ...sources,
       ...targets,
@@ -178,7 +178,7 @@ async function inspectFields(
       const [kind, type, name] = key.split(":")
 
       if (kind === "error" && value === true && type && name) {
-        const rowNumber = record.number
+        const rowNumber = record.row_nr
 
         // Cell-level errors
         if (type.startsWith("cell/")) {
