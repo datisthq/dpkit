@@ -203,6 +203,23 @@ describe("loadCsvTable", () => {
       ])
     })
 
+    it("should support headerJoin", async () => {
+      const path = await writeTempFile(
+        "#comment\nid,name\nint,str\n1,alice\n2,bob",
+      )
+
+      const table = await loadCsvTable({
+        path,
+        dialect: { headerRows: [2, 3], headerJoin: "_" },
+      })
+
+      const records = (await table.collect()).toRecords()
+      expect(records).toEqual([
+        { id_int: "1", name_str: "alice" },
+        { id_int: "2", name_str: "bob" },
+      ])
+    })
+
     it("should support commentRows", async () => {
       const path = await writeTempFile("id,name\n1,alice\ncomment\n2,bob")
 
@@ -232,6 +249,23 @@ describe("loadCsvTable", () => {
       expect(records).toEqual([
         { id: "1", name: "alice" },
         { id: "2", name: "bob" },
+      ])
+    })
+
+    it("should support headerJoin and commentRows", async () => {
+      const path = await writeTempFile(
+        "#comment\nid,name\nint,str\n1,alice\n#comment\n2,bob",
+      )
+
+      const table = await loadCsvTable({
+        path,
+        dialect: { headerRows: [2, 3], headerJoin: "_", commentRows: [5] },
+      })
+
+      const records = (await table.collect()).toRecords()
+      expect(records).toEqual([
+        { id_int: "1", name_str: "alice" },
+        { id_int: "2", name_str: "bob" },
       ])
     })
 

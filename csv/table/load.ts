@@ -39,6 +39,7 @@ export async function loadCsvTable(resource: Partial<Resource>) {
   }
 
   if (dialect) {
+    table = await joinHeaderRows(table, dialect)
     table = skipCommentRows(table, dialect)
     table = stripInitialSpace(table, dialect)
   }
@@ -82,8 +83,41 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
   return options
 }
 
+async function joinHeaderRows(table: Table, dialect: Dialect) {
+  const headerOffset = getHeaderOffset(dialect)
+  const headerRows = getHeaderRows(dialect)
+  const headerJoin = dialect?.headerJoin ?? " "
+  if (headerRows.length < 2) {
+    return table
+  }
+
+  const extraLabelsFrame = await table
+    .withRowCount()
+    .withColumn(col("row_nr").add(1))
+    .filter(col("row_nr").add(headerOffset).isIn(headerRows))
+    .select(table.columns.map(name => col(name).str.concat(headerJoin)))
+    .collect()
+
+  const labels = table.columns
+  const extraLabels = extraLabelsFrame.row(0)
+
+  const mapping = Object.fromEntries(
+    labels.map((label, index) => [
+      label,
+      [label, extraLabels[index]].join(headerJoin),
+    ]),
+  )
+
+  return table
+    .withRowCount()
+    .withColumn(col("row_nr").add(1))
+    .filter(col("row_nr").add(headerOffset).isIn(headerRows).not())
+    .rename(mapping)
+    .drop("row_nr")
+}
+
 function skipCommentRows(table: Table, dialect: Dialect) {
-  const rowOffset = getRowOffset(dialect)
+  const commentOffset = getCommentOffset(dialect)
   if (!dialect?.commentRows) {
     return table
   }
@@ -91,7 +125,7 @@ function skipCommentRows(table: Table, dialect: Dialect) {
   return table
     .withRowCount()
     .withColumn(col("row_nr").add(1))
-    .filter(col("row_nr").add(rowOffset).isIn(dialect.commentRows).not())
+    .filter(col("row_nr").add(commentOffset).isIn(dialect.commentRows).not())
     .drop("row_nr")
 }
 
@@ -112,9 +146,14 @@ function getRowsToSkip(dialect?: Dialect) {
   return headerRows[0] ? headerRows[0] - 1 : 0
 }
 
-function getRowOffset(dialect?: Dialect) {
+function getHeaderOffset(dialect?: Dialect) {
   const headerRows = getHeaderRows(dialect)
-  return headerRows[0] ?? 0
+  return headerRows.at(0) ?? 0
+}
+
+function getCommentOffset(dialect?: Dialect) {
+  const headerRows = getHeaderRows(dialect)
+  return headerRows.at(-1) ?? 0
 }
 
 function getHeaderRows(dialect?: Dialect) {
