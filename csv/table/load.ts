@@ -6,6 +6,10 @@ import { DataFrame, col, scanCSV } from "nodejs-polars"
 import type { ScanCsvOptions } from "nodejs-polars"
 import { Utf8, concat } from "nodejs-polars"
 
+// TODO: Condier using sample to extract header first
+// for better commentChar + headerRows/commentRows support
+// (consult with the Data Package Working Group)
+
 export async function loadCsvTable(resource: Partial<Resource>) {
   const dialect =
     typeof resource.dialect === "string"
