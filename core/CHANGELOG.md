@@ -1,5 +1,11 @@
 # @dpkit/core
 
+## 0.7.0
+
+### Minor Changes
+
+- c956fec: Support delimited formats
+
 ## 0.6.0
 
 ### Minor Changes
