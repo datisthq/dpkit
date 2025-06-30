@@ -1,21 +1,10 @@
 import type { Resource } from "@dpkit/core"
-import { processTable } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 
-export async function readInlineTable(
-  resource: Resource,
-  options?: {
-    dontProcess?: boolean
-  },
-) {
+export async function loadInlineTable(resource: Partial<Resource>) {
   const polarsData = getPolarsData({ data: resource.data })
-  const schema = resource.schema
 
-  let table = DataFrame(polarsData).lazy()
-  if (!options?.dontProcess) {
-    table = await processTable(table, { schema })
-  }
-
+  const table = DataFrame(polarsData).lazy()
   return table
 }
 

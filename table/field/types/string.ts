@@ -9,7 +9,6 @@ import type { Expr } from "nodejs-polars"
 // TODO: support categoriesOrder
 export function parseStringField(field: StringField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   if (field.categories) {
     expr = expr.cast(DataType.Categorical)

@@ -93,26 +93,38 @@ Loading a package from a remote descriptor and saving it locally as a zip archiv
 ```ts
 import {
   loadPackageDescriptor,
-  savePackageToZip,
   loadPackageFromZip,
+  savePackageToZip,
 } from "dpkit"
 import { temporaryFileTask } from "tempy"
 
-const sourcePackage = await loadPackageDescriptor("https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
+const sourcePackage = await loadPackageDescriptor(
+  "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
 )
 
-await temporaryFileTask(
-  async archivePath => {
-    await savePackageToZip(sourcePackage, { archivePath })
-    const { dataPackage: targetPackage, cleanup } = await loadPackageFromZip(archivePath)
-    console.log(targetPackage)
-    //{
-    //  name: 'currency-codes',
-    //  title: 'ISO 4217 Currency Codes',
-    await cleanup()
-  },
-  { extension: "zip" },
-)
+await temporaryFileTask(async archivePath => {
+  await savePackageToZip(sourcePackage, { archivePath })
+  const targetPackage = await loadPackageFromZip(archivePath)
+  console.log(targetPackage)
+})
+```
+
+Reading a CSV table:
+
+```ts
+import { loadTable } from "dpkit"
+
+const table = await loadTable({ path: "data.csv" })
+
+// Load with custom dialect
+const table = await loadTable({
+  path: "data.csv",
+  dialect: {
+    delimiter: ";",
+    header: true,
+    skipInitialSpace: true
+  }
+})
 ```
 
 ## Reference

@@ -4,15 +4,17 @@ import { loadPackageFromCkan } from "./package/load.js"
 
 export class CkanPlugin implements Plugin {
   async loadPackage(source: string) {
-    const isRemote = isRemotePath(source)
-    if (!isRemote) return undefined
+    const isCkan = getIsCkan(source)
+    if (!isCkan) return undefined
 
-    const withDataset = source.includes("/dataset/")
-    if (!withDataset) return undefined
-
-    const cleanup = async () => {}
     const dataPackage = await loadPackageFromCkan(source)
-
-    return { dataPackage, cleanup }
+    return dataPackage
   }
+}
+
+function getIsCkan(path: string) {
+  const isRemote = isRemotePath(path)
+  if (!isRemote) return false
+
+  return path.includes("/dataset/")
 }

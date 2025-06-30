@@ -3,7 +3,7 @@ import type { Descriptor, Package } from "@dpkit/core"
 import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
 import {
   getPackageBasepath,
-  readFileStream,
+  loadFileStream,
   saveResourceFiles,
 } from "@dpkit/file"
 import { makeZenodoApiRequest } from "../general/index.js"
@@ -46,7 +46,7 @@ export async function savePackageToZenodo(
         saveFile: async props => {
           const upload = {
             name: props.denormalizedPath,
-            data: await blob(await readFileStream(props.normalizedPath)),
+            data: await blob(await loadFileStream(props.normalizedPath)),
           }
 
           // It seems that record and deposition files have different metadata

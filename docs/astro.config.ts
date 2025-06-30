@@ -8,6 +8,7 @@ const PACKAGES = {
   "@dpkit/camtrap": "../camtrap",
   "@dpkit/ckan": "../ckan",
   "@dpkit/core": "../core",
+  "@dpkit/csv": "../csv",
   "@dpkit/datahub": "../datahub",
   "@dpkit/file": "../file",
   "@dpkit/github": "../github",
@@ -67,7 +68,7 @@ export default defineConfig({
         { label: "Guides", autogenerate: { directory: "guides" } },
         {
           label: "Packages",
-          //collapsed: true,
+          collapsed: true,
           items: generatePackageSidebars(),
         },
       ],

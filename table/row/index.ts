@@ -1,1 +1,1 @@
-export { validateRows } from "./validate.js"
+export { inspectRows } from "./inspect.js"

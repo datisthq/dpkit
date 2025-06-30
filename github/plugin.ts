@@ -4,15 +4,17 @@ import { loadPackageFromGithub } from "./package/load.js"
 
 export class GithubPlugin implements Plugin {
   async loadPackage(source: string) {
-    const isRemote = isRemotePath(source)
-    if (!isRemote) return undefined
-
-    const isGithub = new URL(source).hostname === "github.com"
+    const isGithub = getIsGithub(source)
     if (!isGithub) return undefined
 
-    const cleanup = async () => {}
     const dataPackage = await loadPackageFromGithub(source)
-
-    return { dataPackage, cleanup }
+    return dataPackage
   }
+}
+
+function getIsGithub(path: string) {
+  const isRemote = isRemotePath(path)
+  if (!isRemote) return false
+
+  return new URL(path).hostname === "github.com"
 }

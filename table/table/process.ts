@@ -1,5 +1,4 @@
 import type { Schema } from "@dpkit/core"
-import { loadSchema } from "@dpkit/core"
 import type { Expr } from "nodejs-polars"
 import { DataType } from "nodejs-polars"
 import { col, lit } from "nodejs-polars"
@@ -12,20 +11,15 @@ import type { Table } from "./Table.js"
 export async function processTable(
   table: Table,
   options?: {
-    schema?: Schema | string
+    schema?: Schema
     sampleSize?: number
   },
 ) {
-  const { sampleSize = 100 } = options ?? {}
+  const { schema, sampleSize = 100 } = options ?? {}
 
-  if (!options?.schema) {
+  if (!schema) {
     return table
   }
-
-  const schema =
-    typeof options.schema === "string"
-      ? await loadSchema(options.schema)
-      : options.schema
 
   const sample = await table.head(sampleSize).collect()
   const polarsSchema = getPolarsSchema(sample.schema)

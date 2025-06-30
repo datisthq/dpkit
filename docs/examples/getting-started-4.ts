@@ -9,13 +9,8 @@ const sourcePackage = await loadPackageDescriptor(
   "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
 )
 
-await temporaryFileTask(
-  async archivePath => {
-    await savePackageToZip(sourcePackage, { archivePath })
-    const { dataPackage: targetPackage, cleanup } =
-      await loadPackageFromZip(archivePath)
-    console.log(targetPackage)
-    await cleanup()
-  },
-  { extension: "zip" },
-)
+await temporaryFileTask(async archivePath => {
+  await savePackageToZip(sourcePackage, { archivePath })
+  const targetPackage = await loadPackageFromZip(archivePath)
+  console.log(targetPackage)
+})
