@@ -3,7 +3,7 @@ import type { TableError } from "../error/Table.js"
 import type { Table } from "../table/Table.js"
 import { checkRowUnique } from "./checks/unique.js"
 
-export function validateRows(schema: Schema, errorTable: Table) {
+export function inspectRows(schema: Schema, errorTable: Table) {
   const errors: TableError[] = []
 
   errorTable = checkRowUnique(schema, errorTable)

@@ -22,6 +22,7 @@
   "dependencies": {
     "@dpkit/camtrap": "workspace:*",
     "@dpkit/ckan": "workspace:*",
+    "@dpkit/csv": "workspace:*",
     "@dpkit/core": "workspace:*",
     "@dpkit/datahub": "workspace:*",
     "@dpkit/file": "workspace:*",

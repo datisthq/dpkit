@@ -5,7 +5,7 @@ import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
 import {
   assertLocalPathVacant,
   getPackageBasepath,
-  readFileStream,
+  loadFileStream,
   saveResourceFiles,
 } from "@dpkit/file"
 import { ZipFile } from "yazl"
@@ -31,7 +31,7 @@ export async function savePackageToZip(
         withRemote,
         saveFile: async props => {
           zipfile.addReadStream(
-            await readFileStream(props.normalizedPath),
+            await loadFileStream(props.normalizedPath),
             props.denormalizedPath,
           )
 

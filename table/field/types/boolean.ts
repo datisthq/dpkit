@@ -8,7 +8,6 @@ const DEFAULT_FALSE_VALUES = ["false", "False", "FALSE", "0"]
 
 export function parseBooleanField(field: BooleanField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   const trueValues = field.trueValues || DEFAULT_TRUE_VALUES
   const falseValues = field.falseValues || DEFAULT_FALSE_VALUES

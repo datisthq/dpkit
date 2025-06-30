@@ -8,6 +8,11 @@ import type { Contributor } from "./Contributor.js"
  */
 export interface Package extends Metadata {
   /**
+   * Data resources in this package (required)
+   */
+  resources: Resource[]
+
+  /**
    * Unique package identifier
    * Should use lowercase alphanumeric characters, periods, hyphens, and underscores
    */
@@ -64,11 +69,6 @@ export interface Package extends Metadata {
    * @format ISO 8601 format
    */
   created?: string
-
-  /**
-   * Data resources in this package (required)
-   */
-  resources: Resource[]
 
   /**
    * Package image

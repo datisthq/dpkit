@@ -4,7 +4,6 @@ import type { Expr } from "nodejs-polars"
 
 export function parseGeopointField(field: GeopointField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   // Default format is "lon,lat" string
   const format = field.format || "default"

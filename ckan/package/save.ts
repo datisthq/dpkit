@@ -8,7 +8,7 @@ import {
 } from "@dpkit/core"
 import {
   getPackageBasepath,
-  readFileStream,
+  loadFileStream,
   saveResourceFiles,
 } from "@dpkit/file"
 import { makeCkanApiRequest } from "../general/index.js"
@@ -67,7 +67,7 @@ export async function savePackageToCkan(
 
           const upload = {
             name: props.denormalizedPath,
-            data: await blob(await readFileStream(props.normalizedPath)),
+            data: await blob(await loadFileStream(props.normalizedPath)),
           }
 
           const result = await makeCkanApiRequest<CkanResource>({

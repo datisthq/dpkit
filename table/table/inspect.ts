@@ -1,39 +1,33 @@
 import type { Schema } from "@dpkit/core"
-import { loadSchema } from "@dpkit/core"
 import { col, lit } from "nodejs-polars"
 import type { TableError } from "../error/index.js"
 import { matchField } from "../field/index.js"
-import { validateField } from "../field/index.js"
-import { validateRows } from "../row/index.js"
+import { inspectField } from "../field/index.js"
+import { inspectRows } from "../row/index.js"
 import { getPolarsSchema } from "../schema/index.js"
 import type { PolarsSchema } from "../schema/index.js"
 import type { Table } from "./Table.js"
 import { processFields } from "./process.js"
 
-export async function validateTable(
+export async function inspectTable(
   table: Table,
-  options: {
-    schema?: Schema | string
-    sampleSize?: number
+  options?: {
+    schema?: Schema
+    sampleRows?: number
     invalidRowsLimit?: number
   },
 ) {
-  const { sampleSize = 100, invalidRowsLimit = 100 } = options
+  const { schema, sampleRows = 100, invalidRowsLimit = 100 } = options ?? {}
   const errors: TableError[] = []
 
-  if (options.schema) {
-    const schema =
-      typeof options.schema === "string"
-        ? await loadSchema(options.schema)
-        : options.schema
-
-    const sample = await table.head(sampleSize).collect()
+  if (schema) {
+    const sample = await table.head(sampleRows).collect()
     const polarsSchema = getPolarsSchema(sample.schema)
 
-    const matchErrors = validateFieldsMatch({ schema, polarsSchema })
+    const matchErrors = inspectFieldsMatch({ schema, polarsSchema })
     errors.push(...matchErrors)
 
-    const fieldErrors = await validateFields(
+    const fieldErrors = await inspectFields(
       table,
       schema,
       polarsSchema,
@@ -42,11 +36,10 @@ export async function validateTable(
     errors.push(...fieldErrors)
   }
 
-  const valid = errors.length === 0
-  return { valid, errors }
+  return errors
 }
 
-function validateFieldsMatch(props: {
+function inspectFieldsMatch(props: {
   schema: Schema
   polarsSchema: PolarsSchema
 }) {
@@ -129,7 +122,7 @@ function validateFieldsMatch(props: {
   return errors
 }
 
-async function validateFields(
+async function inspectFields(
   table: Table,
   schema: Schema,
   polarsSchema: PolarsSchema,
@@ -155,7 +148,7 @@ async function validateFields(
   let errorTable = table
     .withRowCount()
     .select([
-      col("row_nr").add(1).alias("number"),
+      col("row_nr").add(1),
       lit(false).alias("error"),
       ...sources,
       ...targets,
@@ -164,13 +157,13 @@ async function validateFields(
   for (const [index, field] of schema.fields.entries()) {
     const polarsField = matchField(index, field, schema, polarsSchema)
     if (polarsField) {
-      const fieldResult = validateField(field, { errorTable, polarsField })
+      const fieldResult = inspectField(field, { errorTable, polarsField })
       errorTable = fieldResult.errorTable
       errors.push(...fieldResult.errors)
     }
   }
 
-  const rowsResult = validateRows(schema, errorTable)
+  const rowsResult = inspectRows(schema, errorTable)
   errorTable = rowsResult.errorTable
   errors.push(...rowsResult.errors)
 
@@ -185,7 +178,7 @@ async function validateFields(
       const [kind, type, name] = key.split(":")
 
       if (kind === "error" && value === true && type && name) {
-        const rowNumber = record.number
+        const rowNumber = record.row_nr
 
         // Cell-level errors
         if (type.startsWith("cell/")) {

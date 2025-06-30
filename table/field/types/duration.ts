@@ -6,7 +6,6 @@ import type { Expr } from "nodejs-polars"
 // So we do nothing on this column type for now
 export function parseDurationField(field: DurationField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   return expr
 }

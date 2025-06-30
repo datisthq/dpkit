@@ -8,7 +8,6 @@ const DEFAULT_FORMAT = "%Y-%m-%dT%H:%M:%S"
 // TODO: Add support for timezone handling
 export function parseDatetimeField(field: DatetimeField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   let format = DEFAULT_FORMAT
   if (field.format && field.format !== "default" && field.format !== "any") {

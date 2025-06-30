@@ -12,7 +12,7 @@ import { checkCellRequired } from "./checks/required.js"
 import { checkCellType } from "./checks/type.js"
 import { checkCellUnique } from "./checks/unique.js"
 
-export function validateField(
+export function inspectField(
   field: Field,
   options: {
     errorTable: Table
@@ -22,20 +22,20 @@ export function validateField(
   const { polarsField } = options
   const errors: TableError[] = []
 
-  const nameErrors = validateName(field, polarsField)
+  const nameErrors = inspectName(field, polarsField)
   errors.push(...nameErrors)
 
-  const typeErrors = validateType(field, polarsField)
+  const typeErrors = inspectType(field, polarsField)
   errors.push(...typeErrors)
 
   const errorTable = !typeErrors.length
-    ? validateCells(field, options.errorTable)
+    ? inspectCells(field, options.errorTable)
     : options.errorTable
 
   return { errors, errorTable }
 }
 
-function validateName(field: Field, polarsField: PolarsField) {
+function inspectName(field: Field, polarsField: PolarsField) {
   const errors: TableError[] = []
 
   if (field.name !== polarsField.name) {
@@ -49,7 +49,7 @@ function validateName(field: Field, polarsField: PolarsField) {
   return errors
 }
 
-function validateType(field: Field, polarsField: PolarsField) {
+function inspectType(field: Field, polarsField: PolarsField) {
   const errors: TableError[] = []
 
   const mapping: Record<string, Field["type"]> = {
@@ -86,7 +86,7 @@ function validateType(field: Field, polarsField: PolarsField) {
   return errors
 }
 
-function validateCells(field: Field, errorTable: Table) {
+function inspectCells(field: Field, errorTable: Table) {
   errorTable = checkCellType(field, errorTable)
   errorTable = checkCellRequired(field, errorTable)
   errorTable = checkCellPattern(field, errorTable)

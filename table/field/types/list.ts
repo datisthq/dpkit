@@ -7,7 +7,6 @@ import type { Expr } from "nodejs-polars"
 // - Return null instead of list if all array values are nulls?
 export function parseListField(field: ListField, expr?: Expr) {
   expr = expr ?? col(field.name)
-  expr = expr.str.strip()
 
   const delimiter = field.delimiter ?? ","
 
