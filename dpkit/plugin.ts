@@ -5,6 +5,7 @@ import { FolderPlugin } from "@dpkit/folder"
 import { GithubPlugin } from "@dpkit/github"
 import { InlinePlugin } from "@dpkit/inline"
 import { JsonPlugin } from "@dpkit/json"
+import { ParquetPlugin } from "@dpkit/parquet"
 import type { TablePlugin } from "@dpkit/table"
 import { ZenodoPlugin } from "@dpkit/zenodo"
 import { ZipPlugin } from "@dpkit/zip"
@@ -31,3 +32,4 @@ dpkit.register(ZipPlugin)
 dpkit.register(CsvPlugin)
 dpkit.register(JsonPlugin)
 dpkit.register(InlinePlugin)
+dpkit.register(ParquetPlugin)

@@ -185,6 +185,9 @@ importers:
       '@dpkit/json':
         specifier: workspace:*
         version: link:../json
+      '@dpkit/parquet':
+        specifier: workspace:*
+        version: link:../parquet
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
@@ -278,7 +281,30 @@ importers:
 
   ods: {}
 
-  parquet: {}
+  parquet:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
+      csv-sniffer:
+        specifier: ^0.1.1
+        version: 0.1.1
+      nodejs-polars:
+        specifier: ^0.18.0
+        version: 0.18.0
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
+      tempy:
+        specifier: ^3.1.0
+        version: 3.1.0
 
   table:
     dependencies:

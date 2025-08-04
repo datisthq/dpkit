@@ -1,10 +1,10 @@
 import { writeTempFile } from "@dpkit/file"
-import { useRecording } from "@dpkit/test"
+//import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
 import { loadJsonTable } from "./load.js"
 
 describe("loadJsonTable", () => {
-  useRecording()
+  //useRecording()
 
   describe("file variations", () => {
     it("should load local file", async () => {
