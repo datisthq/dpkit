@@ -20,6 +20,7 @@
     "cli"
   ],
   "dependencies": {
+    "@dpkit/avro": "workspace:*",
     "@dpkit/camtrap": "workspace:*",
     "@dpkit/ckan": "workspace:*",
     "@dpkit/csv": "workspace:*",
