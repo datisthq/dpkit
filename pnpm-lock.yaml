@@ -182,6 +182,9 @@ importers:
       '@dpkit/inline':
         specifier: workspace:*
         version: link:../inline
+      '@dpkit/json':
+        specifier: workspace:*
+        version: link:../json
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
@@ -248,7 +251,30 @@ importers:
         specifier: ^0.18.0
         version: 0.18.0
 
-  json: {}
+  json:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
+      csv-sniffer:
+        specifier: ^0.1.1
+        version: 0.1.1
+      nodejs-polars:
+        specifier: ^0.18.0
+        version: 0.18.0
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
+      tempy:
+        specifier: ^3.1.0
+        version: 3.1.0
 
   ods: {}
 
