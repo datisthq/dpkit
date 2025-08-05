@@ -1,6 +1,5 @@
 dangerouslyAllowAllBuilds: true
 packages:
-  - avro
   - bin
   - camtrap
   - ckan

@@ -39,28 +39,6 @@ importers:
         specifier: 3.1.4
         version: 3.1.4(@types/debug@4.1.12)(@types/node@22.15.31)(@vitest/ui@3.1.4)(yaml@2.7.1)
 
-  avro:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-      '@dpkit/table':
-        specifier: workspace:*
-        version: link:../table
-      nodejs-polars:
-        specifier: ^0.18.0
-        version: 0.18.0
-    devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
-      tempy:
-        specifier: ^3.1.0
-        version: 3.1.0
-
   bin: {}
 
   camtrap:
@@ -87,8 +65,8 @@ importers:
   core:
     dependencies:
       '@sindresorhus/slugify':
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^0.9.0
+        version: 0.9.1
       ajv:
         specifier: ^8.17.1
         version: 8.17.1
@@ -172,9 +150,6 @@ importers:
 
   dpkit:
     dependencies:
-      '@dpkit/avro':
-        specifier: workspace:*
-        version: link:../avro
       '@dpkit/camtrap':
         specifier: workspace:*
         version: link:../camtrap
@@ -1289,13 +1264,9 @@ packages:
     resolution: {integrity: sha512-suq9tRQ6bkpMukTG5K5z0sPWB7t0zExMzZCdmYm6xTSSIm/yCKNm7VCL36wVeyTsFr597/UhU1OAYdHGMDiHrw==}
     engines: {node: '>=10'}
 
-  '@sindresorhus/slugify@2.2.1':
-    resolution: {integrity: sha512-MkngSCRZ8JdSOCHRaYd+D01XhvU3Hjy6MGl06zhOk614hp9EOAp5gIkBeQg7wtmxpitU6eAL4kdiRMcJa2dlrw==}
-    engines: {node: '>=12'}
-
-  '@sindresorhus/transliterate@1.6.0':
-    resolution: {integrity: sha512-doH1gimEu3A46VX6aVxpHTeHrytJAG6HgdxntYnCFiIFHEM/ZGpG8KiZGBChchjQmG0XFIBL552kBTjVcMZXwQ==}
-    engines: {node: '>=12'}
+  '@sindresorhus/slugify@0.9.1':
+    resolution: {integrity: sha512-b6heYM9dzZD13t2GOiEQTDE0qX+I1GyOotMwKh9VQqzuNiVdPVT8dM43fe9HNb/3ul+Qwd5oKSEDrDIfhq3bnQ==}
+    engines: {node: '>=8'}
 
   '@swc/helpers@0.5.17':
     resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
@@ -1874,6 +1845,10 @@ packages:
   escape-html@1.0.3:
     resolution: {integrity: sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==}
 
+  escape-string-regexp@1.0.5:
+    resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
+    engines: {node: '>=0.8.0'}
+
   escape-string-regexp@5.0.0:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
@@ -2327,6 +2302,9 @@ packages:
 
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
+  lodash.deburr@4.1.0:
+    resolution: {integrity: sha512-m/M1U1f3ddMCs6Hq2tAsYThTBDaAKFDX3dwDo97GEYzamXi9SqUpjWi/Rrj/gf3X2n8ktwgZrlP1z6E3v/IExQ==}
 
   lodash.startcase@4.4.0:
     resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
@@ -4592,14 +4570,10 @@ snapshots:
 
   '@sindresorhus/fnv1a@2.0.1': {}
 
-  '@sindresorhus/slugify@2.2.1':
+  '@sindresorhus/slugify@0.9.1':
     dependencies:
-      '@sindresorhus/transliterate': 1.6.0
-      escape-string-regexp: 5.0.0
-
-  '@sindresorhus/transliterate@1.6.0':
-    dependencies:
-      escape-string-regexp: 5.0.0
+      escape-string-regexp: 1.0.5
+      lodash.deburr: 4.1.0
 
   '@swc/helpers@0.5.17':
     dependencies:
@@ -5263,6 +5237,8 @@ snapshots:
 
   escape-html@1.0.3: {}
 
+  escape-string-regexp@1.0.5: {}
+
   escape-string-regexp@5.0.0: {}
 
   esprima@4.0.1: {}
@@ -5890,6 +5866,8 @@ snapshots:
       p-locate: 4.1.0
 
   lodash-es@4.17.21: {}
+
+  lodash.deburr@4.1.0: {}
 
   lodash.startcase@4.4.0: {}
 

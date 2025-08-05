@@ -1,4 +1,3 @@
-import { AvroPlugin } from "@dpkit/avro"
 import { CkanPlugin } from "@dpkit/ckan"
 import { CsvPlugin } from "@dpkit/csv"
 import { DatahubPlugin } from "@dpkit/datahub"
@@ -30,7 +29,6 @@ dpkit.register(FolderPlugin)
 dpkit.register(ZipPlugin)
 
 // Table functions
-dpkit.register(AvroPlugin)
 dpkit.register(CsvPlugin)
 dpkit.register(JsonPlugin)
 dpkit.register(InlinePlugin)
