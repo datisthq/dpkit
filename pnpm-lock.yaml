@@ -14,9 +14,6 @@ importers:
       '@changesets/cli':
         specifier: 2.29.5
         version: 2.29.5
-      '@types/node':
-        specifier: 22.15.31
-        version: 22.15.31
       '@vitest/coverage-v8':
         specifier: 3.1.4
         version: 3.1.4(vitest@3.1.4)
