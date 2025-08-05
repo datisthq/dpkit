@@ -39,6 +39,31 @@ importers:
         specifier: 3.1.4
         version: 3.1.4(@types/debug@4.1.12)(@types/node@22.15.31)(@vitest/ui@3.1.4)(yaml@2.7.1)
 
+  arrow:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
+      csv-sniffer:
+        specifier: ^0.1.1
+        version: 0.1.1
+      nodejs-polars:
+        specifier: ^0.18.0
+        version: 0.18.0
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
+      tempy:
+        specifier: ^3.1.0
+        version: 3.1.0
+
   bin: {}
 
   camtrap:
@@ -149,6 +174,9 @@ importers:
 
   dpkit:
     dependencies:
+      '@dpkit/arrow':
+        specifier: workspace:*
+        version: link:../arrow
       '@dpkit/camtrap':
         specifier: workspace:*
         version: link:../camtrap
