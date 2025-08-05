@@ -29,7 +29,7 @@ exports[`loadPackageFromZenodo > should load a package 1`] = `
       "bytes": 272,
       "format": "csv",
       "hash": "md5:5ac1b92a57ec809c546ea90334c845c9",
-      "name": "openaq_measurements_pm10_japan_20250527_095520",
+      "name": "openaq-measurements-pm-10-japan-20250527-095520",
       "path": "https://zenodo.org/records/15525711/files/openaq_measurements_PM10_Japan_20250527_095520.csv",
       "zenodo:key": undefined,
       "zenodo:url": undefined,
