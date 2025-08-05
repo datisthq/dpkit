@@ -7,7 +7,7 @@
     "preview": "astro preview",
     "start": "astro dev"
   },
-  "dependencies": {
+  "devDependencies": {
     "@astrojs/starlight": "0.34.3",
     "astro": "5.7.12",
     "dpkit": "workspace:*",
@@ -15,10 +15,8 @@
     "starlight-scroll-to-top": "0.1.1",
     "starlight-typedoc": "0.21.3",
     "typedoc": "0.28.5",
-    "typedoc-plugin-markdown": "4.6.3"
-  },
-  "devDependencies": {
-    "nodejs-polars": "^0.18.0",
+    "typedoc-plugin-markdown": "4.6.3",
+    "nodejs-polars": "0.18.0",
     "tempy": "3.1.0"
   }
 }

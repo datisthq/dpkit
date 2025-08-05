@@ -115,7 +115,7 @@ importers:
   db: {}
 
   docs:
-    dependencies:
+    devDependencies:
       '@astrojs/starlight':
         specifier: 0.34.3
         version: 0.34.3(astro@5.7.12(@types/node@22.15.31)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.1))
@@ -125,6 +125,9 @@ importers:
       dpkit:
         specifier: workspace:*
         version: link:../dpkit
+      nodejs-polars:
+        specifier: 0.18.0
+        version: 0.18.0
       sharp:
         specifier: 0.34.2
         version: 0.34.2
@@ -134,19 +137,15 @@ importers:
       starlight-typedoc:
         specifier: 0.21.3
         version: 0.21.3(@astrojs/starlight@0.34.3(astro@5.7.12(@types/node@22.15.31)(rollup@4.40.2)(typescript@5.8.3)(yaml@2.7.1)))(typedoc-plugin-markdown@4.6.3(typedoc@0.28.5(typescript@5.8.3)))(typedoc@0.28.5(typescript@5.8.3))
+      tempy:
+        specifier: 3.1.0
+        version: 3.1.0
       typedoc:
         specifier: 0.28.5
         version: 0.28.5(typescript@5.8.3)
       typedoc-plugin-markdown:
         specifier: 4.6.3
         version: 4.6.3(typedoc@0.28.5(typescript@5.8.3))
-    devDependencies:
-      nodejs-polars:
-        specifier: ^0.18.0
-        version: 0.18.0
-      tempy:
-        specifier: 3.1.0
-        version: 3.1.0
 
   dpkit:
     dependencies:
