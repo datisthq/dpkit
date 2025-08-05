@@ -87,6 +87,8 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
   return options
 }
 
+// TODO: move to the table package?
+
 async function joinHeaderRows(table: Table, dialect: Dialect) {
   const headerOffset = getHeaderOffset(dialect)
   const headerRows = getHeaderRows(dialect)
