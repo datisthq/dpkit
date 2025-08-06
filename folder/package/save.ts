@@ -3,8 +3,8 @@ import { denormalizePackage, saveDescriptor } from "@dpkit/core"
 import type { Descriptor, Package } from "@dpkit/core"
 import {
   assertLocalPathVacant,
+  copyFile,
   getPackageBasepath,
-  saveFileToDisc,
   saveResourceFiles,
 } from "@dpkit/file"
 import { createFolder } from "../folder/index.js"
@@ -29,7 +29,7 @@ export async function savePackageToFolder(
         basepath,
         withRemote,
         saveFile: async props => {
-          await saveFileToDisc({
+          await copyFile({
             sourcePath: props.normalizedPath,
             targetPath: props.denormalizedPath,
           })

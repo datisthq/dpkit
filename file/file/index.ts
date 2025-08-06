@@ -1,5 +1,6 @@
 export { loadFile } from "./load.js"
-export { saveFileToDisc } from "./save.js"
+export { copyFile } from "./copy.js"
+export { saveFile } from "./save.js"
 export { getTempFilePath, writeTempFile } from "./temp.js"
 export { assertLocalPathVacant, isLocalPathExist } from "./path.js"
 export { prefetchFile, prefetchFiles } from "./fetch.js"

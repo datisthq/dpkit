@@ -5,6 +5,7 @@ import { prefetchFiles } from "@dpkit/file"
 import type { Table } from "@dpkit/table"
 import { concat } from "nodejs-polars"
 import { DataFrame, scanJson } from "nodejs-polars"
+import { decodeJsonBuffer } from "../buffer/index.js"
 
 export async function loadJsonTable(resource: Partial<Resource>) {
   return await loadTable(resource, { isLines: false })
@@ -39,12 +40,7 @@ async function loadTable(
     }
 
     const buffer = await readFile(path)
-    const string = buffer.toString("utf-8")
-
-    let data = isLines
-      ? string.split("\n").map(line => JSON.parse(line))
-      : JSON.parse(string)
-
+    let data = decodeJsonBuffer(buffer, { isLines })
     if (dialect) {
       data = processData(data, dialect)
     }

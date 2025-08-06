@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest"
 import { saveCsvTable } from "./save.js"
 
 describe("saveCsvTable", () => {
-  it("should save table to CSV file", async () => {
+  it("should save table to file", async () => {
     await temporaryFileTask(async path => {
       const table = DataFrame({
         id: [1.0, 2.0, 3.0],
