@@ -7,34 +7,19 @@ import { concat } from "nodejs-polars"
 import { DataFrame, scanJson } from "nodejs-polars"
 
 export async function loadJsonTable(resource: Partial<Resource>) {
-  const paths = await prefetchFiles(resource.path)
-  if (!paths.length) {
-    return DataFrame().lazy()
-  }
-
-  const dialect =
-    typeof resource.dialect === "string"
-      ? await loadDialect(resource.dialect)
-      : resource.dialect
-
-  const tables: Table[] = []
-  for (const path of paths) {
-    const buffer = await readFile(path)
-    let data = JSON.parse(buffer.toString("utf-8"))
-
-    if (dialect) {
-      data = processData(data, dialect)
-    }
-
-    const table = DataFrame(data).lazy()
-    tables.push(table)
-  }
-
-  const table = concat(tables)
-  return table
+  return await loadTable(resource, { isLines: false })
 }
 
 export async function loadJsonlTable(resource: Partial<Resource>) {
+  return await loadTable(resource, { isLines: true })
+}
+
+async function loadTable(
+  resource: Partial<Resource>,
+  options: { isLines: boolean },
+) {
+  const { isLines } = options
+
   const paths = await prefetchFiles(resource.path)
   if (!paths.length) {
     return DataFrame().lazy()
@@ -47,19 +32,23 @@ export async function loadJsonlTable(resource: Partial<Resource>) {
 
   const tables: Table[] = []
   for (const path of paths) {
-    if (!dialect) {
+    if (isLines && !dialect) {
       const table = scanJson(path)
       tables.push(table)
       continue
     }
 
     const buffer = await readFile(path)
-    let data = buffer
-      .toString("utf-8")
-      .split("\n")
-      .map(line => JSON.parse(line))
+    const string = buffer.toString("utf-8")
 
-    data = processData(data, dialect)
+    let data = isLines
+      ? string.split("\n").map(line => JSON.parse(line))
+      : JSON.parse(string)
+
+    if (dialect) {
+      data = processData(data, dialect)
+    }
+
     const table = DataFrame(data).lazy()
     tables.push(table)
   }
