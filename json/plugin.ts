@@ -2,25 +2,42 @@ import type { Resource } from "@dpkit/core"
 import { inferFormat } from "@dpkit/core"
 import type { TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
-import { loadJsonTable, saveJsonTable } from "./table/index.js"
+import { loadJsonTable, loadJsonlTable } from "./table/index.js"
+import { saveJsonTable, saveJsonlTable } from "./table/index.js"
 
 export class JsonPlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>) {
-    const isJson = getIsJson(resource)
-    if (!isJson) return undefined
+    const formatInfo = getFormatInfo(resource)
 
-    return await loadJsonTable(resource)
+    if (formatInfo.isJson) {
+      return await loadJsonTable(resource)
+    }
+
+    if (formatInfo.isJsonl) {
+      return await loadJsonlTable(resource)
+    }
+
+    return undefined
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
-    const isJson = getIsJson({ path: options.path })
-    if (!isJson) return undefined
+    const formatInfo = getFormatInfo({ path: options.path })
 
-    return await saveJsonTable(table, options)
+    if (formatInfo.isJson) {
+      return await saveJsonTable(table, options)
+    }
+
+    if (formatInfo.isJsonl) {
+      return await saveJsonlTable(table, options)
+    }
+
+    return undefined
   }
 }
 
-function getIsJson(resource: Partial<Resource>) {
+function getFormatInfo(resource: Partial<Resource>) {
   const format = inferFormat(resource)
-  return ["json", "jsonl", "ndjson"].includes(format ?? "")
+  const isJson = format === "json"
+  const isJsonl = format === "jsonl" || format === "ndjson"
+  return { isJson, isJsonl }
 }

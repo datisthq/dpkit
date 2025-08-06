@@ -12,7 +12,6 @@ export async function loadParquetTable(resource: Partial<Resource>) {
   }
 
   let table = scanParquet(firstPath)
-
   if (restPaths.length) {
     table = concat([table, ...restPaths.map(path => scanParquet(path))])
   }
