@@ -1,3 +1,4 @@
+export { loadFile } from "./load.js"
 export { saveFileToDisc } from "./save.js"
 export { getTempFilePath, writeTempFile } from "./temp.js"
 export { assertLocalPathVacant, isLocalPathExist } from "./path.js"

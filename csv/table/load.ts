@@ -11,18 +11,17 @@ import { Utf8, concat } from "nodejs-polars"
 // (consult with the Data Package Working Group)
 
 export async function loadCsvTable(resource: Partial<Resource>) {
+  const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
+  if (!firstPath) {
+    return DataFrame().lazy()
+  }
+
   const dialect =
     typeof resource.dialect === "string"
       ? await loadDialect(resource.dialect)
       : resource.dialect
 
-  const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   const scanOptions = getScanOptions(resource, dialect)
-
-  if (!firstPath) {
-    return DataFrame().lazy()
-  }
-
   let table = scanCSV(firstPath, scanOptions)
 
   const polarsSchema = Object.fromEntries(

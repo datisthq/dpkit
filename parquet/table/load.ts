@@ -6,7 +6,6 @@ import { scanParquet } from "nodejs-polars"
 
 export async function loadParquetTable(resource: Partial<Resource>) {
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
-
   if (!firstPath) {
     return DataFrame().lazy()
   }
