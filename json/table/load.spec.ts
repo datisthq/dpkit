@@ -179,4 +179,51 @@ describe("loadJsonlTable", () => {
       ])
     })
   })
+
+  describe("dialect variations", () => {
+    it("should handle item keys", async () => {
+      const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
+      const path = await writeTempFile(body)
+
+      const table = await loadJsonlTable({
+        path,
+        dialect: { itemKeys: ["name"] },
+      })
+
+      expect((await table.collect()).toRecords()).toEqual([
+        { name: "english" },
+        { name: "中文" },
+      ])
+    })
+
+    it("should handle item type (array)", async () => {
+      const body = '["id","name"]\n[1,"english"]\n[2,"中文"]'
+      const path = await writeTempFile(body)
+
+      const table = await loadJsonlTable({
+        path,
+        dialect: { itemType: "array" },
+      })
+
+      expect((await table.collect()).toRecords()).toEqual([
+        { id: 1, name: "english" },
+        { id: 2, name: "中文" },
+      ])
+    })
+
+    it("should load item type (object)", async () => {
+      const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
+      const path = await writeTempFile(body)
+
+      const table = await loadJsonlTable({
+        path,
+        dialect: { itemType: "object" },
+      })
+
+      expect((await table.collect()).toRecords()).toEqual([
+        { id: 1, name: "english" },
+        { id: 2, name: "中文" },
+      ])
+    })
+  })
 })
