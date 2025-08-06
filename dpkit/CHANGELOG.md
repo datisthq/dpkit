@@ -1,3 +1,7 @@
+---
+title: Changelog
+---
+
 # dpkit
 
 ## 0.5.0

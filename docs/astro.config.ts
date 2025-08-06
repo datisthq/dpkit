@@ -58,9 +58,9 @@ export default defineConfig({
           entryPoints: generatePackageEntrypoints(),
           tsconfig: "../tsconfig.json",
           typeDoc: { entryPointStrategy: "packages", router: "structure" },
-          output: "packages",
+          output: "reference",
           sidebar: {
-            label: "Packages",
+            label: "API Reference",
             collapsed: true,
           },
         }),
@@ -69,7 +69,7 @@ export default defineConfig({
         { label: "Overview", autogenerate: { directory: "overview" } },
         { label: "Guides", autogenerate: { directory: "guides" } },
         {
-          label: "Packages",
+          label: "API Reference",
           collapsed: true,
           items: generatePackageSidebars(),
         },
@@ -105,20 +105,6 @@ function generatePackageSidebar(props: { name: string }) {
   return {
     label: name,
     collapsed: true,
-    items: [
-      {
-        label: "Overview",
-        slug: `packages/${slug}/overview`,
-      },
-      {
-        label: "Changelog",
-        slug: `packages/${slug}/changelog`,
-      },
-      {
-        label: "API Reference",
-        autogenerate: { directory: `packages/${slug}/index` },
-        //collapsed: true,
-      },
-    ],
+    autogenerate: { directory: `reference/${slug}` },
   }
 }
