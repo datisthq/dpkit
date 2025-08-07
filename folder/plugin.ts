@@ -5,7 +5,7 @@ import { loadPackageFromFolder } from "./package/index.js"
 
 export class FolderPlugin implements Plugin {
   async loadPackage(source: string) {
-    const isFolder = getIsFolder(source)
+    const isFolder = await getIsFolder(source)
     if (!isFolder) return undefined
 
     const dataPackage = await loadPackageFromFolder(source)
