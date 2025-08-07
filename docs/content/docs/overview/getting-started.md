@@ -119,18 +119,17 @@ import {
   loadPackageDescriptor,
   loadPackageFromZip,
   savePackageToZip,
+  getTempFilePath,
 } from "dpkit"
-import { temporaryFileTask } from "tempy"
 
-const sourcePackage = await loadPackageDescriptor(
+const archivePath = getTempFilePath()
+const sourcePath = await loadPackageDescriptor(
   "https://raw.githubusercontent.com/roll/currency-codes/refs/heads/master/datapackage.json",
 )
 
-await temporaryFileTask(async archivePath => {
-  await savePackageToZip(sourcePackage, { archivePath })
-  const targetPackage = await loadPackageFromZip(archivePath)
-  console.log(targetPackage)
-})
+await savePackageToZip(sourcePackage, { archivePath })
+const targetPackage = await loadPackageFromZip(archivePath)
+console.log(targetPackage)
 ```
 
 Reading a CSV table:

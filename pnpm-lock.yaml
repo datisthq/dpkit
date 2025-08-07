@@ -15,7 +15,7 @@ importers:
         specifier: 2.29.5
         version: 2.29.5
       '@types/node':
-        specifier: ^24.2.0
+        specifier: 24.2.0
         version: 24.2.0
       '@vitest/coverage-v8':
         specifier: 3.1.4
@@ -63,9 +63,6 @@ importers:
       '@dpkit/test':
         specifier: workspace:*
         version: link:../test
-      tempy:
-        specifier: ^3.1.0
-        version: 3.1.0
 
   bin: {}
 
@@ -126,9 +123,6 @@ importers:
       '@dpkit/test':
         specifier: workspace:*
         version: link:../test
-      tempy:
-        specifier: ^3.1.0
-        version: 3.1.0
 
   datahub:
     dependencies:
@@ -300,9 +294,6 @@ importers:
       '@dpkit/test':
         specifier: workspace:*
         version: link:../test
-      tempy:
-        specifier: ^3.1.0
-        version: 3.1.0
 
   ods: {}
 
@@ -327,9 +318,6 @@ importers:
       '@dpkit/test':
         specifier: workspace:*
         version: link:../test
-      tempy:
-        specifier: ^3.1.0
-        version: 3.1.0
 
   table:
     dependencies:
@@ -4626,7 +4614,7 @@ snapshots:
 
   '@types/fontkit@2.0.8':
     dependencies:
-      '@types/node': 22.15.31
+      '@types/node': 24.2.0
 
   '@types/hast@3.0.4':
     dependencies:
@@ -4660,11 +4648,11 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 22.15.31
+      '@types/node': 24.2.0
 
   '@types/set-cookie-parser@2.4.10':
     dependencies:
-      '@types/node': 22.15.31
+      '@types/node': 24.2.0
 
   '@types/unist@2.0.11': {}
 
