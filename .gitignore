@@ -62,7 +62,7 @@ pids
 build/
 dist/
 .astro/
-/docs/content/docs/packages/
+/docs/content/docs/reference/
 **/.claude/settings.local.json
 AGENTS.md
 CLAUDE.md
