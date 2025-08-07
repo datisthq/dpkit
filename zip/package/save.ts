@@ -48,7 +48,7 @@ export async function savePackageToZip(
   }
 
   zipfile.addBuffer(
-    Buffer.from(stringifyDescriptor({ descriptor })),
+    Buffer.from(stringifyDescriptor(descriptor)),
     "datapackage.json",
   )
 

@@ -73,7 +73,7 @@ export async function savePackageToZenodo(
   for (const denormalizedPath of ["datapackage.json"]) {
     const upload = {
       name: denormalizedPath,
-      data: new Blob([stringifyDescriptor({ descriptor })]),
+      data: new Blob([stringifyDescriptor(descriptor)]),
     }
 
     await makeZenodoApiRequest({

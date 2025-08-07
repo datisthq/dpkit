@@ -69,9 +69,7 @@ export async function savePackageToGithub(
     const payload = {
       path: denormalizedPath,
       message: `Added file "${denormalizedPath}"`,
-      content: Buffer.from(stringifyDescriptor({ descriptor })).toString(
-        "base64",
-      ),
+      content: Buffer.from(stringifyDescriptor(descriptor)).toString("base64"),
     }
 
     await makeGithubApiRequest({

@@ -77,12 +77,12 @@ function normalizePaths(
 
 function normalizeResourceDialect(descriptor: Descriptor) {
   if (isDescriptor(descriptor.dialect)) {
-    descriptor.dialect = normalizeDialect({ descriptor: descriptor.dialect })
+    descriptor.dialect = normalizeDialect(descriptor.dialect)
   }
 }
 
 function normalizeResourceSchema(descriptor: Descriptor) {
   if (isDescriptor(descriptor.schema)) {
-    descriptor.schema = normalizeSchema({ descriptor: descriptor.schema })
+    descriptor.schema = normalizeSchema(descriptor.schema)
   }
 }

@@ -97,7 +97,7 @@ export async function savePackageToCkan(
 
     const upload = {
       name: denormalizedPath,
-      data: new Blob([stringifyDescriptor({ descriptor })]),
+      data: new Blob([stringifyDescriptor(descriptor)]),
     }
 
     await makeCkanApiRequest({
