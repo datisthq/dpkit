@@ -1,5 +1,5 @@
 import { mergePackages } from "@dpkit/core"
-import { makeZenodoApiRequest } from "../general/index.js"
+import { makeZenodoApiRequest } from "../zenodo/index.js"
 import type { ZenodoPackage } from "./Package.js"
 import { normalizeZenodoPackage } from "./process/normalize.js"
 

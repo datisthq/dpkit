@@ -1,5 +1,5 @@
 import { mergePackages } from "@dpkit/core"
-import { makeCkanApiRequest } from "../general/index.js"
+import { makeCkanApiRequest } from "../ckan/index.js"
 import type { CkanPackage } from "./Package.js"
 import { normalizeCkanPackage } from "./process/normalize.js"
 

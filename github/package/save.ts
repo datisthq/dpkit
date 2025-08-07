@@ -4,7 +4,7 @@ import type { Descriptor, Package } from "@dpkit/core"
 import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
 import { getPackageBasepath, loadFileStream } from "@dpkit/file"
 import { saveResourceFiles } from "@dpkit/file"
-import { makeGithubApiRequest } from "../general/index.js"
+import { makeGithubApiRequest } from "../github/index.js"
 import type { GithubPackage } from "./Package.js"
 
 /**

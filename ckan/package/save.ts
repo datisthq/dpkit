@@ -11,7 +11,7 @@ import {
   loadFileStream,
   saveResourceFiles,
 } from "@dpkit/file"
-import { makeCkanApiRequest } from "../general/index.js"
+import { makeCkanApiRequest } from "../ckan/index.js"
 import type { CkanResource } from "../resource/index.js"
 import { denormalizeCkanResource } from "../resource/index.js"
 import { denormalizeCkanPackage } from "./process/denormalize.js"

@@ -6,7 +6,7 @@ import {
   loadFileStream,
   saveResourceFiles,
 } from "@dpkit/file"
-import { makeZenodoApiRequest } from "../general/index.js"
+import { makeZenodoApiRequest } from "../zenodo/index.js"
 import type { ZenodoPackage } from "./Package.js"
 import { denormalizeZenodoPackage } from "./process/denormalize.js"
 
