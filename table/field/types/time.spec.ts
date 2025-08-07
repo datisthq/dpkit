@@ -6,7 +6,8 @@ describe("parseTimeField", () => {
   it.each([
     // Default format tests
     ["06:00:00", 6 * 60 * 60 * 10 ** 9, {}],
-    ["06:00:00Z", 6 * 60 * 60 * 10 ** 9, {}],
+    // #TODO: Clarify the behavior on the Standard level first
+    //["06:00:00Z", 6 * 60 * 60 * 10 ** 9, {}],
     ["09:00", null, {}], // Incomplete time
     ["3 am", null, {}], // Wrong format
     ["3.00", null, {}], // Wrong format
