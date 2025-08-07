@@ -1,3 +1,4 @@
+import { Buffer } from "node:buffer"
 import { buffer } from "node:stream/consumers"
 import type { Descriptor, Package } from "@dpkit/core"
 import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"

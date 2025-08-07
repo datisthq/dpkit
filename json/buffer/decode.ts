@@ -1,3 +1,5 @@
+import type { Buffer } from "node:buffer"
+
 export function decodeJsonBuffer(
   buffer: Buffer,
   options: { isLines: boolean },

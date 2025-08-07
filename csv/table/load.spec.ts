@@ -1,3 +1,4 @@
+import { Buffer } from "node:buffer"
 import { writeTempFile } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
