@@ -64,7 +64,7 @@ The criteria underpinning collection units and the methodology by which they are
         "fields": [
           {
             "name": "Collection unit ID",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "Department",
@@ -104,7 +104,7 @@ The criteria underpinning collection units and the methodology by which they are
           },
           {
             "name": "Type collection",
-            "type": "string",
+            "type": "boolean",
           },
           {
             "name": "Geographic origin",
@@ -140,7 +140,7 @@ The criteria underpinning collection units and the methodology by which they are
           },
           {
             "name": "Reporting count",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "Reporting metric used",
@@ -148,7 +148,7 @@ The criteria underpinning collection units and the methodology by which they are
           },
           {
             "name": "Item count",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "Item count confidence",
@@ -156,7 +156,7 @@ The criteria underpinning collection units and the methodology by which they are
           },
           {
             "name": "Curatorial unit count",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "Curatorial unit count confidence",
@@ -164,43 +164,43 @@ The criteria underpinning collection units and the methodology by which they are
           },
           {
             "name": "C1: Physical accessibility",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "S1: Strategy/mission/research",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "S2: Scope and depth",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "S3: Significance by comparison",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "S4: Usage",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "I1: Digitisation",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "I2: Identification",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "I4: Development potential",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "O1: Education suitability",
-            "type": "string",
+            "type": "number",
           },
           {
             "name": "O3: Exhibition suitability",
-            "type": "string",
+            "type": "number",
           },
         ],
       },
@@ -235,7 +235,7 @@ The criteria underpinning collection units and the methodology by which they are
           },
           {
             "name": "nullable",
-            "type": "string",
+            "type": "boolean",
           },
           {
             "name": "Documentation reference",

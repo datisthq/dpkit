@@ -3,9 +3,9 @@ import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
 import { loadJsonTable, loadJsonlTable } from "./load.js"
 
-describe("loadJsonTable", () => {
-  useRecording()
+useRecording()
 
+describe("loadJsonTable", () => {
   describe("file variations", () => {
     it("should load local file", async () => {
       const body = '[{"id":1,"name":"english"},{"id":2,"name":"中文"}]'
@@ -124,8 +124,6 @@ describe("loadJsonTable", () => {
 })
 
 describe("loadJsonlTable", () => {
-  useRecording()
-
   describe("file variations", () => {
     it("should load local file", async () => {
       const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'

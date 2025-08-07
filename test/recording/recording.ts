@@ -42,10 +42,15 @@ export function useRecording(
 
   beforeEach(context => {
     // Overwrite recording name on a per-test basis
-    polly.recordingName = options.recordingName ?? context.task.name
+    polly.recordingName = options.recordingName ?? getFullTaskName(context.task)
   })
 
   afterAll(async () => {
     await polly.stop()
   })
+}
+
+function getFullTaskName(item: any): string {
+  const suiteName = item.suite ? getFullTaskName(item.suite) : undefined
+  return [suiteName, item.name].filter(Boolean).join("-")
 }
