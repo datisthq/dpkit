@@ -1,3 +1,4 @@
+// TODO: split this general module into more focused descriptor/metadata/etc
 export { parseDescriptor } from "./descriptor/process/parse.js"
 export { stringifyDescriptor } from "./descriptor/process/stringify.js"
 export { loadDescriptor } from "./descriptor/load.js"
