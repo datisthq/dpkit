@@ -11,6 +11,7 @@ export default defineConfig({
     exclude: [...configDefaults.exclude, "**/build/**"],
     testTimeout: 60 * 1000,
     passWithNoTests: true,
+    silent: "passed-only",
     coverage: {
       enabled: true,
       reporter: ["html", "json"],
