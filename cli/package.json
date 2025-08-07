@@ -19,10 +19,17 @@
     "fair",
     "cli"
   ],
+  "bin": {
+    "dp": "./bin/run.js"
+  },
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "oclif": "oclif",
+    "start": "./scripts/dev.js",
+    "preview": "./scripts/run.js"
   },
   "dependencies": {
+    "@oclif/core": "^4.5.2",
     "dpkit": "workspace:*",
     "ink": "^6.1.0",
     "react": "^19.1.1"

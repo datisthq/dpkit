@@ -12,11 +12,12 @@
     "ci:install": "pnpm install --ignore-scripts",
     "ci:publish": "pnpm -r publish --access public --ignore-scripts && changeset tag",
     "check": "pnpm run lint && pnpm run type",
+    "cli": "pnpm -F cli start",
     "coverage": "vitest --ui",
+    "doc": "pnpm -F docs start",
     "format": "biome check --write",
     "lint": "biome check",
     "prepare": "husky",
-    "start": "pnpm -F docs start",
     "spec": "vitest run",
     "test": "pnpm check && pnpm run spec",
     "type": "tsc"
