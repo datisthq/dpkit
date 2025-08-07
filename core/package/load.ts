@@ -7,7 +7,6 @@ import { assertPackage } from "./assert.js"
  */
 export async function loadPackageDescriptor(path: string) {
   const { basepath, descriptor } = await loadDescriptor(path)
-  console.log(descriptor.resources[0])
   const dataPackage = await assertPackage(descriptor, { basepath })
   return dataPackage
 }

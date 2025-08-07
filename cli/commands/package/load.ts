@@ -1,27 +1,29 @@
 import { Args, Command, Flags } from "@oclif/core"
+import { loadPackage } from "dpkit"
 
 export default class PackageLoad extends Command {
+  static override description = "Load a Data Package descriptor"
+
   static override args = {
-    file: Args.string({ description: "file to read" }),
+    path: Args.string({
+      description: "local or remote path to the package descriptor",
+      required: true,
+    }),
   }
-  static override description = "describe the command here"
-  static override examples = ["<%= config.bin %> <%= command.id %>"]
+
   static override flags = {
-    // flag with no value (-f, --force)
-    force: Flags.boolean({ char: "f" }),
-    // flag with a value (-n, --name=VALUE)
-    name: Flags.string({ char: "n", description: "name to print" }),
+    json: Flags.boolean({ char: "j", description: "output as JSON" }),
   }
 
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(PackageLoad)
 
-    const name = flags.name ?? "world"
-    this.log(
-      `hello ${name} from /home/roll/projects/dpkit/cli/src/commands/package/load.ts`,
-    )
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
+    const dp = await loadPackage(args.path)
+
+    if (flags.json) {
+      this.logJson(dp)
+    } else {
+      console.log(dp)
     }
   }
 }
