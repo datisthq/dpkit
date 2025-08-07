@@ -19,13 +19,12 @@
     "cli"
   ],
   "bin": {
-    "dp": "./bin/run.js"
+    "dp": "./scripts/run.ts"
   },
   "scripts": {
-    "build": "tsc --build",
     "oclif": "oclif",
-    "start": "./scripts/dev.js",
-    "preview": "./scripts/run.js"
+    "dev": "./scripts/dev.ts",
+    "run": "./scripts/run.ts"
   },
   "dependencies": {
     "@oclif/core": "^4.5.2",

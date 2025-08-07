@@ -14,7 +14,7 @@ This guide will help you get started with dpkit. If you are new to the core fram
 
 dpkit and all its packages support all the prominent TypeScript runtimes:
 
-- **Node.js v20+**
+- **Node.js v24+**
 - **Deno v2+**
 - **Bun v1+**
 

@@ -1,5 +1,6 @@
-import { Args, Command, Flags } from "@oclif/core"
+import { Args, Command } from "@oclif/core"
 import { loadPackage } from "dpkit"
+import * as options from "../../options/index.ts"
 
 export default class PackageLoad extends Command {
   static override description = "Load a Data Package descriptor"
@@ -12,7 +13,7 @@ export default class PackageLoad extends Command {
   }
 
   static override flags = {
-    json: Flags.boolean({ char: "j", description: "output as JSON" }),
+    json: options.json(),
   }
 
   public async run(): Promise<void> {
