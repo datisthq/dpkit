@@ -6,11 +6,29 @@ sidebar:
 
 This guide will help you get started with dpkit. If you are new to the core framework's tecnhologies, please take a look at the [Data Package standard](https://datapackage.org/) and [Polars DataFrames](https://pola.rs/) documentation.
 
+## Runtimes
+
+:::tip
+- It is possible to use dpkit in [Jupyter Notebooks](/guides/jupyter)!
+:::
+
+dpkit and all its packages support all the prominent TypeScript runtimes:
+
+- **Node.js v20+**
+- **Deno v2+**
+- **Bun v1+**
+
+The core package `@dpkit/core` additionally supports browser environments:
+
+- **Edge v92+**
+- **Chrome v92+**
+- **Firefox v90+**
+- and others
 
 ## Installation
 
-:::note[Prerequisites]
-- **Node.js v20+**
+:::note
+The documentation uses `npm` command to install packages. If you are using other package managers, please adjust the commands accordingly.
 :::
 
 The framework can be installed as one package:
@@ -23,6 +41,12 @@ Or cherry-picked from individual packages:
 
 ```bash
 npm install @dpkit/core @dpkit/zenodo
+```
+
+Or the core package can be just imported in browsers using NPM CDNs:
+
+```js
+import { loadPackageDescriptor } from "https://esm.sh/@dpkit/core"
 ```
 
 ## TypeScript

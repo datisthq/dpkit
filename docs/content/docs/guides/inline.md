@@ -1,5 +1,7 @@
 ---
 title: Working with inline data
+sidebar:
+  order: 5
 ---
 
 Dpkit provides a package for reading inline data tables embedded directly in data package resources.
