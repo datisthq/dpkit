@@ -6,6 +6,8 @@ import { afterAll, beforeAll, beforeEach } from "vitest"
 // @ts-ignore
 Polly.register(FSPersister)
 
+// It emits a deprecation warning, but at the moment there is not
+// working alternative for the fetch adapter
 // @ts-ignore
 Polly.register(FetchAdapter)
 
