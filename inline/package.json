@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/inline",
   "type": "module",
-  "main": "build/index.js",
+  "exports": "./build/index.js",
   "version": "0.5.0",
   "license": "MIT",
   "author": "Evgeny Karev",

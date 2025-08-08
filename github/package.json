@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/github",
   "type": "module",
-  "main": "build/index.js",
+  "exports": "./build/index.js",
   "version": "0.7.0",
   "license": "MIT",
   "author": "Evgeny Karev",

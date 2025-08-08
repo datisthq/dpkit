@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/parquet",
   "type": "module",
-  "main": "build/index.js",
+  "exports": "./build/index.js",
   "version": "0.2.0",
   "license": "MIT",
   "author": "Evgeny Karev",

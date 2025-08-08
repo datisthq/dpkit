@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/zenodo",
   "type": "module",
-  "main": "build/index.js",
+  "exports": "./build/index.js",
   "version": "0.6.0",
   "license": "MIT",
   "author": "Evgeny Karev",
