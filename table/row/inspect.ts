@@ -1,7 +1,7 @@
 import type { Schema } from "@dpkit/core"
-import type { TableError } from "../error/Table.js"
-import type { Table } from "../table/Table.js"
-import { checkRowUnique } from "./checks/unique.js"
+import type { TableError } from "../error/Table.ts"
+import type { Table } from "../table/Table.ts"
+import { checkRowUnique } from "./checks/unique.ts"
 
 export function inspectRows(schema: Schema, errorTable: Table) {
   const errors: TableError[] = []

@@ -1,6 +1,6 @@
 import type { Field } from "@dpkit/core"
 import { col } from "nodejs-polars"
-import type { Table } from "../../table/index.js"
+import type { Table } from "../../table/index.ts"
 
 export function checkCellMaxLength(field: Field, errorTable: Table) {
   if (field.type === "string") {

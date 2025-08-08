@@ -1,5 +1,5 @@
-import { loadDescriptor } from "../general/index.js"
-import { assertPackage } from "./assert.js"
+import { loadDescriptor } from "../general/index.ts"
+import { assertPackage } from "./assert.ts"
 
 /**
  * Load a Package descriptor (JSON Object) from a file or URL

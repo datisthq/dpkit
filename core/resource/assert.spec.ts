@@ -1,7 +1,7 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertionError } from "../general/index.js"
-import type { Resource } from "./Resource.js"
-import { assertResource } from "./assert.js"
+import { AssertionError } from "../general/index.ts"
+import type { Resource } from "./Resource.ts"
+import { assertResource } from "./assert.ts"
 
 describe("assertResource", () => {
   it("returns typed resource when valid", async () => {

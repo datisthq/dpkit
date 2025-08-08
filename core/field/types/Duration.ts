@@ -1,4 +1,4 @@
-import type { BaseConstraints, BaseField } from "./Base.js"
+import type { BaseConstraints, BaseField } from "./Base.ts"
 
 /**
  * Duration field type (ISO 8601 duration)

@@ -1,13 +1,13 @@
 import type { Schema } from "@dpkit/core"
 import { col, lit } from "nodejs-polars"
-import type { TableError } from "../error/index.js"
-import { matchField } from "../field/index.js"
-import { inspectField } from "../field/index.js"
-import { inspectRows } from "../row/index.js"
-import { getPolarsSchema } from "../schema/index.js"
-import type { PolarsSchema } from "../schema/index.js"
-import type { Table } from "./Table.js"
-import { processFields } from "./process.js"
+import type { TableError } from "../error/index.ts"
+import { matchField } from "../field/index.ts"
+import { inspectField } from "../field/index.ts"
+import { inspectRows } from "../row/index.ts"
+import { getPolarsSchema } from "../schema/index.ts"
+import type { PolarsSchema } from "../schema/index.ts"
+import type { Table } from "./Table.ts"
+import { processFields } from "./process.ts"
 
 export async function inspectTable(
   table: Table,

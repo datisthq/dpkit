@@ -1,8 +1,8 @@
 import { getTempFilePath } from "@dpkit/file"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { loadArrowTable } from "./load.js"
-import { saveArrowTable } from "./save.js"
+import { loadArrowTable } from "./load.ts"
+import { saveArrowTable } from "./save.ts"
 
 describe("saveArrowTable", () => {
   it("should save table to Arrow file", async () => {

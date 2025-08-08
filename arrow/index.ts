@@ -1,2 +1,2 @@
-export * from "./table/index.js"
-export * from "./plugin.js"
+export * from "./table/index.ts"
+export * from "./plugin.ts"

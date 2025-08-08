@@ -2,8 +2,8 @@ import * as fs from "node:fs/promises"
 import * as path from "node:path"
 import { temporaryDirectory } from "tempy"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
-import type { Dialect } from "./Dialect.js"
-import { saveDialect } from "./save.js"
+import type { Dialect } from "./Dialect.ts"
+import { saveDialect } from "./save.ts"
 
 describe("saveDialect", () => {
   const testDialect: Dialect = {

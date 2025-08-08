@@ -1,1 +1,1 @@
-export { makeCkanApiRequest } from "./request.js"
+export { makeCkanApiRequest } from "./request.ts"

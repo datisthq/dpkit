@@ -1,3 +1,3 @@
-import type { Descriptor } from "../descriptor/Descriptor.js"
+import type { Descriptor } from "../descriptor/Descriptor.ts"
 
 export type Profile = Descriptor

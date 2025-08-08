@@ -1,5 +1,5 @@
-import type { Package } from "./Package.js"
-import { loadPackageDescriptor } from "./load.js"
+import type { Package } from "./Package.ts"
+import { loadPackageDescriptor } from "./load.ts"
 
 /**
  * Merges a system data package into a user data package if provided

@@ -1,5 +1,5 @@
-import type { Descriptor } from "../../general/index.js"
-import type { Field } from "../Field.js"
+import type { Descriptor } from "../../general/index.ts"
+import type { Field } from "../Field.ts"
 
 export function denormalizeField(field: Field) {
   field = globalThis.structuredClone(field)

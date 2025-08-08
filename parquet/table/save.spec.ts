@@ -1,8 +1,8 @@
 import { getTempFilePath } from "@dpkit/file"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { loadParquetTable } from "./load.js"
-import { saveParquetTable } from "./save.js"
+import { loadParquetTable } from "./load.ts"
+import { saveParquetTable } from "./save.ts"
 
 describe("saveParquetTable", () => {
   it("should save table to Parquet file", async () => {

@@ -1,4 +1,4 @@
-import type { BaseConstraints, BaseField } from "./Base.js"
+import type { BaseConstraints, BaseField } from "./Base.ts"
 
 /**
  * GeoJSON field type

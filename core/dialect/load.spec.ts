@@ -1,7 +1,7 @@
 import { join } from "node:path"
 import { describe, expect, expectTypeOf, it } from "vitest"
-import type { Dialect } from "./Dialect.js"
-import { loadDialect } from "./load.js"
+import type { Dialect } from "./Dialect.ts"
+import { loadDialect } from "./load.ts"
 
 describe("loadDialect", async () => {
   const getFixturePath = (name: string) => join(__dirname, "fixtures", name)

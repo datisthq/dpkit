@@ -1,7 +1,7 @@
 import type { Dialect } from "@dpkit/core"
 import { saveFile } from "@dpkit/file"
 import type { SaveTableOptions, Table } from "@dpkit/table"
-import { decodeJsonBuffer, encodeJsonBuffer } from "../buffer/index.js"
+import { decodeJsonBuffer, encodeJsonBuffer } from "../buffer/index.ts"
 
 export async function saveJsonTable(table: Table, options: SaveTableOptions) {
   return await saveTable(table, { ...options, isLines: false })

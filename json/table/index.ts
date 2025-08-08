@@ -1,2 +1,2 @@
-export { loadJsonTable, loadJsonlTable } from "./load.js"
-export { saveJsonTable, saveJsonlTable } from "./save.js"
+export { loadJsonTable, loadJsonlTable } from "./load.ts"
+export { saveJsonTable, saveJsonlTable } from "./save.ts"

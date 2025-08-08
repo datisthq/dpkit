@@ -1,1 +1,1 @@
-export { makeZenodoApiRequest } from "./request.js"
+export { makeZenodoApiRequest } from "./request.ts"

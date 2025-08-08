@@ -1,3 +1,3 @@
-export { processTable } from "./process.js"
-export { inspectTable } from "./inspect.js"
-export type { Table } from "./Table.js"
+export { processTable } from "./process.ts"
+export { inspectTable } from "./inspect.ts"
+export type { Table } from "./Table.ts"

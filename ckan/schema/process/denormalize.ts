@@ -1,6 +1,6 @@
 import type { Field, Schema } from "@dpkit/core"
-import type { CkanField, CkanFieldInfo } from "../Field.js"
-import type { CkanSchema } from "../Schema.js"
+import type { CkanField, CkanFieldInfo } from "../Field.ts"
+import type { CkanSchema } from "../Schema.ts"
 
 /**
  * Denormalizes a Table Schema to a CKAN schema format

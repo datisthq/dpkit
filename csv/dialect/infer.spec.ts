@@ -1,6 +1,6 @@
 import { writeTempFile } from "@dpkit/file"
 import { describe, expect, it } from "vitest"
-import { inferCsvDialect } from "./infer.js"
+import { inferCsvDialect } from "./infer.ts"
 
 describe("inferCsvDialect", () => {
   it("should infer a simple CSV file", async () => {

@@ -1,4 +1,4 @@
-export type { ZenodoPackage } from "./Package.js"
-export type { ZenodoCreator } from "./Creator.js"
-export { loadPackageFromZenodo } from "./load.js"
-export { savePackageToZenodo } from "./save.js"
+export type { ZenodoPackage } from "./Package.ts"
+export type { ZenodoCreator } from "./Creator.ts"
+export { loadPackageFromZenodo } from "./load.ts"
+export { savePackageToZenodo } from "./save.ts"

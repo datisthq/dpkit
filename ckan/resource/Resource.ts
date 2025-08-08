@@ -1,5 +1,5 @@
 import type { SetRequired } from "type-fest"
-import type { CkanSchema } from "../schema/index.js"
+import type { CkanSchema } from "../schema/index.ts"
 
 /**
  * CKAN Resource interface

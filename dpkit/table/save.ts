@@ -1,5 +1,5 @@
 import type { SaveTableOptions, Table } from "@dpkit/table"
-import { dpkit } from "../plugin.js"
+import { dpkit } from "../plugin.ts"
 
 export async function saveTable(table: Table, options: SaveTableOptions) {
   for (const plugin of dpkit.plugins) {

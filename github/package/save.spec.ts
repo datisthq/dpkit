@@ -1,7 +1,7 @@
 import { loadPackageDescriptor } from "@dpkit/core"
 //import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
-import { savePackageToGithub } from "./save.js"
+import { savePackageToGithub } from "./save.ts"
 
 describe("savePackageToGithub", () => {
   //useRecording()

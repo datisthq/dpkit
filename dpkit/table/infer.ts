@@ -2,8 +2,8 @@ import type { Dialect, Resource, Schema } from "@dpkit/core"
 import { loadDialect, loadSchema } from "@dpkit/core"
 import type { Table } from "@dpkit/table"
 import { inferSchema } from "@dpkit/table"
-import { inferDialect } from "../dialect/index.js"
-import { loadTable } from "./load.js"
+import { inferDialect } from "../dialect/index.ts"
+import { loadTable } from "./load.ts"
 
 export async function inferTable(
   resource: Partial<Resource>,

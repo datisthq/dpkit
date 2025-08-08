@@ -1,1 +1,1 @@
-export type { TableError } from "./Table.js"
+export type { TableError } from "./Table.ts"

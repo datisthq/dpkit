@@ -1,6 +1,6 @@
-import type { Metadata } from "../general/index.js"
-import type { License, Resource, Source } from "../resource/index.js"
-import type { Contributor } from "./Contributor.js"
+import type { Metadata } from "../general/index.ts"
+import type { License, Resource, Source } from "../resource/index.ts"
+import type { Contributor } from "./Contributor.ts"
 
 /**
  * Data Package interface built on top of the Frictionless Data specification

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { validateDialect } from "./validate.js"
+import { validateDialect } from "./validate.ts"
 
 describe("validateDialect", () => {
   it("returns valid result for valid dialect", async () => {

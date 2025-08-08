@@ -1,2 +1,2 @@
-export { loadArrowTable } from "./load.js"
-export { saveArrowTable } from "./save.js"
+export { loadArrowTable } from "./load.ts"
+export { saveArrowTable } from "./save.ts"

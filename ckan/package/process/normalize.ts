@@ -1,7 +1,7 @@
 import type { Contributor, Package } from "@dpkit/core"
 import type { License } from "@dpkit/core"
-import { normalizeCkanResource } from "../../resource/process/normalize.js"
-import type { CkanPackage } from "../Package.js"
+import { normalizeCkanResource } from "../../resource/process/normalize.ts"
+import type { CkanPackage } from "../Package.ts"
 
 /**
  * Normalizes a CKAN package to Frictionless Data package format

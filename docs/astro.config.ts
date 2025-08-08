@@ -78,7 +78,7 @@ export default defineConfig({
         {
           tag: "script",
           attrs: {
-            src: "https://plausible.io/js/script.js",
+            src: "https://plausible.io/js/script.ts",
             "data-domain": "dpkit.datist.io",
             defer: true,
           },

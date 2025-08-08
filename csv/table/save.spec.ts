@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises"
 import { getTempFilePath } from "@dpkit/file"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { saveCsvTable } from "./save.js"
+import { saveCsvTable } from "./save.ts"
 
 describe("saveCsvTable", () => {
   it("should save table to file", async () => {

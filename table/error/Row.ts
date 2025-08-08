@@ -1,4 +1,4 @@
-import type { BaseTableError } from "./Base.js"
+import type { BaseTableError } from "./Base.ts"
 
 export interface BaseRowError extends BaseTableError {
   rowNumber: number

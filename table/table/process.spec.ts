@@ -1,7 +1,7 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "./process.js"
+import { processTable } from "./process.ts"
 
 describe("processTable", () => {
   it("should work without schema", async () => {

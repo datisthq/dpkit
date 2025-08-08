@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { saveResourceFiles } from "./save.js"
+import { saveResourceFiles } from "./save.ts"
 
 describe("saveResourceFiles", () => {
   it.each([

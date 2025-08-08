@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { validateDescriptor } from "./validate.js"
+import { validateDescriptor } from "./validate.ts"
 
 describe("validateDescriptor", () => {
   it("returns empty array for valid descriptor", async () => {

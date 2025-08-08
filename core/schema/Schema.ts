@@ -1,6 +1,6 @@
-import type { Field } from "../field/index.js"
-import type { Metadata } from "../general/index.js"
-import type { ForeignKey } from "./ForeignKey.js"
+import type { Field } from "../field/index.ts"
+import type { Metadata } from "../general/index.ts"
+import type { ForeignKey } from "./ForeignKey.ts"
 
 /**
  * Table Schema definition

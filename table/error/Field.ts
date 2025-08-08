@@ -1,5 +1,5 @@
 import type { Field } from "@dpkit/core"
-import type { BaseTableError } from "./Base.js"
+import type { BaseTableError } from "./Base.ts"
 
 export interface BaseFieldError extends BaseTableError {
   fieldName: string

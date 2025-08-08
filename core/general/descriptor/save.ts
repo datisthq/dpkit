@@ -1,6 +1,6 @@
-import { node } from "../node.js"
-import type { Descriptor } from "./Descriptor.js"
-import { stringifyDescriptor } from "./process/stringify.js"
+import { node } from "../node.ts"
+import type { Descriptor } from "./Descriptor.ts"
+import { stringifyDescriptor } from "./process/stringify.ts"
 
 /**
  * Save a descriptor (JSON Object) to a file path

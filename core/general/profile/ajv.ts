@@ -1,5 +1,5 @@
 import { Ajv } from "ajv"
-import { loadProfile } from "./load.js"
+import { loadProfile } from "./load.ts"
 
 export const ajv = new Ajv({
   strict: false,

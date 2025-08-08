@@ -1,4 +1,4 @@
-import type { Descriptor } from "../../general/index.js"
+import type { Descriptor } from "../../general/index.ts"
 
 export function normalizeDialect(descriptor: Descriptor) {
   descriptor = globalThis.structuredClone(descriptor)

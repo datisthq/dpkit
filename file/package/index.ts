@@ -1,1 +1,1 @@
-export { getPackageBasepath } from "./path.js"
+export { getPackageBasepath } from "./path.ts"

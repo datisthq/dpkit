@@ -1,2 +1,2 @@
-export { loadPackageFromFolder } from "./load.js"
-export { savePackageToFolder } from "./save.js"
+export { loadPackageFromFolder } from "./load.ts"
+export { savePackageToFolder } from "./save.ts"

@@ -1,7 +1,7 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertionError } from "../general/index.js"
-import type { Package } from "./Package.js"
-import { assertPackage } from "./assert.js"
+import { AssertionError } from "../general/index.ts"
+import type { Package } from "./Package.ts"
+import { assertPackage } from "./assert.ts"
 
 describe("assertPackage", () => {
   it("returns typed package when valid", async () => {

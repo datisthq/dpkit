@@ -1,7 +1,7 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { inspectTable } from "./inspect.js"
+import { inspectTable } from "./inspect.ts"
 
 describe("inspectTable", () => {
   describe("fields validation with fieldsMatch='exact'", () => {

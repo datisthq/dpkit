@@ -1,4 +1,4 @@
-import type { Descriptor } from "../../general/index.js"
+import type { Descriptor } from "../../general/index.ts"
 
 export function normalizeField(descriptor: Descriptor) {
   descriptor = globalThis.structuredClone(descriptor)

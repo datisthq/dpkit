@@ -2,7 +2,7 @@ import { getTempFilePath } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { loadArrowTable } from "./load.js"
+import { loadArrowTable } from "./load.ts"
 
 describe("loadArrowTable", () => {
   useRecording()

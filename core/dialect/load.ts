@@ -1,5 +1,5 @@
-import { loadDescriptor } from "../general/index.js"
-import { assertDialect } from "./assert.js"
+import { loadDescriptor } from "../general/index.ts"
+import { assertDialect } from "./assert.ts"
 
 /**
  * Load a Dialect descriptor (JSON Object) from a file or URL

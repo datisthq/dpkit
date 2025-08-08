@@ -1,6 +1,6 @@
 import type { Field } from "@dpkit/core"
 import { col } from "nodejs-polars"
-import type { Table } from "../../table/index.js"
+import type { Table } from "../../table/index.ts"
 
 // TODO: Support schema.primaryKey and schema.uniqueKeys
 export function checkCellUnique(field: Field, errorTable: Table) {

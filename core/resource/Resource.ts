@@ -1,8 +1,8 @@
-import type { Dialect } from "../dialect/Dialect.js"
-import type { Metadata } from "../general/index.js"
-import type { Schema } from "../schema/Schema.js"
-import type { License } from "./License.js"
-import type { Source } from "./Source.js"
+import type { Dialect } from "../dialect/Dialect.ts"
+import type { Metadata } from "../general/index.ts"
+import type { Schema } from "../schema/Schema.ts"
+import type { License } from "./License.ts"
+import type { Source } from "./Source.ts"
 
 /**
  * Data Resource interface built on top of the Data Package standard and Polars DataFrames

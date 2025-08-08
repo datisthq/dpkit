@@ -1,1 +1,1 @@
-export { useRecording } from "./recording.js"
+export { useRecording } from "./recording.ts"

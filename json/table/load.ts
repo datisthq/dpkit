@@ -5,7 +5,7 @@ import { prefetchFiles } from "@dpkit/file"
 import type { Table } from "@dpkit/table"
 import { concat } from "nodejs-polars"
 import { DataFrame, scanJson } from "nodejs-polars"
-import { decodeJsonBuffer } from "../buffer/index.js"
+import { decodeJsonBuffer } from "../buffer/index.ts"
 
 export async function loadJsonTable(resource: Partial<Resource>) {
   return await loadTable(resource, { isLines: false })

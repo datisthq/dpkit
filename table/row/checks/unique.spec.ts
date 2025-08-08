@@ -1,7 +1,7 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { inspectTable } from "../../table/index.js"
+import { inspectTable } from "../../table/index.ts"
 
 describe("inspectTable (row/unique)", () => {
   it("should not report errors when all rows are unique for primary key", async () => {

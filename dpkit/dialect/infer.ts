@@ -1,6 +1,6 @@
 import type { Dialect, Resource } from "@dpkit/core"
 import type { InferDialectOptions } from "@dpkit/table"
-import { dpkit } from "../plugin.js"
+import { dpkit } from "../plugin.ts"
 
 // TODO: implement inferDialect
 

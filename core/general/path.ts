@@ -1,5 +1,5 @@
 import slugify from "@sindresorhus/slugify"
-import { node } from "./node.js"
+import { node } from "./node.ts"
 
 export function isRemotePath(path: string) {
   try {

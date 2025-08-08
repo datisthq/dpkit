@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises"
 import { getTempFilePath } from "@dpkit/file"
 import { readRecords } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { saveJsonTable, saveJsonlTable } from "./save.js"
+import { saveJsonTable, saveJsonlTable } from "./save.ts"
 
 const row1 = { id: 1, name: "english" }
 const row2 = { id: 2, name: "中文" }

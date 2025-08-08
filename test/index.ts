@@ -1,1 +1,1 @@
-export * from "./recording/index.js"
+export * from "./recording/index.ts"

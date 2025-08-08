@@ -1,2 +1,2 @@
-export { type InferSchemaOptions, inferSchema } from "./infer.js"
-export { type PolarsSchema, getPolarsSchema } from "./Schema.js"
+export { type InferSchemaOptions, inferSchema } from "./infer.ts"
+export { type PolarsSchema, getPolarsSchema } from "./Schema.ts"

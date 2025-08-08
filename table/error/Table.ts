@@ -10,10 +10,10 @@ import type {
   CellRequiredError,
   CellTypeError,
   CellUniqueError,
-} from "./Cell.js"
-import type { FieldNameError, FieldTypeError } from "./Field.js"
-import type { FieldsExtraError, FieldsMissingError } from "./Fields.js"
-import type { RowUniqueError } from "./Row.js"
+} from "./Cell.ts"
+import type { FieldNameError, FieldTypeError } from "./Field.ts"
+import type { FieldsExtraError, FieldsMissingError } from "./Fields.ts"
+import type { RowUniqueError } from "./Row.ts"
 
 export type TableError =
   | FieldsMissingError

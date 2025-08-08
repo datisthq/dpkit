@@ -1,6 +1,6 @@
 import type { Plugin } from "@dpkit/core"
 import { isRemotePath } from "@dpkit/core"
-import { loadPackageFromGithub } from "./package/load.js"
+import { loadPackageFromGithub } from "./package/load.ts"
 
 export class GithubPlugin implements Plugin {
   async loadPackage(source: string) {

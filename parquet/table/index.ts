@@ -1,2 +1,2 @@
-export { loadParquetTable } from "./load.js"
-export { saveParquetTable } from "./save.js"
+export { loadParquetTable } from "./load.ts"
+export { saveParquetTable } from "./save.ts"

@@ -1,6 +1,6 @@
 import type { Resource } from "@dpkit/core"
 import { inspectTable } from "@dpkit/table"
-import { inferTable } from "./infer.js"
+import { inferTable } from "./infer.ts"
 
 export async function validateTable(resource: Partial<Resource>) {
   const { table, schema } = await inferTable(resource)

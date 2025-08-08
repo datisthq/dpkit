@@ -1,6 +1,6 @@
 import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
-import { loadPackageFromCkan } from "./load.js"
+import { loadPackageFromCkan } from "./load.ts"
 
 describe("loadPackageFromCkan", () => {
   useRecording()

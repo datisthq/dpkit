@@ -1,7 +1,7 @@
 import { writeTempFile } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
-import { loadJsonTable, loadJsonlTable } from "./load.js"
+import { loadJsonTable, loadJsonlTable } from "./load.ts"
 
 useRecording()
 

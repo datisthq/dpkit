@@ -1,6 +1,6 @@
-import { saveDescriptor } from "../general/index.js"
-import type { Schema } from "./Schema.js"
-import { denormalizeSchema } from "./process/denormalize.js"
+import { saveDescriptor } from "../general/index.ts"
+import type { Schema } from "./Schema.ts"
+import { denormalizeSchema } from "./process/denormalize.ts"
 
 const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/tableschema.json"
 

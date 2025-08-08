@@ -1,2 +1,2 @@
-export { encodeJsonBuffer } from "./encode.js"
-export { decodeJsonBuffer } from "./decode.js"
+export { encodeJsonBuffer } from "./encode.ts"
+export { decodeJsonBuffer } from "./decode.ts"

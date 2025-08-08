@@ -1,4 +1,4 @@
-import type { Package } from "./package/index.js"
+import type { Package } from "./package/index.ts"
 
 export interface Plugin {
   loadPackage?(source: string): Promise<Package | undefined>

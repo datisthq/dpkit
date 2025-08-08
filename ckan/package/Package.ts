@@ -1,6 +1,6 @@
-import type { CkanResource } from "../resource/index.js"
-import type { CkanOrganization } from "./Organization.js"
-import type { CkanTag } from "./Tag.js"
+import type { CkanResource } from "../resource/index.ts"
+import type { CkanOrganization } from "./Organization.ts"
+import type { CkanTag } from "./Tag.ts"
 
 /**
  * CKAN Package interface

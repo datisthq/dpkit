@@ -7,7 +7,7 @@ import {
   getPackageBasepath,
   saveResourceFiles,
 } from "@dpkit/file"
-import { createFolder } from "../folder/index.js"
+import { createFolder } from "../folder/index.ts"
 
 export async function savePackageToFolder(
   dataPackage: Package,

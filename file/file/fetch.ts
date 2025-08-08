@@ -1,6 +1,6 @@
 import { isRemotePath } from "@dpkit/core"
-import { copyFile } from "./copy.js"
-import { getTempFilePath } from "./temp.js"
+import { copyFile } from "./copy.ts"
+import { getTempFilePath } from "./temp.ts"
 
 export async function prefetchFiles(path?: string | string[]) {
   if (!path) return []

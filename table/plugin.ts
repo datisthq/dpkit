@@ -1,5 +1,5 @@
 import type { Dialect, Plugin, Resource } from "@dpkit/core"
-import type { Table } from "./table/index.js"
+import type { Table } from "./table/index.ts"
 
 export type InferDialectOptions = { sampleBytes?: number }
 export type SaveTableOptions = { path: string; dialect?: Dialect }
