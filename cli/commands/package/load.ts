@@ -1,19 +1,17 @@
-import { Args, Command } from "@oclif/core"
+import { Command } from "@oclif/core"
 import { loadPackage } from "dpkit"
 import * as options from "../../options/index.ts"
+import * as params from "../../params/index.ts"
 
 export default class PackageLoad extends Command {
   static override description = "Load a Data Package descriptor"
 
   static override args = {
-    path: Args.string({
-      description: "local or remote path to the package descriptor",
-      required: true,
-    }),
+    path: params.requriedDescriptorPath,
   }
 
   static override flags = {
-    json: options.json(),
+    json: options.json,
   }
 
   public async run(): Promise<void> {

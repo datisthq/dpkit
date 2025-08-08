@@ -1,5 +1,6 @@
 import { Flags } from "@oclif/core"
 
-export const json = () => {
-  return Flags.boolean({ char: "j", description: "output as JSON" })
-}
+export const json = Flags.boolean({
+  description: "output as JSON",
+  char: "j",
+})
