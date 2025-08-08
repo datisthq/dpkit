@@ -20,6 +20,6 @@
     "extend"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   }
 }

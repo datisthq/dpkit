@@ -1,15 +1,19 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["**/build/", "**/docs/"],
+  "include": ["${configDir}/**/*.ts", "${configDir}/**/*.tsx"],
+  "exclude": ["${configDir}/**/build/", "${configDir}/**/docs/"],
+
   "compilerOptions": {
-    "strict": true,
-    "noEmit": true,
+    "jsx": "react-jsx",
     "target": "ES2022",
-    "lib": ["ESNext"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "rewriteRelativeImportExtensions": true,
+    "outDir": "${configDir}/build",
+
+    "lib": ["ESNext"],
+    "types": ["node"],
+
+    "strict": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -20,6 +24,9 @@
     "noUnusedLocals": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    "declaration": true,
+    "rewriteRelativeImportExtensions": true
   }
 }

@@ -37,6 +37,6 @@
     "@dpkit/zip": "workspace:*"
   },
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   }
 }

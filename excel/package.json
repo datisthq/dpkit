@@ -20,6 +20,6 @@
     "excel"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   }
 }

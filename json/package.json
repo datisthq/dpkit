@@ -20,7 +20,7 @@
     "json"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   },
   "dependencies": {
     "@dpkit/core": "workspace:*",

@@ -20,7 +20,7 @@
     "table"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   },
   "dependencies": {
     "nodejs-polars": "^0.18.0",

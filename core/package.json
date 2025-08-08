@@ -20,7 +20,7 @@
     "core"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^0.9.0",

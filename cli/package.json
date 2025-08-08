@@ -22,8 +22,9 @@
     "dp": "./scripts/run.ts"
   },
   "scripts": {
-    "oclif": "oclif",
+    "build": "tsc",
     "dev": "./scripts/dev.ts",
+    "oclif": "oclif",
     "run": "./scripts/run.ts"
   },
   "dependencies": {
