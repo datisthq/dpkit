@@ -5,7 +5,7 @@
   "compilerOptions": {
     "strict": true,
     "noEmit": true,
-    "target": "ES2024",
+    "target": "ES2022",
     "lib": ["ESNext"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
