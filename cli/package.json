@@ -1,6 +1,7 @@
 {
   "name": "@dpkit/cli",
   "type": "module",
+  "bin": { "dp": "./build/scripts/run.js" },
   "version": "0.2.0",
   "license": "MIT",
   "author": "Evgeny Karev",
@@ -18,11 +19,8 @@
     "fair",
     "cli"
   ],
-  "bin": {
-    "dp": "./scripts/run.ts"
-  },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && chmod +x ./build/scripts/run.js",
     "dev": "./scripts/dev.ts",
     "oclif": "oclif",
     "run": "./scripts/run.ts"
