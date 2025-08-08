@@ -20,7 +20,7 @@
     "cli"
   ],
   "scripts": {
-    "build": "tsc && chmod +x ./build/scripts/run.js",
+    "build": "tsc && cp assets/* build/scripts && chmod +x ./build/scripts/*.js",
     "dev": "./scripts/dev.ts",
     "oclif": "oclif",
     "run": "./scripts/run.ts"
