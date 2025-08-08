@@ -4,7 +4,6 @@
   "exclude": ["${configDir}/**/build/", "${configDir}/**/docs/"],
 
   "compilerOptions": {
-    "jsx": "react-jsx",
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -12,6 +11,7 @@
 
     "lib": ["ESNext"],
     "types": ["node"],
+    "jsx": "react",
 
     "strict": true,
     "isolatedModules": true,

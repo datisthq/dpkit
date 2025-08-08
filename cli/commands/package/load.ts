@@ -14,15 +14,16 @@ export default class LoadPackage extends Command {
     json: options.json,
   }
 
-  public async run(): Promise<void> {
+  public async run() {
     const { args, flags } = await this.parse(LoadPackage)
 
     const dp = await loadPackage(args.path)
 
     if (flags.json) {
       this.logJson(dp)
-    } else {
-      console.log(dp)
+      return
     }
+
+    console.log(dp)
   }
 }

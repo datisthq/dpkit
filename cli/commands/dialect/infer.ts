@@ -14,15 +14,16 @@ export default class InferDialect extends Command {
     json: options.json,
   }
 
-  public async run(): Promise<void> {
+  public async run() {
     const { args, flags } = await this.parse(InferDialect)
 
     const dialect = await inferDialect({ path: args.path })
 
     if (flags.json) {
       this.logJson(dialect)
-    } else {
-      console.log(dialect)
+      return
     }
+
+    console.log(dialect)
   }
 }
