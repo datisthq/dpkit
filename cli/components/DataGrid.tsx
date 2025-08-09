@@ -2,11 +2,14 @@ import { Box, Text } from "ink"
 import React from "react"
 
 const MIN_COLUMN_WIDTH = 15
+export type Order = { col: number; dir: "asc" | "desc" }
 
 export function DataGrid(props: {
   data: Record<string, any>[]
+  col?: number
+  order?: Order
 }) {
-  const { data } = props
+  const { data, col, order } = props
 
   const colNames = Object.keys(data[0] ?? {})
   const colWidth = Math.min(
@@ -16,6 +19,10 @@ export function DataGrid(props: {
 
   const tableWidth = colNames.length * colWidth
 
+  const selectIndex = col ? col - 1 : -1
+  const orderIndex = order?.col ? order?.col - 1 : -1
+  const orderSign = order?.dir === "desc" ? " ▲" : " ▼"
+
   return (
     <Box
       flexDirection="column"
@@ -24,28 +31,39 @@ export function DataGrid(props: {
       width={tableWidth}
     >
       <Box paddingRight={1}>
-        {colNames.map(name => (
+        {colNames.map((name, index) => (
           <Box
             key={name}
             width={colWidth}
             paddingLeft={1}
             justifyContent="center"
-            backgroundColor="#555"
+            backgroundColor={index === selectIndex ? "#777" : "#555"}
           >
-            <Text bold>{name}</Text>
+            <Text bold>
+              {name}
+              {index === orderIndex ? orderSign : "  "}
+            </Text>
           </Box>
         ))}
       </Box>
 
-      {data.map((row, index) => (
-        <Box key={index} paddingRight={1}>
-          {colNames.map(name => (
+      {data.map((row, rowIndex) => (
+        <Box key={rowIndex} paddingRight={1}>
+          {colNames.map((name, index) => (
             <Box
               key={name}
               width={colWidth}
               paddingLeft={1}
               justifyContent="center"
-              backgroundColor={index % 2 === 0 ? "#333" : undefined}
+              backgroundColor={
+                rowIndex % 2 === 0
+                  ? index === selectIndex
+                    ? "#555"
+                    : "#333"
+                  : index === selectIndex
+                    ? "#444"
+                    : undefined
+              }
               height={2}
               overflow="hidden"
             >

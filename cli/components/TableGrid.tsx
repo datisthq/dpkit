@@ -2,21 +2,48 @@ import type { Table } from "dpkit"
 import { useApp, useInput } from "ink"
 import { useEffect, useState } from "react"
 import React from "react"
+import type { Order } from "./DataGrid.tsx"
 import { DataGrid } from "./DataGrid.tsx"
 
 const PAGE_SIZE = 10
+type Data = Record<string, any>[]
 
 export function TableGrid(props: { table: Table }) {
   const { table } = props
   const { exit } = useApp()
+  const [col, setCol] = useState(0)
   const [page, setPage] = useState(1)
-  const [data, setData] = useState<Record<string, any>[]>([])
+  const [order, setOrder] = useState<Order>()
+  const [data, setData] = useState<Data>([])
 
-  const handlePageChange = async (page: number) => {
+  const handleColChange = async (col: number) => {
+    if (col === 0) return
+    if (col > table.columns.length) return
+
+    setCol(col)
+  }
+
+  const handleOrderChange = async (order?: Order) => {
+    setOrder(order)
+
+    if (order) {
+      handlePageChange(1, order)
+    }
+  }
+
+  const handlePageChange = async (page: number, order?: Order) => {
     if (page === 0) return
 
+    let ldf = table
+    if (order) {
+      const name = table.columns[order.col - 1]
+      if (name) {
+        ldf = ldf.sort(name, order.dir === "desc")
+      }
+    }
+
     const offset = (page - 1) * PAGE_SIZE
-    const df = await table.slice(offset, PAGE_SIZE).collect()
+    const df = await ldf.slice(offset, PAGE_SIZE).collect()
     const data = df.toRecords()
 
     if (data.length) {
@@ -41,7 +68,26 @@ export function TableGrid(props: { table: Table }) {
     if (key.downArrow || input === "j") {
       handlePageChange(page + 1)
     }
+
+    if (key.leftArrow || input === "h") {
+      handleColChange(col - 1)
+    }
+
+    if (key.rightArrow || input === "l") {
+      handleColChange(col + 1)
+    }
+
+    if (key.return) {
+      let nextOrder: Order | undefined = { col, dir: "desc" }
+
+      if (order?.col === col) {
+        if (order?.dir === "desc") nextOrder = { col, dir: "asc" }
+        if (order?.dir === "asc") nextOrder = undefined
+      }
+
+      handleOrderChange(nextOrder)
+    }
   })
 
-  return <DataGrid data={data} />
+  return <DataGrid data={data} col={col} order={order} />
 }
