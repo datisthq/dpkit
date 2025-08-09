@@ -1,5 +1,6 @@
 import type { Table } from "dpkit"
 import { useApp, useInput } from "ink"
+import { Box, Text } from "ink"
 import { useEffect, useState } from "react"
 import React from "react"
 import type { Order } from "./DataGrid.tsx"
@@ -57,7 +58,7 @@ export function TableGrid(props: { table: Table }) {
   }, [table])
 
   useInput((input, key) => {
-    if (input === "q") {
+    if (key.escape || input === "q") {
       exit()
     }
 
@@ -77,7 +78,7 @@ export function TableGrid(props: { table: Table }) {
       handleColChange(col + 1)
     }
 
-    if (key.return) {
+    if (key.return || input === "o") {
       let nextOrder: Order | undefined = { col, dir: "desc" }
 
       if (order?.col === col) {
@@ -89,5 +90,30 @@ export function TableGrid(props: { table: Table }) {
     }
   })
 
-  return <DataGrid data={data} col={col} order={order} />
+  return (
+    <Box flexDirection="column">
+      <DataGrid data={data} col={col} order={order} />
+      <Controls />
+    </Box>
+  )
+}
+
+function Controls() {
+  return (
+    <Box gap={1}>
+      <Control button="Top|Down (j|k)" description="Prev/Next page" />
+      <Control button="Left|Right (h|l)" description="Prev/Next column" />
+      <Control button="Enter (o)" description="Order" />
+      <Control button="Esc (q)" description="Quit" />
+    </Box>
+  )
+}
+
+function Control(props: { button: string; description: string }) {
+  return (
+    <Box paddingLeft={1} paddingRight={1}>
+      <Text dimColor>{props.button}</Text>
+      <Text dimColor> — {props.description}</Text>
+    </Box>
+  )
 }
