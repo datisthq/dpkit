@@ -1,9 +1,7 @@
 {
   "name": "@dpkit/cli",
   "type": "module",
-  "bin": {
-    "dp": "./build/scripts/run.js"
-  },
+  "bin": { "dp": "./build/scripts/run.js" },
   "version": "0.2.0",
   "license": "MIT",
   "author": "Evgeny Karev",
@@ -24,7 +22,6 @@
   "scripts": {
     "build": "tsc && cp assets/* build/scripts && chmod +x ./build/scripts/*.js",
     "dev": "./scripts/dev.ts",
-    "oclif": "oclif",
     "run": "./scripts/run.ts"
   },
   "dependencies": {
@@ -35,7 +32,6 @@
   },
   "devDependencies": {
     "@types/react": "19.1.9",
-    "oclif": "4.22.6",
     "tsx": "4.20.3"
   }
 }

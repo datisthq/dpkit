@@ -2,7 +2,7 @@ import { Command } from "@oclif/core"
 import { readTable } from "dpkit"
 import { render } from "ink"
 import React from "react"
-import { Table } from "../../components/Table.tsx"
+import { TableGrid } from "../../components/TableGrid.tsx"
 import * as options from "../../options/index.ts"
 import * as params from "../../params/index.ts"
 
@@ -21,14 +21,14 @@ export default class ReadTable extends Command {
     const { args, flags } = await this.parse(ReadTable)
 
     const table = await readTable({ path: args.path })
-    const df = await table.slice(0, 10).collect()
-    const data = df.toRecords()
 
     if (flags.json) {
+      const df = await table.slice(0, 10).collect()
+      const data = df.toRecords()
       this.logJson(data)
       return
     }
 
-    render(<Table data={data} />)
+    render(<TableGrid table={table} />)
   }
 }
