@@ -1,5 +1,5 @@
 import { Command } from "@oclif/core"
-import { readTable } from "dpkit"
+import { type Dialect, readTable } from "dpkit"
 import { render } from "ink"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
@@ -14,13 +14,15 @@ export default class ReadTable extends Command {
   }
 
   static override flags = {
+    ...options.dialectOptions,
     json: options.json,
   }
 
   public async run() {
     const { args, flags } = await this.parse(ReadTable)
 
-    const table = await readTable({ path: args.path })
+    const dialect = options.createDialectFromFlags(flags)
+    const table = await readTable({ path: args.path, dialect })
 
     if (flags.json) {
       const df = await table.slice(0, 10).collect()

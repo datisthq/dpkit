@@ -14,13 +14,16 @@ export default class ReadTable extends Command {
   }
 
   static override flags = {
+    ...options.dialectOptions,
     json: options.json,
   }
 
   public async run() {
     const { args, flags } = await this.parse(ReadTable)
 
-    const table = await readTable({ path: args.path })
+    const dialect = options.createDialectFromFlags(flags)
+    const table = await readTable({ path: args.path, dialect })
+
     const df = await table.collect()
     const stats = df.describe()
 

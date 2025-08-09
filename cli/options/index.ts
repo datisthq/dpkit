@@ -1,1 +1,2 @@
 export * from "./json.ts"
+export * from "./dialect.ts"
