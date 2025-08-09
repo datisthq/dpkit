@@ -27,7 +27,7 @@
     "@dpkit/file": "workspace:*",
     "@dpkit/table": "workspace:*",
     "csv-sniffer": "^0.1.1",
-    "nodejs-polars": "^0.18.0"
+    "nodejs-polars": "^0.21.0"
   },
   "devDependencies": {
     "@dpkit/test": "workspace:*"
