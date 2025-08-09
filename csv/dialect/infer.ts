@@ -36,9 +36,10 @@ export async function inferCsvDialect(
     //  dialect.lineTerminator = result.lineTerminator
     //}
 
-    if (!result.hasHeader) {
-      dialect.header = false
-    }
+    // TODO: it gives false positives
+    //if (!result.hasHeader) {
+    //  dialect.header = false
+    //}
   }
 
   return dialect
