@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@oclif/core": "^4.5.2",
+    "@oclif/plugin-autocomplete": "^3.2.34",
     "dpkit": "workspace:*",
     "ink": "^6.1.0",
     "react": "^19.1.1"
