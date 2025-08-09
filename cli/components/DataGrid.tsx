@@ -30,7 +30,7 @@ export function DataGrid(props: {
       borderColor="green"
       width={tableWidth}
     >
-      <Box paddingRight={1}>
+      <Box>
         {colNames.map((name, index) => (
           <Box
             key={name}
@@ -48,7 +48,7 @@ export function DataGrid(props: {
       </Box>
 
       {data.map((row, rowIndex) => (
-        <Box key={rowIndex} paddingRight={1}>
+        <Box key={rowIndex}>
           {colNames.map((name, index) => (
             <Box
               key={name}
