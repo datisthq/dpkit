@@ -29,6 +29,18 @@ export default class ExploreTable extends Command {
       return
     }
 
-    render(<ErrorGrid errors={errors} />)
+    render(
+      <ErrorGrid
+        errors={[
+          ...errors,
+          {
+            type: "cell/required",
+            fieldName: "name",
+            rowNumber: 1,
+            cell: "John Doe",
+          },
+        ]}
+      />,
+    )
   }
 }

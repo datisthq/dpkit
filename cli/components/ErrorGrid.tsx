@@ -1,31 +1,36 @@
 import type { TableError } from "dpkit"
-import { Box, Text } from "ink"
+import { Box } from "ink"
+import SelectInput from "ink-select-input"
 import { DataFrame } from "nodejs-polars"
+import { useState } from "react"
 import React from "react"
-import { objectEntries } from "ts-extras"
+import { objectKeys } from "ts-extras"
 import { TableGrid } from "./TableGrid.tsx"
 
 export function ErrorGrid(props: { errors: TableError[] }) {
   const { errors } = props
+  const [errorType, setErrorType] = useState<string>(errors[0]?.type ?? "")
 
   const errorsByType = Object.groupBy(errors, error => error.type)
-  const selectErrors = errorsByType["cell/type"]
-
-  if (!selectErrors) {
-    return null
-  }
+  // @ts-ignore
+  const selectErrors = errorsByType[errorType]
 
   const table = DataFrame(selectErrors).lazy()
 
+  const handleSelect = async (item: any) => {
+    setErrorType(item.value)
+  }
+
   return (
     <Box>
-      <Box width={20}>
-        {objectEntries(errorsByType).map(([type, errors]) => (
-          <Box key={type}>
-            <Text bold>{type}</Text>
-            <Text dimColor>{errors.length}</Text>
-          </Box>
-        ))}
+      <Box padding={1}>
+        <SelectInput
+          onSelect={handleSelect}
+          items={objectKeys(errorsByType).map(type => ({
+            label: type,
+            value: type,
+          }))}
+        />
       </Box>
       <TableGrid table={table} />
     </Box>
