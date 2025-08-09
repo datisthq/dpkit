@@ -1,7 +1,6 @@
 dangerouslyAllowAllBuilds: true
 packages:
   - arrow
-  - bin
   - camtrap
   - ckan
   - cli

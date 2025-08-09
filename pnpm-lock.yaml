@@ -64,8 +64,6 @@ importers:
         specifier: workspace:*
         version: link:../test
 
-  bin: {}
-
   camtrap:
     dependencies:
       '@dpkit/core':
