@@ -1,10 +1,16 @@
 {
   "name": "@dpkit/cli",
   "type": "module",
-  "bin": {
-    "dp": "./build/scripts/run.js"
-  },
   "version": "0.2.0",
+  "bin": {
+    "dp": "./build/entrypoints/run.js"
+  },
+  "oclif": {
+    "bin": "dp",
+    "commands": "./commands",
+    "topicSeparator": " ",
+    "plugins": ["@oclif/plugin-autocomplete"]
+  },
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
@@ -23,10 +29,11 @@
   ],
   "scripts": {
     "build": "tsc && pnpm build:copy && pnpm build:mode",
-    "build:copy": "cp assets/* build/scripts && cp package.json build && cp .oclifrc.js build",
-    "build:mode": "chmod +x ./build/scripts/*",
-    "dev": "./scripts/dev.ts",
-    "run": "./scripts/run.ts"
+    "build:copy": "cp entrypoints/*.cmd build/entrypoints && cp package.json build && cp .oclifrc.js build",
+    "build:mode": "chmod +x ./build/entrypoints/*.js",
+    "compile": "node ./scripts/compile.ts",
+    "dev": "node ./scripts/dev.ts",
+    "run": "node ./scripts/run.ts"
   },
   "dependencies": {
     "@oclif/core": "^4.5.2",

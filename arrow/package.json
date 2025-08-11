@@ -1,8 +1,8 @@
 {
   "name": "@dpkit/arrow",
   "type": "module",
-  "exports": "./build/index.js",
   "version": "0.1.0",
+  "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",

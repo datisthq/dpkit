@@ -60,6 +60,7 @@ pids
 .vscode/
 .wrangler/
 build/
+compile/
 dist/
 .astro/
 /docs/content/docs/reference/
