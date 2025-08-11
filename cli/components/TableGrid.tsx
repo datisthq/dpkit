@@ -93,27 +93,53 @@ export function TableGrid(props: { table: Table }) {
   return (
     <Box flexDirection="column">
       <DataGrid data={data} col={col} order={order} />
-      <Controls />
+      <Help />
     </Box>
   )
 }
 
-function Controls() {
+function Help() {
+  const { exit } = useApp()
+  const [isOpen, setIsOpen] = useState(false)
+
+  useInput((input, key) => {
+    if (key.escape || input === "q") {
+      exit()
+    }
+
+    if (input === "d") {
+      setIsOpen(!isOpen)
+    }
+  })
+
+  if (!isOpen) {
+    return (
+      <Box paddingLeft={1}>
+        <HelpItem button="d" description="to show docs" />
+        <Text>{", "}</Text>
+        <HelpItem button="q" description="to quit" />
+      </Box>
+    )
+  }
+
   return (
-    <Box gap={1}>
-      <Control button="Top|Down (j|k)" description="Prev/Next page" />
-      <Control button="Left|Right (h|l)" description="Prev/Next column" />
-      <Control button="Enter (o)" description="Order" />
-      <Control button="Esc (q)" description="Quit" />
+    <Box flexDirection="column" paddingLeft={1}>
+      <Text bold>Table Usage</Text>
+      <HelpItem button="k, top" description="for prev page" />
+      <HelpItem button="j, down" description="for next page" />
+      <HelpItem button="h, left" description="for prev column" />
+      <HelpItem button="l, right" description="for next column" />
+      <HelpItem button="o, enter" description="for order" />
+      <HelpItem button="q, esc" description="for quit" />
     </Box>
   )
 }
 
-function Control(props: { button: string; description: string }) {
+function HelpItem(props: { button: string; description: string }) {
   return (
-    <Box paddingLeft={1} paddingRight={1}>
-      <Text dimColor>{props.button}</Text>
-      <Text dimColor> — {props.description}</Text>
-    </Box>
+    <Text>
+      <Text dimColor>press</Text> <Text bold>{props.button}</Text>{" "}
+      <Text dimColor>{props.description}</Text>
+    </Text>
   )
 }
