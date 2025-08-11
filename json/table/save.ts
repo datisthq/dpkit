@@ -3,6 +3,9 @@ import { saveFile } from "@dpkit/file"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { decodeJsonBuffer, encodeJsonBuffer } from "../buffer/index.ts"
 
+// TODO: rebase on sinkJSON when it is available
+// https://github.com/pola-rs/nodejs-polars/issues/353
+
 export async function saveJsonTable(table: Table, options: SaveTableOptions) {
   return await saveTable(table, { ...options, isLines: false })
 }
