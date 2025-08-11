@@ -22,7 +22,9 @@
     "cli"
   ],
   "scripts": {
-    "build": "tsc && cp assets/* build/scripts && chmod +x ./build/scripts/*.js",
+    "build": "tsc && pnpm build:copy && pnpm build:mode",
+    "build:copy": "cp assets/* build/scripts && cp package.json build && cp .oclifrc.js build",
+    "build:mode": "chmod +x ./build/scripts/*",
     "dev": "./scripts/dev.ts",
     "run": "./scripts/run.ts"
   },
