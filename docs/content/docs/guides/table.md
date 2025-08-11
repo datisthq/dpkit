@@ -1,6 +1,7 @@
 ---
 title: Working with tabular data
 sidebar:
+  label: Tabular data
   order: 6
 ---
 

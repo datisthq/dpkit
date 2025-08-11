@@ -1,6 +1,7 @@
 ---
 title: Working with JSON
 sidebar:
+  label: JSON
   order: 2
 ---
 

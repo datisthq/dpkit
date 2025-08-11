@@ -1,6 +1,7 @@
 ---
 title: Working with CSV
 sidebar:
+  label: CSV
   order: 1
 ---
 Comprehensive CSV and TSV file handling with automatic format detection, advanced header processing, and high-performance data operations.

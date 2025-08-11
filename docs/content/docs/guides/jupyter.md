@@ -1,6 +1,7 @@
 ---
 title: Using dpkit in Jupyter Notebooks
 sidebar:
+  label: Jupyter Notebooks
   order: 10
 ---
 

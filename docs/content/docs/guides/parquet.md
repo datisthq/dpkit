@@ -1,6 +1,7 @@
 ---
 title: Working with Parquet
 sidebar:
+  label: Parquet
   order: 4
 ---
 

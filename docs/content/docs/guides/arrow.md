@@ -1,6 +1,7 @@
 ---
 title: Working with Arrow
 sidebar:
+  label: Arrow
   order: 3
 ---
 

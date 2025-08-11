@@ -1,6 +1,7 @@
 ---
 title: Working with inline data
 sidebar:
+  label: Inline data
   order: 5
 ---
 
