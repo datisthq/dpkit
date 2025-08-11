@@ -9,11 +9,11 @@ export default class ConvertTable extends Command {
 
   static override args = {
     path: params.requriedTablePath,
-    toPath: params.requriedTablePath,
   }
 
   // TODO: support toDialectOptions
   static override flags = {
+    toPath: options.requriedToPath,
     ...options.dialectOptions,
   }
 
@@ -23,8 +23,8 @@ export default class ConvertTable extends Command {
     const dialect = options.createDialectFromFlags(flags)
     const table = await readTable({ path: args.path, dialect })
 
-    await saveTable(table, { path: args.toPath })
+    await saveTable(table, { path: flags.toPath })
 
-    this.log(`Converted table from ${args.path} to ${args.toPath}`)
+    this.log(`Converted table from ${args.path} to ${flags.toPath}`)
   }
 }
