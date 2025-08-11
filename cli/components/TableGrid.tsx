@@ -115,7 +115,7 @@ function Help() {
   if (!isOpen) {
     return (
       <Box paddingLeft={1}>
-        <HelpItem button="d" description="to show docs" />
+        <HelpItem button="d" description="to toggle docs" />
         <Text>{", "}</Text>
         <HelpItem button="q" description="to quit" />
       </Box>

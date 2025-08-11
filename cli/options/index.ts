@@ -1,3 +1,5 @@
 export * from "./json.ts"
 export * from "./dialect.ts"
 export * from "./path.ts"
+export * from "./resource.ts"
+export * from "./toDialect.ts"

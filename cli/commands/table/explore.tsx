@@ -15,7 +15,6 @@ export default class ExploreTable extends Command {
 
   static override flags = {
     ...options.dialectOptions,
-    json: options.json,
   }
 
   public async run() {
