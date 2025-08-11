@@ -68,6 +68,7 @@ export default defineConfig({
       sidebar: [
         { label: "Overview", autogenerate: { directory: "overview" } },
         { label: "Guides", autogenerate: { directory: "guides" } },
+        { label: "Command-Line", autogenerate: { directory: "cli" } },
         {
           label: "API Reference",
           collapsed: true,
