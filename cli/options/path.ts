@@ -5,6 +5,11 @@ export const toPath = Flags.string({
 })
 
 export const requiredToFolder = Flags.string({
-  description: "a local output folder",
+  description: "a local output folder path",
+  required: true,
+})
+
+export const requiredToArchive = Flags.string({
+  description: "a local output zip file path",
   required: true,
 })
