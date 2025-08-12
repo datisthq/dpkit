@@ -3,8 +3,8 @@ import { loadPackage } from "dpkit"
 import * as options from "../../options/index.ts"
 import * as params from "../../params/index.ts"
 
-export default class LoadPackage extends Command {
-  static override description = "Load a Data Package descriptor"
+export default class ShowPackage extends Command {
+  static override description = "Show a Data Package descriptor"
 
   static override args = {
     path: params.requriedDescriptorPath,
@@ -15,7 +15,7 @@ export default class LoadPackage extends Command {
   }
 
   public async run() {
-    const { args, flags } = await this.parse(LoadPackage)
+    const { args, flags } = await this.parse(ShowPackage)
 
     const dp = await loadPackage(args.path)
 
