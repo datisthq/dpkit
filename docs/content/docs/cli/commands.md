@@ -28,6 +28,10 @@ Each category has its own commands for example the `table` category:
 
 ## Working with data packages
 
+:::caution
+This functionality is under development.
+:::
+
 Usually non-package command support the `-p/--package` and `-r/--resource` options to specify the datapackage file path and a resource name to access an object inside a data package.
 
 For example, we can explore a table using this command:
