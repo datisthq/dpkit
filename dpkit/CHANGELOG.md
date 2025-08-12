@@ -1,4 +1,28 @@
 ---
+
+## 0.6.0
+### Minor Changes
+
+- 313a275: Added Json/Jsonl/Arrow/Parquet support; Bootstrapped CLI
+
+### Patch Changes
+
+- Updated dependencies [313a275]
+  - @dpkit/camtrap@0.6.0
+  - @dpkit/datahub@0.8.0
+  - @dpkit/parquet@0.3.0
+  - @dpkit/folder@0.8.0
+  - @dpkit/github@0.8.0
+  - @dpkit/inline@0.6.0
+  - @dpkit/zenodo@0.7.0
+  - @dpkit/arrow@0.2.0
+  - @dpkit/table@0.6.0
+  - @dpkit/ckan@0.7.0
+  - @dpkit/core@0.8.0
+  - @dpkit/file@0.8.0
+  - @dpkit/json@0.3.0
+  - @dpkit/csv@0.4.0
+  - @dpkit/zip@0.7.0
 title: Changelog
 ---
 
