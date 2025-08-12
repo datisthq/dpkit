@@ -1,7 +1,7 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertionError } from "../general/index.js"
-import type { Dialect } from "./Dialect.js"
-import { assertDialect } from "./assert.js"
+import { AssertionError } from "../general/index.ts"
+import type { Dialect } from "./Dialect.ts"
+import { assertDialect } from "./assert.ts"
 
 describe("assertDialect", () => {
   it("returns typed dialect when valid", async () => {

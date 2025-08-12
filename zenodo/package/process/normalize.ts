@@ -1,6 +1,6 @@
 import type { Contributor, License, Package } from "@dpkit/core"
-import { normalizeZenodoResource } from "../../resource/index.js"
-import type { ZenodoPackage } from "../Package.js"
+import { normalizeZenodoResource } from "../../resource/index.ts"
+import type { ZenodoPackage } from "../Package.ts"
 
 /**
  * Normalizes a Zenodo deposit to Frictionless Data package format

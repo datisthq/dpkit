@@ -1,1 +1,1 @@
-export { inferDialect } from "./infer.js"
+export { inferDialect } from "./infer.ts"

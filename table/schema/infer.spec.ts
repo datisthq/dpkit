@@ -1,7 +1,7 @@
 import { DataFrame, Series } from "nodejs-polars"
 import { DataType } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { inferSchema } from "./infer.js"
+import { inferSchema } from "./infer.ts"
 
 describe("inferSchema", () => {
   it("should infer from native types", async () => {

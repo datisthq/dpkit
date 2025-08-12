@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant"
-import { normalizeField } from "../../field/index.js"
-import type { Descriptor } from "../../general/index.js"
+import { normalizeField } from "../../field/index.ts"
+import type { Descriptor } from "../../general/index.ts"
 
 export function normalizeSchema(descriptor: Descriptor) {
   descriptor = globalThis.structuredClone(descriptor)

@@ -1,6 +1,6 @@
 import type { Plugin } from "@dpkit/core"
 import { isRemotePath } from "@dpkit/core"
-import { loadPackageFromCkan } from "./package/load.js"
+import { loadPackageFromCkan } from "./package/load.ts"
 
 export class CkanPlugin implements Plugin {
   async loadPackage(source: string) {

@@ -1,6 +1,6 @@
 import type { Plugin } from "@dpkit/core"
 import { isRemotePath } from "@dpkit/core"
-import { loadPackageFromDatahub } from "./package/index.js"
+import { loadPackageFromDatahub } from "./package/index.ts"
 
 export class DatahubPlugin implements Plugin {
   async loadPackage(source: string) {

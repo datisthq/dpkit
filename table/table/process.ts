@@ -2,11 +2,11 @@ import type { Schema } from "@dpkit/core"
 import type { Expr } from "nodejs-polars"
 import { DataType } from "nodejs-polars"
 import { col, lit } from "nodejs-polars"
-import { matchField } from "../field/index.js"
-import { parseField } from "../field/index.js"
-import type { PolarsSchema } from "../schema/index.js"
-import { getPolarsSchema } from "../schema/index.js"
-import type { Table } from "./Table.js"
+import { matchField } from "../field/index.ts"
+import { parseField } from "../field/index.ts"
+import type { PolarsSchema } from "../schema/index.ts"
+import { getPolarsSchema } from "../schema/index.ts"
+import type { Table } from "./Table.ts"
 
 export async function processTable(
   table: Table,

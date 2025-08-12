@@ -1,8 +1,8 @@
 {
   "name": "@dpkit/table",
   "type": "module",
-  "main": "build/index.js",
   "version": "0.5.0",
+  "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
@@ -20,10 +20,10 @@
     "table"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   },
   "dependencies": {
-    "nodejs-polars": "^0.18.0",
+    "nodejs-polars": "^0.21.0",
     "@dpkit/core": "workspace:*"
   }
 }

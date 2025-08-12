@@ -5,6 +5,7 @@ import starlightTypeDoc from "starlight-typedoc"
 
 const PACKAGES = {
   dpkit: "../dpkit",
+  "@dpkit/arrow": "../arrow",
   "@dpkit/camtrap": "../camtrap",
   "@dpkit/ckan": "../ckan",
   "@dpkit/core": "../core",
@@ -13,6 +14,7 @@ const PACKAGES = {
   "@dpkit/file": "../file",
   "@dpkit/github": "../github",
   "@dpkit/inline": "../inline",
+  "@dpkit/parquet": "../parquet",
   "@dpkit/table": "../table",
   "@dpkit/zenodo": "../zenodo",
   "@dpkit/zip": "../zip",
@@ -56,9 +58,9 @@ export default defineConfig({
           entryPoints: generatePackageEntrypoints(),
           tsconfig: "../tsconfig.json",
           typeDoc: { entryPointStrategy: "packages", router: "structure" },
-          output: "packages",
+          output: "reference",
           sidebar: {
-            label: "Packages",
+            label: "API Reference",
             collapsed: true,
           },
         }),
@@ -66,8 +68,9 @@ export default defineConfig({
       sidebar: [
         { label: "Overview", autogenerate: { directory: "overview" } },
         { label: "Guides", autogenerate: { directory: "guides" } },
+        { label: "Command-Line", autogenerate: { directory: "cli" } },
         {
-          label: "Packages",
+          label: "API Reference",
           collapsed: true,
           items: generatePackageSidebars(),
         },
@@ -76,7 +79,7 @@ export default defineConfig({
         {
           tag: "script",
           attrs: {
-            src: "https://plausible.io/js/script.js",
+            src: "https://plausible.io/js/script.ts",
             "data-domain": "dpkit.datist.io",
             defer: true,
           },
@@ -103,20 +106,6 @@ function generatePackageSidebar(props: { name: string }) {
   return {
     label: name,
     collapsed: true,
-    items: [
-      {
-        label: "Overview",
-        slug: `packages/${slug}/overview`,
-      },
-      {
-        label: "Changelog",
-        slug: `packages/${slug}/changelog`,
-      },
-      {
-        label: "API Reference",
-        autogenerate: { directory: `packages/${slug}/index` },
-        //collapsed: true,
-      },
-    ],
+    autogenerate: { directory: `reference/${slug}` },
   }
 }

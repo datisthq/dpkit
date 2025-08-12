@@ -1,8 +1,16 @@
 {
   "name": "@dpkit/cli",
   "type": "module",
-  "main": "build/index.js",
   "version": "0.2.0",
+  "bin": {
+    "dp": "./build/entrypoints/run.js"
+  },
+  "oclif": {
+    "bin": "dp",
+    "commands": "./commands",
+    "topicSeparator": " ",
+    "plugins": ["@oclif/plugin-autocomplete"]
+  },
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
@@ -20,6 +28,25 @@
     "cli"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc && pnpm build:copy && pnpm build:mode",
+    "build:copy": "cp entrypoints/*.cmd build/entrypoints && cp package.json build && cp .oclifrc.js build",
+    "build:mode": "chmod +x ./build/entrypoints/*.js",
+    "compile": "node ./scripts/compile.ts",
+    "dev": "node ./scripts/dev.ts",
+    "run": "node ./scripts/run.ts"
+  },
+  "dependencies": {
+    "@oclif/core": "^4.5.2",
+    "@oclif/plugin-autocomplete": "^3.2.34",
+    "dpkit": "workspace:*",
+    "ink": "^6.1.0",
+    "ink-select-input": "^6.2.0",
+    "nodejs-polars": "^0.21.0",
+    "react": "^19.1.1",
+    "ts-extras": "^0.14.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.9",
+    "tsx": "4.20.3"
   }
 }

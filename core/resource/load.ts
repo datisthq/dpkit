@@ -1,5 +1,5 @@
-import { loadDescriptor } from "../general/index.js"
-import { assertResource } from "./assert.js"
+import { loadDescriptor } from "../general/index.ts"
+import { assertResource } from "./assert.ts"
 
 /**
  * Load a Resource descriptor (JSON Object) from a file or URL

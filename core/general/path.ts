@@ -1,5 +1,5 @@
-import Slugger from "github-slugger"
-import { node } from "./node.js"
+import slugify from "@sindresorhus/slugify"
+import { node } from "./node.ts"
 
 export function isRemotePath(path: string) {
   try {
@@ -20,8 +20,7 @@ export function getName(filename?: string) {
     return undefined
   }
 
-  const slugger = new Slugger()
-  return slugger.slug(name)
+  return slugify(name)
 }
 
 export function getFormat(filename?: string) {

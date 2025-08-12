@@ -1,7 +1,7 @@
 import type { Field, Schema } from "@dpkit/core"
 import { col } from "nodejs-polars"
-import { getPolarsSchema } from "../schema/index.js"
-import type { Table } from "../table/index.js"
+import { getPolarsSchema } from "../schema/index.ts"
+import type { Table } from "../table/index.ts"
 
 export type InferSchemaOptions = {
   sampleRows?: number

@@ -1,3 +1,3 @@
-export type { Field } from "./Field.js"
-export type * from "./types/index.js"
-export { normalizeField } from "./process/normalize.js"
+export type { Field } from "./Field.ts"
+export type * from "./types/index.ts"
+export { normalizeField } from "./process/normalize.ts"

@@ -1,7 +1,7 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertionError } from "../general/index.js"
-import type { Schema } from "./Schema.js"
-import { assertSchema } from "./assert.js"
+import { AssertionError } from "../general/index.ts"
+import type { Schema } from "./Schema.ts"
+import { assertSchema } from "./assert.ts"
 
 describe("assertSchema", () => {
   it("returns typed schema when valid", async () => {

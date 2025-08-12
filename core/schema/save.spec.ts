@@ -2,8 +2,8 @@ import * as fs from "node:fs/promises"
 import * as path from "node:path"
 import { temporaryDirectory } from "tempy"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
-import type { Schema } from "./Schema.js"
-import { saveSchema } from "./save.js"
+import type { Schema } from "./Schema.ts"
+import { saveSchema } from "./save.ts"
 
 describe("saveSchema", () => {
   const testSchema: Schema = {

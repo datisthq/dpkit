@@ -6,9 +6,9 @@ import {
   loadFileStream,
   saveResourceFiles,
 } from "@dpkit/file"
-import { makeZenodoApiRequest } from "../general/index.js"
-import type { ZenodoPackage } from "./Package.js"
-import { denormalizeZenodoPackage } from "./process/denormalize.js"
+import { makeZenodoApiRequest } from "../zenodo/index.ts"
+import type { ZenodoPackage } from "./Package.ts"
+import { denormalizeZenodoPackage } from "./process/denormalize.ts"
 
 /**
  * Save a package to Zenodo
@@ -73,7 +73,7 @@ export async function savePackageToZenodo(
   for (const denormalizedPath of ["datapackage.json"]) {
     const upload = {
       name: denormalizedPath,
-      data: new Blob([stringifyDescriptor({ descriptor })]),
+      data: new Blob([stringifyDescriptor(descriptor)]),
     }
 
     await makeZenodoApiRequest({

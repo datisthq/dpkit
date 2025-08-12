@@ -1,4 +1,4 @@
-import type { Descriptor } from "../Descriptor.js"
+import type { Descriptor } from "../Descriptor.ts"
 
 export function parseDescriptor(text: string) {
   const value = JSON.parse(text)

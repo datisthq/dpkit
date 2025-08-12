@@ -1,1 +1,1 @@
-export { loadInlineTable } from "./load.js"
+export { loadInlineTable } from "./load.ts"

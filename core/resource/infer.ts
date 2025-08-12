@@ -1,5 +1,5 @@
-import { getFilename, getFormat } from "../general/index.js"
-import type { Resource } from "./Resource.js"
+import { getFilename, getFormat } from "../general/index.ts"
+import type { Resource } from "./Resource.ts"
 
 export function inferFormat(resource: Partial<Resource>) {
   let format = resource.format

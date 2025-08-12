@@ -1,5 +1,5 @@
 import type { DataType } from "nodejs-polars"
-import type { PolarsField } from "../field/index.js"
+import type { PolarsField } from "../field/index.ts"
 
 export interface PolarsSchema {
   fields: PolarsField[]

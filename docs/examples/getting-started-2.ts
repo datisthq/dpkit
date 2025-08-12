@@ -1,6 +1,6 @@
 import { assertCamtrapPackage, loadPackage } from "dpkit"
 
-const { dataPackage } = await loadPackage(
+const dataPackage = await loadPackage(
   "https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.1/example/datapackage.json",
 )
 

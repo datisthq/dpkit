@@ -1,7 +1,7 @@
-import { type Descriptor, validateDescriptor } from "../general/index.js"
-import { loadProfile } from "../general/index.js"
-import type { Dialect } from "./Dialect.js"
-import { normalizeDialect } from "./process/normalize.js"
+import { type Descriptor, validateDescriptor } from "../general/index.ts"
+import { loadProfile } from "../general/index.ts"
+import type { Dialect } from "./Dialect.ts"
+import { normalizeDialect } from "./process/normalize.ts"
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tabledialect.json"
 

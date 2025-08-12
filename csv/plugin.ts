@@ -2,8 +2,8 @@ import type { Resource } from "@dpkit/core"
 import { inferFormat } from "@dpkit/core"
 import type { InferDialectOptions, TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
-import { inferCsvDialect } from "./dialect/index.js"
-import { loadCsvTable, saveCsvTable } from "./table/index.js"
+import { inferCsvDialect } from "./dialect/index.ts"
+import { loadCsvTable, saveCsvTable } from "./table/index.ts"
 
 export class CsvPlugin implements TablePlugin {
   async inferDialect(
@@ -24,7 +24,7 @@ export class CsvPlugin implements TablePlugin {
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
-    const isCsv = getIsCsv({ path: options.path })
+    const isCsv = getIsCsv(options)
     if (!isCsv) return undefined
 
     return await saveCsvTable(table, options)

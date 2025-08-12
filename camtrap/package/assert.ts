@@ -1,6 +1,6 @@
 import { AssertionError, validatePackageDescriptor } from "@dpkit/core"
 import type { Descriptor, Package } from "@dpkit/core"
-import type { CamtrapPackage } from "./Package.js"
+import type { CamtrapPackage } from "./Package.ts"
 
 const SUPPORTED_PROFILES = [
   "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/camtrap-dp-profile.json",

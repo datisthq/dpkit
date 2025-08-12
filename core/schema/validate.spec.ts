@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { validateSchema } from "./validate.js"
+import { validateSchema } from "./validate.ts"
 
 describe("validateSchema", () => {
   it("returns empty array for valid schema", async () => {

@@ -1,10 +1,10 @@
-import { loadDialect } from "../dialect/index.js"
-import { type Descriptor, validateDescriptor } from "../general/index.js"
-import { AssertionError } from "../general/index.js"
-import { loadProfile } from "../general/index.js"
-import { loadSchema } from "../schema/index.js"
-import type { Resource } from "./Resource.js"
-import { normalizeResource } from "./process/normalize.js"
+import { loadDialect } from "../dialect/index.ts"
+import { type Descriptor, validateDescriptor } from "../general/index.ts"
+import { AssertionError } from "../general/index.ts"
+import { loadProfile } from "../general/index.ts"
+import { loadSchema } from "../schema/index.ts"
+import type { Resource } from "./Resource.ts"
+import { normalizeResource } from "./process/normalize.ts"
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/dataresource.json"
 

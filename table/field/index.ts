@@ -1,4 +1,4 @@
-export { parseField } from "./parse.js"
-export { inspectField } from "./inspect.js"
-export type { PolarsField } from "./Field.js"
-export { matchField } from "./match.js"
+export { parseField } from "./parse.ts"
+export { inspectField } from "./inspect.ts"
+export type { PolarsField } from "./Field.ts"
+export { matchField } from "./match.ts"

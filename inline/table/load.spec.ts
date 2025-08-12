@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { loadInlineTable } from "./load.js"
+import { loadInlineTable } from "./load.ts"
 
 describe("loadInlineTable", () => {
   it.each([

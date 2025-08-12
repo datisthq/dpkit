@@ -1,6 +1,6 @@
 import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
-import { loadPackageFromGithub } from "./load.js"
+import { loadPackageFromGithub } from "./load.ts"
 
 describe("loadPackageFromGithub", () => {
   useRecording()

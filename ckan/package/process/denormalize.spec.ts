@@ -1,11 +1,11 @@
 import type { Package } from "@dpkit/core"
 import { describe, expect, it } from "vitest"
-import type { CkanPackage } from "../Package.js"
+import type { CkanPackage } from "../Package.ts"
 import ckanPackageFixture from "../fixtures/ckan-package.json" with {
   type: "json",
 }
-import { denormalizeCkanPackage } from "./denormalize.js"
-import { normalizeCkanPackage } from "./normalize.js"
+import { denormalizeCkanPackage } from "./denormalize.ts"
+import { normalizeCkanPackage } from "./normalize.ts"
 
 describe("denormalizeCkanPackage", () => {
   it("denormalizes a Frictionless Data Package to a CKAN package", () => {

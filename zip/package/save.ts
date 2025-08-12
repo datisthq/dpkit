@@ -1,3 +1,4 @@
+import { Buffer } from "node:buffer"
 import { createWriteStream } from "node:fs"
 import { pipeline } from "node:stream/promises"
 import type { Descriptor, Package } from "@dpkit/core"
@@ -47,7 +48,7 @@ export async function savePackageToZip(
   }
 
   zipfile.addBuffer(
-    Buffer.from(stringifyDescriptor({ descriptor })),
+    Buffer.from(stringifyDescriptor(descriptor)),
     "datapackage.json",
   )
 

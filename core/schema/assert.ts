@@ -1,6 +1,6 @@
-import { AssertionError, type Descriptor } from "../general/index.js"
-import type { Schema } from "./Schema.js"
-import { validateSchema } from "./validate.js"
+import { AssertionError, type Descriptor } from "../general/index.ts"
+import type { Schema } from "./Schema.ts"
+import { validateSchema } from "./validate.ts"
 
 /**
  * Assert a Schema descriptor (JSON Object) against its profile

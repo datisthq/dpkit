@@ -1,7 +1,7 @@
-import { type Descriptor, validateDescriptor } from "../general/index.js"
-import { loadProfile } from "../general/index.js"
-import type { Package } from "./Package.js"
-import { normalizePackage } from "./process/normalize.js"
+import { type Descriptor, validateDescriptor } from "../general/index.ts"
+import { loadProfile } from "../general/index.ts"
+import type { Package } from "./Package.ts"
+import { normalizePackage } from "./process/normalize.ts"
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/datapackage.json"
 

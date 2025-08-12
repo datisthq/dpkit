@@ -1,6 +1,6 @@
-import { saveDescriptor } from "../general/index.js"
-import type { Dialect } from "./Dialect.js"
-import { denormalizeDialect } from "./process/denormalize.js"
+import { saveDescriptor } from "../general/index.ts"
+import type { Dialect } from "./Dialect.ts"
+import { denormalizeDialect } from "./process/denormalize.ts"
 
 const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/tabledialect.json"
 

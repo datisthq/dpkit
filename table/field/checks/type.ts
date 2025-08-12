@@ -1,6 +1,6 @@
 import type { Field } from "@dpkit/core"
 import { col } from "nodejs-polars"
-import type { Table } from "../../table/index.js"
+import type { Table } from "../../table/index.ts"
 
 export function checkCellType(field: Field, errorTable: Table) {
   const source = col(`source:${field.name}`)

@@ -1,1 +1,1 @@
-export { inferCsvDialect } from "./infer.js"
+export { inferCsvDialect } from "./infer.ts"

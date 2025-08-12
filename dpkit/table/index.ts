@@ -1,4 +1,4 @@
-export { loadTable } from "./load.js"
-export { readTable } from "./read.js"
-export { saveTable } from "./save.js"
-export { validateTable } from "./validate.js"
+export { loadTable } from "./load.ts"
+export { readTable } from "./read.ts"
+export { saveTable } from "./save.ts"
+export { validateTable } from "./validate.ts"

@@ -1,11 +1,11 @@
 import { stat } from "node:fs/promises"
 import type { Plugin } from "@dpkit/core"
 import { isRemotePath } from "@dpkit/core"
-import { loadPackageFromFolder } from "./package/index.js"
+import { loadPackageFromFolder } from "./package/index.ts"
 
 export class FolderPlugin implements Plugin {
   async loadPackage(source: string) {
-    const isFolder = getIsFolder(source)
+    const isFolder = await getIsFolder(source)
     if (!isFolder) return undefined
 
     const dataPackage = await loadPackageFromFolder(source)

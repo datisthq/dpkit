@@ -1,4 +1,4 @@
-import type * as fields from "./types/index.js"
+import type * as fields from "./types/index.ts"
 
 /**
  * A Table Schema field

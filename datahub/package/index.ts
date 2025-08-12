@@ -1,1 +1,1 @@
-export { loadPackageFromDatahub } from "./load.js"
+export { loadPackageFromDatahub } from "./load.ts"

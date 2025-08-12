@@ -1,8 +1,8 @@
 {
   "name": "@dpkit/test",
   "type": "module",
-  "main": "build/index.js",
   "version": "0.1.0",
+  "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
@@ -20,7 +20,7 @@
     "test"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   },
   "dependencies": {
     "@pollyjs/adapter-fetch": "^6.0.6",

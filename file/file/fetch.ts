@@ -1,6 +1,6 @@
 import { isRemotePath } from "@dpkit/core"
-import { saveFileToDisc } from "./save.js"
-import { getTempFilePath } from "./temp.js"
+import { copyFile } from "./copy.ts"
+import { getTempFilePath } from "./temp.ts"
 
 export async function prefetchFiles(path?: string | string[]) {
   if (!path) return []
@@ -12,6 +12,6 @@ export async function prefetchFiles(path?: string | string[]) {
 export async function prefetchFile(path: string) {
   if (!isRemotePath(path)) return path
   const newPath = getTempFilePath()
-  await saveFileToDisc({ sourcePath: path, targetPath: newPath })
+  await copyFile({ sourcePath: path, targetPath: newPath })
   return newPath
 }

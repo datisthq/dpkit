@@ -1,2 +1,2 @@
-export { loadCsvTable } from "./load.js"
-export { saveCsvTable } from "./save.js"
+export { loadCsvTable } from "./load.ts"
+export { saveCsvTable } from "./save.ts"

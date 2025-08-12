@@ -1,1 +1,1 @@
-export { inspectRows } from "./inspect.js"
+export { inspectRows } from "./inspect.ts"

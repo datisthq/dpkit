@@ -1,3 +1,4 @@
+import type { Buffer } from "node:buffer"
 import { unlinkSync } from "node:fs"
 import { writeFile } from "node:fs/promises"
 import exitHook from "exit-hook"

@@ -1,8 +1,8 @@
 {
   "name": "dpkit",
   "type": "module",
-  "main": "build/index.js",
   "version": "0.5.0",
+  "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
@@ -20,6 +20,7 @@
     "cli"
   ],
   "dependencies": {
+    "@dpkit/arrow": "workspace:*",
     "@dpkit/camtrap": "workspace:*",
     "@dpkit/ckan": "workspace:*",
     "@dpkit/csv": "workspace:*",
@@ -29,11 +30,13 @@
     "@dpkit/folder": "workspace:*",
     "@dpkit/github": "workspace:*",
     "@dpkit/inline": "workspace:*",
+    "@dpkit/json": "workspace:*",
+    "@dpkit/parquet": "workspace:*",
     "@dpkit/table": "workspace:*",
     "@dpkit/zenodo": "workspace:*",
     "@dpkit/zip": "workspace:*"
   },
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   }
 }

@@ -1,2 +1,2 @@
-export type { CkanResource } from "./Resource.js"
-export { denormalizeCkanResource } from "./process/denormalize.js"
+export type { CkanResource } from "./Resource.ts"
+export { denormalizeCkanResource } from "./process/denormalize.ts"

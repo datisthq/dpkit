@@ -1,8 +1,8 @@
 import { mergePackages } from "@dpkit/core"
-import { makeGithubApiRequest } from "../general/index.js"
-import type { GithubResource } from "../resource/index.js"
-import type { GithubPackage } from "./Package.js"
-import { normalizeGithubPackage } from "./process/normalize.js"
+import { makeGithubApiRequest } from "../github/index.ts"
+import type { GithubResource } from "../resource/index.ts"
+import type { GithubPackage } from "./Package.ts"
+import { normalizeGithubPackage } from "./process/normalize.ts"
 
 /**
  * Load a package from a Github repository

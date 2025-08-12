@@ -1,5 +1,5 @@
-import type { ZenodoResource } from "../resource/index.js"
-import type { ZenodoCreator } from "./Creator.js"
+import type { ZenodoResource } from "../resource/index.ts"
+import type { ZenodoCreator } from "./Creator.ts"
 
 /**
  * Zenodo Deposit interface

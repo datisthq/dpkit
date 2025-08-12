@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { getCommonLocalBasepath } from "./path.js"
+import { getCommonLocalBasepath } from "./path.ts"
 
 describe("getCommonLocalBasepath", () => {
   it.each([

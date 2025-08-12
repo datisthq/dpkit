@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest"
-import type { CkanPackage } from "../Package.js"
+import type { CkanPackage } from "../Package.ts"
 import ckanPackageFixture from "../fixtures/ckan-package.json" with {
   type: "json",
 }
-import { normalizeCkanPackage } from "./normalize.js"
+import { normalizeCkanPackage } from "./normalize.ts"
 
 describe("normalizeCkanPackage", () => {
   it("normalizes a CKAN package to a Frictionless Data Package", () => {

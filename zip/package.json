@@ -1,8 +1,8 @@
 {
   "name": "@dpkit/zip",
   "type": "module",
-  "main": "build/index.js",
   "version": "0.6.0",
+  "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
@@ -20,7 +20,7 @@
     "zip"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   },
   "dependencies": {
     "@dpkit/core": "workspace:*",

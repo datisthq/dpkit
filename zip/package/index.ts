@@ -1,2 +1,2 @@
-export { loadPackageFromZip } from "./load.js"
-export { savePackageToZip } from "./save.js"
+export { loadPackageFromZip } from "./load.ts"
+export { savePackageToZip } from "./save.ts"

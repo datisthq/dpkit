@@ -1,8 +1,8 @@
-import { denormalizeDialect } from "../../dialect/index.js"
-import { denormalizePath } from "../../general/index.js"
-import type { Descriptor } from "../../general/index.js"
-import { denormalizeSchema } from "../../schema/index.js"
-import type { Resource } from "../Resource.js"
+import { denormalizeDialect } from "../../dialect/index.ts"
+import { denormalizePath } from "../../general/index.ts"
+import type { Descriptor } from "../../general/index.ts"
+import { denormalizeSchema } from "../../schema/index.ts"
+import type { Resource } from "../Resource.ts"
 
 export function denormalizeResource(
   resource: Resource,

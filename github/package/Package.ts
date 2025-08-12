@@ -1,6 +1,6 @@
-import type { GithubResource } from "../resource/index.js"
-import type { GithubLicense } from "./License.js"
-import type { GithubOwner } from "./Owner.js"
+import type { GithubResource } from "../resource/index.ts"
+import type { GithubLicense } from "./License.ts"
+import type { GithubOwner } from "./Owner.ts"
 
 /**
  * Github repository as a package

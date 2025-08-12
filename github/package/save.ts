@@ -1,10 +1,11 @@
+import { Buffer } from "node:buffer"
 import { buffer } from "node:stream/consumers"
 import type { Descriptor, Package } from "@dpkit/core"
 import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
 import { getPackageBasepath, loadFileStream } from "@dpkit/file"
 import { saveResourceFiles } from "@dpkit/file"
-import { makeGithubApiRequest } from "../general/index.js"
-import type { GithubPackage } from "./Package.js"
+import { makeGithubApiRequest } from "../github/index.ts"
+import type { GithubPackage } from "./Package.ts"
 
 /**
  * Save a package to a Github repository
@@ -68,9 +69,7 @@ export async function savePackageToGithub(
     const payload = {
       path: denormalizedPath,
       message: `Added file "${denormalizedPath}"`,
-      content: Buffer.from(stringifyDescriptor({ descriptor })).toString(
-        "base64",
-      ),
+      content: Buffer.from(stringifyDescriptor(descriptor)).toString("base64"),
     }
 
     await makeGithubApiRequest({

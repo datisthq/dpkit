@@ -1,3 +1,3 @@
-export * from "./package/index.js"
-export * from "./folder/index.js"
-export * from "./plugin.js"
+export * from "./package/index.ts"
+export * from "./folder/index.ts"
+export * from "./plugin.ts"

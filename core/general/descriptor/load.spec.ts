@@ -1,6 +1,6 @@
 import path from "node:path"
 import { afterEach, describe, expect, it, vi } from "vitest"
-import { loadDescriptor } from "./load.js"
+import { loadDescriptor } from "./load.ts"
 
 describe("loadDescriptor", () => {
   const getFixturePath = (name?: string) =>

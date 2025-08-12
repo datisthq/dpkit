@@ -1,7 +1,7 @@
 import { join, relative } from "node:path"
 import { describe, expect, expectTypeOf, it } from "vitest"
-import type { Package } from "./Package.js"
-import { loadPackageDescriptor } from "./load.js"
+import type { Package } from "./Package.ts"
+import { loadPackageDescriptor } from "./load.ts"
 
 describe("loadPackageDescriptor", async () => {
   const getFixturePath = (name: string) =>

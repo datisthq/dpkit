@@ -1,5 +1,5 @@
 import type { Package, Plugin } from "@dpkit/core"
-import { loadPackageFromZip, savePackageToZip } from "./package/index.js"
+import { loadPackageFromZip, savePackageToZip } from "./package/index.ts"
 
 export class ZipPlugin implements Plugin {
   async loadPackage(source: string) {

@@ -10,7 +10,9 @@ export async function saveFileStream(
     path: string
   },
 ) {
-  // The "wx" flag ensures that the file won't overwrite an existing file
+  // It is an equivalent to ensureDir function
   await mkdir(dirname(options.path), { recursive: true })
+
+  // The "wx" flag ensures that the file won't overwrite an existing file
   await pipeline(stream, createWriteStream(options.path, { flags: "wx" }))
 }

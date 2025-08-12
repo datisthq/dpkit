@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { validateResourceDescriptor } from "./validate.js"
+import { validateResourceDescriptor } from "./validate.ts"
 
 describe("validateResourceDescriptor", () => {
   it("returns valid result for valid resource", async () => {

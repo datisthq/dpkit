@@ -1,3 +1,3 @@
-export * from "./dialect/index.js"
-export * from "./table/index.js"
-export * from "./plugin.js"
+export * from "./dialect/index.ts"
+export * from "./table/index.ts"
+export * from "./plugin.ts"

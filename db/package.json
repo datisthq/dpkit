@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/db",
+  "exports": "./build/index.js",
   "type": "module",
-  "main": "build/index.js",
   "version": "0.2.0",
   "license": "MIT",
   "author": "Evgeny Karev",
@@ -20,6 +20,6 @@
     "db"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   }
 }

@@ -1,6 +1,6 @@
-import { node } from "../node.js"
-import { getBasepath, isRemotePath } from "../path.js"
-import { parseDescriptor } from "./process/parse.js"
+import { node } from "../node.ts"
+import { getBasepath, isRemotePath } from "../path.ts"
+import { parseDescriptor } from "./process/parse.ts"
 
 /**
  * Load a descriptor (JSON Object) from a file or URL

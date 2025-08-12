@@ -1,2 +1,2 @@
-export type { CamtrapPackage } from "./Package.js"
-export { assertCamtrapPackage } from "./assert.js"
+export type { CamtrapPackage } from "./Package.ts"
+export { assertCamtrapPackage } from "./assert.ts"

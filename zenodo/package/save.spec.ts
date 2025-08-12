@@ -1,7 +1,7 @@
 import { loadPackageDescriptor } from "@dpkit/core"
 //import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
-import { savePackageToZenodo } from "./save.js"
+import { savePackageToZenodo } from "./save.ts"
 
 describe("savePackageToZenodo", () => {
   //useRecording()

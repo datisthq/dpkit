@@ -1,2 +1,2 @@
-export { createFolder } from "./create.js"
-export { getTempFolderPath } from "./temp.js"
+export { createFolder } from "./create.ts"
+export { getTempFolderPath } from "./temp.ts"

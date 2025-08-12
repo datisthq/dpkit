@@ -1,6 +1,6 @@
 import type { Schema } from "@dpkit/core"
 import { col, concatList } from "nodejs-polars"
-import type { Table } from "../../table/Table.js"
+import type { Table } from "../../table/Table.ts"
 
 // TODO: fold is not available so we use a tricky way to eliminate list nulls
 // TODO: Using comma as separator might rarely clash with comma in field names

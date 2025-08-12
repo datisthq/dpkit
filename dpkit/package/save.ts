@@ -1,6 +1,6 @@
 import type { Package } from "@dpkit/core"
 import { savePackageDescriptor } from "@dpkit/core"
-import { dpkit } from "../plugin.js"
+import { dpkit } from "../plugin.ts"
 
 export async function savePackage(
   dataPackage: Package,

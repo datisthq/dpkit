@@ -1,6 +1,6 @@
-import { AssertionError, type Descriptor } from "../general/index.js"
-import type { Dialect } from "./Dialect.js"
-import { validateDialect } from "./validate.js"
+import { AssertionError, type Descriptor } from "../general/index.ts"
+import type { Dialect } from "./Dialect.ts"
+import { validateDialect } from "./validate.ts"
 
 /**
  * Assert a Dialect descriptor (JSON Object) against its profile

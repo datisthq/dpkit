@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "../../table/index.js"
+import { processTable } from "../../table/index.ts"
 
 describe("parseDurationField", () => {
   it.each([["P23DT23H", "P23DT23H", {}]])(

@@ -1,7 +1,7 @@
 import { join } from "node:path"
 import { describe, expect, expectTypeOf, it } from "vitest"
-import type { Schema } from "./Schema.js"
-import { loadSchema } from "./load.js"
+import type { Schema } from "./Schema.ts"
+import { loadSchema } from "./load.ts"
 
 describe("loadSchema", () => {
   const getFixturePath = (name: string) => join(__dirname, "fixtures", name)

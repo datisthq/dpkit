@@ -1,10 +1,6 @@
-import { loadFileStream } from "../stream/load.js"
-import { saveFileStream } from "../stream/save.js"
+import { Readable } from "node:stream"
+import { saveFileStream } from "../stream/index.ts"
 
-export async function saveFileToDisc(options: {
-  sourcePath: string
-  targetPath: string
-}) {
-  const stream = await loadFileStream(options.sourcePath)
-  await saveFileStream(stream, { path: options.targetPath })
+export async function saveFile(path: string, buffer: Buffer) {
+  await saveFileStream(Readable.from(buffer), { path })
 }

@@ -6,7 +6,7 @@ import {
   getFilename,
   isRemotePath,
   normalizePath,
-} from "./path.js"
+} from "./path.ts"
 
 describe("isRemotePath", () => {
   it.each([

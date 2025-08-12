@@ -11,10 +11,10 @@ import {
   loadFileStream,
   saveResourceFiles,
 } from "@dpkit/file"
-import { makeCkanApiRequest } from "../general/index.js"
-import type { CkanResource } from "../resource/index.js"
-import { denormalizeCkanResource } from "../resource/index.js"
-import { denormalizeCkanPackage } from "./process/denormalize.js"
+import { makeCkanApiRequest } from "../ckan/index.ts"
+import type { CkanResource } from "../resource/index.ts"
+import { denormalizeCkanResource } from "../resource/index.ts"
+import { denormalizeCkanPackage } from "./process/denormalize.ts"
 
 export async function savePackageToCkan(
   dataPackage: Package,
@@ -97,7 +97,7 @@ export async function savePackageToCkan(
 
     const upload = {
       name: denormalizedPath,
-      data: new Blob([stringifyDescriptor({ descriptor })]),
+      data: new Blob([stringifyDescriptor(descriptor)]),
     }
 
     await makeCkanApiRequest({

@@ -1,2 +1,2 @@
-export { loadFileStream } from "./load.js"
-export { saveFileStream } from "./save.js"
+export { loadFileStream } from "./load.ts"
+export { saveFileStream } from "./save.ts"

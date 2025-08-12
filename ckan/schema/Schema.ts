@@ -1,4 +1,4 @@
-import type { CkanField } from "./Field.js"
+import type { CkanField } from "./Field.ts"
 
 /**
  * CKAN Schema interface

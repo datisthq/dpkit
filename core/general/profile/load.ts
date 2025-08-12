@@ -1,7 +1,7 @@
-import { loadDescriptor } from "../descriptor/load.js"
-import { cache } from "./cache.js"
-import type { ProfileType } from "./registry.js"
-import { validateProfile } from "./validate.js"
+import { loadDescriptor } from "../descriptor/load.ts"
+import { cache } from "./cache.ts"
+import type { ProfileType } from "./registry.ts"
+import { validateProfile } from "./validate.ts"
 
 export async function loadProfile(
   path: string,

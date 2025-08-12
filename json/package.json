@@ -1,8 +1,8 @@
 {
   "name": "@dpkit/json",
   "type": "module",
-  "main": "build/index.js",
   "version": "0.2.0",
+  "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
@@ -20,6 +20,16 @@
     "json"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@dpkit/core": "workspace:*",
+    "@dpkit/file": "workspace:*",
+    "@dpkit/table": "workspace:*",
+    "csv-sniffer": "^0.1.1",
+    "nodejs-polars": "^0.21.0"
+  },
+  "devDependencies": {
+    "@dpkit/test": "workspace:*"
   }
 }

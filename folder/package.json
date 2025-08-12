@@ -1,8 +1,8 @@
 {
   "name": "@dpkit/folder",
   "type": "module",
-  "main": "build/index.js",
   "version": "0.7.0",
+  "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
@@ -20,7 +20,7 @@
     "folder"
   ],
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   },
   "dependencies": {
     "@dpkit/core": "workspace:*",
