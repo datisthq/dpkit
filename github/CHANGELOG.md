@@ -1,5 +1,17 @@
 # @dpkit/github
 
+## 0.8.0
+
+### Minor Changes
+
+- 313a275: Added Json/Jsonl/Arrow/Parquet support; Bootstrapped CLI
+
+### Patch Changes
+
+- Updated dependencies [313a275]
+  - @dpkit/core@0.8.0
+  - @dpkit/file@0.8.0
+
 ## 0.7.0
 
 ### Minor Changes
