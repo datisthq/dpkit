@@ -1,5 +1,8 @@
 import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
+import starlightChangelogs, {
+  makeChangelogsSidebarLinks,
+} from "starlight-changelogs"
 import starlightScrollToTop from "starlight-scroll-to-top"
 import starlightTypeDoc from "starlight-typedoc"
 
@@ -54,6 +57,7 @@ export default defineConfig({
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
       plugins: [
         starlightScrollToTop(),
+        starlightChangelogs(),
         starlightTypeDoc({
           entryPoints: generatePackageEntrypoints(),
           tsconfig: "../tsconfig.json",
@@ -73,6 +77,17 @@ export default defineConfig({
           label: "API Reference",
           collapsed: true,
           items: generatePackageSidebars(),
+        },
+        {
+          label: "Changelog",
+          collapsed: true,
+          items: makeChangelogsSidebarLinks([
+            {
+              type: "recent",
+              base: "changelog",
+              count: 10,
+            },
+          ]),
         },
       ],
       head: [

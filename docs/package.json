@@ -8,15 +8,16 @@
     "start": "astro dev"
   },
   "devDependencies": {
-    "@astrojs/starlight": "0.34.3",
-    "astro": "5.7.12",
+    "@astrojs/starlight": "0.35.2",
+    "astro": "5.12.9",
     "dpkit": "workspace:*",
-    "sharp": "0.34.2",
-    "starlight-scroll-to-top": "0.1.1",
-    "starlight-typedoc": "0.21.3",
-    "typedoc": "0.28.9",
-    "typedoc-plugin-markdown": "4.8.0",
     "nodejs-polars": "0.21.0",
-    "tempy": "3.1.0"
+    "sharp": "0.34.2",
+    "starlight-changelogs": "0.1.1",
+    "starlight-scroll-to-top": "0.3.1",
+    "starlight-typedoc": "0.21.3",
+    "tempy": "3.1.0",
+    "typedoc": "0.28.9",
+    "typedoc-plugin-markdown": "4.8.0"
   }
 }

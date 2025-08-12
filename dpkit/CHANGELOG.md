@@ -1,6 +1,7 @@
----
+# dpkit
 
 ## 0.6.0
+
 ### Minor Changes
 
 - 313a275: Added Json/Jsonl/Arrow/Parquet support; Bootstrapped CLI
@@ -23,10 +24,6 @@
   - @dpkit/json@0.3.0
   - @dpkit/csv@0.4.0
   - @dpkit/zip@0.7.0
-title: Changelog
----
-
-# dpkit
 
 ## 0.5.0
 
