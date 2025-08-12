@@ -9,7 +9,7 @@ import type { GithubPackage } from "./Package.ts"
 
 /**
  * Save a package to a Github repository
- * @param props Object containing the package to save and Github details
+ * @param options Object containing the package to save and Github details
  * @returns Object with the repository URL
  */
 export async function savePackageToGithub(
@@ -38,23 +38,23 @@ export async function savePackageToGithub(
       await saveResourceFiles(resource, {
         basepath,
         withRemote: false,
-        saveFile: async props => {
-          const stream = await loadFileStream(props.normalizedPath)
+        saveFile: async options => {
+          const stream = await loadFileStream(options.normalizedPath)
 
           const payload = {
-            path: props.denormalizedPath,
+            path: options.denormalizedPath,
             content: Buffer.from(await buffer(stream)).toString("base64"),
-            message: `Added file "${props.denormalizedPath}"`,
+            message: `Added file "${options.denormalizedPath}"`,
           }
 
           await makeGithubApiRequest({
-            endpoint: `/repos/${githubPackage.owner.login}/${repo}/contents/${props.denormalizedPath}`,
+            endpoint: `/repos/${githubPackage.owner.login}/${repo}/contents/${options.denormalizedPath}`,
             method: "PUT",
             payload,
             apiKey,
           })
 
-          return props.denormalizedPath
+          return options.denormalizedPath
         },
       }),
     )
