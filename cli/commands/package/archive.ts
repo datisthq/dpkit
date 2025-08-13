@@ -1,31 +1,19 @@
-import { Command } from "@oclif/core"
+import { Command } from "commander"
 import { loadPackage, savePackageToZip } from "dpkit"
-import * as options from "../../options/index.ts"
 import * as params from "../../params/index.ts"
 
-export default class ArchivePackage extends Command {
-  static override description =
-    "Archive a local or remote Data Package to a local zip file"
-
-  static override args = {
-    path: params.requriedDescriptorPath,
-  }
-
-  static override flags = {
-    toArchive: options.requiredToArchive,
-    withRemote: options.withRemote,
-  }
-
-  public async run() {
-    const { args, flags } = await this.parse(ArchivePackage)
-
-    const dp = await loadPackage(args.path)
+export const archivePackageCommand = new Command("archive")
+  .description("Archive a local or remote Data Package to a local zip file")
+  .addArgument(params.positionalDescriptorPath)
+  .addOption(params.toArchive.makeOptionMandatory())
+  .addOption(params.withRemote)
+  .action(async (path, options) => {
+    const dp = await loadPackage(path)
 
     await savePackageToZip(dp, {
-      archivePath: flags.toArchive,
-      withRemote: flags.withRemote,
+      archivePath: options.toArchive,
+      withRemote: options.withRemote,
     })
 
-    this.log(`Package from "${args.path}" archived to "${flags.toArchive}"`)
-  }
-}
+    console.log(`Package from "${path}" archived to "${options.toArchive}"`)
+  })

@@ -1,31 +1,19 @@
-import { Command } from "@oclif/core"
+import { Command } from "commander"
 import { loadPackage, savePackageToFolder } from "dpkit"
-import * as options from "../../options/index.ts"
 import * as params from "../../params/index.ts"
 
-export default class CopyPackage extends Command {
-  static override description =
-    "Copy a local or remote Data Package to a local folder"
-
-  static override args = {
-    path: params.requriedDescriptorPath,
-  }
-
-  static override flags = {
-    toFolder: options.requiredToFolder,
-    withRemote: options.withRemote,
-  }
-
-  public async run() {
-    const { args, flags } = await this.parse(CopyPackage)
-
-    const dp = await loadPackage(args.path)
+export const copyPackageCommand = new Command("copy")
+  .description("Copy a local or remote Data Package to a local folder")
+  .addArgument(params.positionalDescriptorPath)
+  .addOption(params.toFolder.makeOptionMandatory())
+  .addOption(params.withRemote)
+  .action(async (path, options) => {
+    const dp = await loadPackage(path)
 
     await savePackageToFolder(dp, {
-      folderPath: flags.toFolder,
-      withRemote: flags.withRemote,
+      folderPath: options.toFolder,
+      withRemote: options.withRemote,
     })
 
-    this.log(`Package from "${args.path}" copied to "${flags.toFolder}"`)
-  }
-}
+    console.log(`Package from "${path}" copied to "${options.toFolder}"`)
+  })

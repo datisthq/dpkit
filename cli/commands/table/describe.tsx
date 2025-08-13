@@ -1,37 +1,42 @@
-import { Command } from "@oclif/core"
+import { Command } from "commander"
 import { readTable } from "dpkit"
 import { render } from "ink"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
-import * as options from "../../options/index.ts"
 import * as params from "../../params/index.ts"
 
-export default class DescribeTable extends Command {
-  static override description = "Describe a table from a local or remote path"
-
-  static override args = {
-    path: params.requriedTablePath,
-  }
-
-  static override flags = {
-    ...options.dialectOptions,
-    json: options.json,
-  }
-
-  public async run() {
-    const { args, flags } = await this.parse(DescribeTable)
-
-    const dialect = options.createDialectFromFlags(flags)
-    const table = await readTable({ path: args.path, dialect })
+export const describeTableCommand = new Command("describe")
+  .description("Describe a table from a local or remote path")
+  .addArgument(params.positionalTablePath)
+  .addOption(params.json)
+  .addOption(params.delimiter)
+  .addOption(params.header)
+  .addOption(params.headerRows)
+  .addOption(params.headerJoin)
+  .addOption(params.commentRows)
+  .addOption(params.commentChar)
+  .addOption(params.quoteChar)
+  .addOption(params.doubleQuote)
+  .addOption(params.escapeChar)
+  .addOption(params.nullSequence)
+  .addOption(params.skipInitialSpace)
+  .addOption(params.property)
+  .addOption(params.itemType)
+  .addOption(params.itemKeys)
+  .addOption(params.sheetNumber)
+  .addOption(params.sheetName)
+  .addOption(params.table)
+  .action(async (path, options) => {
+    const dialect = params.createDialectFromOptions(options)
+    const table = await readTable({ path, dialect })
 
     const df = await table.collect()
     const stats = df.describe()
 
-    if (flags.json) {
-      this.logJson(stats)
+    if (options.json) {
+      console.log(JSON.stringify(stats, null, 2))
       return
     }
 
     render(<TableGrid table={stats.lazy()} />)
-  }
-}
+  })

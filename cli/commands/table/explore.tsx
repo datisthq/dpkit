@@ -1,35 +1,41 @@
-import { Command } from "@oclif/core"
+import { Command } from "commander"
 import { readTable } from "dpkit"
 import { render } from "ink"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
-import * as options from "../../options/index.ts"
 import * as params from "../../params/index.ts"
 
-export default class ExploreTable extends Command {
-  static override description = "Explore a table from a local or remote path"
+export const exploreTableCommand = new Command("explore")
+  .description("Explore a table from a local or remote path")
+  .addArgument(params.positionalTablePath)
+  .addOption(params.json)
+  .addOption(params.delimiter)
+  .addOption(params.header)
+  .addOption(params.headerRows)
+  .addOption(params.headerJoin)
+  .addOption(params.commentRows)
+  .addOption(params.commentChar)
+  .addOption(params.quoteChar)
+  .addOption(params.doubleQuote)
+  .addOption(params.escapeChar)
+  .addOption(params.nullSequence)
+  .addOption(params.skipInitialSpace)
+  .addOption(params.property)
+  .addOption(params.itemType)
+  .addOption(params.itemKeys)
+  .addOption(params.sheetNumber)
+  .addOption(params.sheetName)
+  .addOption(params.table)
+  .action(async (path, options) => {
+    const dialect = params.createDialectFromOptions(options)
+    const table = await readTable({ path, dialect })
 
-  static override args = {
-    path: params.requriedTablePath,
-  }
-
-  static override flags = {
-    ...options.dialectOptions,
-  }
-
-  public async run() {
-    const { args, flags } = await this.parse(ExploreTable)
-
-    const dialect = options.createDialectFromFlags(flags)
-    const table = await readTable({ path: args.path, dialect })
-
-    if (flags.json) {
+    if (options.json) {
       const df = await table.slice(0, 10).collect()
       const data = df.toRecords()
-      this.logJson(data)
+      console.log(JSON.stringify(data, null, 2))
       return
     }
 
     render(<TableGrid table={table} />)
-  }
-}
+  })

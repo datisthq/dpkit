@@ -1,28 +1,34 @@
 import repl from "node:repl"
-import { Command } from "@oclif/core"
+import { Command } from "commander"
 import { readTable } from "dpkit"
-import * as options from "../../options/index.ts"
 import * as params from "../../params/index.ts"
 
-export default class ScriptTable extends Command {
-  static override description =
-    "Start a scripting session for a table from a local or remote path"
-
-  static override args = {
-    path: params.requriedTablePath,
-  }
-
-  static override flags = {
-    ...options.dialectOptions,
-  }
-
-  public async run() {
-    const { args, flags } = await this.parse(ScriptTable)
-
-    const dialect = options.createDialectFromFlags(flags)
-    const table = await readTable({ path: args.path, dialect })
+export const scriptTableCommand = new Command("script")
+  .description(
+    "Start a scripting session for a table from a local or remote path",
+  )
+  .addArgument(params.positionalTablePath)
+  .addOption(params.delimiter)
+  .addOption(params.header)
+  .addOption(params.headerRows)
+  .addOption(params.headerJoin)
+  .addOption(params.commentRows)
+  .addOption(params.commentChar)
+  .addOption(params.quoteChar)
+  .addOption(params.doubleQuote)
+  .addOption(params.escapeChar)
+  .addOption(params.nullSequence)
+  .addOption(params.skipInitialSpace)
+  .addOption(params.property)
+  .addOption(params.itemType)
+  .addOption(params.itemKeys)
+  .addOption(params.sheetNumber)
+  .addOption(params.sheetName)
+  .addOption(params.table)
+  .action(async (path, options) => {
+    const dialect = params.createDialectFromOptions(options)
+    const table = await readTable({ path, dialect })
 
     const session = repl.start({ prompt: "dp> " })
     session.context.table = table
-  }
-}
+  })

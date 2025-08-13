@@ -1,46 +1,39 @@
-import { Command } from "@oclif/core"
+import { Command } from "commander"
 import { validateTable } from "dpkit"
 import { render } from "ink"
 import React from "react"
-import { ErrorGrid } from "../../components/ErrorGrid.tsx"
-import * as options from "../../options/index.ts"
+import { ErrorGrid } from "../../components/ErrorGrid.jsx"
 import * as params from "../../params/index.ts"
 
-export default class ExploreTable extends Command {
-  static override description = "Explore a table from a local or remote path"
+export const validateTableCommand = new Command("validate")
+  .description("Validate a table from a local or remote path")
+  .addArgument(params.positionalTablePath)
+  .addOption(params.json)
+  .addOption(params.delimiter)
+  .addOption(params.header)
+  .addOption(params.headerRows)
+  .addOption(params.headerJoin)
+  .addOption(params.commentRows)
+  .addOption(params.commentChar)
+  .addOption(params.quoteChar)
+  .addOption(params.doubleQuote)
+  .addOption(params.escapeChar)
+  .addOption(params.nullSequence)
+  .addOption(params.skipInitialSpace)
+  .addOption(params.property)
+  .addOption(params.itemType)
+  .addOption(params.itemKeys)
+  .addOption(params.sheetNumber)
+  .addOption(params.sheetName)
+  .addOption(params.table)
+  .action(async (path, options) => {
+    const dialect = params.createDialectFromOptions(options)
+    const { errors } = await validateTable({ path, dialect })
 
-  static override args = {
-    path: params.requriedTablePath,
-  }
-
-  static override flags = {
-    ...options.dialectOptions,
-    json: options.json,
-  }
-
-  public async run() {
-    const { args, flags } = await this.parse(ExploreTable)
-
-    const dialect = options.createDialectFromFlags(flags)
-    const { errors } = await validateTable({ path: args.path, dialect })
-
-    if (flags.json) {
-      this.logJson(errors)
+    if (options.json) {
+      console.log(JSON.stringify(errors, null, 2))
       return
     }
 
-    render(
-      <ErrorGrid
-        errors={[
-          ...errors,
-          {
-            type: "cell/required",
-            fieldName: "name",
-            rowNumber: 1,
-            cell: "John Doe",
-          },
-        ]}
-      />,
-    )
-  }
-}
+    render(<ErrorGrid errors={errors} />)
+  })

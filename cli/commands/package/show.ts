@@ -1,29 +1,18 @@
-import { Command } from "@oclif/core"
+import { Command } from "commander"
 import { loadPackage } from "dpkit"
-import * as options from "../../options/index.ts"
 import * as params from "../../params/index.ts"
 
-export default class ShowPackage extends Command {
-  static override description = "Show a Data Package descriptor"
+export const showPackageCommand = new Command("show")
+  .description("Show a Data Package descriptor")
+  .addArgument(params.positionalDescriptorPath)
+  .addOption(params.json)
+  .action(async (path, options) => {
+    const dp = await loadPackage(path)
 
-  static override args = {
-    path: params.requriedDescriptorPath,
-  }
-
-  static override flags = {
-    json: options.json,
-  }
-
-  public async run() {
-    const { args, flags } = await this.parse(ShowPackage)
-
-    const dp = await loadPackage(args.path)
-
-    if (flags.json) {
-      this.logJson(dp)
+    if (options.json) {
+      console.log(JSON.stringify(dp, null, 2))
       return
     }
 
     console.log(dp)
-  }
-}
+  })
