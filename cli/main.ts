@@ -1,0 +1,46 @@
+import {
+  type CommandContext,
+  buildApplication,
+  buildCommand,
+  numberParser,
+} from "@stricli/core"
+import { run } from "@stricli/core"
+
+interface Flags {
+  item: string
+  price: number
+}
+
+export const root = buildCommand({
+  func(this: CommandContext, { item, price }: Flags) {
+    this.process.stdout.write(`${item}s cost $${price.toFixed(2)}`)
+  },
+  parameters: {
+    flags: {
+      item: {
+        kind: "parsed",
+        parse: String, // Effectively a no-op
+        brief: "Item to display",
+      },
+      price: {
+        kind: "parsed",
+        parse: numberParser, // Like Number() but throws on NaN
+        brief: "Price of the item",
+      },
+    },
+  },
+  docs: {
+    brief: "Example for live playground with parsed flags",
+    customUsage: [
+      "--item apple --price 1",
+      "--item orange --price 3.5",
+      "--item grape --price 6.25",
+    ],
+  },
+})
+
+export const app = buildApplication(root, {
+  name: "stricli-node-example",
+})
+
+await run(app, process.argv.slice(2), { process })

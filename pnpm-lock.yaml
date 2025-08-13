@@ -94,6 +94,9 @@ importers:
       '@oclif/plugin-autocomplete':
         specifier: ^3.2.34
         version: 3.2.34
+      '@stricli/core':
+        specifier: ^1.2.0
+        version: 1.2.0
       dpkit:
         specifier: workspace:*
         version: link:../dpkit
@@ -1346,6 +1349,9 @@ packages:
   '@sindresorhus/slugify@0.9.1':
     resolution: {integrity: sha512-b6heYM9dzZD13t2GOiEQTDE0qX+I1GyOotMwKh9VQqzuNiVdPVT8dM43fe9HNb/3ul+Qwd5oKSEDrDIfhq3bnQ==}
     engines: {node: '>=8'}
+
+  '@stricli/core@1.2.0':
+    resolution: {integrity: sha512-5b+npntDY0TAB7wAw0daGlh3/R2sf0TDLyrB1By2jCNH+C+lmcSqMtJXOMLVtEGSkIOvqAgIWpLMSs1PXqzt3w==}
 
   '@swc/helpers@0.5.17':
     resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
@@ -4987,6 +4993,8 @@ snapshots:
     dependencies:
       escape-string-regexp: 1.0.5
       lodash.deburr: 4.1.0
+
+  '@stricli/core@1.2.0': {}
 
   '@swc/helpers@0.5.17':
     dependencies:
