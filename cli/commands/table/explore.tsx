@@ -67,8 +67,6 @@ export const exploreTableCommand = new Command("explore")
     // @ts-ignore
     const table = await task("Loading table", readTable(resource))
 
-    console.log(table)
-
     if (options.json) {
       const df = await table.slice(0, 10).collect()
       const data = df.toRecords()
@@ -79,5 +77,5 @@ export const exploreTableCommand = new Command("explore")
     const app = render(<TableGrid table={table} />)
     await app.waitUntilExit()
 
-    outro("Thanks for using dpkit")
+    outro("Thanks for using dpkit!")
   })
