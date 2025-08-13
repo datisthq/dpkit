@@ -1,46 +1,28 @@
-import {
-  type CommandContext,
-  buildApplication,
-  buildCommand,
-  numberParser,
-} from "@stricli/core"
-import { run } from "@stricli/core"
+import { styleText } from "node:util"
+import { Command, Help, Option, program } from "commander"
 
-interface Flags {
-  item: string
-  price: number
+const testOption = new Option("-t, --test-option <test>")
+
+const testCommand = new Command("test").addOption(testOption).action(() => {
+  const options = testCommand.opts() // smart type
+  console.log(options)
+}) // program type includes chained options and arguments
+
+const main = new Command("main").addCommand(testCommand)
+const sub = new Command("sub").addCommand(testCommand)
+
+class CustomHelp extends Help {
+  styleTitle(str: string) {
+    // Make titles bold and uppercase
+    return `\x1b[1m${str.toUpperCase()}:\x1b[0m`
+  }
 }
 
-export const root = buildCommand({
-  func(this: CommandContext, { item, price }: Flags) {
-    this.process.stdout.write(`${item}s cost $${price.toFixed(2)}`)
-  },
-  parameters: {
-    flags: {
-      item: {
-        kind: "parsed",
-        parse: String, // Effectively a no-op
-        brief: "Item to display",
-      },
-      price: {
-        kind: "parsed",
-        parse: numberParser, // Like Number() but throws on NaN
-        brief: "Price of the item",
-      },
-    },
-  },
-  docs: {
-    brief: "Example for live playground with parsed flags",
-    customUsage: [
-      "--item apple --price 1",
-      "--item orange --price 3.5",
-      "--item grape --price 6.25",
-    ],
-  },
-})
+const root = program
+  .addCommand(main)
+  .addCommand(sub)
+  .configureHelp({
+    styleTitle: str => styleText("bold", str.toUpperCase().slice(0, -1)),
+  })
 
-export const app = buildApplication(root, {
-  name: "stricli-node-example",
-})
-
-await run(app, process.argv.slice(2), { process })
+root.parse()

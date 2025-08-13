@@ -18,4 +18,4 @@ pnpm deploy compile
 
 // Compile application
 
-await $({ cwd: "compile" })`deno compile --allow-all entrypoints/run.ts`
+await $({ cwd: "compile" })`deno compile --allow-all main.ts`

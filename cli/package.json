@@ -30,9 +30,12 @@
     "run": "node ./scripts/run.ts"
   },
   "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "@commander-js/extra-typings": "^14.0.0",
+    "@inkjs/ui": "^2.0.0",
     "@oclif/core": "^4.5.2",
     "@oclif/plugin-autocomplete": "^3.2.34",
-    "@stricli/core": "^1.2.0",
+    "commander": "^14.0.0",
     "dpkit": "workspace:*",
     "ink": "^6.1.0",
     "ink-select-input": "^6.2.0",
