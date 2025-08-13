@@ -6,7 +6,7 @@ export const positionalDescriptorPath = new Argument(
 )
 
 export const positionalTablePath = new Argument(
-  "<path>",
+  "[path]",
   "local or remote path to the table",
 )
 
