@@ -3,6 +3,7 @@ import { spinner } from "@clack/prompts"
 import { intro, log, outro, select } from "@clack/prompts"
 import type { SelectOptions } from "@clack/prompts"
 import { render } from "ink"
+import type React from "react"
 import invariant from "tiny-invariant"
 
 export class Session {
@@ -23,10 +24,6 @@ export class Session {
     outro(message)
   }
 
-  object(object: Record<string, any>) {
-    console.log(object)
-  }
-
   async select<T>(options: SelectOptions<T>) {
     return String(await select(options))
   }
@@ -41,12 +38,12 @@ export class Session {
     return result
   }
 
-  async render(...args: Parameters<typeof render>) {
+  async render(_object: Record<string, any>, node: React.ReactNode) {
     // Without waiting for the next tick after clack prompts,
     // ink render will be immidiately terminated
     await setImmediate()
 
-    const app = render(...args)
+    const app = render(node)
     await app.waitUntilExit()
   }
 }
@@ -55,16 +52,12 @@ export class JsonSession extends Session {
   intro = () => {}
   outro = () => {}
 
-  object(object: Record<string, any>) {
-    console.log(JSON.stringify(object, null, 2))
-  }
-
   async select<T>(_options: SelectOptions<T>): Promise<string> {
     Session.terminate("Selection is not supported in JSON mode")
   }
 
-  async render(..._args: Parameters<typeof render>) {
-    invariant(false, "Render must not be used in JSON mode")
+  async render(object: Record<string, any>, _node: React.ReactNode) {
+    console.log(JSON.stringify(object, null, 2))
   }
 
   async task<T>(_message: string, promise: Promise<T>) {

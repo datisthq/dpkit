@@ -3,6 +3,7 @@ import { inferDialect } from "dpkit"
 import React from "react"
 import { DialectGrid } from "../../components/DialectGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
+import { isEmptyObject } from "../../helpers/object.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
@@ -18,7 +19,10 @@ export const inferDialectCommand = new Command("infer")
     session.intro("Inferring dialect")
 
     const dialect = await session.task("Loading sample", inferDialect({ path }))
-    await session.render(<DialectGrid dialect={dialect} />)
+    if (isEmptyObject(dialect)) {
+      Session.terminate("Could not infer dialect")
+    }
 
+    await session.render(dialect, <DialectGrid dialect={dialect} />)
     session.outro("Thanks for using dpkit!")
   })
