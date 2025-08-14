@@ -8,4 +8,3 @@ export const packageCommand = new Command("package")
   .addCommand(showPackageCommand)
   .addCommand(archivePackageCommand)
   .addCommand(copyPackageCommand)
-

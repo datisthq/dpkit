@@ -64,7 +64,7 @@ export class Session {
 export class JsonSession extends Session {
   start = () => {}
 
-  async select<T>(_options: SelectOptions<T>): Promise<string> {
+  async select<T>(_options: SelectOptions<T>): Promise<symbol | T> {
     Session.terminate("Selection is not supported in JSON mode")
   }
 
