@@ -3,6 +3,7 @@ import { validateTable } from "dpkit"
 import { render } from "ink"
 import React from "react"
 import { ErrorGrid } from "../../components/ErrorGrid.jsx"
+import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import * as params from "../../params/index.ts"
 
 export const validateTableCommand = new Command("validate")
@@ -27,7 +28,7 @@ export const validateTableCommand = new Command("validate")
   .addOption(params.sheetName)
   .addOption(params.table)
   .action(async (path, options) => {
-    const dialect = params.createDialectFromOptions(options)
+    const dialect = createDialectFromOptions(options)
     const { errors } = await validateTable({ path, dialect })
 
     if (options.json) {

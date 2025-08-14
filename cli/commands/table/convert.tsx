@@ -1,15 +1,20 @@
 import { Command } from "commander"
 import { getTempFilePath, loadFile } from "dpkit"
 import { readTable, saveTable } from "dpkit"
+import { createDialectFromOptions } from "../../helpers/dialect.ts"
+import { createToDialectFromOptions } from "../../helpers/dialect.ts"
 import * as params from "../../params/index.ts"
 
 export const convertTableCommand = new Command("convert")
   .description(
     "Convert a table from a local or remote source path to a target path",
   )
+
   .addArgument(params.positionalTablePath)
   .addOption(params.toPath)
   .addOption(params.toFormat)
+
+  .optionsGroup("Table Dialect")
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -27,6 +32,8 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+
+  .optionsGroup("Table Dialect (output)")
   .addOption(params.toDelimiter)
   .addOption(params.toHeader)
   .addOption(params.toHeaderRows)
@@ -44,12 +51,13 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.toSheetNumber)
   .addOption(params.toSheetName)
   .addOption(params.toTable)
+
   .action(async (path, options) => {
-    const dialect = params.createDialectFromOptions(options)
+    const dialect = createDialectFromOptions(options)
     const table = await readTable({ path, dialect })
 
     const toPath = options.toPath ?? getTempFilePath()
-    const toDialect = params.createToDialectFromOptions(options)
+    const toDialect = createToDialectFromOptions(options)
     await saveTable(table, {
       path: toPath,
       format: options.toFormat,

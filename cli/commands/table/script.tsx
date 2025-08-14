@@ -1,6 +1,7 @@
 import repl from "node:repl"
 import { Command } from "commander"
 import { readTable } from "dpkit"
+import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import * as params from "../../params/index.ts"
 
 export const scriptTableCommand = new Command("script")
@@ -26,7 +27,7 @@ export const scriptTableCommand = new Command("script")
   .addOption(params.sheetName)
   .addOption(params.table)
   .action(async (path, options) => {
-    const dialect = params.createDialectFromOptions(options)
+    const dialect = createDialectFromOptions(options)
     const table = await readTable({ path, dialect })
 
     const session = repl.start({ prompt: "dp> " })

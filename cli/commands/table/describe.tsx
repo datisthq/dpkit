@@ -3,6 +3,7 @@ import { readTable } from "dpkit"
 import { render } from "ink"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
+import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import * as params from "../../params/index.ts"
 
 export const describeTableCommand = new Command("describe")
@@ -27,7 +28,7 @@ export const describeTableCommand = new Command("describe")
   .addOption(params.sheetName)
   .addOption(params.table)
   .action(async (path, options) => {
-    const dialect = params.createDialectFromOptions(options)
+    const dialect = createDialectFromOptions(options)
     const table = await readTable({ path, dialect })
 
     const df = await table.collect()

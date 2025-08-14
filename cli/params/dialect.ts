@@ -1,5 +1,4 @@
 import { Option } from "commander"
-import type { Dialect } from "dpkit"
 
 export const header = new Option(
   "--header",
@@ -27,7 +26,7 @@ export const commentChar = new Option(
 )
 
 export const delimiter = new Option(
-  "-d, --delimiter <char>",
+  "--delimiter <char>",
   "character used to separate fields in the data",
 )
 
@@ -91,102 +90,92 @@ export const table = new Option(
   "for database sources, the table name to read",
 )
 
-export const dialectOptions = [
-  delimiter,
-  header,
-  headerRows,
-  headerJoin,
-  commentRows,
-  commentChar,
-  quoteChar,
-  doubleQuote,
-  escapeChar,
-  nullSequence,
-  skipInitialSpace,
-  property,
-  itemType,
-  itemKeys,
-  sheetNumber,
-  sheetName,
-  table,
-]
+export const toHeader = new Option(
+  "--to-header",
+  "whether the file includes a header row with field names",
+).default(true)
 
-export function createDialectFromOptions(options: any) {
-  let dialect: Dialect | undefined
+export const toHeaderRows = new Option(
+  "--to-header-rows <rows>",
+  "comma-separated row numbers (zero-based) that are considered header rows",
+)
 
-  if (options.delimiter) {
-    dialect = { ...dialect, delimiter: options.delimiter }
-  }
+export const toHeaderJoin = new Option(
+  "--to-header-join <char>",
+  "character used to join multi-line headers",
+)
 
-  if (options.header === false) {
-    dialect = { ...dialect, header: options.header }
-  }
+export const toCommentRows = new Option(
+  "--to-comment-rows <rows>",
+  "comma-separated rows to be excluded from the data (zero-based)",
+)
 
-  if (options.headerRows) {
-    dialect = {
-      ...dialect,
-      headerRows: options.headerRows.split(",").map(Number),
-    }
-  }
+export const toCommentChar = new Option(
+  "--to-comment-char <char>",
+  "character sequence denoting the start of a comment line",
+)
 
-  if (options.headerJoin) {
-    dialect = { ...dialect, headerJoin: options.headerJoin }
-  }
+export const toDelimiter = new Option(
+  "--to-delimiter <char>",
+  "character used to separate fields in the data",
+)
 
-  if (options.commentRows) {
-    dialect = {
-      ...dialect,
-      commentRows: options.commentRows.split(",").map(Number),
-    }
-  }
+export const toLineTerminator = new Option(
+  "--to-line-terminator <char>",
+  "character sequence used to terminate rows",
+)
 
-  if (options.commentChar) {
-    dialect = { ...dialect, commentChar: options.commentChar }
-  }
+export const toQuoteChar = new Option(
+  "--to-quote-char <char>",
+  "character used to quote fields",
+)
 
-  if (options.quoteChar) {
-    dialect = { ...dialect, quoteChar: options.quoteChar }
-  }
+export const toDoubleQuote = new Option(
+  "--to-double-quote",
+  "whether a sequence of two quote characters represents a single quote",
+)
 
-  if (options.doubleQuote) {
-    dialect = { ...dialect, doubleQuote: options.doubleQuote }
-  }
+export const toEscapeChar = new Option(
+  "--to-escape-char <char>",
+  "character used to escape the delimiter or quote characters",
+)
 
-  if (options.escapeChar) {
-    dialect = { ...dialect, escapeChar: options.escapeChar }
-  }
+export const toNullSequence = new Option(
+  "--to-null-sequence <seq>",
+  "character sequence representing null or missing values in the data",
+)
 
-  if (options.nullSequence) {
-    dialect = { ...dialect, nullSequence: options.nullSequence }
-  }
+export const toSkipInitialSpace = new Option(
+  "--to-skip-initial-space",
+  "whether to ignore whitespace immediately following the delimiter",
+)
 
-  if (options.skipInitialSpace) {
-    dialect = { ...dialect, skipInitialSpace: options.skipInitialSpace }
-  }
+export const toProperty = new Option(
+  "--to-property <name>",
+  "for JSON data, the property name containing the data array",
+)
 
-  if (options.property) {
-    dialect = { ...dialect, property: options.property }
-  }
+export const toItemType = new Option(
+  "--to-item-type <type>",
+  "the type of data item in the source",
+).choices(["array", "object"])
 
-  if (options.itemType) {
-    dialect = { ...dialect, itemType: options.itemType }
-  }
+export const toItemKeys = new Option(
+  "--to-item-keys <keys>",
+  "comma-separated object properties to extract as values (for object-based data items)",
+)
 
-  if (options.itemKeys) {
-    dialect = { ...dialect, itemKeys: options.itemKeys.split(",") }
-  }
+export const toSheetNumber = new Option(
+  "--to-sheet-number <num>",
+  "for spreadsheet data, the sheet number to read (zero-based)",
+).argParser(Number.parseInt)
 
-  if (options.sheetNumber) {
-    dialect = { ...dialect, sheetNumber: options.sheetNumber }
-  }
+export const toSheetName = new Option(
+  "--to-sheet-name <name>",
+  "for spreadsheet data, the sheet name to read",
+)
 
-  if (options.sheetName) {
-    dialect = { ...dialect, sheetName: options.sheetName }
-  }
-
-  if (options.table) {
-    dialect = { ...dialect, table: options.table }
-  }
-
-  return dialect
-}
+export const toTable = new Option(
+  "--to-table <name>",
+  "for database sources, the table name to read",
+)

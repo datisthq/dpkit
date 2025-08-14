@@ -2,14 +2,17 @@ import { Command } from "commander"
 import { readTable } from "dpkit"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
+import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
 export const exploreTableCommand = new Command("explore")
   .description("Explore a table from a local or remote path")
+
   .addArgument(params.positionalTablePath)
   .addOption(params.fromPackage)
+  .addOption(params.fromResource)
 
   .optionsGroup("Table Dialect")
   .addOption(params.delimiter)
@@ -35,7 +38,7 @@ export const exploreTableCommand = new Command("explore")
     session.intro("Exploring table")
 
     const resource = path
-      ? { path, dialect: params.createDialectFromOptions(options) }
+      ? { path, dialect: createDialectFromOptions(options) }
       : await selectResource(session, options)
 
     const table = await session.task("Loading table", readTable(resource))

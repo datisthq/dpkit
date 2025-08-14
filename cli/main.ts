@@ -8,7 +8,7 @@ import metadata from "./package.json" with { type: "json" }
 program
   .name("dp")
   .description(
-    "Fast TypeScript data management framework built on top of the Data Package standard and Polars DataFrames",
+    "Fast data management CLI built on top of the Data Package standard and Polars DataFrames",
   )
   .version(metadata.version)
   .configureHelp({

@@ -24,6 +24,6 @@ export const queryTableCommand = new Command("query")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
-  .action(async (path, options) => {
+  .action(async (_path, _options) => {
     throw new Error("Query command not implemented yet")
   })
