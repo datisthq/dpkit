@@ -19,12 +19,12 @@ export const showResourceCommand = new Command("show")
   .addOption(params.json)
 
   .action(async (path, options) => {
-    let resource: Resource | undefined
-
     const session = Session.create({
       title: "Show resource",
       json: options.json,
     })
+
+    let resource: Resource | undefined
 
     if (!path) {
       resource = await selectResource(session, options)

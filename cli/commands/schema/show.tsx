@@ -19,12 +19,12 @@ export const showSchemaCommand = new Command("show")
   .addOption(params.json)
 
   .action(async (path, options) => {
-    let schema: Schema | undefined
-
     const session = Session.create({
       title: "Show schema",
       json: options.json,
     })
+
+    let schema: Schema | undefined
 
     if (!path) {
       const resource = await selectResource(session, options)

@@ -1,14 +1,16 @@
 import { Command } from "commander"
-import { loadDescriptor, validateResourceDescriptor } from "dpkit"
+import { loadDescriptor, validatePackageDescriptor } from "dpkit"
 import type { Descriptor } from "dpkit"
+import React from "react"
+import { ErrorGrid } from "../../components/ErrorGrid.jsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const validateResourceCommand = new Command("validate")
+export const errorsPackageCommand = new Command("errors")
   .configureHelp(helpConfiguration)
-  .description("Validate a data resource from a local or remote path")
+  .description("Show errors for a data package from a local or remote path")
 
   .addArgument(params.positionalTablePath)
   .addOption(params.fromPackage)
@@ -16,12 +18,12 @@ export const validateResourceCommand = new Command("validate")
   .addOption(params.json)
 
   .action(async (path, options) => {
+    let descriptor: Descriptor | undefined
+
     const session = Session.create({
-      title: "Validate resource",
+      title: "Validate package",
       json: options.json,
     })
-
-    let descriptor: Descriptor | undefined
 
     if (!path) {
       const resource = await selectResource(session, options)
@@ -36,13 +38,10 @@ export const validateResourceCommand = new Command("validate")
       descriptor = result.descriptor
     }
 
-    const { valid } = await session.task(
+    const { errors } = await session.task(
       "Validating descriptor",
-      // @ts-ignore
-      validateResourceDescriptor(descriptor),
+      validatePackageDescriptor(descriptor),
     )
 
-    valid
-      ? session.success("Resource is valid")
-      : session.error("Resource is not valid")
+    session.render(errors, <ErrorGrid errors={errors} />)
   })

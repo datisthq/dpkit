@@ -1,14 +1,16 @@
 import { Command } from "commander"
 import { loadDescriptor, validateResourceDescriptor } from "dpkit"
 import type { Descriptor } from "dpkit"
+import React from "react"
+import { ErrorGrid } from "../../components/ErrorGrid.jsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const validateResourceCommand = new Command("validate")
+export const errorsResourceCommand = new Command("errors")
   .configureHelp(helpConfiguration)
-  .description("Validate a data resource from a local or remote path")
+  .description("Show errors for a data resource from a local or remote path")
 
   .addArgument(params.positionalTablePath)
   .addOption(params.fromPackage)
@@ -36,13 +38,10 @@ export const validateResourceCommand = new Command("validate")
       descriptor = result.descriptor
     }
 
-    const { valid } = await session.task(
+    const { errors } = await session.task(
       "Validating descriptor",
-      // @ts-ignore
       validateResourceDescriptor(descriptor),
     )
 
-    valid
-      ? session.success("Resource is valid")
-      : session.error("Resource is not valid")
+    session.render(errors, <ErrorGrid errors={errors} />)
   })

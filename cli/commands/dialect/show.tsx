@@ -19,12 +19,12 @@ export const showDialectCommand = new Command("show")
   .addOption(params.json)
 
   .action(async (path, options) => {
-    let dialect: Dialect | undefined
-
     const session = Session.create({
       title: "Show dialect",
       json: options.json,
     })
+
+    let dialect: Dialect | undefined
 
     if (!path) {
       const resource = await selectResource(session, options)

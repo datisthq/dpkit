@@ -18,12 +18,12 @@ export const errorsDialectCommand = new Command("errors")
   .addOption(params.json)
 
   .action(async (path, options) => {
-    let descriptor: Descriptor | undefined
-
     const session = Session.create({
       title: "Validate dialect",
       json: options.json,
     })
+
+    let descriptor: Descriptor | undefined
 
     if (!path) {
       const resource = await selectResource(session, options)

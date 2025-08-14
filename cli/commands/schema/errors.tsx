@@ -1,14 +1,16 @@
 import { Command } from "commander"
-import { loadDescriptor, validateResourceDescriptor } from "dpkit"
+import { loadDescriptor, validateSchema } from "dpkit"
 import type { Descriptor } from "dpkit"
+import React from "react"
+import { ErrorGrid } from "../../components/ErrorGrid.jsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const validateResourceCommand = new Command("validate")
+export const errorsSchemaCommand = new Command("errors")
   .configureHelp(helpConfiguration)
-  .description("Validate a data resource from a local or remote path")
+  .description("Show errors for a table schema from a local or remote path")
 
   .addArgument(params.positionalTablePath)
   .addOption(params.fromPackage)
@@ -17,7 +19,7 @@ export const validateResourceCommand = new Command("validate")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Validate resource",
+      title: "Validate schema",
       json: options.json,
     })
 
@@ -25,8 +27,19 @@ export const validateResourceCommand = new Command("validate")
 
     if (!path) {
       const resource = await selectResource(session, options)
-      descriptor = resource as unknown as Descriptor
-    } else {
+
+      if (!resource.schema) {
+        Session.terminate("Schema is not available")
+      }
+
+      if (typeof resource.schema !== "string") {
+        descriptor = resource.schema as Descriptor
+      } else {
+        path = resource.schema
+      }
+    }
+
+    if (!descriptor) {
       const result = await session.task(
         "Loading descriptor",
         // @ts-ignore
@@ -36,13 +49,12 @@ export const validateResourceCommand = new Command("validate")
       descriptor = result.descriptor
     }
 
-    const { valid } = await session.task(
+    const { errors } = await session.task(
       "Validating descriptor",
       // @ts-ignore
-      validateResourceDescriptor(descriptor),
+      validateSchema(descriptor),
     )
 
-    valid
-      ? session.success("Resource is valid")
-      : session.error("Resource is not valid")
+    session.render(errors, <ErrorGrid errors={errors} />)
   })
+
