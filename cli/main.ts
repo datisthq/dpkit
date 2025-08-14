@@ -1,6 +1,7 @@
 import { program } from "commander"
 import { dialectCommand } from "./commands/dialect/index.ts"
 import { packageCommand } from "./commands/package/index.ts"
+import { resourceCommand } from "./commands/resource/index.ts"
 import { tableCommand } from "./commands/table/index.ts"
 import { helpConfiguration } from "./helpers/help.ts"
 import metadata from "./package.json" with { type: "json" }
@@ -15,6 +16,7 @@ program
   .configureHelp(helpConfiguration)
 
   .addCommand(packageCommand)
+  .addCommand(resourceCommand)
   .addCommand(tableCommand)
   .addCommand(dialectCommand)
 
