@@ -1,6 +1,6 @@
-import { styleText } from "node:util"
 import type { HelpConfiguration } from "commander"
+import pc from "picocolors"
 
 export const helpConfiguration: HelpConfiguration = {
-  styleTitle: str => styleText("bold", str.toUpperCase().slice(0, -1)),
+  styleTitle: str => pc.bold(str.toUpperCase().replace(":", "")),
 }

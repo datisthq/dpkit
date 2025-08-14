@@ -36,15 +36,14 @@ export const exploreTableCommand = new Command("explore")
   .addOption(params.table)
 
   .action(async (path, options) => {
-    const session = Session.create()
-    session.intro("Exploring table")
+    const session = Session.create({
+      title: "Exploring table",
+    })
 
     const resource = path
       ? { path, dialect: createDialectFromOptions(options) }
       : await selectResource(session, options)
 
     const table = await session.task("Loading table", readTable(resource))
-    await session.render(<TableGrid table={table} />)
-
-    session.outro("Thanks for using dpkit!")
+    await session.render(table, <TableGrid table={table} />)
   })

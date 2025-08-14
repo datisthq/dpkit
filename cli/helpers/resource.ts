@@ -29,6 +29,10 @@ export async function selectResource(
   )
 
   if (!resource) {
+    if (typeof resourceName !== "string") {
+      Session.terminate("Resource selection cancelled")
+    }
+
     Session.terminate(
       `Resource "${resourceName}" is not found in the provided data package`,
     )

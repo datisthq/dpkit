@@ -2,13 +2,21 @@ import { setImmediate } from "node:timers/promises"
 import { spinner } from "@clack/prompts"
 import { intro, log, outro, select } from "@clack/prompts"
 import type { SelectOptions } from "@clack/prompts"
+import exitHook from "exit-hook"
 import { render } from "ink"
+import pc from "picocolors"
 import type React from "react"
-import invariant from "tiny-invariant"
 
 export class Session {
-  static create(options?: { json?: boolean }) {
-    return options?.json ? new JsonSession() : new Session()
+  title: string
+
+  static create(options: { title: string; json?: boolean }) {
+    const session = options.json
+      ? new JsonSession(options)
+      : new Session(options)
+
+    session.start()
+    return session
   }
 
   static terminate(message: string): never {
@@ -16,16 +24,21 @@ export class Session {
     process.exit(1)
   }
 
-  intro(message: string) {
-    intro(message)
+  constructor(options: { title: string }) {
+    this.title = options.title
   }
 
-  outro(message: string) {
-    outro(message)
+  start() {
+    intro(pc.bold(this.title))
+    exitHook(() => {
+      outro(
+        `Problems? ${pc.underline(pc.cyan("https://github.com/datisthq/dpkit/issues"))}`,
+      )
+    })
   }
 
   async select<T>(options: SelectOptions<T>) {
-    return String(await select(options))
+    return await select(options)
   }
 
   async task<T>(message: string, promise: Promise<T>) {
@@ -38,7 +51,7 @@ export class Session {
     return result
   }
 
-  async render(_object: Record<string, any>, node: React.ReactNode) {
+  async render(_object: any, node: React.ReactNode) {
     // Without waiting for the next tick after clack prompts,
     // ink render will be immidiately terminated
     await setImmediate()
@@ -49,14 +62,13 @@ export class Session {
 }
 
 export class JsonSession extends Session {
-  intro = () => {}
-  outro = () => {}
+  start = () => {}
 
   async select<T>(_options: SelectOptions<T>): Promise<string> {
     Session.terminate("Selection is not supported in JSON mode")
   }
 
-  async render(object: Record<string, any>, _node: React.ReactNode) {
+  async render(object: any, _node: React.ReactNode) {
     console.log(JSON.stringify(object, null, 2))
   }
 
