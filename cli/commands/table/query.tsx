@@ -1,5 +1,6 @@
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
 export const queryTableCommand = new Command("query")
@@ -30,5 +31,9 @@ export const queryTableCommand = new Command("query")
   .addOption(params.table)
 
   .action(async (_path, _options) => {
-    throw new Error("Query command not implemented yet")
+    const session = Session.create({
+      title: "Query table",
+    })
+
+    Session.terminate("Query command not implemented yet")
   })

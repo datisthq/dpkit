@@ -4,6 +4,8 @@ import { readTable, saveTable } from "dpkit"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { createToDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
+import { selectResource } from "../../helpers/resource.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
 export const convertTableCommand = new Command("convert")
@@ -13,6 +15,8 @@ export const convertTableCommand = new Command("convert")
   )
 
   .addArgument(params.positionalTablePath)
+  .addOption(params.fromPackage)
+  .addOption(params.fromResource)
   .addOption(params.toPath)
   .addOption(params.toFormat)
 
@@ -55,16 +59,27 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.toTable)
 
   .action(async (path, options) => {
-    const dialect = createDialectFromOptions(options)
-    const table = await readTable({ path, dialect })
+    const session = Session.create({
+      title: "Table errors",
+    })
+
+    const resource = path
+      ? { path, dialect: createDialectFromOptions(options) }
+      : await selectResource(session, options)
+
+    const table = await session.task("Loading table", readTable(resource))
 
     const toPath = options.toPath ?? getTempFilePath()
     const toDialect = createToDialectFromOptions(options)
-    await saveTable(table, {
-      path: toPath,
-      format: options.toFormat,
-      dialect: toDialect,
-    })
+
+    await session.task(
+      "Saving table",
+      saveTable(table, {
+        path: toPath,
+        format: options.toFormat,
+        dialect: toDialect,
+      }),
+    )
 
     if (!options.toPath) {
       const buffer = await loadFile(toPath)

@@ -3,6 +3,8 @@ import { Command } from "commander"
 import { readTable } from "dpkit"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
+import { selectResource } from "../../helpers/resource.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
 export const scriptTableCommand = new Command("script")
@@ -12,6 +14,8 @@ export const scriptTableCommand = new Command("script")
   )
 
   .addArgument(params.positionalTablePath)
+  .addOption(params.fromPackage)
+  .addOption(params.fromResource)
 
   .optionsGroup("Table Dialect")
   .addOption(params.delimiter)
@@ -33,9 +37,16 @@ export const scriptTableCommand = new Command("script")
   .addOption(params.table)
 
   .action(async (path, options) => {
-    const dialect = createDialectFromOptions(options)
-    const table = await readTable({ path, dialect })
+    const session = Session.create({
+      title: "Explore table",
+    })
 
-    const session = repl.start({ prompt: "dp> " })
-    session.context.table = table
+    const resource = path
+      ? { path, dialect: createDialectFromOptions(options) }
+      : await selectResource(session, options)
+
+    const table = await session.task("Loading table", readTable(resource))
+
+    const replSession = repl.start({ prompt: "dp> " })
+    replSession.context.table = table
   })
