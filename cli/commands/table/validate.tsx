@@ -4,12 +4,17 @@ import { render } from "ink"
 import React from "react"
 import { ErrorGrid } from "../../components/ErrorGrid.jsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
+import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
 
 export const validateTableCommand = new Command("validate")
+  .configureHelp(helpConfiguration)
   .description("Validate a table from a local or remote path")
+
   .addArgument(params.positionalTablePath)
   .addOption(params.json)
+
+  .optionsGroup("Table Dialect")
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -27,6 +32,7 @@ export const validateTableCommand = new Command("validate")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+
   .action(async (path, options) => {
     const dialect = createDialectFromOptions(options)
     const { errors } = await validateTable({ path, dialect })

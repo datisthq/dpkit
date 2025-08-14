@@ -3,11 +3,13 @@ import { readTable } from "dpkit"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
+import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
 export const exploreTableCommand = new Command("explore")
+  .configureHelp(helpConfiguration)
   .description("Explore a table from a local or remote path")
 
   .addArgument(params.positionalTablePath)

@@ -4,12 +4,17 @@ import { render } from "ink"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
+import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
 
 export const describeTableCommand = new Command("describe")
+  .configureHelp(helpConfiguration)
   .description("Describe a table from a local or remote path")
+
   .addArgument(params.positionalTablePath)
   .addOption(params.json)
+
+  .optionsGroup("Table Dialect")
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)

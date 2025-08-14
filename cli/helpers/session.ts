@@ -23,6 +23,10 @@ export class Session {
     outro(message)
   }
 
+  object(object: Record<string, any>) {
+    console.log(object)
+  }
+
   async select<T>(options: SelectOptions<T>) {
     return String(await select(options))
   }
@@ -50,6 +54,10 @@ export class Session {
 export class JsonSession extends Session {
   intro = () => {}
   outro = () => {}
+
+  object(object: Record<string, any>) {
+    console.log(JSON.stringify(object, null, 2))
+  }
 
   async select<T>(_options: SelectOptions<T>): Promise<string> {
     Session.terminate("Selection is not supported in JSON mode")

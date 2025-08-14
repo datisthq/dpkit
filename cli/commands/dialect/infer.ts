@@ -1,18 +1,22 @@
 import { Command } from "commander"
 import { inferDialect } from "dpkit"
+import { helpConfiguration } from "../../helpers/help.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
 export const inferDialectCommand = new Command("infer")
+  .configureHelp(helpConfiguration)
   .description("Infer a dialect from a table")
+
   .addArgument(params.positionalTablePath)
   .addOption(params.json)
+
   .action(async (path, options) => {
-    const dialect = await inferDialect({ path })
+    const session = Session.create(options)
+    session.intro("Inferring dialect")
 
-    if (options.json) {
-      console.log(JSON.stringify(dialect, null, 2))
-      return
-    }
+    const dialect = await session.task("Loading sample", inferDialect({ path }))
 
-    console.log(dialect)
+    session.object(dialect)
+    session.outro("Thanks for using dpkit!")
   })

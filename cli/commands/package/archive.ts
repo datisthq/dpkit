@@ -1,12 +1,16 @@
 import { Command } from "commander"
 import { loadPackage, savePackageToZip } from "dpkit"
+import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
 
 export const archivePackageCommand = new Command("archive")
+  .configureHelp(helpConfiguration)
   .description("Archive a local or remote Data Package to a local zip file")
+
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.toArchive.makeOptionMandatory())
   .addOption(params.withRemote)
+
   .action(async (path, options) => {
     const dp = await loadPackage(path)
 

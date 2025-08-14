@@ -3,9 +3,11 @@ import { getTempFilePath, loadFile } from "dpkit"
 import { readTable, saveTable } from "dpkit"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { createToDialectFromOptions } from "../../helpers/dialect.ts"
+import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
 
 export const convertTableCommand = new Command("convert")
+  .configureHelp(helpConfiguration)
   .description(
     "Convert a table from a local or remote source path to a target path",
   )

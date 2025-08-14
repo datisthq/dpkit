@@ -2,13 +2,18 @@ import repl from "node:repl"
 import { Command } from "commander"
 import { readTable } from "dpkit"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
+import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
 
 export const scriptTableCommand = new Command("script")
+  .configureHelp(helpConfiguration)
   .description(
     "Start a scripting session for a table from a local or remote path",
   )
+
   .addArgument(params.positionalTablePath)
+
+  .optionsGroup("Table Dialect")
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -26,6 +31,7 @@ export const scriptTableCommand = new Command("script")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+
   .action(async (path, options) => {
     const dialect = createDialectFromOptions(options)
     const table = await readTable({ path, dialect })
