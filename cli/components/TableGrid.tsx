@@ -92,7 +92,7 @@ export function TableGrid(props: { table: Table }) {
 
   return (
     <Box flexDirection="column">
-      <DataGrid data={data} col={col} order={order} />
+      <DataGrid data={data} col={col} order={order} rowHeight={2} />
       <Help />
     </Box>
   )

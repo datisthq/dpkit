@@ -8,8 +8,9 @@ export function DataGrid(props: {
   data: Record<string, any>[]
   col?: number
   order?: Order
+  rowHeight?: number
 }) {
-  const { data, col, order } = props
+  const { data, col, order, rowHeight } = props
 
   const colNames = Object.keys(data[0] ?? {})
   const colWidth = Math.min(
@@ -64,7 +65,7 @@ export function DataGrid(props: {
                     ? "#444"
                     : undefined
               }
-              height={2}
+              height={rowHeight}
               overflow="hidden"
             >
               <Text>{(row[name] ?? "").toString()}</Text>
