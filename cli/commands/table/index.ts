@@ -9,8 +9,8 @@ import { statsTableCommand } from "./stats.tsx"
 import { validateTableCommand } from "./validate.tsx"
 
 export const tableCommand = new Command("table")
-  .description("Table related commands")
   .configureHelp(helpConfiguration)
+  .description("Table related commands")
 
   .addCommand(convertTableCommand)
   .addCommand(errorsTableCommand)
