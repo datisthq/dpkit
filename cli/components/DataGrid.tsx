@@ -1,6 +1,9 @@
 import { Box, Text } from "ink"
 import React from "react"
 
+// TODO: Accept column names as an option
+// TODO: Autocalculate geometry (e.g. row height etc)
+
 const MIN_COLUMN_WIDTH = 15
 export type Order = { col: number; dir: "asc" | "desc" }
 
@@ -12,7 +15,8 @@ export function DataGrid(props: {
 }) {
   const { data, col, order, rowHeight } = props
 
-  const colNames = Object.keys(data[0] ?? {})
+  // TODO: fix $schema related cludge
+  const colNames = Object.keys(data[0] ?? {}).filter(name => name !== "$schema")
   const colWidth = Math.min(
     process.stdout.columns / colNames.length,
     MIN_COLUMN_WIDTH,

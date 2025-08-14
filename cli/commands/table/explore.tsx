@@ -37,7 +37,7 @@ export const exploreTableCommand = new Command("explore")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Exploring table",
+      title: "Explore table",
     })
 
     const resource = path
