@@ -27,7 +27,6 @@ export class Session {
   constructor(options: { title: string }) {
     this.title = options.title
   }
-
   start() {
     intro(pc.bold(this.title))
     exitHook(() => {
@@ -35,6 +34,14 @@ export class Session {
         `Problems? ${pc.underline(pc.cyan("https://github.com/datisthq/dpkit/issues"))}`,
       )
     })
+  }
+
+  success(message: string) {
+    log.success(message)
+  }
+
+  error(message: string) {
+    log.error(message)
   }
 
   async select<T>(options: SelectOptions<T>) {
@@ -63,6 +70,8 @@ export class Session {
 
 export class JsonSession extends Session {
   start = () => {}
+  success = () => {}
+  error = () => {}
 
   async select<T>(_options: SelectOptions<T>): Promise<symbol | T> {
     Session.terminate("Selection is not supported in JSON mode")
