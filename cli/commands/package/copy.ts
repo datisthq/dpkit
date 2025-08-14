@@ -1,6 +1,7 @@
 import { Command } from "commander"
 import { loadPackage, savePackageToFolder } from "dpkit"
 import { helpConfiguration } from "../../helpers/help.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
 export const copyPackageCommand = new Command("copy")
@@ -12,12 +13,19 @@ export const copyPackageCommand = new Command("copy")
   .addOption(params.withRemote)
 
   .action(async (path, options) => {
-    const dp = await loadPackage(path)
-
-    await savePackageToFolder(dp, {
-      folderPath: options.toFolder,
-      withRemote: options.withRemote,
+    const session = Session.create({
+      title: "Validate package",
     })
 
-    console.log(`Package from "${path}" copied to "${options.toFolder}"`)
+    const dp = await session.task("Loading package", loadPackage(path))
+
+    await session.task(
+      "Copying package",
+      savePackageToFolder(dp, {
+        folderPath: options.toFolder,
+        withRemote: options.withRemote,
+      }),
+    )
+
+    session.success(`Package from "${path}" copied to "${options.toFolder}"`)
   })

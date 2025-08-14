@@ -4,10 +4,13 @@ import { DataGrid } from "./DataGrid.tsx"
 
 // TODO: Support showing other package/resource properties
 
-export function PackageGrid(props: { schema: Package }) {
+export function PackageGrid(props: { dataPackage: Package }) {
   const data = [
     Object.fromEntries(
-      props.schema.resources.map(resource => [resource.name, resource.path]),
+      props.dataPackage.resources.map(resource => [
+        resource.name,
+        resource.path,
+      ]),
     ),
   ]
 

@@ -33,7 +33,7 @@ export const errorsSchemaCommand = new Command("errors")
       }
 
       if (typeof resource.schema !== "string") {
-        descriptor = resource.schema as Descriptor
+        descriptor = resource.schema as unknown as Descriptor
       } else {
         path = resource.schema
       }
@@ -57,4 +57,3 @@ export const errorsSchemaCommand = new Command("errors")
 
     session.render(errors, <ErrorGrid errors={errors} />)
   })
-

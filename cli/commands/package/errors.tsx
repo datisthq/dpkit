@@ -18,12 +18,12 @@ export const errorsPackageCommand = new Command("errors")
   .addOption(params.json)
 
   .action(async (path, options) => {
-    let descriptor: Descriptor | undefined
-
     const session = Session.create({
       title: "Validate package",
       json: options.json,
     })
+
+    let descriptor: Descriptor | undefined
 
     if (!path) {
       const resource = await selectResource(session, options)

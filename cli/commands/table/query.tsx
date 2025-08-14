@@ -9,7 +9,6 @@ export const queryTableCommand = new Command("query")
     "Start a querying session for a table from a local or remote path",
   )
   .addArgument(params.positionalTablePath)
-  .addOption(params.json)
 
   .optionsGroup("Table Dialect")
   .addOption(params.delimiter)
@@ -31,6 +30,7 @@ export const queryTableCommand = new Command("query")
   .addOption(params.table)
 
   .action(async (_path, _options) => {
+    // @ts-ignore
     const session = Session.create({
       title: "Query table",
     })

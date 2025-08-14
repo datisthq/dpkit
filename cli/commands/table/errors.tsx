@@ -39,6 +39,7 @@ export const errorsTableCommand = new Command("errors")
   .action(async (path, options) => {
     const session = Session.create({
       title: "Table errors",
+      json: options.json,
     })
 
     const resource = path

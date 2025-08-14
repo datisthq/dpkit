@@ -1,6 +1,9 @@
 import { Command } from "commander"
 import { loadPackage } from "dpkit"
+import React from "react"
+import { PackageGrid } from "../../components/PackageGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
 export const showPackageCommand = new Command("show")
@@ -11,12 +14,12 @@ export const showPackageCommand = new Command("show")
   .addOption(params.json)
 
   .action(async (path, options) => {
-    const dp = await loadPackage(path)
+    const session = Session.create({
+      title: "Show package",
+      json: options.json,
+    })
 
-    if (options.json) {
-      console.log(JSON.stringify(dp, null, 2))
-      return
-    }
+    const dp = await session.task("Loading package", loadPackage(path))
 
-    console.log(dp)
+    await session.render(dp, <PackageGrid dataPackage={dp} />)
   })

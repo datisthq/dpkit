@@ -38,6 +38,7 @@ export const statsTableCommand = new Command("stats")
   .action(async (path, options) => {
     const session = Session.create({
       title: "Table stats",
+      json: options.json,
     })
 
     const resource = path

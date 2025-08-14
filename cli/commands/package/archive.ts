@@ -1,6 +1,7 @@
 import { Command } from "commander"
 import { loadPackage, savePackageToZip } from "dpkit"
 import { helpConfiguration } from "../../helpers/help.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
 export const archivePackageCommand = new Command("archive")
@@ -12,12 +13,19 @@ export const archivePackageCommand = new Command("archive")
   .addOption(params.withRemote)
 
   .action(async (path, options) => {
-    const dp = await loadPackage(path)
-
-    await savePackageToZip(dp, {
-      archivePath: options.toArchive,
-      withRemote: options.withRemote,
+    const session = Session.create({
+      title: "Validate package",
     })
 
-    console.log(`Package from "${path}" archived to "${options.toArchive}"`)
+    const dp = await session.task("Loading package", loadPackage(path))
+
+    session.task(
+      "Archiving package",
+      savePackageToZip(dp, {
+        archivePath: options.toArchive,
+        withRemote: options.withRemote,
+      }),
+    )
+
+    session.success(`Package from "${path}" archived to "${options.toArchive}"`)
   })
