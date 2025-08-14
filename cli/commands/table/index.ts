@@ -1,6 +1,7 @@
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { convertTableCommand } from "./convert.tsx"
+import { errorsTableCommand } from "./errors.tsx"
 import { exploreTableCommand } from "./explore.tsx"
 import { queryTableCommand } from "./query.tsx"
 import { scriptTableCommand } from "./script.tsx"
@@ -11,9 +12,10 @@ export const tableCommand = new Command("table")
   .description("Table related commands")
   .configureHelp(helpConfiguration)
 
-  .addCommand(statsTableCommand)
   .addCommand(convertTableCommand)
-  .addCommand(validateTableCommand)
+  .addCommand(errorsTableCommand)
+  .addCommand(exploreTableCommand)
   .addCommand(queryTableCommand)
   .addCommand(scriptTableCommand)
-  .addCommand(exploreTableCommand)
+  .addCommand(statsTableCommand)
+  .addCommand(validateTableCommand)

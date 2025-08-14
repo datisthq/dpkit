@@ -37,7 +37,7 @@ export const statsTableCommand = new Command("stats")
   .addOption(params.table)
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Table Stats",
+      title: "Table stats",
     })
 
     const resource = path
