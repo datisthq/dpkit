@@ -1,17 +1,20 @@
 import { Command } from "commander"
 import { readTable } from "dpkit"
-import { render } from "ink"
 import React from "react"
-import { TableGrid } from "../../components/TableGrid.tsx"
+import { DataGrid } from "../../components/DataGrid.tsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
+import { selectResource } from "../../helpers/resource.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const describeTableCommand = new Command("describe")
+export const statsTableCommand = new Command("stats")
   .configureHelp(helpConfiguration)
-  .description("Describe a table from a local or remote path")
+  .description("Show stats for a table from a local or remote path")
 
   .addArgument(params.positionalTablePath)
+  .addOption(params.fromPackage)
+  .addOption(params.fromResource)
   .addOption(params.json)
 
   .optionsGroup("Table Dialect")
@@ -33,16 +36,18 @@ export const describeTableCommand = new Command("describe")
   .addOption(params.sheetName)
   .addOption(params.table)
   .action(async (path, options) => {
-    const dialect = createDialectFromOptions(options)
-    const table = await readTable({ path, dialect })
+    const session = Session.create({
+      title: "Table Stats",
+    })
 
-    const df = await table.collect()
-    const stats = df.describe()
+    const resource = path
+      ? { path, dialect: createDialectFromOptions(options) }
+      : await selectResource(session, options)
 
-    if (options.json) {
-      console.log(JSON.stringify(stats, null, 2))
-      return
-    }
+    const table = await session.task("Loading table", readTable(resource))
+    const df = await session.task("Calculating stats", table.collect())
 
-    render(<TableGrid table={stats.lazy()} />)
+    const stats = df.describe().toRecords()
+
+    session.render(stats, <DataGrid data={stats} />)
   })
