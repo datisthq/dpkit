@@ -3,6 +3,7 @@ import { spinner } from "@clack/prompts"
 import { intro, log, outro, select } from "@clack/prompts"
 import type { SelectOptions } from "@clack/prompts"
 import { render } from "ink"
+import invariant from "tiny-invariant"
 
 export class Session {
   static create(options?: { json?: boolean }) {
@@ -23,7 +24,7 @@ export class Session {
   }
 
   async select<T>(options: SelectOptions<T>) {
-    return await select(options)
+    return String(await select(options))
   }
 
   async task<T>(message: string, promise: Promise<T>) {
@@ -50,9 +51,12 @@ export class JsonSession extends Session {
   intro = () => {}
   outro = () => {}
 
-  // @ts-ignore
-  async select<T>(options: SelectOptions<T>) {
-    Session.terminate("Interactive mode is not supported with JSON output")
+  async select<T>(_options: SelectOptions<T>): Promise<string> {
+    Session.terminate("Selection is not supported in JSON mode")
+  }
+
+  async render(..._args: Parameters<typeof render>) {
+    invariant(false, "Render must not be used in JSON mode")
   }
 
   async task<T>(_message: string, promise: Promise<T>) {

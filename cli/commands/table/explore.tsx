@@ -1,8 +1,8 @@
 import { Command } from "commander"
-import { type Resource, loadPackage, readTable } from "dpkit"
+import { readTable } from "dpkit"
 import React from "react"
-import invariant from "tiny-invariant"
 import { TableGrid } from "../../components/TableGrid.tsx"
+import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
@@ -34,35 +34,9 @@ export const exploreTableCommand = new Command("explore")
     const session = Session.create()
     session.intro("Exploring table")
 
-    const dialect = params.createDialectFromOptions(options)
-    let resource: Partial<Resource> | undefined = path
-      ? { path, dialect }
-      : undefined
-
-    if (!resource) {
-      if (!options.package) {
-        Session.terminate("Please provide a path argument or a package option")
-      }
-
-      const dataPackage = await session.task(
-        "Loading package",
-        loadPackage(options.package),
-      )
-
-      const resourceName = await session.select({
-        message: "Select resource",
-        options: dataPackage.resources.map(resource => ({
-          label: resource.name,
-          value: resource.name,
-        })),
-      })
-
-      resource = dataPackage.resources.find(
-        resource => resource.name === resourceName,
-      )
-
-      invariant(resource, "Resource not found")
-    }
+    const resource = path
+      ? { path, dialect: params.createDialectFromOptions(options) }
+      : await selectResource(session, options)
 
     const table = await session.task("Loading table", readTable(resource))
     await session.render(<TableGrid table={table} />)
