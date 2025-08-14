@@ -5,5 +5,7 @@ import { DataGrid } from "./DataGrid.tsx"
 // TODO: Support non-visible chars like TAB and CR
 
 export function DialectGrid(props: { dialect: Dialect }) {
-  return <DataGrid data={[props.dialect]} />
+  const data = [props.dialect]
+
+  return <DataGrid data={data} />
 }
