@@ -37,7 +37,6 @@ export async function inferFileEncoding(
 
   if (!isBinary) {
     const matches = chardet.analyse(buffer)
-    console.log(matches)
     for (const match of matches) {
       if (match.confidence >= confidencePercent) {
         return match.name.toLowerCase()

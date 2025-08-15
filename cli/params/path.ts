@@ -15,6 +15,11 @@ export const positionalFilePath = new Argument(
   "local or remote path to the file",
 )
 
+export const positionalFilePaths = new Argument(
+  "<path...>",
+  "local paths to files",
+)
+
 export const toPath = new Option("--to-path <path>", "a local output path")
 
 export const toFolder = new Option(

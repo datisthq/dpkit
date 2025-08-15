@@ -3,6 +3,7 @@ import { helpConfiguration } from "../../helpers/help.ts"
 import { archivePackageCommand } from "./archive.ts"
 import { copyPackageCommand } from "./copy.ts"
 import { errorsPackageCommand } from "./errors.tsx"
+import { inferPackageCommand } from "./infer.tsx"
 import { showPackageCommand } from "./show.tsx"
 
 export const packageCommand = new Command("package")
@@ -12,4 +13,5 @@ export const packageCommand = new Command("package")
   .addCommand(archivePackageCommand)
   .addCommand(copyPackageCommand)
   .addCommand(errorsPackageCommand)
+  .addCommand(inferPackageCommand)
   .addCommand(showPackageCommand)
