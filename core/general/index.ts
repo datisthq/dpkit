@@ -8,7 +8,6 @@ export type { Descriptor } from "./descriptor/Descriptor.ts"
 export type { Metadata } from "./metadata/Metadata.ts"
 export { isDescriptor } from "./descriptor/Descriptor.ts"
 export { loadProfile } from "./profile/load.ts"
-export { AssertionError, type MetadataError } from "./Error.ts"
 export {
   getName,
   getFormat,

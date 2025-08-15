@@ -1,6 +1,6 @@
 import { loadDialect } from "../dialect/index.ts"
+import { AssertionError } from "../error/index.ts"
 import { type Descriptor, validateDescriptor } from "../general/index.ts"
-import { AssertionError } from "../general/index.ts"
 import { loadProfile } from "../general/index.ts"
 import { loadSchema } from "../schema/index.ts"
 import type { Resource } from "./Resource.ts"

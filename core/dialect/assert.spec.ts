@@ -1,5 +1,5 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertionError } from "../general/index.ts"
+import { AssertionError } from "../error/index.ts"
 import type { Dialect } from "./Dialect.ts"
 import { assertDialect } from "./assert.ts"
 

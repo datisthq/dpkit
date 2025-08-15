@@ -1,4 +1,5 @@
 export * from "./general/index.ts"
+export * from "./error/index.ts"
 export * from "./dialect/index.ts"
 export * from "./field/index.ts"
 export * from "./package/index.ts"

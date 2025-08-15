@@ -1,11 +1,4 @@
-import type { ErrorObject } from "ajv"
-
-/**
- * A descriptor error
- */
-export interface MetadataError extends ErrorObject {
-  type: "metadata"
-}
+import type { MetadataError } from "./Metadata.ts"
 
 /**
  * Thrown when a descriptor assertion fails

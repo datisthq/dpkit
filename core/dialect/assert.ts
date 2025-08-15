@@ -1,4 +1,5 @@
-import { AssertionError, type Descriptor } from "../general/index.ts"
+import { AssertionError } from "../error/index.ts"
+import type { Descriptor } from "../general/index.ts"
 import type { Dialect } from "./Dialect.ts"
 import { validateDialect } from "./validate.ts"
 
