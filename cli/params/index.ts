@@ -1,5 +1,6 @@
-export * from "./json.ts"
 export * from "./dialect.ts"
+export * from "./file.ts"
+export * from "./json.ts"
 export * from "./package.ts"
 export * from "./path.ts"
 export * from "./resource.ts"
