@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import { inferFormat } from "@dpkit/core"
+import { inferResourceFormat } from "@dpkit/core"
 import type { TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { loadParquetTable, saveParquetTable } from "./table/index.ts"
@@ -21,6 +21,6 @@ export class ParquetPlugin implements TablePlugin {
 }
 
 function getIsParquet(resource: Partial<Resource>) {
-  const format = inferFormat(resource)
+  const format = inferResourceFormat(resource)
   return format === "parquet"
 }

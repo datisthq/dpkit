@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import { inferFormat } from "@dpkit/core"
+import { inferResourceFormat } from "@dpkit/core"
 import type { TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { loadJsonTable, loadJsonlTable } from "./table/index.ts"
@@ -36,7 +36,7 @@ export class JsonPlugin implements TablePlugin {
 }
 
 function getFormatInfo(resource: Partial<Resource>) {
-  const format = inferFormat(resource)
+  const format = inferResourceFormat(resource)
   const isJson = format === "json"
   const isJsonl = format === "jsonl" || format === "ndjson"
   return { isJson, isJsonl }
