@@ -11,7 +11,7 @@ export const errorsResourceCommand = new Command("errors")
   .configureHelp(helpConfiguration)
   .description("Show errors for a data resource from a local or remote path")
 
-  .addArgument(params.positionalTablePath)
+  .addArgument(params.optionalPositionalDescriptorPath)
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
