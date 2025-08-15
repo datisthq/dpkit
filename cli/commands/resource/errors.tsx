@@ -1,6 +1,5 @@
 import { Command } from "commander"
-import { loadDescriptor, validateResourceDescriptor } from "dpkit"
-import type { Descriptor } from "dpkit"
+import { validateResource } from "dpkit"
 import React from "react"
 import { ErrorGrid } from "../../components/ErrorGrid.jsx"
 import { helpConfiguration } from "../../helpers/help.ts"
@@ -23,24 +22,11 @@ export const errorsResourceCommand = new Command("errors")
       json: options.json,
     })
 
-    let descriptor: Descriptor | undefined
-
-    if (!path) {
-      const resource = await selectResource(session, options)
-      descriptor = resource as unknown as Descriptor
-    } else {
-      const result = await session.task(
-        "Loading descriptor",
-        // @ts-ignore
-        loadDescriptor(path),
-      )
-
-      descriptor = result.descriptor
-    }
+    const descriptor = path ? path : await selectResource(session, options)
 
     const { errors } = await session.task(
-      "Validating descriptor",
-      validateResourceDescriptor(descriptor),
+      "Validating resource",
+      validateResource(descriptor),
     )
 
     session.render(errors, <ErrorGrid errors={errors} />)

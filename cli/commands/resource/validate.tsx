@@ -1,6 +1,5 @@
 import { Command } from "commander"
-import { loadDescriptor, validateResourceDescriptor } from "dpkit"
-import type { Descriptor } from "dpkit"
+import { validateResource } from "dpkit"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
@@ -10,7 +9,7 @@ export const validateResourceCommand = new Command("validate")
   .configureHelp(helpConfiguration)
   .description("Validate a data resource from a local or remote path")
 
-  .addArgument(params.positionalTablePath)
+  .addArgument(params.positionalDescriptorPath)
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
@@ -21,25 +20,11 @@ export const validateResourceCommand = new Command("validate")
       json: options.json,
     })
 
-    let descriptor: Descriptor | undefined
-
-    if (!path) {
-      const resource = await selectResource(session, options)
-      descriptor = resource as unknown as Descriptor
-    } else {
-      const result = await session.task(
-        "Loading descriptor",
-        // @ts-ignore
-        loadDescriptor(path),
-      )
-
-      descriptor = result.descriptor
-    }
+    const descriptor = path ? path : await selectResource(session, options)
 
     const { valid } = await session.task(
-      "Validating descriptor",
-      // @ts-ignore
-      validateResourceDescriptor(descriptor),
+      "Validating resource",
+      validateResource(descriptor),
     )
 
     valid

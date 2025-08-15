@@ -1,19 +1,26 @@
 import type { Descriptor, Resource } from "@dpkit/core"
-import { validateResourceDescriptor } from "@dpkit/core"
+import { loadDescriptor, validateResourceDescriptor } from "@dpkit/core"
 import { validateFile } from "@dpkit/file"
 import { validateTable } from "../table/index.ts"
 
 // TODO: Support multipart resources? (clarify on the specs level)
 
 export async function validateResource(
-  descriptorOrResource: Descriptor | Partial<Resource>,
-  options?: {
-    basepath?: string
-  },
+  pathOrDescriptorOrResource: string | Descriptor | Partial<Resource>,
+  options?: { basepath?: string },
 ) {
+  let descriptor = pathOrDescriptorOrResource
+  let basepath = options?.basepath
+
+  if (typeof descriptor === "string") {
+    const result = await loadDescriptor(descriptor)
+    descriptor = result.descriptor
+    basepath = result.basepath
+  }
+
   const { valid, errors, resource } = await validateResourceDescriptor(
-    descriptorOrResource,
-    { basepath: options?.basepath },
+    descriptor,
+    { basepath },
   )
 
   if (!resource) {
