@@ -5,6 +5,8 @@ import { inferSchema } from "@dpkit/table"
 import { inferDialect } from "../dialect/index.ts"
 import { loadTable } from "./load.ts"
 
+// TODO: Allow non-tabular resources returning undefineds?
+
 export async function inferTable(
   resource: Partial<Resource>,
 ): Promise<{ dialect: Dialect; schema: Schema; table: Table }> {

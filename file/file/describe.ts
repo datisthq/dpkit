@@ -1,18 +1,15 @@
-import { stat } from "node:fs/promises"
-import { hashFile } from "hasha"
 import { prefetchFile } from "./fetch.ts"
-
-type HashType = "md5" | "sha1" | "sha256" | "sha512"
+import { inferFileBytes, inferFileHash } from "./infer.ts"
+import type { HashType } from "./infer.ts"
 
 export async function describeFile(
   path: string,
-  options: { hashType: HashType },
+  options?: { hashType?: HashType },
 ) {
-  const algorithm = options.hashType
   const localPath = await prefetchFile(path)
 
-  const bytes = (await stat(localPath)).size
-  const hash = await hashFile(localPath, { algorithm })
+  const bytes = await inferFileBytes(localPath)
+  const hash = await inferFileHash(localPath, { hashType: options?.hashType })
 
   return { bytes, hash }
 }

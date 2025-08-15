@@ -25,17 +25,18 @@ export const inferResourceCommand = new Command("infer")
 
     const resource = path ? { path } : await selectResource(session, options)
 
-    const inferredResource = await session.task(
-      "Loading sample",
+    const result = await session.task(
+      "Inferring resource",
       inferResource(resource),
     )
-    if (isEmptyObject(inferredResource)) {
+
+    if (isEmptyObject(result)) {
       Session.terminate("Could not infer resource")
     }
 
     await session.render(
-      inferredResource,
+      result,
       // @ts-ignore
-      <ResourceGrid resource={inferredResource} />,
+      <ResourceGrid resource={result} />,
     )
   })
