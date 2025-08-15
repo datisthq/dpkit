@@ -270,8 +270,6 @@ importers:
 
   excel: {}
 
-  extend: {}
-
   file:
     dependencies:
       '@dpkit/core':
@@ -393,8 +391,6 @@ importers:
       '@pollyjs/persister-fs':
         specifier: ^6.0.6
         version: 6.0.6
-
-  ui: {}
 
   zenodo:
     dependencies:
