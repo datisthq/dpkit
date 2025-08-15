@@ -1,5 +1,5 @@
 export type { Resource } from "./Resource.ts"
-export { inferResourceFormat } from "./infer.ts"
+export { inferResourceName, inferResourceFormat } from "./infer.ts"
 export { assertResource } from "./assert.ts"
 export { loadResourceDescriptor } from "./load.ts"
 export { saveResourceDescriptor } from "./save.ts"
