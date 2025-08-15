@@ -1,5 +1,6 @@
 import { program } from "commander"
 import { dialectCommand } from "./commands/dialect/index.ts"
+import { fileCommand } from "./commands/file/index.ts"
 import { packageCommand } from "./commands/package/index.ts"
 import { resourceCommand } from "./commands/resource/index.ts"
 import { schemaCommand } from "./commands/schema/index.ts"
@@ -21,5 +22,6 @@ program
   .addCommand(dialectCommand)
   .addCommand(schemaCommand)
   .addCommand(tableCommand)
+  .addCommand(fileCommand)
 
   .parse()

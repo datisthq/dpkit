@@ -10,6 +10,11 @@ export const positionalTablePath = new Argument(
   "local or remote path to the table",
 )
 
+export const positionalFilePath = new Argument(
+  "[path]",
+  "local or remote path to the file",
+)
+
 export const toPath = new Option("--to-path <path>", "a local output path")
 
 export const toFolder = new Option(
