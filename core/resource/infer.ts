@@ -9,12 +9,10 @@ export function inferResourceName(resource: Partial<Resource>) {
     if (path) {
       const filename = getFilename(path)
       name = getName(filename)
-    } else {
-      name = "resource"
     }
   }
 
-  return name
+  return name ?? "resource"
 }
 
 export function inferResourceFormat(resource: Partial<Resource>) {

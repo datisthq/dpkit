@@ -7,10 +7,9 @@ import { inferTable } from "../table/index.ts"
 // TODO: Support multipart resources? (clarify on the specs level)
 
 export async function inferResource(resource: Partial<Resource>) {
-  const result = { ...resource }
-
-  if (!result.name) {
-    result.name = inferResourceName(resource)
+  const result = {
+    ...resource,
+    name: resource.name ?? inferResourceName(resource),
   }
 
   if (!result.format) {
