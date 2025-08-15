@@ -21,15 +21,15 @@ export async function validateFile(
   }
 
   if (options?.hash) {
-    const [hashValue, hashType = "md5"] = options.hash.split(":").toReversed()
-    // TODO: figure out how we should handle this
+    const [_hashValue, hashType = "md5"] = options.hash.split(":").toReversed()
+    // TODO: figure out how we should handle other hash types
     // @ts-ignore
     const hash = await inferFileHash(localPath, { hashType })
-    if (hash !== hashValue) {
+    if (hash !== options.hash) {
       errors.push({
         type: "file/hash",
         hash: options.hash,
-        actualHahs: hash,
+        actualHash: hash,
       })
     }
   }

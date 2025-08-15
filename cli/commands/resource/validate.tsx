@@ -9,7 +9,7 @@ export const validateResourceCommand = new Command("validate")
   .configureHelp(helpConfiguration)
   .description("Validate a data resource from a local or remote path")
 
-  .addArgument(params.positionalDescriptorPath)
+  .addArgument(params.optionalPositionalDescriptorPath)
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)

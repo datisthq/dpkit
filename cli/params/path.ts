@@ -1,5 +1,10 @@
 import { Argument, Option } from "commander"
 
+export const optionalPositionalDescriptorPath = new Argument(
+  "[path]",
+  "local or remote path to the descriptor",
+)
+
 export const positionalDescriptorPath = new Argument(
   "<path>",
   "local or remote path to the descriptor",
