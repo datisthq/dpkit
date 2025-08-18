@@ -1,3 +1,5 @@
+// TODO: Support tab completion when @bombsh/tab is released
+//import tab from "@bombsh/tab/commander"
 import { program } from "commander"
 import { dialectCommand } from "./commands/dialect/index.ts"
 import { fileCommand } from "./commands/file/index.ts"
@@ -8,7 +10,7 @@ import { tableCommand } from "./commands/table/index.ts"
 import { helpConfiguration } from "./helpers/help.ts"
 import metadata from "./package.json" with { type: "json" }
 
-program
+const main = program
   .name("dp")
   .description(
     "Fast data management CLI built on top of the Data Package standard and Polars DataFrames",
@@ -24,4 +26,5 @@ program
   .addCommand(tableCommand)
   .addCommand(fileCommand)
 
-  .parse()
+//tab(main)
+main.parse()
