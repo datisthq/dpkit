@@ -29,11 +29,7 @@ export class Session {
   }
   start() {
     intro(pc.bold(this.title))
-    exitHook(() => {
-      outro(
-        `Problems? ${pc.underline(pc.cyan("https://github.com/datisthq/dpkit/issues"))}`,
-      )
-    })
+    this.#enableExitHook()
   }
 
   success(message: string) {
@@ -49,11 +45,17 @@ export class Session {
   }
 
   async task<T>(message: string, promise: Promise<T>) {
+    // TODO: Consider spinner's onCancel or other solution when @clack/prompts@1.0 is released
+    // We disable/enable the exit hook to friend it with spinner's "Cancel" event
     const loader = spinner()
 
+    this.#disableExitHook?.()
     loader.start(message)
+
     const result = await promise
+
     loader.stop(message)
+    this.#enableExitHook()
 
     return result
   }
@@ -65,6 +67,17 @@ export class Session {
 
     const app = render(node)
     await app.waitUntilExit()
+  }
+
+  #disableExitHook?: ReturnType<typeof exitHook>
+  #enableExitHook() {
+    this.#disableExitHook = exitHook(() => this.#handleExit())
+  }
+
+  #handleExit() {
+    outro(
+      `Problems? ${pc.underline(pc.cyan("https://github.com/datisthq/dpkit/issues"))}`,
+    )
   }
 }
 
