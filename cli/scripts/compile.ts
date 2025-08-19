@@ -1,4 +1,5 @@
 import { execa } from "execa"
+import metadata from "../package.json" with { type: "json" }
 const $ = execa({ preferLocal: true, stdout: ["inherit"] })
 
 // Cleanup
@@ -18,4 +19,6 @@ pnpm deploy compile
 
 // Compile application
 
-await $({ cwd: "compile" })`deno compile --allow-all main.ts`
+await $({
+  cwd: "compile",
+})`deno compile --allow-all --no-check --output build/dp-${metadata.version}-x86_64-unknown-linux-gnu main.ts`

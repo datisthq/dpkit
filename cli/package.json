@@ -46,6 +46,7 @@
     "ts-extras": "^0.14.0"
   },
   "devDependencies": {
+    "@types/node": "24.2.0",
     "@types/react": "19.1.9",
     "tsx": "4.20.3"
   }
