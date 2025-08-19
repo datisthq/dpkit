@@ -9,11 +9,21 @@ import { TableGrid } from "./TableGrid.tsx"
 
 export function ErrorGrid(props: {
   errors: Record<string, any>[]
-  byType?: boolean
+  groupBy?: "type" | "resource"
 }) {
-  if (props.byType) {
-    const errorsByType = countBy(props.errors, error => error.type)
-    const data = Object.entries(errorsByType).map(([error, count]) => ({
+  if (props.groupBy === "resource") {
+    const groups = countBy(props.errors, error => error.resource)
+    const data = Object.entries(groups).map(([resource, count]) => ({
+      resource,
+      count,
+    }))
+
+    return <DataGrid data={data} borderColor="red" />
+  }
+
+  if (props.groupBy === "type") {
+    const groups = countBy(props.errors, error => error.type)
+    const data = Object.entries(groups).map(([error, count]) => ({
       error,
       count,
     }))

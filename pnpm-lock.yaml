@@ -270,6 +270,9 @@ importers:
       '@dpkit/zip':
         specifier: workspace:*
         version: link:../zip
+      ts-extras:
+        specifier: ^0.14.0
+        version: 0.14.0
 
   excel: {}
 

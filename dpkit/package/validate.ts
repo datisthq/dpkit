@@ -1,5 +1,6 @@
 import type { Descriptor, Package } from "@dpkit/core"
 import { loadDescriptor, validatePackageDescriptor } from "@dpkit/core"
+import { objectFromEntries } from "ts-extras"
 import { validateResource } from "../resource/index.ts"
 
 // TODO: Handle error addressing (to which resource an error belongs)
@@ -27,19 +28,19 @@ export async function validatePackage(
     return { valid, errors }
   }
 
-  const errorsByResource = Object.fromEntries(
+  const resourceErrors = objectFromEntries(
     await Promise.all(
       dataPackage.resources.map(async resource => {
-        const errors = await validateResource(resource)
+        const { errors } = await validateResource(resource)
         return [resource.name, errors]
       }),
     ),
   )
 
-  const allValid = !Object.values(errorsByResource).find(
+  const allValid = !Object.values(resourceErrors).find(
     // @ts-ignore
     errors => !!errors.length,
   )
 
-  return { valid: allValid, errorsByResource }
+  return { valid: allValid, resourceErrors }
 }

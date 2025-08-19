@@ -23,8 +23,8 @@
     "@dpkit/arrow": "workspace:*",
     "@dpkit/camtrap": "workspace:*",
     "@dpkit/ckan": "workspace:*",
-    "@dpkit/csv": "workspace:*",
     "@dpkit/core": "workspace:*",
+    "@dpkit/csv": "workspace:*",
     "@dpkit/datahub": "workspace:*",
     "@dpkit/file": "workspace:*",
     "@dpkit/folder": "workspace:*",
@@ -34,7 +34,8 @@
     "@dpkit/parquet": "workspace:*",
     "@dpkit/table": "workspace:*",
     "@dpkit/zenodo": "workspace:*",
-    "@dpkit/zip": "workspace:*"
+    "@dpkit/zip": "workspace:*",
+    "ts-extras": "^0.14.0"
   },
   "scripts": {
     "build": "tsc"
