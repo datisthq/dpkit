@@ -1,7 +1,7 @@
 import { Command } from "commander"
 import { validateResource } from "dpkit"
 import React from "react"
-import { ErrorGrid } from "../../components/ErrorGrid.tsx"
+import { ReportGrid } from "../../components/ReportGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
@@ -24,15 +24,14 @@ export const validateResourceCommand = new Command("validate")
 
     const descriptor = path ? path : await selectResource(session, options)
 
-    const { valid, errors } = await session.task(
+    const report = await session.task(
       "Validating resource",
       validateResource(descriptor),
     )
 
-    if (valid) {
+    if (report.valid) {
       session.success("Resource is valid")
-      return
     }
 
-    session.render(errors, <ErrorGrid errors={errors} groupBy="type" />)
+    session.render(report, <ReportGrid report={report} groupBy="type" />)
   })

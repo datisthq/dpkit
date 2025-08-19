@@ -2,7 +2,7 @@ import { Command } from "commander"
 import { loadDescriptor, validateDialect } from "dpkit"
 import type { Descriptor } from "dpkit"
 import React from "react"
-import { ErrorGrid } from "../../components/ErrorGrid.jsx"
+import { ReportGrid } from "../../components/ReportGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
@@ -49,11 +49,14 @@ export const errorsDialectCommand = new Command("errors")
       descriptor = result.descriptor
     }
 
-    const { errors } = await session.task(
+    const report = await session.task(
       "Finding errors",
-      // @ts-ignore
       validateDialect(descriptor),
     )
 
-    session.render(errors, <ErrorGrid errors={errors} />)
+    if (report.valid) {
+      session.success("Dialect is valid")
+    }
+
+    session.render(report, <ReportGrid report={report} />)
   })

@@ -7,12 +7,18 @@ import { TableGrid } from "./TableGrid.tsx"
 
 // TODO: Improve implementation (esp. typing)
 
-export function ErrorGrid(props: {
-  errors: Record<string, any>[]
+export function ReportGrid(props: {
+  report: { valid: boolean; errors: Record<string, any>[] }
   groupBy?: "type" | "resource"
 }) {
-  if (props.groupBy === "resource") {
-    const groups = countBy(props.errors, error => error.resource)
+  const { report, groupBy } = props
+
+  if (report.valid) {
+    return null
+  }
+
+  if (groupBy === "resource") {
+    const groups = countBy(report.errors, error => error.resource)
     const data = Object.entries(groups).map(([resource, count]) => ({
       resource,
       count,
@@ -21,8 +27,8 @@ export function ErrorGrid(props: {
     return <DataGrid data={data} borderColor="red" />
   }
 
-  if (props.groupBy === "type") {
-    const groups = countBy(props.errors, error => error.type)
+  if (groupBy === "type") {
+    const groups = countBy(report.errors, error => error.type)
     const data = Object.entries(groups).map(([error, count]) => ({
       error,
       count,
@@ -31,6 +37,6 @@ export function ErrorGrid(props: {
     return <DataGrid data={data} borderColor="red" />
   }
 
-  const table = DataFrame(props.errors).lazy()
+  const table = DataFrame(report.errors).lazy()
   return <TableGrid table={table} borderColor="red" />
 }

@@ -1,7 +1,7 @@
 import { Command } from "commander"
 import { validateFile } from "dpkit"
 import React from "react"
-import { ErrorGrid } from "../../components/ErrorGrid.tsx"
+import { ReportGrid } from "../../components/ReportGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
@@ -25,7 +25,7 @@ export const validateFileCommand = new Command("validate")
       Session.terminate("You must specify either --bytes or --hash")
     }
 
-    const { valid, errors } = await session.task(
+    const report = await session.task(
       "Validating file",
       validateFile(path, {
         bytes: options.bytes ? Number.parseInt(options.bytes) : undefined,
@@ -33,10 +33,9 @@ export const validateFileCommand = new Command("validate")
       }),
     )
 
-    if (valid) {
+    if (report.valid) {
       session.success("File is valid")
-      return
     }
 
-    session.render(errors, <ErrorGrid errors={errors} groupBy="type" />)
+    session.render(report, <ReportGrid report={report} groupBy="type" />)
   })

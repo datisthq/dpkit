@@ -1,7 +1,7 @@
 import { Command } from "commander"
 import { validatePackage } from "dpkit"
 import React from "react"
-import { ErrorGrid } from "../../components/ErrorGrid.jsx"
+import { ReportGrid } from "../../components/ReportGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
@@ -19,11 +19,11 @@ export const errorsPackageCommand = new Command("errors")
       json: options.json,
     })
 
-    const { errors } = await session.task(
-      "Finding errors",
-      validatePackage(path),
-    )
+    const report = await session.task("Finding errors", validatePackage(path))
 
-    // @ts-ignore
-    session.render(errors, <ErrorGrid errors={errors} />)
+    if (report.valid) {
+      session.success("Package is valid")
+    }
+
+    session.render(report, <ReportGrid report={report} />)
   })
