@@ -6,7 +6,7 @@ import { errorsPackageCommand } from "./errors.tsx"
 import { inferPackageCommand } from "./infer.tsx"
 import { publishPackageCommand } from "./publish/index.ts"
 import { showPackageCommand } from "./show.tsx"
-import { validatePackageCommand } from "./validate.ts"
+import { validatePackageCommand } from "./validate.tsx"
 
 export const packageCommand = new Command("package")
   .configureHelp(helpConfiguration)

@@ -15,12 +15,12 @@ export const errorsPackageCommand = new Command("errors")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Validate package",
+      title: "Package errors",
       json: options.json,
     })
 
     const { errors } = await session.task(
-      "Validating package",
+      "Finding errors",
       validatePackage(path),
     )
 

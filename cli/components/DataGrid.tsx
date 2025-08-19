@@ -12,8 +12,9 @@ export function DataGrid(props: {
   col?: number
   order?: Order
   rowHeight?: number
+  borderColor?: "green" | "red"
 }) {
-  const { data, col, order, rowHeight } = props
+  const { data, col, order, rowHeight, borderColor = "green" } = props
 
   // TODO: fix $schema related cludge
   const colNames = Object.keys(data[0] ?? {}).filter(name => name !== "$schema")
@@ -32,7 +33,7 @@ export function DataGrid(props: {
     <Box
       flexDirection="column"
       borderStyle="round"
-      borderColor="green"
+      borderColor={borderColor}
       width={tableWidth}
     >
       <Box>

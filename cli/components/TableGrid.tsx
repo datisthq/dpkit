@@ -9,8 +9,12 @@ import { DataGrid } from "./DataGrid.tsx"
 const PAGE_SIZE = 10
 type Data = Record<string, any>[]
 
-export function TableGrid(props: { table: Table }) {
-  const { table } = props
+export function TableGrid(props: {
+  table: Table
+  borderColor?: "green" | "red"
+}) {
+  const { table, borderColor } = props
+
   const { exit } = useApp()
   const [col, setCol] = useState(0)
   const [page, setPage] = useState(1)
@@ -92,7 +96,13 @@ export function TableGrid(props: { table: Table }) {
 
   return (
     <Box flexDirection="column">
-      <DataGrid data={data} col={col} order={order} rowHeight={2} />
+      <DataGrid
+        data={data}
+        col={col}
+        order={order}
+        rowHeight={2}
+        borderColor={borderColor}
+      />
       <Help />
     </Box>
   )

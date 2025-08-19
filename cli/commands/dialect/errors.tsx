@@ -19,7 +19,7 @@ export const errorsDialectCommand = new Command("errors")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Validate dialect",
+      title: "Dialect errors",
       json: options.json,
     })
 
@@ -41,7 +41,7 @@ export const errorsDialectCommand = new Command("errors")
 
     if (!descriptor) {
       const result = await session.task(
-        "Loading descriptor",
+        "Loading dialect",
         // @ts-ignore
         loadDescriptor(path),
       )
@@ -50,7 +50,7 @@ export const errorsDialectCommand = new Command("errors")
     }
 
     const { errors } = await session.task(
-      "Validating descriptor",
+      "Finding errors",
       // @ts-ignore
       validateDialect(descriptor),
     )

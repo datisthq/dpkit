@@ -18,14 +18,14 @@ export const errorsResourceCommand = new Command("errors")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Validate resource",
+      title: "Resource errors",
       json: options.json,
     })
 
     const descriptor = path ? path : await selectResource(session, options)
 
     const { errors } = await session.task(
-      "Validating resource",
+      "Finding errors",
       validateResource(descriptor),
     )
 

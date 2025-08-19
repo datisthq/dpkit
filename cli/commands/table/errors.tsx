@@ -47,7 +47,7 @@ export const errorsTableCommand = new Command("errors")
       : await selectResource(session, options)
 
     const { errors } = await session.task(
-      "Validating table",
+      "Finding errors",
       validateTable(resource),
     )
 

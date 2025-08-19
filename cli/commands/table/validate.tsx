@@ -1,5 +1,7 @@
 import { Command } from "commander"
 import { validateTable } from "dpkit"
+import React from "react"
+import { ErrorGrid } from "../../components/ErrorGrid.tsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
@@ -25,14 +27,15 @@ export const validateTableCommand = new Command("validate")
       ? { path, dialect: createDialectFromOptions(options) }
       : await selectResource(session, options)
 
-    const { valid } = await session.task(
+    const { valid, errors } = await session.task(
       "Validating table",
       validateTable(resource),
     )
 
-    // TODO: Show errors/count by type grid if not valid
+    if (valid) {
+      session.success("Table is valid")
+      return
+    }
 
-    valid
-      ? session.success("Table is valid")
-      : session.error("Table is not valid")
+    session.render(errors, <ErrorGrid errors={errors} byType />)
   })

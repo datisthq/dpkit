@@ -1,6 +1,8 @@
 import { Command } from "commander"
 import { loadDescriptor, validateSchema } from "dpkit"
 import type { Descriptor } from "dpkit"
+import React from "react"
+import { ErrorGrid } from "../../components/ErrorGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
@@ -47,13 +49,16 @@ export const validateSchemaCommand = new Command("validate")
       descriptor = result.descriptor
     }
 
-    const { valid } = await session.task(
+    const { valid, errors } = await session.task(
       "Validating descriptor",
       // @ts-ignore
       validateSchema(descriptor),
     )
 
-    valid
-      ? session.success("Schema is valid")
-      : session.error("Schema is not valid")
+    if (valid) {
+      session.success("Schema is valid")
+      return
+    }
+
+    session.render(errors, <ErrorGrid errors={errors} byType />)
   })

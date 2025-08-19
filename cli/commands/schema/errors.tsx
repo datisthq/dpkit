@@ -19,7 +19,7 @@ export const errorsSchemaCommand = new Command("errors")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Validate schema",
+      title: "Schema errors",
       json: options.json,
     })
 
@@ -41,7 +41,7 @@ export const errorsSchemaCommand = new Command("errors")
 
     if (!descriptor) {
       const result = await session.task(
-        "Loading descriptor",
+        "Loading schema",
         // @ts-ignore
         loadDescriptor(path),
       )
