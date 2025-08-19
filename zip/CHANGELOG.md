@@ -1,5 +1,18 @@
 # @dpkit/zip
 
+## 0.8.0
+
+### Minor Changes
+
+- 084ea52: Improved CLI implementation
+
+### Patch Changes
+
+- Updated dependencies [084ea52]
+  - @dpkit/folder@0.9.0
+  - @dpkit/core@0.9.0
+  - @dpkit/file@0.9.0
+
 ## 0.7.0
 
 ### Minor Changes

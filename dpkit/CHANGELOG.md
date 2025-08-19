@@ -1,5 +1,30 @@
 # dpkit
 
+## 0.7.0
+
+### Minor Changes
+
+- 084ea52: Improved CLI implementation
+
+### Patch Changes
+
+- Updated dependencies [084ea52]
+  - @dpkit/parquet@0.4.0
+  - @dpkit/folder@0.9.0
+  - @dpkit/github@0.9.0
+  - @dpkit/zenodo@0.8.0
+  - @dpkit/arrow@0.3.0
+  - @dpkit/table@0.7.0
+  - @dpkit/ckan@0.8.0
+  - @dpkit/core@0.9.0
+  - @dpkit/file@0.9.0
+  - @dpkit/json@0.4.0
+  - @dpkit/csv@0.5.0
+  - @dpkit/zip@0.8.0
+  - @dpkit/inline@0.6.1
+  - @dpkit/camtrap@0.6.1
+  - @dpkit/datahub@0.8.1
+
 ## 0.6.0
 
 ### Minor Changes
