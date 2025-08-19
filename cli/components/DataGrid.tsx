@@ -18,6 +18,19 @@ export function DataGrid(props: {
 
   // TODO: fix $schema related cludge
   const colNames = Object.keys(data[0] ?? {}).filter(name => name !== "$schema")
+
+  // TODO: fix type related cludge
+  if (colNames.includes("type")) {
+    colNames.splice(colNames.indexOf("type"), 1)
+    colNames.unshift("type")
+  }
+
+  // TODO: fix resource related cludge
+  if (colNames.includes("resource")) {
+    colNames.splice(colNames.indexOf("resource"), 1)
+    colNames.unshift("resource")
+  }
+
   const colWidth = Math.min(
     process.stdout.columns / colNames.length,
     MIN_COLUMN_WIDTH,

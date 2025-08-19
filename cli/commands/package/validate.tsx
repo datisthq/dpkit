@@ -28,5 +28,8 @@ export const validatePackageCommand = new Command("validate")
       session.success("Package is valid")
     }
 
-    session.render(report, <ReportGrid report={report} groupBy="resource" />)
+    session.render(
+      report,
+      <ReportGrid report={report} groupBy="resource/type" />,
+    )
   })
