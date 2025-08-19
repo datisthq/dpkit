@@ -19,7 +19,7 @@ export const validatePackageCommand = new Command("validate")
       json: options.json,
     })
 
-    const { valid, errors, resourceErrors } = await session.task(
+    const { valid, errors } = await session.task(
       "Validating package",
       validatePackage(path),
     )
@@ -29,18 +29,5 @@ export const validatePackageCommand = new Command("validate")
       return
     }
 
-    if (errors) {
-      session.render(errors, <ErrorGrid errors={errors} groupBy="type" />)
-    } else if (resourceErrors) {
-      const allErrors = Object.entries(resourceErrors).map(
-        ([resource, errors]) => {
-          return errors.map(error => ({ ...error, resource }))
-        },
-      )
-
-      session.render(
-        allErrors,
-        <ErrorGrid errors={allErrors} groupBy="resource" />,
-      )
-    }
+    session.render(errors, <ErrorGrid errors={errors} groupBy="resource" />)
   })

@@ -34,8 +34,7 @@
     "@dpkit/parquet": "workspace:*",
     "@dpkit/table": "workspace:*",
     "@dpkit/zenodo": "workspace:*",
-    "@dpkit/zip": "workspace:*",
-    "ts-extras": "^0.14.0"
+    "@dpkit/zip": "workspace:*"
   },
   "scripts": {
     "build": "tsc"

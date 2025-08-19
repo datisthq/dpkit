@@ -37,5 +37,5 @@ export const validateTableCommand = new Command("validate")
       return
     }
 
-    session.render(errors, <ErrorGrid errors={errors} byType />)
+    session.render(errors, <ErrorGrid errors={errors} groupBy="type" />)
   })

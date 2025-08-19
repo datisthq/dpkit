@@ -82,6 +82,7 @@ describe("validateDescriptor", () => {
       expect(error.keyword).toBe("required")
       expect(error.params).toBeDefined()
       if (error.params) {
+        // @ts-ignore
         expect(error.params.missingProperty).toBe("required_field")
       }
     }

@@ -1,3 +1,3 @@
-export interface BaseFileError {
-  type: string
-}
+import type { BaseError } from "@dpkit/core"
+
+export interface BaseFileError extends BaseError {}
