@@ -6,6 +6,7 @@ import { DataGrid } from "./DataGrid.tsx"
 import { TableGrid } from "./TableGrid.tsx"
 
 // TODO: Improve implementation (esp. typing)
+// TODO: Rebase on resource/type grouping?
 
 export function ReportGrid(props: {
   report: { valid: boolean; errors: Record<string, any>[] }
@@ -18,7 +19,7 @@ export function ReportGrid(props: {
   }
 
   if (groupBy === "resource") {
-    const groups = countBy(report.errors, error => error.resource)
+    const groups = countBy(report.errors, error => error.resource ?? "")
     const data = Object.entries(groups).map(([resource, count]) => ({
       resource,
       count,

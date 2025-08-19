@@ -1,21 +1,34 @@
 import type { Descriptor, Package } from "@dpkit/core"
 import { loadDescriptor, validatePackageDescriptor } from "@dpkit/core"
+import { dpkit } from "../plugin.ts"
 import { validateResource } from "../resource/index.ts"
 
-// TODO: Handle error addressing (to which resource an error belongs)
+// TODO: Improve implementation
 // TODO: Support multipart resources? (clarify on the specs level)
 
 export async function validatePackage(
-  pathOrDescriptorOrPackage: string | Descriptor | Partial<Package>,
+  source: string | Descriptor | Partial<Package>,
   options?: { basepath?: string },
 ) {
-  let descriptor = pathOrDescriptorOrPackage
+  let descriptor: Descriptor | undefined
   let basepath = options?.basepath
 
-  if (typeof descriptor === "string") {
-    const result = await loadDescriptor(descriptor)
-    descriptor = result.descriptor
-    basepath = result.basepath
+  if (typeof source !== "string") {
+    descriptor = source
+  } else {
+    for (const plugin of dpkit.plugins) {
+      const result = await plugin.loadPackage?.(source)
+      if (result) {
+        descriptor = result as unknown as Descriptor
+        break
+      }
+    }
+
+    if (!descriptor) {
+      const result = await loadDescriptor(source)
+      descriptor = result.descriptor
+      basepath = result.basepath
+    }
   }
 
   const { valid, errors, dataPackage } = await validatePackageDescriptor(
