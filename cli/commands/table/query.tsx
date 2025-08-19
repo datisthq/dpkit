@@ -1,22 +1,39 @@
-import { Command } from "@oclif/core"
-//import { readTable } from "dpkit"
-import * as options from "../../options/index.ts"
+import { Command } from "commander"
+import { helpConfiguration } from "../../helpers/help.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export default class QueryTable extends Command {
-  static override description =
-    "Start a querying session for a table from a local or remote path"
+export const queryTableCommand = new Command("query")
+  .configureHelp(helpConfiguration)
+  .description(
+    "Start a querying session for a table from a local or remote path",
+  )
+  .addArgument(params.positionalTablePath)
 
-  static override args = {
-    path: params.requriedTablePath,
-  }
+  .optionsGroup("Table Dialect")
+  .addOption(params.delimiter)
+  .addOption(params.header)
+  .addOption(params.headerRows)
+  .addOption(params.headerJoin)
+  .addOption(params.commentRows)
+  .addOption(params.commentChar)
+  .addOption(params.quoteChar)
+  .addOption(params.doubleQuote)
+  .addOption(params.escapeChar)
+  .addOption(params.nullSequence)
+  .addOption(params.skipInitialSpace)
+  .addOption(params.property)
+  .addOption(params.itemType)
+  .addOption(params.itemKeys)
+  .addOption(params.sheetNumber)
+  .addOption(params.sheetName)
+  .addOption(params.table)
 
-  static override flags = {
-    ...options.dialectOptions,
-  }
+  .action(async (_path, _options) => {
+    // @ts-ignore
+    const session = Session.create({
+      title: "Query table",
+    })
 
-  public async run() {
-    //const { args, flags } = await this.parse(QueryTable)
-    throw new Error("Not implemented")
-  }
-}
+    Session.terminate("Query command not implemented yet")
+  })

@@ -1,46 +1,40 @@
-import { Command } from "@oclif/core"
+import { Command } from "commander"
 import { validateTable } from "dpkit"
-import { render } from "ink"
 import React from "react"
-import { ErrorGrid } from "../../components/ErrorGrid.tsx"
-import * as options from "../../options/index.ts"
+import { ReportGrid } from "../../components/ReportGrid.tsx"
+import { createDialectFromOptions } from "../../helpers/dialect.ts"
+import { helpConfiguration } from "../../helpers/help.ts"
+import { selectResource } from "../../helpers/resource.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export default class ExploreTable extends Command {
-  static override description = "Explore a table from a local or remote path"
+export const validateTableCommand = new Command("validate")
+  .configureHelp(helpConfiguration)
+  .description("Validate a table from a local or remote path")
 
-  static override args = {
-    path: params.requriedTablePath,
-  }
+  .addArgument(params.positionalTablePath)
+  .addOption(params.fromPackage)
+  .addOption(params.fromResource)
+  .addOption(params.json)
 
-  static override flags = {
-    ...options.dialectOptions,
-    json: options.json,
-  }
+  .action(async (path, options) => {
+    const session = Session.create({
+      title: "Validate Table",
+      json: options.json,
+    })
 
-  public async run() {
-    const { args, flags } = await this.parse(ExploreTable)
+    const resource = path
+      ? { path, dialect: createDialectFromOptions(options) }
+      : await selectResource(session, options)
 
-    const dialect = options.createDialectFromFlags(flags)
-    const { errors } = await validateTable({ path: args.path, dialect })
+    const report = await session.task(
+      "Validating table",
+      validateTable(resource),
+    )
 
-    if (flags.json) {
-      this.logJson(errors)
-      return
+    if (report.valid) {
+      session.success("Table is valid")
     }
 
-    render(
-      <ErrorGrid
-        errors={[
-          ...errors,
-          {
-            type: "cell/required",
-            fieldName: "name",
-            rowNumber: 1,
-            cell: "John Doe",
-          },
-        ]}
-      />,
-    )
-  }
-}
+    session.render(report, <ReportGrid report={report} groupBy="type" />)
+  })

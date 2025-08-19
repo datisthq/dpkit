@@ -1,4 +1,4 @@
-import type { MetadataError } from "../Error.ts"
+import type { MetadataError } from "../../error/index.ts"
 import { ajv } from "../profile/ajv.ts"
 import type { Descriptor } from "./Descriptor.ts"
 

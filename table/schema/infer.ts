@@ -3,6 +3,8 @@ import { col } from "nodejs-polars"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { Table } from "../table/index.ts"
 
+// TODO: Review default values being {fields: []} vs undefined
+
 export type InferSchemaOptions = {
   sampleRows?: number
   confidence?: number

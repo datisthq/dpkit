@@ -13,5 +13,6 @@ export * from "@dpkit/zip"
 
 export * from "./dialect/index.ts"
 export * from "./package/index.ts"
+export * from "./resource/index.ts"
 export * from "./table/index.ts"
 export * from "./plugin.ts"

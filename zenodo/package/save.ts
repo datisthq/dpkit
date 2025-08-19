@@ -12,7 +12,7 @@ import { denormalizeZenodoPackage } from "./process/denormalize.ts"
 
 /**
  * Save a package to Zenodo
- * @param props Object containing the package to save and Zenodo API details
+ * @param options Object containing the package to save and Zenodo API details
  * @returns Object with the deposit URL and DOI
  */
 export async function savePackageToZenodo(
@@ -43,10 +43,10 @@ export async function savePackageToZenodo(
         basepath,
         withRemote: false,
         withoutFolders: true,
-        saveFile: async props => {
+        saveFile: async options => {
           const upload = {
-            name: props.denormalizedPath,
-            data: await blob(await loadFileStream(props.normalizedPath)),
+            name: options.denormalizedPath,
+            data: await blob(await loadFileStream(options.normalizedPath)),
           }
 
           // It seems that record and deposition files have different metadata
@@ -59,7 +59,7 @@ export async function savePackageToZenodo(
             sandbox,
           })
 
-          return props.denormalizedPath
+          return options.denormalizedPath
         },
       }),
     )

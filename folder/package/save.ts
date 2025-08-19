@@ -28,13 +28,13 @@ export async function savePackageToFolder(
       await saveResourceFiles(resource, {
         basepath,
         withRemote,
-        saveFile: async props => {
+        saveFile: async options => {
           await copyFile({
-            sourcePath: props.normalizedPath,
-            targetPath: props.denormalizedPath,
+            sourcePath: options.normalizedPath,
+            targetPath: join(folderPath, options.denormalizedPath),
           })
 
-          return props.denormalizedPath
+          return options.denormalizedPath
         },
       }),
     )

@@ -1,46 +1,91 @@
-import { Command } from "@oclif/core"
+import { Command } from "commander"
 import { getTempFilePath, loadFile } from "dpkit"
 import { readTable, saveTable } from "dpkit"
-import * as options from "../../options/index.ts"
+import { createDialectFromOptions } from "../../helpers/dialect.ts"
+import { createToDialectFromOptions } from "../../helpers/dialect.ts"
+import { helpConfiguration } from "../../helpers/help.ts"
+import { selectResource } from "../../helpers/resource.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export default class ConvertTable extends Command {
-  static override description =
-    "Convert a table from a local or remote source path to a target path"
+export const convertTableCommand = new Command("convert")
+  .configureHelp(helpConfiguration)
+  .description(
+    "Convert a table from a local or remote source path to a target path",
+  )
 
-  static override args = {
-    path: params.requriedTablePath,
-  }
+  .addArgument(params.positionalTablePath)
+  .addOption(params.fromPackage)
+  .addOption(params.fromResource)
+  .addOption(params.toPath)
+  .addOption(params.toFormat)
 
-  // TODO: support toDialectOptions
-  static override flags = {
-    toPath: options.toPath,
-    toFormat: options.toFormat,
-    ...options.dialectOptions,
-    ...options.toDialectOptions,
-  }
+  .optionsGroup("Table Dialect")
+  .addOption(params.delimiter)
+  .addOption(params.header)
+  .addOption(params.headerRows)
+  .addOption(params.headerJoin)
+  .addOption(params.commentRows)
+  .addOption(params.commentChar)
+  .addOption(params.quoteChar)
+  .addOption(params.doubleQuote)
+  .addOption(params.escapeChar)
+  .addOption(params.nullSequence)
+  .addOption(params.skipInitialSpace)
+  .addOption(params.property)
+  .addOption(params.itemType)
+  .addOption(params.itemKeys)
+  .addOption(params.sheetNumber)
+  .addOption(params.sheetName)
+  .addOption(params.table)
 
-  public async run() {
-    const { args, flags } = await this.parse(ConvertTable)
+  .optionsGroup("Table Dialect (output)")
+  .addOption(params.toDelimiter)
+  .addOption(params.toHeader)
+  .addOption(params.toHeaderRows)
+  .addOption(params.toHeaderJoin)
+  .addOption(params.toCommentRows)
+  .addOption(params.toCommentChar)
+  .addOption(params.toQuoteChar)
+  .addOption(params.toDoubleQuote)
+  .addOption(params.toEscapeChar)
+  .addOption(params.toNullSequence)
+  .addOption(params.toSkipInitialSpace)
+  .addOption(params.toProperty)
+  .addOption(params.toItemType)
+  .addOption(params.toItemKeys)
+  .addOption(params.toSheetNumber)
+  .addOption(params.toSheetName)
+  .addOption(params.toTable)
 
-    const dialect = options.createDialectFromFlags(flags)
-    const table = await readTable({ path: args.path, dialect })
-
-    const toPath = flags.toPath ?? getTempFilePath()
-    const toDialect = options.createToDialectFromFlags(flags)
-    await saveTable(table, {
-      path: toPath,
-      format: flags.toFormat,
-      dialect: toDialect,
+  .action(async (path, options) => {
+    const session = Session.create({
+      title: "Table errors",
     })
 
-    if (!flags.toPath) {
-      // TODO: stream to stdout
+    const resource = path
+      ? { path, dialect: createDialectFromOptions(options) }
+      : await selectResource(session, options)
+
+    const table = await session.task("Loading table", readTable(resource))
+
+    const toPath = options.toPath ?? getTempFilePath()
+    const toDialect = createToDialectFromOptions(options)
+
+    await session.task(
+      "Saving table",
+      saveTable(table, {
+        path: toPath,
+        format: options.toFormat,
+        dialect: toDialect,
+      }),
+    )
+
+    if (!options.toPath) {
       const buffer = await loadFile(toPath)
-      this.log(buffer.toString().trim())
+      console.log(buffer.toString().trim())
       return
     }
 
-    this.log(`Converted table from ${args.path} to ${flags.toPath}`)
-  }
-}
+    console.log(`Converted table from ${path} to ${options.toPath}`)
+  })

@@ -2,7 +2,7 @@ import type { Dialect, Resource } from "@dpkit/core"
 import type { InferDialectOptions } from "@dpkit/table"
 import { dpkit } from "../plugin.ts"
 
-// TODO: implement inferDialect
+// TODO: review default values being {} vs undefined
 
 export async function inferDialect(
   resource: Partial<Resource>,

@@ -30,13 +30,13 @@ export async function savePackageToZip(
       await saveResourceFiles(resource, {
         basepath,
         withRemote,
-        saveFile: async props => {
+        saveFile: async options => {
           zipfile.addReadStream(
-            await loadFileStream(props.normalizedPath),
-            props.denormalizedPath,
+            await loadFileStream(options.normalizedPath),
+            options.denormalizedPath,
           )
 
-          return props.denormalizedPath
+          return options.denormalizedPath
         },
       }),
     )

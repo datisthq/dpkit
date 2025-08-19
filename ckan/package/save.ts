@@ -54,20 +54,20 @@ export async function savePackageToCkan(
         basepath,
         withRemote: true,
         withoutFolders: true,
-        saveFile: async props => {
-          const filename = getFilename(props.normalizedPath)
+        saveFile: async options => {
+          const filename = getFilename(options.normalizedPath)
           const ckanResource = denormalizeCkanResource(resource)
 
           const payload = {
             ...ckanResource,
             package_id: datasetName,
-            name: props.denormalizedPath,
+            name: options.denormalizedPath,
             format: getFormat(filename)?.toUpperCase(),
           }
 
           const upload = {
-            name: props.denormalizedPath,
-            data: await blob(await loadFileStream(props.normalizedPath)),
+            name: options.denormalizedPath,
+            data: await blob(await loadFileStream(options.normalizedPath)),
           }
 
           const result = await makeCkanApiRequest<CkanResource>({

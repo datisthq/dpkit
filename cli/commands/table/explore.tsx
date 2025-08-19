@@ -1,35 +1,49 @@
-import { Command } from "@oclif/core"
+import { Command } from "commander"
 import { readTable } from "dpkit"
-import { render } from "ink"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
-import * as options from "../../options/index.ts"
+import { createDialectFromOptions } from "../../helpers/dialect.ts"
+import { helpConfiguration } from "../../helpers/help.ts"
+import { selectResource } from "../../helpers/resource.ts"
+import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export default class ExploreTable extends Command {
-  static override description = "Explore a table from a local or remote path"
+export const exploreTableCommand = new Command("explore")
+  .configureHelp(helpConfiguration)
+  .description("Explore a table from a local or remote path")
 
-  static override args = {
-    path: params.requriedTablePath,
-  }
+  .addArgument(params.positionalTablePath)
+  .addOption(params.fromPackage)
+  .addOption(params.fromResource)
 
-  static override flags = {
-    ...options.dialectOptions,
-  }
+  .optionsGroup("Table Dialect")
+  .addOption(params.delimiter)
+  .addOption(params.header)
+  .addOption(params.headerRows)
+  .addOption(params.headerJoin)
+  .addOption(params.commentRows)
+  .addOption(params.commentChar)
+  .addOption(params.quoteChar)
+  .addOption(params.doubleQuote)
+  .addOption(params.escapeChar)
+  .addOption(params.nullSequence)
+  .addOption(params.skipInitialSpace)
+  .addOption(params.property)
+  .addOption(params.itemType)
+  .addOption(params.itemKeys)
+  .addOption(params.sheetNumber)
+  .addOption(params.sheetName)
+  .addOption(params.table)
 
-  public async run() {
-    const { args, flags } = await this.parse(ExploreTable)
+  .action(async (path, options) => {
+    const session = Session.create({
+      title: "Explore table",
+    })
 
-    const dialect = options.createDialectFromFlags(flags)
-    const table = await readTable({ path: args.path, dialect })
+    const resource = path
+      ? { path, dialect: createDialectFromOptions(options) }
+      : await selectResource(session, options)
 
-    if (flags.json) {
-      const df = await table.slice(0, 10).collect()
-      const data = df.toRecords()
-      this.logJson(data)
-      return
-    }
-
-    render(<TableGrid table={table} />)
-  }
-}
+    const table = await session.task("Loading table", readTable(resource))
+    await session.render(table, <TableGrid table={table} />)
+  })

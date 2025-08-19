@@ -1,6 +1,9 @@
 import { Box, Text } from "ink"
 import React from "react"
 
+// TODO: Accept column names as an option
+// TODO: Autocalculate geometry (e.g. row height etc)
+
 const MIN_COLUMN_WIDTH = 15
 export type Order = { col: number; dir: "asc" | "desc" }
 
@@ -8,10 +11,26 @@ export function DataGrid(props: {
   data: Record<string, any>[]
   col?: number
   order?: Order
+  rowHeight?: number
+  borderColor?: "green" | "red"
 }) {
-  const { data, col, order } = props
+  const { data, col, order, rowHeight, borderColor = "green" } = props
 
-  const colNames = Object.keys(data[0] ?? {})
+  // TODO: fix $schema related cludge
+  const colNames = Object.keys(data[0] ?? {}).filter(name => name !== "$schema")
+
+  // TODO: fix type related cludge
+  if (colNames.includes("type")) {
+    colNames.splice(colNames.indexOf("type"), 1)
+    colNames.unshift("type")
+  }
+
+  // TODO: fix resource related cludge
+  if (colNames.includes("resource")) {
+    colNames.splice(colNames.indexOf("resource"), 1)
+    colNames.unshift("resource")
+  }
+
   const colWidth = Math.min(
     process.stdout.columns / colNames.length,
     MIN_COLUMN_WIDTH,
@@ -27,7 +46,7 @@ export function DataGrid(props: {
     <Box
       flexDirection="column"
       borderStyle="round"
-      borderColor="green"
+      borderColor={borderColor}
       width={tableWidth}
     >
       <Box>
@@ -64,7 +83,7 @@ export function DataGrid(props: {
                     ? "#444"
                     : undefined
               }
-              height={2}
+              height={rowHeight}
               overflow="hidden"
             >
               <Text>{(row[name] ?? "").toString()}</Text>
