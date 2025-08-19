@@ -20,6 +20,11 @@ export const positionalFilePath = new Argument(
   "local or remote path to the file",
 )
 
+export const requiredPositionalFilePath = new Argument(
+  "<path>",
+  "local or remote path to the file",
+)
+
 export const positionalFilePaths = new Argument(
   "<path...>",
   "local paths to files",
