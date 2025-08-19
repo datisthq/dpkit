@@ -27,15 +27,19 @@ export async function validatePackage(
     return { valid, errors }
   }
 
-  const results = await Promise.all(
-    dataPackage.resources.map(async resource => {
-      return await validateResource(resource)
-    }),
+  const errorsByResource = Object.fromEntries(
+    await Promise.all(
+      dataPackage.resources.map(async resource => {
+        const errors = await validateResource(resource)
+        return [resource.name, errors]
+      }),
+    ),
   )
 
-  // @ts-ignore
-  const allErrors = results.flatMap(result => result.errors)
-  const allValid = allErrors.length === 0
+  const allValid = !Object.values(errorsByResource).find(
+    // @ts-ignore
+    errors => !!errors.length,
+  )
 
-  return { valid: allValid, errors: allErrors }
+  return { valid: allValid, errorsByResource }
 }
