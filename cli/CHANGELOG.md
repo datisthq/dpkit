@@ -1,5 +1,16 @@
 # @dpkit/cli
 
+## 0.4.0
+
+### Minor Changes
+
+- 084ea52: Improved CLI implementation
+
+### Patch Changes
+
+- Updated dependencies [084ea52]
+  - dpkit@0.7.0
+
 ## 0.3.0
 
 ### Minor Changes

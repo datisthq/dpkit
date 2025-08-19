@@ -1,5 +1,18 @@
 # @dpkit/csv
 
+## 0.5.0
+
+### Minor Changes
+
+- 084ea52: Improved CLI implementation
+
+### Patch Changes
+
+- Updated dependencies [084ea52]
+  - @dpkit/table@0.7.0
+  - @dpkit/core@0.9.0
+  - @dpkit/file@0.9.0
+
 ## 0.4.0
 
 ### Minor Changes
