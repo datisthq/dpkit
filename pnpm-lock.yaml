@@ -261,20 +261,24 @@ importers:
       '@dpkit/json':
         specifier: workspace:*
         version: link:../json
+      '@dpkit/ods':
+        specifier: workspace:*
+        version: link:../ods
       '@dpkit/parquet':
         specifier: workspace:*
         version: link:../parquet
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
+      '@dpkit/xlsx':
+        specifier: workspace:*
+        version: link:../xlsx
       '@dpkit/zenodo':
         specifier: workspace:*
         version: link:../zenodo
       '@dpkit/zip':
         specifier: workspace:*
         version: link:../zip
-
-  excel: {}
 
   file:
     dependencies:
@@ -359,7 +363,27 @@ importers:
         specifier: workspace:*
         version: link:../test
 
-  ods: {}
+  ods:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
+      nodejs-polars:
+        specifier: ^0.21.0
+        version: 0.21.0
+      xlsx:
+        specifier: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
+        version: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
 
   parquet:
     dependencies:
@@ -403,6 +427,28 @@ importers:
       '@pollyjs/persister-fs':
         specifier: ^6.0.6
         version: 6.0.6
+
+  xlsx:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
+      nodejs-polars:
+        specifier: ^0.21.0
+        version: 0.21.0
+      xlsx:
+        specifier: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
+        version: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
 
   zenodo:
     dependencies:
@@ -3937,6 +3983,12 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+
+  xlsx@https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz:
+    resolution: {tarball: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz}
+    version: 0.20.3
+    engines: {node: '>=0.8'}
+    hasBin: true
 
   xxhash-wasm@1.1.0:
     resolution: {integrity: sha512-147y/6YNh+tlp6nd/2pWq38i9h6mz/EuQ6njIrmW8D1BS5nCqs0P6DG+m6zTGnNz5I+uhZ0SHxBs9BsPrwcKDA==}
@@ -8087,6 +8139,8 @@ snapshots:
       strip-ansi: 7.1.0
 
   ws@8.18.3: {}
+
+  xlsx@https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz: {}
 
   xxhash-wasm@1.1.0: {}
 

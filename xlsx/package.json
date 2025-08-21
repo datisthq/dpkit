@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/excel",
+  "name": "@dpkit/xlsx",
   "type": "module",
   "version": "0.3.0",
   "exports": "./build/index.js",
@@ -17,9 +17,19 @@
     "validation",
     "quality",
     "fair",
-    "excel"
+    "xlsx"
   ],
   "scripts": {
     "build": "tsc"
+  },
+  "dependencies": {
+    "@dpkit/core": "workspace:*",
+    "@dpkit/file": "workspace:*",
+    "@dpkit/table": "workspace:*",
+    "nodejs-polars": "^0.21.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "@dpkit/test": "workspace:*"
   }
 }

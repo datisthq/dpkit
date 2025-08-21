@@ -6,8 +6,8 @@ import { validateSchema } from "./validate.ts"
 /**
  * Assert a Schema descriptor (JSON Object) against its profile
  */
-export async function assertSchema(descriptor: Descriptor | Schema) {
-  const { schema, errors } = await validateSchema(descriptor)
+export async function assertSchema(source: Descriptor | Schema) {
+  const { schema, errors } = await validateSchema(source)
   if (!schema) throw new AssertionError(errors)
   return schema
 }

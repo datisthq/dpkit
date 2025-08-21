@@ -1,7 +1,6 @@
-import { readFile } from "node:fs/promises"
 import type { Dialect, Resource } from "@dpkit/core"
-import { loadDialect } from "@dpkit/core"
-import { prefetchFiles } from "@dpkit/file"
+import { loadResourceDialect } from "@dpkit/core"
+import { loadFile, prefetchFiles } from "@dpkit/file"
 import type { Table } from "@dpkit/table"
 import { concat } from "nodejs-polars"
 import { DataFrame, scanJson } from "nodejs-polars"
@@ -26,10 +25,7 @@ async function loadTable(
     return DataFrame().lazy()
   }
 
-  const dialect =
-    typeof resource.dialect === "string"
-      ? await loadDialect(resource.dialect)
-      : resource.dialect
+  const dialect = await loadResourceDialect(resource.dialect)
 
   const tables: Table[] = []
   for (const path of paths) {
@@ -39,7 +35,7 @@ async function loadTable(
       continue
     }
 
-    const buffer = await readFile(path)
+    const buffer = await loadFile(path)
     let data = decodeJsonBuffer(buffer, { isLines })
     if (dialect) {
       data = processData(data, dialect)

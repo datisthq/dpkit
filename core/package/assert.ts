@@ -7,13 +7,13 @@ import { validatePackageDescriptor } from "./validate.ts"
  * Assert a Package descriptor (JSON Object) against its profile
  */
 export async function assertPackage(
-  descriptorOrPackage: Descriptor | Package,
+  source: Descriptor | Package,
   options?: {
     basepath?: string
   },
 ) {
   const { errors, dataPackage } = await validatePackageDescriptor(
-    descriptorOrPackage,
+    source,
     options,
   )
 

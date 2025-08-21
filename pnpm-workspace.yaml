@@ -10,7 +10,6 @@ packages:
   - db
   - docs
   - dpkit
-  - excel
   - file
   - folder
   - github
@@ -20,5 +19,6 @@ packages:
   - parquet
   - table
   - test
+  - xlsx
   - zenodo
   - zip

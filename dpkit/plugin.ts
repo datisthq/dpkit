@@ -6,8 +6,10 @@ import { FolderPlugin } from "@dpkit/folder"
 import { GithubPlugin } from "@dpkit/github"
 import { InlinePlugin } from "@dpkit/inline"
 import { JsonPlugin } from "@dpkit/json"
+import { OdsPlugin } from "@dpkit/ods"
 import { ParquetPlugin } from "@dpkit/parquet"
 import type { TablePlugin } from "@dpkit/table"
+import { XlsxPlugin } from "@dpkit/xlsx"
 import { ZenodoPlugin } from "@dpkit/zenodo"
 import { ZipPlugin } from "@dpkit/zip"
 
@@ -32,6 +34,8 @@ dpkit.register(ZipPlugin)
 // Table functions
 dpkit.register(ArrowPlugin)
 dpkit.register(CsvPlugin)
-dpkit.register(JsonPlugin)
 dpkit.register(InlinePlugin)
+dpkit.register(JsonPlugin)
+dpkit.register(OdsPlugin)
 dpkit.register(ParquetPlugin)
+dpkit.register(XlsxPlugin)
