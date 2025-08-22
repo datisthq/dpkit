@@ -6,7 +6,7 @@ import starlightChangelogs, {
 import starlightScrollToTop from "starlight-scroll-to-top"
 
 export default defineConfig({
-  site: "https://dpkit.datist.io",
+  site: "https://dpkit.dev",
   srcDir: ".",
   outDir: "build",
   integrations: [
