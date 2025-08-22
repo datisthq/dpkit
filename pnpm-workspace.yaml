@@ -1,0 +1,4 @@
+dangerouslyAllowAllBuilds: true
+packages:
+  - cli
+  - docs
