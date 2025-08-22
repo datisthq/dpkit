@@ -17,8 +17,11 @@ const PACKAGES = {
   "@dpkit/file": "../file",
   "@dpkit/github": "../github",
   "@dpkit/inline": "../inline",
+  "@dpkit/json": "../json",
+  "@dpkit/ods": "../ods",
   "@dpkit/parquet": "../parquet",
   "@dpkit/table": "../table",
+  "@dpkit/xlsx": "../xlsx",
   "@dpkit/zenodo": "../zenodo",
   "@dpkit/zip": "../zip",
 }
@@ -109,7 +112,7 @@ function generatePackageEntrypoints() {
 }
 
 function generatePackageSidebars() {
-  return Object.entries(PACKAGES).map(([name, path]) =>
+  return Object.entries(PACKAGES).map(([name, _path]) =>
     generatePackageSidebar({ name }),
   )
 }

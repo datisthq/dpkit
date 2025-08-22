@@ -12,12 +12,12 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/dataresource.json"
  * Validate a Resource descriptor (JSON Object) against its profile
  */
 export async function validateResourceDescriptor(
-  descriptorOrResource: Descriptor | Resource,
+  source: Descriptor | Resource,
   options?: {
     basepath?: string
   },
 ) {
-  const descriptor = descriptorOrResource as Descriptor
+  const descriptor = source as Descriptor
 
   const $schema =
     typeof descriptor.$schema === "string"

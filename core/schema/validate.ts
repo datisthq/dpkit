@@ -8,8 +8,8 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tableschema.json"
 /**
  * Validate a Schema descriptor (JSON Object) against its profile
  */
-export async function validateSchema(descriptorOrSchema: Descriptor | Schema) {
-  const descriptor = descriptorOrSchema as Descriptor
+export async function validateSchema(source: Descriptor | Schema) {
+  const descriptor = source as Descriptor
 
   const $schema =
     typeof descriptor.$schema === "string"

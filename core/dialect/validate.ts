@@ -8,10 +8,8 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tabledialect.json"
 /**
  * Validate a Dialect descriptor (JSON Object) against its profile
  */
-export async function validateDialect(
-  descriptorOrDialect: Descriptor | Dialect,
-) {
-  const descriptor = descriptorOrDialect as Descriptor
+export async function validateDialect(source: Descriptor | Dialect) {
+  const descriptor = source as Descriptor
 
   const $schema =
     typeof descriptor.$schema === "string"

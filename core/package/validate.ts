@@ -9,12 +9,12 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/datapackage.json"
  * Validate a Package descriptor (JSON Object) against its profile
  */
 export async function validatePackageDescriptor(
-  descriptorOrPackage: Descriptor | Package,
+  source: Descriptor | Package,
   options?: {
     basepath?: string
   },
 ) {
-  const descriptor = descriptorOrPackage as Descriptor
+  const descriptor = source as Descriptor
 
   const $schema =
     typeof descriptor.$schema === "string"

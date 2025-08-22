@@ -6,8 +6,8 @@ import { validateDialect } from "./validate.ts"
 /**
  * Assert a Dialect descriptor (JSON Object) against its profile
  */
-export async function assertDialect(descriptor: Descriptor | Dialect) {
-  const { dialect, errors } = await validateDialect(descriptor)
+export async function assertDialect(source: Descriptor | Dialect) {
+  const { dialect, errors } = await validateDialect(source)
   if (!dialect) throw new AssertionError(errors)
   return dialect
 }
