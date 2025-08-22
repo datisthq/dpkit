@@ -1,5 +1,18 @@
 # @dpkit/csv
 
+## 0.6.0
+
+### Minor Changes
+
+- e150cb8: Added xlsx/ods support
+
+### Patch Changes
+
+- Updated dependencies [e150cb8]
+  - @dpkit/table@0.8.0
+  - @dpkit/core@0.10.0
+  - @dpkit/file@0.9.1
+
 ## 0.5.0
 
 ### Minor Changes

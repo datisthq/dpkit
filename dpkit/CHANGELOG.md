@@ -1,5 +1,32 @@
 # dpkit
 
+## 0.8.0
+
+### Minor Changes
+
+- e150cb8: Added xlsx/ods support
+
+### Patch Changes
+
+- Updated dependencies [e150cb8]
+  - @dpkit/inline@0.7.0
+  - @dpkit/table@0.8.0
+  - @dpkit/core@0.10.0
+  - @dpkit/json@0.5.0
+  - @dpkit/xlsx@0.4.0
+  - @dpkit/csv@0.6.0
+  - @dpkit/ods@0.4.0
+  - @dpkit/arrow@0.3.1
+  - @dpkit/parquet@0.4.1
+  - @dpkit/camtrap@0.6.2
+  - @dpkit/ckan@0.8.1
+  - @dpkit/datahub@0.8.2
+  - @dpkit/file@0.9.1
+  - @dpkit/folder@0.9.1
+  - @dpkit/github@0.9.1
+  - @dpkit/zenodo@0.8.1
+  - @dpkit/zip@0.8.1
+
 ## 0.7.0
 
 ### Minor Changes

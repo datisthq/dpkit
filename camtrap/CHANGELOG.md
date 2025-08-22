@@ -1,5 +1,12 @@
 # @dpkit/camtrap
 
+## 0.6.2
+
+### Patch Changes
+
+- Updated dependencies [e150cb8]
+  - @dpkit/core@0.10.0
+
 ## 0.6.1
 
 ### Patch Changes

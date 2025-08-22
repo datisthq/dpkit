@@ -1,5 +1,12 @@
 # @dpkit/datahub
 
+## 0.8.2
+
+### Patch Changes
+
+- Updated dependencies [e150cb8]
+  - @dpkit/core@0.10.0
+
 ## 0.8.1
 
 ### Patch Changes
