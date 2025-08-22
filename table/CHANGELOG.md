@@ -1,5 +1,16 @@
 # @dpkit/table
 
+## 0.8.0
+
+### Minor Changes
+
+- e150cb8: Added xlsx/ods support
+
+### Patch Changes
+
+- Updated dependencies [e150cb8]
+  - @dpkit/core@0.10.0
+
 ## 0.7.0
 
 ### Minor Changes

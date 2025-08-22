@@ -1,5 +1,11 @@
 # @dpkit/core
 
+## 0.10.0
+
+### Minor Changes
+
+- e150cb8: Added xlsx/ods support
+
 ## 0.9.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @dpkit/zip
 
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies [e150cb8]
+  - @dpkit/core@0.10.0
+  - @dpkit/file@0.9.1
+  - @dpkit/folder@0.9.1
+
 ## 0.8.0
 
 ### Minor Changes
