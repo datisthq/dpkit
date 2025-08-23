@@ -1,4 +1,5 @@
 {
+  "name": "#dpkit-typescript",
   "type": "module",
   "private": true,
   "engines": {
