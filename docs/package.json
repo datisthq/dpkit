@@ -1,5 +1,5 @@
 {
-  "name": "#dpkit-typescript/docs",
+  "name": "@dpkit/docs",
   "type": "module",
   "private": true,
   "scripts": {
