@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/cli",
+  "name": "dpkit-cli",
   "type": "module",
   "version": "0.4.1",
   "bin": {

@@ -10,7 +10,7 @@ export const collections = {
       {
         base: "changelog",
         provider: "changeset",
-        changelog: "../cli/CHANGELOG.md",
+        changelog: "../dpkit/CHANGELOG.md",
       },
     ]),
   }),
