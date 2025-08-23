@@ -1,5 +1,5 @@
 {
-  "name": "#dpkit-command-line",
+  "name": "#dpkit",
   "type": "module",
   "private": true,
   "engines": {
