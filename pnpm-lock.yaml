@@ -45,7 +45,34 @@ importers:
         specifier: 3.1.4
         version: 3.1.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.1.4)(tsx@4.20.3)(yaml@2.8.1)
 
-  cli:
+  docs:
+    devDependencies:
+      '@astrojs/starlight':
+        specifier: 0.35.2
+        version: 0.35.2(astro@5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      astro:
+        specifier: 5.12.9
+        version: 5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
+      sharp:
+        specifier: 0.34.2
+        version: 0.34.2
+      starlight-changelogs:
+        specifier: 0.1.1
+        version: 0.1.1(@astrojs/starlight@0.35.2(astro@5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(astro@5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      starlight-scroll-to-top:
+        specifier: 0.3.1
+        version: 0.3.1(@astrojs/starlight@0.35.2(astro@5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
+      starlight-typedoc:
+        specifier: 0.21.3
+        version: 0.21.3(@astrojs/starlight@0.35.2(astro@5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(typedoc-plugin-markdown@4.8.0(typedoc@0.28.9(typescript@5.9.2)))(typedoc@0.28.9(typescript@5.9.2))
+      typedoc:
+        specifier: 0.28.9
+        version: 0.28.9(typescript@5.9.2)
+      typedoc-plugin-markdown:
+        specifier: 4.8.0
+        version: 4.8.0(typedoc@0.28.9(typescript@5.9.2))
+
+  dpkit:
     dependencies:
       '@clack/prompts':
         specifier: ^0.11.0
@@ -99,33 +126,6 @@ importers:
       tsx:
         specifier: 4.20.3
         version: 4.20.3
-
-  docs:
-    devDependencies:
-      '@astrojs/starlight':
-        specifier: 0.35.2
-        version: 0.35.2(astro@5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
-      astro:
-        specifier: 5.12.9
-        version: 5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
-      sharp:
-        specifier: 0.34.2
-        version: 0.34.2
-      starlight-changelogs:
-        specifier: 0.1.1
-        version: 0.1.1(@astrojs/starlight@0.35.2(astro@5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(astro@5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
-      starlight-scroll-to-top:
-        specifier: 0.3.1
-        version: 0.3.1(@astrojs/starlight@0.35.2(astro@5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
-      starlight-typedoc:
-        specifier: 0.21.3
-        version: 0.21.3(@astrojs/starlight@0.35.2(astro@5.12.9(@types/node@24.2.0)(rollup@4.47.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(typedoc-plugin-markdown@4.8.0(typedoc@0.28.9(typescript@5.9.2)))(typedoc@0.28.9(typescript@5.9.2))
-      typedoc:
-        specifier: 0.28.9
-        version: 0.28.9(typescript@5.9.2)
-      typedoc-plugin-markdown:
-        specifier: 4.8.0
-        version: 4.8.0(typedoc@0.28.9(typescript@5.9.2))
 
 packages:
 
