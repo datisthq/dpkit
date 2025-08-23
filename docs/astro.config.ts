@@ -30,9 +30,6 @@ export default defineConfig({
   site: "https://typescript.dpkit.dev",
   srcDir: ".",
   outDir: "build",
-  redirects: {
-    "/": "/overview/getting-started",
-  },
   integrations: [
     starlight({
       title: "dpkit",
@@ -77,7 +74,14 @@ export default defineConfig({
         }),
       ],
       sidebar: [
-        { label: "Overview", autogenerate: { directory: "overview" } },
+        {
+          label: "Overview",
+          items: [
+            { label: "Getting Started", slug: "index" },
+            { label: "Contributing", slug: "overview/contributing" },
+            { label: "Funding", slug: "overview/funding" },
+          ],
+        },
         { label: "Guides", autogenerate: { directory: "guides" } },
         {
           label: "API Reference",

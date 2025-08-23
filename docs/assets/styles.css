@@ -18,12 +18,14 @@
 }
 
 /* Scrollbar */
+
 * {
   scrollbar-color: var(--scrollbar-color) transparent;
   scrollbar-gutter: stable;
 }
 
-/* Style the Markdown heading links. */
+/* Markdown heading links. */
+
 .sl-markdown-content :is(h1, h2, h3, h4, h5, h6) > a {
   color: var(--sl-color-white);
   text-decoration: none;
@@ -34,4 +36,11 @@
 
 article.card {
   border-radius: 15px;
+}
+
+/* Scroll-to-top button */
+
+#scroll-to-top-button {
+  accent-color: var(--sl-color-text-accent);
+  background-color: var(--sl-color-text-accent);
 }
