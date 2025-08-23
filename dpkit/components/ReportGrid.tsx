@@ -1,5 +1,4 @@
 //import type { TableError } from "dpkit"
-import { countBy } from "es-toolkit"
 import { DataFrame } from "nodejs-polars"
 import React from "react"
 import { DataGrid } from "./DataGrid.tsx"
@@ -43,4 +42,22 @@ export function ReportGrid(props: {
 
   const table = DataFrame(report.errors).lazy()
   return <TableGrid table={table} borderColor="red" />
+}
+
+// TODO: es-toolkit currently adds 12MB to the bundle size (tree-shaking?)
+function countBy<T, K extends PropertyKey>(
+  arr: readonly T[],
+  mapper: (item: T) => K,
+): Record<K, number> {
+  const result = {} as Record<K, number>
+
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i]
+    // @ts-ignore
+    const key = mapper(item)
+
+    result[key] = (result[key] ?? 0) + 1
+  }
+
+  return result
 }
