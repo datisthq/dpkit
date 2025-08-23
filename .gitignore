@@ -68,3 +68,4 @@ dist/
 AGENTS.md
 CLAUDE.md
 .cursor/
+bun.lock
