@@ -1,24 +1,38 @@
+import { join } from "node:path"
 import { execa } from "execa"
 import metadata from "../package.json" with { type: "json" }
-const $ = execa({ preferLocal: true, stdout: ["inherit"] })
+
+const $ = execa({
+  preferLocal: true,
+  stdout: ["inherit"],
+  cwd: join(import.meta.dirname, ".."),
+})
 
 // Cleanup
 
 await $`rm -rf compile`
 await $`mkdir compile`
 
-// Prepare dependencies
+// Build dependencies
 
 await $`
 pnpm deploy compile
 --legacy
 --production
---filter cli
+--filter dpkit-cli
 --config.node-linker=hoisted
 `
 
-// Compile application
+// Linux
 
-await $({
-  cwd: "compile",
-})`deno compile --allow-all --no-check --output build/dp-${metadata.version}-x86_64-unknown-linux-gnu main.ts`
+await $`
+deno compile
+--allow-all
+--no-check
+--output compile/targets/dp-${metadata.version}-x86_64-unknown-linux-gnu
+compile/main.ts
+`
+
+// Clean pnpm bug (it creates an unwanted dpkit folder)
+
+await $`rm -r dpkit`
