@@ -6,16 +6,16 @@ project_name: dp
 
 before:
   hooks:
-    - rm -rf compile
-    - cp -r dpkit compile
-    - rm -rf compile/node_modules
-    - bun install --production --no-save --cwd compile
-    - rm -rf compile/node_modules/nodejs-polars-linux-x64-musl
+    - rm -rf build
+    - cp -r dpkit build
+    - rm -rf build/node_modules
+    - bun install --production --no-save --cwd build
+    - rm -rf build/node_modules/nodejs-polars-linux-x64-musl
 
 builds:
   - builder: bun
     binary: dp
-    dir: compile
+    dir: build
     main: main.ts
     targets:
       - bun-linux-x64

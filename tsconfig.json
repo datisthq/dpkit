@@ -2,11 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
 
   "include": ["${configDir}/**/*.ts", "${configDir}/**/*.tsx"],
-  "exclude": [
-    "${configDir}/**/docs/",
-    "${configDir}/**/build/",
-    "${configDir}/**/compile/"
-  ],
+  "exclude": ["${configDir}/**/docs/", "${configDir}/**/build/"],
 
   "compilerOptions": {
     "target": "ES2022",
