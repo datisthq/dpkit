@@ -1,11 +1,9 @@
-# dpkit
+# dpkit-typescript
 
-[![Build](https://img.shields.io/github/actions/workflow/status/datisthq/dpkit/general.yaml?branch=main)](https://github.com/datisthq/dpkit/actions)
-[![Coverage](https://img.shields.io/codecov/c/github/datisthq/dpkit/main)](https://codecov.io/gh/datisthq/dpkit)
+[![Build](https://img.shields.io/github/actions/workflow/status/datisthq/dpkit-typescript/general.yaml?branch=main)](https://github.com/datisthq/dpkit-typescript/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/datisthq/dpkit-typescript/main)](https://codecov.io/gh/datisthq/dpkit-typescript)
 
-> **Note:** This project is currently in active development. Feature and new plugin pull requests are not being accepted at this time due to the instability of the core APIs. Bug fixes are welcome!
-
-dpkit is a fast TypeScript data management framework built on top of the Data Package standard and Polars DataFrames. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub. For more information, please visit the [documentation portal](https://dpkit.datist.io).
+dpkit is a fast data management framework built on top of the Data Package standard and Polars DataFrames. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub. For more information, please visit the [documentation portal](https://dpkit.datist.io).
 
 ## Funding
 
