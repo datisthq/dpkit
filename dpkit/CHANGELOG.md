@@ -1,5 +1,11 @@
 # dpkit
 
+## 0.10.0
+
+### Minor Changes
+
+- 34b47ca: Renamed to dpkit on npm
+
 ## 0.4.1
 
 ### Patch Changes
