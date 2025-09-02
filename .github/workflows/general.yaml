@@ -61,8 +61,8 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: pnpm ci:publish
-          commit: "chore: update versions"
-          title: "chore: update versions"
+          commit: "chore: Update versions"
+          title: "chore: Update versions"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
