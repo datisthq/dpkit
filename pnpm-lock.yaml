@@ -177,6 +177,25 @@ importers:
         specifier: workspace:*
         version: link:../test
 
+  database:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
+      kysely:
+        specifier: ^0.28.5
+        version: 0.28.5
+      nodejs-polars:
+        specifier: ^0.21.0
+        version: 0.21.0
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
+
   datahub:
     dependencies:
       '@dpkit/core':
@@ -186,8 +205,6 @@ importers:
       '@dpkit/test':
         specifier: workspace:*
         version: link:../test
-
-  db: {}
 
   docs:
     devDependencies:
@@ -2408,6 +2425,10 @@ packages:
   klona@2.0.6:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
+
+  kysely@0.28.5:
+    resolution: {integrity: sha512-rlB0I/c6FBDWPcQoDtkxi9zIvpmnV5xoIalfCMSMCa7nuA6VGA3F54TW9mEgX4DVf10sXAWCF5fDbamI/5ZpKA==}
+    engines: {node: '>=20.0.0'}
 
   linkify-it@5.0.0:
     resolution: {integrity: sha512-5aHCbzQRADcdP+ATqnDuhhJ/MRIqDkZX5pyjFHRRysS8vZ5AbqGEoFIb6pYHPZ+L/OC2Lc+xT8uHVVR5CAK/wQ==}
@@ -6065,6 +6086,8 @@ snapshots:
   kleur@4.1.5: {}
 
   klona@2.0.6: {}
+
+  kysely@0.28.5: {}
 
   linkify-it@5.0.0:
     dependencies:

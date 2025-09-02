@@ -1,4 +1,4 @@
-# @dpkit/db
+# @dpkit/database
 
 ## 0.3.0
 
