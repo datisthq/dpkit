@@ -57,7 +57,7 @@ export default defineConfig({
         {
           tag: "script",
           attrs: {
-            src: "https://plausible.io/js/script.ts",
+            src: "https://plausible.io/js/script.js",
             "data-domain": "dpkit.dev",
             defer: true,
           },
