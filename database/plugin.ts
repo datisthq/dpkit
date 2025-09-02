@@ -1,54 +1,47 @@
 import type { Resource } from "@dpkit/core"
-import { inferResourceFormat } from "@dpkit/core"
+import { inferResourceProtocol } from "@dpkit/core"
 import type { TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { loadPostgresTable } from "./table/index.ts"
 import { loadMysqlTable } from "./table/index.ts"
 import { loadSqliteTable } from "./table/index.ts"
+import { savePostgresTable } from "./table/index.ts"
+import { saveMysqlTable } from "./table/index.ts"
+import { saveSqliteTable } from "./table/index.ts"
 
 export class DatabasePlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>) {
-    const formatInfo = getFormatInfo(resource)
+    const protocol = getProtocol(resource)
 
-    if (formatInfo.isJson) {
-      return await loadJsonTable(resource)
+    switch (protocol) {
+      case "postgres":
+        return await loadPostgresTable(resource)
+      case "mysql":
+        return await loadMysqlTable(resource)
+      case "sqlite":
+        return await loadSqliteTable(resource)
+      default:
+        return undefined
     }
-
-    if (formatInfo.isJsonl) {
-      return await loadJsonlTable(resource)
-    }
-
-    return undefined
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
-    const formatInfo = getFormatInfo(options)
+    const protocol = getProtocol(options)
 
-    if (formatInfo.isJson) {
-      return await saveJsonTable(table, options)
+    switch (protocol) {
+      case "postgres":
+        return await savePostgresTable(table, options)
+      case "mysql":
+        return await saveMysqlTable(table, options)
+      case "sqlite":
+        return await saveSqliteTable(table, options)
+      default:
+        return undefined
     }
-
-    if (formatInfo.isJsonl) {
-      return await saveJsonlTable(table, options)
-    }
-
-    return undefined
   }
 }
 
-function getDialectName(resource: Partial<Resource>) {
-  let dialectName: string | undefined
-
-  if (resource.path) {
-    const path = Array.isArray(resource.path) ? resource.path[0] : resource.path
-
-    if (path) {
-      try {
-        const url = new URL(path)
-        dialectName = url.protocol.replace(":", "")
-      } catch {}
-    }
-  }
-
-  return dialectName
+function getProtocol(resource: Partial<Resource>) {
+  const protocol = inferResourceProtocol(resource)
+  return protocol
 }

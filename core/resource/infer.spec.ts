@@ -1,5 +1,9 @@
-import { describe, it, expect } from "vitest"
-import { inferResourceName, inferResourceFormat, inferResourceProtocol } from "./infer.ts"
+import { describe, expect, it } from "vitest"
+import {
+  inferResourceFormat,
+  inferResourceName,
+  inferResourceProtocol,
+} from "./infer.ts"
 
 describe("inferResourceName", () => {
   it("returns existing name when provided", () => {
@@ -127,7 +131,9 @@ describe("inferResourceProtocol", () => {
   })
 
   it("uses first path from array", () => {
-    const resource = { path: ["https://example.com/data.csv", "/local/backup.csv"] }
+    const resource = {
+      path: ["https://example.com/data.csv", "/local/backup.csv"],
+    }
     expect(inferResourceProtocol(resource)).toBe("https")
   })
 
@@ -142,12 +148,16 @@ describe("inferResourceProtocol", () => {
   })
 
   it("infers postgres protocol from connection string", () => {
-    const resource = { path: "postgres://user:password@localhost:5432/database" }
+    const resource = {
+      path: "postgres://user:password@localhost:5432/database",
+    }
     expect(inferResourceProtocol(resource)).toBe("postgres")
   })
 
   it("infers postgresql protocol from connection string", () => {
-    const resource = { path: "postgresql://user:password@localhost:5432/database" }
+    const resource = {
+      path: "postgresql://user:password@localhost:5432/database",
+    }
     expect(inferResourceProtocol(resource)).toBe("postgresql")
   })
 
@@ -167,7 +177,9 @@ describe("inferResourceProtocol", () => {
   })
 
   it("handles postgres protocol with ssl parameters", () => {
-    const resource = { path: "postgres://user:pass@host:5432/db?sslmode=require" }
+    const resource = {
+      path: "postgres://user:pass@host:5432/db?sslmode=require",
+    }
     expect(inferResourceProtocol(resource)).toBe("postgres")
   })
 

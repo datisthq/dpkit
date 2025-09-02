@@ -1,3 +1,6 @@
 export { loadPostgresTable } from "./load.ts"
 export { loadMysqlTable } from "./load.ts"
 export { loadSqliteTable } from "./load.ts"
+export { savePostgresTable } from "./save.ts"
+export { saveMysqlTable } from "./save.ts"
+export { saveSqliteTable } from "./save.ts"
