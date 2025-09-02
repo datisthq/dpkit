@@ -1,9 +1,17 @@
 ---
 import Default from "@astrojs/starlight/components/SocialIcons.astro"
 import type { Props } from "@astrojs/starlight/props"
+
+const { hasSidebar } = Astro.locals.starlightRoute
 ---
 
-<strong>Command-Line</strong>
+{ hasSidebar ? (
+  <strong>Command-Line</strong>
+): (
+  <a href="/overview/getting-started/">
+    <strong>Command-Line</strong>
+  </a>
+)}
 
 <!--
 <a href="https://python.dpkit.dev">
