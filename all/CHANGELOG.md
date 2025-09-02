@@ -1,5 +1,11 @@
 # @dpkit/all
 
+## 0.9.0
+
+### Minor Changes
+
+- 6eafba9: Renamed dpkit to @dpkit/all
+
 ## 0.8.0
 
 ### Minor Changes
