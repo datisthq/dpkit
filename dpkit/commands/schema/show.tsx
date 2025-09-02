@@ -1,6 +1,6 @@
+import { loadSchema } from "@dpkit/all"
+import type { Schema } from "@dpkit/all"
 import { Command } from "commander"
-import { loadSchema } from "dpkit"
-import type { Schema } from "dpkit"
 import React from "react"
 import { SchemaGrid } from "../../components/SchemaGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"

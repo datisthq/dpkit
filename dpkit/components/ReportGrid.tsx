@@ -1,4 +1,4 @@
-//import type { TableError } from "dpkit"
+//import type { TableError } from "@dpkit/all"
 import { DataFrame } from "nodejs-polars"
 import React from "react"
 import { DataGrid } from "./DataGrid.tsx"

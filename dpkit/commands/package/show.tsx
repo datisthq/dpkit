@@ -1,5 +1,5 @@
+import { loadPackage } from "@dpkit/all"
 import { Command } from "commander"
-import { loadPackage } from "dpkit"
 import React from "react"
 import { PackageGrid } from "../../components/PackageGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"

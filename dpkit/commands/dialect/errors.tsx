@@ -1,6 +1,6 @@
+import { loadDescriptor, validateDialect } from "@dpkit/all"
+import type { Descriptor } from "@dpkit/all"
 import { Command } from "commander"
-import { loadDescriptor, validateDialect } from "dpkit"
-import type { Descriptor } from "dpkit"
 import React from "react"
 import { ReportGrid } from "../../components/ReportGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"

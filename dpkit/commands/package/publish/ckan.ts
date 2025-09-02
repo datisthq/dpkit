@@ -1,6 +1,6 @@
+import { loadPackage, savePackageToCkan } from "@dpkit/all"
 import { Option } from "commander"
 import { Command } from "commander"
-import { loadPackage, savePackageToCkan } from "dpkit"
 import { helpConfiguration } from "../../../helpers/help.ts"
 import { Session } from "../../../helpers/session.ts"
 import * as params from "../../../params/index.ts"

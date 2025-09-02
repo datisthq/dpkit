@@ -1,6 +1,6 @@
 import repl from "node:repl"
+import { readTable } from "@dpkit/all"
 import { Command } from "commander"
-import { readTable } from "dpkit"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"

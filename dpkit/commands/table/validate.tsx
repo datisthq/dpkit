@@ -1,5 +1,5 @@
+import { validateTable } from "@dpkit/all"
 import { Command } from "commander"
-import { validateTable } from "dpkit"
 import React from "react"
 import { ReportGrid } from "../../components/ReportGrid.tsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"

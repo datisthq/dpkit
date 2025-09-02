@@ -1,6 +1,6 @@
+import { loadResourceDescriptor } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
 import { Command } from "commander"
-import { loadResourceDescriptor } from "dpkit"
-import type { Resource } from "dpkit"
 import React from "react"
 import { ResourceGrid } from "../../components/ResourceGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"

@@ -1,5 +1,5 @@
+import { loadPackage, savePackageToZip } from "@dpkit/all"
 import { Command } from "commander"
-import { loadPackage, savePackageToZip } from "dpkit"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"

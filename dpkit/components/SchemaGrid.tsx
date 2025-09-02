@@ -1,4 +1,4 @@
-import type { Schema } from "dpkit"
+import type { Schema } from "@dpkit/all"
 import React from "react"
 import { DataGrid } from "./DataGrid.tsx"
 
