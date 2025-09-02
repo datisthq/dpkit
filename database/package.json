@@ -25,8 +25,11 @@
   "dependencies": {
     "@dpkit/core": "workspace:*",
     "@dpkit/table": "workspace:*",
+    "better-sqlite3": "^12.2.0",
     "kysely": "^0.28.5",
-    "nodejs-polars": "^0.21.0"
+    "mysql2": "^3.14.4",
+    "nodejs-polars": "^0.21.0",
+    "pg": "^8.16.3"
   },
   "devDependencies": {
     "@dpkit/test": "workspace:*"
