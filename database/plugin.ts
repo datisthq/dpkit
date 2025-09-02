@@ -41,6 +41,10 @@ export class DatabasePlugin implements TablePlugin {
   }
 }
 
+function getUrl(resource: Partial<Resource>) {
+  return typeof resource.path === "string" ? resource.path : undefined
+}
+
 function getProtocol(resource: Partial<Resource>) {
   const protocol = inferResourceProtocol(resource)
   return protocol
