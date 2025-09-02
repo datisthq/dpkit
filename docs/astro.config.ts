@@ -50,12 +50,12 @@ export default defineConfig({
         {
           icon: "github",
           label: "GitHub",
-          href: "https://github.com/datisthq/dpkit",
+          href: "https://github.com/datisthq/dpkit-typescript",
         },
       ],
       favicon: "favicon.png",
       editLink: {
-        baseUrl: "https://github.com/datisthq/dpkit/edit/main/",
+        baseUrl: "https://github.com/datisthq/dpkit-typescript/edit/main/",
       },
       lastUpdated: true,
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
@@ -105,7 +105,7 @@ export default defineConfig({
           tag: "script",
           attrs: {
             src: "https://plausible.io/js/script.ts",
-            "data-domain": "dpkit.datist.io",
+            "data-domain": "typescript.dpkit.dev",
             defer: true,
           },
         },
