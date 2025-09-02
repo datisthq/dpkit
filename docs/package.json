@@ -9,8 +9,8 @@
   },
   "devDependencies": {
     "@astrojs/starlight": "0.35.2",
+    "@dpkit/all": "workspace:*",
     "astro": "5.12.9",
-    "dpkit": "workspace:*",
     "nodejs-polars": "0.21.0",
     "sharp": "0.34.2",
     "starlight-changelogs": "0.1.1",

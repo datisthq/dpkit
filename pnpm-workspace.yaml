@@ -1,15 +1,14 @@
 dangerouslyAllowAllBuilds: true
 packages:
+  - all
   - arrow
   - camtrap
   - ckan
-  - cli
   - core
   - csv
   - datahub
   - db
   - docs
-  - dpkit
   - file
   - folder
   - github

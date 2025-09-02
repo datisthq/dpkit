@@ -9,7 +9,7 @@ sidebar:
 
 ## Installation
 
-- [Install dpkit CLI](../../cli/installation)
+- [Install dpkit CLI](https://dpkit.dev/overview/getting-started/)
 - [Install VisiData](https://www.visidata.org/install/)
 
 ## Usage

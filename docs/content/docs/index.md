@@ -35,7 +35,7 @@ The documentation uses `npm` command to install packages. If you are using other
 The framework can be installed as one package:
 
 ```bash
-npm install dpkit
+npm install @dpkit/all
 ```
 
 Or cherry-picked from individual packages:
@@ -63,7 +63,7 @@ dpkit is built with type safety in mind. It uses TypeScript to provide type defi
 Loading a Camtrap DP package from Zenodo merging system Zenodo metadata into a user data package and validating its metadata:
 
 ```ts
-import { loadPackage } from "dpkit"
+import { loadPackage } from "@dpkit/all"
 
 const { dataPackage } = await loadPackage("https://zenodo.org/records/10053903")
 
@@ -79,7 +79,7 @@ console.log(dataPackage)
 Example of using a Data Package extension in type-safe manner. Not supported properties will indicate type errors in your IDE:
 
 ```ts
-import { loadPackage, assertCamtrapPackage } from "dpkit"
+import { loadPackage, assertCamtrapPackage } from "@dpkit/all"
 
 const { dataPackage } = await loadPackage("https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.1/example/datapackage.json")
 
@@ -94,7 +94,7 @@ console.log(camtrapPackage.bibliographicCitation)
 Validating an in-memory package descriptor:
 
 ```ts
-import { validatePackageDescriptor } from "dpkit"
+import { validatePackageDescriptor } from "@dpkit/all"
 
 const { valid, errors } = await validatePackageDescriptor({ name: "package" })
 
@@ -121,7 +121,7 @@ import {
   loadPackageFromZip,
   savePackageToZip,
   getTempFilePath,
-} from "dpkit"
+} from "@dpkit/all"
 
 const archivePath = getTempFilePath()
 const sourcePath = await loadPackageDescriptor(
@@ -136,7 +136,7 @@ console.log(targetPackage)
 Reading a CSV table:
 
 ```ts
-import { loadTable } from "dpkit"
+import { loadTable } from "@dpkit/all"
 
 const table = await loadTable({ path: "data.csv" })
 
@@ -153,4 +153,4 @@ const table = await loadTable({
 
 ## Reference
 
-See **API Reference** of each individual package for more details. Note, that `dpkit` package re-exports most of the functionality.
+See **API Reference** of each individual package for more details. Note, that `@dpkit/all` package re-exports most of the functionality.

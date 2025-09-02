@@ -1,5 +1,5 @@
 {
-  "name": "dpkit",
+  "name": "@dpkit/all",
   "type": "module",
   "version": "0.8.0",
   "exports": "./build/index.js",
