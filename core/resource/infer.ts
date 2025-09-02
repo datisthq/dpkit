@@ -32,3 +32,19 @@ export function inferResourceFormat(resource: Partial<Resource>) {
 
   return format
 }
+
+export function inferResourceProtocol(resource: Partial<Resource>) {
+  let protocol = "file"
+
+  if (resource.path) {
+    const path = Array.isArray(resource.path) ? resource.path[0] : resource.path
+    if (path) {
+      try {
+        const url = new URL(path)
+        protocol = url.protocol.replace(":", "")
+      } catch {}
+    }
+  }
+
+  return protocol
+}
