@@ -1,5 +1,5 @@
+import { inferDialect } from "@dpkit/all"
 import { Command } from "commander"
-import { inferDialect } from "dpkit"
 import React from "react"
 import { DialectGrid } from "../../components/DialectGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"

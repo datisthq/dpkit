@@ -1,7 +1,7 @@
 {
-  "name": "dpkit-cli",
+  "name": "dpkit",
   "type": "module",
-  "version": "0.4.1",
+  "version": "0.9.0",
   "bin": {
     "dp": "./build/entrypoints/run.js"
   },
@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
+    "@dpkit/all": "^0.9.0",
     "@commander-js/extra-typings": "^14.0.0",
     "commander": "^14.0.0",
-    "dpkit": "^0.8.0",
     "exit-hook": "^4.0.0",
     "ink": "^6.1.0",
     "nodejs-polars": "^0.21.0",

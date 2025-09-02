@@ -1,5 +1,5 @@
+import { readTable } from "@dpkit/all"
 import { Command } from "commander"
-import { readTable } from "dpkit"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"

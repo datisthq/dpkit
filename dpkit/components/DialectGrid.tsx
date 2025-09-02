@@ -1,4 +1,4 @@
-import type { Dialect } from "dpkit"
+import type { Dialect } from "@dpkit/all"
 import React from "react"
 import { DataGrid } from "./DataGrid.tsx"
 

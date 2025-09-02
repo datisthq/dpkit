@@ -1,5 +1,5 @@
+import { inferSchema, loadTable } from "@dpkit/all"
 import { Command } from "commander"
-import { inferSchema, loadTable } from "dpkit"
 import React from "react"
 import { SchemaGrid } from "../../components/SchemaGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"

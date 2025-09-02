@@ -1,6 +1,6 @@
+import { getTempFilePath, loadFile } from "@dpkit/all"
+import { readTable, saveTable } from "@dpkit/all"
 import { Command } from "commander"
-import { getTempFilePath, loadFile } from "dpkit"
-import { readTable, saveTable } from "dpkit"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { createToDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"

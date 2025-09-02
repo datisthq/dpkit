@@ -1,6 +1,6 @@
+import { loadDialect } from "@dpkit/all"
+import type { Dialect } from "@dpkit/all"
 import { Command } from "commander"
-import { loadDialect } from "dpkit"
-import type { Dialect } from "dpkit"
 import React from "react"
 import { DialectGrid } from "../../components/DialectGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"

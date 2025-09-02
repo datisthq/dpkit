@@ -1,5 +1,5 @@
+import { validateFile } from "@dpkit/all"
 import { Command } from "commander"
-import { validateFile } from "dpkit"
 import React from "react"
 import { ReportGrid } from "../../components/ReportGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"

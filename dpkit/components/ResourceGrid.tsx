@@ -1,4 +1,4 @@
-import type { Resource } from "dpkit"
+import type { Resource } from "@dpkit/all"
 import React from "react"
 import { DataGrid } from "./DataGrid.tsx"
 

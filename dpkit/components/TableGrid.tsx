@@ -1,4 +1,4 @@
-import type { Table } from "dpkit"
+import type { Table } from "@dpkit/all"
 import { useApp, useInput } from "ink"
 import { Box, Text } from "ink"
 import { useEffect, useState } from "react"

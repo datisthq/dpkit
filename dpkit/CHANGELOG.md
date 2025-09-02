@@ -1,4 +1,4 @@
-# @dpkit/cli
+# dpkit
 
 ## 0.4.1
 

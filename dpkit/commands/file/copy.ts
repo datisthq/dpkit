@@ -1,5 +1,5 @@
+import { copyFile } from "@dpkit/all"
 import { Command } from "commander"
-import { copyFile } from "dpkit"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
