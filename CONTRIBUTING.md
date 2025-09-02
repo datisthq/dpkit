@@ -14,7 +14,7 @@ Project is a monorepo with the following packages:
 - `@dpkit/table`: Table-related functionality
 - `@dpkit/cli`: Command-line interface for running tasks
 - `@dpkit/<name>`: Domain-specific functionality
-- `dpkit`: All-in-one package that re-exports all functionality
+- `@dpkit/all`: All-in-one package that re-exports all functionality
 
 ## Development Environment
 
@@ -27,8 +27,8 @@ Project is a monorepo with the following packages:
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/dpkit.ts.git dpkit
-   cd dpkit
+   git clone https://github.com/yourusername/dpkit-typescript.ts.git dpkit-typescript
+   cd dpkit-typescript
    ```
 
 2. Install dependencies

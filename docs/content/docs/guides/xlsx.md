@@ -20,7 +20,7 @@ For complete loading and processing of XLSX files, the [dpkit](https://github.co
 The XLSX plugin automatically handles `.xlsx` files when using dpkit:
 
 ```typescript
-import { readTable, saveTable } from "dpkit"
+import { readTable, saveTable } from "@dpkit/all"
 
 const table = await readTable({path: "table.xlsx"})
 // the field types will be automatically inferred
@@ -38,7 +38,7 @@ The ouput of `readTable` is a Polars LazyDataFrame, allowing you to use all of t
 :::
 
 ```typescript
-import { readTable } from "dpkit"
+import { readTable } from "@dpkit/all"
 
 // Load a simple XLSX file
 const table = await readTable({ path: "data.xlsx" })
@@ -65,7 +65,7 @@ df.describe()
 ### Saving XLSX Files
 
 ```typescript
-import { saveTable } from "dpkit"
+import { saveTable } from "@dpkit/all"
 
 // Save with default options
 await saveTable(table, { path: "output.xlsx" })
@@ -84,7 +84,7 @@ await saveTable(table, {
 ### Sheet Selection
 
 ```typescript
-import { readTable } from "dpkit"
+import { readTable } from "@dpkit/all"
 
 // Select by sheet number (1-indexed)
 const table = await readTable({
@@ -106,7 +106,7 @@ const table = await readTable({
 ### Multi-Header Row Processing
 
 ```typescript
-import { readTable } from "dpkit"
+import { readTable } from "@dpkit/all"
 
 // XLSX with multiple header rows:
 // Year | 2023 | 2023 | 2024 | 2024
@@ -126,7 +126,7 @@ const table = await readTable({
 ### Comment Row Handling
 
 ```typescript
-import { readTable } from "dpkit"
+import { readTable } from "@dpkit/all"
 
 // XLSX with comment rows
 const table = await readTable({
@@ -149,7 +149,7 @@ const table = await readTable({
 ### Remote File Loading
 
 ```typescript
-import { readTable } from "dpkit"
+import { readTable } from "@dpkit/all"
 
 // Load from URL
 const table = await readTable({
@@ -168,7 +168,7 @@ const table = await readTable({
 ### Header Options
 
 ```typescript
-import { readTable } from "dpkit"
+import { readTable } from "@dpkit/all"
 
 // No header row (use generated column names)
 const table = await readTable({

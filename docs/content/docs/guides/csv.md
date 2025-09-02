@@ -21,7 +21,7 @@ For having both loading and processing of CSV files, the [dpkit](https://github.
 The CSV plugin automatically handles `.csv` and `.tsv` files when using dpkit:
 
 ```typescript
-import { readTable } from "dpkit"
+import { readTable } from "@dpkit/all"
 
 const table = await readTable({path: "table.csv"})
 // the field types will be automatically inferred
