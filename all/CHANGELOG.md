@@ -1,4 +1,4 @@
-# dpkit
+# @dpkit/all
 
 ## 0.8.0
 
