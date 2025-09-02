@@ -201,6 +201,9 @@ importers:
         specifier: ^8.16.3
         version: 8.16.3
     devDependencies:
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
       '@dpkit/test':
         specifier: workspace:*
         version: link:../test

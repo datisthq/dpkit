@@ -46,7 +46,7 @@ export async function loadTable(
 
   const dialect = await loadResourceDialect(resource.dialect)
   if (!dialect?.table) {
-    throw new Error("Table name is not defined")
+    throw new Error("Table name is not defined in dialect")
   }
 
   // @ts-ignore
