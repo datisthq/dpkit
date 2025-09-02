@@ -6,6 +6,9 @@ import { getRecordsFromRows } from "@dpkit/table"
 import { DataFrame, concat } from "nodejs-polars"
 import { read, utils } from "xlsx"
 
+// Currently, we use slow non-rust implementation as in the future
+// polars-rust might be able to provide a faster native implementation
+
 export async function loadXlsxTable(resource: Partial<Resource>) {
   const paths = await prefetchFiles(resource.path)
   if (!paths.length) {

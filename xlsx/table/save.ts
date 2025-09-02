@@ -3,6 +3,9 @@ import { saveFile } from "@dpkit/file"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { utils, write } from "xlsx"
 
+// Currently, we use slow non-rust implementation as in the future
+// polars-rust might be able to provide a faster native implementation
+
 export async function saveXlsxTable(table: Table, options: SaveTableOptions) {
   const { path } = options
 

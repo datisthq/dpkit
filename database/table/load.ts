@@ -8,6 +8,9 @@ import { createPool } from "mysql2"
 import { DataFrame } from "nodejs-polars"
 import { Pool } from "pg"
 
+// Currently, we use slow non-rust implementation as in the future
+// polars-rust might be able to provide a faster native implementation
+
 export async function loadPostgresTable(resource: Partial<Resource>) {
   const url = typeof resource.path === "string" ? resource.path : undefined
 
