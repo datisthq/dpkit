@@ -1,7 +1,7 @@
+import type { Field } from "@dpkit/core"
 import Database from "better-sqlite3"
 import { Kysely } from "kysely"
 import { SqliteDialect } from "kysely"
-import type { DataType } from "nodejs-polars"
 import type { BaseDriver } from "./base.js"
 
 export class SqliteDriver implements BaseDriver {
@@ -15,26 +15,28 @@ export class SqliteDriver implements BaseDriver {
     })
   }
 
-  convertTypeFromPolarsToSql(polarsType: DataType) {
-    switch (polarsType.variant) {
-      case "Bool":
+  convertFieldToSqlType(field: Field) {
+    switch (field.type) {
+      case "boolean":
         return "boolean"
-      case "Int8":
-      case "Int16":
-      case "Int32":
-      case "Int64":
-      case "UInt8":
-      case "UInt16":
-      case "UInt32":
-      case "UInt64":
+      case "integer":
+      case "number":
         return "integer"
-      case "Float32":
-      case "Float64":
-        return "real"
-      case "String":
+      case "string":
         return "text"
-      case "Date":
-      case "Datetime":
+      case "date":
+      case "time":
+      case "datetime":
+      case "year":
+      case "yearmonth":
+      case "duration":
+        return "text"
+      case "object":
+      case "array":
+      case "list":
+      case "geopoint":
+      case "geojson":
+      case "any":
         return "text"
       default:
         return "text"

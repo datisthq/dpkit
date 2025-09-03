@@ -1,7 +1,7 @@
+import type { Field } from "@dpkit/core"
 import { Kysely } from "kysely"
 import { MysqlDialect } from "kysely"
 import { createPool } from "mysql2"
-import type { DataType } from "nodejs-polars"
 import type { BaseDriver } from "./base.js"
 
 export class MysqlDriver implements BaseDriver {
@@ -18,31 +18,35 @@ export class MysqlDriver implements BaseDriver {
     })
   }
 
-  convertTypeFromPolarsToSql(polarsType: DataType) {
-    switch (polarsType.variant) {
-      case "Bool":
+  convertFieldToSqlType(field: Field) {
+    switch (field.type) {
+      case "boolean":
         return "boolean"
-      case "Int8":
-      case "UInt8":
-      case "Int16":
-      case "UInt16":
-        return "smallint"
-      case "Int32":
-      case "UInt32":
+      case "integer":
         return "integer"
-      case "Int64":
-      case "UInt64":
-        return "bigint"
-      case "Float32":
+      case "number":
         return "real"
-      case "Float64":
-        return "double precision"
-      case "String":
+      case "string":
         return "text"
-      case "Date":
+      case "date":
         return "date"
-      case "Datetime":
+      case "time":
+        return "time"
+      case "datetime":
         return "datetime"
+      case "year":
+        return "integer"
+      case "yearmonth":
+      case "duration":
+        return "text"
+      case "object":
+      case "array":
+      case "list":
+      case "geopoint":
+      case "geojson":
+        return "text"
+      case "any":
+        return "text"
       default:
         return "text"
     }

@@ -1,5 +1,7 @@
+import type { Schema } from "@dpkit/core"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { inferSchema } from "@dpkit/table"
+import type { Kysely } from "kysely"
 import type { BaseDriver } from "../drivers/base.js"
 import { MysqlDriver } from "../drivers/mysql.js"
 import { PostgresDriver } from "../drivers/postgres.js"
@@ -26,10 +28,47 @@ async function saveTable(
 ) {
   const { path, dialect, driver, overwrite } = options
 
-  if (!dialect?.table) {
+  const tableName = dialect?.table
+  if (!tableName) {
     throw new Error("Table name is not defined in dialect")
   }
 
-  const database = await driver.connectDatabase(path)
   const schema = await inferSchema(table)
+  const database = await driver.connectDatabase(path)
+
+  await defineTable(database, { driver, schema, tableName, overwrite })
 }
+
+async function defineTable(
+  database: Kysely<any>,
+  options: {
+    driver: BaseDriver
+    schema: Schema
+    tableName: string
+    overwrite?: boolean
+  },
+) {
+  const { driver, schema, tableName, overwrite } = options
+
+  let query = database.schema.createTable(tableName)
+
+  if (!overwrite) {
+    query = query.ifNotExists()
+  }
+
+  for (const field of schema.fields) {
+    const sqlType = driver.convertFieldToSqlType(field)
+    query = query.addColumn(field.name, sqlType)
+  }
+
+  await query.execute()
+}
+
+async function populateTable(
+  database: Kysely<any>,
+  options: {
+    driver: BaseDriver
+    schema: Schema
+    tableName: string
+  },
+) {}

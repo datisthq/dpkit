@@ -1,6 +1,6 @@
+import type { Field } from "@dpkit/core"
 import { Kysely } from "kysely"
 import { PostgresDialect } from "kysely"
-import type { DataType } from "nodejs-polars"
 import { Pool } from "pg"
 import type { BaseDriver } from "./base.js"
 
@@ -18,31 +18,35 @@ export class PostgresDriver implements BaseDriver {
     })
   }
 
-  convertTypeFromPolarsToSql(polarsType: DataType) {
-    switch (polarsType.variant) {
-      case "Bool":
+  convertFieldToSqlType(field: Field) {
+    switch (field.type) {
+      case "boolean":
         return "boolean"
-      case "Int8":
-      case "UInt8":
-      case "Int16":
-      case "UInt16":
-        return "smallint"
-      case "Int32":
-      case "UInt32":
+      case "integer":
         return "integer"
-      case "UInt64":
-      case "Int64":
-        return "bigint"
-      case "Float32":
-        return "real"
-      case "Float64":
+      case "number":
         return "double precision"
-      case "String":
+      case "string":
         return "text"
-      case "Date":
+      case "date":
         return "date"
-      case "Datetime":
-        return "timestamp"
+      case "time":
+        return "time"
+      case "datetime":
+        return "datetime"
+      case "year":
+      case "yearmonth":
+      case "duration":
+        return "text"
+      case "object":
+      case "array":
+      case "list":
+        return "jsonb"
+      case "geopoint":
+      case "geojson":
+        return "json"
+      case "any":
+        return "text"
       default:
         return "text"
     }
