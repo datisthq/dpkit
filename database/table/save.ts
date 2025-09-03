@@ -38,6 +38,8 @@ async function saveTable(
 
   await defineTable(database, { driver, schema, tableName, overwrite })
   await populateTable(database, { table, driver, schema, tableName })
+
+  return path
 }
 
 async function defineTable(

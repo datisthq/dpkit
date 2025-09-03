@@ -6,7 +6,8 @@ import type { BaseDriver } from "./base.js"
 
 export class SqliteDriver implements BaseDriver {
   async connectDatabase(path: string) {
-    const database = new Database(path)
+    const filename = path.replace(/^sqlite:\/\//, "")
+    const database = new Database(filename)
 
     return new Kysely<any>({
       dialect: new SqliteDialect({

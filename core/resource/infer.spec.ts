@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest"
-import {
-  inferResourceFormat,
-  inferResourceName,
-  inferResourceProtocol,
-} from "./infer.ts"
+import { inferResourceFormat, inferResourceName } from "./infer.ts"
 
 describe("inferResourceName", () => {
   it("returns existing name when provided", () => {
@@ -92,99 +88,38 @@ describe("inferResourceFormat", () => {
     const resource = { path: "/data/folder/" }
     expect(inferResourceFormat(resource)).toBeUndefined()
   })
-})
-
-describe("inferResourceProtocol", () => {
-  it("returns file protocol by default", () => {
-    const resource = {}
-    expect(inferResourceProtocol(resource)).toBe("file")
-  })
-
-  it("infers https protocol from URL", () => {
-    const resource = { path: "https://example.com/data.csv" }
-    expect(inferResourceProtocol(resource)).toBe("https")
-  })
-
-  it("infers http protocol from URL", () => {
-    const resource = { path: "http://example.com/data.csv" }
-    expect(inferResourceProtocol(resource)).toBe("http")
-  })
-
-  it("infers ftp protocol from URL", () => {
-    const resource = { path: "ftp://ftp.example.com/data.csv" }
-    expect(inferResourceProtocol(resource)).toBe("ftp")
-  })
-
-  it("infers s3 protocol from URL", () => {
-    const resource = { path: "s3://bucket/data.csv" }
-    expect(inferResourceProtocol(resource)).toBe("s3")
-  })
-
-  it("returns file protocol for local paths", () => {
-    const resource = { path: "/local/path/data.csv" }
-    expect(inferResourceProtocol(resource)).toBe("file")
-  })
-
-  it("returns file protocol for relative paths", () => {
-    const resource = { path: "data/file.csv" }
-    expect(inferResourceProtocol(resource)).toBe("file")
-  })
-
-  it("uses first path from array", () => {
-    const resource = {
-      path: ["https://example.com/data.csv", "/local/backup.csv"],
-    }
-    expect(inferResourceProtocol(resource)).toBe("https")
-  })
-
-  it("returns file protocol for invalid URLs", () => {
-    const resource = { path: "not-a-valid-url" }
-    expect(inferResourceProtocol(resource)).toBe("file")
-  })
-
-  it("handles empty path array", () => {
-    const resource = { path: [] }
-    expect(inferResourceProtocol(resource)).toBe("file")
-  })
-
-  it("infers postgres protocol from connection string", () => {
-    const resource = {
-      path: "postgres://user:password@localhost:5432/database",
-    }
-    expect(inferResourceProtocol(resource)).toBe("postgres")
-  })
 
   it("infers postgresql protocol from connection string", () => {
     const resource = {
       path: "postgresql://user:password@localhost:5432/database",
     }
-    expect(inferResourceProtocol(resource)).toBe("postgresql")
+    expect(inferResourceFormat(resource)).toBe("postgresql")
   })
 
   it("infers mysql protocol from connection string", () => {
     const resource = { path: "mysql://user:password@localhost:3306/database" }
-    expect(inferResourceProtocol(resource)).toBe("mysql")
+    expect(inferResourceFormat(resource)).toBe("mysql")
   })
 
   it("infers sqlite protocol from file path", () => {
     const resource = { path: "sqlite:///path/to/database.db" }
-    expect(inferResourceProtocol(resource)).toBe("sqlite")
+    expect(inferResourceFormat(resource)).toBe("sqlite")
   })
 
   it("infers sqlite protocol with file scheme", () => {
     const resource = { path: "sqlite://localhost/path/to/database.db" }
-    expect(inferResourceProtocol(resource)).toBe("sqlite")
+    expect(inferResourceFormat(resource)).toBe("sqlite")
   })
 
   it("handles postgres protocol with ssl parameters", () => {
     const resource = {
-      path: "postgres://user:pass@host:5432/db?sslmode=require",
+      path: "postgresql://user:pass@host:5432/db?sslmode=require",
     }
-    expect(inferResourceProtocol(resource)).toBe("postgres")
+    expect(inferResourceFormat(resource)).toBe("postgresql")
   })
 
   it("handles mysql protocol with options", () => {
     const resource = { path: "mysql://user:pass@host:3306/db?charset=utf8" }
-    expect(inferResourceProtocol(resource)).toBe("mysql")
+    expect(inferResourceFormat(resource)).toBe("mysql")
   })
 })

@@ -23,6 +23,15 @@ export function getName(filename?: string) {
   return slugify(name)
 }
 
+export function getProtocol(path: string) {
+  try {
+    const url = new URL(path)
+    return url.protocol.replace(":", "")
+  } catch {
+    return "file"
+  }
+}
+
 export function getFormat(filename?: string) {
   return filename?.split(".").slice(-1)[0]?.toLowerCase()
 }

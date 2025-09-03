@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import { inferResourceProtocol } from "@dpkit/core"
+import { inferResourceFormat } from "@dpkit/core"
 import type { TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { loadPostgresTable } from "./table/index.ts"
@@ -11,10 +11,10 @@ import { saveSqliteTable } from "./table/index.ts"
 
 export class DatabasePlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>) {
-    const protocol = getProtocol(resource)
+    const format = getFormat(resource)
 
-    switch (protocol) {
-      case "postgres":
+    switch (format) {
+      case "postgresql":
         return await loadPostgresTable(resource)
       case "mysql":
         return await loadMysqlTable(resource)
@@ -26,10 +26,10 @@ export class DatabasePlugin implements TablePlugin {
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
-    const protocol = getProtocol(options)
+    const format = getFormat(options)
 
-    switch (protocol) {
-      case "postgres":
+    switch (format) {
+      case "postgresql":
         return await savePostgresTable(table, options)
       case "mysql":
         return await saveMysqlTable(table, options)
@@ -41,11 +41,7 @@ export class DatabasePlugin implements TablePlugin {
   }
 }
 
-function getUrl(resource: Partial<Resource>) {
-  return typeof resource.path === "string" ? resource.path : undefined
-}
-
-function getProtocol(resource: Partial<Resource>) {
-  const protocol = inferResourceProtocol(resource)
-  return protocol
+function getFormat(resource: Partial<Resource>) {
+  const format = inferResourceFormat(resource)
+  return format
 }
