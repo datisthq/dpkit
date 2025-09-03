@@ -2,9 +2,9 @@ import { Kysely } from "kysely"
 import { MysqlDialect } from "kysely"
 import { createPool } from "mysql2"
 import type { DataType } from "nodejs-polars"
-import { BaseDriver } from "./base.js"
+import type { BaseDriver } from "./base.js"
 
-export class MysqlDriver extends BaseDriver {
+export class MysqlDriver implements BaseDriver {
   async connectDatabase(path: string) {
     const pool = createPool({
       uri: path,

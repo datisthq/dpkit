@@ -2,9 +2,9 @@ import { Kysely } from "kysely"
 import { PostgresDialect } from "kysely"
 import type { DataType } from "nodejs-polars"
 import { Pool } from "pg"
-import { BaseDriver } from "./base.js"
+import type { BaseDriver } from "./base.js"
 
-export class PostgresDriver extends BaseDriver {
+export class PostgresDriver implements BaseDriver {
   async connectDatabase(path: string) {
     const pool = new Pool({
       connectionString: path,

@@ -2,9 +2,9 @@ import Database from "better-sqlite3"
 import { Kysely } from "kysely"
 import { SqliteDialect } from "kysely"
 import type { DataType } from "nodejs-polars"
-import { BaseDriver } from "./base.js"
+import type { BaseDriver } from "./base.js"
 
-export class SqliteDriver extends BaseDriver {
+export class SqliteDriver implements BaseDriver {
   async connectDatabase(path: string) {
     const database = new Database(path)
 
