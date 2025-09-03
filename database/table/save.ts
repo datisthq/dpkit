@@ -37,6 +37,7 @@ async function saveTable(
   const database = await driver.connectDatabase(path)
 
   await defineTable(database, { driver, schema, tableName, overwrite })
+  await populateTable(database, { table, driver, schema, tableName })
 }
 
 async function defineTable(
@@ -67,8 +68,28 @@ async function defineTable(
 async function populateTable(
   database: Kysely<any>,
   options: {
+    table: Table
     driver: BaseDriver
     schema: Schema
     tableName: string
   },
-) {}
+) {
+  const { table, tableName } = options
+
+  let offset = 0
+  const df = await table.collect({ streaming: true })
+  while (true) {
+    const buffer = df.slice(offset, offset + BUFFER_SIZE)
+    offset += BUFFER_SIZE
+
+    const records = buffer.toRecords()
+    if (!records.length) {
+      break
+    }
+
+    // TODO: we probably need to cast records as well
+    await database.insertInto(tableName).values(records).execute()
+  }
+}
+
+const BUFFER_SIZE = 10_000
