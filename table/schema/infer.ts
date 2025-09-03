@@ -1,7 +1,7 @@
 import type { Field, Schema } from "@dpkit/core"
 import { col } from "nodejs-polars"
-import { getPolarsSchema } from "../schema/index.ts"
 import type { Table } from "../table/index.ts"
+import { getPolarsSchema } from "./Schema.ts"
 
 // TODO: Review default values being {fields: []} vs undefined
 
