@@ -1,4 +1,5 @@
 import type { SaveTableOptions, Table } from "@dpkit/table"
+import { inferSchema } from "@dpkit/table"
 import type { BaseDriver } from "../drivers/base.js"
 import { MysqlDriver } from "../drivers/mysql.js"
 import { PostgresDriver } from "../drivers/postgres.js"
@@ -30,6 +31,5 @@ async function saveTable(
   }
 
   const database = await driver.connectDatabase(path)
-
-  for (const [name, polarsType] of table.schema)
+  const schema = await inferSchema(table)
 }
