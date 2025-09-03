@@ -23,16 +23,15 @@ export class PostgresDriver extends BaseDriver {
       case "Bool":
         return "boolean"
       case "Int8":
+      case "UInt8":
       case "Int16":
+      case "UInt16":
         return "smallint"
       case "Int32":
-        return "integer"
-      case "Int64":
-        return "bigint"
-      case "UInt8":
-      case "UInt16":
       case "UInt32":
+        return "integer"
       case "UInt64":
+      case "Int64":
         return "bigint"
       case "Float32":
         return "real"
@@ -49,4 +48,3 @@ export class PostgresDriver extends BaseDriver {
     }
   }
 }
-
