@@ -18,7 +18,7 @@ async function saveTable(
   table: Table,
   options: SaveTableOptions & { isLines: boolean },
 ) {
-  const { path, dialect, isLines } = options
+  const { path, dialect, overwrite, isLines } = options
   const df = await table.collect()
 
   // We use polars to serialize the data
@@ -31,7 +31,7 @@ async function saveTable(
   }
 
   buffer = encodeJsonBuffer(data, { isLines })
-  await saveFile(path, buffer)
+  await saveFile(path, buffer, { overwrite })
 
   return path
 }

@@ -29,8 +29,6 @@ export async function inferSchema(table: Table, options?: InferSchemaOptions) {
 
   for (const polarsField of polarsSchema.fields) {
     const name = polarsField.name
-
-    O
     const type = typeMapping[polarsField.type.variant] ?? "any"
 
     let field = { name, type }

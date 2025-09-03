@@ -5,8 +5,8 @@ import type { DataType } from "nodejs-polars"
 import { BaseDriver } from "./base.js"
 
 export class SqliteDriver extends BaseDriver {
-  async connectDatabase(url: string) {
-    const database = new Database(url)
+  async connectDatabase(path: string) {
+    const database = new Database(path)
 
     return new Kysely<any>({
       dialect: new SqliteDialect({

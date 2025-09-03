@@ -4,7 +4,7 @@ import type { SaveTableOptions, Table } from "@dpkit/table"
 import { utils, write } from "xlsx"
 
 export async function saveOdsTable(table: Table, options: SaveTableOptions) {
-  const { path } = options
+  const { path, overwrite } = options
 
   const df = await table.collect()
   const dialect = await loadResourceDialect(options.dialect)
@@ -15,7 +15,7 @@ export async function saveOdsTable(table: Table, options: SaveTableOptions) {
   utils.book_append_sheet(book, sheet, sheetName)
 
   const buffer = write(book, { type: "buffer", bookType: "ods" })
-  await saveFile(path, buffer)
+  await saveFile(path, buffer, { overwrite })
 
   return path
 }

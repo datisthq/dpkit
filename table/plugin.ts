@@ -6,6 +6,7 @@ export type SaveTableOptions = {
   path: string
   format?: string
   dialect?: Dialect
+  overwrite?: boolean
 }
 
 export interface TablePlugin extends Plugin {

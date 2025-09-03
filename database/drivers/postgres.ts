@@ -5,9 +5,9 @@ import { Pool } from "pg"
 import { BaseDriver } from "./base.js"
 
 export class PostgresDriver extends BaseDriver {
-  async connectDatabase(url: string) {
+  async connectDatabase(path: string) {
     const pool = new Pool({
-      connectionString: url,
+      connectionString: path,
       max: 1,
     })
 

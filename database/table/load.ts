@@ -1,58 +1,45 @@
 import { loadResourceDialect } from "@dpkit/core"
 import type { Resource } from "@dpkit/core"
-import Database from "better-sqlite3"
-import { Kysely } from "kysely"
-import { MysqlDialect, PostgresDialect, SqliteDialect } from "kysely"
-import type { Dialect } from "kysely"
-import { createPool } from "mysql2"
 import { DataFrame } from "nodejs-polars"
-import { Pool } from "pg"
+import type { BaseDriver } from "../drivers/base.js"
+import { MysqlDriver } from "../drivers/mysql.js"
+import { PostgresDriver } from "../drivers/postgres.js"
+import { SqliteDriver } from "../drivers/sqlite.js"
 
 // Currently, we use slow non-rust implementation as in the future
 // polars-rust might be able to provide a faster native implementation
 
 export async function loadPostgresTable(resource: Partial<Resource>) {
-  const url = typeof resource.path === "string" ? resource.path : undefined
-
-  const pool = new Pool({ connectionString: url, max: 1 })
-  const adapter = new PostgresDialect({ pool })
-
-  return await loadTable(resource, { adapter })
+  return await loadTable(resource, { driver: new PostgresDriver() })
 }
 
 export async function loadMysqlTable(resource: Partial<Resource>) {
-  const url = typeof resource.path === "string" ? resource.path : undefined
-
-  const pool = createPool({ uri: url, connectionLimit: 1 })
-  const adapter = new MysqlDialect({ pool })
-
-  return await loadTable(resource, { adapter })
+  return await loadTable(resource, { driver: new MysqlDriver() })
 }
 
 export async function loadSqliteTable(resource: Partial<Resource>) {
-  const url = typeof resource.path === "string" ? resource.path : undefined
-
-  const database = new Database(url)
-  const adapter = new SqliteDialect({ database })
-
-  return await loadTable(resource, { adapter })
+  return await loadTable(resource, { driver: new SqliteDriver() })
 }
 
 export async function loadTable(
   resource: Partial<Resource>,
   options: {
-    adapter: Dialect
+    driver: BaseDriver
   },
 ) {
-  const { adapter } = options
-  const db = new Kysely({ dialect: adapter })
+  const { driver } = options
+
+  const path = typeof resource.path === "string" ? resource.path : undefined
+  if (!path) {
+    return DataFrame().lazy()
+  }
 
   const dialect = await loadResourceDialect(resource.dialect)
   if (!dialect?.table) {
     throw new Error("Table name is not defined in dialect")
   }
 
-  // @ts-ignore
+  const db = await driver.connectDatabase(path)
   const records = await db.selectFrom(dialect.table).selectAll().execute()
   db.destroy()
 

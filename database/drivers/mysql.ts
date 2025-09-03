@@ -5,9 +5,9 @@ import type { DataType } from "nodejs-polars"
 import { BaseDriver } from "./base.js"
 
 export class MysqlDriver extends BaseDriver {
-  async connectDatabase(url: string) {
+  async connectDatabase(path: string) {
     const pool = createPool({
-      uri: url,
+      uri: path,
       connectionLimit: 1,
     })
 

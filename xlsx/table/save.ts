@@ -7,7 +7,7 @@ import { utils, write } from "xlsx"
 // polars-rust might be able to provide a faster native implementation
 
 export async function saveXlsxTable(table: Table, options: SaveTableOptions) {
-  const { path } = options
+  const { path, overwrite } = options
 
   const df = await table.collect()
   const dialect = await loadResourceDialect(options.dialect)
@@ -18,7 +18,7 @@ export async function saveXlsxTable(table: Table, options: SaveTableOptions) {
   utils.book_append_sheet(book, sheet, sheetName)
 
   const buffer = write(book, { type: "buffer", bookType: "xlsx" })
-  await saveFile(path, buffer)
+  await saveFile(path, buffer, { overwrite })
 
   return path
 }
