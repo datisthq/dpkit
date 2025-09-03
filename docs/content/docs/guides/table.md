@@ -51,7 +51,7 @@ const table = DataFrame({
 }).lazy()
 
 const inferredSchema = await inferSchema(table, {
-  sampleSize: 100,      // Sample size for inference
+  sampleRows: 100,      // Sample size for inference
   confidence: 0.9,      // Confidence threshold
   monthFirst: false,    // Date format preference
   commaDecimal: false   // Decimal separator preference

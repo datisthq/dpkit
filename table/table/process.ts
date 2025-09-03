@@ -12,16 +12,16 @@ export async function processTable(
   table: Table,
   options?: {
     schema?: Schema
-    sampleSize?: number
+    sampleRows?: number
   },
 ) {
-  const { schema, sampleSize = 100 } = options ?? {}
+  const { schema, sampleRows = 100 } = options ?? {}
 
   if (!schema) {
     return table
   }
 
-  const sample = await table.head(sampleSize).collect()
+  const sample = await table.head(sampleRows).collect()
   const polarsSchema = getPolarsSchema(sample.schema)
 
   return table.select(Object.values(processFields(schema, polarsSchema)))

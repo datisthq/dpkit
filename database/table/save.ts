@@ -30,4 +30,6 @@ async function saveTable(
   }
 
   const database = await driver.connectDatabase(path)
+
+  for (const [name, polarsType] of table.schema)
 }
