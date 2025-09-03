@@ -39,9 +39,9 @@ export async function loadTable(
     throw new Error("Table name is not defined in dialect")
   }
 
-  const db = await driver.connectDatabase(path)
-  const records = await db.selectFrom(dialect.table).selectAll().execute()
-  db.destroy()
+  const database = await driver.connectDatabase(path)
+  const records = await database.selectFrom(dialect.table).selectAll().execute()
+  database.destroy()
 
   const table = DataFrame(records).lazy()
   return table
