@@ -1,12 +1,18 @@
 import { loadResourceDialect } from "@dpkit/core"
 import type { Resource } from "@dpkit/core"
+import { loadResourceSchema } from "@dpkit/core"
 import { loadFile, prefetchFiles } from "@dpkit/file"
+import type { LoadTableOptions } from "@dpkit/table"
+import { inferSchema, processTable } from "@dpkit/table"
 import type { DataRow, Table } from "@dpkit/table"
 import { getRecordsFromRows } from "@dpkit/table"
 import { DataFrame, concat } from "nodejs-polars"
 import { read, utils } from "xlsx"
 
-export async function loadOdsTable(resource: Partial<Resource>) {
+export async function loadOdsTable(
+  resource: Partial<Resource>,
+  options?: LoadTableOptions,
+) {
   const paths = await prefetchFiles(resource.path)
   if (!paths.length) {
     return DataFrame().lazy()
@@ -36,6 +42,16 @@ export async function loadOdsTable(resource: Partial<Resource>) {
     }
   }
 
-  const table = concat(tables)
+  let table = concat(tables)
+
+  let schema = await loadResourceSchema(resource.schema)
+  if (!schema && !options?.noInfer) {
+    schema = await inferSchema(table)
+  }
+
+  if (schema) {
+    table = await processTable(table, { schema })
+  }
+
   return table
 }
