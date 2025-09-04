@@ -3,7 +3,7 @@ import type { Resource } from "@dpkit/core"
 import { loadResourceSchema } from "@dpkit/core"
 import { loadFile, prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "@dpkit/table"
-import { inferSchema, processTable } from "@dpkit/table"
+import { inferSchema, normalizeTable } from "@dpkit/table"
 import type { DataRow, Table } from "@dpkit/table"
 import { getRecordsFromRows } from "@dpkit/table"
 import { DataFrame, concat } from "nodejs-polars"
@@ -50,7 +50,7 @@ export async function loadOdsTable(
   }
 
   if (schema) {
-    table = await processTable(table, { schema })
+    table = await normalizeTable(table, { schema })
   }
 
   return table

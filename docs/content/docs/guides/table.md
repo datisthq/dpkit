@@ -85,7 +85,7 @@ const equalSchema: Schema = {
 ### Table Processing
 
 ```typescript
-import { processTable } from "@dpkit/table"
+import { normalizeTable } from "@dpkit/table"
 
 // Process table with schema (converts string columns to proper types)
 const table = DataFrame({
@@ -104,7 +104,7 @@ const schema: Schema = {
   ]
 }
 
-const processedTable = await processTable(table, { schema })
+const processedTable = await normalizeTable(table, { schema })
 const result = await processedTable.collect()
 
 // Result will have properly typed columns:

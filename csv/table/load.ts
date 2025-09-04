@@ -1,7 +1,7 @@
 import type { Dialect, Resource } from "@dpkit/core"
 import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
-import { inferSchema, processTable } from "@dpkit/table"
+import { inferSchema, normalizeTable } from "@dpkit/table"
 import { stripInitialSpace } from "@dpkit/table"
 import { joinHeaderRows } from "@dpkit/table"
 import { skipCommentRows } from "@dpkit/table"
@@ -61,7 +61,7 @@ export async function loadCsvTable(
   }
 
   if (schema) {
-    table = await processTable(table, { schema })
+    table = await normalizeTable(table, { schema })
   }
 
   return table

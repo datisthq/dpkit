@@ -3,7 +3,7 @@ import { loadResourceDialect } from "@dpkit/core"
 import { loadResourceSchema } from "@dpkit/core"
 import { loadFile, prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "@dpkit/table"
-import { inferSchema, processTable } from "@dpkit/table"
+import { inferSchema, normalizeTable } from "@dpkit/table"
 import type { Table } from "@dpkit/table"
 import { concat } from "nodejs-polars"
 import { DataFrame, scanJson } from "nodejs-polars"
@@ -62,7 +62,7 @@ async function loadTable(
   }
 
   if (schema) {
-    table = await processTable(table, { schema })
+    table = await normalizeTable(table, { schema })
   }
 
   return table
