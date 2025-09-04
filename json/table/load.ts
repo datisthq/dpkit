@@ -1,22 +1,31 @@
 import type { Dialect, Resource } from "@dpkit/core"
 import { loadResourceDialect } from "@dpkit/core"
+import { loadResourceSchema } from "@dpkit/core"
 import { loadFile, prefetchFiles } from "@dpkit/file"
+import type { LoadTableOptions } from "@dpkit/table"
+import { inferSchema, processTable } from "@dpkit/table"
 import type { Table } from "@dpkit/table"
 import { concat } from "nodejs-polars"
 import { DataFrame, scanJson } from "nodejs-polars"
 import { decodeJsonBuffer } from "../buffer/index.ts"
 
-export async function loadJsonTable(resource: Partial<Resource>) {
-  return await loadTable(resource, { isLines: false })
+export async function loadJsonTable(
+  resource: Partial<Resource>,
+  options?: LoadTableOptions,
+) {
+  return await loadTable(resource, { ...options, isLines: false })
 }
 
-export async function loadJsonlTable(resource: Partial<Resource>) {
-  return await loadTable(resource, { isLines: true })
+export async function loadJsonlTable(
+  resource: Partial<Resource>,
+  options?: LoadTableOptions,
+) {
+  return await loadTable(resource, { ...options, isLines: true })
 }
 
 async function loadTable(
   resource: Partial<Resource>,
-  options: { isLines: boolean },
+  options: LoadTableOptions & { isLines: boolean },
 ) {
   const { isLines } = options
 
@@ -45,7 +54,17 @@ async function loadTable(
     tables.push(table)
   }
 
-  const table = concat(tables)
+  let table = concat(tables)
+
+  let schema = await loadResourceSchema(resource.schema)
+  if (!schema && !options?.noInfer) {
+    schema = await inferSchema(table)
+  }
+
+  if (schema) {
+    table = await processTable(table, { schema })
+  }
+
   return table
 }
 
