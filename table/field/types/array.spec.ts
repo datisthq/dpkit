@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "../../table/index.ts"
+import { normalizeTable } from "../../table/index.ts"
 
 describe("parseArrayField", () => {
   it.each([
@@ -30,7 +30,7 @@ describe("parseArrayField", () => {
       fields: [{ name: "name", type: "array" as const }],
     }
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
 
     const res = df.getColumn("name").get(0)

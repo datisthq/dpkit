@@ -232,7 +232,7 @@ describe("validateTable", () => {
 
     const errors = await validateTable(table, { schema })
 
-    // Since the column isn't string type, validateField will not process it
+    // Since the column isn't string type, validateField will not normalize it
     expect(errors).toHaveLength(0)
   })
 })

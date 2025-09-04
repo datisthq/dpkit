@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "./process.ts"
+import { normalizeTable } from "./normalize.ts"
 
-describe("processTable", () => {
+describe("normalizeTable", () => {
   it("should work without schema", async () => {
     const table = DataFrame({
       id: [1, 2],
@@ -15,7 +15,7 @@ describe("processTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await processTable(table)
+    const ldf = await normalizeTable(table)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -38,7 +38,7 @@ describe("processTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -62,7 +62,7 @@ describe("processTable", () => {
       { id: 2, name: "中文", other: null },
     ]
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -86,7 +86,7 @@ describe("processTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -109,7 +109,7 @@ describe("processTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -133,7 +133,7 @@ describe("processTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -157,7 +157,7 @@ describe("processTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -181,7 +181,7 @@ describe("processTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -205,7 +205,7 @@ describe("processTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -228,7 +228,7 @@ describe("processTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -251,7 +251,7 @@ describe("processTable", () => {
       { id: 2, name: null },
     ]
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })

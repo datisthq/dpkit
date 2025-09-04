@@ -1,4 +1,4 @@
-export { processTable } from "./process.ts"
+export { normalizeTable } from "./normalize.ts"
 export { validateTable } from "./validate.ts"
 export type { Table } from "./Table.ts"
 export { skipCommentRows } from "./helpers.ts"

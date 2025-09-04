@@ -5,29 +5,8 @@ import { col, lit } from "nodejs-polars"
 import { matchField } from "../field/index.ts"
 import { parseField } from "../field/index.ts"
 import type { PolarsSchema } from "../schema/index.ts"
-import { getPolarsSchema } from "../schema/index.ts"
-import type { Table } from "./Table.ts"
 
-export async function processTable(
-  table: Table,
-  options?: {
-    schema?: Schema
-    sampleRows?: number
-  },
-) {
-  const { schema, sampleRows = 100 } = options ?? {}
-
-  if (!schema) {
-    return table
-  }
-
-  const sample = await table.head(sampleRows).collect()
-  const polarsSchema = getPolarsSchema(sample.schema)
-
-  return table.select(Object.values(processFields(schema, polarsSchema)))
-}
-
-export function processFields(
+export function normalizeFields(
   schema: Schema,
   polarsSchema: PolarsSchema,
   options?: { noParse?: boolean },

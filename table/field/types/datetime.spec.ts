@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "../../table/index.ts"
+import { normalizeTable } from "../../table/index.ts"
 
 // TODO: Enable this test suite
 // Currently, it seems to have a weird datetime translation bug on the Polars side
@@ -32,7 +32,7 @@ describe.skip("parseDatetimeField", () => {
       fields: [{ name: "name", type: "datetime" as const, ...options }],
     }
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
 
     expect(df.toRecords()[0]?.name).toEqual(expected)

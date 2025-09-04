@@ -3,11 +3,11 @@ import { col, lit } from "nodejs-polars"
 import type { TableError } from "../error/index.ts"
 import { matchField } from "../field/index.ts"
 import { validateField } from "../field/index.ts"
+import { normalizeFields } from "../field/index.ts"
 import { validateRows } from "../row/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { PolarsSchema } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
-import { processFields } from "./process.ts"
 
 export async function validateTable(
   table: Table,
@@ -132,13 +132,13 @@ async function validateFields(
   const targetNames: string[] = []
 
   const sources = Object.entries(
-    processFields(schema, polarsSchema, { noParse: true }),
+    normalizeFields(schema, polarsSchema, { noParse: true }),
   ).map(([name, expr]) => {
     return expr.alias(`source:${name}`)
   })
 
   const targets = Object.entries(
-    processFields(schema, polarsSchema, { noParse: false }),
+    normalizeFields(schema, polarsSchema, { noParse: false }),
   ).map(([name, expr]) => {
     const targetName = `target:${name}`
     targetNames.push(targetName)

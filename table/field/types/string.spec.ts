@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "../../table/index.ts"
+import { normalizeTable } from "../../table/index.ts"
 
 // TODO: Implement proper tests
 // TODO: Currently, it fails on to JS conversion from Polars
@@ -14,7 +14,7 @@ describe.skip("parseStringField", () => {
           fields: [{ name: "name", type: "string" as const, ...options }],
         }
 
-        const ldf = await processTable(table, { schema })
+        const ldf = await normalizeTable(table, { schema })
         const df = await ldf.collect()
 
         expect(df.getColumn("name").get(0)).toEqual(value)

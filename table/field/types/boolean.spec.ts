@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "../../table/index.ts"
+import { normalizeTable } from "../../table/index.ts"
 
 describe("parseBooleanField", () => {
   it.each([
@@ -50,7 +50,7 @@ describe("parseBooleanField", () => {
       fields: [{ name: "name", type: "boolean" as const, ...options }],
     }
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, { schema })
     const df = await ldf.collect()
 
     expect(df.toRecords()[0]?.name).toEqual(value)
