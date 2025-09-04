@@ -1,20 +1,21 @@
 import type { Resource } from "@dpkit/core"
 import { inferResourceFormat } from "@dpkit/core"
+import type { LoadTableOptions } from "@dpkit/table"
 import type { TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { loadJsonTable, loadJsonlTable } from "./table/index.ts"
 import { saveJsonTable, saveJsonlTable } from "./table/index.ts"
 
 export class JsonPlugin implements TablePlugin {
-  async loadTable(resource: Partial<Resource>) {
+  async loadTable(resource: Partial<Resource>, options?: LoadTableOptions) {
     const formatInfo = getFormatInfo(resource)
 
     if (formatInfo.isJson) {
-      return await loadJsonTable(resource)
+      return await loadJsonTable(resource, options)
     }
 
     if (formatInfo.isJsonl) {
-      return await loadJsonlTable(resource)
+      return await loadJsonlTable(resource, options)
     }
 
     return undefined

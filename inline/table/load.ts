@@ -1,9 +1,15 @@
 import type { Resource } from "@dpkit/core"
 import { loadResourceDialect } from "@dpkit/core"
+import { loadResourceSchema } from "@dpkit/core"
 import { getRecordsFromRows } from "@dpkit/table"
+import type { LoadTableOptions } from "@dpkit/table"
+import { inferSchema, processTable } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 
-export async function loadInlineTable(resource: Partial<Resource>) {
+export async function loadInlineTable(
+  resource: Partial<Resource>,
+  options?: LoadTableOptions,
+) {
   const dialect = await loadResourceDialect(resource.dialect)
   const data = resource.data
 
@@ -14,6 +20,16 @@ export async function loadInlineTable(resource: Partial<Resource>) {
   const isRows = data.every(row => Array.isArray(row))
   const records = isRows ? getRecordsFromRows(data, dialect) : data
 
-  const table = DataFrame(records).lazy()
+  let table = DataFrame(records).lazy()
+
+  let schema = await loadResourceSchema(resource.schema)
+  if (!schema && !options?.noInfer) {
+    schema = await inferSchema(table)
+  }
+
+  if (schema) {
+    table = await processTable(table, { schema })
+  }
+
   return table
 }
