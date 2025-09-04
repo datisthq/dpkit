@@ -17,6 +17,10 @@ npm install @dpkit/json
 
 ## Basic Usage
 
+:::tip
+You can use `loadTable` and `saveTable` from `@dpkit/all` instead of `@dpkit/json` to load and save JSON files if the framework can infer that files are in the `json/jsonl` format.
+:::
+
 ### Loading JSON Data
 
 ```typescript
