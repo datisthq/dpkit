@@ -1,6 +1,6 @@
 import type { Package } from "@dpkit/core"
-import type { ZenodoCreator } from "../Creator.ts"
-import type { ZenodoPackage } from "../Package.ts"
+import type { ZenodoCreator } from "./Creator.ts"
+import type { ZenodoPackage } from "./Package.ts"
 
 /**
  * Denormalizes a Frictionless Data Package to Zenodo Deposit metadata format

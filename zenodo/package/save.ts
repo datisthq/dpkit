@@ -1,14 +1,11 @@
 import { blob } from "node:stream/consumers"
 import type { Descriptor, Package } from "@dpkit/core"
 import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
-import {
-  getPackageBasepath,
-  loadFileStream,
-  saveResourceFiles,
-} from "@dpkit/file"
+import { loadFileStream, saveResourceFiles } from "@dpkit/file"
+import { getPackageBasepath } from "@dpkit/file"
 import { makeZenodoApiRequest } from "../zenodo/index.ts"
 import type { ZenodoPackage } from "./Package.ts"
-import { denormalizeZenodoPackage } from "./process/denormalize.ts"
+import { denormalizeZenodoPackage } from "./denormalize.ts"
 
 /**
  * Save a package to Zenodo

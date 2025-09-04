@@ -1,6 +1,6 @@
 import { getBasepath, saveDescriptor } from "../general/index.ts"
 import type { Resource } from "./Resource.ts"
-import { denormalizeResource } from "./process/denormalize.ts"
+import { denormalizeResource } from "./denormalize.ts"
 
 const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/dataresource.json"
 

@@ -1,5 +1,5 @@
 import { getFormat, getName } from "@dpkit/core"
-import type { ZenodoResource } from "../Resource.ts"
+import type { ZenodoResource } from "./Resource.ts"
 
 /**
  * Normalizes a Zenodo file to Frictionless Data resource format

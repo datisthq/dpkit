@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import type { CkanResource } from "../Resource.ts"
+import type { CkanResource } from "./Resource.ts"
 
 /**
  * Denormalizes a Frictionless Data Resource to CKAN Resource format

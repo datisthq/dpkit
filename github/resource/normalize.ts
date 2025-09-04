@@ -1,6 +1,6 @@
 import type { Resource } from "@dpkit/core"
 import { getFilename, getFormat, getName } from "@dpkit/core"
-import type { GithubResource } from "../Resource.ts"
+import type { GithubResource } from "./Resource.ts"
 
 /**
  * Normalizes a Github file to Frictionless Data resource format

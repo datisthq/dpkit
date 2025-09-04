@@ -1,7 +1,7 @@
 import { mergePackages } from "@dpkit/core"
 import { makeCkanApiRequest } from "../ckan/index.ts"
 import type { CkanPackage } from "./Package.ts"
-import { normalizeCkanPackage } from "./process/normalize.ts"
+import { normalizeCkanPackage } from "./normalize.ts"
 
 /**
  * Load a package from a CKAN instance

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
-import type { CkanPackage } from "../Package.ts"
-import ckanPackageFixture from "../fixtures/ckan-package.json" with {
+import type { CkanPackage } from "./Package.ts"
+import ckanPackageFixture from "./fixtures/ckan-package.json" with {
   type: "json",
 }
 import { normalizeCkanPackage } from "./normalize.ts"

@@ -4,7 +4,7 @@ import { type Descriptor, validateDescriptor } from "../general/index.ts"
 import { loadProfile } from "../general/index.ts"
 import { loadSchema } from "../schema/index.ts"
 import type { Resource } from "./Resource.ts"
-import { normalizeResource } from "./process/normalize.ts"
+import { normalizeResource } from "./normalize.ts"
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/dataresource.json"
 

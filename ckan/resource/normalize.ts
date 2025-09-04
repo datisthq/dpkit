@@ -1,7 +1,7 @@
 import type { Resource } from "@dpkit/core"
 import { getFilename } from "@dpkit/core"
-import { normalizeCkanSchema } from "../../schema/index.ts"
-import type { CkanResource } from "../Resource.ts"
+import { normalizeCkanSchema } from "../schema/index.ts"
+import type { CkanResource } from "./Resource.ts"
 
 /**
  * Normalizes a CKAN resource to Frictionless Data Resource format

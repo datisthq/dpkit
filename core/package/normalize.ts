@@ -1,5 +1,5 @@
-import type { Descriptor } from "../../general/index.ts"
-import { normalizeResource } from "../../resource/index.ts"
+import type { Descriptor } from "../general/index.ts"
+import { normalizeResource } from "../resource/index.ts"
 
 export function normalizePackage(
   descriptor: Descriptor,

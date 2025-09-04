@@ -1,6 +1,6 @@
 import type { Contributor, License, Package } from "@dpkit/core"
-import { normalizeGithubResource } from "../../resource/process/normalize.ts"
-import type { GithubPackage } from "../Package.ts"
+import { normalizeGithubResource } from "../resource/index.ts"
+import type { GithubPackage } from "./Package.ts"
 
 /**
  * Normalizes a Github repository to Frictionless Data package format

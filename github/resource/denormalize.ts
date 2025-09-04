@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import type { GithubResource } from "../Resource.ts"
+import type { GithubResource } from "./Resource.ts"
 
 /**
  * Denormalizes a Frictionless Data resource to Github file format

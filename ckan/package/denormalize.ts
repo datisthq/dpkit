@@ -1,9 +1,9 @@
 import type { Package } from "@dpkit/core"
 import type { SetRequired } from "type-fest"
-import type { CkanResource } from "../../resource/Resource.ts"
-import { denormalizeCkanResource } from "../../resource/process/denormalize.ts"
-import type { CkanPackage } from "../Package.ts"
-import type { CkanTag } from "../Tag.ts"
+import type { CkanResource } from "../resource/Resource.ts"
+import { denormalizeCkanResource } from "../resource/index.ts"
+import type { CkanPackage } from "./Package.ts"
+import type { CkanTag } from "./Tag.ts"
 
 /**
  * Denormalizes a Frictionless Data Package to CKAN Package format

@@ -1,6 +1,6 @@
 import { saveDescriptor } from "../general/index.ts"
 import type { Schema } from "./Schema.ts"
-import { denormalizeSchema } from "./process/denormalize.ts"
+import { denormalizeSchema } from "./denormalize.ts"
 
 const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/tableschema.json"
 

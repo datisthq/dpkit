@@ -1,5 +1,5 @@
 import type { Package } from "@dpkit/core"
-import type { GithubPackage } from "../Package.ts"
+import type { GithubPackage } from "./Package.ts"
 
 /**
  * Denormalizes a Frictionless Data Package to Github repository metadata format

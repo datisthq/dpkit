@@ -10,8 +10,8 @@ import type {
   StringField,
   TimeField,
 } from "@dpkit/core"
-import type { CkanField } from "../Field.ts"
-import type { CkanSchema } from "../Schema.ts"
+import type { CkanField } from "./Field.ts"
+import type { CkanSchema } from "./Schema.ts"
 
 /**
  * Normalizes a CKAN schema to a Table Schema format

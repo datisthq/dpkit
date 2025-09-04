@@ -1,7 +1,7 @@
-import { normalizeDialect } from "../../dialect/index.ts"
-import { isDescriptor, normalizePath } from "../../general/index.ts"
-import type { Descriptor } from "../../general/index.ts"
-import { normalizeSchema } from "../../schema/index.ts"
+import { normalizeDialect } from "../dialect/index.ts"
+import { isDescriptor, normalizePath } from "../general/index.ts"
+import type { Descriptor } from "../general/index.ts"
+import { normalizeSchema } from "../schema/index.ts"
 
 export function normalizeResource(
   descriptor: Descriptor,
