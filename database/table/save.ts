@@ -60,7 +60,7 @@ async function defineTable(
   }
 
   for (const field of schema.fields) {
-    const sqlType = driver.convertFieldToSqlType(field)
+    const sqlType = driver.convertFieldToSql(field)
     query = query.addColumn(field.name, sqlType)
   }
 
@@ -76,7 +76,7 @@ async function populateTable(
     tableName: string
   },
 ) {
-  const { table, tableName } = options
+  const { table, driver, schema, tableName } = options
 
   let offset = 0
   const df = await table.collect({ streaming: true })
@@ -89,7 +89,7 @@ async function populateTable(
       break
     }
 
-    // TODO: we probably need to cast records as well
+    records.forEach(record => driver.convertRecordToSql(record, schema))
     await database.insertInto(tableName).values(records).execute()
   }
 }

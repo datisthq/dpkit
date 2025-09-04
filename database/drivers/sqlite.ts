@@ -1,4 +1,5 @@
-import type { Field } from "@dpkit/core"
+import type { Field, Schema } from "@dpkit/core"
+import type { DataRecord } from "@dpkit/table"
 import Database from "better-sqlite3"
 import { Kysely } from "kysely"
 import { SqliteDialect } from "kysely"
@@ -16,31 +17,36 @@ export class SqliteDriver implements BaseDriver {
     })
   }
 
-  convertFieldToSqlType(field: Field) {
+  convertFieldToSql(field: Field) {
     switch (field.type) {
-      case "boolean":
-        return "boolean"
-      case "integer":
-      case "number":
-        return "integer"
       case "string":
         return "text"
-      case "date":
-      case "time":
-      case "datetime":
-      case "year":
-      case "yearmonth":
-      case "duration":
-        return "text"
-      case "object":
-      case "array":
-      case "list":
-      case "geopoint":
-      case "geojson":
-      case "any":
-        return "text"
+      case "integer":
+        return "integer"
+      case "number":
+        return "numeric"
       default:
         return "text"
+    }
+  }
+
+  convertRecordToSql(record: DataRecord, schema: Schema) {
+    for (const field of schema.fields) {
+      if (field.type === "boolean") {
+        record[field.name] = record[field.name] ? "true" : "false"
+      } else if (field.type === "object" || field.type === "array") {
+        record[field.name] = JSON.stringify(record[field.name])
+      } else if (field.type === "datetime") {
+        record[field.name] = (record[field.name] as Date).toISOString()
+      } else if (field.type === "date") {
+        record[field.name] = (record[field.name] as Date)
+          .toISOString()
+          .slice(0, 10)
+      } else if (field.type === "time") {
+        record[field.name] = (record[field.name] as Date)
+          .toISOString()
+          .slice(11)
+      }
     }
   }
 }

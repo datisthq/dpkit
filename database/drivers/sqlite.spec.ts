@@ -1,6 +1,6 @@
 import { getTempFilePath } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { loadSqliteTable, saveSqliteTable } from "../table/index.ts"
 
@@ -14,7 +14,7 @@ describe("SqliteDriver", () => {
   it("should save/load table", async () => {
     const path = getTempFilePath()
 
-    const source = DataFrame([record1, record2]).lazy()
+    const source = pl.DataFrame([record1, record2]).lazy()
     await saveSqliteTable(source, { path, dialect })
     const target = await loadSqliteTable({ path, dialect })
 
@@ -24,10 +24,47 @@ describe("SqliteDriver", () => {
   it("should save/load table with protocol", async () => {
     const path = `sqlite://${getTempFilePath()}`
 
-    const source = DataFrame([record1, record2]).lazy()
+    const source = pl.DataFrame([record1, record2]).lazy()
     await saveSqliteTable(source, { path, dialect })
     const target = await loadSqliteTable({ path, dialect })
 
     expect((await target.collect()).toRecords()).toEqual([record1, record2])
+  })
+
+  it("should save/load table with various data types", async () => {
+    const path = `sqlite://${getTempFilePath()}`
+
+    const source = pl
+      .DataFrame([
+        pl.Series("string", ["string"], pl.Utf8),
+        pl.Series("integer", [1], pl.Int32),
+        pl.Series("number", [1.1], pl.Float64),
+        pl.Series("boolean", [true], pl.Bool),
+        //pl.Series("object", [{ value: 1 }], pl.Struct([pl.Field("value", pl.Int32)])),
+        pl.Series("array", [[1, 2, 3]], pl.List(pl.Int32)),
+        pl.Series("list", [[1, 2, 3]], pl.List(pl.Int32)),
+        pl.Series("datetime", [new Date(Date.UTC(2025, 0, 1))], pl.Datetime),
+        pl.Series("date", [new Date(Date.UTC(2025, 0, 1))], pl.Date),
+        //pl.Series("time", [new Date(Date.UTC(2025, 0, 1))], pl.Time),
+      ])
+      .lazy()
+
+    await saveSqliteTable(source, { path, dialect })
+    const target = await loadSqliteTable({ path, dialect })
+
+    expect((await target.collect()).toRecords()).toEqual([
+      {
+        string: "string",
+        integer: 1,
+        number: 1.1,
+        boolean: "true",
+        //object: '{"value":1}',
+        array: "[1,2,3]",
+        list: "[1,2,3]",
+        datetime: "2025-01-01T00:00:00.000Z",
+        date: "2025-01-01",
+        //time: "00:00:00.000Z",
+      },
+    ])
   })
 })

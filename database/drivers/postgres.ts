@@ -1,4 +1,5 @@
-import type { Field } from "@dpkit/core"
+import type { Field, Schema } from "@dpkit/core"
+import type { DataRecord } from "@dpkit/table"
 import { Kysely } from "kysely"
 import { PostgresDialect } from "kysely"
 import { Pool } from "pg"
@@ -18,7 +19,7 @@ export class PostgresDriver implements BaseDriver {
     })
   }
 
-  convertFieldToSqlType(field: Field) {
+  convertFieldToSql(field: Field) {
     switch (field.type) {
       case "boolean":
         return "boolean"
@@ -51,4 +52,6 @@ export class PostgresDriver implements BaseDriver {
         return "text"
     }
   }
+
+  convertRecordToSql(record: DataRecord, schema: Schema) {}
 }
