@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { inspectTable } from "./inspect.ts"
+import { validateTable } from "./validate.ts"
 
-describe("inspectTable", () => {
+describe("validateTable", () => {
   describe("fields validation with fieldsMatch='exact'", () => {
     it("should pass when fields exactly match", async () => {
       const table = DataFrame({
@@ -18,7 +18,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toEqual([])
     })
@@ -37,7 +37,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toEqual([
         {
           type: "field/name",
@@ -62,7 +62,7 @@ describe("inspectTable", () => {
       ],
     }
 
-    const errors = await inspectTable(table, { schema })
+    const errors = await validateTable(table, { schema })
     expect(errors).toContainEqual({
       type: "fields/extra",
       fieldNames: ["age"],
@@ -81,7 +81,7 @@ describe("inspectTable", () => {
       ],
     }
 
-    const errors = await inspectTable(table, { schema })
+    const errors = await validateTable(table, { schema })
     expect(errors).toContainEqual({
       type: "fields/missing",
       fieldNames: ["name"],
@@ -103,7 +103,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -122,7 +122,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toContainEqual({
         type: "fields/extra",
         fieldNames: ["age"],
@@ -142,7 +142,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toContainEqual({
         type: "fields/missing",
         fieldNames: ["name"],
@@ -166,7 +166,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -184,7 +184,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -201,7 +201,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toContainEqual({
         type: "fields/missing",
         fieldNames: ["name"],
@@ -223,7 +223,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -241,7 +241,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -260,7 +260,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toContainEqual({
         type: "fields/extra",
         fieldNames: ["age"],
@@ -283,7 +283,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -301,7 +301,7 @@ describe("inspectTable", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toContainEqual({
         type: "fields/missing",
         fieldNames: ["id", "name"],

@@ -1,1 +1,1 @@
-export { inspectRows } from "./inspect.ts"
+export { validateRows } from "./validate.ts"

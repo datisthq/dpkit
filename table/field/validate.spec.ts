@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { inspectTable } from "../table/inspect.ts"
+import { validateTable } from "../table/validate.ts"
 
-describe("inspectField", () => {
+describe("validateField", () => {
   describe("field name validation", () => {
     it("should report an error when field names don't match", async () => {
       const table = DataFrame({
@@ -19,7 +19,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toContainEqual({
         type: "field/name",
@@ -42,7 +42,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toHaveLength(0)
     })
 
@@ -60,7 +60,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(1)
       expect(errors).toContainEqual({
@@ -86,7 +86,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(1)
       expect(errors).toContainEqual({
@@ -111,13 +111,13 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
       expect(errors).toHaveLength(0)
     })
   })
 
   describe("cell types validation", () => {
-    it("should inspect string to integer conversion errors", async () => {
+    it("should validate string to integer conversion errors", async () => {
       const table = DataFrame({
         id: ["1", "bad", "3", "4x"],
       }).lazy()
@@ -131,7 +131,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(2)
       expect(errors).toContainEqual({
@@ -148,7 +148,7 @@ describe("inspectField", () => {
       })
     })
 
-    it("should inspect string to number conversion errors", async () => {
+    it("should validate string to number conversion errors", async () => {
       const table = DataFrame({
         price: ["10.5", "twenty", "30.75", "$40"],
       }).lazy()
@@ -162,7 +162,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(2)
       expect(errors).toContainEqual({
@@ -179,7 +179,7 @@ describe("inspectField", () => {
       })
     })
 
-    it("should inspect string to boolean conversion errors", async () => {
+    it("should validate string to boolean conversion errors", async () => {
       const table = DataFrame({
         active: ["true", "yes", "false", "0", "1"],
       }).lazy()
@@ -193,7 +193,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(1)
       expect(errors).toContainEqual({
@@ -204,7 +204,7 @@ describe("inspectField", () => {
       })
     })
 
-    it("should inspect string to date conversion errors", async () => {
+    it("should validate string to date conversion errors", async () => {
       const table = DataFrame({
         created: ["2023-01-15", "Jan 15, 2023", "20230115", "not-a-date"],
       }).lazy()
@@ -218,7 +218,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(3)
       expect(errors).toContainEqual({
@@ -241,7 +241,7 @@ describe("inspectField", () => {
       })
     })
 
-    it("should inspect string to time conversion errors", async () => {
+    it("should validate string to time conversion errors", async () => {
       const table = DataFrame({
         time: ["14:30:00", "2:30pm", "invalid", "14h30"],
       }).lazy()
@@ -255,7 +255,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(3)
       expect(errors).toContainEqual({
@@ -278,7 +278,7 @@ describe("inspectField", () => {
       })
     })
 
-    it("should inspect string to year conversion errors", async () => {
+    it("should validate string to year conversion errors", async () => {
       const table = DataFrame({
         year: ["2023", "23", "MMXXIII", "two-thousand-twenty-three"],
       }).lazy()
@@ -292,7 +292,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(3)
       expect(errors).toContainEqual({
@@ -315,7 +315,7 @@ describe("inspectField", () => {
       })
     })
 
-    it("should inspect string to datetime conversion errors", async () => {
+    it("should validate string to datetime conversion errors", async () => {
       const table = DataFrame({
         timestamp: [
           "2023-01-15T14:30:00",
@@ -334,7 +334,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       // Adjust the expectations to match actual behavior
       expect(errors.length).toBeGreaterThan(0)
@@ -369,12 +369,12 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(0)
     })
 
-    it("should inspect with non-string source data", async () => {
+    it("should validate with non-string source data", async () => {
       const table = DataFrame({
         is_active: [true, false, true, false],
       }).lazy()
@@ -388,7 +388,7 @@ describe("inspectField", () => {
         ],
       }
 
-      const errors = await inspectTable(table, { schema })
+      const errors = await validateTable(table, { schema })
 
       // Since the column matches the expected type, validation passes
       expect(errors).toHaveLength(0)

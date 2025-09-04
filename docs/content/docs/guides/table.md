@@ -9,11 +9,11 @@ The `@dpkit/table` package provides high-performance data validation and process
 
 ## Examples
 
-### Basic Table Inspection
+### Basic Table Validation
 
 ```typescript
 import { DataFrame } from "nodejs-polars"
-import { inspectTable } from "@dpkit/table"
+import { validateTable } from "@dpkit/table"
 import type { Schema } from "@dpkit/core"
 
 // Create a table from data
@@ -32,8 +32,8 @@ const schema: Schema = {
   ]
 }
 
-// Inspect the table
-const errors = await inspectTable(table, { schema })
+// validate the table
+const errors = await validateTable(table, { schema })
 console.log(errors) // Array of validation errors
 ```
 
@@ -116,7 +116,7 @@ const result = await processedTable.collect()
 ### Error Handling
 
 ```typescript
-const result = await inspectTable(table, { schema })
+const result = await validateTable(table, { schema })
 
 result.errors.forEach(error => {
   switch (error.type) {

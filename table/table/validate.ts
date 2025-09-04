@@ -2,14 +2,14 @@ import type { Schema } from "@dpkit/core"
 import { col, lit } from "nodejs-polars"
 import type { TableError } from "../error/index.ts"
 import { matchField } from "../field/index.ts"
-import { inspectField } from "../field/index.ts"
-import { inspectRows } from "../row/index.ts"
+import { validateField } from "../field/index.ts"
+import { validateRows } from "../row/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { PolarsSchema } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
 import { processFields } from "./process.ts"
 
-export async function inspectTable(
+export async function validateTable(
   table: Table,
   options?: {
     schema?: Schema
@@ -24,10 +24,10 @@ export async function inspectTable(
     const sample = await table.head(sampleRows).collect()
     const polarsSchema = getPolarsSchema(sample.schema)
 
-    const matchErrors = inspectFieldsMatch({ schema, polarsSchema })
+    const matchErrors = validateFieldsMatch({ schema, polarsSchema })
     errors.push(...matchErrors)
 
-    const fieldErrors = await inspectFields(
+    const fieldErrors = await validateFields(
       table,
       schema,
       polarsSchema,
@@ -39,7 +39,7 @@ export async function inspectTable(
   return errors
 }
 
-function inspectFieldsMatch(props: {
+function validateFieldsMatch(props: {
   schema: Schema
   polarsSchema: PolarsSchema
 }) {
@@ -122,7 +122,7 @@ function inspectFieldsMatch(props: {
   return errors
 }
 
-async function inspectFields(
+async function validateFields(
   table: Table,
   schema: Schema,
   polarsSchema: PolarsSchema,
@@ -157,13 +157,13 @@ async function inspectFields(
   for (const [index, field] of schema.fields.entries()) {
     const polarsField = matchField(index, field, schema, polarsSchema)
     if (polarsField) {
-      const fieldResult = inspectField(field, { errorTable, polarsField })
+      const fieldResult = validateField(field, { errorTable, polarsField })
       errorTable = fieldResult.errorTable
       errors.push(...fieldResult.errors)
     }
   }
 
-  const rowsResult = inspectRows(schema, errorTable)
+  const rowsResult = validateRows(schema, errorTable)
   errorTable = rowsResult.errorTable
   errors.push(...rowsResult.errors)
 
