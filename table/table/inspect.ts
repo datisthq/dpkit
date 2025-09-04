@@ -9,6 +9,8 @@ import type { PolarsSchema } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
 import { processFields } from "./process.ts"
 
+// TODO: Rename to validateTable
+
 export async function inspectTable(
   table: Table,
   options?: {
