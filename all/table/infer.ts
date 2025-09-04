@@ -15,7 +15,7 @@ export async function inferTable(
     dialect = await inferDialect(resource)
   }
 
-  const table = await loadTable({ ...resource, dialect })
+  const table = await loadTable({ ...resource, dialect }, { noInfer: true })
 
   let schema = await loadResourceSchema(resource.schema)
   if (!schema) {
