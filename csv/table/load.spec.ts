@@ -13,20 +13,21 @@ describe("loadCsvTable", () => {
       const table = await loadCsvTable({ path })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "english" },
-        { id: "2", name: "中文" },
+        { id: 1, name: "english" },
+        { id: 2, name: "中文" },
       ])
     })
 
     it("should load local file (multipart)", async () => {
       const path1 = await writeTempFile("id,name\n1,english")
       const path2 = await writeTempFile("2,中文\n3,german")
+
       const table = await loadCsvTable({ path: [path1, path2] })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "english" },
-        { id: "2", name: "中文" },
-        { id: "3", name: "german" },
+        { id: 1, name: "english" },
+        { id: 2, name: "中文" },
+        { id: 3, name: "german" },
       ])
     })
 
@@ -36,8 +37,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "english" },
-        { id: "2", name: "中国人" },
+        { id: 1, name: "english" },
+        { id: 2, name: "中国人" },
       ])
     })
 
@@ -50,9 +51,9 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "english" },
-        { id: "2", name: "中国人" },
-        { id: "3", name: "german" },
+        { id: 1, name: "english" },
+        { id: 2, name: "中国人" },
+        { id: 3, name: "german" },
       ])
     })
   })
@@ -63,8 +64,8 @@ describe("loadCsvTable", () => {
       const table = await loadCsvTable({ path })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "english" },
-        { id: "2", name: "中文" },
+        { id: 1, name: "english" },
+        { id: 2, name: "中文" },
       ])
     })
 
@@ -76,8 +77,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "alice" },
-        { id: "2", name: "bob" },
+        { id: 1, name: "alice" },
+        { id: 2, name: "bob" },
       ])
     })
 
@@ -90,8 +91,8 @@ describe("loadCsvTable", () => {
 
       const records = (await table.collect()).toRecords()
       expect(records).toEqual([
-        { column_1: "1", column_2: "alice" },
-        { column_1: "2", column_2: "bob" },
+        { column_1: 1, column_2: "alice" },
+        { column_1: 2, column_2: "bob" },
       ])
     })
 
@@ -103,8 +104,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "alice" },
-        { id: "2", name: "bob" },
+        { id: 1, name: "alice" },
+        { id: 2, name: "bob" },
       ])
     })
 
@@ -119,8 +120,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "apple,fruits" },
-        { id: "2", name: "orange,fruits" },
+        { id: 1, name: "apple,fruits" },
+        { id: 2, name: "orange,fruits" },
       ])
     })
 
@@ -135,8 +136,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "alice smith" },
-        { id: "2", name: "bob jones" },
+        { id: 1, name: "alice smith" },
+        { id: 2, name: "bob jones" },
       ])
     })
 
@@ -151,8 +152,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: 'alice"smith' },
-        { id: "2", name: 'bob"jones' },
+        { id: 1, name: 'alice"smith' },
+        { id: 2, name: 'bob"jones' },
       ])
     })
 
@@ -167,8 +168,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "alicesmith" },
-        { id: "2", name: "bobjones" },
+        { id: 1, name: "alicesmith" },
+        { id: 2, name: "bobjones" },
       ])
     })
 
@@ -184,8 +185,8 @@ describe("loadCsvTable", () => {
 
       const records = (await table.collect()).toRecords()
       expect(records).toEqual([
-        { id: "1", name: "alice" },
-        { id: "2", name: "bob" },
+        { id: 1, name: "alice" },
+        { id: 2, name: "bob" },
       ])
     })
 
@@ -199,8 +200,8 @@ describe("loadCsvTable", () => {
 
       const records = (await table.collect()).toRecords()
       expect(records).toEqual([
-        { id: "1", name: "alice" },
-        { id: "2", name: "bob" },
+        { id: 1, name: "alice" },
+        { id: 2, name: "bob" },
       ])
     })
 
@@ -216,8 +217,8 @@ describe("loadCsvTable", () => {
 
       const records = (await table.collect()).toRecords()
       expect(records).toEqual([
-        { id_int: "1", name_str: "alice" },
-        { id_int: "2", name_str: "bob" },
+        { id_int: 1, name_str: "alice" },
+        { id_int: 2, name_str: "bob" },
       ])
     })
 
@@ -231,8 +232,8 @@ describe("loadCsvTable", () => {
 
       const records = (await table.collect()).toRecords()
       expect(records).toEqual([
-        { id: "1", name: "alice" },
-        { id: "2", name: "bob" },
+        { id: 1, name: "alice" },
+        { id: 2, name: "bob" },
       ])
     })
 
@@ -248,8 +249,8 @@ describe("loadCsvTable", () => {
 
       const records = (await table.collect()).toRecords()
       expect(records).toEqual([
-        { id: "1", name: "alice" },
-        { id: "2", name: "bob" },
+        { id: 1, name: "alice" },
+        { id: 2, name: "bob" },
       ])
     })
 
@@ -265,8 +266,8 @@ describe("loadCsvTable", () => {
 
       const records = (await table.collect()).toRecords()
       expect(records).toEqual([
-        { id_int: "1", name_str: "alice" },
-        { id_int: "2", name_str: "bob" },
+        { id_int: 1, name_str: "alice" },
+        { id_int: 2, name_str: "bob" },
       ])
     })
 
@@ -280,9 +281,9 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "alice", age: "25" },
-        { id: "2", name: null, age: "30" },
-        { id: "3", name: "bob", age: null },
+        { id: 1, name: "alice", age: 25 },
+        { id: 2, name: null, age: 30 },
+        { id: 3, name: "bob", age: null },
       ])
     })
 
@@ -296,9 +297,9 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "alice", category: "fruits" },
-        { id: "2", name: "bob", category: "vegetables" },
-        { id: "3", name: "charlie", category: "grains" },
+        { id: 1, name: "alice", category: "fruits" },
+        { id: 2, name: "bob", category: "vegetables" },
+        { id: 3, name: "charlie", category: "grains" },
       ])
     })
 
@@ -317,8 +318,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", "full name": "alice smith", age: "25" },
-        { id: "2", "full name": "bob jones", age: "30" },
+        { id: 1, "full name": "alice smith", age: 25 },
+        { id: 2, "full name": "bob jones", age: 30 },
       ])
     })
 
@@ -333,8 +334,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "café" },
-        { id: "2", name: "naïve" },
+        { id: 1, name: "café" },
+        { id: 2, name: "naïve" },
       ])
     })
 
@@ -350,8 +351,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "café" },
-        { id: "2", name: "naïve" },
+        { id: 1, name: "café" },
+        { id: 2, name: "naïve" },
       ])
     })
 
@@ -367,8 +368,8 @@ describe("loadCsvTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { id: "1", name: "café" },
-        { id: "2", name: "résumé" },
+        { id: 1, name: "café" },
+        { id: 2, name: "résumé" },
       ])
     })
   })

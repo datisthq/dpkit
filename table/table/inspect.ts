@@ -132,13 +132,13 @@ async function inspectFields(
   const targetNames: string[] = []
 
   const sources = Object.entries(
-    processFields(schema, polarsSchema, { dontParse: true }),
+    processFields(schema, polarsSchema, { noParse: true }),
   ).map(([name, expr]) => {
     return expr.alias(`source:${name}`)
   })
 
   const targets = Object.entries(
-    processFields(schema, polarsSchema, { dontParse: false }),
+    processFields(schema, polarsSchema, { noParse: false }),
   ).map(([name, expr]) => {
     const targetName = `target:${name}`
     targetNames.push(targetName)

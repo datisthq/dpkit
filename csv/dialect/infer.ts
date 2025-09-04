@@ -19,16 +19,13 @@ export async function inferCsvDialect(
     })
 
     const sample = await text(stream)
+    const result = sniffSample(sample)
 
-    const CsvSniffer = CsvSnifferFactory()
-    const sniffer = new CsvSniffer(POSSIBLE_DELIMITERS)
-    const result = sniffer.sniff(sample)
-
-    if (result.delimiter) {
+    if (result?.delimiter) {
       dialect.delimiter = result.delimiter
     }
 
-    if (result.quoteChar) {
+    if (result?.quoteChar) {
       dialect.quoteChar = result.quoteChar
     }
 
@@ -43,4 +40,16 @@ export async function inferCsvDialect(
   }
 
   return dialect
+}
+
+// Sniffer can fail for some reasons
+function sniffSample(sample: string) {
+  try {
+    const CsvSniffer = CsvSnifferFactory()
+    const sniffer = new CsvSniffer(POSSIBLE_DELIMITERS)
+    const result = sniffer.sniff(sample)
+    return result
+  } catch {
+    return undefined
+  }
 }

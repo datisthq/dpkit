@@ -30,7 +30,7 @@ export async function processTable(
 export function processFields(
   schema: Schema,
   polarsSchema: PolarsSchema,
-  options?: { dontParse?: boolean },
+  options?: { noParse?: boolean },
 ) {
   const exprs: Record<string, Expr> = {}
 
@@ -41,7 +41,7 @@ export function processFields(
     if (polarsField) {
       expr = col(polarsField.name).alias(field.name)
 
-      if (!options?.dontParse && polarsField.type.equals(DataType.String)) {
+      if (!options?.noParse && polarsField.type.equals(DataType.String)) {
         expr = parseField(field, { expr, schema })
       }
     }

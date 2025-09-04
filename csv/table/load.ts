@@ -1,24 +1,34 @@
 import type { Dialect, Resource } from "@dpkit/core"
-import { loadResourceDialect } from "@dpkit/core"
+import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
+import { inferSchema, processTable } from "@dpkit/table"
 import { stripInitialSpace } from "@dpkit/table"
 import { joinHeaderRows } from "@dpkit/table"
 import { skipCommentRows } from "@dpkit/table"
+import type { LoadTableOptions } from "@dpkit/table"
 import { DataFrame, scanCSV } from "nodejs-polars"
 import type { ScanCsvOptions } from "nodejs-polars"
 import { Utf8, concat } from "nodejs-polars"
+import { inferCsvDialect } from "../dialect/index.ts"
 
 // TODO: Condier using sample to extract header first
 // for better commentChar + headerRows/commentRows support
 // (consult with the Data Package Working Group)
 
-export async function loadCsvTable(resource: Partial<Resource>) {
+export async function loadCsvTable(
+  resource: Partial<Resource>,
+  options?: LoadTableOptions,
+) {
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   if (!firstPath) {
     return DataFrame().lazy()
   }
 
-  const dialect = await loadResourceDialect(resource.dialect)
+  let dialect = await loadResourceDialect(resource.dialect)
+  if (!dialect && !options?.noInfer) {
+    dialect = await inferCsvDialect(resource)
+  }
+
   const scanOptions = getScanOptions(resource, dialect)
   let table = scanCSV(firstPath, scanOptions)
 
@@ -43,6 +53,15 @@ export async function loadCsvTable(resource: Partial<Resource>) {
     table = await joinHeaderRows(table, { dialect })
     table = skipCommentRows(table, { dialect })
     table = stripInitialSpace(table, { dialect })
+  }
+
+  let schema = await loadResourceSchema(resource.schema)
+  if (!schema && !options?.noInfer) {
+    schema = await inferSchema(table)
+  }
+
+  if (schema) {
+    table = await processTable(table, { schema })
   }
 
   return table
