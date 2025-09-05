@@ -1,6 +1,5 @@
 import type { Schema } from "@dpkit/core"
 import { normalizeFields } from "../field/index.ts"
-import type { ParseFieldOptions } from "../field/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
 
@@ -11,17 +10,14 @@ export async function normalizeTable(
   schema: Schema,
   options?: {
     noParse?: boolean
-    parseOptions?: ParseFieldOptions
   },
 ) {
-  const { noParse, parseOptions } = options ?? {}
+  const { noParse } = options ?? {}
 
   const head = await table.head(HEAD_ROWS).collect()
   const polarsSchema = getPolarsSchema(head.schema)
 
   return table.select(
-    Object.values(
-      normalizeFields(schema, polarsSchema, { noParse, parseOptions }),
-    ),
+    Object.values(normalizeFields(schema, polarsSchema, { noParse })),
   )
 }

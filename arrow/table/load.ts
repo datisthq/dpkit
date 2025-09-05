@@ -11,7 +11,7 @@ export async function loadArrowTable(
   resource: Partial<Resource>,
   options?: LoadTableOptions,
 ) {
-  const { noInfer, noParse, inferOptions, parseOptions } = options ?? {}
+  const { noInfer, noParse, inferOptions } = options ?? {}
 
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   if (!firstPath) {
@@ -29,7 +29,7 @@ export async function loadArrowTable(
   }
 
   if (schema) {
-    table = await normalizeTable(table, schema, { noParse, parseOptions })
+    table = await normalizeTable(table, schema, { noParse })
   }
 
   return table

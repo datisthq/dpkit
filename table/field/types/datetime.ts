@@ -5,19 +5,11 @@ import type { Expr } from "nodejs-polars"
 
 const DEFAULT_FORMAT = "%Y-%m-%dT%H:%M:%S"
 
-type DatetimeFieldOptions = {
-  datetimeFormat?: string
-}
-
 // TODO: Add support for timezone handling
-export function parseDatetimeField(
-  field: DatetimeField,
-  expr?: Expr,
-  options?: DatetimeFieldOptions,
-) {
+export function parseDatetimeField(field: DatetimeField, expr?: Expr) {
   expr = expr ?? col(field.name)
 
-  let format = options?.datetimeFormat ?? DEFAULT_FORMAT
+  let format = DEFAULT_FORMAT
   if (field.format && field.format !== "default" && field.format !== "any") {
     format = field.format
   }

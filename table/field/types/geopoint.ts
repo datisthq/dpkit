@@ -2,19 +2,11 @@ import type { GeopointField } from "@dpkit/core"
 import { DataType, col, lit } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
-type GeopointFieldOptions = {
-  geopointFormat?: string
-}
-
-export function parseGeopointField(
-  field: GeopointField,
-  expr?: Expr,
-  options?: GeopointFieldOptions,
-) {
+export function parseGeopointField(field: GeopointField, expr?: Expr) {
   expr = expr ?? col(field.name)
 
   // Default format is "lon,lat" string
-  const format = field.format ?? options?.geopointFormat ?? "default"
+  const format = field.format ?? "default"
 
   if (format === "default") {
     expr = expr.str.split(",").cast(DataType.List(DataType.Float64))

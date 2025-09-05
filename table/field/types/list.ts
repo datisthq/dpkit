@@ -2,23 +2,14 @@ import type { ListField } from "@dpkit/core"
 import { DataType, col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
-type ListFieldOptions = {
-  listDelimiter?: string
-  listItemType?: ListField["itemType"]
-}
-
 // TODO:
 // Add more validation:
 // - Return null instead of list if all array values are nulls?
-export function parseListField(
-  field: ListField,
-  expr?: Expr,
-  options?: ListFieldOptions,
-) {
+export function parseListField(field: ListField, expr?: Expr) {
   expr = expr ?? col(field.name)
 
-  const delimiter = field.delimiter ?? options?.listDelimiter ?? ","
-  const itemType = field.itemType ?? options?.listItemType
+  const delimiter = field.delimiter ?? ","
+  const itemType = field.itemType
 
   let dtype: any = DataType.String
   if (itemType === "integer") dtype = DataType.Int64

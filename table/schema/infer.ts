@@ -1,4 +1,4 @@
-import type { Field, Schema } from "@dpkit/core"
+import type { Field, GeopointField, ListField, Schema } from "@dpkit/core"
 import { col } from "nodejs-polars"
 import type { Table } from "../table/index.ts"
 import { getPolarsSchema } from "./Schema.ts"
@@ -10,6 +10,18 @@ export type InferSchemaOptions = {
   confidence?: number
   commaDecimal?: boolean
   monthFirst?: boolean
+  missingValues?: string[]
+  decimalChar?: string
+  groupChar?: string
+  bareNumber?: boolean
+  trueValues?: string[]
+  falseValues?: string[]
+  datetimeFormat?: string
+  dateFormat?: string
+  timeFormat?: string
+  listDelimiter?: string
+  listItemType?: ListField["itemType"]
+  geopointFormat?: GeopointField["format"]
 }
 
 export async function inferSchema(table: Table, options?: InferSchemaOptions) {

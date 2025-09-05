@@ -3,22 +3,13 @@ import { DataType } from "nodejs-polars"
 import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
-type IntegerFieldOptions = {
-  groupChar?: string
-  bareNumber?: boolean
-}
-
 // TODO: support categories
 // TODO: support categoriesOrder
-export function parseIntegerField(
-  field: IntegerField,
-  expr?: Expr,
-  options?: IntegerFieldOptions,
-) {
+export function parseIntegerField(field: IntegerField, expr?: Expr) {
   expr = expr ?? col(field.name)
 
-  const groupChar = field.groupChar ?? options?.groupChar
-  const bareNumber = field.bareNumber ?? options?.bareNumber
+  const groupChar = field.groupChar
+  const bareNumber = field.bareNumber
 
   // Handle non-bare numbers (with currency symbols, percent signs, etc.)
   if (bareNumber === false) {

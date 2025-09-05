@@ -5,18 +5,10 @@ import type { Expr } from "nodejs-polars"
 
 const DEFAULT_FORMAT = "%Y-%m-%d"
 
-type DateFieldOptions = {
-  dateFormat?: string
-}
-
-export function parseDateField(
-  field: DateField,
-  expr?: Expr,
-  options?: DateFieldOptions,
-) {
+export function parseDateField(field: DateField, expr?: Expr) {
   expr = expr ?? col(field.name)
 
-  let format = options?.dateFormat ?? DEFAULT_FORMAT
+  let format = DEFAULT_FORMAT
   if (field.format && field.format !== "default" && field.format !== "any") {
     format = field.format
   }

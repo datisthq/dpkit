@@ -13,7 +13,7 @@ export async function loadOdsTable(
   resource: Partial<Resource>,
   options?: LoadTableOptions,
 ) {
-  const { noInfer, noParse, inferOptions, parseOptions } = options ?? {}
+  const { noInfer, noParse, inferOptions } = options ?? {}
 
   const paths = await prefetchFiles(resource.path)
   if (!paths.length) {
@@ -52,7 +52,7 @@ export async function loadOdsTable(
   }
 
   if (schema) {
-    table = await normalizeTable(table, schema, { noParse, parseOptions })
+    table = await normalizeTable(table, schema, { noParse })
   }
 
   return table

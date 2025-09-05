@@ -4,7 +4,6 @@ import { DataType } from "nodejs-polars"
 import { col, lit } from "nodejs-polars"
 import { matchField } from "../field/index.ts"
 import { parseField } from "../field/index.ts"
-import type { ParseFieldOptions } from "../field/index.ts"
 import type { PolarsSchema } from "../schema/index.ts"
 
 export function normalizeFields(
@@ -12,10 +11,9 @@ export function normalizeFields(
   polarsSchema: PolarsSchema,
   options?: {
     noParse?: boolean
-    parseOptions?: ParseFieldOptions
   },
 ) {
-  const { noParse, parseOptions } = options ?? {}
+  const { noParse } = options ?? {}
   const exprs: Record<string, Expr> = {}
 
   for (const [index, field] of schema.fields.entries()) {
@@ -28,7 +26,7 @@ export function normalizeFields(
       if (!noParse && polarsField.type.equals(DataType.String)) {
         const missingValues = field.missingValues ?? schema.missingValues
         const mergedField = { ...field, missingValues }
-        expr = parseField(mergedField, expr, parseOptions)
+        expr = parseField(mergedField, expr)
       }
     }
 

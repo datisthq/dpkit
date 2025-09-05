@@ -1,4 +1,4 @@
-import type { Field, GeopointField, ListField } from "@dpkit/core"
+import type { Field } from "@dpkit/core"
 import { col, lit, when } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import { parseArrayField } from "./types/array.ts"
@@ -17,33 +17,13 @@ import { parseTimeField } from "./types/time.ts"
 import { parseYearField } from "./types/year.ts"
 import { parseYearmonthField } from "./types/yearmonth.ts"
 
-export type ParseFieldOptions = {
-  missingValues?: string[]
-  decimalChar?: string
-  groupChar?: string
-  bareNumber?: boolean
-  trueValues?: string[]
-  falseValues?: string[]
-  datetimeFormat?: string
-  dateFormat?: string
-  timeFormat?: string
-  listDelimiter?: string
-  listItemType?: ListField["itemType"]
-  geopointFormat?: GeopointField["format"]
-}
-
 const DEFAULT_MISSING_VALUES = [""]
 
-export function parseField(
-  field: Field,
-  expr?: Expr,
-  options?: ParseFieldOptions,
-) {
+export function parseField(field: Field, expr?: Expr) {
   expr = expr ?? col(field.name)
 
   const flattenMissingValues =
     field.missingValues?.map(it => (typeof it === "string" ? it : it.value)) ??
-    options?.missingValues ??
     DEFAULT_MISSING_VALUES
 
   if (flattenMissingValues.length) {
@@ -57,23 +37,23 @@ export function parseField(
     case "string":
       return parseStringField(field, expr)
     case "integer":
-      return parseIntegerField(field, expr, options)
+      return parseIntegerField(field, expr)
     case "number":
-      return parseNumberField(field, expr, options)
+      return parseNumberField(field, expr)
     case "boolean":
-      return parseBooleanField(field, expr, options)
+      return parseBooleanField(field, expr)
     case "date":
-      return parseDateField(field, expr, options)
+      return parseDateField(field, expr)
     case "datetime":
-      return parseDatetimeField(field, expr, options)
+      return parseDatetimeField(field, expr)
     case "time":
-      return parseTimeField(field, expr, options)
+      return parseTimeField(field, expr)
     case "year":
       return parseYearField(field, expr)
     case "yearmonth":
       return parseYearmonthField(field, expr)
     case "list":
-      return parseListField(field, expr, options)
+      return parseListField(field, expr)
     case "array":
       return parseArrayField(field, expr)
     case "geopoint":

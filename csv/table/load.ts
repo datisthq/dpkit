@@ -19,7 +19,7 @@ export async function loadCsvTable(
   resource: Partial<Resource>,
   options?: LoadTableOptions,
 ) {
-  const { noInfer, noParse, inferOptions, parseOptions } = options ?? {}
+  const { noInfer, noParse, inferOptions } = options ?? {}
 
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   if (!firstPath) {
@@ -63,7 +63,7 @@ export async function loadCsvTable(
   }
 
   if (schema) {
-    table = await normalizeTable(table, schema, { noParse, parseOptions })
+    table = await normalizeTable(table, schema, { noParse })
   }
 
   return table
