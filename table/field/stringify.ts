@@ -1,10 +1,7 @@
 import type { Field } from "@dpkit/core"
+import type { Expr } from "nodejs-polars"
 
-export type StringifyFieldOptions = {
-  missingValue?: string
-}
-
-export function stringifyField(field: Field, options?: StringifyFieldOptions) {
+export function stringifyField(field: Field, expr?: Expr) {
   console.log(field)
-  console.log(options)
+  console.log(expr)
 }

@@ -1,23 +1,39 @@
 import type { Field, Schema } from "@dpkit/core"
+import type { GeopointField, ListField } from "@dpkit/core"
 import { col } from "nodejs-polars"
-import type { ParseFieldOptions } from "../field/index.ts"
+import { getPolarsSchema } from "../schema/index.ts"
 import type { Table } from "../table/index.ts"
-import { getPolarsSchema } from "./Schema.ts"
 
 // TODO: Support fieldNames?
 // TODO: Support fieldTypes?
 // TODO: Implement actual options usage for inferring
 // TODO: Review default values being {fields: []} vs undefined
 
-export type InferSchemaOptions = ParseFieldOptions & {
+export interface ReflectTableOptions {
   sampleRows?: number
   confidence?: number
   commaDecimal?: boolean
   monthFirst?: boolean
+  keepStrings?: boolean
+  missingValues?: string[]
+  decimalChar?: string
+  groupChar?: string
+  bareNumber?: boolean
+  trueValues?: string[]
+  falseValues?: string[]
+  datetimeFormat?: string
+  dateFormat?: string
+  timeFormat?: string
+  listDelimiter?: string
+  listItemType?: ListField["itemType"]
+  geopointFormat?: GeopointField["format"]
 }
 
-export async function inferSchema(table: Table, options?: InferSchemaOptions) {
-  const { sampleRows = 100, confidence = 0.9 } = options ?? {}
+export async function reflectTable(
+  table: Table,
+  options?: ReflectTableOptions,
+) {
+  const { sampleRows = 100, confidence = 0.9, keepStrings } = options ?? {}
   const schema: Schema = {
     fields: [],
   }
@@ -37,7 +53,7 @@ export async function inferSchema(table: Table, options?: InferSchemaOptions) {
 
     let field = { name, type }
 
-    if (type === "string") {
+    if (!keepStrings && type === "string") {
       for (const [regex, patch] of Object.entries(regexMapping)) {
         const failures = sample
           .filter(col(name).str.contains(regex).not())
@@ -87,7 +103,7 @@ function createTypeMapping() {
   return mapping
 }
 
-function createRegexMapping(options?: InferSchemaOptions) {
+function createRegexMapping(options?: ReflectTableOptions) {
   const { commaDecimal, monthFirst } = options ?? {}
 
   const mapping: Record<string, Partial<Field>> = {
@@ -154,7 +170,7 @@ function createRegexMapping(options?: InferSchemaOptions) {
   return mapping
 }
 
-function enhanceField(field: Field, options?: InferSchemaOptions) {
+function enhanceField(field: Field, options?: ReflectTableOptions) {
   if (field.type === "integer") {
     field.groupChar = options?.groupChar ?? field.groupChar
     field.bareNumber = options?.bareNumber ?? field.bareNumber
@@ -179,6 +195,6 @@ function enhanceField(field: Field, options?: InferSchemaOptions) {
   }
 }
 
-function enhanceSchema(schema: Schema, options?: InferSchemaOptions) {
+function enhanceSchema(schema: Schema, options?: ReflectTableOptions) {
   schema.missingValues = options?.missingValues ?? schema.missingValues
 }
