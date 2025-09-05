@@ -3,11 +3,11 @@ import { col, lit } from "nodejs-polars"
 import type { TableError } from "../error/index.ts"
 import { matchField } from "../field/index.ts"
 import { validateField } from "../field/index.ts"
-import { normalizeFields } from "../field/index.ts"
 import { validateRows } from "../row/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { PolarsSchema } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
+import { normalizeFields } from "./normalize.ts"
 
 export async function validateTable(
   table: Table,
