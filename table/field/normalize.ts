@@ -26,7 +26,8 @@ export function normalizeFields(
       expr = col(polarsField.name).alias(field.name)
 
       if (!noParse && polarsField.type.equals(DataType.String)) {
-        const mergedField = { missingValues: schema.missingValues, ...field }
+        const missingValues = field.missingValues ?? schema.missingValues
+        const mergedField = { ...field, missingValues }
         expr = parseField(mergedField, expr, parseOptions)
       }
     }

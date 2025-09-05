@@ -5,10 +5,18 @@ import type { Expr } from "nodejs-polars"
 
 const DEFAULT_FORMAT = "%H:%M:%S"
 
-export function parseTimeField(field: TimeField, expr?: Expr) {
+type TimeFieldOptions = {
+  timeFormat?: string
+}
+
+export function parseTimeField(
+  field: TimeField,
+  expr?: Expr,
+  options?: TimeFieldOptions,
+) {
   expr = expr ?? col(field.name)
 
-  let format = DEFAULT_FORMAT
+  let format = options?.timeFormat ?? DEFAULT_FORMAT
   if (field.format && field.format !== "default" && field.format !== "any") {
     format = field.format
   }

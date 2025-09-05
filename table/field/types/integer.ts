@@ -3,25 +3,34 @@ import { DataType } from "nodejs-polars"
 import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
+type IntegerFieldOptions = {
+  groupChar?: string
+  bareNumber?: boolean
+}
+
 // TODO: support categories
 // TODO: support categoriesOrder
-export function parseIntegerField(field: IntegerField, expr?: Expr) {
+export function parseIntegerField(
+  field: IntegerField,
+  expr?: Expr,
+  options?: IntegerFieldOptions,
+) {
   expr = expr ?? col(field.name)
 
+  const groupChar = field.groupChar ?? options?.groupChar
+  const bareNumber = field.bareNumber ?? options?.bareNumber
+
   // Handle non-bare numbers (with currency symbols, percent signs, etc.)
-  if (field.bareNumber === false) {
+  if (bareNumber === false) {
     // Preserve the minus sign when removing leading characters
     expr = expr.str.replaceAll("^[^\\d\\-]+", "")
     expr = expr.str.replaceAll("[^\\d\\-]+$", "")
   }
 
   // Handle group character (thousands separator)
-  if (field.groupChar) {
+  if (groupChar) {
     // Escape special characters for regex
-    const escapedGroupChar = field.groupChar.replace(
-      /[.*+?^${}()|[\]\\]/g,
-      "\\$&",
-    )
+    const escapedGroupChar = groupChar.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
     expr = expr.str.replaceAll(escapedGroupChar, "")
   }
 

@@ -3,15 +3,26 @@ import { DataType } from "nodejs-polars"
 import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
-export function parseNumberField(field: NumberField, expr?: Expr) {
+type NumberFieldOptions = {
+  decimalChar?: string
+  groupChar?: string
+  bareNumber?: boolean
+}
+
+export function parseNumberField(
+  field: NumberField,
+  expr?: Expr,
+  options?: NumberFieldOptions,
+) {
   expr = expr ?? col(field.name)
 
   // Extract the decimal and group characters
-  const decimalChar = field.decimalChar || "."
-  const groupChar = field.groupChar || ""
+  const decimalChar = field.decimalChar ?? options?.decimalChar ?? "."
+  const groupChar = field.groupChar ?? options?.groupChar ?? ""
+  const bareNumber = field.bareNumber ?? options?.bareNumber ?? true
 
   // Handle non-bare numbers (with currency symbols, percent signs, etc.)
-  if (field.bareNumber === false) {
+  if (bareNumber === false) {
     // Remove leading non-digit characters (except minus sign and allowed decimal points)
     const allowedDecimalChars =
       decimalChar === "." ? "\\." : `\\.${decimalChar}`
