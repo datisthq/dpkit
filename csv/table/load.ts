@@ -25,9 +25,7 @@ export async function loadCsvTable(
   }
 
   let dialect = await loadResourceDialect(resource.dialect)
-  if (!dialect) {
-    dialect = await inferCsvDialect(resource, options)
-  }
+  if (!dialect) dialect = await inferCsvDialect(resource, options)
 
   const scanOptions = getScanOptions(resource, dialect)
   let table = scanCSV(firstPath, scanOptions)
@@ -55,13 +53,13 @@ export async function loadCsvTable(
     table = stripInitialSpace(table, { dialect })
   }
 
-  let schema = await loadResourceSchema(resource.schema)
-  if (!schema) {
-    schema = await reflectTable(table, options)
+  if (!options?.denormalized) {
+    let schema = await loadResourceSchema(resource.schema)
+    if (!schema) schema = await reflectTable(table, options)
+    table = await normalizeTable(table, schema)
   }
 
-  table = await normalizeTable(table, schema)
-  return { table, schema, dialect }
+  return table
 }
 
 function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {

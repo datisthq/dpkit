@@ -12,7 +12,7 @@ describe("loadParquetTable", () => {
       const path = getTempFilePath()
       DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeParquet(path)
 
-      const { table } = await loadParquetTable({ path })
+      const table = await loadParquetTable({ path })
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -25,7 +25,7 @@ describe("loadParquetTable", () => {
       DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeParquet(path1)
       DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeParquet(path2)
 
-      const { table } = await loadParquetTable({ path: [path1, path2] })
+      const table = await loadParquetTable({ path: [path1, path2] })
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -35,7 +35,7 @@ describe("loadParquetTable", () => {
     })
 
     it("should load remote file", async () => {
-      const { table } = await loadParquetTable({
+      const table = await loadParquetTable({
         path: "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.parquet",
       })
 
@@ -46,7 +46,7 @@ describe("loadParquetTable", () => {
     })
 
     it("should load remote file (multipart)", async () => {
-      const { table } = await loadParquetTable({
+      const table = await loadParquetTable({
         path: [
           "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.parquet",
           "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.parquet",

@@ -14,7 +14,7 @@ describe("saveArrowTable", () => {
 
     await saveArrowTable(source, { path })
 
-    const { table } = await loadArrowTable({ path })
+    const table = await loadArrowTable({ path })
     expect((await table.collect()).toRecords()).toEqual([
       { id: 1.0, name: "Alice" },
       { id: 2.0, name: "Bob" },

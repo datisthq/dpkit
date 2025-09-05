@@ -57,11 +57,11 @@ export async function loadTable(
 
   let table = DataFrame(records).lazy()
 
-  let schema = await loadResourceSchema(resource.schema)
-  if (!schema) {
-    schema = await reflectTable(table, options)
+  if (!options?.denormalized) {
+    let schema = await loadResourceSchema(resource.schema)
+    if (!schema) schema = await reflectTable(table, options)
+    table = await normalizeTable(table, schema)
   }
 
-  table = await normalizeTable(table, schema)
-  return { table, schema, dialect }
+  return table
 }

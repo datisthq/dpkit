@@ -19,7 +19,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row1, row2, row3])
 
-      const { table } = await loadOdsTable({ path })
+      const table = await loadOdsTable({ path })
       expect((await table.collect()).toRecords()).toEqual([record1, record2])
     })
 
@@ -29,7 +29,7 @@ describe("loadOdsTable", () => {
       await writeTestData(path1, [row1, row2, row3])
       await writeTestData(path2, [row1, row2, row3])
 
-      const { table } = await loadOdsTable({ path: [path1, path2] })
+      const table = await loadOdsTable({ path: [path1, path2] })
       expect((await table.collect()).toRecords()).toEqual([
         record1,
         record2,
@@ -40,7 +40,7 @@ describe("loadOdsTable", () => {
 
     // TODO: rebase on own remote fixture
     it("should load remote file", async () => {
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path: "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.ods",
       })
 
@@ -52,7 +52,7 @@ describe("loadOdsTable", () => {
 
     // TODO: rebase on own remote fixture
     it("should load multipart remote file", async () => {
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path: [
           "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.ods",
           "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.ods",
@@ -73,7 +73,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row1, row2, row3], { sheetNumber: 2 })
 
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path,
         dialect: { sheetNumber: 2 },
       })
@@ -85,7 +85,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row1, row2, row3], { sheetName: "Sheet2" })
 
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path,
         dialect: { sheetName: "Sheet2" },
       })
@@ -97,7 +97,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row2, row3])
 
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path,
         dialect: { header: false },
       })
@@ -112,7 +112,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row1, row2, row3])
 
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path,
         dialect: { headerRows: [2] },
       })
@@ -126,7 +126,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row1, row2, row3])
 
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path,
         dialect: { headerRows: [1, 2] },
       })
@@ -140,7 +140,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row1, row2, row3])
 
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path,
         dialect: { headerRows: [1, 2], headerJoin: "-" },
       })
@@ -154,7 +154,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row1, row2, row3])
 
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path,
         dialect: { commentRows: [2] },
       })
@@ -166,7 +166,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row1, row2, row3, ["#comment"]])
 
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path,
         dialect: { commentChar: "#" },
       })
@@ -178,7 +178,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row1, row2, row3, [3, "german", "bad"]])
 
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path,
         dialect: { commentChar: "#" },
       })
@@ -194,7 +194,7 @@ describe("loadOdsTable", () => {
       const path = getTempFilePath()
       await writeTestData(path, [row1, row2, row3, [3]])
 
-      const { table } = await loadOdsTable({
+      const table = await loadOdsTable({
         path,
         dialect: { commentChar: "#" },
       })

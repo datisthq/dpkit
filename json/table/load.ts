@@ -34,10 +34,7 @@ async function loadTable(
     throw new Error("Resource path is not defined")
   }
 
-  let dialect = await loadResourceDialect(resource.dialect)
-  if (!dialect) {
-    dialect = {}
-  }
+  const dialect = await loadResourceDialect(resource.dialect)
 
   const tables: Table[] = []
   for (const path of paths) {
@@ -59,13 +56,13 @@ async function loadTable(
 
   let table = concat(tables)
 
-  let schema = await loadResourceSchema(resource.schema)
-  if (!schema) {
-    schema = await reflectTable(table, options)
+  if (!options?.denormalized) {
+    let schema = await loadResourceSchema(resource.schema)
+    if (!schema) schema = await reflectTable(table, options)
+    table = await normalizeTable(table, schema)
   }
 
-  table = await normalizeTable(table, schema)
-  return { table, schema, dialect }
+  return table
 }
 
 function processData(data: any, dialect: Dialect) {

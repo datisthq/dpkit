@@ -10,7 +10,7 @@ describe("loadCsvTable", () => {
   describe("file variations", () => {
     it("should load local file", async () => {
       const path = await writeTempFile("id,name\n1,english\n2,中文")
-      const { table } = await loadCsvTable({ path })
+      const table = await loadCsvTable({ path })
 
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
@@ -22,7 +22,7 @@ describe("loadCsvTable", () => {
       const path1 = await writeTempFile("id,name\n1,english")
       const path2 = await writeTempFile("2,中文\n3,german")
 
-      const { table } = await loadCsvTable({ path: [path1, path2] })
+      const table = await loadCsvTable({ path: [path1, path2] })
 
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
@@ -32,7 +32,7 @@ describe("loadCsvTable", () => {
     })
 
     it("should load remote file", async () => {
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/core/package/fixtures/table.csv",
       })
 
@@ -43,7 +43,7 @@ describe("loadCsvTable", () => {
     })
 
     it("should load remote file (multipart)", async () => {
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path: [
           "https://gist.githubusercontent.com/roll/d20416f5e6dfc3fc1a7c4eef8452d581/raw/1c9cd1a020389921bf83e5a0395bb00c6b27402d/tabl1.csv",
           "https://gist.githubusercontent.com/roll/ba1c358f1daa994f8094633669d60f50/raw/03e0e54f9d4df7ff08b0d0db937fe5d720d8dfe6/table2.csv",
@@ -61,7 +61,7 @@ describe("loadCsvTable", () => {
   describe("dialect variations", () => {
     it("should handle windows line terminator by default", async () => {
       const path = await writeTempFile("id,name\r\n1,english\r\n2,中文")
-      const { table } = await loadCsvTable({ path })
+      const table = await loadCsvTable({ path })
 
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
@@ -71,7 +71,7 @@ describe("loadCsvTable", () => {
 
     it("should handle custom delimiter", async () => {
       const path = await writeTempFile("id|name\n1|alice\n2|bob")
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { delimiter: "|" },
       })
@@ -84,7 +84,7 @@ describe("loadCsvTable", () => {
 
     it("should handle files without header", async () => {
       const path = await writeTempFile("1,alice\n2,bob")
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { header: false },
       })
@@ -98,7 +98,7 @@ describe("loadCsvTable", () => {
 
     it.skip("should handle custom line terminator", async () => {
       const path = await writeTempFile("id,name|1,alice|2,bob")
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { lineTerminator: "|" },
       })
@@ -114,7 +114,7 @@ describe("loadCsvTable", () => {
         "id,name\n1,apple|,fruits\n2,orange|,fruits",
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { escapeChar: "|" },
       })
@@ -130,7 +130,7 @@ describe("loadCsvTable", () => {
         "id,name\n1,'alice smith'\n2,'bob jones'",
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { quoteChar: "'" },
       })
@@ -146,7 +146,7 @@ describe("loadCsvTable", () => {
         'id,name\n1,"alice""smith"\n2,"bob""jones"',
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { doubleQuote: true },
       })
@@ -162,7 +162,7 @@ describe("loadCsvTable", () => {
         'id,name\n1,"alice""smith"\n2,"bob""jones"',
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { doubleQuote: false },
       })
@@ -178,7 +178,7 @@ describe("loadCsvTable", () => {
         "# This is a comment\nid,name\n1,alice\n# Another comment\n2,bob",
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { commentChar: "#" },
       })
@@ -193,7 +193,7 @@ describe("loadCsvTable", () => {
     it("should support headerRows", async () => {
       const path = await writeTempFile("#comment\nid,name\n1,alice\n2,bob")
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { headerRows: [2] },
       })
@@ -210,7 +210,7 @@ describe("loadCsvTable", () => {
         "#comment\nid,name\nint,str\n1,alice\n2,bob",
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { headerRows: [2, 3], headerJoin: "_" },
       })
@@ -225,7 +225,7 @@ describe("loadCsvTable", () => {
     it("should support commentRows", async () => {
       const path = await writeTempFile("id,name\n1,alice\ncomment\n2,bob")
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { commentRows: [3] },
       })
@@ -242,7 +242,7 @@ describe("loadCsvTable", () => {
         "#comment\nid,name\n1,alice\n#comment\n2,bob",
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { headerRows: [2], commentRows: [4] },
       })
@@ -259,7 +259,7 @@ describe("loadCsvTable", () => {
         "#comment\nid,name\nint,str\n1,alice\n#comment\n2,bob",
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { headerRows: [2, 3], headerJoin: "_", commentRows: [5] },
       })
@@ -275,7 +275,7 @@ describe("loadCsvTable", () => {
       const path = await writeTempFile(
         "id,name,age\n1,alice,25\n2,N/A,30\n3,bob,N/A",
       )
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { nullSequence: "N/A" },
       })
@@ -291,7 +291,7 @@ describe("loadCsvTable", () => {
       const path = await writeTempFile(
         "id,name,category\n1, alice, fruits\n2,  bob,  vegetables\n3,charlie,grains",
       )
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: { skipInitialSpace: true },
       })
@@ -307,7 +307,7 @@ describe("loadCsvTable", () => {
       const path = await writeTempFile(
         "#comment\nid|'full name'|age\n1|'alice smith'|25\n2|'bob jones'|30",
       )
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         dialect: {
           delimiter: "|",
@@ -328,7 +328,7 @@ describe("loadCsvTable", () => {
         Buffer.from("id,name\n1,café\n2,naïve", "utf8"),
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         encoding: "utf8",
       })
@@ -345,7 +345,7 @@ describe("loadCsvTable", () => {
         Buffer.from("id,name\n1,café\n2,naïve", "utf16le"),
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         encoding: "utf16",
       })
@@ -362,7 +362,7 @@ describe("loadCsvTable", () => {
         Buffer.from("id,name\n1,café\n2,résumé", "latin1"),
       )
 
-      const { table } = await loadCsvTable({
+      const table = await loadCsvTable({
         path,
         encoding: "latin1",
       })

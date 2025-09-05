@@ -14,7 +14,7 @@ describe("saveParquetTable", () => {
 
     await saveParquetTable(source, { path })
 
-    const { table } = await loadParquetTable({ path })
+    const table = await loadParquetTable({ path })
     expect((await table.collect()).toRecords()).toEqual([
       { id: 1.0, name: "Alice" },
       { id: 2.0, name: "Bob" },

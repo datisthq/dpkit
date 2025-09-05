@@ -16,7 +16,7 @@ describe("SqliteDriver", () => {
 
     const source = pl.DataFrame([record1, record2]).lazy()
     await saveSqliteTable(source, { path, dialect })
-    const { table } = await loadSqliteTable({ path, dialect })
+    const table = await loadSqliteTable({ path, dialect })
 
     expect((await table.collect()).toRecords()).toEqual([record1, record2])
   })
@@ -26,7 +26,7 @@ describe("SqliteDriver", () => {
 
     const source = pl.DataFrame([record1, record2]).lazy()
     await saveSqliteTable(source, { path, dialect })
-    const { table } = await loadSqliteTable({ path, dialect })
+    const table = await loadSqliteTable({ path, dialect })
 
     expect((await table.collect()).toRecords()).toEqual([record1, record2])
   })
@@ -50,7 +50,7 @@ describe("SqliteDriver", () => {
       .lazy()
 
     await saveSqliteTable(source, { path, dialect })
-    const { table } = await loadSqliteTable({ path, dialect })
+    const table = await loadSqliteTable({ path, dialect })
 
     expect((await table.collect()).toRecords()).toEqual([
       {
