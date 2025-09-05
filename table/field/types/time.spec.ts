@@ -30,7 +30,7 @@ describe("parseTimeField", () => {
       fields: [{ name: "name", type: "time" as const, ...options }],
     }
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
 
     expect(df.toRecords()[0]?.name).toEqual(expected)

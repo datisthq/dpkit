@@ -32,7 +32,7 @@ describe.skip("parseDatetimeField", () => {
       fields: [{ name: "name", type: "datetime" as const, ...options }],
     }
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
 
     expect(df.toRecords()[0]?.name).toEqual(expected)

@@ -1,10 +1,17 @@
 import type { Dialect, Plugin, Resource } from "@dpkit/core"
+import type { ParseFieldOptions, StringifyFieldOptions } from "./field/index.ts"
+import type { InferSchemaOptions } from "./schema/index.ts"
 import type { Table } from "./table/index.ts"
 
-export type InferDialectOptions = { sampleBytes?: number }
+export type InferDialectOptions = {
+  sampleBytes?: number
+}
 
 export type LoadTableOptions = {
   noInfer?: boolean
+  noParse?: boolean
+  inferOptions?: InferDialectOptions & InferSchemaOptions
+  parseOptions?: ParseFieldOptions
 }
 
 export type SaveTableOptions = {
@@ -12,6 +19,7 @@ export type SaveTableOptions = {
   format?: string
   dialect?: Dialect
   overwrite?: boolean
+  stringifyOptions?: StringifyFieldOptions
 }
 
 export interface TablePlugin extends Plugin {

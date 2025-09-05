@@ -33,7 +33,7 @@ describe("parseListField", () => {
         fields: [{ name: "name", type: "list" as const }],
       }
 
-      const ldf = await normalizeTable(table, { schema })
+      const ldf = await normalizeTable(table, schema)
       const df = await ldf.collect()
 
       expect(df.toRecords()[0]?.name).toEqual(value)
@@ -72,7 +72,7 @@ describe("parseListField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, { schema })
+      const ldf = await normalizeTable(table, schema)
       const df = await ldf.collect()
 
       expect(df.toRecords()[0]?.name).toEqual(value)
@@ -110,7 +110,7 @@ describe("parseListField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, { schema })
+      const ldf = await normalizeTable(table, schema)
       const df = await ldf.collect()
 
       expect(df.toRecords()[0]?.name).toEqual(value)
@@ -140,7 +140,7 @@ describe("parseListField", () => {
         fields: [{ name: "name", type: "list" as const, delimiter: ";" }],
       }
 
-      const ldf = await normalizeTable(table, { schema })
+      const ldf = await normalizeTable(table, schema)
       const df = await ldf.collect()
 
       expect(df.toRecords()[0]?.name).toEqual(value)

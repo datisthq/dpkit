@@ -13,6 +13,8 @@ export async function loadOdsTable(
   resource: Partial<Resource>,
   options?: LoadTableOptions,
 ) {
+  const { noInfer, noParse, inferOptions, parseOptions } = options ?? {}
+
   const paths = await prefetchFiles(resource.path)
   if (!paths.length) {
     return DataFrame().lazy()
@@ -45,12 +47,12 @@ export async function loadOdsTable(
   let table = concat(tables)
 
   let schema = await loadResourceSchema(resource.schema)
-  if (!schema && !options?.noInfer) {
-    schema = await inferSchema(table)
+  if (!schema && !noInfer) {
+    schema = await inferSchema(table, inferOptions)
   }
 
   if (schema) {
-    table = await normalizeTable(table, { schema })
+    table = await normalizeTable(table, schema, { noParse, parseOptions })
   }
 
   return table

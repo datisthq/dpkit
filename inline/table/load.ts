@@ -10,6 +10,8 @@ export async function loadInlineTable(
   resource: Partial<Resource>,
   options?: LoadTableOptions,
 ) {
+  const { noInfer, noParse, inferOptions, parseOptions } = options ?? {}
+
   const dialect = await loadResourceDialect(resource.dialect)
   const data = resource.data
 
@@ -23,12 +25,12 @@ export async function loadInlineTable(
   let table = DataFrame(records).lazy()
 
   let schema = await loadResourceSchema(resource.schema)
-  if (!schema && !options?.noInfer) {
-    schema = await inferSchema(table)
+  if (!schema && !noInfer) {
+    schema = await inferSchema(table, inferOptions)
   }
 
   if (schema) {
-    table = await normalizeTable(table, { schema })
+    table = await normalizeTable(table, schema, { noParse, parseOptions })
   }
 
   return table

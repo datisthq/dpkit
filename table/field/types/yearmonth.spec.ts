@@ -12,7 +12,7 @@ describe("parseYearmonthField", () => {
       fields: [{ name: "name", type: "yearmonth" as const }],
     }
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
 
     expect(df.toRecords()[0]?.name).toEqual(value)

@@ -17,18 +17,21 @@ import { parseTimeField } from "./types/time.ts"
 import { parseYearField } from "./types/year.ts"
 import { parseYearmonthField } from "./types/yearmonth.ts"
 
+export type ParseFieldOptions = {
+  missingValues?: Schema["missingValues"]
+}
+
 const DEFAULT_MISSING_VALUES = [""]
 
 export function parseField(
   field: Field,
-  options?: { expr?: Expr; schema?: Schema },
+  expr?: Expr,
+  options?: ParseFieldOptions,
 ) {
-  let expr = options?.expr ?? col(field.name)
+  expr = expr ?? col(field.name)
 
   const missingValues =
-    field.missingValues ??
-    options?.schema?.missingValues ??
-    DEFAULT_MISSING_VALUES
+    field.missingValues ?? options?.missingValues ?? DEFAULT_MISSING_VALUES
 
   const flattenMissingValues = missingValues.map(item =>
     typeof item === "string" ? item : item.value,

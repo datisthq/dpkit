@@ -50,7 +50,7 @@ describe("parseBooleanField", () => {
       fields: [{ name: "name", type: "boolean" as const, ...options }],
     }
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
 
     expect(df.toRecords()[0]?.name).toEqual(value)

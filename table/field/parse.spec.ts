@@ -29,7 +29,7 @@ describe("parseField", () => {
         fields: [{ name: "name", type: "string", missingValues: fieldLevel }],
       }
 
-      const ldf = await normalizeTable(table, { schema })
+      const ldf = await normalizeTable(table, schema)
       const df = await ldf.collect()
 
       expect(df.getColumn("name").get(0)).toEqual(value)

@@ -30,7 +30,7 @@ describe("parseGeojsonField", () => {
       fields: [{ name: "name", type: "geojson" as const }],
     }
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
 
     const res = df.getColumn("name").get(0)

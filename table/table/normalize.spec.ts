@@ -4,22 +4,6 @@ import { describe, expect, it } from "vitest"
 import { normalizeTable } from "./normalize.ts"
 
 describe("normalizeTable", () => {
-  it("should work without schema", async () => {
-    const table = DataFrame({
-      id: [1, 2],
-      name: ["english", "中文"],
-    }).lazy()
-
-    const records = [
-      { id: 1, name: "english" },
-      { id: 2, name: "中文" },
-    ]
-
-    const ldf = await normalizeTable(table)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
-  })
-
   it("should work with schema", async () => {
     const table = DataFrame({
       id: [1, 2],
@@ -38,7 +22,7 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -62,7 +46,7 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文", other: null },
     ]
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -86,7 +70,7 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -109,7 +93,7 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -133,7 +117,7 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -157,7 +141,7 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -181,7 +165,7 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -205,7 +189,7 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -228,7 +212,7 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })
@@ -251,7 +235,7 @@ describe("normalizeTable", () => {
       { id: 2, name: null },
     ]
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
     expect(df.toRecords()).toEqual(records)
   })

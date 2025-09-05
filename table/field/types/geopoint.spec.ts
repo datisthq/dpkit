@@ -28,7 +28,7 @@ describe("parseGeopointField", () => {
         fields: [{ name: "name", type: "geopoint" as const }],
       }
 
-      const ldf = await normalizeTable(table, { schema })
+      const ldf = await normalizeTable(table, schema)
       const df = await ldf.collect()
 
       expect(df.toRecords()[0]?.name).toEqual(value)
@@ -61,7 +61,7 @@ describe("parseGeopointField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, { schema })
+      const ldf = await normalizeTable(table, schema)
       const df = await ldf.collect()
 
       expect(df.getColumn("name").get(0)).toEqual(value)
@@ -98,7 +98,7 @@ describe("parseGeopointField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, { schema })
+      const ldf = await normalizeTable(table, schema)
       const df = await ldf.collect()
 
       expect(df.getColumn("name").get(0)).toEqual(value)

@@ -30,7 +30,7 @@ describe("parseObjectField", () => {
       fields: [{ name: "name", type: "object" as const }],
     }
 
-    const ldf = await normalizeTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
 
     const res = df.getColumn("name").get(0)

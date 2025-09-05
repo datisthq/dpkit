@@ -11,6 +11,8 @@ export async function loadParquetTable(
   resource: Partial<Resource>,
   options?: LoadTableOptions,
 ) {
+  const { noInfer, noParse, inferOptions, parseOptions } = options ?? {}
+
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   if (!firstPath) {
     return DataFrame().lazy()
@@ -22,12 +24,12 @@ export async function loadParquetTable(
   }
 
   let schema = await loadResourceSchema(resource.schema)
-  if (!schema && !options?.noInfer) {
-    schema = await inferSchema(table)
+  if (!schema && !noInfer) {
+    schema = await inferSchema(table, inferOptions)
   }
 
   if (schema) {
-    table = await normalizeTable(table, { schema })
+    table = await normalizeTable(table, schema, { noParse, parseOptions })
   }
 
   return table

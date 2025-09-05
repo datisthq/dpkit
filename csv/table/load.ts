@@ -19,6 +19,8 @@ export async function loadCsvTable(
   resource: Partial<Resource>,
   options?: LoadTableOptions,
 ) {
+  const { noInfer, noParse, inferOptions, parseOptions } = options ?? {}
+
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   if (!firstPath) {
     return DataFrame().lazy()
@@ -26,7 +28,7 @@ export async function loadCsvTable(
 
   let dialect = await loadResourceDialect(resource.dialect)
   if (!dialect && !options?.noInfer) {
-    dialect = await inferCsvDialect(resource)
+    dialect = await inferCsvDialect(resource, inferOptions)
   }
 
   const scanOptions = getScanOptions(resource, dialect)
@@ -56,12 +58,12 @@ export async function loadCsvTable(
   }
 
   let schema = await loadResourceSchema(resource.schema)
-  if (!schema && !options?.noInfer) {
-    schema = await inferSchema(table)
+  if (!schema && !noInfer) {
+    schema = await inferSchema(table, inferOptions)
   }
 
   if (schema) {
-    table = await normalizeTable(table, { schema })
+    table = await normalizeTable(table, schema, { noParse, parseOptions })
   }
 
   return table

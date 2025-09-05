@@ -53,5 +53,5 @@ export class MysqlDriver implements BaseDriver {
     }
   }
 
-  convertRecordToSql(record: DataRecord, schema: Schema) {}
+  convertRecordToSql(_record: DataRecord, _schema: Schema) {}
 }
