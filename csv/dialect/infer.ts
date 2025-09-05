@@ -1,14 +1,15 @@
 import { text } from "node:stream/consumers"
 import type { Dialect, Resource } from "@dpkit/core"
 import { loadFileStream } from "@dpkit/file"
-import type { InferDialectOptions } from "@dpkit/table"
 import { default as CsvSnifferFactory } from "csv-sniffer"
 
 const POSSIBLE_DELIMITERS = [",", ";", ":", "|", "\t", "^", "*", "&"]
 
 export async function inferCsvDialect(
   resource: Partial<Resource>,
-  options?: InferDialectOptions,
+  options?: {
+    sampleBytes?: number
+  },
 ) {
   const { sampleBytes = 10_000 } = options ?? {}
   const dialect: Dialect = {}

@@ -11,7 +11,7 @@ describe("loadInlineTable", () => {
     }
 
     // @ts-ignore
-    const table = await loadInlineTable(resource)
+    const { table } = await loadInlineTable(resource)
     const df = await table.collect()
 
     expect([]).toEqual(df.toRecords())
@@ -26,7 +26,7 @@ describe("loadInlineTable", () => {
     }
 
     // @ts-ignore
-    const table = await loadInlineTable(resource)
+    const { table } = await loadInlineTable(resource)
     const df = await table.collect()
 
     expect([]).toEqual(df.toRecords())
@@ -43,7 +43,7 @@ describe("loadInlineTable", () => {
       ],
     }
 
-    const table = await loadInlineTable(resource)
+    const { table } = await loadInlineTable(resource)
     const df = await table.collect()
 
     expect([
@@ -64,7 +64,7 @@ describe("loadInlineTable", () => {
     }
 
     // @ts-ignore
-    const table = await loadInlineTable(resource)
+    const { table } = await loadInlineTable(resource)
     const df = await table.collect()
 
     expect([
@@ -91,7 +91,7 @@ describe("loadInlineTable", () => {
     }
 
     // @ts-ignore
-    const table = await loadInlineTable(resource)
+    const { table } = await loadInlineTable(resource)
     const df = await table.collect()
 
     expect([
@@ -118,7 +118,7 @@ describe("loadInlineTable", () => {
     }
 
     // @ts-ignore
-    const table = await loadInlineTable(resource)
+    const { table } = await loadInlineTable(resource)
     const df = await table.collect()
 
     expect([
@@ -145,7 +145,7 @@ describe("loadInlineTable", () => {
     }
 
     // @ts-ignore
-    const table = await loadInlineTable(resource)
+    const { table } = await loadInlineTable(resource)
     const df = await table.collect()
 
     expect([
@@ -168,7 +168,7 @@ describe("loadInlineTable", () => {
     }
 
     // @ts-ignore
-    const table = await loadInlineTable(resource)
+    const { table } = await loadInlineTable(resource)
     const df = await table.collect()
 
     expect([
@@ -190,7 +190,7 @@ describe("loadInlineTable", () => {
     }
 
     // @ts-ignore
-    const table = await loadInlineTable(resource)
+    const { table } = await loadInlineTable(resource)
     const df = await table.collect()
 
     expect([

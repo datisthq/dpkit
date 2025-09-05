@@ -11,7 +11,7 @@ describe("loadJsonTable", () => {
       const body = '[{"id":1,"name":"english"},{"id":2,"name":"中文"}]'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonTable({ path })
+      const { table } = await loadJsonTable({ path })
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -23,7 +23,7 @@ describe("loadJsonTable", () => {
       const path1 = await writeTempFile(body)
       const path2 = await writeTempFile(body)
 
-      const table = await loadJsonTable({ path: [path1, path2] })
+      const { table } = await loadJsonTable({ path: [path1, path2] })
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -33,7 +33,7 @@ describe("loadJsonTable", () => {
     })
 
     it("should load remote file", async () => {
-      const table = await loadJsonTable({
+      const { table } = await loadJsonTable({
         path: "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.keyed.json",
       })
 
@@ -44,7 +44,7 @@ describe("loadJsonTable", () => {
     })
 
     it("should load remote file (multipart)", async () => {
-      const table = await loadJsonTable({
+      const { table } = await loadJsonTable({
         path: [
           "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.keyed.json",
           "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.keyed.json",
@@ -65,7 +65,7 @@ describe("loadJsonTable", () => {
       const body = '{"key": [{"id":1,"name":"english"},{"id":2,"name":"中文"}]}'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonTable({
+      const { table } = await loadJsonTable({
         path,
         dialect: { property: "key" },
       })
@@ -80,7 +80,7 @@ describe("loadJsonTable", () => {
       const body = '[{"id":1,"name":"english"},{"id":2,"name":"中文"}]'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonTable({
+      const { table } = await loadJsonTable({
         path,
         dialect: { itemKeys: ["name"] },
       })
@@ -95,7 +95,7 @@ describe("loadJsonTable", () => {
       const body = '[["id","name"],[1,"english"],[2,"中文"]]'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonTable({
+      const { table } = await loadJsonTable({
         path,
         dialect: { itemType: "array" },
       })
@@ -110,7 +110,7 @@ describe("loadJsonTable", () => {
       const body = '[{"id":1,"name":"english"},{"id":2,"name":"中文"}]'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonTable({
+      const { table } = await loadJsonTable({
         path,
         dialect: { itemType: "object" },
       })
@@ -129,7 +129,7 @@ describe("loadJsonlTable", () => {
       const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({ path })
+      const { table } = await loadJsonlTable({ path })
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -141,7 +141,7 @@ describe("loadJsonlTable", () => {
       const path1 = await writeTempFile(body)
       const path2 = await writeTempFile(body)
 
-      const table = await loadJsonlTable({ path: [path1, path2] })
+      const { table } = await loadJsonlTable({ path: [path1, path2] })
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -151,7 +151,7 @@ describe("loadJsonlTable", () => {
     })
 
     it("should load remote file", async () => {
-      const table = await loadJsonlTable({
+      const { table } = await loadJsonlTable({
         path: "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.jsonl",
       })
 
@@ -162,7 +162,7 @@ describe("loadJsonlTable", () => {
     })
 
     it("should load remote file (multipart)", async () => {
-      const table = await loadJsonlTable({
+      const { table } = await loadJsonlTable({
         path: [
           "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.jsonl",
           "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.jsonl",
@@ -183,7 +183,7 @@ describe("loadJsonlTable", () => {
       const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({
+      const { table } = await loadJsonlTable({
         path,
         dialect: { itemKeys: ["name"] },
       })
@@ -198,7 +198,7 @@ describe("loadJsonlTable", () => {
       const body = '["id","name"]\n[1,"english"]\n[2,"中文"]'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({
+      const { table } = await loadJsonlTable({
         path,
         dialect: { itemType: "array" },
       })
@@ -213,7 +213,7 @@ describe("loadJsonlTable", () => {
       const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({
+      const { table } = await loadJsonlTable({
         path,
         dialect: { itemType: "object" },
       })

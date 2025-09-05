@@ -16,9 +16,9 @@ describe("SqliteDriver", () => {
 
     const source = pl.DataFrame([record1, record2]).lazy()
     await saveSqliteTable(source, { path, dialect })
-    const target = await loadSqliteTable({ path, dialect })
+    const { table } = await loadSqliteTable({ path, dialect })
 
-    expect((await target.collect()).toRecords()).toEqual([record1, record2])
+    expect((await table.collect()).toRecords()).toEqual([record1, record2])
   })
 
   it("should save/load table with protocol", async () => {
@@ -26,9 +26,9 @@ describe("SqliteDriver", () => {
 
     const source = pl.DataFrame([record1, record2]).lazy()
     await saveSqliteTable(source, { path, dialect })
-    const target = await loadSqliteTable({ path, dialect })
+    const { table } = await loadSqliteTable({ path, dialect })
 
-    expect((await target.collect()).toRecords()).toEqual([record1, record2])
+    expect((await table.collect()).toRecords()).toEqual([record1, record2])
   })
 
   it("should save/load table with various data types", async () => {
@@ -50,9 +50,9 @@ describe("SqliteDriver", () => {
       .lazy()
 
     await saveSqliteTable(source, { path, dialect })
-    const target = await loadSqliteTable({ path, dialect })
+    const { table } = await loadSqliteTable({ path, dialect })
 
-    expect((await target.collect()).toRecords()).toEqual([
+    expect((await table.collect()).toRecords()).toEqual([
       {
         string: "string",
         integer: 1,

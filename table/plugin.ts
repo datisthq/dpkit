@@ -1,4 +1,4 @@
-import type { Dialect, Plugin, Resource } from "@dpkit/core"
+import type { Dialect, Plugin, Resource, Schema } from "@dpkit/core"
 import type { ReflectTableOptions, Table } from "./table/index.ts"
 
 export type LoadTableOptions = ReflectTableOptions & {
@@ -16,7 +16,7 @@ export interface TablePlugin extends Plugin {
   loadTable?(
     resource: Partial<Resource>,
     options?: LoadTableOptions,
-  ): Promise<Table | undefined>
+  ): Promise<{ table: Table; schema: Schema; dialect: Dialect } | undefined>
 
   saveTable?(
     table: Table,

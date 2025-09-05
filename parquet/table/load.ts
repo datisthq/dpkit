@@ -1,10 +1,9 @@
 import type { Resource } from "@dpkit/core"
-import { loadResourceSchema } from "@dpkit/core"
+import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "@dpkit/table"
-import { inferSchema, normalizeTable } from "@dpkit/table"
+import { normalizeTable, reflectTable } from "@dpkit/table"
 import { concat } from "nodejs-polars"
-import { DataFrame } from "nodejs-polars"
 import { scanParquet } from "nodejs-polars"
 
 export async function loadParquetTable(
@@ -13,7 +12,12 @@ export async function loadParquetTable(
 ) {
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   if (!firstPath) {
-    return DataFrame().lazy()
+    throw new Error("Resource path is not defined")
+  }
+
+  let dialect = await loadResourceDialect(resource.dialect)
+  if (!dialect) {
+    dialect = {}
   }
 
   let table = scanParquet(firstPath)
@@ -22,13 +26,10 @@ export async function loadParquetTable(
   }
 
   let schema = await loadResourceSchema(resource.schema)
-  if (!schema && !options?.noInfer) {
-    schema = await inferSchema(table, options)
+  if (!schema) {
+    schema = await reflectTable(table, options)
   }
 
-  if (schema) {
-    table = await normalizeTable(table, schema, options)
-  }
-
-  return table
+  table = await normalizeTable(table, schema)
+  return { table, schema, dialect }
 }

@@ -1,12 +1,12 @@
 import type { Dialect, Resource } from "@dpkit/core"
 import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
-import { inferSchema, normalizeTable } from "@dpkit/table"
+import { normalizeTable, reflectTable } from "@dpkit/table"
 import { stripInitialSpace } from "@dpkit/table"
 import { joinHeaderRows } from "@dpkit/table"
 import { skipCommentRows } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
-import { DataFrame, scanCSV } from "nodejs-polars"
+import { scanCSV } from "nodejs-polars"
 import type { ScanCsvOptions } from "nodejs-polars"
 import { Utf8, concat } from "nodejs-polars"
 import { inferCsvDialect } from "../dialect/index.ts"
@@ -21,11 +21,11 @@ export async function loadCsvTable(
 ) {
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   if (!firstPath) {
-    return DataFrame().lazy()
+    throw new Error("Resource path is not defined")
   }
 
   let dialect = await loadResourceDialect(resource.dialect)
-  if (!dialect && !options?.noInfer) {
+  if (!dialect) {
     dialect = await inferCsvDialect(resource, options)
   }
 
@@ -56,15 +56,12 @@ export async function loadCsvTable(
   }
 
   let schema = await loadResourceSchema(resource.schema)
-  if (!schema && !options?.noInfer) {
-    schema = await inferSchema(table, options)
+  if (!schema) {
+    schema = await reflectTable(table, options)
   }
 
-  if (schema) {
-    table = await normalizeTable(table, schema, options)
-  }
-
-  return table
+  table = await normalizeTable(table, schema)
+  return { table, schema, dialect }
 }
 
 function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {

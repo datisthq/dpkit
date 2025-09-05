@@ -1,5 +1,8 @@
-import { loadResourceDialect } from "@dpkit/core"
+import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import type { Resource } from "@dpkit/core"
+import { normalizeTable } from "@dpkit/table"
+import type { LoadTableOptions } from "@dpkit/table"
+import { reflectTable } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 import type { BaseDriver } from "../drivers/base.js"
 import { MysqlDriver } from "../drivers/mysql.js"
@@ -9,21 +12,30 @@ import { SqliteDriver } from "../drivers/sqlite.js"
 // Currently, we use slow non-rust implementation as in the future
 // polars-rust might be able to provide a faster native implementation
 
-export async function loadPostgresTable(resource: Partial<Resource>) {
-  return await loadTable(resource, { driver: new PostgresDriver() })
+export async function loadPostgresTable(
+  resource: Partial<Resource>,
+  options?: LoadTableOptions,
+) {
+  return await loadTable(resource, { ...options, driver: new PostgresDriver() })
 }
 
-export async function loadMysqlTable(resource: Partial<Resource>) {
-  return await loadTable(resource, { driver: new MysqlDriver() })
+export async function loadMysqlTable(
+  resource: Partial<Resource>,
+  options?: LoadTableOptions,
+) {
+  return await loadTable(resource, { ...options, driver: new MysqlDriver() })
 }
 
-export async function loadSqliteTable(resource: Partial<Resource>) {
-  return await loadTable(resource, { driver: new SqliteDriver() })
+export async function loadSqliteTable(
+  resource: Partial<Resource>,
+  options?: LoadTableOptions,
+) {
+  return await loadTable(resource, { ...options, driver: new SqliteDriver() })
 }
 
 export async function loadTable(
   resource: Partial<Resource>,
-  options: {
+  options: LoadTableOptions & {
     driver: BaseDriver
   },
 ) {
@@ -31,7 +43,7 @@ export async function loadTable(
 
   const path = typeof resource.path === "string" ? resource.path : undefined
   if (!path) {
-    return DataFrame().lazy()
+    throw new Error("Resource path is not defined")
   }
 
   const dialect = await loadResourceDialect(resource.dialect)
@@ -43,6 +55,13 @@ export async function loadTable(
   const records = await database.selectFrom(dialect.table).selectAll().execute()
   database.destroy()
 
-  const table = DataFrame(records).lazy()
-  return table
+  let table = DataFrame(records).lazy()
+
+  let schema = await loadResourceSchema(resource.schema)
+  if (!schema) {
+    schema = await reflectTable(table, options)
+  }
+
+  table = await normalizeTable(table, schema)
+  return { table, schema, dialect }
 }

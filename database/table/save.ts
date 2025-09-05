@@ -1,6 +1,6 @@
 import type { Schema } from "@dpkit/core"
 import type { SaveTableOptions, Table } from "@dpkit/table"
-import { inferSchema } from "@dpkit/table"
+import { reflectTable } from "@dpkit/table"
 import type { Kysely } from "kysely"
 import type { BaseDriver } from "../drivers/base.js"
 import { MysqlDriver } from "../drivers/mysql.js"
@@ -10,16 +10,19 @@ import { SqliteDriver } from "../drivers/sqlite.js"
 // Currently, we use slow non-rust implementation as in the future
 // polars-rust might be able to provide a faster native implementation
 
-export async function savePostgresTable(table: Table, opts: SaveTableOptions) {
-  return await saveTable(table, { ...opts, driver: new PostgresDriver() })
+export async function savePostgresTable(
+  table: Table,
+  options: SaveTableOptions,
+) {
+  return await saveTable(table, { ...options, driver: new PostgresDriver() })
 }
 
-export async function saveMysqlTable(table: Table, opts: SaveTableOptions) {
-  return await saveTable(table, { ...opts, driver: new MysqlDriver() })
+export async function saveMysqlTable(table: Table, options: SaveTableOptions) {
+  return await saveTable(table, { ...options, driver: new MysqlDriver() })
 }
 
-export async function saveSqliteTable(table: Table, opts: SaveTableOptions) {
-  return await saveTable(table, { ...opts, driver: new SqliteDriver() })
+export async function saveSqliteTable(table: Table, options: SaveTableOptions) {
+  return await saveTable(table, { ...options, driver: new SqliteDriver() })
 }
 
 async function saveTable(
@@ -33,7 +36,7 @@ async function saveTable(
     throw new Error("Table name is not defined in dialect")
   }
 
-  const schema = await inferSchema(table)
+  const schema = await reflectTable(table)
   const database = await driver.connectDatabase(path)
 
   await defineTable(database, { driver, schema, tableName, overwrite })

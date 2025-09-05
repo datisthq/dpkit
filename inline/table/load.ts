@@ -3,18 +3,21 @@ import { loadResourceDialect } from "@dpkit/core"
 import { loadResourceSchema } from "@dpkit/core"
 import { getRecordsFromRows } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
-import { inferSchema, normalizeTable } from "@dpkit/table"
+import { normalizeTable, reflectTable } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 
 export async function loadInlineTable(
   resource: Partial<Resource>,
   options?: LoadTableOptions,
 ) {
-  const dialect = await loadResourceDialect(resource.dialect)
   const data = resource.data
-
   if (!Array.isArray(data)) {
-    return DataFrame().lazy()
+    throw new Error("Resource data is not defined or tabular")
+  }
+
+  let dialect = await loadResourceDialect(resource.dialect)
+  if (!dialect) {
+    dialect = {}
   }
 
   const isRows = data.every(row => Array.isArray(row))
@@ -23,13 +26,10 @@ export async function loadInlineTable(
   let table = DataFrame(records).lazy()
 
   let schema = await loadResourceSchema(resource.schema)
-  if (!schema && !options?.noInfer) {
-    schema = await inferSchema(table, options)
+  if (!schema) {
+    schema = await reflectTable(table, options)
   }
 
-  if (schema) {
-    table = await normalizeTable(table, schema, options)
-  }
-
-  return table
+  table = await normalizeTable(table, schema)
+  return { table, schema, dialect }
 }
