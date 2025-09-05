@@ -3,6 +3,9 @@ import { col } from "nodejs-polars"
 import type { Table } from "../table/index.ts"
 import { getPolarsSchema } from "./Schema.ts"
 
+// TODO: Support fieldNames?
+// TODO: Support fieldTypes?
+// TODO: Implement actual options usage for inferring
 // TODO: Review default values being {fields: []} vs undefined
 
 export type InferSchemaOptions = {
@@ -57,9 +60,11 @@ export async function inferSchema(table: Table, options?: InferSchemaOptions) {
       }
     }
 
+    enhanceField(field, options)
     schema.fields.push(field)
   }
 
+  enhanceSchema(schema, options)
   return schema
 }
 
@@ -93,10 +98,7 @@ function createTypeMapping() {
   return mapping
 }
 
-function createRegexMapping(options?: {
-  commaDecimal?: boolean
-  monthFirst?: boolean
-}) {
+function createRegexMapping(options?: InferSchemaOptions) {
   const { commaDecimal, monthFirst } = options ?? {}
 
   const mapping: Record<string, Partial<Field>> = {
@@ -161,4 +163,33 @@ function createRegexMapping(options?: {
   }
 
   return mapping
+}
+
+function enhanceField(field: Field, options?: InferSchemaOptions) {
+  if (field.type === "integer") {
+    field.groupChar = options?.groupChar ?? field.groupChar
+    field.bareNumber = options?.bareNumber ?? field.bareNumber
+  } else if (field.type === "number") {
+    field.decimalChar = options?.decimalChar ?? field.decimalChar
+    field.groupChar = options?.groupChar ?? field.groupChar
+    field.bareNumber = options?.bareNumber ?? field.bareNumber
+  } else if (field.type === "boolean") {
+    field.trueValues = options?.trueValues ?? field.trueValues
+    field.falseValues = options?.falseValues ?? field.falseValues
+  } else if (field.type === "datetime") {
+    field.format = options?.datetimeFormat ?? field.format
+  } else if (field.type === "date") {
+    field.format = options?.dateFormat ?? field.format
+  } else if (field.type === "time") {
+    field.format = options?.timeFormat ?? field.format
+  } else if (field.type === "list") {
+    field.delimiter = options?.listDelimiter ?? field.delimiter
+    field.itemType = options?.listItemType ?? field.itemType
+  } else if (field.type === "geopoint") {
+    field.format = options?.geopointFormat ?? field.format
+  }
+}
+
+function enhanceSchema(schema: Schema, options?: InferSchemaOptions) {
+  schema.missingValues = options?.missingValues ?? schema.missingValues
 }
