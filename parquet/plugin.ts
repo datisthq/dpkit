@@ -14,7 +14,9 @@ export class ParquetPlugin implements TablePlugin {
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
-    const isParquet = getIsParquet(options)
+    const { path, format } = options
+
+    const isParquet = getIsParquet({ path, format })
     if (!isParquet) return undefined
 
     return await saveParquetTable(table, options)

@@ -14,7 +14,9 @@ export class OdsPlugin implements TablePlugin {
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
-    const isOds = getIsOds(options)
+    const { path, format } = options
+
+    const isOds = getIsOds({ path, format })
     if (!isOds) return undefined
 
     return await saveOdsTable(table, options)

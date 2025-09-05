@@ -22,7 +22,8 @@ export class JsonPlugin implements TablePlugin {
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
-    const formatInfo = getFormatInfo(options)
+    const { path, format } = options
+    const formatInfo = getFormatInfo({ path, format })
 
     if (formatInfo.isJson) {
       return await saveJsonTable(table, options)

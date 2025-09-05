@@ -1,5 +1,6 @@
-import type { Field, GeopointField, ListField, Schema } from "@dpkit/core"
+import type { Field, Schema } from "@dpkit/core"
 import { col } from "nodejs-polars"
+import type { ParseFieldOptions } from "../field/index.ts"
 import type { Table } from "../table/index.ts"
 import { getPolarsSchema } from "./Schema.ts"
 
@@ -8,23 +9,11 @@ import { getPolarsSchema } from "./Schema.ts"
 // TODO: Implement actual options usage for inferring
 // TODO: Review default values being {fields: []} vs undefined
 
-export type InferSchemaOptions = {
+export type InferSchemaOptions = ParseFieldOptions & {
   sampleRows?: number
   confidence?: number
   commaDecimal?: boolean
   monthFirst?: boolean
-  missingValues?: string[]
-  decimalChar?: string
-  groupChar?: string
-  bareNumber?: boolean
-  trueValues?: string[]
-  falseValues?: string[]
-  datetimeFormat?: string
-  dateFormat?: string
-  timeFormat?: string
-  listDelimiter?: string
-  listItemType?: ListField["itemType"]
-  geopointFormat?: GeopointField["format"]
 }
 
 export async function inferSchema(table: Table, options?: InferSchemaOptions) {

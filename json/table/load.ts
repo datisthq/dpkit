@@ -27,7 +27,7 @@ async function loadTable(
   resource: Partial<Resource>,
   options: LoadTableOptions & { isLines: boolean },
 ) {
-  const { noInfer, noParse, inferOptions, isLines } = options
+  const { isLines } = options
 
   const paths = await prefetchFiles(resource.path)
   if (!paths.length) {
@@ -57,12 +57,12 @@ async function loadTable(
   let table = concat(tables)
 
   let schema = await loadResourceSchema(resource.schema)
-  if (!schema && !noInfer) {
-    schema = await inferSchema(table, inferOptions)
+  if (!schema && !options?.noInfer) {
+    schema = await inferSchema(table, options)
   }
 
   if (schema) {
-    table = await normalizeTable(table, schema, { noParse })
+    table = await normalizeTable(table, schema, options)
   }
 
   return table

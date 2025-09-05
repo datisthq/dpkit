@@ -26,9 +26,10 @@ export class DatabasePlugin implements TablePlugin {
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
-    const format = getFormat(options)
+    const { path, format } = options
+    const inferredFormat = getFormat({ path, format })
 
-    switch (format) {
+    switch (inferredFormat) {
       case "postgresql":
         return await savePostgresTable(table, options)
       case "mysql":

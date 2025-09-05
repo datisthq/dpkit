@@ -25,7 +25,9 @@ export class CsvPlugin implements TablePlugin {
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
-    const isCsv = getIsCsv(options)
+    const { path, format } = options
+
+    const isCsv = getIsCsv({ path, format })
     if (!isCsv) return undefined
 
     return await saveCsvTable(table, options)

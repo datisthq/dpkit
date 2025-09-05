@@ -7,18 +7,17 @@ export type InferDialectOptions = {
   sampleBytes?: number
 }
 
-export type LoadTableOptions = {
-  noInfer?: boolean
-  noParse?: boolean
-  inferOptions?: InferDialectOptions & InferSchemaOptions
-}
+export type LoadTableOptions = InferDialectOptions &
+  InferSchemaOptions & {
+    noInfer?: boolean
+    noParse?: boolean
+  }
 
-export type SaveTableOptions = {
+export type SaveTableOptions = StringifyFieldOptions & {
   path: string
   format?: string
   dialect?: Dialect
   overwrite?: boolean
-  stringifyOptions?: StringifyFieldOptions
 }
 
 export interface TablePlugin extends Plugin {

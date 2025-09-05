@@ -14,7 +14,9 @@ export class XlsxPlugin implements TablePlugin {
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
-    const isXlsx = getIsXlsx(options)
+    const { path, format } = options
+
+    const isXlsx = getIsXlsx({ path, format })
     if (!isXlsx) return undefined
 
     return await saveXlsxTable(table, options)
