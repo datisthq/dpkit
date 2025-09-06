@@ -3,7 +3,10 @@ import type { SaveTableOptions, Table } from "@dpkit/table"
 
 // TODO: support providing TSV format? (see JSON)
 
-export async function saveCsvTable(table: Table, options: SaveTableOptions) {
+export async function saveCsvTable(
+  table: Table,
+  options: SaveTableOptions & { format?: "csv" | "tsv" },
+) {
   const { path, overwrite } = options
 
   if (!overwrite) {

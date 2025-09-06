@@ -18,7 +18,7 @@ import { inferCsvDialect } from "../dialect/index.ts"
 // TODO: support providing TSV format? (see JSON)
 
 export async function loadCsvTable(
-  resource: Partial<Resource>,
+  resource: Partial<Resource> & { format?: "csv" | "tsv" },
   options?: LoadTableOptions,
 ) {
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)

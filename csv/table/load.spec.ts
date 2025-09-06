@@ -4,9 +4,9 @@ import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
 import { loadCsvTable } from "./load.ts"
 
-describe("loadCsvTable", () => {
-  useRecording()
+useRecording()
 
+describe("loadCsvTable", () => {
   describe("file variations", () => {
     it("should load local file", async () => {
       const path = await writeTempFile("id,name\n1,english\n2,中文")

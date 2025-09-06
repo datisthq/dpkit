@@ -3,9 +3,9 @@ import { loadPackageDescriptor } from "@dpkit/core"
 import { describe, expect, it } from "vitest"
 import { savePackageToGithub } from "./save.ts"
 
-describe("savePackageToGithub", () => {
-  //useRecording()
+//useRecording()
 
+describe("savePackageToGithub", () => {
   it.skip("should save a package", async () => {
     const dataPackage = await loadPackageDescriptor(
       "core/package/fixtures/package.json",
