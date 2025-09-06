@@ -1,7 +1,7 @@
 import type { Field, Schema } from "@dpkit/core"
 import type { DataRecord } from "@dpkit/table"
 import { Kysely } from "kysely"
-import { PostgresDialect } from "kysely"
+import { type ColumnMetadata, PostgresDialect } from "kysely"
 import { Pool } from "pg"
 import type { BaseDriver } from "./base.js"
 
@@ -54,4 +54,7 @@ export class PostgresqlDriver implements BaseDriver {
   }
 
   convertRecordToSql(_record: DataRecord, _schema: Schema) {}
+  convertColumnToField(_column: ColumnMetadata) {
+    return { name: "name" }
+  }
 }

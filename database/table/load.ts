@@ -18,14 +18,14 @@ export async function loadDatabaseTable(
     throw new Error("Supported database format is not defined")
   }
 
-  const path = typeof resource.path === "string" ? resource.path : undefined
-  if (!path) {
-    throw new Error("Resource path is not defined")
-  }
-
   const dialect = await loadResourceDialect(resource.dialect)
   if (!dialect?.table) {
     throw new Error("Table name is not defined in dialect")
+  }
+
+  const path = typeof resource.path === "string" ? resource.path : undefined
+  if (!path) {
+    throw new Error("Resource path is not defined")
   }
 
   const database = await driver.connectDatabase(path)

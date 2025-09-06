@@ -2,7 +2,7 @@ import type { Field, Schema } from "@dpkit/core"
 import type { DataRecord } from "@dpkit/table"
 import Database from "better-sqlite3"
 import { Kysely } from "kysely"
-import { SqliteDialect } from "kysely"
+import { type ColumnMetadata, SqliteDialect } from "kysely"
 import type { BaseDriver } from "./base.js"
 
 export class SqliteDriver implements BaseDriver {
@@ -48,5 +48,11 @@ export class SqliteDriver implements BaseDriver {
           .slice(11)
       }
     }
+  }
+
+  convertColumnToField(column: ColumnMetadata) {
+    const field = { name: column.name }
+    //const columnType = column.dataType.toLowerCase()
+    return field
   }
 }
