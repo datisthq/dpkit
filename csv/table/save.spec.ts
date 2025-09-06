@@ -133,3 +133,20 @@ describe("saveCsvTable", () => {
     })
   })
 })
+
+describe("saveCsvTable (format=tsv)", () => {
+  it("should save table to file", async () => {
+    const path = getTempFilePath()
+    const table = pl
+      .DataFrame({
+        id: [1.0, 2.0, 3.0],
+        name: ["Alice", "Bob", "Charlie"],
+      })
+      .lazy()
+
+    await saveCsvTable(table, { path, format: "tsv" })
+
+    const content = await readFile(path, "utf-8")
+    expect(content).toEqual("id\tname\n1.0\tAlice\n2.0\tBob\n3.0\tCharlie\n")
+  })
+})

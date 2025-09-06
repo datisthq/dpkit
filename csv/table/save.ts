@@ -7,7 +7,8 @@ export async function saveCsvTable(
   table: Table,
   options: SaveTableOptions & { format?: "csv" | "tsv" },
 ) {
-  const { path, overwrite } = options
+  const { path, format, overwrite } = options
+  const isTabs = format === "tsv"
 
   if (!overwrite) {
     await assertLocalPathVacant(path)
@@ -17,7 +18,7 @@ export async function saveCsvTable(
     .sinkCSV(path, {
       maintainOrder: true,
       includeHeader: options.dialect?.header ?? true,
-      separator: options.dialect?.delimiter ?? ",",
+      separator: options.dialect?.delimiter ?? (isTabs ? "\t" : ","),
       //lineTerminator: options.dialect?.lineTerminator ?? "\r\n",
       quoteChar: options.dialect?.quoteChar ?? '"',
     })
