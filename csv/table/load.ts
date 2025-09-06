@@ -1,7 +1,7 @@
 import type { Dialect, Resource } from "@dpkit/core"
 import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
-import { normalizeTable, reflectTable } from "@dpkit/table"
+import { normalizeTable, inferSchemaFromTable } from "@dpkit/table"
 import { stripInitialSpace } from "@dpkit/table"
 import { joinHeaderRows } from "@dpkit/table"
 import { skipCommentRows } from "@dpkit/table"
@@ -55,7 +55,7 @@ export async function loadCsvTable(
 
   if (!options?.denormalized) {
     let schema = await loadResourceSchema(resource.schema)
-    if (!schema) schema = await reflectTable(table, options)
+    if (!schema) schema = await inferSchemaFromTable(table, options)
     table = await normalizeTable(table, schema)
   }
 

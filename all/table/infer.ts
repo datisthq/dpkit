@@ -1,7 +1,7 @@
 import type { Dialect, Resource, Schema } from "@dpkit/core"
 import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import type { Table } from "@dpkit/table"
-import { reflectTable } from "@dpkit/table"
+import { inferSchemaFromTable } from "@dpkit/table"
 import { inferDialect } from "../dialect/index.ts"
 import { loadTable } from "./load.ts"
 
@@ -22,7 +22,7 @@ export async function inferTable(
 
   let schema = await loadResourceSchema(resource.schema)
   if (!schema) {
-    schema = await reflectTable(table)
+    schema = await inferSchemaFromTable(table)
   }
 
   return { dialect, schema, table }

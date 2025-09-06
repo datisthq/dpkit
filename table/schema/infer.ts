@@ -1,37 +1,25 @@
 import type { Field, Schema } from "@dpkit/core"
-import type { GeopointField, ListField } from "@dpkit/core"
 import { col } from "nodejs-polars"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { Table } from "../table/index.ts"
+import type { SchemaOptions } from "./Options.ts"
 
 // TODO: Support fieldNames?
 // TODO: Support fieldTypes?
 // TODO: Implement actual options usage for inferring
 // TODO: Review default values being {fields: []} vs undefined
 
-export interface ReflectTableOptions {
+export interface InferSchemaOptions extends SchemaOptions {
   sampleRows?: number
   confidence?: number
   commaDecimal?: boolean
   monthFirst?: boolean
   keepStrings?: boolean
-  missingValues?: string[]
-  decimalChar?: string
-  groupChar?: string
-  bareNumber?: boolean
-  trueValues?: string[]
-  falseValues?: string[]
-  datetimeFormat?: string
-  dateFormat?: string
-  timeFormat?: string
-  listDelimiter?: string
-  listItemType?: ListField["itemType"]
-  geopointFormat?: GeopointField["format"]
 }
 
-export async function reflectTable(
+export async function inferSchemaFromTable(
   table: Table,
-  options?: ReflectTableOptions,
+  options?: InferSchemaOptions,
 ) {
   const { sampleRows = 100, confidence = 0.9, keepStrings } = options ?? {}
   const schema: Schema = {
@@ -103,7 +91,7 @@ function createTypeMapping() {
   return mapping
 }
 
-function createRegexMapping(options?: ReflectTableOptions) {
+function createRegexMapping(options?: InferSchemaOptions) {
   const { commaDecimal, monthFirst } = options ?? {}
 
   const mapping: Record<string, Partial<Field>> = {
@@ -170,7 +158,7 @@ function createRegexMapping(options?: ReflectTableOptions) {
   return mapping
 }
 
-function enhanceField(field: Field, options?: ReflectTableOptions) {
+function enhanceField(field: Field, options?: InferSchemaOptions) {
   if (field.type === "integer") {
     field.groupChar = options?.groupChar ?? field.groupChar
     field.bareNumber = options?.bareNumber ?? field.bareNumber
@@ -195,6 +183,6 @@ function enhanceField(field: Field, options?: ReflectTableOptions) {
   }
 }
 
-function enhanceSchema(schema: Schema, options?: ReflectTableOptions) {
+function enhanceSchema(schema: Schema, options?: InferSchemaOptions) {
   schema.missingValues = options?.missingValues ?? schema.missingValues
 }

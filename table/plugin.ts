@@ -1,16 +1,17 @@
-import type { Dialect, Plugin, Resource } from "@dpkit/core"
-import type { ReflectTableOptions, Table } from "./table/index.ts"
+import type { Dialect, Plugin, Resource, Schema } from "@dpkit/core"
+import type { InferSchemaOptions, SchemaOptions } from "./schema/index.ts"
+import type { Table } from "./table/index.ts"
 
 export type InferDialectOptions = {
   sampleBytes?: number
 }
 
-export type LoadTableOptions = ReflectTableOptions & {
-  sampleBytes?: number
-  denormalized?: boolean
-}
+export type LoadTableOptions = InferDialectOptions &
+  InferSchemaOptions & {
+    denormalized?: boolean
+  }
 
-export type SaveTableOptions = ReflectTableOptions & {
+export type SaveTableOptions = SchemaOptions & {
   path: string
   format?: string
   dialect?: Dialect
@@ -22,6 +23,11 @@ export interface TablePlugin extends Plugin {
     resource: Partial<Resource>,
     options?: InferDialectOptions,
   ): Promise<Dialect | undefined>
+
+  inferSchema?(
+    resource: Partial<Resource>,
+    options?: InferDialectOptions,
+  ): Promise<Schema | undefined>
 
   loadTable?(
     resource: Partial<Resource>,

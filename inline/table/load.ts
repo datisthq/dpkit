@@ -3,7 +3,7 @@ import { loadResourceDialect } from "@dpkit/core"
 import { loadResourceSchema } from "@dpkit/core"
 import { getRecordsFromRows } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
-import { normalizeTable, reflectTable } from "@dpkit/table"
+import { normalizeTable, inferSchemaFromTable } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 
 export async function loadInlineTable(
@@ -23,7 +23,7 @@ export async function loadInlineTable(
 
   if (!options?.denormalized) {
     let schema = await loadResourceSchema(resource.schema)
-    if (!schema) schema = await reflectTable(table, options)
+    if (!schema) schema = await inferSchemaFromTable(table, options)
     table = await normalizeTable(table, schema)
   }
 
