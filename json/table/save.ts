@@ -6,23 +6,16 @@ import { decodeJsonBuffer, encodeJsonBuffer } from "../buffer/index.ts"
 // TODO: rebase on sinkJSON when it is available
 // https://github.com/pola-rs/nodejs-polars/issues/353
 
-export async function saveJsonTable(table: Table, options: SaveTableOptions) {
-  return await saveTable(table, { ...options, isLines: false })
-}
-
-export async function saveJsonlTable(table: Table, options: SaveTableOptions) {
-  return await saveTable(table, { ...options, isLines: true })
-}
-
-async function saveTable(
+export async function saveJsonTable(
   table: Table,
-  options: SaveTableOptions & { isLines: boolean },
+  options: SaveTableOptions & { format?: "json" | "jsonl" | "ndjson" },
 ) {
-  const { path, dialect, overwrite, isLines } = options
-  const df = await table.collect()
+  const { path, dialect, overwrite, format } = options
+  const isLines = format === "jsonl" || format === "ndjson"
 
   // We use polars to serialize the data
   // But encode it manually to support dialects/formatting
+  const df = await table.collect()
   let buffer = df.writeJSON({ format: isLines ? "lines" : "json" })
   let data = decodeJsonBuffer(buffer, { isLines })
 

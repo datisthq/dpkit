@@ -3,31 +3,17 @@ import { loadResourceDialect } from "@dpkit/core"
 import { loadResourceSchema } from "@dpkit/core"
 import { loadFile, prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "@dpkit/table"
-import { normalizeTable, inferTableSchema } from "@dpkit/table"
+import { inferTableSchema, normalizeTable } from "@dpkit/table"
 import type { Table } from "@dpkit/table"
 import { concat } from "nodejs-polars"
 import { DataFrame, scanJson } from "nodejs-polars"
 import { decodeJsonBuffer } from "../buffer/index.ts"
 
 export async function loadJsonTable(
-  resource: Partial<Resource>,
+  resource: Partial<Resource> & { format?: "json" | "jsonl" | "ndjson" },
   options?: LoadTableOptions,
 ) {
-  return await loadTable(resource, { ...options, isLines: false })
-}
-
-export async function loadJsonlTable(
-  resource: Partial<Resource>,
-  options?: LoadTableOptions,
-) {
-  return await loadTable(resource, { ...options, isLines: true })
-}
-
-async function loadTable(
-  resource: Partial<Resource>,
-  options: LoadTableOptions & { isLines: boolean },
-) {
-  const { isLines } = options
+  const isLines = resource.format === "jsonl" || resource.format === "ndjson"
 
   const paths = await prefetchFiles(resource.path)
   if (!paths.length) {

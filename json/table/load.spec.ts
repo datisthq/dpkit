@@ -1,17 +1,18 @@
 import { writeTempFile } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
-import { loadJsonTable, loadJsonlTable } from "./load.ts"
+import { loadJsonTable } from "./load.ts"
 
 useRecording()
 
-describe("loadJsonTable", () => {
+describe("loadJsonTable (json)", () => {
   describe("file variations", () => {
     it("should load local file", async () => {
       const body = '[{"id":1,"name":"english"},{"id":2,"name":"中文"}]'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonTable({ path })
+      const table = await loadJsonTable({ path, format: "json" })
+
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -23,7 +24,11 @@ describe("loadJsonTable", () => {
       const path1 = await writeTempFile(body)
       const path2 = await writeTempFile(body)
 
-      const table = await loadJsonTable({ path: [path1, path2] })
+      const table = await loadJsonTable({
+        path: [path1, path2],
+        format: "json",
+      })
+
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -35,6 +40,7 @@ describe("loadJsonTable", () => {
     it("should load remote file", async () => {
       const table = await loadJsonTable({
         path: "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.keyed.json",
+        format: "json",
       })
 
       expect((await table.collect()).toRecords()).toEqual([
@@ -49,6 +55,7 @@ describe("loadJsonTable", () => {
           "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.keyed.json",
           "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.keyed.json",
         ],
+        format: "json",
       })
 
       expect((await table.collect()).toRecords()).toEqual([
@@ -67,6 +74,7 @@ describe("loadJsonTable", () => {
 
       const table = await loadJsonTable({
         path,
+        format: "json",
         dialect: { property: "key" },
       })
 
@@ -82,6 +90,7 @@ describe("loadJsonTable", () => {
 
       const table = await loadJsonTable({
         path,
+        format: "json",
         dialect: { itemKeys: ["name"] },
       })
 
@@ -97,6 +106,7 @@ describe("loadJsonTable", () => {
 
       const table = await loadJsonTable({
         path,
+        format: "json",
         dialect: { itemType: "array" },
       })
 
@@ -112,6 +122,7 @@ describe("loadJsonTable", () => {
 
       const table = await loadJsonTable({
         path,
+        format: "json",
         dialect: { itemType: "object" },
       })
 
@@ -123,13 +134,13 @@ describe("loadJsonTable", () => {
   })
 })
 
-describe("loadJsonlTable", () => {
+describe("loadJsonTable (jsonl)", () => {
   describe("file variations", () => {
     it("should load local file", async () => {
       const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({ path })
+      const table = await loadJsonTable({ path, format: "jsonl" })
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -141,7 +152,11 @@ describe("loadJsonlTable", () => {
       const path1 = await writeTempFile(body)
       const path2 = await writeTempFile(body)
 
-      const table = await loadJsonlTable({ path: [path1, path2] })
+      const table = await loadJsonTable({
+        path: [path1, path2],
+        format: "jsonl",
+      })
+
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -151,8 +166,9 @@ describe("loadJsonlTable", () => {
     })
 
     it("should load remote file", async () => {
-      const table = await loadJsonlTable({
+      const table = await loadJsonTable({
         path: "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.jsonl",
+        format: "jsonl",
       })
 
       expect((await table.collect()).toRecords()).toEqual([
@@ -162,11 +178,12 @@ describe("loadJsonlTable", () => {
     })
 
     it("should load remote file (multipart)", async () => {
-      const table = await loadJsonlTable({
+      const table = await loadJsonTable({
         path: [
           "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.jsonl",
           "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.jsonl",
         ],
+        format: "jsonl",
       })
 
       expect((await table.collect()).toRecords()).toEqual([
@@ -183,8 +200,9 @@ describe("loadJsonlTable", () => {
       const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({
+      const table = await loadJsonTable({
         path,
+        format: "jsonl",
         dialect: { itemKeys: ["name"] },
       })
 
@@ -198,8 +216,9 @@ describe("loadJsonlTable", () => {
       const body = '["id","name"]\n[1,"english"]\n[2,"中文"]'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({
+      const table = await loadJsonTable({
         path,
+        format: "jsonl",
         dialect: { itemType: "array" },
       })
 
@@ -213,8 +232,9 @@ describe("loadJsonlTable", () => {
       const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({
+      const table = await loadJsonTable({
         path,
+        format: "jsonl",
         dialect: { itemType: "object" },
       })
 

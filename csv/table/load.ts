@@ -1,7 +1,7 @@
 import type { Dialect, Resource } from "@dpkit/core"
 import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
-import { normalizeTable, inferTableSchema } from "@dpkit/table"
+import { inferTableSchema, normalizeTable } from "@dpkit/table"
 import { stripInitialSpace } from "@dpkit/table"
 import { joinHeaderRows } from "@dpkit/table"
 import { skipCommentRows } from "@dpkit/table"
@@ -14,6 +14,8 @@ import { inferCsvDialect } from "../dialect/index.ts"
 // TODO: Condier using sample to extract header first
 // for better commentChar + headerRows/commentRows support
 // (consult with the Data Package Working Group)
+
+// TODO: support providing TSV format? (see JSON)
 
 export async function loadCsvTable(
   resource: Partial<Resource>,

@@ -1,6 +1,8 @@
 import { assertLocalPathVacant } from "@dpkit/file"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 
+// TODO: support providing TSV format? (see JSON)
+
 export async function saveCsvTable(table: Table, options: SaveTableOptions) {
   const { path, overwrite } = options
 

@@ -1,17 +1,18 @@
 import { readFile } from "node:fs/promises"
+import { format } from "node:path"
 import { getTempFilePath } from "@dpkit/file"
 import { readRecords } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { saveJsonTable, saveJsonlTable } from "./save.ts"
+import { saveJsonTable } from "./save.ts"
 
 const row1 = { id: 1, name: "english" }
 const row2 = { id: 2, name: "中文" }
 const table = readRecords([row1, row2]).lazy()
 
-describe("saveJsonTable", () => {
+describe("saveJsonTable (json)", () => {
   it("should save table to file", async () => {
     const path = getTempFilePath()
-    await saveJsonTable(table, { path })
+    await saveJsonTable(table, { path, format: "json" })
 
     const content = await readFile(path, "utf-8")
     expect(content).toEqual(JSON.stringify([row1, row2], null, 2))
@@ -19,7 +20,12 @@ describe("saveJsonTable", () => {
 
   it("should handle property", async () => {
     const path = getTempFilePath()
-    await saveJsonTable(table, { path, dialect: { property: "key" } })
+
+    await saveJsonTable(table, {
+      path,
+      format: "json",
+      dialect: { property: "key" },
+    })
 
     const content = await readFile(path, "utf-8")
     expect(content).toEqual(JSON.stringify({ key: [row1, row2] }, null, 2))
@@ -27,7 +33,12 @@ describe("saveJsonTable", () => {
 
   it("should handle item keys", async () => {
     const path = getTempFilePath()
-    await saveJsonTable(table, { path, dialect: { itemKeys: ["name"] } })
+
+    await saveJsonTable(table, {
+      path,
+      format: "json",
+      dialect: { itemKeys: ["name"] },
+    })
 
     const content = await readFile(path, "utf-8")
     expect(content).toEqual(
@@ -37,7 +48,12 @@ describe("saveJsonTable", () => {
 
   it("should handle item type (array)", async () => {
     const path = getTempFilePath()
-    await saveJsonTable(table, { path, dialect: { itemType: "array" } })
+
+    await saveJsonTable(table, {
+      path,
+      format: "json",
+      dialect: { itemType: "array" },
+    })
 
     const content = await readFile(path, "utf-8")
     expect(content).toEqual(
@@ -50,10 +66,11 @@ describe("saveJsonTable", () => {
   })
 })
 
-describe("saveJsonlTable", () => {
+describe("saveJsonTable (jsonl)", () => {
   it("should save table to file", async () => {
     const path = getTempFilePath()
-    await saveJsonlTable(table, { path })
+
+    await saveJsonTable(table, { path, format: "jsonl" })
 
     const content = await readFile(path, "utf-8")
     expect(content).toEqual(
@@ -63,7 +80,11 @@ describe("saveJsonlTable", () => {
 
   it("should handle item keys", async () => {
     const path = getTempFilePath()
-    await saveJsonlTable(table, { path, dialect: { itemKeys: ["name"] } })
+    await saveJsonTable(table, {
+      path,
+      format: "jsonl",
+      dialect: { itemKeys: ["name"] },
+    })
 
     const content = await readFile(path, "utf-8")
     expect(content).toEqual(
@@ -76,7 +97,11 @@ describe("saveJsonlTable", () => {
 
   it("should handle item type (array)", async () => {
     const path = getTempFilePath()
-    await saveJsonlTable(table, { path, dialect: { itemType: "array" } })
+    await saveJsonTable(table, {
+      path,
+      format: "jsonl",
+      dialect: { itemType: "array" },
+    })
 
     const content = await readFile(path, "utf-8")
     expect(content).toEqual(
@@ -90,7 +115,11 @@ describe("saveJsonlTable", () => {
 
   it("should handle item type (object)", async () => {
     const path = getTempFilePath()
-    await saveJsonlTable(table, { path, dialect: { itemType: "object" } })
+    await saveJsonTable(table, {
+      path,
+      format: "jsonl",
+      dialect: { itemType: "object" },
+    })
 
     const content = await readFile(path, "utf-8")
     expect(content).toEqual(
