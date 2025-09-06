@@ -1,9 +1,9 @@
 import { DataFrame, Series } from "nodejs-polars"
 import { DataType } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { inferSchemaFromTable } from "./infer.ts"
+import { inferTableSchema } from "./infer.ts"
 
-describe("inferSchemaFromTable", () => {
+describe("inferTableSchema", () => {
   it("should infer from native types", async () => {
     const table = DataFrame({
       integer: Series("integer", [1, 2], DataType.Int32),
@@ -17,7 +17,7 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schema)
+    expect(await inferTableSchema(table)).toEqual(schema)
   })
 
   it("should infer numeric", async () => {
@@ -37,7 +37,7 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schema)
+    expect(await inferTableSchema(table)).toEqual(schema)
   })
 
   it("should infer numeric (commaDecimal)", async () => {
@@ -53,7 +53,7 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table, { commaDecimal: true })).toEqual(
+    expect(await inferTableSchema(table, { commaDecimal: true })).toEqual(
       schema,
     )
   })
@@ -71,7 +71,7 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schema)
+    expect(await inferTableSchema(table)).toEqual(schema)
   })
 
   it("should infer objects", async () => {
@@ -87,7 +87,7 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schema)
+    expect(await inferTableSchema(table)).toEqual(schema)
   })
 
   it("should infer arrays", async () => {
@@ -103,7 +103,7 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schema)
+    expect(await inferTableSchema(table)).toEqual(schema)
   })
 
   it("should infer dates with ISO format", async () => {
@@ -115,7 +115,7 @@ describe("inferSchemaFromTable", () => {
       fields: [{ name: "name1", type: "date" }],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schema)
+    expect(await inferTableSchema(table)).toEqual(schema)
   })
 
   it("should infer dates with slash format", async () => {
@@ -141,8 +141,8 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schemaDefault)
-    expect(await inferSchemaFromTable(table, { monthFirst: true })).toEqual(
+    expect(await inferTableSchema(table)).toEqual(schemaDefault)
+    expect(await inferTableSchema(table, { monthFirst: true })).toEqual(
       schemaMonthFirst,
     )
   })
@@ -160,8 +160,8 @@ describe("inferSchemaFromTable", () => {
       fields: [{ name: "dayMonth", type: "date", format: "%m-%d-%Y" }],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schemaDefault)
-    expect(await inferSchemaFromTable(table, { monthFirst: true })).toEqual(
+    expect(await inferTableSchema(table)).toEqual(schemaDefault)
+    expect(await inferTableSchema(table, { monthFirst: true })).toEqual(
       schemaMonthFirst,
     )
   })
@@ -179,7 +179,7 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schema)
+    expect(await inferTableSchema(table)).toEqual(schema)
   })
 
   it("should infer times with 12-hour format", async () => {
@@ -195,7 +195,7 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schema)
+    expect(await inferTableSchema(table)).toEqual(schema)
   })
 
   it("should infer times with timezone offset", async () => {
@@ -207,7 +207,7 @@ describe("inferSchemaFromTable", () => {
       fields: [{ name: "name", type: "time" }],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schema)
+    expect(await inferTableSchema(table)).toEqual(schema)
   })
 
   it("should infer datetimes with ISO format", async () => {
@@ -243,7 +243,7 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schema)
+    expect(await inferTableSchema(table)).toEqual(schema)
   })
 
   it("should infer datetimes with custom formats", async () => {
@@ -288,8 +288,8 @@ describe("inferSchemaFromTable", () => {
       ],
     }
 
-    expect(await inferSchemaFromTable(table)).toEqual(schemaDefault)
-    expect(await inferSchemaFromTable(table, { monthFirst: true })).toEqual(
+    expect(await inferTableSchema(table)).toEqual(schemaDefault)
+    expect(await inferTableSchema(table, { monthFirst: true })).toEqual(
       schemaMonthFirst,
     )
   })

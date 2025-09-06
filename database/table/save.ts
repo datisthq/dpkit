@@ -1,6 +1,6 @@
 import type { Schema } from "@dpkit/core"
 import type { SaveTableOptions, Table } from "@dpkit/table"
-import { inferSchemaFromTable } from "@dpkit/table"
+import { inferTableSchema } from "@dpkit/table"
 import type { Kysely } from "kysely"
 import type { BaseDriver } from "../drivers/base.js"
 import { MysqlDriver } from "../drivers/mysql.js"
@@ -36,7 +36,7 @@ async function saveTable(
     throw new Error("Table name is not defined in dialect")
   }
 
-  const schema = await inferSchemaFromTable(table)
+  const schema = await inferTableSchema(table)
   const database = await driver.connectDatabase(path)
 
   await defineTable(database, { driver, schema, tableName, overwrite })

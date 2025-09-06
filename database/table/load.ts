@@ -2,7 +2,7 @@ import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import type { Resource } from "@dpkit/core"
 import { normalizeTable } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
-import { inferSchemaFromTable } from "@dpkit/table"
+import { inferTableSchema } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 import type { BaseDriver } from "../drivers/base.js"
 import { MysqlDriver } from "../drivers/mysql.js"
@@ -59,7 +59,7 @@ export async function loadTable(
 
   if (!options?.denormalized) {
     let schema = await loadResourceSchema(resource.schema)
-    if (!schema) schema = await inferSchemaFromTable(table, options)
+    if (!schema) schema = await inferTableSchema(table, options)
     table = await normalizeTable(table, schema)
   }
 
