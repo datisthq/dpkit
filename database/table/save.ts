@@ -30,6 +30,7 @@ export async function saveDatabaseTable(
   await defineTable(database, { driver, schema, tableName, overwrite })
   await populateTable(database, { table, driver, schema, tableName })
 
+  await database.destroy()
   return path
 }
 

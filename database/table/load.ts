@@ -30,7 +30,6 @@ export async function loadDatabaseTable(
 
   const database = await driver.connectDatabase(path)
   const records = await database.selectFrom(dialect.table).selectAll().execute()
-  database.destroy()
 
   let table = DataFrame(records).lazy()
 
@@ -40,5 +39,6 @@ export async function loadDatabaseTable(
     table = await normalizeTable(table, schema)
   }
 
+  await database.destroy()
   return table
 }
