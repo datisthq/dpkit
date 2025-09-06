@@ -3,33 +3,21 @@ import type { SaveTableOptions, Table } from "@dpkit/table"
 import { inferTableSchema } from "@dpkit/table"
 import type { Kysely } from "kysely"
 import type { BaseDriver } from "../drivers/base.js"
-import { MysqlDriver } from "../drivers/mysql.js"
-import { PostgresDriver } from "../drivers/postgres.js"
-import { SqliteDriver } from "../drivers/sqlite.js"
+import { createDriver } from "../drivers/create.ts"
 
 // Currently, we use slow non-rust implementation as in the future
 // polars-rust might be able to provide a faster native implementation
 
-export async function savePostgresTable(
+export async function saveDatabaseTable(
   table: Table,
-  options: SaveTableOptions,
+  options: SaveTableOptions & { format: "postgresql" | "mysql" | "sqlite" },
 ) {
-  return await saveTable(table, { ...options, driver: new PostgresDriver() })
-}
+  const { path, format, dialect, overwrite } = options
 
-export async function saveMysqlTable(table: Table, options: SaveTableOptions) {
-  return await saveTable(table, { ...options, driver: new MysqlDriver() })
-}
-
-export async function saveSqliteTable(table: Table, options: SaveTableOptions) {
-  return await saveTable(table, { ...options, driver: new SqliteDriver() })
-}
-
-async function saveTable(
-  table: Table,
-  options: SaveTableOptions & { driver: BaseDriver },
-) {
-  const { path, dialect, driver, overwrite } = options
+  const driver = createDriver(format)
+  if (!driver) {
+    throw new Error("Supported database format is not defined")
+  }
 
   const tableName = dialect?.table
   if (!tableName) {

@@ -4,42 +4,19 @@ import { normalizeTable } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
 import { inferTableSchema } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
-import type { BaseDriver } from "../drivers/base.js"
-import { MysqlDriver } from "../drivers/mysql.js"
-import { PostgresDriver } from "../drivers/postgres.js"
-import { SqliteDriver } from "../drivers/sqlite.js"
+import { createDriver } from "../drivers/create.ts"
 
 // Currently, we use slow non-rust implementation as in the future
 // polars-rust might be able to provide a faster native implementation
 
-export async function loadPostgresTable(
-  resource: Partial<Resource>,
+export async function loadDatabaseTable(
+  resource: Partial<Resource> & { format: "postgresql" | "mysql" | "sqlite" },
   options?: LoadTableOptions,
 ) {
-  return await loadTable(resource, { ...options, driver: new PostgresDriver() })
-}
-
-export async function loadMysqlTable(
-  resource: Partial<Resource>,
-  options?: LoadTableOptions,
-) {
-  return await loadTable(resource, { ...options, driver: new MysqlDriver() })
-}
-
-export async function loadSqliteTable(
-  resource: Partial<Resource>,
-  options?: LoadTableOptions,
-) {
-  return await loadTable(resource, { ...options, driver: new SqliteDriver() })
-}
-
-export async function loadTable(
-  resource: Partial<Resource>,
-  options: LoadTableOptions & {
-    driver: BaseDriver
-  },
-) {
-  const { driver } = options
+  const driver = createDriver(resource.format)
+  if (!driver) {
+    throw new Error("Supported database format is not defined")
+  }
 
   const path = typeof resource.path === "string" ? resource.path : undefined
   if (!path) {

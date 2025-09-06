@@ -2,7 +2,7 @@ import { getTempFilePath } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { loadSqliteTable, saveSqliteTable } from "../table/index.ts"
+import { loadDatabaseTable, saveDatabaseTable } from "../table/index.ts"
 
 useRecording()
 
@@ -15,8 +15,8 @@ describe("SqliteDriver", () => {
     const path = getTempFilePath()
 
     const source = pl.DataFrame([record1, record2]).lazy()
-    await saveSqliteTable(source, { path, dialect })
-    const table = await loadSqliteTable({ path, dialect })
+    await saveDatabaseTable(source, { path, dialect, format: "sqlite" })
+    const table = await loadDatabaseTable({ path, dialect, format: "sqlite" })
 
     expect((await table.collect()).toRecords()).toEqual([record1, record2])
   })
@@ -25,8 +25,8 @@ describe("SqliteDriver", () => {
     const path = `sqlite://${getTempFilePath()}`
 
     const source = pl.DataFrame([record1, record2]).lazy()
-    await saveSqliteTable(source, { path, dialect })
-    const table = await loadSqliteTable({ path, dialect })
+    await saveDatabaseTable(source, { path, dialect, format: "sqlite" })
+    const table = await loadDatabaseTable({ path, dialect, format: "sqlite" })
 
     expect((await table.collect()).toRecords()).toEqual([record1, record2])
   })
@@ -49,9 +49,9 @@ describe("SqliteDriver", () => {
       ])
       .lazy()
 
-    await saveSqliteTable(source, { path, dialect })
-    const table = await loadSqliteTable(
-      { path, dialect },
+    await saveDatabaseTable(source, { path, dialect, format: "sqlite" })
+    const table = await loadDatabaseTable(
+      { path, dialect, format: "sqlite" },
       { denormalized: true },
     )
 

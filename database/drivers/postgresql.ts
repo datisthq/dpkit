@@ -5,7 +5,7 @@ import { PostgresDialect } from "kysely"
 import { Pool } from "pg"
 import type { BaseDriver } from "./base.js"
 
-export class PostgresDriver implements BaseDriver {
+export class PostgresqlDriver implements BaseDriver {
   async connectDatabase(path: string) {
     const pool = new Pool({
       connectionString: path,
