@@ -50,7 +50,10 @@ describe("SqliteDriver", () => {
       .lazy()
 
     await saveSqliteTable(source, { path, dialect })
-    const table = await loadSqliteTable({ path, dialect })
+    const table = await loadSqliteTable(
+      { path, dialect },
+      { denormalized: true },
+    )
 
     expect((await table.collect()).toRecords()).toEqual([
       {

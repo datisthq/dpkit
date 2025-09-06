@@ -26,7 +26,7 @@ export interface TablePlugin extends Plugin {
 
   inferSchema?(
     resource: Partial<Resource>,
-    options?: InferDialectOptions,
+    options?: InferSchemaOptions,
   ): Promise<Schema | undefined>
 
   loadTable?(
