@@ -9,23 +9,18 @@ import { saveJsonTable } from "./table/index.ts"
 export class JsonPlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>, options?: LoadTableOptions) {
     const jsonFormat = getJsonFormat(resource)
+    if (!jsonFormat) return undefined
 
-    if (jsonFormat) {
-      return await loadJsonTable({ ...resource, format: jsonFormat }, options)
-    }
-
-    return undefined
+    return await loadJsonTable({ ...resource, format: jsonFormat }, options)
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
     const { path, format } = options
+
     const jsonFormat = getJsonFormat({ path, format })
+    if (!jsonFormat) return undefined
 
-    if (jsonFormat) {
-      return await saveJsonTable(table, { ...options, format: jsonFormat })
-    }
-
-    return undefined
+    return await saveJsonTable(table, { ...options, format: jsonFormat })
   }
 }
 

@@ -2,7 +2,7 @@ import type { Resource } from "@dpkit/core"
 import { loadResourceSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "@dpkit/table"
-import { normalizeTable, inferTableSchema } from "@dpkit/table"
+import { inferTableSchema, normalizeTable } from "@dpkit/table"
 import { concat } from "nodejs-polars"
 import { scanIPC } from "nodejs-polars"
 

@@ -1,5 +1,4 @@
 import { readFile } from "node:fs/promises"
-import { format } from "node:path"
 import { getTempFilePath } from "@dpkit/file"
 import { readRecords } from "nodejs-polars"
 import { describe, expect, it } from "vitest"

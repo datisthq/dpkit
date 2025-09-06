@@ -7,23 +7,23 @@ import { loadCsvTable, saveCsvTable } from "./table/index.ts"
 
 export class CsvPlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>, options?: LoadTableOptions) {
-    const isCsv = getIsCsv(resource)
-    if (!isCsv) return undefined
+    const csvFormat = getCsvFormat(resource)
+    if (!csvFormat) return undefined
 
-    return await loadCsvTable(resource, options)
+    return await loadCsvTable({ ...resource, format: csvFormat }, options)
   }
 
   async saveTable(table: Table, options: SaveTableOptions) {
     const { path, format } = options
 
-    const isCsv = getIsCsv({ path, format })
-    if (!isCsv) return undefined
+    const csvFormat = getCsvFormat({ path, format })
+    if (!csvFormat) return undefined
 
-    return await saveCsvTable(table, options)
+    return await saveCsvTable(table, { ...options, format: csvFormat })
   }
 }
 
-function getIsCsv(resource: Partial<Resource>) {
+function getCsvFormat(resource: Partial<Resource>) {
   const format = inferResourceFormat(resource)
-  return ["csv", "tsv"].includes(format ?? "")
+  return format === "csv" || format === "tsv" ? format : undefined
 }

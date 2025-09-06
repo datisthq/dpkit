@@ -3,7 +3,7 @@ import { loadResourceDialect } from "@dpkit/core"
 import { loadResourceSchema } from "@dpkit/core"
 import { getRecordsFromRows } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
-import { normalizeTable, inferTableSchema } from "@dpkit/table"
+import { inferTableSchema, normalizeTable } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
 
 export async function loadInlineTable(
