@@ -29,3 +29,26 @@ export function parseGeopointField(field: GeopointField, expr?: Expr) {
 
   return expr
 }
+
+export function stringifyGeopointField(field: GeopointField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  // Default format is "lon,lat" string
+  const format = field.format ?? "default"
+
+  if (format === "default") {
+    return expr.cast(DataType.List(DataType.String)).lst.join(",")
+  }
+
+  if (format === "object") {
+    // TODO: implement object format stringify
+    return lit(null).alias(field.name)
+  }
+
+  if (format === "array") {
+    // TODO: implement array format stringify
+    return lit(null).alias(field.name)
+  }
+
+  return expr
+}

@@ -29,3 +29,18 @@ export function parseIntegerField(field: IntegerField, expr?: Expr) {
   expr = expr.cast(DataType.Int64)
   return expr
 }
+
+export function stringifyIntegerField(field: IntegerField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  // Convert to string
+  expr = expr.cast(DataType.String)
+
+  const groupChar = field.groupChar
+  const bareNumber = field.bareNumber
+
+  // TODO: Add group character formatting (thousands separator) when needed
+  // TODO: Add non-bare number formatting (currency symbols, etc.) when needed
+
+  return expr
+}

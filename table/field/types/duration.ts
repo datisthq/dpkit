@@ -9,3 +9,9 @@ export function parseDurationField(field: DurationField, expr?: Expr) {
 
   return expr
 }
+
+export function stringifyDurationField(field: DurationField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  return expr
+}

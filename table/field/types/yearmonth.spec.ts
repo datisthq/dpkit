@@ -1,4 +1,4 @@
-import { DataFrame, DataType, Series, col } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../../table/index.ts"
 import { denormalizeTable } from "../../table/index.ts"
@@ -26,9 +26,9 @@ describe.skip("stringifyYearmonthField", () => {
     [[2023, 12], "2023-12"],
     [[0, 0], "0-0"],
   ])("%s -> %s", async (value, expected) => {
-    const table = DataFrame(
+    const table = DataFrame([
       Series("name", [value], DataType.List(DataType.Int16)),
-    ).lazy()
+    ]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "yearmonth" as const }],

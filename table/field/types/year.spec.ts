@@ -32,7 +32,7 @@ describe("parseYearField", () => {
   })
 })
 
-describe.skip("stringifyYearField", () => {
+describe("stringifyYearField", () => {
   it.each([
     // Basic integer years to string conversion
     [2000, "2000"],
@@ -44,7 +44,7 @@ describe.skip("stringifyYearField", () => {
     // Edge cases with null values
     [null, null],
   ])("%s -> %s", async (value, expected) => {
-    const table = DataFrame(Series("name", [value], DataType.Int16)).lazy()
+    const table = DataFrame([Series("name", [value], DataType.Int16)]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "year" as const }],

@@ -1,6 +1,6 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { normalizeTable } from "../../table/index.ts"
+import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
 describe("parseIntegerField", () => {
   it.each([
@@ -61,5 +61,35 @@ describe("parseIntegerField", () => {
 
     expect(df.getColumn("name").get(0)).toEqual(value)
     expect(df.getColumn("name").get(0)).toEqual(value)
+  })
+})
+
+describe("stringifyIntegerField", () => {
+  it.each([
+    // Basic integer to string conversion
+    [1, "1"],
+    [2, "2"],
+    [1000, "1000"],
+    [42, "42"],
+    [-1, "-1"],
+    [-100, "-100"],
+    [0, "0"],
+
+    // Large integers
+    [1234567890, "1234567890"],
+    [-1234567890, "-1234567890"],
+
+    // Null handling
+    [null, null],
+  ])("%s -> %s", async (value, expected) => {
+    const table = DataFrame([Series("name", [value], DataType.Int64)]).lazy()
+    const schema = {
+      fields: [{ name: "name", type: "integer" as const }],
+    }
+
+    const ldf = await denormalizeTable(table, schema)
+    const df = await ldf.collect()
+
+    expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })
