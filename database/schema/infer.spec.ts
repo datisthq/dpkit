@@ -8,17 +8,32 @@ import { inferDatabaseSchema } from "./infer.ts"
 useRecording()
 
 const dialect = { table: "dpkit" }
-const record1 = { id: 1, name: "english" }
-const record2 = { id: 2, name: "中文" }
 
 describe("inferDatabaseSchema", () => {
   it("should infer schema", async () => {
     const path = getTempFilePath()
 
-    const source = pl.DataFrame([record1, record2]).lazy()
-    await saveDatabaseTable(source, { path, dialect, format: "sqlite" })
+    const source = pl
+      .DataFrame([
+        pl.Series("string", ["string"], pl.Utf8),
+        pl.Series("integer", [1], pl.Int32),
+        pl.Series("number", [1.1], pl.Float64),
+      ])
+      .lazy()
 
-    await inferDatabaseSchema({ path, dialect, format: "sqlite" })
-    expect(true).toBe(true)
+    await saveDatabaseTable(source, { path, dialect, format: "sqlite" })
+    const schema = await inferDatabaseSchema({
+      path,
+      dialect,
+      format: "sqlite",
+    })
+
+    expect(schema).toEqual({
+      fields: [
+        { name: "string", type: "string" },
+        { name: "integer", type: "integer" },
+        { name: "number", type: "number" },
+      ],
+    })
   })
 })

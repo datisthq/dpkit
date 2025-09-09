@@ -57,4 +57,64 @@ export class MysqlDriver extends BaseDriver {
   convertColumnToField(_column: ColumnMetadata) {
     return { name: "name" }
   }
+
+  normalizeType(databaseType: ColumnMetadata["dataType"]) {
+    switch (databaseType.toLowerCase()) {
+      case "tinyint":
+      case "smallint":
+      case "mediumint":
+      case "int":
+      case "integer":
+      case "bigint":
+        return "integer"
+      case "decimal":
+      case "numeric":
+      case "float":
+      case "double":
+      case "real":
+        return "number"
+      case "bit":
+      case "bool":
+      case "boolean":
+        return "boolean"
+      case "char":
+      case "varchar":
+      case "tinytext":
+      case "text":
+      case "mediumtext":
+      case "longtext":
+      case "enum":
+      case "set":
+        return "string"
+      case "date":
+        return "date"
+      case "time":
+        return "time"
+      case "datetime":
+      case "timestamp":
+        return "datetime"
+      case "year":
+        return "year"
+      case "binary":
+      case "varbinary":
+      case "tinyblob":
+      case "blob":
+      case "mediumblob":
+      case "longblob":
+        return "string"
+      case "json":
+        return "object"
+      case "geometry":
+      case "point":
+      case "linestring":
+      case "polygon":
+      case "multipoint":
+      case "multilinestring":
+      case "multipolygon":
+      case "geometrycollection":
+        return "geojson"
+      default:
+        return "string"
+    }
+  }
 }

@@ -57,4 +57,83 @@ export class PostgresqlDriver extends BaseDriver {
   convertColumnToField(_column: ColumnMetadata) {
     return { name: "name" }
   }
+
+  normalizeType(databaseType: ColumnMetadata["dataType"]) {
+    switch (databaseType.toLowerCase()) {
+      case "smallint":
+      case "integer":
+      case "int":
+      case "int2":
+      case "int4":
+      case "int8":
+      case "bigint":
+      case "smallserial":
+      case "serial":
+      case "bigserial":
+        return "integer"
+      case "decimal":
+      case "numeric":
+      case "real":
+      case "float4":
+      case "double precision":
+      case "float8":
+        return "number"
+      case "boolean":
+      case "bool":
+        return "boolean"
+      case "char":
+      case "character":
+      case "varchar":
+      case "character varying":
+      case "text":
+      case "citext":
+      case "uuid":
+        return "string"
+      case "date":
+        return "date"
+      case "time":
+      case "time without time zone":
+      case "time with time zone":
+      case "timetz":
+        return "time"
+      case "timestamp":
+      case "timestamp without time zone":
+      case "timestamp with time zone":
+      case "timestamptz":
+        return "datetime"
+      case "interval":
+        return "duration"
+      case "json":
+      case "jsonb":
+        return "object"
+      case "bytea":
+        return "string"
+      case "point":
+      case "line":
+      case "lseg":
+      case "box":
+      case "path":
+      case "polygon":
+      case "circle":
+      case "geometry":
+      case "geography":
+        return "geojson"
+      case "inet":
+      case "cidr":
+      case "macaddr":
+      case "macaddr8":
+        return "string"
+      case "bit":
+      case "bit varying":
+      case "varbit":
+        return "string"
+      case "tsvector":
+      case "tsquery":
+        return "string"
+      case "xml":
+        return "string"
+      default:
+        return "string"
+    }
+  }
 }

@@ -50,9 +50,19 @@ export class SqliteDriver extends BaseDriver {
     }
   }
 
-  convertColumnToField(column: ColumnMetadata) {
-    const field = { name: column.name }
-    //const columnType = column.dataType.toLowerCase()
-    return field
+  normalizeType(databaseType: ColumnMetadata["dataType"]) {
+    switch (databaseType.toLowerCase()) {
+      case "text":
+        return "string"
+      case "integer":
+        return "integer"
+      case "real":
+      case "numeric":
+        return "number"
+      case "blob":
+        return "string"
+      default:
+        return "string"
+    }
   }
 }

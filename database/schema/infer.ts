@@ -21,12 +21,12 @@ export async function inferDatabaseSchema(
   }
 
   const database = await driver.connectDatabase(path)
-  const reflections = await database.introspection.getTables()
+  const databaseTables = await database.introspection.getTables()
 
-  const reflection = reflections.find(r => r.name === dialect.table)
-  if (!reflection) {
+  const databaseTable = databaseTables.find(r => r.name === dialect.table)
+  if (!databaseTable) {
     throw new Error(`Table is not found in database: ${dialect.table}`)
   }
 
-  console.log(reflection)
+  return driver.normalizeSchema(databaseTable)
 }
