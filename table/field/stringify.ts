@@ -1,6 +1,22 @@
 import type { Field } from "@dpkit/core"
 import { col, lit, when } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
+import { stringifyArrayField } from "./types/array.ts"
+import { stringifyBooleanField } from "./types/boolean.ts"
+import { stringifyDateField } from "./types/date.ts"
+import { stringifyDatetimeField } from "./types/datetime.ts"
+import { stringifyStringField } from "./types/string.ts"
+//import { stringifyDurationField } from "./types/duration.ts"
+//import { stringifyGeojsonField } from "./types/geojson.ts"
+//import { stringifyGeopointField } from "./types/geopoint.ts"
+//import { stringifyIntegerField } from "./types/integer.ts"
+//import { stringifyListField } from "./types/list.ts"
+//import { stringifyNumberField } from "./types/number.ts"
+//import { stringifyObjectField } from "./types/object.ts"
+//import { stringifyStringField } from "./types/string.ts"
+import { stringifyTimeField } from "./types/time.ts"
+import { stringifyYearField } from "./types/year.ts"
+import { stringifyYearmonthField } from "./types/yearmonth.ts"
 
 const DEFAULT_MISSING_VALUES = [""]
 
@@ -8,6 +24,9 @@ export function stringifyField(field: Field, expr?: Expr) {
   expr = expr ?? col(field.name)
 
   switch (field.type) {
+    case "string":
+      expr = stringifyStringField(field, expr)
+      break
     case "integer":
       expr = stringifyIntegerField(field, expr)
       break

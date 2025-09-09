@@ -14,3 +14,9 @@ export function parseYearmonthField(field: YearmonthField, expr?: Expr) {
 
   return expr
 }
+
+export function stringifyYearmonthField(field: YearmonthField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  return expr.cast(DataType.List(DataType.String)).lst.join("-")
+}

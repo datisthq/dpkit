@@ -16,3 +16,9 @@ export function parseStringField(field: StringField, expr?: Expr) {
 
   return expr
 }
+
+export function stringifyStringField(field: StringField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  return expr
+}

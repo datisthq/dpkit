@@ -22,5 +22,5 @@ export function stringifyDatetimeField(field: DatetimeField, expr?: Expr) {
 
   const format = field.format ?? DEFAULT_FORMAT
 
-  return expr.dt.strftime(format)
+  return expr.date.strftime(format)
 }

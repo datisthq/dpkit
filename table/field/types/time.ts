@@ -24,5 +24,5 @@ export function stringifyTimeField(field: TimeField, expr?: Expr) {
 
   const format = field.format ?? DEFAULT_FORMAT
 
-  return expr.dt.strftime(format)
+  return expr.date.strftime(format)
 }

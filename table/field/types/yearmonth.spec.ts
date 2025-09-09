@@ -1,6 +1,7 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series, col } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../../table/index.ts"
+import { denormalizeTable } from "../../table/index.ts"
 
 describe("parseYearmonthField", () => {
   it.each([
@@ -16,5 +17,26 @@ describe("parseYearmonthField", () => {
     const df = await ldf.collect()
 
     expect(df.toRecords()[0]?.name).toEqual(value)
+  })
+})
+
+describe.skip("stringifyYearmonthField", () => {
+  it.each([
+    [[2000, 1], "2000-1"],
+    [[2023, 12], "2023-12"],
+    [[0, 0], "0-0"],
+  ])("%s -> %s", async (value, expected) => {
+    const table = DataFrame(
+      Series("name", [value], DataType.List(DataType.Int16)),
+    ).lazy()
+
+    const schema = {
+      fields: [{ name: "name", type: "yearmonth" as const }],
+    }
+
+    const ldf = await denormalizeTable(table, schema)
+    const df = await ldf.collect()
+
+    expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })

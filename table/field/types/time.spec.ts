@@ -1,6 +1,7 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../../table/index.ts"
+import { denormalizeTable } from "../../table/index.ts"
 
 describe("parseTimeField", () => {
   it.each([
@@ -31,6 +32,28 @@ describe("parseTimeField", () => {
     }
 
     const ldf = await normalizeTable(table, schema)
+    const df = await ldf.collect()
+
+    expect(df.toRecords()[0]?.name).toEqual(expected)
+  })
+})
+
+describe.skip("stringifyTimeField", () => {
+  it.each([
+    // Default format
+    [6 * 60 * 60 * 10 ** 9, "06:00:00", {}],
+    [16 * 60 * 60 * 10 ** 9 + 30 * 60 * 10 ** 9, "16:30:00", {}],
+
+    // Custom format
+    [6 * 60 * 60 * 10 ** 9, "06:00", { format: "%H:%M" }],
+    [16 * 60 * 60 * 10 ** 9 + 30 * 60 * 10 ** 9, "16:30", { format: "%H:%M" }],
+  ])("%s -> %s %o", async (value, expected, options) => {
+    const table = DataFrame({ name: [value] }).lazy()
+    const schema = {
+      fields: [{ name: "name", type: "time" as const, ...options }],
+    }
+
+    const ldf = await denormalizeTable(table, schema)
     const df = await ldf.collect()
 
     expect(df.toRecords()[0]?.name).toEqual(expected)

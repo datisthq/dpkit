@@ -1,6 +1,7 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../../table/index.ts"
+import { denormalizeTable } from "../../table/index.ts"
 
 // TODO: Enable this test suite
 // Currently, it seems to have a weird datetime translation bug on the Polars side
@@ -33,6 +34,28 @@ describe.skip("parseDatetimeField", () => {
     }
 
     const ldf = await normalizeTable(table, schema)
+    const df = await ldf.collect()
+
+    expect(df.toRecords()[0]?.name).toEqual(expected)
+  })
+})
+
+describe("stringifyDatetimeField", () => {
+  it.each([
+    // Default format
+    [new Date(Date.UTC(2014, 0, 1, 6, 0, 0)), "2014-01-01T06:00:00", {}],
+    [new Date(Date.UTC(2006, 10, 21, 16, 30, 0)), "2006-11-21T16:30:00", {}],
+
+    // Custom format
+    [new Date(Date.UTC(2006, 10, 21, 16, 30, 0)), "21/11/2006 16:30", { format: "%d/%m/%Y %H:%M" }],
+    [new Date(Date.UTC(2014, 0, 1, 6, 0, 0)), "2014/01/01T06:00:00", { format: "%Y/%m/%dT%H:%M:%S" }],
+  ])("%s -> %s %o", async (value, expected, options) => {
+    const table = DataFrame({ name: [value] }).lazy()
+    const schema = {
+      fields: [{ name: "name", type: "datetime" as const, ...options }],
+    }
+
+    const ldf = await denormalizeTable(table, schema)
     const df = await ldf.collect()
 
     expect(df.toRecords()[0]?.name).toEqual(expected)
