@@ -63,7 +63,9 @@ build/
 compile/
 dist/
 .astro/
+bun.lock
 /docs/content/docs/reference/
 .cursor/
 .claude/
-bun.lock
+.serena/
+.mcp.json
