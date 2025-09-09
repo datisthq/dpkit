@@ -1,6 +1,6 @@
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { normalizeTable } from "../../table/index.ts"
+import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
 describe("parseListField", () => {
   describe("default settings (string items, comma delimiter)", () => {
@@ -144,6 +144,132 @@ describe("parseListField", () => {
       const df = await ldf.collect()
 
       expect(df.toRecords()[0]?.name).toEqual(value)
+    })
+  })
+})
+
+describe("stringifyListField", () => {
+  describe("default settings (string items, comma delimiter)", () => {
+    it.each([
+      // Basic list stringifying
+      [["a", "b", "c"], "a,b,c"],
+      [["foo", "bar", "baz"], "foo,bar,baz"],
+      [["1", "2", "3"], "1,2,3"],
+
+      // Single item
+      [["single"], "single"],
+
+      // Empty items in list
+      [["a", "", "c"], "a,,c"],
+      [["", "b", ""], ",b,"],
+      [["", "", "", ""], ",,,"],
+
+      // Null handling
+      [[null, "b", null], "b"],
+      [["a", null, "c"], "a,c"],
+
+      // Empty array
+      [[], ""],
+    ])("%s -> %s", async (value, expected) => {
+      const table = DataFrame({ name: [value] }).lazy()
+      const schema = {
+        fields: [{ name: "name", type: "list" as const }],
+      }
+
+      const ldf = await denormalizeTable(table, schema)
+      const df = await ldf.collect()
+
+      expect(df.toRecords()[0]?.name).toEqual(expected)
+    })
+  })
+
+  describe.skip("integer item type", () => {
+    it.each([
+      // Integer lists to string
+      [[1, 2, 3], "1,2,3"],
+      [[0, -1, 42], "0,-1,42"],
+      [[-10, 0, 10], "-10,0,10"],
+
+      // Single item
+      [[42], "42"],
+
+      // With nulls
+      [[1, null, 3], "1,,3"],
+      [[null, 2, null], ",2,"],
+
+      // Empty array
+      [[], ""],
+    ])("%s -> %s", async (value, expected) => {
+      const table = DataFrame({ name: [value] }).lazy()
+      const schema = {
+        fields: [
+          { name: "name", type: "list" as const, itemType: "integer" as const },
+        ],
+      }
+
+      const ldf = await denormalizeTable(table, schema)
+      const df = await ldf.collect()
+
+      expect(df.toRecords()[0]?.name).toEqual(expected)
+    })
+  })
+
+  describe("number item type", () => {
+    it.each([
+      // Number lists to string
+      [[1.5, 2.1, 3.7], "1.5,2.1,3.7"],
+      [[0, -1.1, 42], "0.0,-1.1,42.0"],
+      [[-10.5, 0, 10], "-10.5,0.0,10.0"],
+
+      // Single item
+      [[3.14], "3.14"],
+
+      // With nulls
+      [[1.1, null, 3.3], "1.1,3.3"],
+      [[null, 2.2, null], "2.2"],
+
+      // Empty array
+      [[], ""],
+    ])("%s -> %s", async (value, expected) => {
+      const table = DataFrame({ name: [value] }).lazy()
+      const schema = {
+        fields: [
+          { name: "name", type: "list" as const, itemType: "number" as const },
+        ],
+      }
+
+      const ldf = await denormalizeTable(table, schema)
+      const df = await ldf.collect()
+
+      expect(df.toRecords()[0]?.name).toEqual(expected)
+    })
+  })
+
+  describe("custom delimiter", () => {
+    it.each([
+      // Semicolon delimiter
+      [["a", "b", "c"], "a;b;c"],
+      [["1", "2", "3"], "1;2;3"],
+
+      // Single item
+      [["single"], "single"],
+
+      // Empty items in list
+      [["a", "", "c"], "a;;c"],
+      [["", "b", ""], ";b;"],
+
+      // Empty array
+      [[], ""],
+    ])("%s -> %s", async (value, expected) => {
+      const table = DataFrame({ name: [value] }).lazy()
+      const schema = {
+        fields: [{ name: "name", type: "list" as const, delimiter: ";" }],
+      }
+
+      const ldf = await denormalizeTable(table, schema)
+      const df = await ldf.collect()
+
+      expect(df.toRecords()[0]?.name).toEqual(expected)
     })
   })
 })

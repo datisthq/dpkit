@@ -23,3 +23,13 @@ export function parseListField(field: ListField, expr?: Expr) {
 
   return expr
 }
+
+export function stringifyListField(field: ListField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  const delimiter = field.delimiter ?? ","
+
+  return expr
+    .cast(DataType.List(DataType.String))
+    .lst.join({ separator: delimiter, ignoreNulls: true })
+}
