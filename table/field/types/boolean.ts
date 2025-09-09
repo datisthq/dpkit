@@ -24,3 +24,18 @@ export function parseBooleanField(field: BooleanField, expr?: Expr) {
     .otherwise(lit(null))
     .alias(field.name)
 }
+
+const DEFAULT_TRUE_VALUE = "true"
+const DEFAULT_FALSE_VALUE = "false"
+
+export function stringifyBooleanField(field: BooleanField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  const trueValue = field.trueValues?.[0] ?? DEFAULT_TRUE_VALUE
+  const falseValue = field.falseValues?.[0] ?? DEFAULT_FALSE_VALUE
+
+  return when(expr.eq(lit(true)))
+    .then(lit(trueValue))
+    .otherwise(lit(falseValue))
+    .alias(field.name)
+}
