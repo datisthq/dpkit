@@ -3,9 +3,9 @@ import type { DataRecord } from "@dpkit/table"
 import Database from "better-sqlite3"
 import { Kysely } from "kysely"
 import { type ColumnMetadata, SqliteDialect } from "kysely"
-import type { BaseDriver } from "./base.js"
+import { BaseDriver } from "./base.js"
 
-export class SqliteDriver implements BaseDriver {
+export class SqliteDriver extends BaseDriver {
   async connectDatabase(path: string) {
     const filename = path.replace(/^sqlite:\/\//, "")
     const database = new Database(filename)

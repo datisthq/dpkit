@@ -6,12 +6,11 @@ import type { ColumnDataType, ColumnMetadata, Kysely } from "kysely"
 //- normalizeSchema(databaseSchema) -> schema
 //- denormalizeSchema(schema) -> databaseSchema
 
-// TODO: Have createDriver as a static method
 // TODO: Remove convert methods
 
-export interface BaseDriver {
-  connectDatabase(path: string): Promise<Kysely<any>>
-  convertFieldToSql(field: Field): ColumnDataType
-  convertRecordToSql(record: DataRecord, schema: Schema): void
-  convertColumnToField(column: ColumnMetadata): Field
+export abstract class BaseDriver {
+  abstract connectDatabase(path: string): Promise<Kysely<any>>
+  abstract convertFieldToSql(field: Field): ColumnDataType
+  abstract convertRecordToSql(record: DataRecord, schema: Schema): void
+  abstract convertColumnToField(column: ColumnMetadata): Field
 }

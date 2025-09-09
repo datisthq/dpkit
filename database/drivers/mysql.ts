@@ -3,9 +3,9 @@ import type { DataRecord } from "@dpkit/table"
 import { Kysely } from "kysely"
 import { type ColumnMetadata, MysqlDialect } from "kysely"
 import { createPool } from "mysql2"
-import type { BaseDriver } from "./base.js"
+import { BaseDriver } from "./base.js"
 
-export class MysqlDriver implements BaseDriver {
+export class MysqlDriver extends BaseDriver {
   async connectDatabase(path: string) {
     const pool = createPool({
       uri: path,

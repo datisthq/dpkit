@@ -3,9 +3,9 @@ import type { DataRecord } from "@dpkit/table"
 import { Kysely } from "kysely"
 import { type ColumnMetadata, PostgresDialect } from "kysely"
 import { Pool } from "pg"
-import type { BaseDriver } from "./base.js"
+import { BaseDriver } from "./base.js"
 
-export class PostgresqlDriver implements BaseDriver {
+export class PostgresqlDriver extends BaseDriver {
   async connectDatabase(path: string) {
     const pool = new Pool({
       connectionString: path,
