@@ -80,7 +80,7 @@ describe("stringifyIntegerField", () => {
     [-1234567890, "-1234567890"],
 
     // Null handling
-    [null, null],
+    [null, ""],
   ])("%s -> %s", async (value, expected) => {
     const table = DataFrame([Series("name", [value], DataType.Int64)]).lazy()
     const schema = {

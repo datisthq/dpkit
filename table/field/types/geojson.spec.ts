@@ -41,25 +41,40 @@ describe("parseGeojsonField", () => {
 describe("stringifyGeojsonField", () => {
   it.each([
     // GeoJSON Point
-    ['{"type":"Point","coordinates":[125.6,10.1]}', '{"type":"Point","coordinates":[125.6,10.1]}'],
-    
+    [
+      '{"type":"Point","coordinates":[125.6,10.1]}',
+      '{"type":"Point","coordinates":[125.6,10.1]}',
+    ],
+
     // GeoJSON LineString
-    ['{"type":"LineString","coordinates":[[125.6,10.1],[125.7,10.2]]}', '{"type":"LineString","coordinates":[[125.6,10.1],[125.7,10.2]]}'],
-    
+    [
+      '{"type":"LineString","coordinates":[[125.6,10.1],[125.7,10.2]]}',
+      '{"type":"LineString","coordinates":[[125.6,10.1],[125.7,10.2]]}',
+    ],
+
     // GeoJSON Polygon
-    ['{"type":"Polygon","coordinates":[[[125.6,10.1],[125.7,10.1],[125.7,10.2],[125.6,10.2],[125.6,10.1]]]}', '{"type":"Polygon","coordinates":[[[125.6,10.1],[125.7,10.1],[125.7,10.2],[125.6,10.2],[125.6,10.1]]]}'],
-    
+    [
+      '{"type":"Polygon","coordinates":[[[125.6,10.1],[125.7,10.1],[125.7,10.2],[125.6,10.2],[125.6,10.1]]]}',
+      '{"type":"Polygon","coordinates":[[[125.6,10.1],[125.7,10.1],[125.7,10.2],[125.6,10.2],[125.6,10.1]]]}',
+    ],
+
     // GeoJSON Feature
-    ['{"type":"Feature","geometry":{"type":"Point","coordinates":[125.6,10.1]},"properties":{"name":"Sample Point"}}', '{"type":"Feature","geometry":{"type":"Point","coordinates":[125.6,10.1]},"properties":{"name":"Sample Point"}}'],
-    
+    [
+      '{"type":"Feature","geometry":{"type":"Point","coordinates":[125.6,10.1]},"properties":{"name":"Sample Point"}}',
+      '{"type":"Feature","geometry":{"type":"Point","coordinates":[125.6,10.1]},"properties":{"name":"Sample Point"}}',
+    ],
+
     // GeoJSON FeatureCollection
-    ['{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[125.6,10.1]},"properties":{"name":"Point 1"}}]}', '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[125.6,10.1]},"properties":{"name":"Point 1"}}]}'],
-    
+    [
+      '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[125.6,10.1]},"properties":{"name":"Point 1"}}]}',
+      '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[125.6,10.1]},"properties":{"name":"Point 1"}}]}',
+    ],
+
     // Empty GeoJSON object
-    ['{}', '{}'],
-    
+    ["{}", "{}"],
+
     // Null handling
-    [null, null],
+    [null, ""],
   ])("%s -> %s", async (value, expected) => {
     const table = DataFrame({ name: [value] }).lazy()
     const schema = {

@@ -47,8 +47,16 @@ describe("stringifyDatetimeField", () => {
     [new Date(Date.UTC(2006, 10, 21, 16, 30, 0)), "2006-11-21T16:30:00", {}],
 
     // Custom format
-    [new Date(Date.UTC(2006, 10, 21, 16, 30, 0)), "21/11/2006 16:30", { format: "%d/%m/%Y %H:%M" }],
-    [new Date(Date.UTC(2014, 0, 1, 6, 0, 0)), "2014/01/01T06:00:00", { format: "%Y/%m/%dT%H:%M:%S" }],
+    [
+      new Date(Date.UTC(2006, 10, 21, 16, 30, 0)),
+      "21/11/2006 16:30",
+      { format: "%d/%m/%Y %H:%M" },
+    ],
+    [
+      new Date(Date.UTC(2014, 0, 1, 6, 0, 0)),
+      "2014/01/01T06:00:00",
+      { format: "%Y/%m/%dT%H:%M:%S" },
+    ],
   ])("%s -> %s %o", async (value, expected, options) => {
     const table = DataFrame({ name: [value] }).lazy()
     const schema = {

@@ -17,7 +17,7 @@ import { stringifyTimeField } from "./types/time.ts"
 import { stringifyYearField } from "./types/year.ts"
 import { stringifyYearmonthField } from "./types/yearmonth.ts"
 
-const DEFAULT_MISSING_VALUES = [""]
+const DEFAULT_MISSING_VALUE = ""
 
 export function stringifyField(field: Field, expr?: Expr) {
   expr = expr ?? col(field.name)
@@ -70,17 +70,15 @@ export function stringifyField(field: Field, expr?: Expr) {
       break
   }
 
-  const flattenMissingValues =
-    field.missingValues?.map(it => (typeof it === "string" ? it : it.value)) ??
-    DEFAULT_MISSING_VALUES
+  const flattenMissingValues = field.missingValues?.map(it =>
+    typeof it === "string" ? it : it.value,
+  )
 
-  const missingValue = flattenMissingValues[0]
-  if (missingValue) {
-    expr = when(expr.isNull())
-      .then(lit(missingValue))
-      .otherwise(expr)
-      .alias(field.name)
-  }
+  const missingValue = flattenMissingValues?.[0] ?? DEFAULT_MISSING_VALUE
+  expr = when(expr.isNull())
+    .then(lit(missingValue))
+    .otherwise(expr)
+    .alias(field.name)
 
   return expr
 }

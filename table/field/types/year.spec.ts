@@ -42,7 +42,7 @@ describe("stringifyYearField", () => {
     [9999, "9999"],
 
     // Edge cases with null values
-    [null, null],
+    [null, ""],
   ])("%s -> %s", async (value, expected) => {
     const table = DataFrame([Series("name", [value], DataType.Int16)]).lazy()
 

@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest"
 import { DataFrame } from "nodejs-polars"
+import { describe, expect, it } from "vitest"
 import { saveDatabaseTable } from "./save.js"
 
 describe("saveDatabaseTable", () => {
@@ -10,8 +10,8 @@ describe("saveDatabaseTable", () => {
       saveDatabaseTable(mockTable, {
         format: "unsupported" as any,
         path: "test.db",
-        dialect: { table: "test_table" }
-      })
+        dialect: { table: "test_table" },
+      }),
     ).rejects.toThrow("Supported database format is not defined")
   })
 
@@ -20,8 +20,8 @@ describe("saveDatabaseTable", () => {
       saveDatabaseTable(mockTable, {
         format: "sqlite",
         path: "test.db",
-        dialect: {}
-      })
+        dialect: {},
+      }),
     ).rejects.toThrow("Table name is not defined in dialect")
   })
 })

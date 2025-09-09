@@ -37,4 +37,3 @@ describe("inferDatabaseSchema", () => {
     ).rejects.toThrow("Table is not found in database: nonexistent_table")
   })
 })
-

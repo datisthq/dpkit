@@ -29,9 +29,9 @@ describe("stringifyDurationField", () => {
     ["PT1H", "PT1H"],
     ["P1W", "P1W"],
     ["PT0S", "PT0S"],
-    
+
     // Null handling
-    [null, null],
+    [null, ""],
   ])("%s -> %s", async (value, expected) => {
     const table = DataFrame({ name: [value] }).lazy()
     const schema = {

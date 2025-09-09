@@ -44,14 +44,20 @@ describe("stringifyObjectField", () => {
     ['{"name":"John","age":30}', '{"name":"John","age":30}'],
     ['{"numbers":[1,2,3]}', '{"numbers":[1,2,3]}'],
     ['{"nested":{"prop":"value"}}', '{"nested":{"prop":"value"}}'],
-    ['{}', "{}"],
-    
+    ["{}", "{}"],
+
     // Complex nested objects as JSON strings
-    ['{"users":[{"id":1,"name":"Alice"},{"id":2,"name":"Bob"}]}', '{"users":[{"id":1,"name":"Alice"},{"id":2,"name":"Bob"}]}'],
-    ['{"config":{"debug":true,"timeout":5000}}', '{"config":{"debug":true,"timeout":5000}}'],
-    
+    [
+      '{"users":[{"id":1,"name":"Alice"},{"id":2,"name":"Bob"}]}',
+      '{"users":[{"id":1,"name":"Alice"},{"id":2,"name":"Bob"}]}',
+    ],
+    [
+      '{"config":{"debug":true,"timeout":5000}}',
+      '{"config":{"debug":true,"timeout":5000}}',
+    ],
+
     // Null handling
-    [null, null],
+    [null, ""],
   ])("%s -> %s", async (value, expected) => {
     const table = DataFrame({ name: [value] }).lazy()
     const schema = {
