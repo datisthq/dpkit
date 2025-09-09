@@ -36,8 +36,8 @@ export function stringifyIntegerField(field: IntegerField, expr?: Expr) {
   // Convert to string
   expr = expr.cast(DataType.String)
 
-  const groupChar = field.groupChar
-  const bareNumber = field.bareNumber
+  //const groupChar = field.groupChar
+  //const bareNumber = field.bareNumber
 
   // TODO: Add group character formatting (thousands separator) when needed
   // TODO: Add non-bare number formatting (currency symbols, etc.) when needed

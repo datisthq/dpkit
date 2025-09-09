@@ -54,9 +54,8 @@ export function stringifyNumberField(field: NumberField, expr?: Expr) {
   // Convert to string
   expr = expr.cast(DataType.String)
 
-  const decimalChar = field.decimalChar ?? "."
-  const groupChar = field.groupChar ?? ""
-  const bareNumber = field.bareNumber ?? true
+  //const decimalChar = field.decimalChar ?? "."
+  //const groupChar = field.groupChar ?? ""
 
   // TODO: Add decimal character formatting when needed
   // TODO: Add group character formatting (thousands separator) when needed

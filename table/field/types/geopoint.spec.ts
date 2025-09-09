@@ -148,10 +148,9 @@ describe("stringifyGeopointField", () => {
       // Null handling
       [null, null],
     ])("%s -> %s", async (value, expected) => {
-      const table = DataFrame(
-        { name: [value] },
-        { name: DataType.List(DataType.Float64) },
-      ).lazy()
+      const table = DataFrame([
+        Series("name", [value], DataType.List(DataType.Float64)),
+      ]).lazy()
       const schema = {
         fields: [
           { name: "name", type: "geopoint" as const, format: "array" as const },

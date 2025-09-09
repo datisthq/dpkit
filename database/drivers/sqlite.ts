@@ -30,6 +30,10 @@ export class SqliteDriver extends BaseDriver {
     }
   }
 
+  convertColumnToField(_column: ColumnMetadata) {
+    return { name: "name" }
+  }
+
   convertRecordToSql(record: DataRecord, schema: Schema) {
     for (const field of schema.fields) {
       if (field.type === "boolean") {

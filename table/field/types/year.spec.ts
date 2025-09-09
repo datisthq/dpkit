@@ -1,4 +1,4 @@
-import { DataFrame, DataType, Series, col } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
