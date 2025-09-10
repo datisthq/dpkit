@@ -1,7 +1,6 @@
 import { assertLocalPathVacant } from "@dpkit/file"
 import type { SaveTableOptions, Table } from "@dpkit/table"
-
-// TODO: support providing TSV format? (see JSON)
+import { denormalizeTable, inferTableSchema } from "@dpkit/table"
 
 export async function saveCsvTable(
   table: Table,
@@ -13,6 +12,14 @@ export async function saveCsvTable(
   if (!overwrite) {
     await assertLocalPathVacant(path)
   }
+
+  const schema = await inferTableSchema(table, {
+    ...options,
+    keepStrings: true,
+  })
+
+  console.log(schema)
+  table = await denormalizeTable(table, schema)
 
   await table
     .sinkCSV(path, {

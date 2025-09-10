@@ -92,14 +92,21 @@ describe("saveCsvTable", () => {
         pl.Series("date", [new Date(Date.UTC(2025, 0, 1))], pl.Date),
         pl.Series("time", [new Date(Date.UTC(2025, 0, 1))], pl.Time),
         pl.Series("year", [2025], pl.Int32),
-        //pl.Series("yearmonth", [[2025, 1]], pl.List(pl.Int32)),
+        pl.Series("yearmonth", [[2025, 1]], pl.List(pl.Int32)),
         pl.Series("duration", ["P23DT23H"], pl.Utf8),
         //pl.Series("geopoint", [[40.00, 50.00]], pl.List(pl.Float32)),
         //pl.Series("geojson", [{ value: 1 }]),
       ])
       .lazy()
 
-    await saveCsvTable(table, { path, dialect: { delimiter: ";" } })
+    await saveCsvTable(table, {
+      path,
+      dialect: { delimiter: ";" },
+      fieldTypes: {
+        yearmonth: "yearmonth",
+      },
+    })
+
     const content = await readFile(path, "utf-8")
     const [head, body] = content.split("\n")
 
@@ -119,14 +126,11 @@ describe("saveCsvTable", () => {
       //object: "{\"value\":1}",
       //array: "[1,2,3]",
       //list: "[1,2,3]",
-      // TODO: fix
-      datetime: "2025-01-01T00:00:00.000",
+      datetime: "2025-01-01T00:00:00",
       date: "2025-01-01",
-      // TODO: fix
-      time: "2025-01-01T00:00:00.000",
+      time: "2025-01-01T00:00:00",
       year: "2025",
-      // TODO: fix
-      //yearmonth: "[2025,1]",
+      yearmonth: "2025-01",
       duration: "P23DT23H",
       // geopoint: "[40.00,50.00]",
       //geojson: "{\"value\":1}",

@@ -4,8 +4,6 @@ import { getPolarsSchema } from "../schema/index.ts"
 import type { Table } from "../table/index.ts"
 import type { SchemaOptions } from "./Options.ts"
 
-// TODO: Support fieldNames?
-// TODO: Support fieldTypes?
 // TODO: Implement actual options usage for inferring
 // TODO: Review default values being {fields: []} vs undefined
 
@@ -21,7 +19,13 @@ export async function inferTableSchema(
   table: Table,
   options?: InferSchemaOptions,
 ) {
-  const { sampleRows = 100, confidence = 0.9, keepStrings } = options ?? {}
+  const {
+    sampleRows = 100,
+    confidence = 0.9,
+    fieldTypes,
+    keepStrings,
+  } = options ?? {}
+
   const schema: Schema = {
     fields: [],
   }
@@ -31,14 +35,19 @@ export async function inferTableSchema(
 
   const sample = await table.head(sampleRows).collect()
   const polarsSchema = getPolarsSchema(sample.schema)
+  const fieldNames = options?.fieldNames ?? polarsSchema.fields.map(f => f.name)
 
   const failureThreshold =
     sample.height - Math.floor(sample.height * confidence) || 1
 
-  for (const polarsField of polarsSchema.fields) {
-    const name = polarsField.name
-    const type = typeMapping[polarsField.type.variant] ?? "any"
+  for (const name of fieldNames) {
+    const polarsField = polarsSchema.fields.find(f => f.name === name)
+    if (!polarsField) {
+      throw new Error(`Field "${name}" not found in the table`)
+    }
 
+    const type =
+      fieldTypes?.[name] ?? typeMapping[polarsField.type.variant] ?? "any"
     let field = { name, type }
 
     if (!keepStrings && type === "string") {

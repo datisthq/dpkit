@@ -15,8 +15,6 @@ import { inferCsvDialect } from "../dialect/index.ts"
 // for better commentChar + headerRows/commentRows support
 // (consult with the Data Package Working Group)
 
-// TODO: support providing TSV format? (see JSON)
-
 export async function loadCsvTable(
   resource: Partial<Resource> & { format?: "csv" | "tsv" },
   options?: LoadTableOptions,
