@@ -38,7 +38,7 @@ describe("stringifyYearField", () => {
     [2000, "2000"],
     [2023, "2023"],
     [1999, "1999"],
-    [0, "0"],
+    [0, "0000"],
     [9999, "9999"],
 
     // Edge cases with null values

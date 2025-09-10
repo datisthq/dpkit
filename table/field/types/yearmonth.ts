@@ -7,6 +7,8 @@ import type { Expr } from "nodejs-polars"
 // - Check the length of the list is 2 (no list.lenghts in polars currently)
 // - Check the values are year and month limits
 // - Return null instead of list if any of the values are out of range
+// - Rebase on Struct when lst.toStruct() is available?
+
 export function parseYearmonthField(field: YearmonthField, expr?: Expr) {
   expr = expr ?? col(field.name)
 
