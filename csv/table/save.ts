@@ -18,7 +18,6 @@ export async function saveCsvTable(
     keepStrings: true,
   })
 
-  console.log(schema)
   table = await denormalizeTable(table, schema)
 
   await table

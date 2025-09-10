@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises"
 import { getTempFilePath } from "@dpkit/file"
 import { DataFrame, DataType, Series, col } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
+import { loadCsvTable } from "./load.ts"
 import { saveCsvTable } from "./save.ts"
 
 describe("saveCsvTable", () => {
@@ -68,17 +69,15 @@ describe("saveCsvTable", () => {
     )
   })
 
-  it("should save various data types", async () => {
+  it("should save and load various data types", async () => {
     const path = getTempFilePath()
 
-    console.log(Series("yearmonth", [[2025, 1]], DataType.List(DataType.Int16)))
-
-    const table = DataFrame([
+    const source = DataFrame([
       Series("string", ["string"], DataType.String),
       Series("integer", [1], DataType.Int32),
       Series("number", [1.1], DataType.Float64),
       Series("boolean", [true], DataType.Bool),
-      //Series("object", [{ value: 1 }]),
+      Series("object", ['{"value": 1}']),
       //Series("array", [[1, 2, 3]], List(Int32)),
       //Series("list", [[1, 2, 3]], List(Int32)),
       Series("datetime", [new Date(Date.UTC(2025, 0, 1))], DataType.Datetime),
@@ -88,45 +87,38 @@ describe("saveCsvTable", () => {
       Series("yearmonth", [[2025, 1]], DataType.List(DataType.Int16)),
       Series("duration", ["P23DT23H"], DataType.String),
       //Series("geopoint", [[40.00, 50.00]], List(Float32)),
-      //Series("geojson", [{ value: 1 }]),
+      Series("geojson", ['{"value": 1}'], DataType.String),
     ]).lazy()
 
-    await saveCsvTable(table, {
+    await saveCsvTable(source, {
       path,
-      dialect: { delimiter: ";" },
       fieldTypes: {
+        object: "object",
         yearmonth: "yearmonth",
+        geojson: "geojson",
       },
     })
 
-    const content = await readFile(path, "utf-8")
-    const [head, body] = content.split("\n")
-
-    const labels = head?.split(";") ?? []
-    const cells = body?.split(";") ?? []
-
-    const records = Object.fromEntries(
-      labels.map((label, index) => [label, cells[index]]),
-    )
-
-    expect(records).toEqual({
-      string: "string",
-      integer: "1",
-      number: "1.1",
-      boolean: "true",
-      // TODO: fix
-      //object: "{\"value\":1}",
-      //array: "[1,2,3]",
-      //list: "[1,2,3]",
-      datetime: "2025-01-01T00:00:00",
-      date: "2025-01-01",
-      time: "2025-01-01T00:00:00",
-      year: "2025",
-      yearmonth: "2025-01",
-      duration: "P23DT23H",
-      // geopoint: "[40.00,50.00]",
-      //geojson: "{\"value\":1}",
-    })
+    const target = await loadCsvTable({ path }, { denormalized: true })
+    expect((await target.collect()).toRecords()).toEqual([
+      {
+        string: "string",
+        integer: "1",
+        number: "1.1",
+        boolean: "true",
+        object: '{"value": 1}',
+        //array: "[1,2,3]",
+        //list: "[1,2,3]",
+        datetime: "2025-01-01T00:00:00",
+        date: "2025-01-01",
+        time: "2025-01-01T00:00:00",
+        year: "2025",
+        yearmonth: "2025-01",
+        duration: "P23DT23H",
+        // geopoint: "[40.00,50.00]",
+        geojson: '{"value": 1}',
+      },
+    ])
   })
 })
 
