@@ -1,9 +1,12 @@
 import type { GeopointField, ListField } from "@dpkit/core"
 import type { Field } from "@dpkit/core"
 
+type FieldType = Exclude<Field["type"], undefined>
+
 export interface SchemaOptions {
   fieldNames?: string[]
-  fieldTypes?: Record<string, Field["type"]>
+  fieldTypes?: Record<string, FieldType>
+  convertTypes?: Record<FieldType, FieldType>
   missingValues?: string[]
   decimalChar?: string
   groupChar?: string
