@@ -86,7 +86,7 @@ describe("saveCsvTable", () => {
       Series("year", [2025], DataType.Int32),
       Series("yearmonth", [[2025, 1]], DataType.List(DataType.Int16)),
       Series("duration", ["P23DT23H"], DataType.String),
-      //Series("geopoint", [[40.00, 50.00]], List(Float32)),
+      Series("geopoint", [[40.0, 50.0]], DataType.List(DataType.Float32)),
       Series("geojson", ['{"value": 1}'], DataType.String),
     ]).lazy()
 
@@ -95,6 +95,7 @@ describe("saveCsvTable", () => {
       fieldTypes: {
         object: "object",
         yearmonth: "yearmonth",
+        geopoint: "geopoint",
         geojson: "geojson",
       },
     })
@@ -115,7 +116,7 @@ describe("saveCsvTable", () => {
         year: "2025",
         yearmonth: "2025-01",
         duration: "P23DT23H",
-        // geopoint: "[40.00,50.00]",
+        geopoint: "40.0,50.0",
         geojson: '{"value": 1}',
       },
     ])
