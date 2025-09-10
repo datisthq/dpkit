@@ -1,5 +1,5 @@
 import type { YearmonthField } from "@dpkit/core"
-import { DataType, col } from "nodejs-polars"
+import { DataType, col, concatString } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
 // TODO:
@@ -18,5 +18,13 @@ export function parseYearmonthField(field: YearmonthField, expr?: Expr) {
 export function stringifyYearmonthField(field: YearmonthField, expr?: Expr) {
   expr = expr ?? col(field.name)
 
-  return expr.cast(DataType.List(DataType.String)).lst.join("-")
+  // TODO: remove int casting when resolved:
+  // https://github.com/pola-rs/nodejs-polars/issues/362
+  return concatString(
+    [
+      expr.lst.get(0).cast(DataType.Int16).cast(DataType.String).str.zFill(4),
+      expr.lst.get(1).cast(DataType.Int16).cast(DataType.String).str.zFill(2),
+    ],
+    "-",
+  ).alias(field.name) as Expr
 }

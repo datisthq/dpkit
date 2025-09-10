@@ -122,9 +122,7 @@ describe("saveCsvTable", () => {
       date: "2025-01-01",
       time: "2025-01-01T00:00:00",
       year: "2025",
-      // TODO: fix when resolved:
-      // https://github.com/pola-rs/nodejs-polars/issues/362
-      yearmonth: "2025.0-01.0",
+      yearmonth: "2025-01",
       duration: "P23DT23H",
       // geopoint: "[40.00,50.00]",
       //geojson: "{\"value\":1}",

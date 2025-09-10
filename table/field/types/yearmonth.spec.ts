@@ -20,13 +20,11 @@ describe("parseYearmonthField", () => {
   })
 })
 
-// TODO: fix when resolved:
-// https://github.com/pola-rs/nodejs-polars/issues/362
-describe.skip("stringifyYearmonthField", () => {
+describe("stringifyYearmonthField", () => {
   it.each([
-    [[2000, 1], "2000-1"],
+    [[2000, 1], "2000-01"],
     [[2023, 12], "2023-12"],
-    [[0, 0], "0-0"],
+    [[0, 0], "0000-00"],
   ])("%s -> %s", async (value, expected) => {
     const table = DataFrame([
       Series("name", [value], DataType.List(DataType.Int16)),
