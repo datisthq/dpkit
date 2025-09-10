@@ -20,6 +20,8 @@ describe("parseYearmonthField", () => {
   })
 })
 
+// TODO: fix when resolved:
+// https://github.com/pola-rs/nodejs-polars/issues/362
 describe.skip("stringifyYearmonthField", () => {
   it.each([
     [[2000, 1], "2000-1"],
