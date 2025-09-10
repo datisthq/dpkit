@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises"
 import { getTempFilePath } from "@dpkit/file"
-import { DataFrame, DataType, Series, col } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { loadCsvTable } from "./load.ts"
 import { saveCsvTable } from "./save.ts"
