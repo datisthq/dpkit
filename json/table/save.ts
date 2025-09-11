@@ -1,5 +1,6 @@
 import type { Dialect } from "@dpkit/core"
 import { saveFile } from "@dpkit/file"
+import { denormalizeTable, inferTableSchema } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { decodeJsonBuffer, encodeJsonBuffer } from "../buffer/index.ts"
 
@@ -12,6 +13,15 @@ export async function saveJsonTable(
 ) {
   const { path, dialect, overwrite, format } = options
   const isLines = format === "jsonl" || format === "ndjson"
+
+  const schema = await inferTableSchema(table, {
+    ...options,
+    keepStrings: true,
+  })
+
+  table = await denormalizeTable(table, schema, {
+    keepTypes: ["boolean", "integer", "list", "number", "string", "year"],
+  })
 
   // We use polars to serialize the data
   // But encode it manually to support dialects/formatting
