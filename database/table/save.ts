@@ -1,13 +1,12 @@
-import type { Schema } from "@dpkit/core"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { denormalizeTable, inferTableSchema } from "@dpkit/table"
 import type { Kysely } from "kysely"
-import type { BaseDriver } from "../drivers/base.js"
 import { createDriver } from "../drivers/create.ts"
 import type { DatabaseSchema } from "../schema/index.ts"
 
 // Currently, we use slow non-rust implementation as in the future
 // polars-rust might be able to provide a faster native implementation
+// (if not supported we can use COPY in PostgreSQL/MySQL)
 
 export async function saveDatabaseTable(
   table: Table,
@@ -38,7 +37,7 @@ export async function saveDatabaseTable(
   const databaseSchema = driver.denormalizeSchema(schema, tableName)
 
   await defineTable(database, databaseSchema, { overwrite })
-  await populateTable(database, { table, driver, schema, tableName })
+  await populateTable(database, tableName, table)
 
   await database.destroy()
   return path
@@ -75,15 +74,9 @@ async function defineTable(
 
 async function populateTable(
   database: Kysely<any>,
-  options: {
-    table: Table
-    driver: BaseDriver
-    schema: Schema
-    tableName: string
-  },
+  tableName: string,
+  table: Table,
 ) {
-  const { table, driver, schema, tableName } = options
-
   let offset = 0
   const df = await table.collect({ streaming: true })
   while (true) {
@@ -95,7 +88,6 @@ async function populateTable(
       break
     }
 
-    records.forEach(record => driver.convertRecordToSql(record, schema))
     await database.insertInto(tableName).values(records).execute()
   }
 }

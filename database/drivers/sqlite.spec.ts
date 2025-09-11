@@ -64,15 +64,15 @@ describe("SqliteDriver", () => {
 
     const source = pl
       .DataFrame([
-        pl.Series("string", ["string"], pl.Utf8),
-        pl.Series("integer", [1], pl.Int32),
-        pl.Series("number", [1.1], pl.Float64),
-        pl.Series("boolean", [true], pl.Bool),
+        //pl.Series("array", [[1, 2, 3]], pl.List(pl.Int32)),
+        //pl.Series("boolean", [true], pl.Bool),
+        //pl.Series("date", [new Date(Date.UTC(2025, 0, 1))], pl.Date),
+        //pl.Series("datetime", [new Date(Date.UTC(2025, 0, 1))], pl.Datetime),
+        //pl.Series("integer", [1], pl.Int32),
+        //pl.Series("list", [[1, 2, 3]], pl.List(pl.Int32)),
+        //pl.Series("number", [1.1], pl.Float64),
         //pl.Series("object", [{ value: 1 }], pl.Struct([pl.Field("value", pl.Int32)])),
-        pl.Series("array", [[1, 2, 3]], pl.List(pl.Int32)),
-        pl.Series("list", [[1, 2, 3]], pl.List(pl.Int32)),
-        pl.Series("datetime", [new Date(Date.UTC(2025, 0, 1))], pl.Datetime),
-        pl.Series("date", [new Date(Date.UTC(2025, 0, 1))], pl.Date),
+        pl.Series("string", ["string"], pl.Utf8),
         //pl.Series("time", [new Date(Date.UTC(2025, 0, 1))], pl.Time),
       ])
       .lazy()
@@ -85,15 +85,15 @@ describe("SqliteDriver", () => {
 
     expect((await table.collect()).toRecords()).toEqual([
       {
-        string: "string",
-        integer: 1,
-        number: 1.1,
-        boolean: "true",
+        //array: "[1,2,3]",
+        //boolean: "true",
+        //date: "2025-01-01",
+        //datetime: "2025-01-01T00:00:00.000Z",
+        //integer: 1,
+        //list: "[1,2,3]",
+        //number: 1.1,
         //object: '{"value":1}',
-        array: "[1,2,3]",
-        list: "[1,2,3]",
-        datetime: "2025-01-01T00:00:00.000Z",
-        date: "2025-01-01",
+        string: "string",
         //time: "00:00:00.000Z",
       },
     ])

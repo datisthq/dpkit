@@ -21,45 +21,6 @@ export class MysqlDriver extends BaseDriver {
     })
   }
 
-  convertFieldToSql(field: Field) {
-    switch (field.type) {
-      case "boolean":
-        return "boolean"
-      case "integer":
-        return "integer"
-      case "number":
-        return "real"
-      case "string":
-        return "text"
-      case "date":
-        return "date"
-      case "time":
-        return "time"
-      case "datetime":
-        return "datetime"
-      case "year":
-        return "integer"
-      case "yearmonth":
-      case "duration":
-        return "text"
-      case "object":
-      case "array":
-      case "list":
-      case "geopoint":
-      case "geojson":
-        return "text"
-      case "any":
-        return "text"
-      default:
-        return "text"
-    }
-  }
-
-  convertRecordToSql(_record: DataRecord, _schema: Schema) {}
-  convertColumnToField(_column: ColumnMetadata) {
-    return { name: "name" }
-  }
-
   normalizeType(databaseType: ColumnMetadata["dataType"]) {
     switch (databaseType.toLowerCase()) {
       case "tinyint":

@@ -1,27 +1,13 @@
 import type { Field, FieldType, Schema } from "@dpkit/core"
-import type { DataRecord } from "@dpkit/table"
-import type { TableMetadata } from "kysely"
-import type { ColumnDataType, ColumnMetadata, Kysely } from "kysely"
+import type { Kysely } from "kysely"
 import type { DatabaseField } from "../field/index.ts"
 import type { DatabaseSchema } from "../schema/index.ts"
 
-// TODO: Make a class and implement common methods like:
-//- normalizeSchema(databaseSchema) -> schema
-//- denormalizeSchema(schema) -> databaseSchema
-
-// TODO: Remove convert methods
-
-export type ExtendedTableMetadata = TableMetadata & {
-  primaryKey: string[]
-}
-
 export abstract class BaseDriver {
   abstract get nativeTypes(): FieldType[]
-
   abstract connectDatabase(path: string): Promise<Kysely<any>>
-  abstract convertFieldToSql(field: Field): ColumnDataType
-  abstract convertRecordToSql(record: DataRecord, schema: Schema): void
-  abstract convertColumnToField(column: ColumnMetadata): Field
+  abstract normalizeType(databaseType: DatabaseField["dataType"]): Field["type"]
+  abstract denormalizeType(fieldType: Field["type"]): DatabaseField["dataType"]
 
   normalizeSchema(databaseSchema: DatabaseSchema) {
     const schema: Schema = { fields: [] }
@@ -50,8 +36,6 @@ export abstract class BaseDriver {
 
     return field
   }
-
-  abstract normalizeType(databaseType: DatabaseField["dataType"]): Field["type"]
 
   denormalizeSchema(schema: Schema, tableName: string): DatabaseSchema {
     const databaseSchema: DatabaseSchema = {
@@ -83,6 +67,4 @@ export abstract class BaseDriver {
 
     return databaseField
   }
-
-  abstract denormalizeType(fieldType: Field["type"]): DatabaseField["dataType"]
 }
