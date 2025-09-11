@@ -5,6 +5,40 @@ import { normalizeTable } from "../../table/index.ts"
 // TODO: Implement proper tests
 // TODO: Currently, it fails on to JS conversion from Polars
 describe("parseStringField", () => {
+  describe("email format", () => {
+    it.each([
+      // Valid emails
+      ["user@example.com", "user@example.com"],
+      ["test.email@domain.co.uk", "test.email@domain.co.uk"],
+      ["user+tag@example.org", "user+tag@example.org"],
+      ["first.last@subdomain.example.com", "first.last@subdomain.example.com"],
+      ["user123@test-domain.com", "user123@test-domain.com"],
+
+      // Invalid emails
+      ["invalid-email", null],
+      ["@example.com", null],
+      ["user@", null],
+      ["user@@example.com", null],
+      ["user@example", null],
+      ["user name@example.com", null],
+
+      // Null handling
+      ["", null],
+    ])("$0 -> $1", async (cell, value) => {
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
+      const schema = {
+        fields: [{ name: "name", type: "string" as const, format: "email" }],
+      }
+
+      const ldf = await normalizeTable(table, schema)
+      const df = await ldf.collect()
+
+      expect(df.getColumn("name").dtype).toEqual(DataType.String)
+      expect(df.toRecords()[0]?.name).toEqual(value)
+    })
+  })
+
   describe("uuid format", () => {
     it.each([
       // Valid UUIDs
