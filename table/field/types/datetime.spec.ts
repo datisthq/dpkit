@@ -1,11 +1,10 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../../table/index.ts"
 import { denormalizeTable } from "../../table/index.ts"
 
-// TODO: Enable this test suite
-// Currently, it seems to have a weird datetime translation bug on the Polars side
-// as resutls within the dataframe are correct, but exported ones are not
+// TODO: Enable this test suite after this issue is fixed:
+// https://github.com/pola-rs/nodejs-polars/issues/365
 describe.skip("parseDatetimeField", () => {
   it.each([
     // Default format
@@ -28,7 +27,8 @@ describe.skip("parseDatetimeField", () => {
     // Invalid format
     ["21/11/06 16:30", null, { format: "invalid" }],
   ])("%s -> %s %o", async (cell, expected, options) => {
-    const table = DataFrame({ name: [cell] }).lazy()
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "datetime" as const, ...options }],
     }
@@ -58,7 +58,8 @@ describe("stringifyDatetimeField", () => {
       { format: "%Y/%m/%dT%H:%M:%S" },
     ],
   ])("%s -> %s %o", async (value, expected, options) => {
-    const table = DataFrame({ name: [value] }).lazy()
+    const table = DataFrame([Series("name", [value], DataType.Datetime)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "datetime" as const, ...options }],
     }

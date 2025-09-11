@@ -1,4 +1,4 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
@@ -63,7 +63,8 @@ describe("parseNumberField", () => {
       { bareNumber: false, groupChar: ".", decimalChar: "," },
     ],
   ])("$0 -> $1 $2", async (cell, value, options) => {
-    const table = DataFrame({ name: [cell] }).lazy()
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "number" as const, ...options }],
     }
@@ -102,7 +103,8 @@ describe("stringifyNumberField", () => {
     // Null handling
     [null, ""],
   ])("%s -> %s", async (value, expected) => {
-    const table = DataFrame({ name: [value] }).lazy()
+    const table = DataFrame([Series("name", [value], DataType.Float64)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "number" as const }],
     }

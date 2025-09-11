@@ -1,4 +1,4 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
@@ -6,7 +6,7 @@ describe("parseDurationField", () => {
   it.each([["P23DT23H", "P23DT23H", {}]])(
     "$0 -> $1 $2",
     async (cell, value, options) => {
-      const table = DataFrame({ name: [cell] }).lazy()
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
       const schema = {
         fields: [{ name: "name", type: "duration" as const, ...options }],
       }
@@ -33,7 +33,8 @@ describe("stringifyDurationField", () => {
     // Null handling
     [null, ""],
   ])("%s -> %s", async (value, expected) => {
-    const table = DataFrame({ name: [value] }).lazy()
+    const table = DataFrame([Series("name", [value], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "duration" as const }],
     }

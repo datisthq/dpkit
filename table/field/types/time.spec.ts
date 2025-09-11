@@ -26,7 +26,8 @@ describe("parseTimeField", () => {
     // Invalid format
     //["06:00", null, { format: "invalid" }],
   ])("$0 -> $1 $2", async (cell, expected, options) => {
-    const table = DataFrame({ name: [cell] }).lazy()
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "time" as const, ...options }],
     }

@@ -8,7 +8,8 @@ describe("parseYearmonthField", () => {
     ["2000-01", [2000, 1]],
     ["0-0", [0, 0]],
   ])("%s -> %s", async (cell, value) => {
-    const table = DataFrame({ name: [cell] }).lazy()
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "yearmonth" as const }],
     }

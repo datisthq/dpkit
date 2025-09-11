@@ -1,4 +1,4 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
@@ -28,7 +28,8 @@ describe("parseListField", () => {
       // Null handling
       //[null, null],
     ])("%s -> %s", async (cell, value) => {
-      const table = DataFrame({ name: [cell] }).lazy()
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
       const schema = {
         fields: [{ name: "name", type: "list" as const }],
       }
@@ -65,7 +66,8 @@ describe("parseListField", () => {
       ["1,a,3", [1, null, 3]],
       ["1.5,2,3", [null, 2, 3]],
     ])("%s -> %s", async (cell, value) => {
-      const table = DataFrame({ name: [cell] }).lazy()
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
       const schema = {
         fields: [
           { name: "name", type: "list" as const, itemType: "integer" as const },
@@ -103,7 +105,8 @@ describe("parseListField", () => {
       // Invalid numbers become null
       ["1.1,a,3.3", [1.1, null, 3.3]],
     ])("%s -> %s", async (cell, value) => {
-      const table = DataFrame({ name: [cell] }).lazy()
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
       const schema = {
         fields: [
           { name: "name", type: "list" as const, itemType: "number" as const },
@@ -135,7 +138,8 @@ describe("parseListField", () => {
       // Empty items in list
       ["a;;c", ["a", "", "c"]],
     ])("%s -> %s", async (cell, value) => {
-      const table = DataFrame({ name: [cell] }).lazy()
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
       const schema = {
         fields: [{ name: "name", type: "list" as const, delimiter: ";" }],
       }
@@ -171,7 +175,10 @@ describe("stringifyListField", () => {
       // Empty array
       [[], ""],
     ])("%s -> %s", async (value, expected) => {
-      const table = DataFrame({ name: [value] }).lazy()
+      const table = DataFrame([
+        Series("name", [value], DataType.List(DataType.String)),
+      ]).lazy()
+
       const schema = {
         fields: [{ name: "name", type: "list" as const }],
       }
@@ -202,7 +209,10 @@ describe("stringifyListField", () => {
       // Empty array
       [[], ""],
     ])("%s -> %s", async (value, expected) => {
-      const table = DataFrame({ name: [value] }).lazy()
+      const table = DataFrame([
+        Series("name", [value], DataType.List(DataType.Int16)),
+      ]).lazy()
+
       const schema = {
         fields: [
           { name: "name", type: "list" as const, itemType: "integer" as const },
@@ -233,7 +243,10 @@ describe("stringifyListField", () => {
       // Empty array
       [[], ""],
     ])("%s -> %s", async (value, expected) => {
-      const table = DataFrame({ name: [value] }).lazy()
+      const table = DataFrame([
+        Series("name", [value], DataType.List(DataType.Float64)),
+      ]).lazy()
+
       const schema = {
         fields: [
           { name: "name", type: "list" as const, itemType: "number" as const },
@@ -266,7 +279,8 @@ describe("stringifyListField", () => {
       // Empty array
       [[], ""],
     ])("%s -> %s", async (value, expected) => {
-      const table = DataFrame({ name: [value] }).lazy()
+      const table = DataFrame([Series("name", [value], DataType.String)]).lazy()
+
       const schema = {
         fields: [{ name: "name", type: "list" as const, delimiter: ";" }],
       }

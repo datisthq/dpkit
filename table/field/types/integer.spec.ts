@@ -51,7 +51,8 @@ describe("parseIntegerField", () => {
     //[" -1,000 ", -1000, { groupChar: "," }],
     ["000,001", 1, { groupChar: "," }],
   ])("$0 -> $1 $2", async (cell, value, options) => {
-    const table = DataFrame({ name: [cell] }).lazy()
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "integer" as const, ...options }],
     }
@@ -83,6 +84,7 @@ describe("stringifyIntegerField", () => {
     [null, ""],
   ])("%s -> %s", async (value, expected) => {
     const table = DataFrame([Series("name", [value], DataType.Int64)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "integer" as const }],
     }

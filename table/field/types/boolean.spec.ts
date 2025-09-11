@@ -1,4 +1,4 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../../table/index.ts"
 import { denormalizeTable } from "../../table/index.ts"
@@ -46,7 +46,8 @@ describe("parseBooleanField", () => {
     ["non", false, { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
     ["no", false, { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
   ])("%s -> %s %o", async (cell, value, options) => {
-    const table = DataFrame({ name: [cell] }).lazy()
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "boolean" as const, ...options }],
     }
@@ -76,7 +77,8 @@ describe("stringifyBooleanField", () => {
     [true, "oui", { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
     [false, "non", { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
   ])("%s -> %s %o", async (value, expected, options) => {
-    const table = DataFrame({ name: [value] }).lazy()
+    const table = DataFrame([Series("name", [value], DataType.Bool)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "boolean" as const, ...options }],
     }
