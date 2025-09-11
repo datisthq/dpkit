@@ -46,10 +46,14 @@ export async function inferTableSchema(
       throw new Error(`Field "${name}" not found in the table`)
     }
 
-    const type =
+    let type =
       fieldTypes?.[name] ?? typeMapping[polarsField.type.variant] ?? "any"
-    let field = { name, type }
 
+    if (type === "array" && options?.arrayType === "list") {
+      type = "list"
+    }
+
+    let field = { name, type }
     if (!keepStrings && type === "string") {
       for (const [regex, patch] of Object.entries(regexMapping)) {
         const failures = sample

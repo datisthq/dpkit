@@ -258,6 +258,9 @@ describe("stringifyListField", () => {
       [["a", "", "c"], "a;;c"],
       [["", "b", ""], ";b;"],
 
+      // Numeric items
+      [[1.0, 2.0, 3.0], "1.0;2.0;3.0"],
+
       // Empty array
       [[], ""],
     ])("%s -> %s", async (value, expected) => {

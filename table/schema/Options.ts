@@ -17,6 +17,7 @@ export interface SchemaOptions {
   datetimeFormat?: string
   dateFormat?: string
   timeFormat?: string
+  arrayType?: "array" | "list"
   listDelimiter?: string
   listItemType?: ListField["itemType"]
   geopointFormat?: GeopointField["format"]
