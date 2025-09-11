@@ -18,7 +18,15 @@ export async function saveArrowTable(table: Table, options: SaveTableOptions) {
   })
 
   table = await denormalizeTable(table, schema, {
-    keepTypes: ["string", "integer", "number", "boolean", "datetime"],
+    keepTypes: [
+      "string",
+      "integer",
+      "number",
+      "boolean",
+      "datetime",
+      "year",
+      "list",
+    ],
   })
 
   const df = await table.collect()

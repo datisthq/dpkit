@@ -23,14 +23,8 @@ export function stringifyField(field: Field, expr?: Expr) {
   expr = expr ?? col(field.name)
 
   switch (field.type) {
-    case "string":
-      expr = stringifyStringField(field, expr)
-      break
-    case "integer":
-      expr = stringifyIntegerField(field, expr)
-      break
-    case "number":
-      expr = stringifyNumberField(field, expr)
+    case "array":
+      expr = stringifyArrayField(field, expr)
       break
     case "boolean":
       expr = stringifyBooleanField(field, expr)
@@ -41,6 +35,30 @@ export function stringifyField(field: Field, expr?: Expr) {
     case "datetime":
       expr = stringifyDatetimeField(field, expr)
       break
+    case "duration":
+      expr = stringifyDurationField(field, expr)
+      break
+    case "geojson":
+      expr = stringifyGeojsonField(field, expr)
+      break
+    case "geopoint":
+      expr = stringifyGeopointField(field, expr)
+      break
+    case "integer":
+      expr = stringifyIntegerField(field, expr)
+      break
+    case "list":
+      expr = stringifyListField(field, expr)
+      break
+    case "number":
+      expr = stringifyNumberField(field, expr)
+      break
+    case "object":
+      expr = stringifyObjectField(field, expr)
+      break
+    case "string":
+      expr = stringifyStringField(field, expr)
+      break
     case "time":
       expr = stringifyTimeField(field, expr)
       break
@@ -49,24 +67,6 @@ export function stringifyField(field: Field, expr?: Expr) {
       break
     case "yearmonth":
       expr = stringifyYearmonthField(field, expr)
-      break
-    case "list":
-      expr = stringifyListField(field, expr)
-      break
-    case "array":
-      expr = stringifyArrayField(field, expr)
-      break
-    case "geopoint":
-      expr = stringifyGeopointField(field, expr)
-      break
-    case "object":
-      expr = stringifyObjectField(field, expr)
-      break
-    case "geojson":
-      expr = stringifyGeojsonField(field, expr)
-      break
-    case "duration":
-      expr = stringifyDurationField(field, expr)
       break
   }
 

@@ -26,57 +26,57 @@ describe("saveArrowTable", () => {
     const path = getTempFilePath()
 
     const source = DataFrame([
-      Series("string", ["string"], DataType.String),
-      Series("integer", [1], DataType.Int32),
-      Series("number", [1.1], DataType.Float64),
+      Series("array", ["[1, 2, 3]"], DataType.String),
       Series("boolean", [true], DataType.Bool),
-      Series("datetime", [new Date(Date.UTC(2025, 0, 1))], DataType.Datetime),
       Series("date", [new Date(Date.UTC(2025, 0, 1))], DataType.Date),
+      Series("datetime", [new Date(Date.UTC(2025, 0, 1))], DataType.Datetime),
+      Series("duration", ["P23DT23H"], DataType.String),
+      Series("geojson", ['{"value": 1}'], DataType.String),
+      Series("geopoint", [[40.0, 50.0]], DataType.List(DataType.Float32)),
+      Series("integer", [1], DataType.Int32),
+      Series("list", [[1.0, 2.0, 3.0]], DataType.List(DataType.Int32)),
+      Series("number", [1.1], DataType.Float64),
+      Series("object", ['{"value": 1}']),
+      Series("string", ["string"], DataType.String),
       Series("time", [new Date(Date.UTC(2025, 0, 1))], DataType.Time),
-      //Series("year", [2025], DataType.Int32),
-      //Series("object", ['{"value": 1}']),
-      //Series("array", ["[1, 2, 3]"], DataType.String),
-      //Series("list", [[1.0, 2.0, 3.0]], DataType.List(DataType.Int32)),
-      //Series("yearmonth", [[2025, 1]], DataType.List(DataType.Int16)),
-      //Series("duration", ["P23DT23H"], DataType.String),
-      //Series("geopoint", [[40.0, 50.0]], DataType.List(DataType.Float32)),
-      //Series("geojson", ['{"value": 1}'], DataType.String),
+      Series("year", [2025], DataType.Int32),
+      Series("yearmonth", [[2025, 1]], DataType.List(DataType.Int16)),
     ]).lazy()
 
     await saveArrowTable(source, {
       path,
       fieldTypes: {
+        array: "array",
+        geojson: "geojson",
+        geopoint: "geopoint",
+        list: "list",
+        object: "object",
         // TODO: Remove time after:
         // https://github.com/pola-rs/nodejs-polars/issues/364
         time: "time",
         year: "year",
         yearmonth: "yearmonth",
-        object: "object",
-        array: "array",
-        list: "list",
-        geopoint: "geopoint",
-        geojson: "geojson",
       },
     })
 
     const target = await loadArrowTable({ path }, { denormalized: true })
     expect((await target.collect()).toRecords()).toEqual([
       {
-        string: "string",
-        integer: 1,
-        number: 1.1,
+        array: "[1, 2, 3]",
         boolean: true,
-        datetime: new Date(Date.UTC(2025, 0, 1)),
         date: "2025-01-01",
+        datetime: new Date(Date.UTC(2025, 0, 1)),
+        duration: "P23DT23H",
+        geojson: '{"value": 1}',
+        geopoint: "40.0,50.0",
+        integer: 1,
+        list: [1.0, 2.0, 3.0],
+        number: 1.1,
+        object: '{"value": 1}',
+        string: "string",
         time: "00:00:00",
-        //year: 2025,
-        //object: '{"value": 1}',
-        //array: "[1, 2, 3]",
-        //list: "1.0,2.0,3.0",
-        //yearmonth: "2025-01",
-        //duration: "P23DT23H",
-        //geopoint: "40.0,50.0",
-        //geojson: '{"value": 1}',
+        year: 2025,
+        yearmonth: "2025-01",
       },
     ])
   })
