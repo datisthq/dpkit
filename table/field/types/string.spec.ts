@@ -4,7 +4,7 @@ import { normalizeTable } from "../../table/index.ts"
 
 // TODO: Implement proper tests
 // TODO: Currently, it fails on to JS conversion from Polars
-describe.skip("parseStringField", () => {
+describe("parseStringField", () => {
   describe("categorical field", () => {
     it.each([["apple", "apple", { categories: ["apple", "banana"] }]])(
       "$0 -> $1 $2",
@@ -20,7 +20,8 @@ describe.skip("parseStringField", () => {
         const ldf = await normalizeTable(table, schema)
         const df = await ldf.collect()
 
-        expect(df.getColumn("name").get(0)).toEqual(value)
+        expect(df.getColumn("name").dtype).toEqual(DataType.Categorical)
+        expect(df.toRecords()[0]?.name).toEqual(value)
       },
     )
   })
