@@ -6,7 +6,7 @@ import { type ColumnMetadata, SqliteDialect } from "kysely"
 import { BaseDriver } from "./base.js"
 
 export class SqliteDriver extends BaseDriver {
-  nativeTypes = ["string", "integer", "number"] satisfies FieldType[]
+  nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
 
   async connectDatabase(path: string) {
     const filename = path.replace(/^sqlite:\/\//, "")
@@ -21,15 +21,15 @@ export class SqliteDriver extends BaseDriver {
 
   normalizeType(databaseType: ColumnMetadata["dataType"]) {
     switch (databaseType.toLowerCase()) {
+      case "blob":
+        return "string"
       case "text":
         return "string"
       case "integer":
         return "integer"
-      case "real":
       case "numeric":
+      case "real":
         return "number"
-      case "blob":
-        return "string"
       default:
         return "string"
     }
@@ -37,13 +37,15 @@ export class SqliteDriver extends BaseDriver {
 
   denormalizeType(fieldType: Field["type"]) {
     switch (fieldType) {
-      case "string":
-        return "text"
+      case "boolean":
+        return "integer"
       case "integer":
         return "integer"
       case "number":
         return "real"
-      case "boolean":
+      case "string":
+        return "text"
+      case "year":
         return "integer"
       default:
         return "text"

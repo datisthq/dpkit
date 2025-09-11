@@ -1,12 +1,11 @@
 import type { Field, FieldType, Schema } from "@dpkit/core"
-import type { DataRecord } from "@dpkit/table"
 import { Kysely } from "kysely"
 import { type ColumnMetadata, PostgresDialect } from "kysely"
 import { Pool } from "pg"
 import { BaseDriver } from "./base.js"
 
 export class PostgresqlDriver extends BaseDriver {
-  nativeTypes = ["string", "integer", "number"] satisfies FieldType[]
+  nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
 
   async connectDatabase(path: string) {
     const pool = new Pool({

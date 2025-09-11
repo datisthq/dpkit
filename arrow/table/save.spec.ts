@@ -34,7 +34,7 @@ describe("saveArrowTable", () => {
       Series("geojson", ['{"value": 1}'], DataType.String),
       Series("geopoint", [[40.0, 50.0]], DataType.List(DataType.Float32)),
       Series("integer", [1], DataType.Int32),
-      Series("list", [[1.0, 2.0, 3.0]], DataType.List(DataType.Int32)),
+      Series("list", [[1.0, 2.0, 3.0]], DataType.List(DataType.Float32)),
       Series("number", [1.1], DataType.Float64),
       Series("object", ['{"value": 1}']),
       Series("string", ["string"], DataType.String),
