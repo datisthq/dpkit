@@ -1,4 +1,5 @@
-import type { GeopointField, ListField } from "@dpkit/core"
+import type { GeojsonField, GeopointField, ListField } from "@dpkit/core"
+import type { StringField } from "@dpkit/core"
 import type { Field } from "@dpkit/core"
 
 type FieldType = Exclude<Field["type"], undefined>
@@ -6,8 +7,8 @@ type FieldType = Exclude<Field["type"], undefined>
 export interface SchemaOptions {
   fieldNames?: string[]
   fieldTypes?: Record<string, FieldType>
-  convertTypes?: Record<FieldType, FieldType>
   missingValues?: string[]
+  stringFormat?: StringField["format"]
   decimalChar?: string
   groupChar?: string
   bareNumber?: boolean
@@ -19,4 +20,5 @@ export interface SchemaOptions {
   listDelimiter?: string
   listItemType?: ListField["itemType"]
   geopointFormat?: GeopointField["format"]
+  geojsonFormat?: GeojsonField["format"]
 }

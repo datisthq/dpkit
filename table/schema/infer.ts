@@ -46,10 +46,8 @@ export async function inferTableSchema(
       throw new Error(`Field "${name}" not found in the table`)
     }
 
-    let type =
+    const type =
       fieldTypes?.[name] ?? typeMapping[polarsField.type.variant] ?? "any"
-    type = options?.convertTypes?.[type] ?? type
-
     let field = { name, type }
 
     if (!keepStrings && type === "string") {
@@ -170,7 +168,9 @@ function createRegexMapping(options?: InferSchemaOptions) {
 }
 
 function enhanceField(field: Field, options?: InferSchemaOptions) {
-  if (field.type === "integer") {
+  if (field.type === "string") {
+    field.format = options?.stringFormat ?? field.format
+  } else if (field.type === "integer") {
     field.groupChar = options?.groupChar ?? field.groupChar
     field.bareNumber = options?.bareNumber ?? field.bareNumber
   } else if (field.type === "number") {
@@ -191,6 +191,8 @@ function enhanceField(field: Field, options?: InferSchemaOptions) {
     field.itemType = options?.listItemType ?? field.itemType
   } else if (field.type === "geopoint") {
     field.format = options?.geopointFormat ?? field.format
+  } else if (field.type === "geojson") {
+    field.format = options?.geojsonFormat ?? field.format
   }
 }
 
