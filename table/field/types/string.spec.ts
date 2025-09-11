@@ -5,6 +5,36 @@ import { normalizeTable } from "../../table/index.ts"
 // TODO: Implement proper tests
 // TODO: Currently, it fails on to JS conversion from Polars
 describe("parseStringField", () => {
+  describe("uuid format", () => {
+    it.each([
+      // Valid UUIDs
+      [
+        "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      ],
+
+      // Invalid UUIDs
+      ["f47ac10b-58cc-4372-a567-0e02b2c3d47X", null],
+      ["f47ac10b", null],
+      ["X", null],
+
+      // Null handling
+      ["", null],
+    ])("$0 -> $1 $2", async (cell, value) => {
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
+      const schema = {
+        fields: [{ name: "name", type: "string" as const, format: "uuid" }],
+      }
+
+      const ldf = await normalizeTable(table, schema)
+      const df = await ldf.collect()
+
+      expect(df.getColumn("name").dtype).toEqual(DataType.Categorical)
+      expect(df.toRecords()[0]?.name).toEqual(value)
+    })
+  })
+
   describe("categorical field", () => {
     it.each([
       ["apple", "apple", { categories: ["apple", "banana"] }],
