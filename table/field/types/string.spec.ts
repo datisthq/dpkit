@@ -28,7 +28,84 @@ describe("parseStringField", () => {
       const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
 
       const schema = {
-        fields: [{ name: "name", type: "string" as const, format: "email" }],
+        fields: [
+          { name: "name", type: "string" as const, format: "email" as const },
+        ],
+      }
+
+      const ldf = await normalizeTable(table, schema)
+      const df = await ldf.collect()
+
+      expect(df.getColumn("name").dtype).toEqual(DataType.String)
+      expect(df.toRecords()[0]?.name).toEqual(value)
+    })
+  })
+
+  describe("uri format", () => {
+    it.each([
+      // Valid URIs
+      ["https://example.com", "https://example.com"],
+      [
+        "http://www.google.com/search?q=test",
+        "http://www.google.com/search?q=test",
+      ],
+      ["ftp://files.example.org/file.txt", "ftp://files.example.org/file.txt"],
+      ["mailto:user@example.com", "mailto:user@example.com"],
+      ["file:///path/to/file", "file:///path/to/file"],
+      ["ssh://user@host:22/path", "ssh://user@host:22/path"],
+
+      // Invalid URIs
+      ["not-a-uri", null],
+      ["://missing-scheme", null],
+      ["http://", null],
+      ["example.com", null],
+      ["http:// space in uri", null],
+
+      // Null handling
+      ["", null],
+    ])("$0 -> $1", async (cell, value) => {
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
+      const schema = {
+        fields: [
+          { name: "name", type: "string" as const, format: "uri" as const },
+        ],
+      }
+
+      const ldf = await normalizeTable(table, schema)
+      const df = await ldf.collect()
+
+      expect(df.getColumn("name").dtype).toEqual(DataType.String)
+      expect(df.toRecords()[0]?.name).toEqual(value)
+    })
+  })
+
+  describe("binary format", () => {
+    it.each([
+      // Valid base64 strings
+      ["SGVsbG8gV29ybGQ=", "SGVsbG8gV29ybGQ="],
+      ["YWJjZGVmZw==", "YWJjZGVmZw=="],
+      ["VGVzdA==", "VGVzdA=="],
+      ["QQ==", "QQ=="],
+      ["Zg==", "Zg=="],
+      ["Zm8=", "Zm8="],
+      ["Zm9v", "Zm9v"],
+
+      // Invalid base64 strings
+      ["Hello World!", null],
+      ["SGVsbG8gV29ybGQ===", null],
+      ["Invalid@#$", null],
+      ["SGVsb(8gV29ybGQ=", null],
+
+      // Null handling
+      ["", null],
+    ])("$0 -> $1", async (cell, value) => {
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
+      const schema = {
+        fields: [
+          { name: "name", type: "string" as const, format: "binary" as const },
+        ],
       }
 
       const ldf = await normalizeTable(table, schema)
@@ -58,7 +135,9 @@ describe("parseStringField", () => {
       const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
 
       const schema = {
-        fields: [{ name: "name", type: "string" as const, format: "uuid" }],
+        fields: [
+          { name: "name", type: "string" as const, format: "uuid" as const },
+        ],
       }
 
       const ldf = await normalizeTable(table, schema)
