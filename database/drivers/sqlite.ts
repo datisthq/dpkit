@@ -1,5 +1,4 @@
-import type { Field, FieldType, Schema } from "@dpkit/core"
-import type { DataRecord } from "@dpkit/table"
+import type { Field, FieldType } from "@dpkit/core"
 import Database from "better-sqlite3"
 import { Kysely } from "kysely"
 import { type ColumnMetadata, SqliteDialect } from "kysely"

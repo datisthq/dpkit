@@ -1,4 +1,4 @@
-import type { Field, FieldType, Schema } from "@dpkit/core"
+import type { Field, FieldType } from "@dpkit/core"
 import { Kysely } from "kysely"
 import { type ColumnMetadata, PostgresDialect } from "kysely"
 import { Pool } from "pg"

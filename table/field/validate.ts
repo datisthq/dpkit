@@ -72,13 +72,13 @@ function validateType(field: Field, polarsField: PolarsField) {
     Utf8: "string",
   }
 
-  const actualFieldType = mapping[polarsField.type.variant]
+  const actualFieldType = mapping[polarsField.type.variant] ?? "any"
 
   if (actualFieldType !== field.type && actualFieldType !== "string") {
     errors.push({
       type: "field/type",
       fieldName: field.name,
-      fieldType: field.type,
+      fieldType: field.type ?? "any",
       actualFieldType,
     })
   }
