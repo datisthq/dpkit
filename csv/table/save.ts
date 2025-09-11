@@ -18,7 +18,9 @@ export async function saveCsvTable(
     keepStrings: true,
   })
 
-  table = await denormalizeTable(table, schema)
+  table = await denormalizeTable(table, schema, {
+    keepTypes: ["string"],
+  })
 
   await table
     .sinkCSV(path, {

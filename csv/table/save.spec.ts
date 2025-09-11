@@ -78,7 +78,7 @@ describe("saveCsvTable", () => {
       Series("number", [1.1], DataType.Float64),
       Series("boolean", [true], DataType.Bool),
       Series("object", ['{"value": 1}']),
-      //Series("array", [[1, 2, 3]], List(Int32)),
+      Series("array", ["[1, 2, 3]"], DataType.String),
       Series("list", [[1.0, 2.0, 3.0]], DataType.List(DataType.Int32)),
       Series("datetime", [new Date(Date.UTC(2025, 0, 1))], DataType.Datetime),
       Series("date", [new Date(Date.UTC(2025, 0, 1))], DataType.Date),
@@ -93,6 +93,7 @@ describe("saveCsvTable", () => {
     await saveCsvTable(source, {
       path,
       fieldTypes: {
+        array: "array",
         list: "list",
         object: "object",
         yearmonth: "yearmonth",
@@ -109,7 +110,7 @@ describe("saveCsvTable", () => {
         number: "1.1",
         boolean: "true",
         object: '{"value": 1}',
-        //array: "[1,2,3]",
+        array: "[1, 2, 3]",
         list: "1.0,2.0,3.0",
         datetime: "2025-01-01T00:00:00",
         date: "2025-01-01",
