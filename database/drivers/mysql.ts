@@ -117,4 +117,31 @@ export class MysqlDriver extends BaseDriver {
         return "string"
     }
   }
+
+  denormalizeType(fieldType: Field["type"]) {
+    switch (fieldType) {
+      case "string":
+        return "text"
+      case "integer":
+        return "int"
+      case "number":
+        return "decimal"
+      case "boolean":
+        return "boolean"
+      case "date":
+        return "date"
+      case "time":
+        return "time"
+      case "datetime":
+        return "datetime"
+      case "year":
+        return "year"
+      case "object":
+        return "json"
+      case "geojson":
+        return "geometry"
+      default:
+        return "text"
+    }
+  }
 }

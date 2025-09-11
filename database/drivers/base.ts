@@ -9,6 +9,10 @@ import type { ColumnDataType, ColumnMetadata, Kysely } from "kysely"
 
 // TODO: Remove convert methods
 
+type ExtendedTableMetadata = TableMetadata & {
+  primaryKey: string[]
+}
+
 export abstract class BaseDriver {
   abstract connectDatabase(path: string): Promise<Kysely<any>>
   abstract convertFieldToSql(field: Field): ColumnDataType
@@ -46,4 +50,38 @@ export abstract class BaseDriver {
   abstract normalizeType(
     databaseType: ColumnMetadata["dataType"],
   ): Field["type"]
+
+  denormalizeSchema(schema: Schema): ExtendedTableMetadata {
+    const table: ExtendedTableMetadata = {
+      name: "",
+      columns: [],
+      isView: false,
+      primaryKey: [],
+    }
+
+    if (schema.primaryKey) {
+      table.primaryKey = schema.primaryKey
+    }
+
+    for (const field of schema.fields) {
+      table.columns.push(this.denormalizeField(field))
+    }
+
+    return table
+  }
+
+  denormalizeField(field: Field): ColumnMetadata {
+    const column: ColumnMetadata = {
+      name: field.name,
+      dataType: this.denormalizeType(field.type),
+      isNullable: !field.constraints?.required,
+      comment: field.description,
+      isAutoIncrementing: false,
+      hasDefaultValue: false,
+    }
+
+    return column
+  }
+
+  abstract denormalizeType(fieldType: Field["type"]): ColumnMetadata["dataType"]
 }

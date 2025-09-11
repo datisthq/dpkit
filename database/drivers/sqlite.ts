@@ -69,4 +69,19 @@ export class SqliteDriver extends BaseDriver {
         return "string"
     }
   }
+
+  denormalizeType(fieldType: Field["type"]) {
+    switch (fieldType) {
+      case "string":
+        return "text"
+      case "integer":
+        return "integer"
+      case "number":
+        return "real"
+      case "boolean":
+        return "integer"
+      default:
+        return "text"
+    }
+  }
 }

@@ -136,4 +136,31 @@ export class PostgresqlDriver extends BaseDriver {
         return "string"
     }
   }
+
+  denormalizeType(fieldType: Field["type"]) {
+    switch (fieldType) {
+      case "string":
+        return "text"
+      case "integer":
+        return "integer"
+      case "number":
+        return "numeric"
+      case "boolean":
+        return "boolean"
+      case "date":
+        return "date"
+      case "time":
+        return "time"
+      case "datetime":
+        return "timestamp"
+      case "duration":
+        return "interval"
+      case "object":
+        return "jsonb"
+      case "geojson":
+        return "geometry"
+      default:
+        return "text"
+    }
+  }
 }
