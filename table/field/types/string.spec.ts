@@ -6,23 +6,22 @@ import { normalizeTable } from "../../table/index.ts"
 // TODO: Currently, it fails on to JS conversion from Polars
 describe("parseStringField", () => {
   describe("categorical field", () => {
-    it.each([["apple", "apple", { categories: ["apple", "banana"] }]])(
-      "$0 -> $1 $2",
-      async (cell, value, options) => {
-        const table = DataFrame([
-          Series("name", [cell], DataType.String),
-        ]).lazy()
+    it.each([
+      ["apple", "apple", { categories: ["apple", "banana"] }],
+      ["banana", "banana", { categories: ["apple", "banana"] }],
+      ["mango", null, { categories: ["apple", "banana"] }],
+    ])("$0 -> $1 $2", async (cell, value, options) => {
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
 
-        const schema = {
-          fields: [{ name: "name", type: "string" as const, ...options }],
-        }
+      const schema = {
+        fields: [{ name: "name", type: "string" as const, ...options }],
+      }
 
-        const ldf = await normalizeTable(table, schema)
-        const df = await ldf.collect()
+      const ldf = await normalizeTable(table, schema)
+      const df = await ldf.collect()
 
-        expect(df.getColumn("name").dtype).toEqual(DataType.Categorical)
-        expect(df.toRecords()[0]?.name).toEqual(value)
-      },
-    )
+      expect(df.getColumn("name").dtype).toEqual(DataType.Categorical)
+      expect(df.toRecords()[0]?.name).toEqual(value)
+    })
   })
 })
