@@ -5,6 +5,26 @@ import { normalizeTable } from "../../table/index.ts"
 // TODO: Implement proper tests
 // TODO: Currently, it fails on to JS conversion from Polars
 describe("parseStringField", () => {
+  it.each([
+    // Simplr string
+    ["string", "string"],
+
+    // Null handling
+    ["", null],
+  ])("$0 -> $1", async (cell, value) => {
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
+    const schema = {
+      fields: [{ name: "name", type: "string" as const }],
+    }
+
+    const ldf = await normalizeTable(table, schema)
+    const df = await ldf.collect()
+
+    expect(df.getColumn("name").dtype).toEqual(DataType.String)
+    expect(df.toRecords()[0]?.name).toEqual(value)
+  })
+
   describe("email format", () => {
     it.each([
       // Valid emails
@@ -153,11 +173,11 @@ describe("parseStringField", () => {
       // Flat categories
       ["apple", "apple", { categories: ["apple", "banana"] }],
       ["banana", "banana", { categories: ["apple", "banana"] }],
-      ["mango", null, { categories: ["apple", "banana"] }],
+      ["orange", null, { categories: ["apple", "banana"] }],
 
       // Object categories
       ["apple", "apple", { categories: [{ value: "apple", label: "Apple" }] }],
-      ["mango", null, { categories: [{ value: "apple", label: "Apple" }] }],
+      ["orange", null, { categories: [{ value: "apple", label: "Apple" }] }],
     ])("$0 -> $1 $2", async (cell, value, options) => {
       const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
 
