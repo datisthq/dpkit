@@ -9,7 +9,7 @@ import { denormalizeTable } from "../../table/index.ts"
 describe.skip("parseDatetimeField", () => {
   it.each([
     // Default format
-    ["2014-01-01T06:00:00", new Date(2014, 0, 1, 6, 0, 0), {}],
+    ["2014-01-01T06:00:00", new Date(Date.UTC(2014, 0, 1, 6, 0, 0)), {}],
     ["2014-01-01T06:00:00Z", new Date(Date.UTC(2014, 0, 1, 6, 0, 0)), {}],
     ["Mon 1st Jan 2014 9 am", null, {}],
     ["invalid", null, {}],

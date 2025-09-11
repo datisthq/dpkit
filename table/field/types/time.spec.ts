@@ -1,4 +1,4 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../../table/index.ts"
 import { denormalizeTable } from "../../table/index.ts"
@@ -38,17 +38,18 @@ describe("parseTimeField", () => {
   })
 })
 
-describe.skip("stringifyTimeField", () => {
+describe("stringifyTimeField", () => {
   it.each([
     // Default format
-    [6 * 60 * 60 * 10 ** 9, "06:00:00", {}],
-    [16 * 60 * 60 * 10 ** 9 + 30 * 60 * 10 ** 9, "16:30:00", {}],
+    [new Date(Date.UTC(2014, 0, 1, 6, 0, 0)), "06:00:00", {}],
+    [new Date(Date.UTC(2014, 0, 1, 16, 30, 0)), "16:30:00", {}],
 
     // Custom format
-    [6 * 60 * 60 * 10 ** 9, "06:00", { format: "%H:%M" }],
-    [16 * 60 * 60 * 10 ** 9 + 30 * 60 * 10 ** 9, "16:30", { format: "%H:%M" }],
+    [new Date(Date.UTC(2014, 0, 1, 6, 0, 0)), "06:00", { format: "%H:%M" }],
+    [new Date(Date.UTC(2014, 0, 1, 16, 30, 0)), "16:30", { format: "%H:%M" }],
   ])("%s -> %s %o", async (value, expected, options) => {
-    const table = DataFrame({ name: [value] }).lazy()
+    const table = DataFrame([Series("name", [value], DataType.Time)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "time" as const, ...options }],
     }
