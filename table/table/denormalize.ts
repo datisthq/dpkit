@@ -9,7 +9,7 @@ import type { Table } from "./Table.ts"
 const HEAD_ROWS = 100
 
 type DenormalizeTableOptions = {
-  keepTypes?: Exclude<Field["type"], undefined>[]
+  nativeTypes?: Exclude<Field["type"], undefined>[]
 }
 
 export async function denormalizeTable(
@@ -30,7 +30,7 @@ export function denormalizeFields(
   polarsSchema: PolarsSchema,
   options?: DenormalizeTableOptions,
 ) {
-  const { keepTypes } = options ?? {}
+  const { nativeTypes } = options ?? {}
   const exprs: Record<string, Expr> = {}
 
   for (const field of schema.fields) {
@@ -40,7 +40,7 @@ export function denormalizeFields(
     if (polarsField) {
       expr = col(polarsField.name).alias(field.name)
 
-      if (!keepTypes?.includes(field.type ?? "any")) {
+      if (!nativeTypes?.includes(field.type ?? "any")) {
         const missingValues = field.missingValues ?? schema.missingValues
         const mergedField = { ...field, missingValues }
         expr = stringifyField(mergedField, expr)

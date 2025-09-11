@@ -1,4 +1,4 @@
-import type { Field, Schema } from "@dpkit/core"
+import type { Field, FieldType, Schema } from "@dpkit/core"
 import type { DataRecord } from "@dpkit/table"
 import Database from "better-sqlite3"
 import { Kysely } from "kysely"
@@ -6,6 +6,8 @@ import { type ColumnMetadata, SqliteDialect } from "kysely"
 import { BaseDriver } from "./base.js"
 
 export class SqliteDriver extends BaseDriver {
+  nativeTypes = ["string", "integer", "number"] satisfies FieldType[]
+
   async connectDatabase(path: string) {
     const filename = path.replace(/^sqlite:\/\//, "")
     const database = new Database(filename)

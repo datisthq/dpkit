@@ -1,8 +1,6 @@
 import type { GeojsonField, GeopointField, ListField } from "@dpkit/core"
 import type { StringField } from "@dpkit/core"
-import type { Field } from "@dpkit/core"
-
-type FieldType = Exclude<Field["type"], undefined>
+import type { FieldType } from "@dpkit/core"
 
 export interface SchemaOptions {
   fieldNames?: string[]

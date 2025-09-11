@@ -18,7 +18,7 @@ export async function saveArrowTable(table: Table, options: SaveTableOptions) {
   })
 
   table = await denormalizeTable(table, schema, {
-    keepTypes: [
+    nativeTypes: [
       "boolean",
       "datetime",
       "integer",

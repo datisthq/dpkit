@@ -18,7 +18,7 @@ export async function saveParquetTable(
   })
 
   table = await denormalizeTable(table, schema, {
-    keepTypes: [
+    nativeTypes: [
       "boolean",
       "datetime",
       "integer",

@@ -20,7 +20,7 @@ export async function saveJsonTable(
   })
 
   table = await denormalizeTable(table, schema, {
-    keepTypes: ["boolean", "integer", "list", "number", "string", "year"],
+    nativeTypes: ["boolean", "integer", "list", "number", "string", "year"],
   })
 
   // We use polars to serialize the data

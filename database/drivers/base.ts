@@ -1,7 +1,9 @@
-import type { Field, Schema } from "@dpkit/core"
+import type { Field, FieldType, Schema } from "@dpkit/core"
 import type { DataRecord } from "@dpkit/table"
 import type { TableMetadata } from "kysely"
 import type { ColumnDataType, ColumnMetadata, Kysely } from "kysely"
+import type { DatabaseField } from "../field/index.ts"
+import type { DatabaseSchema } from "../schema/index.ts"
 
 // TODO: Make a class and implement common methods like:
 //- normalizeSchema(databaseSchema) -> schema
@@ -9,69 +11,68 @@ import type { ColumnDataType, ColumnMetadata, Kysely } from "kysely"
 
 // TODO: Remove convert methods
 
-type ExtendedTableMetadata = TableMetadata & {
+export type ExtendedTableMetadata = TableMetadata & {
   primaryKey: string[]
 }
 
 export abstract class BaseDriver {
+  abstract get nativeTypes(): FieldType[]
+
   abstract connectDatabase(path: string): Promise<Kysely<any>>
   abstract convertFieldToSql(field: Field): ColumnDataType
   abstract convertRecordToSql(record: DataRecord, schema: Schema): void
   abstract convertColumnToField(column: ColumnMetadata): Field
 
-  normalizeSchema(databaseTable: TableMetadata) {
+  normalizeSchema(databaseSchema: DatabaseSchema) {
     const schema: Schema = { fields: [] }
 
-    for (const column of databaseTable.columns) {
+    for (const column of databaseSchema.columns) {
       schema.fields.push(this.normalizeField(column))
     }
 
     return schema
   }
 
-  normalizeField(databaseColumn: ColumnMetadata) {
+  normalizeField(databaseField: DatabaseField) {
     const field: Field = {
-      name: databaseColumn.name,
-      type: this.normalizeType(databaseColumn.dataType),
+      name: databaseField.name,
+      type: this.normalizeType(databaseField.dataType),
     }
 
-    if (!databaseColumn.isNullable) {
+    if (!databaseField.isNullable) {
       field.constraints ??= {}
       field.constraints.required = true
     }
 
-    if (databaseColumn.comment) {
-      field.description = databaseColumn.comment
+    if (databaseField.comment) {
+      field.description = databaseField.comment
     }
 
     return field
   }
 
-  abstract normalizeType(
-    databaseType: ColumnMetadata["dataType"],
-  ): Field["type"]
+  abstract normalizeType(databaseType: DatabaseField["dataType"]): Field["type"]
 
-  denormalizeSchema(schema: Schema): ExtendedTableMetadata {
-    const table: ExtendedTableMetadata = {
-      name: "",
+  denormalizeSchema(schema: Schema, tableName: string): DatabaseSchema {
+    const databaseSchema: DatabaseSchema = {
+      name: tableName,
       columns: [],
       isView: false,
-      primaryKey: [],
-    }
-
-    if (schema.primaryKey) {
-      table.primaryKey = schema.primaryKey
     }
 
     for (const field of schema.fields) {
-      table.columns.push(this.denormalizeField(field))
+      databaseSchema.columns.push(this.denormalizeField(field))
     }
 
-    return table
+    if (schema.primaryKey) {
+      databaseSchema.primaryKey = schema.primaryKey
+    }
+
+    return databaseSchema
   }
 
-  denormalizeField(field: Field): ColumnMetadata {
-    const column: ColumnMetadata = {
+  denormalizeField(field: Field): DatabaseField {
+    const databaseField: DatabaseField = {
       name: field.name,
       dataType: this.denormalizeType(field.type),
       isNullable: !field.constraints?.required,
@@ -80,8 +81,8 @@ export abstract class BaseDriver {
       hasDefaultValue: false,
     }
 
-    return column
+    return databaseField
   }
 
-  abstract denormalizeType(fieldType: Field["type"]): ColumnMetadata["dataType"]
+  abstract denormalizeType(fieldType: Field["type"]): DatabaseField["dataType"]
 }

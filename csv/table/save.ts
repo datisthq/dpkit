@@ -19,7 +19,7 @@ export async function saveCsvTable(
   })
 
   table = await denormalizeTable(table, schema, {
-    keepTypes: ["string"],
+    nativeTypes: ["string"],
   })
 
   await table

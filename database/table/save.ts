@@ -1,9 +1,10 @@
 import type { Schema } from "@dpkit/core"
 import type { SaveTableOptions, Table } from "@dpkit/table"
-import { inferTableSchema } from "@dpkit/table"
+import { denormalizeTable, inferTableSchema } from "@dpkit/table"
 import type { Kysely } from "kysely"
 import type { BaseDriver } from "../drivers/base.js"
 import { createDriver } from "../drivers/create.ts"
+import type { DatabaseSchema } from "../schema/index.ts"
 
 // Currently, we use slow non-rust implementation as in the future
 // polars-rust might be able to provide a faster native implementation
@@ -24,10 +25,19 @@ export async function saveDatabaseTable(
     throw new Error("Table name is not defined in dialect")
   }
 
-  const schema = await inferTableSchema(table)
-  const database = await driver.connectDatabase(path)
+  const schema = await inferTableSchema(table, {
+    ...options,
+    keepStrings: true,
+  })
 
-  await defineTable(database, { driver, schema, tableName, overwrite })
+  table = await denormalizeTable(table, schema, {
+    nativeTypes: driver.nativeTypes,
+  })
+
+  const database = await driver.connectDatabase(path)
+  const databaseSchema = driver.denormalizeSchema(schema, tableName)
+
+  await defineTable(database, databaseSchema, { overwrite })
   await populateTable(database, { table, driver, schema, tableName })
 
   await database.destroy()
@@ -36,24 +46,28 @@ export async function saveDatabaseTable(
 
 async function defineTable(
   database: Kysely<any>,
+  databaseSchema: DatabaseSchema,
   options: {
-    driver: BaseDriver
-    schema: Schema
-    tableName: string
     overwrite?: boolean
   },
 ) {
-  const { driver, schema, tableName, overwrite } = options
+  let query = database.schema.createTable(databaseSchema.name)
 
-  let query = database.schema.createTable(tableName)
-
-  if (!overwrite) {
+  if (!options.overwrite) {
     query = query.ifNotExists()
   }
 
-  for (const field of schema.fields) {
-    const sqlType = driver.convertFieldToSql(field)
-    query = query.addColumn(field.name, sqlType)
+  for (const field of databaseSchema.columns) {
+    // @ts-ignore
+    query = query.addColumn(field.name, field.dataType)
+  }
+
+  if (databaseSchema.primaryKey) {
+    query = query.addPrimaryKeyConstraint(
+      `${databaseSchema.name}_pkey`,
+      // @ts-ignore
+      databaseSchema.primaryKey,
+    )
   }
 
   await query.execute()

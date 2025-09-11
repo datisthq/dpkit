@@ -13,7 +13,7 @@ export async function saveOdsTable(table: Table, options: SaveTableOptions) {
   })
 
   table = await denormalizeTable(table, schema, {
-    keepTypes: ["boolean", "integer", "number", "string", "year"],
+    nativeTypes: ["boolean", "integer", "number", "string", "year"],
   })
 
   const df = await table.collect()
