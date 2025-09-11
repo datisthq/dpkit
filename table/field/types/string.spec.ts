@@ -148,11 +148,16 @@ describe("parseStringField", () => {
     })
   })
 
-  describe("categorical field", () => {
+  describe("categories", () => {
     it.each([
+      // Flat categories
       ["apple", "apple", { categories: ["apple", "banana"] }],
       ["banana", "banana", { categories: ["apple", "banana"] }],
       ["mango", null, { categories: ["apple", "banana"] }],
+
+      // Object categories
+      ["apple", "apple", { categories: [{ value: "apple", label: "Apple" }] }],
+      ["mango", null, { categories: [{ value: "apple", label: "Apple" }] }],
     ])("$0 -> $1 $2", async (cell, value, options) => {
       const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
 

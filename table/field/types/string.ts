@@ -14,15 +14,20 @@ const FORMAT_REGEX = {
 export function parseStringField(field: StringField, expr?: Expr) {
   expr = expr ?? col(field.name)
 
-  if (field.categories) {
-    return when(expr.isIn(field.categories))
+  const format = field.format
+  const flattenCategories = field.categories?.map(it =>
+    typeof it === "string" ? it : it.value,
+  )
+
+  if (flattenCategories) {
+    return when(expr.isIn(flattenCategories))
       .then(expr.cast(DataType.Categorical))
       .otherwise(lit(null))
       .alias(field.name)
   }
 
-  if (field.format) {
-    const regex = FORMAT_REGEX[field.format]
+  if (format) {
+    const regex = FORMAT_REGEX[format]
     return when(expr.str.contains(regex))
       .then(expr)
       .otherwise(lit(null))
