@@ -45,11 +45,11 @@ async function defineTable(
     overwrite?: boolean
   },
 ) {
-  let query = database.schema.createTable(databaseSchema.name)
-
-  if (!options.overwrite) {
-    query = query.ifNotExists()
+  if (options.overwrite) {
+    await database.schema.dropTable(databaseSchema.name).ifExists().execute()
   }
+
+  let query = database.schema.createTable(databaseSchema.name)
 
   for (const field of databaseSchema.columns) {
     // @ts-ignore

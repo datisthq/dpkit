@@ -63,7 +63,6 @@ describe("SqliteAdapter", () => {
     const path = `sqlite://${getTempFilePath()}`
 
     const source = DataFrame([
-      //Series("array", [[1, 2, 3]], List(Int32)),
       Series("array", ["[1, 2, 3]"], DataType.String),
       Series("boolean", [true], DataType.Bool),
       Series("date", [new Date(Date.UTC(2025, 0, 1))], DataType.Date),

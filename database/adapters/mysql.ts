@@ -1,6 +1,7 @@
-import type { Field, FieldType } from "@dpkit/core"
-import { type ColumnMetadata, MysqlDialect } from "kysely"
+import type { FieldType } from "@dpkit/core"
+import { MysqlDialect } from "kysely"
 import { createPool } from "mysql2"
+import type { DatabaseType } from "../field/index.ts"
 import { BaseAdapter } from "./base.ts"
 
 export class MysqlAdapter extends BaseAdapter {
@@ -12,7 +13,7 @@ export class MysqlAdapter extends BaseAdapter {
     })
   }
 
-  normalizeType(databaseType: ColumnMetadata["dataType"]) {
+  normalizeType(databaseType: DatabaseType): FieldType {
     switch (databaseType.toLowerCase()) {
       case "tinyint":
       case "smallint":
@@ -72,7 +73,7 @@ export class MysqlAdapter extends BaseAdapter {
     }
   }
 
-  denormalizeType(fieldType: Field["type"]) {
+  denormalizeType(fieldType: FieldType): DatabaseType {
     switch (fieldType) {
       case "string":
         return "text"

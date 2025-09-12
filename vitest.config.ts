@@ -1,9 +1,9 @@
 import { basename, dirname, join } from "node:path"
-import {
-  configDefaults,
-  coverageConfigDefaults,
-  defineConfig,
-} from "vitest/config"
+import { loadEnvFile } from "node:process"
+import { configDefaults, defineConfig } from "vitest/config"
+import { coverageConfigDefaults } from "vitest/config"
+
+loadEnvFile()
 
 export default defineConfig({
   test: {

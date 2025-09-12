@@ -68,3 +68,4 @@ dist/
 .claude/
 .serena/
 .mcp.json
+.env

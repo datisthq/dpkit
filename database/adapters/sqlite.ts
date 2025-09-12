@@ -1,6 +1,7 @@
-import type { Field, FieldType } from "@dpkit/core"
+import type { FieldType } from "@dpkit/core"
 import Database from "better-sqlite3"
-import { type ColumnMetadata, SqliteDialect } from "kysely"
+import { SqliteDialect } from "kysely"
+import type { DatabaseType } from "../field/index.ts"
 import { BaseAdapter } from "./base.ts"
 
 export class SqliteAdapter extends BaseAdapter {
@@ -12,7 +13,7 @@ export class SqliteAdapter extends BaseAdapter {
     })
   }
 
-  normalizeType(databaseType: ColumnMetadata["dataType"]) {
+  normalizeType(databaseType: DatabaseType): FieldType {
     switch (databaseType.toLowerCase()) {
       case "blob":
         return "string"
@@ -28,7 +29,7 @@ export class SqliteAdapter extends BaseAdapter {
     }
   }
 
-  denormalizeType(fieldType: Field["type"]) {
+  denormalizeType(fieldType: FieldType): DatabaseType {
     switch (fieldType) {
       case "boolean":
         return "integer"

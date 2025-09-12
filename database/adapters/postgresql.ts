@@ -1,10 +1,19 @@
-import type { Field, FieldType } from "@dpkit/core"
-import { type ColumnMetadata, PostgresDialect } from "kysely"
+import type { FieldType } from "@dpkit/core"
+import { PostgresDialect } from "kysely"
 import { Pool } from "pg"
+import type { DatabaseType } from "../field/index.ts"
 import { BaseAdapter } from "./base.ts"
 
+// TODO: Support more native types
+
 export class PostgresqlAdapter extends BaseAdapter {
-  nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
+  nativeTypes = [
+    "datetime",
+    "integer",
+    "number",
+    "string",
+    "year",
+  ] satisfies FieldType[]
 
   createDialect(path: string) {
     return new PostgresDialect({
@@ -12,7 +21,7 @@ export class PostgresqlAdapter extends BaseAdapter {
     })
   }
 
-  normalizeType(databaseType: ColumnMetadata["dataType"]) {
+  normalizeType(databaseType: DatabaseType): FieldType {
     switch (databaseType.toLowerCase()) {
       case "smallint":
       case "integer":
@@ -60,8 +69,6 @@ export class PostgresqlAdapter extends BaseAdapter {
       case "json":
       case "jsonb":
         return "object"
-      case "bytea":
-        return "string"
       case "point":
       case "line":
       case "lseg":
@@ -72,47 +79,25 @@ export class PostgresqlAdapter extends BaseAdapter {
       case "geometry":
       case "geography":
         return "geojson"
-      case "inet":
-      case "cidr":
-      case "macaddr":
-      case "macaddr8":
-        return "string"
-      case "bit":
-      case "bit varying":
-      case "varbit":
-        return "string"
-      case "tsvector":
-      case "tsquery":
-        return "string"
-      case "xml":
-        return "string"
       default:
         return "string"
     }
   }
 
-  denormalizeType(fieldType: Field["type"]) {
+  denormalizeType(fieldType: FieldType): DatabaseType {
     switch (fieldType) {
-      case "string":
-        return "text"
+      case "boolean":
+        return "boolean"
+      case "datetime":
+        return "timestamp"
       case "integer":
         return "integer"
       case "number":
-        return "numeric"
-      case "boolean":
-        return "boolean"
-      case "date":
-        return "date"
-      case "time":
-        return "time"
-      case "datetime":
-        return "timestamp"
-      case "duration":
-        return "interval"
-      case "object":
-        return "jsonb"
-      case "geojson":
-        return "geometry"
+        return "double precision"
+      case "string":
+        return "text"
+      case "year":
+        return "integer"
       default:
         return "text"
     }

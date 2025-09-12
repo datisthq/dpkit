@@ -4,8 +4,14 @@ import type { DatabaseFormat } from "../resource/index.ts"
 
 export async function loadPackageFromDatabase(
   connectionString: string,
-  options: { format: DatabaseFormat },
+  options: {
+    format: DatabaseFormat
+    includeTables?: string[]
+    excludeTables?: string[]
+  },
 ) {
+  const { includeTables, excludeTables } = options
+
   const adapter = createAdapter(options.format)
   const database = await adapter.connectDatabase(connectionString)
   const databaseSchemas = await database.introspection.getTables()
@@ -15,12 +21,22 @@ export async function loadPackageFromDatabase(
   }
 
   for (const databaseSchema of databaseSchemas) {
+    const name = databaseSchema.name
+
+    if (includeTables && !includeTables.includes(name)) {
+      continue
+    }
+
+    if (excludeTables?.includes(name)) {
+      continue
+    }
+
     const schema = adapter.normalizeSchema(databaseSchema)
-    const dialect = { table: databaseSchema.name }
+    const dialect = { table: name }
 
     dataPackage.resources.push({
+      name,
       path: connectionString,
-      name: databaseSchema.name,
       format: options.format,
       dialect,
       schema,

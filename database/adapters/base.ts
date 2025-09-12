@@ -2,7 +2,7 @@ import type { Field, FieldType, Schema } from "@dpkit/core"
 import type { Dialect } from "kysely"
 import { Kysely } from "kysely"
 import { LRUCache } from "lru-cache"
-import type { DatabaseField } from "../field/index.ts"
+import type { DatabaseField, DatabaseType } from "../field/index.ts"
 import type { DatabaseSchema } from "../schema/index.ts"
 
 // We cache database connections (only works in serverfull environments)
@@ -14,8 +14,8 @@ const databases = new LRUCache<string, Kysely<any>>({
 export abstract class BaseAdapter {
   abstract get nativeTypes(): FieldType[]
   abstract createDialect(path: string): Dialect
-  abstract normalizeType(databaseType: DatabaseField["dataType"]): Field["type"]
-  abstract denormalizeType(fieldType: Field["type"]): DatabaseField["dataType"]
+  abstract normalizeType(databaseType: DatabaseType): Field["type"]
+  abstract denormalizeType(fieldType: Field["type"]): DatabaseType
 
   async connectDatabase(path: string) {
     const cachedDatabase = databases.get(path)
