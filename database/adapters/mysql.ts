@@ -4,8 +4,17 @@ import { createPool } from "mysql2"
 import type { DatabaseType } from "../field/index.ts"
 import { BaseAdapter } from "./base.ts"
 
+// TODO: Support more native types
+
 export class MysqlAdapter extends BaseAdapter {
-  nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
+  nativeTypes = [
+    "boolean",
+    "datetime",
+    "integer",
+    "number",
+    "string",
+    "year",
+  ] satisfies FieldType[]
 
   createDialect(path: string) {
     return new MysqlDialect({
@@ -50,13 +59,6 @@ export class MysqlAdapter extends BaseAdapter {
         return "datetime"
       case "year":
         return "year"
-      case "binary":
-      case "varbinary":
-      case "tinyblob":
-      case "blob":
-      case "mediumblob":
-      case "longblob":
-        return "string"
       case "json":
         return "object"
       case "geometry":
@@ -75,26 +77,18 @@ export class MysqlAdapter extends BaseAdapter {
 
   denormalizeType(fieldType: FieldType): DatabaseType {
     switch (fieldType) {
-      case "string":
-        return "text"
-      case "integer":
-        return "int"
-      case "number":
-        return "decimal"
       case "boolean":
         return "boolean"
-      case "date":
-        return "date"
-      case "time":
-        return "time"
       case "datetime":
         return "datetime"
+      case "integer":
+        return "integer"
+      case "number":
+        return "double precision"
+      case "string":
+        return "text"
       case "year":
-        return "year"
-      case "object":
-        return "json"
-      case "geojson":
-        return "geometry"
+        return "integer"
       default:
         return "text"
     }

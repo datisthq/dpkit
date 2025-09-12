@@ -132,6 +132,7 @@ describe.skipIf(!path)("PostgresqlAdapter", () => {
     const adapter = createAdapter("sqlite")
     const database = await adapter.connectDatabase(path)
 
+    await database.schema.dropTable("table1").ifExists().execute()
     await database.schema
       .createTable("table1")
       .ifNotExists()
@@ -139,12 +140,13 @@ describe.skipIf(!path)("PostgresqlAdapter", () => {
       .addColumn("name", "text")
       .execute()
 
+    await database.schema.dropTable("table2").ifExists().execute()
     await database.schema
       .createTable("table2")
       .ifNotExists()
       .addColumn("id", "integer", column => column.notNull())
       .addColumn("number", "numeric")
-      .addColumn("boolean", "boolean")
+      .addColumn("datetime", "timestamp")
       .execute()
 
     const datapackage = await loadPackageFromDatabase(path, {
@@ -175,7 +177,7 @@ describe.skipIf(!path)("PostgresqlAdapter", () => {
             fields: [
               { name: "id", type: "integer", constraints: { required: true } },
               { name: "number", type: "number" },
-              { name: "boolean", type: "boolean" },
+              { name: "datetime", type: "datetime" },
             ],
           },
         },

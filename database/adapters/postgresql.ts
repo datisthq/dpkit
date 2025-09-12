@@ -8,6 +8,7 @@ import { BaseAdapter } from "./base.ts"
 
 export class PostgresqlAdapter extends BaseAdapter {
   nativeTypes = [
+    "boolean",
     "datetime",
     "integer",
     "number",
