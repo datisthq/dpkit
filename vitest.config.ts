@@ -3,7 +3,9 @@ import { loadEnvFile } from "node:process"
 import { configDefaults, defineConfig } from "vitest/config"
 import { coverageConfigDefaults } from "vitest/config"
 
-loadEnvFile()
+try {
+  loadEnvFile(join(import.meta.dirname, ".env"))
+} catch {}
 
 export default defineConfig({
   test: {
