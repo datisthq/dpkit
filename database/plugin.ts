@@ -5,6 +5,9 @@ import type { SaveTableOptions, Table } from "@dpkit/table"
 import { loadDatabaseTable } from "./table/index.ts"
 import { saveDatabaseTable } from "./table/index.ts"
 
+// TODO: Add inferSchema
+// TODO: Add loadPackage
+
 export class DatabasePlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>) {
     const databaseFormat = getDatabaseFormat(resource)

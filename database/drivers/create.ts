@@ -1,8 +1,9 @@
+import type { DatabaseFormat } from "../resource/index.ts"
 import { MysqlDriver } from "./mysql.ts"
 import { PostgresqlDriver } from "./postgresql.ts"
 import { SqliteDriver } from "./sqlite.ts"
 
-export function createDriver(format: "mysql" | "postgresql" | "sqlite") {
+export function createDriver(format: DatabaseFormat) {
   switch (format) {
     case "postgresql":
       return new PostgresqlDriver()
@@ -11,6 +12,6 @@ export function createDriver(format: "mysql" | "postgresql" | "sqlite") {
     case "sqlite":
       return new SqliteDriver()
     default:
-      return undefined
+      throw new Error(`Unsupported database format: "${format}"`)
   }
 }

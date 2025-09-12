@@ -13,11 +13,6 @@ export async function loadDatabaseTable(
   resource: Partial<Resource> & { format: "postgresql" | "mysql" | "sqlite" },
   options?: LoadTableOptions,
 ) {
-  const driver = createDriver(resource.format)
-  if (!driver) {
-    throw new Error("Supported database format is not defined")
-  }
-
   const dialect = await loadResourceDialect(resource.dialect)
   if (!dialect?.table) {
     throw new Error("Table name is not defined in dialect")
@@ -28,6 +23,7 @@ export async function loadDatabaseTable(
     throw new Error("Resource path is not defined")
   }
 
+  const driver = createDriver(resource.format)
   const database = await driver.connectDatabase(path)
   const records = await database.selectFrom(dialect.table).selectAll().execute()
 

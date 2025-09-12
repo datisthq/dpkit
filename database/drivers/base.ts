@@ -1,11 +1,15 @@
 import type { Field, FieldType, Schema } from "@dpkit/core"
 import type { Dialect } from "kysely"
 import { Kysely } from "kysely"
+import { LRUCache } from "lru-cache"
 import type { DatabaseField } from "../field/index.ts"
 import type { DatabaseSchema } from "../schema/index.ts"
 
-// We cache database connections (only works in Node/Deno/Bun)
-const databases: Record<string, Kysely<any>> = {}
+// We cache database connections (only works in serverfull environments)
+const databases = new LRUCache<string, Kysely<any>>({
+  dispose: database => database.destroy(),
+  max: 10,
+})
 
 export abstract class BaseDriver {
   abstract get nativeTypes(): FieldType[]
@@ -14,12 +18,16 @@ export abstract class BaseDriver {
   abstract denormalizeType(fieldType: Field["type"]): DatabaseField["dataType"]
 
   async connectDatabase(path: string) {
-    if (!databases[path]) {
-      const dialect = this.createDialect(path)
-      databases[path] = new Kysely<any>({ dialect })
+    const cachedDatabase = databases.get(path)
+    if (cachedDatabase) {
+      return cachedDatabase
     }
 
-    return databases[path]
+    const dialect = this.createDialect(path)
+    const database = new Kysely<any>({ dialect })
+    databases.set(path, new Kysely<any>({ dialect }))
+
+    return database
   }
 
   normalizeSchema(databaseSchema: DatabaseSchema) {

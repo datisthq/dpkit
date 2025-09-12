@@ -14,11 +14,6 @@ export async function saveDatabaseTable(
 ) {
   const { path, format, dialect, overwrite } = options
 
-  const driver = createDriver(format)
-  if (!driver) {
-    throw new Error("Supported database format is not defined")
-  }
-
   const tableName = dialect?.table
   if (!tableName) {
     throw new Error("Table name is not defined in dialect")
@@ -29,6 +24,7 @@ export async function saveDatabaseTable(
     keepStrings: true,
   })
 
+  const driver = createDriver(format)
   table = await denormalizeTable(table, schema, {
     nativeTypes: driver.nativeTypes,
   })
