@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { inspectTable } from "../../table/index.ts"
+import { validateTable } from "../../table/index.ts"
 
-describe("inspectTable (cell/maximum)", () => {
+describe("validateTable (cell/maximum)", () => {
   it("should not report errors for valid values", async () => {
     const table = DataFrame({
       price: [10.5, 20.75, 30.0],
@@ -19,7 +19,7 @@ describe("inspectTable (cell/maximum)", () => {
       ],
     }
 
-    const errors = await inspectTable(table, { schema })
+    const errors = await validateTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
@@ -38,7 +38,7 @@ describe("inspectTable (cell/maximum)", () => {
       ],
     }
 
-    const errors = await inspectTable(table, { schema })
+    const errors = await validateTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/maximum")).toHaveLength(1)
     expect(errors).toContainEqual({
       type: "cell/maximum",
@@ -63,7 +63,7 @@ describe("inspectTable (cell/maximum)", () => {
       ],
     }
 
-    const errors = await inspectTable(table, { schema })
+    const errors = await validateTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/exclusiveMaximum")).toHaveLength(
       2,
     )

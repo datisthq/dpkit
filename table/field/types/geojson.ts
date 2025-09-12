@@ -10,3 +10,9 @@ export function parseGeojsonField(field: GeojsonField, expr?: Expr) {
 
   return when(expr.str.contains("^\\{")).then(expr).otherwise(lit(null))
 }
+
+export function stringifyGeojsonField(field: GeojsonField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  return expr
+}

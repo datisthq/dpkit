@@ -1,28 +1,23 @@
 import type { Dialect, Resource } from "@dpkit/core"
 import { loadResourceDialect } from "@dpkit/core"
+import { loadResourceSchema } from "@dpkit/core"
 import { loadFile, prefetchFiles } from "@dpkit/file"
+import type { LoadTableOptions } from "@dpkit/table"
+import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
 import type { Table } from "@dpkit/table"
 import { concat } from "nodejs-polars"
 import { DataFrame, scanJson } from "nodejs-polars"
 import { decodeJsonBuffer } from "../buffer/index.ts"
 
-export async function loadJsonTable(resource: Partial<Resource>) {
-  return await loadTable(resource, { isLines: false })
-}
-
-export async function loadJsonlTable(resource: Partial<Resource>) {
-  return await loadTable(resource, { isLines: true })
-}
-
-async function loadTable(
-  resource: Partial<Resource>,
-  options: { isLines: boolean },
+export async function loadJsonTable(
+  resource: Partial<Resource> & { format?: "json" | "jsonl" | "ndjson" },
+  options?: LoadTableOptions,
 ) {
-  const { isLines } = options
+  const isLines = resource.format === "jsonl" || resource.format === "ndjson"
 
   const paths = await prefetchFiles(resource.path)
   if (!paths.length) {
-    return DataFrame().lazy()
+    throw new Error("Resource path is not defined")
   }
 
   const dialect = await loadResourceDialect(resource.dialect)
@@ -45,7 +40,14 @@ async function loadTable(
     tables.push(table)
   }
 
-  const table = concat(tables)
+  let table = concat(tables)
+
+  if (!options?.denormalized) {
+    let schema = await loadResourceSchema(resource.schema)
+    if (!schema) schema = await inferSchemaFromTable(table, options)
+    table = await normalizeTable(table, schema)
+  }
+
   return table
 }
 

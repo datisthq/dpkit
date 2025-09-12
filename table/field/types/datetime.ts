@@ -16,3 +16,11 @@ export function parseDatetimeField(field: DatetimeField, expr?: Expr) {
 
   return expr.str.strptime(DataType.Datetime, format)
 }
+
+export function stringifyDatetimeField(field: DatetimeField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  const format = field.format ?? DEFAULT_FORMAT
+
+  return expr.date.strftime(format)
+}

@@ -1,15 +1,21 @@
 import { loadResourceDialect } from "@dpkit/core"
 import type { Resource } from "@dpkit/core"
+import { loadResourceSchema } from "@dpkit/core"
 import { loadFile, prefetchFiles } from "@dpkit/file"
+import type { LoadTableOptions } from "@dpkit/table"
+import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
 import type { DataRow, Table } from "@dpkit/table"
 import { getRecordsFromRows } from "@dpkit/table"
 import { DataFrame, concat } from "nodejs-polars"
 import { read, utils } from "xlsx"
 
-export async function loadOdsTable(resource: Partial<Resource>) {
+export async function loadOdsTable(
+  resource: Partial<Resource>,
+  options?: LoadTableOptions,
+) {
   const paths = await prefetchFiles(resource.path)
   if (!paths.length) {
-    return DataFrame().lazy()
+    throw new Error("Resource path is not defined")
   }
 
   const dialect = await loadResourceDialect(resource.dialect)
@@ -36,6 +42,13 @@ export async function loadOdsTable(resource: Partial<Resource>) {
     }
   }
 
-  const table = concat(tables)
+  let table = concat(tables)
+
+  if (!options?.denormalized) {
+    let schema = await loadResourceSchema(resource.schema)
+    if (!schema) schema = await inferSchemaFromTable(table, options)
+    table = await normalizeTable(table, schema)
+  }
+
   return table
 }

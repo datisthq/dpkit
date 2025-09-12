@@ -1,5 +1,6 @@
-export { processTable } from "./process.ts"
-export { inspectTable } from "./inspect.ts"
+export { normalizeTable } from "./normalize.ts"
+export { denormalizeTable } from "./denormalize.ts"
+export { validateTable } from "./validate.ts"
 export type { Table } from "./Table.ts"
 export { skipCommentRows } from "./helpers.ts"
 export { joinHeaderRows } from "./helpers.ts"

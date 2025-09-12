@@ -11,13 +11,12 @@ export interface StringField extends BaseField<StringConstraints> {
 
   /**
    * Format of the string
-   * - default: any valid string
    * - email: valid email address
    * - uri: valid URI
    * - binary: base64 encoded string
    * - uuid: valid UUID string
    */
-  format?: "default" | "email" | "uri" | "binary" | "uuid" | string
+  format?: "email" | "uri" | "binary" | "uuid"
 
   /**
    * Categories for enum values

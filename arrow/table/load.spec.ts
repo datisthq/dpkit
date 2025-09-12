@@ -4,9 +4,9 @@ import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { loadArrowTable } from "./load.ts"
 
-describe("loadArrowTable", () => {
-  useRecording()
+useRecording()
 
+describe("loadArrowTable", () => {
   describe("file variations", () => {
     it("should load local file", async () => {
       const path = getTempFilePath()

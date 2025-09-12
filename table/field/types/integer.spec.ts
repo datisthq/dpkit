@@ -1,6 +1,6 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "../../table/index.ts"
+import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
 describe("parseIntegerField", () => {
   it.each([
@@ -51,15 +51,71 @@ describe("parseIntegerField", () => {
     //[" -1,000 ", -1000, { groupChar: "," }],
     ["000,001", 1, { groupChar: "," }],
   ])("$0 -> $1 $2", async (cell, value, options) => {
-    const table = DataFrame({ name: [cell] }).lazy()
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "integer" as const, ...options }],
     }
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
 
     expect(df.getColumn("name").get(0)).toEqual(value)
     expect(df.getColumn("name").get(0)).toEqual(value)
+  })
+
+  describe("categories", () => {
+    it.each([
+      // Flat categories
+      ["1", 1, { categories: [1, 2] }],
+      ["2", 2, { categories: [1, 2] }],
+      ["3", null, { categories: [1, 2] }],
+
+      // Object categories
+      ["1", 1, { categories: [{ value: 1, label: "One" }] }],
+      ["2", null, { categories: [{ value: 1, label: "One" }] }],
+    ])("$0 -> $1 $2", async (cell, value, options) => {
+      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
+      const schema = {
+        fields: [{ name: "name", type: "integer" as const, ...options }],
+      }
+
+      const ldf = await normalizeTable(table, schema)
+      const df = await ldf.collect()
+
+      expect(df.toRecords()[0]?.name).toEqual(value)
+    })
+  })
+})
+
+describe("stringifyIntegerField", () => {
+  it.each([
+    // Basic integer to string conversion
+    [1, "1"],
+    [2, "2"],
+    [1000, "1000"],
+    [42, "42"],
+    [-1, "-1"],
+    [-100, "-100"],
+    [0, "0"],
+
+    // Large integers
+    [1234567890, "1234567890"],
+    [-1234567890, "-1234567890"],
+
+    // Null handling
+    [null, ""],
+  ])("%s -> %s", async (value, expected) => {
+    const table = DataFrame([Series("name", [value], DataType.Int64)]).lazy()
+
+    const schema = {
+      fields: [{ name: "name", type: "integer" as const }],
+    }
+
+    const ldf = await denormalizeTable(table, schema)
+    const df = await ldf.collect()
+
+    expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })

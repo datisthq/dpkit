@@ -10,3 +10,9 @@ export function parseObjectField(field: ObjectField, expr?: Expr) {
 
   return when(expr.str.contains("^\\{")).then(expr).otherwise(lit(null))
 }
+
+export function stringifyObjectField(field: ObjectField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  return expr
+}

@@ -1,24 +1,32 @@
 import type { Dialect, Resource } from "@dpkit/core"
-import { loadResourceDialect } from "@dpkit/core"
+import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
+import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
 import { stripInitialSpace } from "@dpkit/table"
 import { joinHeaderRows } from "@dpkit/table"
 import { skipCommentRows } from "@dpkit/table"
-import { DataFrame, scanCSV } from "nodejs-polars"
+import type { LoadTableOptions } from "@dpkit/table"
+import { scanCSV } from "nodejs-polars"
 import type { ScanCsvOptions } from "nodejs-polars"
 import { Utf8, concat } from "nodejs-polars"
+import { inferCsvDialect } from "../dialect/index.ts"
 
 // TODO: Condier using sample to extract header first
 // for better commentChar + headerRows/commentRows support
 // (consult with the Data Package Working Group)
 
-export async function loadCsvTable(resource: Partial<Resource>) {
+export async function loadCsvTable(
+  resource: Partial<Resource> & { format?: "csv" | "tsv" },
+  options?: LoadTableOptions,
+) {
   const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
   if (!firstPath) {
-    return DataFrame().lazy()
+    throw new Error("Resource path is not defined")
   }
 
-  const dialect = await loadResourceDialect(resource.dialect)
+  let dialect = await loadResourceDialect(resource.dialect)
+  if (!dialect) dialect = await inferCsvDialect(resource, options)
+
   const scanOptions = getScanOptions(resource, dialect)
   let table = scanCSV(firstPath, scanOptions)
 
@@ -43,6 +51,12 @@ export async function loadCsvTable(resource: Partial<Resource>) {
     table = await joinHeaderRows(table, { dialect })
     table = skipCommentRows(table, { dialect })
     table = stripInitialSpace(table, { dialect })
+  }
+
+  if (!options?.denormalized) {
+    let schema = await loadResourceSchema(resource.schema)
+    if (!schema) schema = await inferSchemaFromTable(table, options)
+    table = await normalizeTable(table, schema)
   }
 
   return table

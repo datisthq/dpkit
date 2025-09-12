@@ -1,15 +1,18 @@
 import type { Descriptor, Resource } from "@dpkit/core"
+import { loadResourceSchema } from "@dpkit/core"
 import { loadDescriptor, validateResourceDescriptor } from "@dpkit/core"
 import { validateFile } from "@dpkit/file"
-import { validateTable } from "../table/index.ts"
+import { validateTable } from "@dpkit/table"
+import { inferSchema } from "../schema/index.ts"
+import { loadTable } from "../table/index.ts"
 
 // TODO: Support multipart resources? (clarify on the specs level)
 
 export async function validateResource(
-  pathOrDescriptorOrResource: string | Descriptor | Partial<Resource>,
+  source: string | Descriptor | Partial<Resource>,
   options?: { basepath?: string },
 ) {
-  let descriptor = pathOrDescriptorOrResource
+  let descriptor = source
   let basepath = options?.basepath
 
   if (typeof descriptor === "string") {
@@ -39,7 +42,14 @@ export async function validateResource(
   try {
     // TODO: rebase on not-rasing?
     // It will raise if the resource is not a table
-    return await validateTable(resource)
+    let schema = await loadResourceSchema(resource.schema)
+    if (!schema) schema = await inferSchema(resource)
+
+    const table = await loadTable(resource, { denormalized: true })
+    const errors = await validateTable(table, { schema })
+
+    const valid = errors.length === 0
+    return { valid, errors }
   } catch {}
 
   return { valid: true, errors: [] }

@@ -1,7 +1,7 @@
 import { mergePackages } from "@dpkit/core"
 import { makeZenodoApiRequest } from "../zenodo/index.ts"
 import type { ZenodoPackage } from "./Package.ts"
-import { normalizeZenodoPackage } from "./process/normalize.ts"
+import { normalizeZenodoPackage } from "./normalize.ts"
 
 /**
  * Load a package from a Zenodo deposit

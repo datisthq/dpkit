@@ -15,3 +15,9 @@ export function parseYearField(field: YearField, expr?: Expr) {
     .then(expr)
     .otherwise(lit(null))
 }
+
+export function stringifyYearField(field: YearField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  return expr.cast(DataType.String).str.zFill(4)
+}

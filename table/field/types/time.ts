@@ -18,3 +18,11 @@ export function parseTimeField(field: TimeField, expr?: Expr) {
     .cast(DataType.Time)
     .alias(field.name)
 }
+
+export function stringifyTimeField(field: TimeField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  const format = field.format ?? DEFAULT_FORMAT
+
+  return expr.date.strftime(format)
+}

@@ -10,3 +10,10 @@ export function parseArrayField(field: ArrayField, expr?: Expr) {
 
   return when(expr.str.contains("^\\[")).then(expr).otherwise(lit(null))
 }
+
+export function stringifyArrayField(field: ArrayField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  // TODO: implement
+  return expr
+}

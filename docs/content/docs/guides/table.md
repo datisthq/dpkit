@@ -9,11 +9,11 @@ The `@dpkit/table` package provides high-performance data validation and process
 
 ## Examples
 
-### Basic Table Inspection
+### Basic Table Validation
 
 ```typescript
 import { DataFrame } from "nodejs-polars"
-import { inspectTable } from "@dpkit/table"
+import { validateTable } from "@dpkit/table"
 import type { Schema } from "@dpkit/core"
 
 // Create a table from data
@@ -32,8 +32,8 @@ const schema: Schema = {
   ]
 }
 
-// Inspect the table
-const errors = await inspectTable(table, { schema })
+// validate the table
+const errors = await validateTable(table, { schema })
 console.log(errors) // Array of validation errors
 ```
 
@@ -51,7 +51,7 @@ const table = DataFrame({
 }).lazy()
 
 const inferredSchema = await inferSchema(table, {
-  sampleSize: 100,      // Sample size for inference
+  sampleRows: 100,      // Sample size for inference
   confidence: 0.9,      // Confidence threshold
   monthFirst: false,    // Date format preference
   commaDecimal: false   // Decimal separator preference
@@ -85,7 +85,7 @@ const equalSchema: Schema = {
 ### Table Processing
 
 ```typescript
-import { processTable } from "@dpkit/table"
+import { normalizeTable } from "@dpkit/table"
 
 // Process table with schema (converts string columns to proper types)
 const table = DataFrame({
@@ -104,7 +104,7 @@ const schema: Schema = {
   ]
 }
 
-const processedTable = await processTable(table, { schema })
+const processedTable = await normalizeTable(table, { schema })
 const result = await processedTable.collect()
 
 // Result will have properly typed columns:
@@ -116,7 +116,7 @@ const result = await processedTable.collect()
 ### Error Handling
 
 ```typescript
-const result = await inspectTable(table, { schema })
+const result = await validateTable(table, { schema })
 
 result.errors.forEach(error => {
   switch (error.type) {

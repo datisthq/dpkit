@@ -2,9 +2,9 @@ import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
 import { loadPackageFromZenodo } from "./load.ts"
 
-describe("loadPackageFromZenodo", () => {
-  useRecording()
+useRecording()
 
+describe("loadPackageFromZenodo", () => {
   it("should load a package", async () => {
     const datapackage = await loadPackageFromZenodo(
       "https://zenodo.org/records/15525711",

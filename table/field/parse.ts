@@ -1,4 +1,4 @@
-import type { Field, Schema } from "@dpkit/core"
+import type { Field } from "@dpkit/core"
 import { col, lit, when } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import { parseArrayField } from "./types/array.ts"
@@ -19,20 +19,12 @@ import { parseYearmonthField } from "./types/yearmonth.ts"
 
 const DEFAULT_MISSING_VALUES = [""]
 
-export function parseField(
-  field: Field,
-  options?: { expr?: Expr; schema?: Schema },
-) {
-  let expr = options?.expr ?? col(field.name)
+export function parseField(field: Field, expr?: Expr) {
+  expr = expr ?? col(field.name)
 
-  const missingValues =
-    field.missingValues ??
-    options?.schema?.missingValues ??
+  const flattenMissingValues =
+    field.missingValues?.map(it => (typeof it === "string" ? it : it.value)) ??
     DEFAULT_MISSING_VALUES
-
-  const flattenMissingValues = missingValues.map(item =>
-    typeof item === "string" ? item : item.value,
-  )
 
   if (flattenMissingValues.length) {
     expr = when(expr.isIn(flattenMissingValues))
@@ -42,36 +34,36 @@ export function parseField(
   }
 
   switch (field.type) {
-    case "string":
-      return parseStringField(field, expr)
-    case "integer":
-      return parseIntegerField(field, expr)
-    case "number":
-      return parseNumberField(field, expr)
+    case "array":
+      return parseArrayField(field, expr)
     case "boolean":
       return parseBooleanField(field, expr)
     case "date":
       return parseDateField(field, expr)
     case "datetime":
       return parseDatetimeField(field, expr)
+    case "duration":
+      return parseDurationField(field, expr)
+    case "geojson":
+      return parseGeojsonField(field, expr)
+    case "geopoint":
+      return parseGeopointField(field, expr)
+    case "integer":
+      return parseIntegerField(field, expr)
+    case "list":
+      return parseListField(field, expr)
+    case "number":
+      return parseNumberField(field, expr)
+    case "object":
+      return parseObjectField(field, expr)
+    case "string":
+      return parseStringField(field, expr)
     case "time":
       return parseTimeField(field, expr)
     case "year":
       return parseYearField(field, expr)
     case "yearmonth":
       return parseYearmonthField(field, expr)
-    case "list":
-      return parseListField(field, expr)
-    case "array":
-      return parseArrayField(field, expr)
-    case "geopoint":
-      return parseGeopointField(field, expr)
-    case "object":
-      return parseObjectField(field, expr)
-    case "geojson":
-      return parseGeojsonField(field, expr)
-    case "duration":
-      return parseDurationField(field, expr)
     default:
       return expr
   }

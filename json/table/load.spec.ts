@@ -1,7 +1,7 @@
 import { writeTempFile } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
-import { loadJsonTable, loadJsonlTable } from "./load.ts"
+import { loadJsonTable } from "./load.ts"
 
 useRecording()
 
@@ -12,6 +12,7 @@ describe("loadJsonTable", () => {
       const path = await writeTempFile(body)
 
       const table = await loadJsonTable({ path })
+
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -23,7 +24,10 @@ describe("loadJsonTable", () => {
       const path1 = await writeTempFile(body)
       const path2 = await writeTempFile(body)
 
-      const table = await loadJsonTable({ path: [path1, path2] })
+      const table = await loadJsonTable({
+        path: [path1, path2],
+      })
+
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -123,13 +127,13 @@ describe("loadJsonTable", () => {
   })
 })
 
-describe("loadJsonlTable", () => {
+describe("loadJsonTable (format=jsonl)", () => {
   describe("file variations", () => {
     it("should load local file", async () => {
       const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({ path })
+      const table = await loadJsonTable({ path, format: "jsonl" })
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -141,7 +145,11 @@ describe("loadJsonlTable", () => {
       const path1 = await writeTempFile(body)
       const path2 = await writeTempFile(body)
 
-      const table = await loadJsonlTable({ path: [path1, path2] })
+      const table = await loadJsonTable({
+        path: [path1, path2],
+        format: "jsonl",
+      })
+
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
         { id: 2, name: "中文" },
@@ -151,8 +159,9 @@ describe("loadJsonlTable", () => {
     })
 
     it("should load remote file", async () => {
-      const table = await loadJsonlTable({
+      const table = await loadJsonTable({
         path: "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.jsonl",
+        format: "jsonl",
       })
 
       expect((await table.collect()).toRecords()).toEqual([
@@ -162,11 +171,12 @@ describe("loadJsonlTable", () => {
     })
 
     it("should load remote file (multipart)", async () => {
-      const table = await loadJsonlTable({
+      const table = await loadJsonTable({
         path: [
           "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.jsonl",
           "https://raw.githubusercontent.com/frictionlessdata/frictionless-py/refs/heads/main/data/table.jsonl",
         ],
+        format: "jsonl",
       })
 
       expect((await table.collect()).toRecords()).toEqual([
@@ -183,8 +193,9 @@ describe("loadJsonlTable", () => {
       const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({
+      const table = await loadJsonTable({
         path,
+        format: "jsonl",
         dialect: { itemKeys: ["name"] },
       })
 
@@ -198,8 +209,9 @@ describe("loadJsonlTable", () => {
       const body = '["id","name"]\n[1,"english"]\n[2,"中文"]'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({
+      const table = await loadJsonTable({
         path,
+        format: "jsonl",
         dialect: { itemType: "array" },
       })
 
@@ -213,8 +225,9 @@ describe("loadJsonlTable", () => {
       const body = '{"id":1,"name":"english"}\n{"id":2,"name":"中文"}'
       const path = await writeTempFile(body)
 
-      const table = await loadJsonlTable({
+      const table = await loadJsonTable({
         path,
+        format: "jsonl",
         dialect: { itemType: "object" },
       })
 

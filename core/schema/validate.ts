@@ -1,7 +1,7 @@
 import { type Descriptor, validateDescriptor } from "../general/index.ts"
 import { loadProfile } from "../general/index.ts"
 import type { Schema } from "./Schema.ts"
-import { normalizeSchema } from "./process/normalize.ts"
+import { normalizeSchema } from "./normalize.ts"
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tableschema.json"
 

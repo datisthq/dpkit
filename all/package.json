@@ -25,6 +25,7 @@
     "@dpkit/ckan": "workspace:*",
     "@dpkit/core": "workspace:*",
     "@dpkit/csv": "workspace:*",
+    "@dpkit/database": "workspace:*",
     "@dpkit/datahub": "workspace:*",
     "@dpkit/file": "workspace:*",
     "@dpkit/folder": "workspace:*",

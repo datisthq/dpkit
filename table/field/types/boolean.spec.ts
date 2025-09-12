@@ -1,6 +1,7 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "../../table/index.ts"
+import { normalizeTable } from "../../table/index.ts"
+import { denormalizeTable } from "../../table/index.ts"
 
 describe("parseBooleanField", () => {
   it.each([
@@ -45,14 +46,46 @@ describe("parseBooleanField", () => {
     ["non", false, { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
     ["no", false, { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
   ])("%s -> %s %o", async (cell, value, options) => {
-    const table = DataFrame({ name: [cell] }).lazy()
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "boolean" as const, ...options }],
     }
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
 
     expect(df.toRecords()[0]?.name).toEqual(value)
+  })
+})
+
+describe("stringifyBooleanField", () => {
+  it.each([
+    // Default values
+    [true, "true", {}],
+    [false, "false", {}],
+
+    // Custom true values
+    [true, "Y", { trueValues: ["Y", "y", "yes"] }],
+    [false, "false", { trueValues: ["Y", "y", "yes"] }],
+
+    // Custom false values
+    [true, "true", { falseValues: ["N", "n", "no"] }],
+    [false, "N", { falseValues: ["N", "n", "no"] }],
+
+    // Custom true and false values
+    [true, "oui", { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
+    [false, "non", { trueValues: ["oui", "si"], falseValues: ["non", "no"] }],
+  ])("%s -> %s %o", async (value, expected, options) => {
+    const table = DataFrame([Series("name", [value], DataType.Bool)]).lazy()
+
+    const schema = {
+      fields: [{ name: "name", type: "boolean" as const, ...options }],
+    }
+
+    const ldf = await denormalizeTable(table, schema)
+    const df = await ldf.collect()
+
+    expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })

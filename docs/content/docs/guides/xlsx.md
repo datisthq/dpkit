@@ -8,25 +8,25 @@ Comprehensive Excel (.xlsx) file handling with sheet selection, advanced header 
 
 ## Introduction
 
+:::tip
+You can use `loadTable` and `saveTable` from `@dpkit/all` instead of `@dpkit/xlsx` to load and save XLSX files if the framework can infer that files are in the `xlsx` format.
+:::
+
 The XLSX plugin is a part of the [dpkit](https://github.com/datisthq/dpkit) ecosystem providing these capabilities:
 
 - `loadXlsxTable`
 - `saveXlsxTable`
 
-These functions handle XLSX files at the IO and dialect level, supporting Microsoft Excel formats.
-
-For complete loading and processing of XLSX files, the [dpkit](https://github.com/datisthq/dpkit) ecosystem provides the `readTable` function which is a high-level function that handles both loading and processing of XLSX files, and `saveTable` for saving XLSX files.
-
-The XLSX plugin automatically handles `.xlsx` files when using dpkit:
+For example:
 
 ```typescript
-import { readTable, saveTable } from "@dpkit/all"
+import { loadXlsxTable, saveXlsxTable } from "@dpkit/xlsx"
 
-const table = await readTable({path: "table.xlsx"})
+const table = await loadXlsxTable({path: "table.xlsx"})
 // the field types will be automatically inferred
 // or you can provide a Table Schema
 
-await saveTable(table, {path: "output.xlsx"})
+await saveXlsxTable(table, {path: "output.xlsx"})
 ```
 
 ## Basic Usage
@@ -34,17 +34,17 @@ await saveTable(table, {path: "output.xlsx"})
 ### Reading XLSX Files
 
 :::tip
-The ouput of `readTable` is a Polars LazyDataFrame, allowing you to use all of the power of Polars for data processing.
+The ouput of `loadXlsxTable` is a Polars LazyDataFrame, allowing you to use all of the power of Polars for data processing.
 :::
 
 ```typescript
-import { readTable } from "@dpkit/all"
+import { loadXlsxTable } from "@dpkit/xlsx"
 
 // Load a simple XLSX file
-const table = await readTable({ path: "data.xlsx" })
+const table = await loadXlsxTable({ path: "data.xlsx" })
 
 // Load with custom dialect (specify sheet)
-const table = await readTable({
+const table = await loadXlsxTable({
   path: "data.xlsx",
   dialect: {
     sheetName: "Sheet2",
@@ -53,7 +53,7 @@ const table = await readTable({
 })
 
 // Load multiple XLSX files (concatenated)
-const table = await readTable({
+const table = await loadXlsxTable({
   path: ["part1.xlsx", "part2.xlsx", "part3.xlsx"]
 })
 
@@ -65,13 +65,13 @@ df.describe()
 ### Saving XLSX Files
 
 ```typescript
-import { saveTable } from "@dpkit/all"
+import { saveXlsxTable } from "@dpkit/xlsx"
 
 // Save with default options
-await saveTable(table, { path: "output.xlsx" })
+await saveXlsxTable(table, { path: "output.xlsx" })
 
 // Save with custom sheet name
-await saveTable(table, {
+await saveXlsxTable(table, {
   path: "output.xlsx",
   dialect: {
     sheetName: "Data"
@@ -84,10 +84,10 @@ await saveTable(table, {
 ### Sheet Selection
 
 ```typescript
-import { readTable } from "@dpkit/all"
+import { loadXlsxTable } from "@dpkit/xlsx"
 
 // Select by sheet number (1-indexed)
-const table = await readTable({
+const table = await loadXlsxTable({
   path: "workbook.xlsx",
   dialect: {
     sheetNumber: 2  // Load second sheet
@@ -95,7 +95,7 @@ const table = await readTable({
 })
 
 // Select by sheet name
-const table = await readTable({
+const table = await loadXlsxTable({
   path: "workbook.xlsx",
   dialect: {
     sheetName: "Sales Data"
@@ -106,14 +106,14 @@ const table = await readTable({
 ### Multi-Header Row Processing
 
 ```typescript
-import { readTable } from "@dpkit/all"
+import { loadXlsxTable } from "@dpkit/xlsx"
 
 // XLSX with multiple header rows:
 // Year | 2023 | 2023 | 2024 | 2024
 // Quarter | Q1 | Q2 | Q1 | Q2
 // Revenue | 100 | 120 | 110 | 130
 
-const table = await readTable({
+const table = await loadXlsxTable({
   path: "multi-header.xlsx",
   dialect: {
     headerRows: [1, 2],
@@ -126,10 +126,10 @@ const table = await readTable({
 ### Comment Row Handling
 
 ```typescript
-import { readTable } from "@dpkit/all"
+import { loadXlsxTable } from "@dpkit/xlsx"
 
 // XLSX with comment rows
-const table = await readTable({
+const table = await loadXlsxTable({
   path: "with-comments.xlsx",
   dialect: {
     commentRows: [1, 2],  // Skip first two rows
@@ -138,7 +138,7 @@ const table = await readTable({
 })
 
 // Skip rows with comment character
-const table = await readTable({
+const table = await loadXlsxTable({
   path: "data.xlsx",
   dialect: {
     commentChar: "#"  // Skip rows starting with #
@@ -149,15 +149,15 @@ const table = await readTable({
 ### Remote File Loading
 
 ```typescript
-import { readTable } from "@dpkit/all"
+import { loadXlsxTable } from "@dpkit/xlsx"
 
 // Load from URL
-const table = await readTable({
+const table = await loadXlsxTable({
   path: "https://example.com/data.xlsx"
 })
 
 // Load multiple remote files
-const table = await readTable({
+const table = await loadXlsxTable({
   path: [
     "https://api.example.com/data-2023.xlsx",
     "https://api.example.com/data-2024.xlsx"
@@ -168,10 +168,10 @@ const table = await readTable({
 ### Header Options
 
 ```typescript
-import { readTable } from "@dpkit/all"
+import { loadXlsxTable } from "@dpkit/xlsx"
 
 // No header row (use generated column names)
-const table = await readTable({
+const table = await loadXlsxTable({
   path: "data.xlsx",
   dialect: {
     header: false
@@ -180,7 +180,7 @@ const table = await readTable({
 // Columns will be: column_1, column_2, column_3, etc.
 
 // Custom header row offset
-const table = await readTable({
+const table = await loadXlsxTable({
   path: "data.xlsx",
   dialect: {
     headerRows: [3]  // Use third row as header

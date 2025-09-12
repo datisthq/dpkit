@@ -2,34 +2,20 @@ import { describe, expect, it } from "vitest"
 import { loadInlineTable } from "./load.ts"
 
 describe("loadInlineTable", () => {
-  it("should handle no data", async () => {
-    const resource = {
-      name: "test",
-      type: "table",
-      data: undefined,
-      schema: undefined,
-    }
+  it("should throw on no data", async () => {
+    const resource = { name: "test" }
 
-    // @ts-ignore
-    const table = await loadInlineTable(resource)
-    const df = await table.collect()
-
-    expect([]).toEqual(df.toRecords())
+    await expect(loadInlineTable(resource)).rejects.toThrow(
+      "Resource data is not defined or tabular",
+    )
   })
 
-  it("should handle bad data", async () => {
-    const resource = {
-      name: "test",
-      type: "table",
-      data: "bad",
-      schema: undefined,
-    }
+  it("should throw on bad data", async () => {
+    const resource = { name: "test", data: "bad" }
 
-    // @ts-ignore
-    const table = await loadInlineTable(resource)
-    const df = await table.collect()
-
-    expect([]).toEqual(df.toRecords())
+    await expect(loadInlineTable(resource)).rejects.toThrow(
+      "Resource data is not defined or tabular",
+    )
   })
 
   it("should read arrays", async () => {

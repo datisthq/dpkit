@@ -17,6 +17,10 @@ npm install @dpkit/json
 
 ## Basic Usage
 
+:::tip
+You can use `loadTable` and `saveTable` from `@dpkit/all` instead of `@dpkit/json` to load and save JSON files if the framework can infer that files are in the `json/jsonl` format.
+:::
+
 ### Loading JSON Data
 
 ```typescript
@@ -39,22 +43,22 @@ const table = await loadJsonTable({
 ### Loading JSONL Data
 
 ```typescript
-import { loadJsonlTable } from "@dpkit/json"
+import { loadJsonTable } from "@dpkit/json"
 
 // Load JSONL (JSON Lines) format
-const table = await loadJsonlTable({ path: "data.jsonl" })
+const table = await loadJsonTable({ path: "data.jsonl", format: 'jsonl' })
 ```
 
 ### Saving Data
 
 ```typescript
-import { saveJsonTable, saveJsonlTable } from "@dpkit/json"
+import { saveJsonTable } from "@dpkit/json"
 
 // Save as JSON
 await saveJsonTable(table, { path: "output.json" })
 
 // Save as JSONL
-await saveJsonlTable(table, { path: "output.jsonl" })
+await saveJsonTable(table, { path: "output.jsonl", format: 'jsonl' })
 ```
 
 ## Data Formats

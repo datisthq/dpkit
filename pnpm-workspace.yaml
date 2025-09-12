@@ -7,7 +7,7 @@ packages:
   - core
   - csv
   - datahub
-  - db
+  - database
   - docs
   - file
   - folder

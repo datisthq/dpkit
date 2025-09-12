@@ -64,7 +64,8 @@ compile/
 dist/
 .astro/
 /docs/content/docs/reference/
-**/.claude/settings.local.json
-AGENTS.md
-CLAUDE.md
 .cursor/
+.claude/
+.serena/
+.mcp.json
+.env

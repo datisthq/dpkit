@@ -14,7 +14,7 @@ import {
 import { makeCkanApiRequest } from "../ckan/index.ts"
 import type { CkanResource } from "../resource/index.ts"
 import { denormalizeCkanResource } from "../resource/index.ts"
-import { denormalizeCkanPackage } from "./process/denormalize.ts"
+import { denormalizeCkanPackage } from "./denormalize.ts"
 
 export async function savePackageToCkan(
   dataPackage: Package,

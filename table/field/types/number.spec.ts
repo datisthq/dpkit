@@ -1,6 +1,6 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "../../table/index.ts"
+import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
 describe("parseNumberField", () => {
   it.each([
@@ -63,14 +63,55 @@ describe("parseNumberField", () => {
       { bareNumber: false, groupChar: ".", decimalChar: "," },
     ],
   ])("$0 -> $1 $2", async (cell, value, options) => {
-    const table = DataFrame({ name: [cell] }).lazy()
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "number" as const, ...options }],
     }
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
 
     expect(df.getColumn("name").get(0)).toEqual(value)
+  })
+})
+
+describe("stringifyNumberField", () => {
+  it.each([
+    // Basic number to string conversion
+    [1.0, "1.0"],
+    [2.0, "2.0"],
+    [1000.0, "1000.0"],
+    [3.14, "3.14"],
+    [42.5, "42.5"],
+    [-1.0, "-1.0"],
+    [-100.5, "-100.5"],
+    [0.0, "0.0"],
+
+    // Numbers with many decimal places
+    //[3.141592653589793, "3.141592653589793"],
+    [-123.456789, "-123.456789"],
+
+    // Large numbers
+    [1234567890.123, "1234567890.123"],
+    [-9876543210.987, "-9876543210.987"],
+
+    // Small numbers
+    [0.001, "0.001"],
+    [-0.0001, "-0.0001"],
+
+    // Null handling
+    [null, ""],
+  ])("%s -> %s", async (value, expected) => {
+    const table = DataFrame([Series("name", [value], DataType.Float64)]).lazy()
+
+    const schema = {
+      fields: [{ name: "name", type: "number" as const }],
+    }
+
+    const ldf = await denormalizeTable(table, schema)
+    const df = await ldf.collect()
+
+    expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })

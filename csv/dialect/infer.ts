@@ -1,16 +1,20 @@
 import { text } from "node:stream/consumers"
 import type { Dialect, Resource } from "@dpkit/core"
 import { loadFileStream } from "@dpkit/file"
-import type { InferDialectOptions } from "@dpkit/table"
 import { default as CsvSnifferFactory } from "csv-sniffer"
 
-const POSSIBLE_DELIMITERS = [",", ";", ":", "|", "\t", "^", "*", "&"]
+const CSV_DELIMITERS = [",", ";", ":", "|", "\t", "^", "*", "&"]
+const TSV_DELIMITERS = ["\t"]
 
 export async function inferCsvDialect(
   resource: Partial<Resource>,
-  options?: InferDialectOptions,
+  options?: {
+    sampleBytes?: number
+  },
 ) {
   const { sampleBytes = 10_000 } = options ?? {}
+  const isTabs = resource.format === "tsv"
+
   const dialect: Dialect = {}
 
   if (resource.path) {
@@ -19,16 +23,13 @@ export async function inferCsvDialect(
     })
 
     const sample = await text(stream)
+    const result = sniffSample(sample, isTabs ? TSV_DELIMITERS : CSV_DELIMITERS)
 
-    const CsvSniffer = CsvSnifferFactory()
-    const sniffer = new CsvSniffer(POSSIBLE_DELIMITERS)
-    const result = sniffer.sniff(sample)
-
-    if (result.delimiter) {
+    if (result?.delimiter) {
       dialect.delimiter = result.delimiter
     }
 
-    if (result.quoteChar) {
+    if (result?.quoteChar) {
       dialect.quoteChar = result.quoteChar
     }
 
@@ -43,4 +44,16 @@ export async function inferCsvDialect(
   }
 
   return dialect
+}
+
+// Sniffer can fail for some reasons
+function sniffSample(sample: string, delimiters: string[]) {
+  try {
+    const CsvSniffer = CsvSnifferFactory()
+    const sniffer = new CsvSniffer(delimiters)
+    const result = sniffer.sniff(sample)
+    return result
+  } catch {
+    return undefined
+  }
 }

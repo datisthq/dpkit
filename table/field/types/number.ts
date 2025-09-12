@@ -7,11 +7,12 @@ export function parseNumberField(field: NumberField, expr?: Expr) {
   expr = expr ?? col(field.name)
 
   // Extract the decimal and group characters
-  const decimalChar = field.decimalChar || "."
-  const groupChar = field.groupChar || ""
+  const decimalChar = field.decimalChar ?? "."
+  const groupChar = field.groupChar ?? ""
+  const bareNumber = field.bareNumber ?? true
 
   // Handle non-bare numbers (with currency symbols, percent signs, etc.)
-  if (field.bareNumber === false) {
+  if (bareNumber === false) {
     // Remove leading non-digit characters (except minus sign and allowed decimal points)
     const allowedDecimalChars =
       decimalChar === "." ? "\\." : `\\.${decimalChar}`
@@ -44,5 +45,21 @@ export function parseNumberField(field: NumberField, expr?: Expr) {
 
   // Cast to float64
   expr = expr.cast(DataType.Float64)
+  return expr
+}
+
+export function stringifyNumberField(field: NumberField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  // Convert to string
+  expr = expr.cast(DataType.String)
+
+  //const decimalChar = field.decimalChar ?? "."
+  //const groupChar = field.groupChar ?? ""
+
+  // TODO: Add decimal character formatting when needed
+  // TODO: Add group character formatting (thousands separator) when needed
+  // TODO: Add non-bare number formatting (currency symbols, etc.) when needed
+
   return expr
 }

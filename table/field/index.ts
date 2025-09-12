@@ -1,4 +1,5 @@
 export { parseField } from "./parse.ts"
-export { inspectField } from "./inspect.ts"
-export type { PolarsField } from "./Field.ts"
+export { validateField } from "./validate.ts"
 export { matchField } from "./match.ts"
+export { stringifyField } from "./stringify.ts"
+export type { PolarsField } from "./Field.ts"

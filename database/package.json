@@ -1,0 +1,41 @@
+{
+  "name": "@dpkit/database",
+  "exports": "./build/index.js",
+  "type": "module",
+  "version": "0.3.0",
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/dpkit",
+  "description": "Fast TypeScript data management framework built on top of the Data Package standard and Polars DataFrames",
+  "keywords": [
+    "data",
+    "polars",
+    "dataframe",
+    "datapackage",
+    "tableschema",
+    "typescript",
+    "validation",
+    "quality",
+    "fair",
+    "database"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@dpkit/core": "workspace:*",
+    "@dpkit/table": "workspace:*",
+    "better-sqlite3": "^12.2.0",
+    "kysely": "^0.28.5",
+    "lru-cache": "^11.2.1",
+    "mysql2": "^3.14.4",
+    "nodejs-polars": "^0.21.1",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@dpkit/file": "workspace:*",
+    "@dpkit/test": "workspace:*",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/pg": "^8.15.5"
+  }
+}

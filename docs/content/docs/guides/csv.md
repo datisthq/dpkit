@@ -8,22 +8,22 @@ Comprehensive CSV and TSV file handling with automatic format detection, advance
 
 ## Introduction
 
+:::tip
+You can use `loadTable` and `saveTable` from `@dpkit/all` instead of `@dpkit/csv` to load and save CSV files if the framework can infer that files are in the `csv/tsv` format.
+:::
+
 The CSV plugin is a part of the [dpkit](https://github.com/datisthq/dpkit) ecosystem providing these capabilities:
 
 - `loadCsvTable`
 - `saveCsvTable`
 - `inferCsvDialect`
 
-These functions are low-level and handles only CSV files on the IO and dialect level. So, for example, `loadCsvTable` will always return all the fields having a string type.
-
-For having both loading and processing of CSV files, the [dpkit](https://github.com/datisthq/dpkit) ecosystem provides the `readTable` function which is a high-level function that handles both loading and processing of CSV files.
-
-The CSV plugin automatically handles `.csv` and `.tsv` files when using dpkit:
+For example:
 
 ```typescript
-import { readTable } from "@dpkit/all"
+import { loadCsvTable } from "@dpkit/csv"
 
-const table = await readTable({path: "table.csv"})
+const table = await loadCsvTable({path: "table.csv"})
 // the field types will be automatically inferred
 // or you can provide a Table Schema
 ```

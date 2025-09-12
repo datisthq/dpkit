@@ -11,7 +11,7 @@
     "@astrojs/starlight": "0.35.2",
     "@dpkit/all": "workspace:*",
     "astro": "5.12.9",
-    "nodejs-polars": "0.21.0",
+    "nodejs-polars": "0.21.1",
     "sharp": "0.34.2",
     "starlight-changelogs": "0.1.1",
     "starlight-scroll-to-top": "0.3.1",

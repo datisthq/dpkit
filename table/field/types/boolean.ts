@@ -9,8 +9,8 @@ const DEFAULT_FALSE_VALUES = ["false", "False", "FALSE", "0"]
 export function parseBooleanField(field: BooleanField, expr?: Expr) {
   expr = expr ?? col(field.name)
 
-  const trueValues = field.trueValues || DEFAULT_TRUE_VALUES
-  const falseValues = field.falseValues || DEFAULT_FALSE_VALUES
+  const trueValues = field.trueValues ?? DEFAULT_TRUE_VALUES
+  const falseValues = field.falseValues ?? DEFAULT_FALSE_VALUES
 
   for (const value of trueValues) expr = expr.replace(value, "1")
   for (const value of falseValues) expr = expr.replace(value, "0")
@@ -22,5 +22,20 @@ export function parseBooleanField(field: BooleanField, expr?: Expr) {
     .when(expr.eq(0))
     .then(lit(false))
     .otherwise(lit(null))
+    .alias(field.name)
+}
+
+const DEFAULT_TRUE_VALUE = "true"
+const DEFAULT_FALSE_VALUE = "false"
+
+export function stringifyBooleanField(field: BooleanField, expr?: Expr) {
+  expr = expr ?? col(field.name)
+
+  const trueValue = field.trueValues?.[0] ?? DEFAULT_TRUE_VALUE
+  const falseValue = field.falseValues?.[0] ?? DEFAULT_FALSE_VALUE
+
+  return when(expr.eq(lit(true)))
+    .then(lit(trueValue))
+    .otherwise(lit(falseValue))
     .alias(field.name)
 }

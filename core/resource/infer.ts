@@ -1,4 +1,9 @@
-import { getFilename, getFormat, getName } from "../general/index.ts"
+import {
+  getFilename,
+  getFormat,
+  getName,
+  getProtocol,
+} from "../general/index.ts"
 import type { Resource } from "./Resource.ts"
 
 export function inferResourceName(resource: Partial<Resource>) {
@@ -23,12 +28,21 @@ export function inferResourceFormat(resource: Partial<Resource>) {
       const path = Array.isArray(resource.path)
         ? resource.path[0]
         : resource.path
+
       if (path) {
-        const filename = getFilename(path)
-        format = getFormat(filename)
+        const protocol = getProtocol(path)
+
+        if (DATABASE_PROTOCOLS.includes(protocol)) {
+          format = protocol
+        } else {
+          const filename = getFilename(path)
+          format = getFormat(filename)
+        }
       }
     }
   }
 
   return format
 }
+
+const DATABASE_PROTOCOLS = ["postgresql", "mysql", "sqlite"]

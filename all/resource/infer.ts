@@ -2,7 +2,8 @@ import type { Resource } from "@dpkit/core"
 import { inferResourceFormat, inferResourceName } from "@dpkit/core"
 import { prefetchFile } from "@dpkit/file"
 import { inferFileBytes, inferFileEncoding, inferFileHash } from "@dpkit/file"
-import { inferTable } from "../table/index.ts"
+import { inferDialect } from "../dialect/index.ts"
+import { inferSchema } from "../schema/index.ts"
 
 // TODO: Support multipart resources? (clarify on the specs level)
 
@@ -18,6 +19,7 @@ export async function inferResource(resource: Partial<Resource>) {
 
   if (typeof resource.path === "string") {
     const localPath = await prefetchFile(resource.path)
+    const localResource = { ...resource, path: localPath }
 
     if (!result.encoding) {
       const encoding = await inferFileEncoding(localPath)
@@ -34,13 +36,15 @@ export async function inferResource(resource: Partial<Resource>) {
       result.hash = await inferFileHash(localPath)
     }
 
+    if (!result.dialect) {
+      try {
+        result.dialect = await inferDialect(localResource)
+      } catch {}
+    }
+
     if (!result.schema) {
       try {
-        const localResource = { ...resource, path: localPath }
-        const { dialect, schema } = await inferTable(localResource)
-
-        result.dialect = dialect
-        result.schema = schema
+        result.schema = await inferSchema(localResource)
       } catch {}
     }
   }

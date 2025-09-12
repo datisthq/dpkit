@@ -1,4 +1,4 @@
-import type { Field } from "@dpkit/core"
+import type { FieldType } from "@dpkit/core"
 import type { BaseTableError } from "./Base.ts"
 
 export interface BaseFieldError extends BaseTableError {
@@ -12,6 +12,6 @@ export interface FieldNameError extends BaseFieldError {
 
 export interface FieldTypeError extends BaseFieldError {
   type: "field/type"
-  fieldType: Field["type"]
-  actualFieldType: Field["type"]
+  fieldType: FieldType
+  actualFieldType: FieldType
 }

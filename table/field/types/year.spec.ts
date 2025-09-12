@@ -1,6 +1,6 @@
-import { DataFrame } from "nodejs-polars"
+import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { processTable } from "../../table/index.ts"
+import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
 describe("parseYearField", () => {
   it.each([
@@ -20,14 +20,40 @@ describe("parseYearField", () => {
     ["12345", null],
     ["123", null],
   ])("%s -> %s", async (cell, value) => {
-    const table = DataFrame({ name: [cell] }).lazy()
+    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+
     const schema = {
       fields: [{ name: "name", type: "year" as const }],
     }
 
-    const ldf = await processTable(table, { schema })
+    const ldf = await normalizeTable(table, schema)
     const df = await ldf.collect()
 
     expect(df.getColumn("name").get(0)).toEqual(value)
+  })
+})
+
+describe("stringifyYearField", () => {
+  it.each([
+    // Basic integer years to string conversion
+    [2000, "2000"],
+    [2023, "2023"],
+    [1999, "1999"],
+    [0, "0000"],
+    [9999, "9999"],
+
+    // Edge cases with null values
+    [null, ""],
+  ])("%s -> %s", async (value, expected) => {
+    const table = DataFrame([Series("name", [value], DataType.Int16)]).lazy()
+
+    const schema = {
+      fields: [{ name: "name", type: "year" as const }],
+    }
+
+    const ldf = await denormalizeTable(table, schema)
+    const df = await ldf.collect()
+
+    expect(df.toRecords()[0]?.name).toEqual(expected)
   })
 })
