@@ -1,5 +1,4 @@
 import type { Field, FieldType } from "@dpkit/core"
-import { Kysely } from "kysely"
 import { type ColumnMetadata, PostgresDialect } from "kysely"
 import { Pool } from "pg"
 import { BaseDriver } from "./base.js"
@@ -7,15 +6,11 @@ import { BaseDriver } from "./base.js"
 export class PostgresqlDriver extends BaseDriver {
   nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
 
-  async connectDatabase(path: string) {
-    const pool = new Pool({
-      connectionString: path,
-      max: 1,
-    })
-
-    return new Kysely<any>({
-      dialect: new PostgresDialect({
-        pool,
+  createDialect(path: string) {
+    return new PostgresDialect({
+      pool: new Pool({
+        connectionString: path,
+        max: 1,
       }),
     })
   }

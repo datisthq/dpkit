@@ -1,20 +1,14 @@
 import type { Field, FieldType } from "@dpkit/core"
 import Database from "better-sqlite3"
-import { Kysely } from "kysely"
 import { type ColumnMetadata, SqliteDialect } from "kysely"
 import { BaseDriver } from "./base.js"
 
 export class SqliteDriver extends BaseDriver {
   nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
 
-  async connectDatabase(path: string) {
-    const filename = path.replace(/^sqlite:\/\//, "")
-    const database = new Database(filename)
-
-    return new Kysely<any>({
-      dialect: new SqliteDialect({
-        database,
-      }),
+  createDialect(path: string) {
+    return new SqliteDialect({
+      database: new Database(path.replace(/^sqlite:\/\//, "")),
     })
   }
 

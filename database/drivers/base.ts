@@ -1,13 +1,26 @@
 import type { Field, FieldType, Schema } from "@dpkit/core"
-import type { Kysely } from "kysely"
+import type { Dialect } from "kysely"
+import { Kysely } from "kysely"
 import type { DatabaseField } from "../field/index.ts"
 import type { DatabaseSchema } from "../schema/index.ts"
 
+// We cache database connections (only works in Node/Deno/Bun)
+const databases: Record<string, Kysely<any>> = {}
+
 export abstract class BaseDriver {
   abstract get nativeTypes(): FieldType[]
-  abstract connectDatabase(path: string): Promise<Kysely<any>>
+  abstract createDialect(path: string): Dialect
   abstract normalizeType(databaseType: DatabaseField["dataType"]): Field["type"]
   abstract denormalizeType(fieldType: Field["type"]): DatabaseField["dataType"]
+
+  async connectDatabase(path: string) {
+    if (!databases[path]) {
+      const dialect = this.createDialect(path)
+      databases[path] = new Kysely<any>({ dialect })
+    }
+
+    return databases[path]
+  }
 
   normalizeSchema(databaseSchema: DatabaseSchema) {
     const schema: Schema = { fields: [] }

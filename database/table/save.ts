@@ -39,7 +39,6 @@ export async function saveDatabaseTable(
   await defineTable(database, databaseSchema, { overwrite })
   await populateTable(database, tableName, table)
 
-  await database.destroy()
   return path
 }
 

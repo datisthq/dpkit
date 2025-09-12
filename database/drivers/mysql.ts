@@ -1,5 +1,4 @@
 import type { Field, FieldType } from "@dpkit/core"
-import { Kysely } from "kysely"
 import { type ColumnMetadata, MysqlDialect } from "kysely"
 import { createPool } from "mysql2"
 import { BaseDriver } from "./base.js"
@@ -7,15 +6,10 @@ import { BaseDriver } from "./base.js"
 export class MysqlDriver extends BaseDriver {
   nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
 
-  async connectDatabase(path: string) {
-    const pool = createPool({
-      uri: path,
-      connectionLimit: 1,
-    })
-
-    return new Kysely<any>({
-      dialect: new MysqlDialect({
-        pool,
+  createDialect(path: string) {
+    return new MysqlDialect({
+      pool: createPool({
+        uri: path,
       }),
     })
   }

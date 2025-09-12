@@ -39,6 +39,5 @@ export async function loadDatabaseTable(
     table = await normalizeTable(table, schema)
   }
 
-  await database.destroy()
   return table
 }
