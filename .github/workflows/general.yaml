@@ -11,6 +11,26 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: test
+          POSTGRES_USER: test
+          POSTGRES_DB: test
+        ports:
+          - 5432:5432
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: test
+          MYSQL_DATABASE: test
+          MYSQL_USER: test
+          MYSQL_PASSWORD: test
+        ports:
+          - 3306:3306
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -27,6 +47,9 @@ jobs:
         run: pnpm build
       - name: Test Packages
         run: pnpm test
+        env:
+          DPKIT_MYSQL_URL: mysql://test:test@localhost:3306/test
+          DPKIT_POSTGRESQL_URL: postgresql://test:test@localhost:5432/test
       - name: Upload Coverage
         uses: codecov/codecov-action@v5
         with:
