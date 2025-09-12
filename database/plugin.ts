@@ -2,13 +2,28 @@ import type { Resource } from "@dpkit/core"
 import { inferResourceFormat } from "@dpkit/core"
 import type { TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
+import { loadPackageFromDatabase } from "./package/index.ts"
+import { inferDatabaseSchema } from "./schema/index.ts"
 import { loadDatabaseTable } from "./table/index.ts"
 import { saveDatabaseTable } from "./table/index.ts"
 
-// TODO: Add inferSchema
-// TODO: Add loadPackage
-
 export class DatabasePlugin implements TablePlugin {
+  async loadPackage(source: string) {
+    const databaseFormat = getDatabaseFormat({ path: source })
+    if (!databaseFormat) return undefined
+
+    return await loadPackageFromDatabase(source, {
+      format: databaseFormat,
+    })
+  }
+
+  async inferSchema(resource: Partial<Resource>) {
+    const databaseFormat = getDatabaseFormat(resource)
+    if (!databaseFormat) return undefined
+
+    return await inferDatabaseSchema({ ...resource, format: databaseFormat })
+  }
+
   async loadTable(resource: Partial<Resource>) {
     const databaseFormat = getDatabaseFormat(resource)
     if (!databaseFormat) return undefined
