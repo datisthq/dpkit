@@ -1,5 +1,11 @@
 # @dpkit/core
 
+## 0.11.0
+
+### Minor Changes
+
+- 8624a13: Added database support
+
 ## 0.10.0
 
 ### Minor Changes

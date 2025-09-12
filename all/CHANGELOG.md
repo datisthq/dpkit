@@ -1,5 +1,33 @@
 # @dpkit/all
 
+## 0.10.0
+
+### Minor Changes
+
+- 8624a13: Added database support
+
+### Patch Changes
+
+- Updated dependencies [8624a13]
+  - @dpkit/database@0.4.0
+  - @dpkit/camtrap@0.7.0
+  - @dpkit/datahub@0.9.0
+  - @dpkit/parquet@0.5.0
+  - @dpkit/folder@0.10.0
+  - @dpkit/github@0.10.0
+  - @dpkit/inline@0.8.0
+  - @dpkit/zenodo@0.9.0
+  - @dpkit/arrow@0.4.0
+  - @dpkit/table@0.9.0
+  - @dpkit/ckan@0.9.0
+  - @dpkit/core@0.11.0
+  - @dpkit/file@0.10.0
+  - @dpkit/json@0.6.0
+  - @dpkit/xlsx@0.5.0
+  - @dpkit/csv@0.7.0
+  - @dpkit/ods@0.5.0
+  - @dpkit/zip@0.9.0
+
 ## 0.9.0
 
 ### Minor Changes

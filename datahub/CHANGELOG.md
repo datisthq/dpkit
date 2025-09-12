@@ -1,5 +1,16 @@
 # @dpkit/datahub
 
+## 0.9.0
+
+### Minor Changes
+
+- 8624a13: Added database support
+
+### Patch Changes
+
+- Updated dependencies [8624a13]
+  - @dpkit/core@0.11.0
+
 ## 0.8.2
 
 ### Patch Changes

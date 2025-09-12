@@ -1,5 +1,18 @@
 # @dpkit/arrow
 
+## 0.4.0
+
+### Minor Changes
+
+- 8624a13: Added database support
+
+### Patch Changes
+
+- Updated dependencies [8624a13]
+  - @dpkit/table@0.9.0
+  - @dpkit/core@0.11.0
+  - @dpkit/file@0.10.0
+
 ## 0.3.1
 
 ### Patch Changes
