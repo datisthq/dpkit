@@ -1,6 +1,6 @@
 import { assertLocalPathVacant } from "@dpkit/file"
 import type { SaveTableOptions, Table } from "@dpkit/table"
-import { denormalizeTable, inferTableSchema } from "@dpkit/table"
+import { denormalizeTable, inferSchemaFromTable } from "@dpkit/table"
 
 export async function saveCsvTable(
   table: Table,
@@ -13,7 +13,7 @@ export async function saveCsvTable(
     await assertLocalPathVacant(path)
   }
 
-  const schema = await inferTableSchema(table, {
+  const schema = await inferSchemaFromTable(table, {
     ...options,
     keepStrings: true,
   })

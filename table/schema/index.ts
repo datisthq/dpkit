@@ -1,5 +1,5 @@
 export type { PolarsSchema } from "./Schema.ts"
 export { getPolarsSchema } from "./helpers.ts"
 export type { SchemaOptions } from "./Options.ts"
-export { inferTableSchema } from "./infer.ts"
+export { inferSchemaFromTable } from "./infer.ts"
 export type { InferSchemaOptions } from "./infer.ts"

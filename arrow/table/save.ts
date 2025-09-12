@@ -1,5 +1,5 @@
 import { assertLocalPathVacant } from "@dpkit/file"
-import { denormalizeTable, inferTableSchema } from "@dpkit/table"
+import { denormalizeTable, inferSchemaFromTable } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 
 // TODO: rebase on sinkIPC when it is available
@@ -12,7 +12,7 @@ export async function saveArrowTable(table: Table, options: SaveTableOptions) {
     await assertLocalPathVacant(path)
   }
 
-  const schema = await inferTableSchema(table, {
+  const schema = await inferSchemaFromTable(table, {
     ...options,
     keepStrings: true,
   })

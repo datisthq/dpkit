@@ -1,5 +1,5 @@
 import type { SaveTableOptions, Table } from "@dpkit/table"
-import { denormalizeTable, inferTableSchema } from "@dpkit/table"
+import { denormalizeTable, inferSchemaFromTable } from "@dpkit/table"
 import type { Kysely } from "kysely"
 import { createDriver } from "../drivers/create.ts"
 import type { DatabaseSchema } from "../schema/index.ts"
@@ -24,7 +24,7 @@ export async function saveDatabaseTable(
     throw new Error("Table name is not defined in dialect")
   }
 
-  const schema = await inferTableSchema(table, {
+  const schema = await inferSchemaFromTable(table, {
     ...options,
     keepStrings: true,
   })

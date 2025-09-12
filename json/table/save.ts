@@ -1,6 +1,6 @@
 import type { Dialect } from "@dpkit/core"
 import { saveFile } from "@dpkit/file"
-import { denormalizeTable, inferTableSchema } from "@dpkit/table"
+import { denormalizeTable, inferSchemaFromTable } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { decodeJsonBuffer, encodeJsonBuffer } from "../buffer/index.ts"
 
@@ -14,7 +14,7 @@ export async function saveJsonTable(
   const { path, dialect, overwrite, format } = options
   const isLines = format === "jsonl" || format === "ndjson"
 
-  const schema = await inferTableSchema(table, {
+  const schema = await inferSchemaFromTable(table, {
     ...options,
     keepStrings: true,
   })

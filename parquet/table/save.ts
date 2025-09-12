@@ -1,5 +1,5 @@
 import { assertLocalPathVacant } from "@dpkit/file"
-import { denormalizeTable, inferTableSchema } from "@dpkit/table"
+import { denormalizeTable, inferSchemaFromTable } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 
 export async function saveParquetTable(
@@ -12,7 +12,7 @@ export async function saveParquetTable(
     await assertLocalPathVacant(path)
   }
 
-  const schema = await inferTableSchema(table, {
+  const schema = await inferSchemaFromTable(table, {
     ...options,
     keepStrings: true,
   })

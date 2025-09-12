@@ -3,7 +3,7 @@ import { loadResourceDialect } from "@dpkit/core"
 import { loadResourceSchema } from "@dpkit/core"
 import { loadFile, prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "@dpkit/table"
-import { inferTableSchema, normalizeTable } from "@dpkit/table"
+import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
 import type { Table } from "@dpkit/table"
 import { concat } from "nodejs-polars"
 import { DataFrame, scanJson } from "nodejs-polars"
@@ -44,7 +44,7 @@ export async function loadJsonTable(
 
   if (!options?.denormalized) {
     let schema = await loadResourceSchema(resource.schema)
-    if (!schema) schema = await inferTableSchema(table, options)
+    if (!schema) schema = await inferSchemaFromTable(table, options)
     table = await normalizeTable(table, schema)
   }
 

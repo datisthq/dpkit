@@ -1,6 +1,6 @@
 import type { Resource, Schema } from "@dpkit/core"
 import type { InferSchemaOptions } from "@dpkit/table"
-import { inferTableSchema } from "@dpkit/table"
+import { inferSchemaFromTable } from "@dpkit/table"
 import { dpkit } from "../plugin.ts"
 import { loadTable } from "../table/index.ts"
 
@@ -16,6 +16,6 @@ export async function inferSchema(
   }
 
   const table = await loadTable(resource, { denormalized: true })
-  const schema = await inferTableSchema(table, options)
+  const schema = await inferSchemaFromTable(table, options)
   return schema
 }

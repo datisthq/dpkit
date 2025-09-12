@@ -15,7 +15,7 @@ export interface InferSchemaOptions extends SchemaOptions {
   keepStrings?: boolean
 }
 
-export async function inferTableSchema(
+export async function inferSchemaFromTable(
   table: Table,
   options?: InferSchemaOptions,
 ) {
