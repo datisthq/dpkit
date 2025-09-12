@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { inferDatabaseSchema } from "./infer.js"
+import { inferDatabaseSchema } from "./infer.ts"
 
 describe("inferDatabaseSchema", () => {
   it("throws error when resource path is not defined", async () => {

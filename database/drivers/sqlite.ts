@@ -1,7 +1,7 @@
 import type { Field, FieldType } from "@dpkit/core"
 import Database from "better-sqlite3"
 import { type ColumnMetadata, SqliteDialect } from "kysely"
-import { BaseDriver } from "./base.js"
+import { BaseDriver } from "./base.ts"
 
 export class SqliteDriver extends BaseDriver {
   nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]

@@ -2,6 +2,8 @@ import { getTempFilePath } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
+import { createDriver } from "../drivers/create.ts"
+import { loadPackageFromDatabase } from "../package/index.ts"
 import { inferDatabaseSchema } from "../schema/index.ts"
 import { loadDatabaseTable, saveDatabaseTable } from "../table/index.ts"
 
@@ -120,5 +122,11 @@ describe("SqliteDriver", () => {
         yearmonth: "2025-01",
       },
     ])
+  })
+
+  it("should load package from database", async () => {
+    const path = getTempFilePath()
+    const driver = createDriver("sqlite")
+    const database = await driver.connectDatabase(path)
   })
 })

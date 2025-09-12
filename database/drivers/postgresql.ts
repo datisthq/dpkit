@@ -1,7 +1,7 @@
 import type { Field, FieldType } from "@dpkit/core"
 import { type ColumnMetadata, PostgresDialect } from "kysely"
 import { Pool } from "pg"
-import { BaseDriver } from "./base.js"
+import { BaseDriver } from "./base.ts"
 
 export class PostgresqlDriver extends BaseDriver {
   nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]

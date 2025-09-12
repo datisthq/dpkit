@@ -1,7 +1,7 @@
 import type { Field, FieldType } from "@dpkit/core"
 import { type ColumnMetadata, MysqlDialect } from "kysely"
 import { createPool } from "mysql2"
-import { BaseDriver } from "./base.js"
+import { BaseDriver } from "./base.ts"
 
 export class MysqlDriver extends BaseDriver {
   nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { loadDatabaseTable } from "./load.js"
+import { loadDatabaseTable } from "./load.ts"
 
 describe("loadDatabaseTable", () => {
   it("throws error when resource path is not defined", async () => {
