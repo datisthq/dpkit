@@ -1,5 +1,16 @@
 # @dpkit/camtrap
 
+## 0.7.0
+
+### Minor Changes
+
+- 8624a13: Added database support
+
+### Patch Changes
+
+- Updated dependencies [8624a13]
+  - @dpkit/core@0.11.0
+
 ## 0.6.2
 
 ### Patch Changes
