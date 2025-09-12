@@ -2,10 +2,10 @@ import { getTempFilePath } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { createDriver } from "../drivers/create.ts"
 import { loadPackageFromDatabase } from "../package/index.ts"
 import { inferDatabaseSchema } from "../schema/index.ts"
 import { loadDatabaseTable, saveDatabaseTable } from "../table/index.ts"
+import { createAdapter } from "./create.ts"
 
 useRecording()
 
@@ -13,7 +13,7 @@ const dialect = { table: "dpkit" }
 const record1 = { id: 1, name: "english" }
 const record2 = { id: 2, name: "中文" }
 
-describe("SqliteDriver", () => {
+describe("SqliteAdapter", () => {
   it("should infer schema", async () => {
     const path = getTempFilePath()
 
@@ -126,7 +126,54 @@ describe("SqliteDriver", () => {
 
   it("should load package from database", async () => {
     const path = getTempFilePath()
-    const driver = createDriver("sqlite")
-    const database = await driver.connectDatabase(path)
+    const adapter = createAdapter("sqlite")
+    const database = await adapter.connectDatabase(path)
+
+    await database.schema
+      .createTable("table1")
+      .addColumn("id", "integer", column => column.notNull())
+      .addColumn("name", "text")
+      .execute()
+
+    await database.schema
+      .createTable("table2")
+      .addColumn("id", "integer", column => column.notNull())
+      .addColumn("number", "numeric")
+      .addColumn("boolean", "boolean")
+      .execute()
+
+    const datapackage = await loadPackageFromDatabase(path, {
+      format: "sqlite",
+    })
+
+    expect(datapackage).toEqual({
+      resources: [
+        {
+          path,
+          name: "table1",
+          format: "sqlite",
+          dialect: { table: "table1" },
+          schema: {
+            fields: [
+              { name: "id", type: "integer", constraints: { required: true } },
+              { name: "name", type: "string" },
+            ],
+          },
+        },
+        {
+          path,
+          name: "table2",
+          format: "sqlite",
+          dialect: { table: "table2" },
+          schema: {
+            fields: [
+              { name: "id", type: "integer", constraints: { required: true } },
+              { name: "number", type: "number" },
+              { name: "boolean", type: "string" },
+            ],
+          },
+        },
+      ],
+    })
   })
 })

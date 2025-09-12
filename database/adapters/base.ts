@@ -11,7 +11,7 @@ const databases = new LRUCache<string, Kysely<any>>({
   max: 10,
 })
 
-export abstract class BaseDriver {
+export abstract class BaseAdapter {
   abstract get nativeTypes(): FieldType[]
   abstract createDialect(path: string): Dialect
   abstract normalizeType(databaseType: DatabaseField["dataType"]): Field["type"]
@@ -33,8 +33,8 @@ export abstract class BaseDriver {
   normalizeSchema(databaseSchema: DatabaseSchema) {
     const schema: Schema = { fields: [] }
 
-    for (const column of databaseSchema.columns) {
-      schema.fields.push(this.normalizeField(column))
+    for (const databaseField of databaseSchema.columns) {
+      schema.fields.push(this.normalizeField(databaseField))
     }
 
     return schema

@@ -3,7 +3,7 @@ import type { Resource } from "@dpkit/core"
 import { normalizeTable } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
 import { DataFrame } from "nodejs-polars"
-import { createDriver } from "../drivers/create.ts"
+import { createAdapter } from "../adapters/create.ts"
 import { inferDatabaseSchema } from "../schema/index.ts"
 
 // Currently, we use slow non-rust implementation as in the future
@@ -23,8 +23,8 @@ export async function loadDatabaseTable(
     throw new Error("Resource path is not defined")
   }
 
-  const driver = createDriver(resource.format)
-  const database = await driver.connectDatabase(path)
+  const adapter = createAdapter(resource.format)
+  const database = await adapter.connectDatabase(path)
   const records = await database.selectFrom(dialect.table).selectAll().execute()
 
   let table = DataFrame(records).lazy()

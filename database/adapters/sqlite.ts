@@ -1,9 +1,9 @@
 import type { Field, FieldType } from "@dpkit/core"
 import Database from "better-sqlite3"
 import { type ColumnMetadata, SqliteDialect } from "kysely"
-import { BaseDriver } from "./base.ts"
+import { BaseAdapter } from "./base.ts"
 
-export class SqliteDriver extends BaseDriver {
+export class SqliteAdapter extends BaseAdapter {
   nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
 
   createDialect(path: string) {

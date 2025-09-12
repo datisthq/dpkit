@@ -1,13 +1,13 @@
 import type { Package } from "@dpkit/core"
-import { createDriver } from "../drivers/create.ts"
+import { createAdapter } from "../adapters/create.ts"
 import type { DatabaseFormat } from "../resource/index.ts"
 
 export async function loadPackageFromDatabase(
   connectionString: string,
   options: { format: DatabaseFormat },
 ) {
-  const driver = createDriver(options.format)
-  const database = await driver.connectDatabase(connectionString)
+  const adapter = createAdapter(options.format)
+  const database = await adapter.connectDatabase(connectionString)
   const databaseSchemas = await database.introspection.getTables()
 
   const datapackage: Package = {
@@ -15,10 +15,11 @@ export async function loadPackageFromDatabase(
   }
 
   for (const databaseSchema of databaseSchemas) {
-    const schema = driver.normalizeSchema(databaseSchema)
+    const schema = adapter.normalizeSchema(databaseSchema)
     const dialect = { table: databaseSchema.name }
 
     datapackage.resources.push({
+      path: connectionString,
       name: databaseSchema.name,
       format: options.format,
       dialect,

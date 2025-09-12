@@ -1,12 +1,12 @@
 import type { Resource } from "@dpkit/core"
 import { loadResourceDialect } from "@dpkit/core"
-import { createDriver } from "../drivers/create.ts"
+import { createAdapter } from "../adapters/create.ts"
 
 export async function inferDatabaseSchema(
   resource: Partial<Resource> & { format: "postgresql" | "mysql" | "sqlite" },
 ) {
-  const driver = createDriver(resource.format)
-  if (!driver) {
+  const adapter = createAdapter(resource.format)
+  if (!adapter) {
     throw new Error("Supported database format is not defined")
   }
 
@@ -20,7 +20,7 @@ export async function inferDatabaseSchema(
     throw new Error("Resource path is not defined")
   }
 
-  const database = await driver.connectDatabase(path)
+  const database = await adapter.connectDatabase(path)
   const databaseSchemas = await database.introspection.getTables()
 
   const databaseSchema = databaseSchemas.find(s => s.name === dialect.table)
@@ -28,5 +28,5 @@ export async function inferDatabaseSchema(
     throw new Error(`Table is not found in database: ${dialect.table}`)
   }
 
-  return driver.normalizeSchema(databaseSchema)
+  return adapter.normalizeSchema(databaseSchema)
 }

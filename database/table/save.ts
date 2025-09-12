@@ -1,7 +1,7 @@
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { denormalizeTable, inferSchemaFromTable } from "@dpkit/table"
 import type { Kysely } from "kysely"
-import { createDriver } from "../drivers/create.ts"
+import { createAdapter } from "../adapters/create.ts"
 import type { DatabaseSchema } from "../schema/index.ts"
 
 // Currently, we use slow non-rust implementation as in the future
@@ -24,13 +24,13 @@ export async function saveDatabaseTable(
     keepStrings: true,
   })
 
-  const driver = createDriver(format)
+  const adapter = createAdapter(format)
   table = await denormalizeTable(table, schema, {
-    nativeTypes: driver.nativeTypes,
+    nativeTypes: adapter.nativeTypes,
   })
 
-  const database = await driver.connectDatabase(path)
-  const databaseSchema = driver.denormalizeSchema(schema, tableName)
+  const database = await adapter.connectDatabase(path)
+  const databaseSchema = adapter.denormalizeSchema(schema, tableName)
 
   await defineTable(database, databaseSchema, { overwrite })
   await populateTable(database, tableName, table)

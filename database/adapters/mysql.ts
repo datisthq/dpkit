@@ -1,9 +1,9 @@
 import type { Field, FieldType } from "@dpkit/core"
 import { type ColumnMetadata, MysqlDialect } from "kysely"
 import { createPool } from "mysql2"
-import { BaseDriver } from "./base.ts"
+import { BaseAdapter } from "./base.ts"
 
-export class MysqlDriver extends BaseDriver {
+export class MysqlAdapter extends BaseAdapter {
   nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
 
   createDialect(path: string) {
