@@ -8,8 +8,9 @@ import { createAdapter } from "./create.ts"
 
 useRecording()
 
-// Vitest runs in-file tests sequentially so we can use the same table
 const path = process.env.DPKIT_POSTGRESQL_URL
+
+// Vitest runs in-file tests sequentially so we can use the same table
 const dialect = { table: "dpkit" }
 const record1 = { id: 1, name: "english" }
 const record2 = { id: 2, name: "中文" }

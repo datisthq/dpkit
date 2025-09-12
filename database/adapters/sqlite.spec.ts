@@ -13,7 +13,9 @@ const dialect = { table: "dpkit" }
 const record1 = { id: 1, name: "english" }
 const record2 = { id: 2, name: "中文" }
 
-describe("SqliteAdapter", () => {
+// TODO: Enable after fixing problem:
+// https://github.com/pnpm/pnpm/issues/9073
+describe.skipIf(process.env.CI)("SqliteAdapter", () => {
   it("should infer schema", async () => {
     const path = getTempFilePath()
 
