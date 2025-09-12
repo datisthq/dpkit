@@ -10,7 +10,7 @@ export async function loadPackageFromDatabase(
   const database = await adapter.connectDatabase(connectionString)
   const databaseSchemas = await database.introspection.getTables()
 
-  const datapackage: Package = {
+  const dataPackage: Package = {
     resources: [],
   }
 
@@ -18,7 +18,7 @@ export async function loadPackageFromDatabase(
     const schema = adapter.normalizeSchema(databaseSchema)
     const dialect = { table: databaseSchema.name }
 
-    datapackage.resources.push({
+    dataPackage.resources.push({
       path: connectionString,
       name: databaseSchema.name,
       format: options.format,
@@ -27,5 +27,5 @@ export async function loadPackageFromDatabase(
     })
   }
 
-  return datapackage
+  return dataPackage
 }

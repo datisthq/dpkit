@@ -1,6 +1,7 @@
 import { ArrowPlugin } from "@dpkit/arrow"
 import { CkanPlugin } from "@dpkit/ckan"
 import { CsvPlugin } from "@dpkit/csv"
+import { DatabasePlugin } from "@dpkit/database"
 import { DatahubPlugin } from "@dpkit/datahub"
 import { FolderPlugin } from "@dpkit/folder"
 import { GithubPlugin } from "@dpkit/github"
@@ -39,3 +40,6 @@ dpkit.register(JsonPlugin)
 dpkit.register(OdsPlugin)
 dpkit.register(ParquetPlugin)
 dpkit.register(XlsxPlugin)
+
+// Mixed functions
+dpkit.register(DatabasePlugin)

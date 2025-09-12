@@ -8,10 +8,7 @@ export class PostgresqlAdapter extends BaseAdapter {
 
   createDialect(path: string) {
     return new PostgresDialect({
-      pool: new Pool({
-        connectionString: path,
-        max: 1,
-      }),
+      pool: new Pool({ connectionString: path }),
     })
   }
 

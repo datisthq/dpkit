@@ -8,9 +8,7 @@ export class MysqlAdapter extends BaseAdapter {
 
   createDialect(path: string) {
     return new MysqlDialect({
-      pool: createPool({
-        uri: path,
-      }),
+      pool: createPool({ uri: path }),
     })
   }
 
