@@ -51,12 +51,12 @@ export default defineConfig({
         {
           icon: "github",
           label: "GitHub",
-          href: "https://github.com/datisthq/dpkit-typescript",
+          href: "https://github.com/datisthq/dpkit",
         },
       ],
       favicon: "favicon.png",
       editLink: {
-        baseUrl: "https://github.com/datisthq/dpkit-typescript/edit/main/",
+        baseUrl: "https://github.com/datisthq/dpkit/edit/main/",
       },
       lastUpdated: true,
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },

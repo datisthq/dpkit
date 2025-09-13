@@ -32,7 +32,7 @@ describe("loadCsvTable", () => {
 
   it("should load remote file", async () => {
     const table = await loadCsvTable({
-      path: "https://raw.githubusercontent.com/datisthq/dpkit-typescript/refs/heads/main/core/package/fixtures/table.csv",
+      path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/core/package/fixtures/table.csv",
     })
 
     expect((await table.collect()).toRecords()).toEqual([

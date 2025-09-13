@@ -27,8 +27,8 @@ Project is a monorepo with the following packages:
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/dpkit-typescript.ts.git dpkit-typescript
-   cd dpkit-typescript
+   git clone https://github.com/yourusername/dpkit.ts.git dpkit
+   cd dpkit
    ```
 
 2. Install dependencies
