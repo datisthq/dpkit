@@ -16,7 +16,7 @@ export class MysqlAdapter extends BaseAdapter {
     "year",
   ] satisfies FieldType[]
 
-  createDialect(path: string) {
+  async createDialect(path: string) {
     return new MysqlDialect({
       pool: createPool({ uri: path }),
     })

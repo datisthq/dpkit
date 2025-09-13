@@ -16,7 +16,7 @@ export class PostgresqlAdapter extends BaseAdapter {
     "year",
   ] satisfies FieldType[]
 
-  createDialect(path: string) {
+  async createDialect(path: string) {
     return new PostgresDialect({
       pool: new Pool({ connectionString: path }),
     })

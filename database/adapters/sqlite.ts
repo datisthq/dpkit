@@ -1,4 +1,5 @@
 import type { FieldType } from "@dpkit/core"
+import { isLocalPathExist } from "@dpkit/file"
 import Database from "better-sqlite3"
 import { SqliteDialect } from "kysely"
 import type { DatabaseType } from "../field/index.ts"
@@ -7,9 +8,18 @@ import { BaseAdapter } from "./base.ts"
 export class SqliteAdapter extends BaseAdapter {
   nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
 
-  createDialect(path: string) {
+  async createDialect(path: string, options?: { create?: boolean }) {
+    path = path.replace(/^sqlite:\/\//, "")
+
+    if (!options?.create) {
+      const isExist = await isLocalPathExist(path)
+      if (!isExist) {
+        throw new Error(`Database file "${path}" does not exist`)
+      }
+    }
+
     return new SqliteDialect({
-      database: new Database(path.replace(/^sqlite:\/\//, "")),
+      database: new Database(path),
     })
   }
 
