@@ -1,5 +1,11 @@
 # dpkit
 
+## 0.10.1
+
+### Patch Changes
+
+- dc3c7c0: Updated to @dpkit/all@0.10.1
+
 ## 0.10.0
 
 ### Minor Changes
