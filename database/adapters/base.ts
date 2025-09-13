@@ -13,22 +13,24 @@ const databases = new LRUCache<string, Kysely<any>>({
 
 export abstract class BaseAdapter {
   abstract get nativeTypes(): FieldType[]
-  abstract createDialect(path: string): Dialect
-  abstract normalizeType(databaseType: DatabaseType): Field["type"]
-  abstract denormalizeType(fieldType: Field["type"]): DatabaseType
 
-  async connectDatabase(path: string) {
+  async connectDatabase(path: string, options?: { create?: boolean }) {
     const cachedDatabase = databases.get(path)
     if (cachedDatabase) {
       return cachedDatabase
     }
 
-    const dialect = this.createDialect(path)
+    const dialect = await this.createDialect(path, options)
     const database = new Kysely<any>({ dialect })
     databases.set(path, new Kysely<any>({ dialect }))
 
     return database
   }
+
+  abstract createDialect(
+    path: string,
+    options?: { create?: boolean },
+  ): Promise<Dialect>
 
   normalizeSchema(databaseSchema: DatabaseSchema) {
     const schema: Schema = { fields: [] }
@@ -57,6 +59,8 @@ export abstract class BaseAdapter {
 
     return field
   }
+
+  abstract normalizeType(databaseType: DatabaseType): Field["type"]
 
   denormalizeSchema(schema: Schema, tableName: string): DatabaseSchema {
     const databaseSchema: DatabaseSchema = {
@@ -88,4 +92,6 @@ export abstract class BaseAdapter {
 
     return databaseField
   }
+
+  abstract denormalizeType(fieldType: Field["type"]): DatabaseType
 }

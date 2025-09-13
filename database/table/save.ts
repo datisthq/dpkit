@@ -29,7 +29,7 @@ export async function saveDatabaseTable(
     nativeTypes: adapter.nativeTypes,
   })
 
-  const database = await adapter.connectDatabase(path)
+  const database = await adapter.connectDatabase(path, { create: true })
   const databaseSchema = adapter.denormalizeSchema(schema, tableName)
 
   await defineTable(database, databaseSchema, { overwrite })

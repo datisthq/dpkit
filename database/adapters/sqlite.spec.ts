@@ -128,7 +128,7 @@ describe.skipIf(process.env.CI)("SqliteAdapter", () => {
   it("should load package from database", async () => {
     const path = getTempFilePath()
     const adapter = createAdapter("sqlite")
-    const database = await adapter.connectDatabase(path)
+    const database = await adapter.connectDatabase(path, { create: true })
 
     await database.schema
       .createTable("table1")
@@ -176,5 +176,13 @@ describe.skipIf(process.env.CI)("SqliteAdapter", () => {
         },
       ],
     })
+  })
+
+  it("should throw error when loading from non-existent database", async () => {
+    const path = "non-existent-database.db"
+
+    await expect(
+      loadDatabaseTable({ path, format: "sqlite", dialect }),
+    ).rejects.toThrow('Database file "non-existent-database.db" does not exist')
   })
 })
