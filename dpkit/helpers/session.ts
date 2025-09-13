@@ -108,6 +108,11 @@ export class JsonSession extends Session {
   }
 
   async task<T>(_message: string, promise: Promise<T>) {
-    return await promise
+    try {
+      return await promise
+    } catch (error) {
+      console.log(JSON.stringify({ error: String(error) }, null, 2))
+      process.exit(1)
+    }
   }
 }
