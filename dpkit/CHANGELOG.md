@@ -1,5 +1,11 @@
 # dpkit
 
+## 0.11.0
+
+### Minor Changes
+
+- 39b8f7a: Implemented debug mode
+
 ## 0.10.1
 
 ### Patch Changes
