@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+
+version: 2
+
+project_name: dp
+
+before:
+  hooks:
+    - rm -rf build
+    - cp -r dpkit build
+    - rm -rf build/node_modules
+    - bun install --production --no-save --cwd build
+    - rm -rf build/node_modules/nodejs-polars-linux-x64-musl
+
+builds:
+  - builder: bun
+    binary: dp
+    dir: build
+    main: main.ts
+    targets:
+      - bun-linux-x64
+
+archives:
+  - formats: [tar.gz]
+    # this name template makes the OS and Arch compatible with the results of `uname`.
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    # use zip for windows archives
+    format_overrides:
+      - goos: windows
+        formats: [zip]
