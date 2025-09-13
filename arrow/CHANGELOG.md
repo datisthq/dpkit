@@ -1,5 +1,12 @@
 # @dpkit/arrow
 
+## 0.4.1
+
+### Patch Changes
+
+- Updated dependencies [6e39757]
+  - @dpkit/table@0.10.0
+
 ## 0.4.0
 
 ### Minor Changes

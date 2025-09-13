@@ -1,5 +1,12 @@
 # @dpkit/inline
 
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependencies [6e39757]
+  - @dpkit/table@0.10.0
+
 ## 0.8.0
 
 ### Minor Changes

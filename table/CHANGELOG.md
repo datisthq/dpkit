@@ -1,5 +1,11 @@
 # @dpkit/table
 
+## 0.10.0
+
+### Minor Changes
+
+- 6e39757: Implemented `inferSchemaFromSample`
+
 ## 0.9.0
 
 ### Minor Changes

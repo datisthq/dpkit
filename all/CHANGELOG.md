@@ -1,5 +1,20 @@
 # @dpkit/all
 
+## 0.10.2
+
+### Patch Changes
+
+- Updated dependencies [6e39757]
+  - @dpkit/table@0.10.0
+  - @dpkit/arrow@0.4.1
+  - @dpkit/csv@0.7.1
+  - @dpkit/database@0.5.1
+  - @dpkit/inline@0.8.1
+  - @dpkit/json@0.6.1
+  - @dpkit/ods@0.5.1
+  - @dpkit/parquet@0.5.1
+  - @dpkit/xlsx@0.5.1
+
 ## 0.10.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @dpkit/json
 
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies [6e39757]
+  - @dpkit/table@0.10.0
+
 ## 0.6.0
 
 ### Minor Changes
