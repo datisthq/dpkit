@@ -108,19 +108,6 @@ export class JsonSession extends Session {
   }
 
   async task<T>(_message: string, promise: Promise<T>) {
-    try {
-      return await promise
-    } catch (error) {
-      if (this.debug) {
-        const errorMessage =
-          error instanceof Error
-            ? `${error.message}\n${error.stack}`
-            : String(error)
-        process.stderr.write(
-          `Debug: Exception in task "${_message}":\n${errorMessage}\n`,
-        )
-      }
-      throw error
-    }
+    return await promise
   }
 }
