@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/arrow",
   "type": "module",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",

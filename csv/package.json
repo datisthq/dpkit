@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/csv",
   "type": "module",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",
