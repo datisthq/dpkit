@@ -26,6 +26,7 @@ export const githubPublishPackageCommand = new Command("github")
 
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.withRemote)
+  .addOption(params.debug)
 
   .optionsGroup("GitHub")
   .addOption(toGithubApiKey.makeOptionMandatory())
@@ -34,7 +35,8 @@ export const githubPublishPackageCommand = new Command("github")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Publish package",
+      title: "Publish to GitHub",
+      debug: options.debug,
     })
 
     const dp = await session.task("Loading package", loadPackage(path))

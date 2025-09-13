@@ -11,10 +11,12 @@ export const copyPackageCommand = new Command("copy")
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.toFolder.makeOptionMandatory())
   .addOption(params.withRemote)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Validate package",
+      title: "Copy package",
+      debug: options.debug,
     })
 
     const dp = await session.task("Loading package", loadPackage(path))

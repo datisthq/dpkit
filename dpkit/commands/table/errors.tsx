@@ -35,11 +35,13 @@ export const errorsTableCommand = new Command("errors")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Table errors",
       json: options.json,
+      debug: options.debug,
     })
 
     const resource = path

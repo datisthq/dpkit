@@ -1,4 +1,5 @@
 export * from "./ckan.ts"
+export * from "./debug.ts"
 export * from "./dialect.ts"
 export * from "./file.ts"
 export * from "./json.ts"

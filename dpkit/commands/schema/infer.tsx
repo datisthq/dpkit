@@ -16,11 +16,13 @@ export const inferSchemaCommand = new Command("infer")
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Infer schema",
       json: options.json,
+      debug: options.debug,
     })
 
     const resource = path ? { path } : await selectResource(session, options)

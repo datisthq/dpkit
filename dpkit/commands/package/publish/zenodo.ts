@@ -21,6 +21,7 @@ export const zenodoPublishPackageCommand = new Command("zenodo")
 
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.withRemote)
+  .addOption(params.debug)
 
   .optionsGroup("Zenodo")
   .addOption(toZenodoApiKey.makeOptionMandatory())
@@ -29,6 +30,7 @@ export const zenodoPublishPackageCommand = new Command("zenodo")
   .action(async (path, options) => {
     const session = Session.create({
       title: "Publish package",
+      debug: options.debug,
     })
 
     const dp = await session.task("Loading package", loadPackage(path))

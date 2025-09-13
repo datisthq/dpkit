@@ -16,11 +16,13 @@ export const validateDialectCommand = new Command("validate")
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Validate dialect",
       json: options.json,
+      debug: options.debug,
     })
 
     let descriptor: Descriptor | undefined

@@ -12,11 +12,13 @@ export const inferPackageCommand = new Command("infer")
 
   .addArgument(params.positionalFilePaths)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (paths, options) => {
     const session = Session.create({
-      title: "Infer resource",
+      title: "Infer package",
       json: options.json,
+      debug: options.debug,
     })
 
     const sourcePackage = {

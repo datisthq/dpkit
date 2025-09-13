@@ -13,10 +13,12 @@ export const copyFileCommand = new Command("copy")
   .addOption(params.toPath.makeOptionMandatory())
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Copy file",
+      debug: options.debug,
     })
 
     if (!path) {

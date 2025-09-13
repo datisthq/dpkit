@@ -12,11 +12,13 @@ export const showPackageCommand = new Command("show")
 
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Show package",
       json: options.json,
+      debug: options.debug,
     })
 
     const dp = await session.task("Loading package", loadPackage(path))

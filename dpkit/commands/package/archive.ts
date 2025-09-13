@@ -11,10 +11,12 @@ export const archivePackageCommand = new Command("archive")
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.toArchive.makeOptionMandatory())
   .addOption(params.withRemote)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Validate package",
+      title: "Archive package",
+      debug: options.debug,
     })
 
     const dp = await session.task("Loading package", loadPackage(path))

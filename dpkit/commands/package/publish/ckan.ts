@@ -31,6 +31,7 @@ export const ckanPublishPackageCommand = new Command("ckan")
 
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.withRemote)
+  .addOption(params.debug)
 
   .optionsGroup("CKAN")
   .addOption(toCkanApiKey.makeOptionMandatory())
@@ -41,6 +42,7 @@ export const ckanPublishPackageCommand = new Command("ckan")
   .action(async (path, options) => {
     const session = Session.create({
       title: "Publish package",
+      debug: options.debug,
     })
 
     const dp = await session.task("Loading package", loadPackage(path))
