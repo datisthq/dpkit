@@ -25,7 +25,7 @@ export async function inferSchemaFromTable(
   return inferSchemaFromSample(sample, options)
 }
 
-export async function inferSchemaFromSample(
+export function inferSchemaFromSample(
   sample: DataFrame,
   options?: Exclude<InferSchemaOptions, "sampleRows">,
 ) {
