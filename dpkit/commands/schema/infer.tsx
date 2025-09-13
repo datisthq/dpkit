@@ -1,4 +1,4 @@
-import { inferSchema, loadTable } from "@dpkit/all"
+import { inferSchemaFromTable, loadTable } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { SchemaGrid } from "../../components/SchemaGrid.tsx"
@@ -25,11 +25,14 @@ export const inferSchemaCommand = new Command("infer")
 
     const resource = path ? { path } : await selectResource(session, options)
 
-    const table = await session.task("Loading table", loadTable(resource))
+    const table = await session.task(
+      "Loading table",
+      loadTable(resource, { denormalized: true }),
+    )
 
     const inferredSchema = await session.task(
       "Inferring schema",
-      inferSchema(table),
+      inferSchemaFromTable(table),
     )
 
     if (isEmptyObject(inferredSchema)) {

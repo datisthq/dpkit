@@ -1,4 +1,4 @@
-import { validateTable } from "@dpkit/all"
+import { validateResource } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { ReportGrid } from "../../components/ReportGrid.tsx"
@@ -29,7 +29,7 @@ export const validateTableCommand = new Command("validate")
 
     const report = await session.task(
       "Validating table",
-      validateTable(resource),
+      validateResource(resource),
     )
 
     if (report.valid) {

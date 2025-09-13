@@ -1,4 +1,4 @@
-import { readTable } from "@dpkit/all"
+import { loadTable } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { DataGrid } from "../../components/DataGrid.tsx"
@@ -45,7 +45,7 @@ export const statsTableCommand = new Command("stats")
       ? { path, dialect: createDialectFromOptions(options) }
       : await selectResource(session, options)
 
-    const table = await session.task("Loading table", readTable(resource))
+    const table = await session.task("Loading table", loadTable(resource))
     const df = await session.task("Calculating stats", table.collect())
 
     const stats = df.describe().toRecords()

@@ -1,5 +1,5 @@
 import repl from "node:repl"
-import { readTable } from "@dpkit/all"
+import { loadTable } from "@dpkit/all"
 import { Command } from "commander"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
@@ -45,7 +45,7 @@ export const scriptTableCommand = new Command("script")
       ? { path, dialect: createDialectFromOptions(options) }
       : await selectResource(session, options)
 
-    const table = await session.task("Loading table", readTable(resource))
+    const table = await session.task("Loading table", loadTable(resource))
 
     const replSession = repl.start({ prompt: "dp> " })
     replSession.context.table = table
