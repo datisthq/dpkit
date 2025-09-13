@@ -1,0 +1,69 @@
+---
+title: dpkit
+template: splash
+editUrl: false
+lastUpdated: false
+hero:
+  tagline: |
+    dpkit is a fast <strong>data management</strong> framework built on top of the <strong>Data Package standard</strong> and <strong>Polars DataFrames</strong>. It supports various formats like CSV, JSON, and Parquet and integrates with platforms such as CKAN, Zenodo, and GitHub.
+  image:
+    file: ../../assets/hero.png
+    alt: Data Packages Illustration
+  actions:
+    - text: Command-Line
+      link: /overview/getting-started/
+      icon: right-arrow
+      variant: primary
+    # - text: Python
+    #   link: https://python.dpkit.dev
+    #   icon: right-arrow
+    #   variant: secondary
+    - text: TypeScript
+      link: https://typescript.dpkit.dev
+      icon: right-arrow
+      variant: secondary
+    - text: View on GitHub
+      link: https://github.com/datisthq/dpkit
+      icon: external
+      variant: minimal
+banner:
+  content: |
+    <p>
+      The project is currently in <strong>active development</strong>.
+      Please follow the <a href="https://datist.io/blog/">Datist Blog</a> for news and announcements.
+    </p>
+---
+
+import About from "../../components/About/About.astro"
+import ClickableCard from "../../components/Card/Clickable.astro"
+import { CardGrid, LinkCard, Card } from "@astrojs/starlight/components"
+
+<h2>Features</h2>
+
+<CardGrid>
+  <Card title="Fast" icon="rocket">
+    Data operation is backed by Polars, an extremely fast DataFrame library.
+  </Card>
+  <Card title="Complete" icon="document">
+    The framework supports various data formats and data platform integrations.
+  </Card>
+  <Card title="Standard" icon="open-book">
+    The framework is 100% compatible with the Data Package (v2) standard.
+  </Card>
+  <Card title="Pluggable" icon="puzzle">
+    Easy-to-use plugin system to extend the framework with custom data formats and data platforms.
+  </Card>
+</CardGrid>
+
+<div style="margin-bottom: 5em"></div>
+
+<h2>Documentation</h2>
+
+<CardGrid>
+  <LinkCard title="Introduction" href="/" />
+  <LinkCard title="Command-Line" href="/overview/getting-started" />
+  <LinkCard title="TypeScript" href="https://typescript.dpkit.dev/" />
+  <LinkCard title="Python" href="https://python.dpkit.dev/" />
+</CardGrid>
+
+<About />

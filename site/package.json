@@ -1,0 +1,20 @@
+{
+  "name": "@dpkit/site",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "astro build",
+    "preview": "astro preview",
+    "start": "astro dev"
+  },
+  "devDependencies": {
+    "@astrojs/starlight": "0.35.2",
+    "astro": "5.12.9",
+    "sharp": "0.34.2",
+    "starlight-changelogs": "0.1.1",
+    "starlight-scroll-to-top": "0.3.1",
+    "starlight-typedoc": "0.21.3",
+    "typedoc": "0.28.9",
+    "typedoc-plugin-markdown": "4.8.0"
+  }
+}

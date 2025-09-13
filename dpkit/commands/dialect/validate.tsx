@@ -1,0 +1,65 @@
+import { loadDescriptor, validateDialect } from "@dpkit/all"
+import type { Descriptor } from "@dpkit/all"
+import { Command } from "commander"
+import React from "react"
+import { ReportGrid } from "../../components/ReportGrid.tsx"
+import { helpConfiguration } from "../../helpers/help.ts"
+import { selectResource } from "../../helpers/resource.ts"
+import { Session } from "../../helpers/session.ts"
+import * as params from "../../params/index.ts"
+
+export const validateDialectCommand = new Command("validate")
+  .configureHelp(helpConfiguration)
+  .description("Validate a table dialect from a local or remote path")
+
+  .addArgument(params.positionalTablePath)
+  .addOption(params.fromPackage)
+  .addOption(params.fromResource)
+  .addOption(params.json)
+  .addOption(params.debug)
+
+  .action(async (path, options) => {
+    const session = Session.create({
+      title: "Validate dialect",
+      json: options.json,
+      debug: options.debug,
+    })
+
+    let descriptor: Descriptor | undefined
+
+    if (!path) {
+      const resource = await selectResource(session, options)
+
+      if (!resource.dialect) {
+        Session.terminate("Dialect is not available")
+      }
+
+      if (typeof resource.dialect !== "string") {
+        descriptor = resource.dialect as Descriptor
+      } else {
+        path = resource.dialect
+      }
+    }
+
+    if (!descriptor) {
+      const result = await session.task(
+        "Loading dialect",
+        // @ts-ignore
+        loadDescriptor(path),
+      )
+
+      descriptor = result.descriptor
+    }
+
+    const report = await session.task(
+      "Validating dialect",
+      // @ts-ignore
+      validateDialect(descriptor),
+    )
+
+    if (report.valid) {
+      session.success("Dialect is valid")
+    }
+
+    session.render(report, <ReportGrid report={report} groupBy="type" />)
+  })

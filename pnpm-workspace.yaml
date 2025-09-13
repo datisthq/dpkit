@@ -9,6 +9,7 @@ packages:
   - datahub
   - database
   - docs
+  - dpkit
   - file
   - folder
   - github
@@ -16,6 +17,7 @@ packages:
   - json
   - ods
   - parquet
+  - site
   - table
   - test
   - xlsx

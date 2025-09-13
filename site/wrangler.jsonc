@@ -1,0 +1,7 @@
+{
+  "name": "dpkit",
+  "compatibility_date": "2025-08-15",
+  "assets": {
+    "directory": "./build"
+  }
+}
