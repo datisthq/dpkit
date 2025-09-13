@@ -1,4 +1,5 @@
 import type { Field, Schema } from "@dpkit/core"
+import type { DataFrame } from "nodejs-polars"
 import { col } from "nodejs-polars"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { Table } from "../table/index.ts"
@@ -14,31 +15,34 @@ export interface InferSchemaOptions extends SchemaOptions {
   monthFirst?: boolean
   keepStrings?: boolean
 }
-
 export async function inferSchemaFromTable(
   table: Table,
   options?: InferSchemaOptions,
 ) {
-  const {
-    sampleRows = 100,
-    confidence = 0.9,
-    fieldTypes,
-    keepStrings,
-  } = options ?? {}
+  const { sampleRows = 100 } = options ?? {}
 
-  const schema: Schema = {
-    fields: [],
-  }
+  const sample = await table.head(sampleRows).collect()
+  return inferSchemaFromSample(sample, options)
+}
+
+export async function inferSchemaFromSample(
+  sample: DataFrame,
+  options?: Exclude<InferSchemaOptions, "sampleRows">,
+) {
+  const { confidence = 0.9, fieldTypes, keepStrings } = options ?? {}
 
   const typeMapping = createTypeMapping()
   const regexMapping = createRegexMapping(options)
 
-  const sample = await table.head(sampleRows).collect()
   const polarsSchema = getPolarsSchema(sample.schema)
   const fieldNames = options?.fieldNames ?? polarsSchema.fields.map(f => f.name)
 
   const failureThreshold =
     sample.height - Math.floor(sample.height * confidence) || 1
+
+  const schema: Schema = {
+    fields: [],
+  }
 
   for (const name of fieldNames) {
     const polarsField = polarsSchema.fields.find(f => f.name === name)
