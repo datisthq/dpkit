@@ -1,4 +1,4 @@
-import { readTable } from "@dpkit/all"
+import { loadTable } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
@@ -44,6 +44,6 @@ export const exploreTableCommand = new Command("explore")
       ? { path, dialect: createDialectFromOptions(options) }
       : await selectResource(session, options)
 
-    const table = await session.task("Loading table", readTable(resource))
+    const table = await session.task("Loading table", loadTable(resource))
     await session.render(table, <TableGrid table={table} />)
   })

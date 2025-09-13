@@ -1,4 +1,4 @@
-import { validateTable } from "@dpkit/all"
+import { validateResource } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { ReportGrid } from "../../components/ReportGrid.tsx"
@@ -46,7 +46,10 @@ export const errorsTableCommand = new Command("errors")
       ? { path, dialect: createDialectFromOptions(options) }
       : await selectResource(session, options)
 
-    const report = await session.task("Finding errors", validateTable(resource))
+    const report = await session.task(
+      "Finding errors",
+      validateResource(resource),
+    )
 
     if (report.valid) {
       session.success("Table is valid")

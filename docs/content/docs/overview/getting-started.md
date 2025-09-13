@@ -18,7 +18,7 @@ CLI binary distributions are in under development. Soon you will be able to inst
 You can install the CLI using this command:
 
 ```bash
-npm install @dpkit/cli
+npm install -g dpkit
 ```
 
 After that you can use the CLI binary:

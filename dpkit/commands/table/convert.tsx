@@ -1,5 +1,5 @@
 import { getTempFilePath, loadFile } from "@dpkit/all"
-import { readTable, saveTable } from "@dpkit/all"
+import { loadTable, saveTable } from "@dpkit/all"
 import { Command } from "commander"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { createToDialectFromOptions } from "../../helpers/dialect.ts"
@@ -67,7 +67,7 @@ export const convertTableCommand = new Command("convert")
       ? { path, dialect: createDialectFromOptions(options) }
       : await selectResource(session, options)
 
-    const table = await session.task("Loading table", readTable(resource))
+    const table = await session.task("Loading table", loadTable(resource))
 
     const toPath = options.toPath ?? getTempFilePath()
     const toDialect = createToDialectFromOptions(options)
