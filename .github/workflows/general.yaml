@@ -53,7 +53,7 @@ jobs:
       - name: Upload Coverage
         uses: codecov/codecov-action@v5
         with:
-          slug: datisthq/dpkit-typescript
+          slug: datisthq/dpkit
           token: ${{ secrets.CODECOV_TOKEN }}
 
   release:
