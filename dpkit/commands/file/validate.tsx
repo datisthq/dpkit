@@ -14,11 +14,13 @@ export const validateFileCommand = new Command("validate")
   .addOption(params.bytes)
   .addOption(params.hash)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Validate file",
       json: options.json,
+      debug: options.debug,
     })
 
     if (!options.bytes && !options.hash) {

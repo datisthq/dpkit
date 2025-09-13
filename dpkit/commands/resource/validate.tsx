@@ -15,11 +15,13 @@ export const validateResourceCommand = new Command("validate")
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Validate resource",
       json: options.json,
+      debug: options.debug,
     })
 
     const descriptor = path ? path : await selectResource(session, options)

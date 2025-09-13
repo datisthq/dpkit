@@ -12,11 +12,13 @@ export const validatePackageCommand = new Command("validate")
 
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Validate package",
       json: options.json,
+      debug: options.debug,
     })
 
     const report = await session.task(

@@ -35,10 +35,12 @@ export const statsTableCommand = new Command("stats")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+  .addOption(params.debug)
   .action(async (path, options) => {
     const session = Session.create({
       title: "Table stats",
       json: options.json,
+      debug: options.debug,
     })
 
     const resource = path

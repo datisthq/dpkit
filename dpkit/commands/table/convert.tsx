@@ -57,10 +57,12 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.toSheetNumber)
   .addOption(params.toSheetName)
   .addOption(params.toTable)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Table errors",
+      debug: options.debug,
     })
 
     const resource = path

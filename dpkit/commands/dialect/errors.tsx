@@ -16,11 +16,13 @@ export const errorsDialectCommand = new Command("errors")
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Dialect errors",
       json: options.json,
+      debug: options.debug,
     })
 
     let descriptor: Descriptor | undefined

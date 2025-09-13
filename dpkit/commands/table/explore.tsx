@@ -34,10 +34,12 @@ export const exploreTableCommand = new Command("explore")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Explore table",
+      debug: options.debug,
     })
 
     const resource = path

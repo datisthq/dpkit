@@ -16,11 +16,13 @@ export const statsFileCommand = new Command("stats")
   .addOption(params.fromResource)
   .addOption(params.hashType)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "File stats",
       json: options.json,
+      debug: options.debug,
     })
 
     if (!path) {

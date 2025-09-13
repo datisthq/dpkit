@@ -17,11 +17,13 @@ export const showResourceCommand = new Command("show")
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Show resource",
       json: options.json,
+      debug: options.debug,
     })
 
     let resource: Resource | undefined

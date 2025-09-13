@@ -16,11 +16,13 @@ export const validateSchemaCommand = new Command("validate")
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Validate schema",
       json: options.json,
+      debug: options.debug,
     })
 
     let descriptor: Descriptor | undefined

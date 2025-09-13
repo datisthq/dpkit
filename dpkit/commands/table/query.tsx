@@ -28,11 +28,13 @@ export const queryTableCommand = new Command("query")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+  .addOption(params.debug)
 
   .action(async (_path, _options) => {
     // @ts-ignore
     const session = Session.create({
       title: "Query table",
+      debug: _options.debug,
     })
 
     Session.terminate("Query command not implemented yet")

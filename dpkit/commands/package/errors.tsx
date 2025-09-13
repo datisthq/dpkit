@@ -12,11 +12,13 @@ export const errorsPackageCommand = new Command("errors")
 
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Package errors",
       json: options.json,
+      debug: options.debug,
     })
 
     const report = await session.task("Finding errors", validatePackage(path))

@@ -16,11 +16,13 @@ export const validateTableCommand = new Command("validate")
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Validate Table",
       json: options.json,
+      debug: options.debug,
     })
 
     const resource = path

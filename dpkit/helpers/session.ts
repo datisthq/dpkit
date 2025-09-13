@@ -9,8 +9,9 @@ import type React from "react"
 
 export class Session {
   title: string
+  debug: boolean
 
-  static create(options: { title: string; json?: boolean }) {
+  static create(options: { title: string; json?: boolean; debug?: boolean }) {
     const session = options.json
       ? new JsonSession(options)
       : new Session(options)
@@ -24,8 +25,9 @@ export class Session {
     process.exit(1)
   }
 
-  constructor(options: { title: string }) {
+  constructor(options: { title: string; debug?: boolean }) {
     this.title = options.title
+    this.debug = options.debug ?? false
   }
   start() {
     intro(pc.bold(this.title))
@@ -52,12 +54,23 @@ export class Session {
     this.#disableExitHook?.()
     loader.start(message)
 
-    const result = await promise
+    try {
+      const result = await promise
 
-    loader.stop(message)
-    this.#enableExitHook()
+      loader.stop(message)
+      this.#enableExitHook()
 
-    return result
+      return result
+    } catch (error) {
+      loader.stop(message, 1)
+
+      if (this.debug) {
+        throw error
+      }
+
+      console.log(String(error))
+      process.exit(1)
+    }
   }
 
   async render(_object: any, node: React.ReactNode) {
@@ -95,6 +108,11 @@ export class JsonSession extends Session {
   }
 
   async task<T>(_message: string, promise: Promise<T>) {
-    return await promise
+    try {
+      return await promise
+    } catch (error) {
+      console.log(JSON.stringify({ error: String(error) }, null, 2))
+      process.exit(1)
+    }
   }
 }

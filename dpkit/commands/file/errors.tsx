@@ -14,11 +14,13 @@ export const errorsFileCommand = new Command("errors")
   .addOption(params.bytes)
   .addOption(params.hash)
   .addOption(params.json)
+  .addOption(params.debug)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "File errors",
       json: options.json,
+      debug: options.debug,
     })
 
     if (!options.bytes && !options.hash) {
