@@ -1,5 +1,11 @@
 # @dpkit/database
 
+## 0.5.0
+
+### Minor Changes
+
+- 3689a58: Don't create sqlite database on load
+
 ## 0.4.0
 
 ### Minor Changes

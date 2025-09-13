@@ -1,5 +1,12 @@
 # @dpkit/all
 
+## 0.10.1
+
+### Patch Changes
+
+- Updated dependencies [3689a58]
+  - @dpkit/database@0.5.0
+
 ## 0.10.0
 
 ### Minor Changes
