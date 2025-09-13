@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/json",
   "type": "module",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",

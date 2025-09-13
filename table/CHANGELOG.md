@@ -1,5 +1,11 @@
 # @dpkit/table
 
+## 0.10.1
+
+### Patch Changes
+
+- 4fef8ab: Fixed `inferSchemaFromSample` signature
+
 ## 0.10.0
 
 ### Minor Changes
