@@ -1,5 +1,5 @@
 import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/all"
-import { loadTable, normalizeTable } from "@dpkit/all"
+import { loadDialect, loadTable, normalizeTable } from "@dpkit/all"
 import type { Resource, Schema } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
@@ -20,6 +20,7 @@ export const exploreTableCommand = new Command("explore")
   .addOption(params.debug)
 
   .optionsGroup("Table Dialect")
+  .addOption(params.dialect)
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -63,8 +64,12 @@ export const exploreTableCommand = new Command("explore")
       debug: options.debug,
     })
 
+    const dialect = options.dialect
+      ? await loadDialect(options.dialect)
+      : createDialectFromOptions(options)
+
     const resource: Partial<Resource> = path
-      ? { path, dialect: createDialectFromOptions(options) }
+      ? { path, dialect }
       : await selectResource(session, options)
 
     let table = await session.task(

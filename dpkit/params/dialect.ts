@@ -2,7 +2,7 @@ import { Option } from "commander"
 
 export const dialect = new Option(
   "--dialect <dialect>",
-  "path to a dialect to use for the table",
+  "path to a table dialect descriptor",
 )
 
 export const header = new Option(

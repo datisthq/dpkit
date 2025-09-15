@@ -1,4 +1,6 @@
 import { loadTable } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
+import { loadDialect } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { DataGrid } from "../../components/DataGrid.tsx"
@@ -19,6 +21,7 @@ export const statsTableCommand = new Command("stats")
   .addOption(params.debug)
 
   .optionsGroup("Table Dialect")
+  .addOption(params.dialect)
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -63,8 +66,12 @@ export const statsTableCommand = new Command("stats")
       debug: options.debug,
     })
 
-    const resource = path
-      ? { path, dialect: createDialectFromOptions(options) }
+    const dialect = options.dialect
+      ? await loadDialect(options.dialect)
+      : createDialectFromOptions(options)
+
+    const resource: Partial<Resource> = path
+      ? { path, dialect }
       : await selectResource(session, options)
 
     const table = await session.task(

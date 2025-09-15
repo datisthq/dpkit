@@ -1,5 +1,6 @@
 import { loadTable, validateTable } from "@dpkit/all"
 import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/all"
+import { loadDialect } from "@dpkit/all"
 import type { Resource, Schema } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
@@ -21,6 +22,7 @@ export const validateTableCommand = new Command("validate")
   .addOption(params.debug)
 
   .optionsGroup("Table Dialect")
+  .addOption(params.dialect)
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -67,8 +69,12 @@ export const validateTableCommand = new Command("validate")
       debug: options.debug,
     })
 
+    const dialect = options.dialect
+      ? await loadDialect(options.dialect)
+      : createDialectFromOptions(options)
+
     const resource: Partial<Resource> = path
-      ? { path, dialect: createDialectFromOptions(options) }
+      ? { path, dialect }
       : await selectResource(session, options)
 
     const table = await session.task(

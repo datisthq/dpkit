@@ -1,4 +1,6 @@
 import repl from "node:repl"
+import type { Resource } from "@dpkit/all"
+import { loadDialect } from "@dpkit/all"
 import { loadTable } from "@dpkit/all"
 import { Command } from "commander"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
@@ -19,6 +21,7 @@ export const scriptTableCommand = new Command("script")
   .addOption(params.debug)
 
   .optionsGroup("Table Dialect")
+  .addOption(params.dialect)
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -62,8 +65,12 @@ export const scriptTableCommand = new Command("script")
       debug: options.debug,
     })
 
-    const resource = path
-      ? { path, dialect: createDialectFromOptions(options) }
+    const dialect = options.dialect
+      ? await loadDialect(options.dialect)
+      : createDialectFromOptions(options)
+
+    const resource: Partial<Resource> = path
+      ? { path, dialect }
       : await selectResource(session, options)
 
     const table = await session.task(
