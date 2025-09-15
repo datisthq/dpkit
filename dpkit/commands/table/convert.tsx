@@ -1,4 +1,5 @@
 import { getTempFilePath, loadFile } from "@dpkit/all"
+import { loadSchema } from "@dpkit/all"
 import { loadDialect } from "@dpkit/all"
 import { loadTable, saveTable } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
@@ -45,6 +46,7 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.table)
 
   .optionsGroup("Table Schema")
+  .addOption(params.schema)
   .addOption(params.fieldNames)
   .addOption(params.fieldTypes)
   .addOption(params.missingValues)
@@ -110,11 +112,15 @@ export const convertTableCommand = new Command("convert")
     })
 
     const dialect = options.dialect
-      ? await loadDialect(options.dialect)
+      ? await session.task("Loading dialect", loadDialect(options.dialect))
       : createDialectFromOptions(options)
 
+    const schema = options.schema
+      ? await session.task("Loading schema", loadSchema(options.schema))
+      : undefined
+
     const resource: Partial<Resource> = path
-      ? { path, dialect }
+      ? { path, dialect, schema }
       : await selectResource(session, options)
 
     const table = await session.task(

@@ -1,5 +1,10 @@
 import { Option } from "commander"
 
+export const schema = new Option(
+  "--schema <schema>",
+  "path to a table schema descriptor",
+)
+
 export const fieldNames = new Option(
   "--field-names <fieldNames>",
   "a list of comma-separated field names to use for the schema",

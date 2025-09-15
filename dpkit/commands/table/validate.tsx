@@ -1,7 +1,8 @@
 import { loadTable, validateTable } from "@dpkit/all"
+import { loadSchema } from "@dpkit/all"
 import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/all"
 import { loadDialect } from "@dpkit/all"
-import type { Resource, Schema } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { ReportGrid } from "../../components/ReportGrid.tsx"
@@ -42,6 +43,7 @@ export const validateTableCommand = new Command("validate")
   .addOption(params.table)
 
   .optionsGroup("Table Schema")
+  .addOption(params.schema)
   .addOption(params.fieldNames)
   .addOption(params.fieldTypes)
   .addOption(params.missingValues)
@@ -70,11 +72,15 @@ export const validateTableCommand = new Command("validate")
     })
 
     const dialect = options.dialect
-      ? await loadDialect(options.dialect)
+      ? await session.task("Loading dialect", loadDialect(options.dialect))
       : createDialectFromOptions(options)
 
+    let schema = options.schema
+      ? await session.task("Loading schema", loadSchema(options.schema))
+      : undefined
+
     const resource: Partial<Resource> = path
-      ? { path, dialect }
+      ? { path, dialect, schema }
       : await selectResource(session, options)
 
     const table = await session.task(
@@ -82,11 +88,10 @@ export const validateTableCommand = new Command("validate")
       loadTable(resource, { denormalized: true }),
     )
 
-    let schema: Schema | undefined
-    if (resource.schema) {
+    if (!schema && resource.schema) {
       schema = await session.task(
         "Loading schema",
-        loadResourceSchema(resource.schema),
+        loadResourceSchema(options.schema ?? resource.schema),
       )
     }
 

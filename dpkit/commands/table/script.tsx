@@ -1,4 +1,5 @@
 import repl from "node:repl"
+import { loadSchema } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
 import { loadDialect } from "@dpkit/all"
 import { loadTable } from "@dpkit/all"
@@ -41,6 +42,7 @@ export const scriptTableCommand = new Command("script")
   .addOption(params.table)
 
   .optionsGroup("Table Schema")
+  .addOption(params.schema)
   .addOption(params.fieldNames)
   .addOption(params.fieldTypes)
   .addOption(params.missingValues)
@@ -66,11 +68,15 @@ export const scriptTableCommand = new Command("script")
     })
 
     const dialect = options.dialect
-      ? await loadDialect(options.dialect)
+      ? await session.task("Loading dialect", loadDialect(options.dialect))
       : createDialectFromOptions(options)
 
+    const schema = options.schema
+      ? await session.task("Loading schema", loadSchema(options.schema))
+      : undefined
+
     const resource: Partial<Resource> = path
-      ? { path, dialect }
+      ? { path, dialect, schema }
       : await selectResource(session, options)
 
     const table = await session.task(
