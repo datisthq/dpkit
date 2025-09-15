@@ -10,7 +10,7 @@ export const copyFileCommand = new Command("copy")
   .description("Copy a local or remote file to a local path")
 
   .addArgument(params.positionalFilePath)
-  .addOption(params.toPath.makeOptionMandatory())
+  .addOption(params.toPathRequired)
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.debug)

@@ -32,6 +32,11 @@ export const positionalFilePaths = new Argument(
 
 export const toPath = new Option("--to-path <toPath>", "a local output path")
 
+export const toPathRequired = new Option(
+  "--to-path <toPath>",
+  "a local output path",
+).makeOptionMandatory()
+
 export const toFolder = new Option(
   "--to-folder <path>",
   "a local output folder path",

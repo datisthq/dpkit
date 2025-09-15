@@ -112,6 +112,9 @@ export const convertTableCommand = new Command("convert")
     const session = Session.create({
       title: "Convert table",
       debug: options.debug,
+      // TODO: Implement TextSession to separate JSON/Text output
+      // (currently, we use JSON output as a hack)
+      json: !options.toPath,
     })
 
     const dialect = options.dialect
