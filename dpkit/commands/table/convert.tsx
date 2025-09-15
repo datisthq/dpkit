@@ -82,7 +82,7 @@ export const convertTableCommand = new Command("convert")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Table errors",
+      title: "Convert table",
       debug: options.debug,
     })
 

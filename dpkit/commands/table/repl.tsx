@@ -7,11 +7,9 @@ import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const scriptTableCommand = new Command("script")
+export const replTableCommand = new Command("repl")
   .configureHelp(helpConfiguration)
-  .description(
-    "Start a scripting session for a table from a local or remote path",
-  )
+  .description("Start a REPL session for a table from a local or remote path")
 
   .addArgument(params.positionalTablePath)
   .addOption(params.fromPackage)
@@ -58,7 +56,7 @@ export const scriptTableCommand = new Command("script")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Explore table",
+      title: "Table REPL",
       debug: options.debug,
     })
 
