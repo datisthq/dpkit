@@ -75,8 +75,6 @@ export const inferSchemaCommand = new Command("infer")
 
     const inferredSchema = await session.task(
       "Inferring schema",
-      // TODO: Fix typing
-      // @ts-ignore
       inferSchemaFromTable(table, options),
     )
 
@@ -84,9 +82,5 @@ export const inferSchemaCommand = new Command("infer")
       Session.terminate("Could not infer schema")
     }
 
-    await session.render(
-      inferredSchema,
-      // @ts-ignore
-      <SchemaGrid schema={inferredSchema} />,
-    )
+    await session.render(inferredSchema, <SchemaGrid schema={inferredSchema} />)
   })

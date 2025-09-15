@@ -131,8 +131,6 @@ export const convertTableCommand = new Command("convert")
 
     const table = await session.task(
       "Loading table",
-      // TODO: Fix typing
-      // @ts-ignore
       loadTable(resource, options),
     )
 

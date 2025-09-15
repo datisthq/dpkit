@@ -93,8 +93,6 @@ export const exploreTableCommand = new Command("explore")
     if (!schema) {
       schema = await session.task(
         "Inferring schema",
-        // TODO: Fix typing
-        // @ts-ignore
         inferSchemaFromTable(table, options),
       )
     }

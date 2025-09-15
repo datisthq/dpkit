@@ -81,8 +81,6 @@ export const scriptTableCommand = new Command("script")
 
     const table = await session.task(
       "Loading table",
-      // TODO: Fix typing
-      // @ts-ignore
       loadTable(resource, options),
     )
 

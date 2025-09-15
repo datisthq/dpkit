@@ -1,3 +1,4 @@
+import type { FieldType } from "@dpkit/all"
 import { Option } from "commander"
 
 export const schema = new Option(
@@ -14,10 +15,11 @@ export const fieldTypes = new Option(
   "--field-types <fieldTypes>",
   "a list of comma-separated field name:type pairs to use for the schema",
 ).argParser((value: string) => {
-  const result: Record<string, string> = {}
+  const result: Record<string, FieldType> = {}
   value.split(",").forEach(pair => {
     const [key, val] = pair.split(":")
-    if (key && val) result[key] = val
+    // TODO: Properly validate instead of casting
+    if (key && val) result[key] = val as FieldType
   })
   return result
 })
@@ -29,8 +31,8 @@ export const missingValues = new Option(
 
 export const stringFormat = new Option(
   "--string-format <stringFormat>",
-  "string field format (default, email, uri, binary, uuid)",
-)
+  "string field format (email, uri, binary, uuid)",
+).choices(["email", "uri", "binary", "uuid"])
 
 export const decimalChar = new Option(
   "--decimal-char <decimalChar>",
@@ -87,7 +89,15 @@ export const listDelimiter = new Option(
 export const listItemType = new Option(
   "--list-item-type <listItemType>",
   "type of items in lists",
-)
+).choices([
+  "string",
+  "integer",
+  "number",
+  "boolean",
+  "datetime",
+  "date",
+  "time",
+])
 
 export const geopointFormat = new Option(
   "--geopoint-format <geopointFormat>",
@@ -113,10 +123,11 @@ export const toFieldTypes = new Option(
   "--to-field-types <fieldTypes>",
   "a list of comma-separated field name:type pairs to use for the schema",
 ).argParser((value: string) => {
-  const result: Record<string, string> = {}
+  const result: Record<string, FieldType> = {}
   value.split(",").forEach(pair => {
     const [key, val] = pair.split(":")
-    if (key && val) result[key] = val
+    // TODO: Properly validate instead of casting
+    if (key && val) result[key] = val as FieldType
   })
   return result
 })
@@ -129,7 +140,7 @@ export const toMissingValues = new Option(
 export const toStringFormat = new Option(
   "--to-string-format <stringFormat>",
   "string field format (default, email, uri, binary, uuid)",
-)
+).choices(["email", "uri", "binary", "uuid"])
 
 export const toDecimalChar = new Option(
   "--to-decimal-char <decimalChar>",
@@ -186,7 +197,15 @@ export const toListDelimiter = new Option(
 export const toListItemType = new Option(
   "--to-list-item-type <listItemType>",
   "type of items in lists",
-)
+).choices([
+  "string",
+  "integer",
+  "number",
+  "boolean",
+  "datetime",
+  "date",
+  "time",
+])
 
 export const toGeopointFormat = new Option(
   "--to-geopoint-format <geopointFormat>",
