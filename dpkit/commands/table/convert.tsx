@@ -111,10 +111,8 @@ export const convertTableCommand = new Command("convert")
   .action(async (path, options) => {
     const session = Session.create({
       title: "Convert table",
+      text: !options.toPath,
       debug: options.debug,
-      // TODO: Implement TextSession to separate JSON/Text output
-      // (currently, we use JSON output as a hack)
-      json: !options.toPath,
     })
 
     const dialect = options.dialect
@@ -164,9 +162,9 @@ export const convertTableCommand = new Command("convert")
 
     if (!options.toPath) {
       const buffer = await loadFile(toPath)
-      console.log(buffer.toString().trim())
+      session.render(buffer.toString())
       return
     }
 
-    console.log(`Converted table from ${path} to ${options.toPath}`)
+    session.success(`Converted table from ${path} to ${options.toPath}`)
   })

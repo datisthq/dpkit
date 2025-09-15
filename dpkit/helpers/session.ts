@@ -11,10 +11,16 @@ export class Session {
   title: string
   debug: boolean
 
-  static create(options: { title: string; json?: boolean; debug?: boolean }) {
-    const session = options.json
-      ? new JsonSession(options)
-      : new Session(options)
+  static create(options: {
+    title: string
+    json?: boolean
+    text?: boolean
+    debug?: boolean
+  }) {
+    let session = new Session(options)
+
+    if (options.json) session = new JsonSession(options)
+    if (options.text) session = new TextSession(options)
 
     session.start()
     return session
@@ -73,7 +79,7 @@ export class Session {
     }
   }
 
-  async render(_object: any, node: React.ReactNode) {
+  async render(_object: any, node?: React.ReactNode) {
     // Without waiting for the next tick after clack prompts,
     // ink render will be immidiately terminated
     await setImmediate()
@@ -94,7 +100,7 @@ export class Session {
   }
 }
 
-export class JsonSession extends Session {
+class JsonSession extends Session {
   start = () => {}
   success = () => {}
   error = () => {}
@@ -112,6 +118,29 @@ export class JsonSession extends Session {
       return await promise
     } catch (error) {
       console.log(JSON.stringify({ error: String(error) }, null, 2))
+      process.exit(1)
+    }
+  }
+}
+
+class TextSession extends Session {
+  start = () => {}
+  success = () => {}
+  error = () => {}
+
+  async select<T>(_options: SelectOptions<T>): Promise<symbol | T> {
+    Session.terminate("Selection is not supported in TEXT mode")
+  }
+
+  async render(object: any, _node: React.ReactNode) {
+    console.log(String(object))
+  }
+
+  async task<T>(_message: string, promise: Promise<T>) {
+    try {
+      return await promise
+    } catch (error) {
+      console.log(String(error))
       process.exit(1)
     }
   }
