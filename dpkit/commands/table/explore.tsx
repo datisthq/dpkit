@@ -67,7 +67,7 @@ export const exploreTableCommand = new Command("explore")
       ? { path, dialect: createDialectFromOptions(options) }
       : await selectResource(session, options)
 
-    const table = await session.task(
+    let table = await session.task(
       "Loading table",
       loadTable(resource, { denormalized: true }),
     )
@@ -89,7 +89,10 @@ export const exploreTableCommand = new Command("explore")
       )
     }
 
-    await session.task("Normalizing table", normalizeTable(table, schema))
+    table = await session.task(
+      "Normalizing table",
+      normalizeTable(table, schema),
+    )
 
     await session.render(
       table,

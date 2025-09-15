@@ -91,7 +91,7 @@ export function DataGrid(props: {
               height={rowHeight}
               overflow="hidden"
             >
-              <Text>{(record[field.name] ?? "").toString()}</Text>
+              <Text>{String(record[field.name])}</Text>
             </Box>
           ))}
         </Box>
