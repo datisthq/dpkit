@@ -38,9 +38,11 @@ export const groupChar = new Option(
 )
 
 export const bareNumber = new Option(
-  "--bare-number",
+  "--bare-number <bareNumber>",
   "allow bare numbers without quotes",
 )
+  .choices(["true", "false"])
+  .argParser((value: string) => value === "true")
 
 export const trueValues = new Option(
   "--true-values <trueValues>",
