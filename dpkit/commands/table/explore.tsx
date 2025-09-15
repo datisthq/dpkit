@@ -1,5 +1,5 @@
-import { inferSchemaFromTable, loadResourceSchema, loadTable } from "@dpkit/all"
-import { normalizeTable } from "@dpkit/all"
+import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/all"
+import { loadTable, normalizeTable } from "@dpkit/all"
 import type { Resource, Schema } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"

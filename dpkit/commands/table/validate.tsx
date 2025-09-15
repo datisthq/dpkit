@@ -1,4 +1,6 @@
-import { validateResource } from "@dpkit/all"
+import { loadTable, validateTable } from "@dpkit/all"
+import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/all"
+import type { Resource, Schema } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { ReportGrid } from "../../components/ReportGrid.tsx"
@@ -37,6 +39,25 @@ export const validateTableCommand = new Command("validate")
   .addOption(params.sheetName)
   .addOption(params.table)
 
+  .optionsGroup("Table Schema")
+  .addOption(params.fieldNames)
+  .addOption(params.fieldTypes)
+  .addOption(params.missingValues)
+  .addOption(params.stringFormat)
+  .addOption(params.decimalChar)
+  .addOption(params.groupChar)
+  .addOption(params.bareNumber)
+  .addOption(params.trueValues)
+  .addOption(params.falseValues)
+  .addOption(params.datetimeFormat)
+  .addOption(params.dateFormat)
+  .addOption(params.timeFormat)
+  .addOption(params.arrayType)
+  .addOption(params.listDelimiter)
+  .addOption(params.listItemType)
+  .addOption(params.geopointFormat)
+  .addOption(params.geojsonFormat)
+
   // TODO: Add schema options
 
   .action(async (path, options) => {
@@ -46,14 +67,42 @@ export const validateTableCommand = new Command("validate")
       debug: options.debug,
     })
 
-    const resource = path
+    const resource: Partial<Resource> = path
       ? { path, dialect: createDialectFromOptions(options) }
       : await selectResource(session, options)
 
-    const report = await session.task(
-      "Validating table",
-      validateResource(resource),
+    const table = await session.task(
+      "Loading table",
+      loadTable(resource, { denormalized: true }),
     )
+
+    let schema: Schema | undefined
+    if (resource.schema) {
+      schema = await session.task(
+        "Loading schema",
+        loadResourceSchema(resource.schema),
+      )
+    }
+
+    if (!schema) {
+      schema = await session.task(
+        "Inferring schema",
+        // TODO: Fix typing
+        // @ts-ignore
+        inferSchemaFromTable(table, options),
+      )
+    }
+
+    const errors = await session.task(
+      "Validating table",
+      validateTable(table, { schema }),
+    )
+
+    // TODO: move inside validateTable
+    const report = {
+      valid: !errors.length,
+      errors,
+    }
 
     if (report.valid) {
       session.success("Table is valid")
