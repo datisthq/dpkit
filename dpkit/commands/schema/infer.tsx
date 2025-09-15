@@ -37,6 +37,7 @@ export const inferSchemaCommand = new Command("infer")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+  .addOption(params.sampleBytes)
 
   .optionsGroup("Table Schema")
   .addOption(params.fieldNames)
@@ -56,6 +57,11 @@ export const inferSchemaCommand = new Command("infer")
   .addOption(params.listItemType)
   .addOption(params.geopointFormat)
   .addOption(params.geojsonFormat)
+  .addOption(params.sampleRows)
+  .addOption(params.confidence)
+  .addOption(params.commaDecimal)
+  .addOption(params.monthFirst)
+  .addOption(params.keepStrings)
 
   .action(async (path, options) => {
     const session = Session.create({

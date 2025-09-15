@@ -15,6 +15,7 @@ export interface InferSchemaOptions extends SchemaOptions {
   monthFirst?: boolean
   keepStrings?: boolean
 }
+
 export async function inferSchemaFromTable(
   table: Table,
   options?: InferSchemaOptions,

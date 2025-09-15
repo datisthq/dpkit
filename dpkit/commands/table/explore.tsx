@@ -39,6 +39,7 @@ export const exploreTableCommand = new Command("explore")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+  .addOption(params.sampleBytes)
 
   .optionsGroup("Table Schema")
   .addOption(params.schema)
@@ -59,6 +60,11 @@ export const exploreTableCommand = new Command("explore")
   .addOption(params.listItemType)
   .addOption(params.geopointFormat)
   .addOption(params.geojsonFormat)
+  .addOption(params.sampleRows)
+  .addOption(params.confidence)
+  .addOption(params.commaDecimal)
+  .addOption(params.monthFirst)
+  .addOption(params.keepStrings)
 
   .action(async (path, options) => {
     const session = Session.create({

@@ -1,23 +1,21 @@
 import type { Dialect, Plugin, Resource, Schema } from "@dpkit/core"
+import type { DialectOptions, InferDialectOptions } from "./dialect/index.ts"
 import type { InferSchemaOptions, SchemaOptions } from "./schema/index.ts"
 import type { Table } from "./table/index.ts"
-
-export type InferDialectOptions = {
-  sampleBytes?: number
-}
 
 export type LoadTableOptions = InferDialectOptions &
   InferSchemaOptions & {
     denormalized?: boolean
   }
 
-export type SaveTableOptions = SchemaOptions & {
-  path: string
-  format?: string
-  dialect?: Dialect
-  schema?: Schema
-  overwrite?: boolean
-}
+export type SaveTableOptions = DialectOptions &
+  SchemaOptions & {
+    path: string
+    format?: string
+    dialect?: Dialect
+    schema?: Schema
+    overwrite?: boolean
+  }
 
 export interface TablePlugin extends Plugin {
   inferDialect?(

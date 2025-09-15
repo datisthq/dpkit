@@ -6,6 +6,31 @@ export const schema = new Option(
   "path to a table schema descriptor",
 )
 
+export const sampleRows = new Option(
+  "--sample-rows <sampleRows>",
+  "number of rows to sample for schema inference",
+).argParser(Number.parseInt)
+
+export const confidence = new Option(
+  "--confidence <confidence>",
+  "confidence threshold for schema inference",
+).argParser(Number.parseFloat)
+
+export const commaDecimal = new Option(
+  "--comma-decimal",
+  "use comma as decimal separator in schema inference",
+)
+
+export const monthFirst = new Option(
+  "--month-first",
+  "interpret dates as month-first in schema inference",
+)
+
+export const keepStrings = new Option(
+  "--keep-strings",
+  "keep fields as strings instead of inferring types",
+)
+
 export const fieldNames = new Option(
   "--field-names <fieldNames>",
   "a list of comma-separated field names to use for the schema",

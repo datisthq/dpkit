@@ -5,6 +5,11 @@ export const dialect = new Option(
   "path to a table dialect descriptor",
 )
 
+export const sampleBytes = new Option(
+  "--sample-bytes <bytes>",
+  "number of bytes to sample from the file",
+).argParser(Number.parseInt)
+
 export const header = new Option(
   "--header",
   "whether the file includes a header row with field names",
