@@ -49,7 +49,6 @@ export const validateDialectCommand = new Command("validate")
 
     const report = await session.task(
       "Validating dialect",
-      // @ts-ignore
       validateDialect(descriptor),
     )
 

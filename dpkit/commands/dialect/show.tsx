@@ -36,7 +36,7 @@ export const showDialectCommand = new Command("show")
       path ? loadDialect(path) : loadResourceDialect(resource?.dialect),
     )
 
-    if (!dialect) {
+    if (!dialect || isEmptyObject(dialect)) {
       Session.terminate("Dialect is not available")
     }
 

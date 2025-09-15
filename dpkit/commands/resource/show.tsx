@@ -25,18 +25,9 @@ export const showResourceCommand = new Command("show")
       json: options.json,
       debug: options.debug,
     })
-
-    let resource: Resource | undefined
-
-    if (!path) {
-      resource = await selectResource(session, options)
-    } else {
-      // @ts-ignore
-      resource = await session.task(
-        "Loading resource",
-        loadResourceDescriptor(path),
-      )
-    }
+    const resource = path
+      ? await session.task("Loading resource", loadResourceDescriptor(path))
+      : await selectResource(session, options)
 
     if (isEmptyObject(resource)) {
       Session.terminate("Resource is not available")
