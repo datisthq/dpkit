@@ -18,6 +18,44 @@ export const inferResourceCommand = new Command("infer")
   .addOption(params.json)
   .addOption(params.debug)
 
+  .optionsGroup("Table Dialect")
+  .addOption(params.delimiter)
+  .addOption(params.header)
+  .addOption(params.headerRows)
+  .addOption(params.headerJoin)
+  .addOption(params.commentRows)
+  .addOption(params.commentChar)
+  .addOption(params.quoteChar)
+  .addOption(params.doubleQuote)
+  .addOption(params.escapeChar)
+  .addOption(params.nullSequence)
+  .addOption(params.skipInitialSpace)
+  .addOption(params.property)
+  .addOption(params.itemType)
+  .addOption(params.itemKeys)
+  .addOption(params.sheetNumber)
+  .addOption(params.sheetName)
+  .addOption(params.table)
+
+  .optionsGroup("Table Schema")
+  .addOption(params.fieldNames)
+  .addOption(params.fieldTypes)
+  .addOption(params.missingValues)
+  .addOption(params.stringFormat)
+  .addOption(params.decimalChar)
+  .addOption(params.groupChar)
+  .addOption(params.bareNumber)
+  .addOption(params.trueValues)
+  .addOption(params.falseValues)
+  .addOption(params.datetimeFormat)
+  .addOption(params.dateFormat)
+  .addOption(params.timeFormat)
+  .addOption(params.arrayType)
+  .addOption(params.listDelimiter)
+  .addOption(params.listItemType)
+  .addOption(params.geopointFormat)
+  .addOption(params.geojsonFormat)
+
   .action(async (path, options) => {
     const session = Session.create({
       title: "Infer resource",
@@ -29,16 +67,12 @@ export const inferResourceCommand = new Command("infer")
 
     const result = await session.task(
       "Inferring resource",
-      inferResource(resource),
+      inferResource(resource, options),
     )
 
     if (isEmptyObject(result)) {
       Session.terminate("Could not infer resource")
     }
 
-    await session.render(
-      result,
-      // @ts-ignore
-      <ResourceGrid resource={result} />,
-    )
+    await session.render(result, <ResourceGrid resource={result} />)
   })
