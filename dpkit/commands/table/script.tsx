@@ -75,4 +75,5 @@ export const scriptTableCommand = new Command("script")
 
     const replSession = repl.start({ prompt: "dp> " })
     replSession.context.table = table
+    replSession.write("table")
   })
