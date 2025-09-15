@@ -93,3 +93,97 @@ export const geojsonFormat = new Option(
   "--geojson-format <geojsonFormat>",
   "geojson format (default, topojson)",
 ).choices(["default", "topojson"])
+
+export const toFieldNames = new Option(
+  "--to-field-names <fieldNames>",
+  "a list of comma-separated field names to use for the schema",
+).argParser((value: string) => value.split(","))
+
+export const toFieldTypes = new Option(
+  "--to-field-types <fieldTypes>",
+  "a list of comma-separated field name:type pairs to use for the schema",
+).argParser((value: string) => {
+  const result: Record<string, string> = {}
+  value.split(",").forEach(pair => {
+    const [key, val] = pair.split(":")
+    if (key && val) result[key] = val
+  })
+  return result
+})
+
+export const toMissingValues = new Option(
+  "--to-missing-values <missingValues>",
+  "comma-separated values to treat as missing",
+).argParser((value: string) => value.split(","))
+
+export const toStringFormat = new Option(
+  "--to-string-format <stringFormat>",
+  "string field format (default, email, uri, binary, uuid)",
+)
+
+export const toDecimalChar = new Option(
+  "--to-decimal-char <decimalChar>",
+  "character to use as decimal separator",
+)
+
+export const toGroupChar = new Option(
+  "--to-group-char <groupChar>",
+  "character to use for digit grouping",
+)
+
+export const toBareNumber = new Option(
+  "--to-bare-number <bareNumber>",
+  "allow bare numbers without quotes",
+)
+  .choices(["true", "false"])
+  .argParser((value: string) => value === "true")
+
+export const toTrueValues = new Option(
+  "--to-true-values <trueValues>",
+  "values to treat as true",
+).argParser((value: string) => value.split(","))
+
+export const toFalseValues = new Option(
+  "--to-false-values <falseValues>",
+  "values to treat as false",
+).argParser((value: string) => value.split(","))
+
+export const toDatetimeFormat = new Option(
+  "--to-datetime-format <datetimeFormat>",
+  "datetime format pattern",
+)
+
+export const toDateFormat = new Option(
+  "--to-date-format <dateFormat>",
+  "date format pattern",
+)
+
+export const toTimeFormat = new Option(
+  "--to-time-format <timeFormat>",
+  "time format pattern",
+)
+
+export const toArrayType = new Option(
+  "--to-array-type <arrayType>",
+  "array type (array or list)",
+).choices(["array", "list"])
+
+export const toListDelimiter = new Option(
+  "--to-list-delimiter <listDelimiter>",
+  "delimiter for list values",
+)
+
+export const toListItemType = new Option(
+  "--to-list-item-type <listItemType>",
+  "type of items in lists",
+)
+
+export const toGeopointFormat = new Option(
+  "--to-geopoint-format <geopointFormat>",
+  "geopoint format (default, array, object)",
+).choices(["default", "array", "object"])
+
+export const toGeojsonFormat = new Option(
+  "--to-geojson-format <geojsonFormat>",
+  "geojson format (default, topojson)",
+).choices(["default", "topojson"])

@@ -5,6 +5,7 @@ import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { createToDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
+import { createSchemaOptionsFromToSchemaOptions } from "../../helpers/schema.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
@@ -78,6 +79,25 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.toSheetName)
   .addOption(params.toTable)
 
+  .optionsGroup("Table Schema (output)")
+  .addOption(params.toFieldNames)
+  .addOption(params.toFieldTypes)
+  .addOption(params.toMissingValues)
+  .addOption(params.toStringFormat)
+  .addOption(params.toDecimalChar)
+  .addOption(params.toGroupChar)
+  .addOption(params.toBareNumber)
+  .addOption(params.toTrueValues)
+  .addOption(params.toFalseValues)
+  .addOption(params.toDatetimeFormat)
+  .addOption(params.toDateFormat)
+  .addOption(params.toTimeFormat)
+  .addOption(params.toArrayType)
+  .addOption(params.toListDelimiter)
+  .addOption(params.toListItemType)
+  .addOption(params.toGeopointFormat)
+  .addOption(params.toGeojsonFormat)
+
   // TODO: Add support for output table schema
 
   .action(async (path, options) => {
@@ -106,6 +126,7 @@ export const convertTableCommand = new Command("convert")
         path: toPath,
         format: options.toFormat,
         dialect: toDialect,
+        ...createSchemaOptionsFromToSchemaOptions(options),
       }),
     )
 
