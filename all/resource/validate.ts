@@ -47,10 +47,7 @@ export async function validateResource(
     if (!schema) schema = await inferSchema(resource, options)
 
     const table = await loadTable(resource, { denormalized: true })
-    const errors = await validateTable(table, { schema })
-
-    const valid = errors.length === 0
-    return { valid, errors }
+    return await validateTable(table, { schema })
   } catch {}
 
   return { valid: true, errors: [] }

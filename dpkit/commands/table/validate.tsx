@@ -93,16 +93,10 @@ export const validateTableCommand = new Command("validate")
       )
     }
 
-    const errors = await session.task(
+    const report = await session.task(
       "Validating table",
       validateTable(table, { schema }),
     )
-
-    // TODO: move inside validateTable
-    const report = {
-      valid: !errors.length,
-      errors,
-    }
 
     if (report.valid) {
       session.success("Table is valid")

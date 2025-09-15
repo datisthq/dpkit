@@ -8,5 +8,5 @@ export function validateRows(schema: Schema, errorTable: Table) {
 
   errorTable = checkRowUnique(schema, errorTable)
 
-  return { errors, errorTable }
+  return { valid: !errors.length, errors, errorTable }
 }

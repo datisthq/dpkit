@@ -21,7 +21,7 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
@@ -42,7 +42,7 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/enum")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "cell/enum",
@@ -75,7 +75,7 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/enum")).toHaveLength(0)
   })
 
@@ -96,7 +96,7 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/enum")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "cell/enum",

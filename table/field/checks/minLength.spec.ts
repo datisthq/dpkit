@@ -19,7 +19,7 @@ describe("validateTable (cell/minLength)", () => {
       ],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
@@ -38,7 +38,7 @@ describe("validateTable (cell/minLength)", () => {
       ],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/minLength")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "cell/minLength",

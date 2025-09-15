@@ -19,7 +19,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toContainEqual({
         type: "field/name",
@@ -42,7 +42,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toHaveLength(0)
     })
 
@@ -60,7 +60,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(1)
       expect(errors).toContainEqual({
@@ -86,7 +86,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(1)
       expect(errors).toContainEqual({
@@ -111,7 +111,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toHaveLength(0)
     })
   })
@@ -131,7 +131,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(2)
       expect(errors).toContainEqual({
@@ -162,7 +162,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(2)
       expect(errors).toContainEqual({
@@ -193,7 +193,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(1)
       expect(errors).toContainEqual({
@@ -218,7 +218,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(3)
       expect(errors).toContainEqual({
@@ -255,7 +255,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(3)
       expect(errors).toContainEqual({
@@ -292,7 +292,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(3)
       expect(errors).toContainEqual({
@@ -334,7 +334,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       // Adjust the expectations to match actual behavior
       expect(errors.length).toBeGreaterThan(0)
@@ -369,7 +369,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toHaveLength(0)
     })
@@ -388,7 +388,7 @@ describe("validateField", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       // Since the column matches the expected type, validation passes
       expect(errors).toHaveLength(0)

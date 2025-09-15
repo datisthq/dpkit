@@ -32,7 +32,7 @@ export function validateField(
     ? validateCells(field, options.errorTable)
     : options.errorTable
 
-  return { errors, errorTable }
+  return { valid: !errors.length, errors, errorTable }
 }
 
 function validateName(field: Field, polarsField: PolarsField) {

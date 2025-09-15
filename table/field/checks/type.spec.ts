@@ -13,7 +13,7 @@ describe("validateTable", () => {
       fields: [{ name: "id", type: "integer" }],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(2)
     expect(errors).toContainEqual({
@@ -39,7 +39,7 @@ describe("validateTable", () => {
       fields: [{ name: "price", type: "number" }],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(2)
     expect(errors).toContainEqual({
@@ -65,7 +65,7 @@ describe("validateTable", () => {
       fields: [{ name: "active", type: "boolean" }],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(1)
     expect(errors).toContainEqual({
@@ -85,7 +85,7 @@ describe("validateTable", () => {
       fields: [{ name: "created", type: "date" }],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(3)
     expect(errors).toContainEqual({
@@ -117,7 +117,7 @@ describe("validateTable", () => {
       fields: [{ name: "time", type: "time" }],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(3)
     expect(errors).toContainEqual({
@@ -149,7 +149,7 @@ describe("validateTable", () => {
       fields: [{ name: "year", type: "year" }],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(3)
     expect(errors).toContainEqual({
@@ -186,7 +186,7 @@ describe("validateTable", () => {
       fields: [{ name: "timestamp", type: "datetime" }],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
 
     // Adjust the expectations to match actual behavior
     expect(errors.length).toBeGreaterThan(0)
@@ -216,7 +216,7 @@ describe("validateTable", () => {
       fields: [{ name: "id", type: "integer" }],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(0)
   })
@@ -230,7 +230,7 @@ describe("validateTable", () => {
       fields: [{ name: "is_active", type: "boolean" }],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
 
     // Since the column isn't string type, validateField will not normalize it
     expect(errors).toHaveLength(0)
