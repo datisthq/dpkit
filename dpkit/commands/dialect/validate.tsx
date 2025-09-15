@@ -1,5 +1,6 @@
 import { loadDescriptor, validateDialect } from "@dpkit/all"
-import type { Descriptor } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
+import { loadResourceDialect } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { ReportGrid } from "../../components/ReportGrid.tsx"
@@ -25,30 +26,25 @@ export const validateDialectCommand = new Command("validate")
       debug: options.debug,
     })
 
-    let descriptor: Descriptor | undefined
+    const resource: Partial<Resource> | undefined = !path
+      ? await selectResource(session, options)
+      : undefined
 
-    if (!path) {
-      const resource = await selectResource(session, options)
+    const dialect = resource?.dialect
+      ? await session.task(
+          "Loading dialect",
+          loadResourceDialect(resource.dialect),
+        )
+      : undefined
 
-      if (!resource.dialect) {
-        Session.terminate("Dialect is not available")
-      }
-
-      if (typeof resource.dialect !== "string") {
-        descriptor = resource.dialect as Descriptor
-      } else {
-        path = resource.dialect
-      }
-    }
+    const { descriptor } = path
+      ? await session.task("Loading descriptor", loadDescriptor(path))
+      : dialect
+        ? { descriptor: dialect }
+        : { descriptor: undefined }
 
     if (!descriptor) {
-      const result = await session.task(
-        "Loading dialect",
-        // @ts-ignore
-        loadDescriptor(path),
-      )
-
-      descriptor = result.descriptor
+      Session.terminate("Dialect is not available")
     }
 
     const report = await session.task(

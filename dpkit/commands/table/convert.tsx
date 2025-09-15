@@ -163,7 +163,6 @@ export const convertTableCommand = new Command("convert")
     if (!options.toPath) {
       const buffer = await loadFile(toPath)
       session.render(buffer.toString())
-      return
     }
 
     session.success(`Converted table from ${path} to ${options.toPath}`)
