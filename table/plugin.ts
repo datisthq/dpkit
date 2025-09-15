@@ -15,6 +15,7 @@ export type SaveTableOptions = SchemaOptions & {
   path: string
   format?: string
   dialect?: Dialect
+  schema?: Schema
   overwrite?: boolean
 }
 

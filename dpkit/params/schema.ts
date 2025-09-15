@@ -99,6 +99,11 @@ export const geojsonFormat = new Option(
   "geojson format (default, topojson)",
 ).choices(["default", "topojson"])
 
+export const toSchema = new Option(
+  "--to-schema <toSchema>",
+  "path to a table schema descriptor",
+)
+
 export const toFieldNames = new Option(
   "--to-field-names <fieldNames>",
   "a list of comma-separated field names to use for the schema",

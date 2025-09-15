@@ -97,6 +97,11 @@ export const table = new Option(
   "for database sources, the table name to read",
 )
 
+export const toDialect = new Option(
+  "--to-dialect <toDialect>",
+  "path to a table dialect descriptor",
+)
+
 export const toHeader = new Option(
   "--to-header",
   "whether the file includes a header row with field names",

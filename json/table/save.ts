@@ -14,10 +14,12 @@ export async function saveJsonTable(
   const { path, dialect, overwrite, format } = options
   const isLines = format === "jsonl" || format === "ndjson"
 
-  const schema = await inferSchemaFromTable(table, {
-    ...options,
-    keepStrings: true,
-  })
+  const schema =
+    options.schema ??
+    (await inferSchemaFromTable(table, {
+      ...options,
+      keepStrings: true,
+    }))
 
   table = await denormalizeTable(table, schema, {
     nativeTypes: ["boolean", "integer", "list", "number", "string", "year"],

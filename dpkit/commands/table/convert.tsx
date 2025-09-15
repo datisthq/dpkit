@@ -66,6 +66,7 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.geojsonFormat)
 
   .optionsGroup("Table Dialect (output)")
+  .addOption(params.toDialect)
   .addOption(params.toDelimiter)
   .addOption(params.toHeader)
   .addOption(params.toHeaderRows)
@@ -85,6 +86,7 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.toTable)
 
   .optionsGroup("Table Schema (output)")
+  .addOption(params.toSchema)
   .addOption(params.toFieldNames)
   .addOption(params.toFieldTypes)
   .addOption(params.toMissingValues)
@@ -131,7 +133,20 @@ export const convertTableCommand = new Command("convert")
     )
 
     const toPath = options.toPath ?? getTempFilePath()
-    const toDialect = createToDialectFromOptions(options)
+
+    const toDialect = options.toDialect
+      ? await session.task(
+          "Loading dialect (output)",
+          loadDialect(options.toDialect),
+        )
+      : createToDialectFromOptions(options)
+
+    const toSchema = options.toSchema
+      ? await session.task(
+          "Loading schema (output)",
+          loadSchema(options.toSchema),
+        )
+      : undefined
 
     await session.task(
       "Saving table",
@@ -139,6 +154,7 @@ export const convertTableCommand = new Command("convert")
         path: toPath,
         format: options.toFormat,
         dialect: toDialect,
+        schema: toSchema,
         ...createSchemaOptionsFromToSchemaOptions(options),
       }),
     )
