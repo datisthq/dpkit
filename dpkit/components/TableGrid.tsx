@@ -12,6 +12,7 @@ export function TableGrid(props: {
   table: Table
   schema?: Schema
   borderColor?: "green" | "red"
+  withTypes?: boolean
 }) {
   const { table, schema, borderColor } = props
 
@@ -103,6 +104,7 @@ export function TableGrid(props: {
         order={order}
         rowHeight={2}
         borderColor={borderColor}
+        withTypes={props.withTypes}
       />
       <Help />
     </Box>

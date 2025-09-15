@@ -90,5 +90,9 @@ export const exploreTableCommand = new Command("explore")
     }
 
     await session.task("Normalizing table", normalizeTable(table, schema))
-    await session.render(table, <TableGrid table={table} schema={schema} />)
+
+    await session.render(
+      table,
+      <TableGrid table={table} schema={schema} withTypes />,
+    )
   })

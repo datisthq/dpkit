@@ -16,6 +16,7 @@ export function DataGrid(props: {
   order?: Order
   rowHeight?: number
   borderColor?: "green" | "red"
+  withTypes?: boolean
 }) {
   const { records, col, order, rowHeight, borderColor = "green" } = props
   const schema = props.schema ?? inferSchemaFromSample(DataFrame(records))
@@ -54,19 +55,21 @@ export function DataGrid(props: {
         ))}
       </Box>
 
-      <Box>
-        {schema.fields.map((field, index) => (
-          <Box
-            key={field.name}
-            width={colWidth}
-            paddingLeft={1}
-            justifyContent="center"
-            backgroundColor={index === selectIndex ? "#777" : "#555"}
-          >
-            <Text>({field.type})</Text>
-          </Box>
-        ))}
-      </Box>
+      {props.withTypes && (
+        <Box>
+          {schema.fields.map((field, index) => (
+            <Box
+              key={field.name}
+              width={colWidth}
+              paddingLeft={1}
+              justifyContent="center"
+              backgroundColor={index === selectIndex ? "#777" : "#555"}
+            >
+              <Text>({field.type})</Text>
+            </Box>
+          ))}
+        </Box>
+      )}
 
       {records.map((record, rowIndex) => (
         <Box key={rowIndex}>
