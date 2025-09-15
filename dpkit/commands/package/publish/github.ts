@@ -13,8 +13,8 @@ export const githubPublishPackageCommand = new Command("github")
   .addOption(params.debug)
 
   .optionsGroup("GitHub")
-  .addOption(params.toGithubApiKey.makeOptionMandatory())
-  .addOption(params.toGithubRepo.makeOptionMandatory())
+  .addOption(params.toGithubApiKey)
+  .addOption(params.toGithubRepo)
   .addOption(params.toGithubOrg)
 
   .action(async (path, options) => {

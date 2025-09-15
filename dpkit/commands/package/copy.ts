@@ -9,7 +9,7 @@ export const copyPackageCommand = new Command("copy")
   .description("Copy a local or remote Data Package to a local folder")
 
   .addArgument(params.positionalDescriptorPath)
-  .addOption(params.toFolder.makeOptionMandatory())
+  .addOption(params.toFolder)
   .addOption(params.withRemote)
   .addOption(params.debug)
 

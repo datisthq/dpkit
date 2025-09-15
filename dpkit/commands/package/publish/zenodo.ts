@@ -13,7 +13,7 @@ export const zenodoPublishPackageCommand = new Command("zenodo")
   .addOption(params.debug)
 
   .optionsGroup("Zenodo")
-  .addOption(params.toZenodoApiKey.makeOptionMandatory())
+  .addOption(params.toZenodoApiKey)
   .addOption(params.toZenodoSandbox)
 
   .action(async (path, options) => {

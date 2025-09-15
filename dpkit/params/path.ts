@@ -36,13 +36,3 @@ export const toPathRequired = new Option(
   "--to-path <toPath>",
   "a local output path",
 ).makeOptionMandatory()
-
-export const toFolder = new Option(
-  "--to-folder <path>",
-  "a local output folder path",
-)
-
-export const toArchive = new Option(
-  "--to-archive <path>",
-  "a local output zip file path",
-)

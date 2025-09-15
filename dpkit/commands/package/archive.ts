@@ -9,7 +9,7 @@ export const archivePackageCommand = new Command("archive")
   .description("Archive a local or remote Data Package to a local zip file")
 
   .addArgument(params.positionalDescriptorPath)
-  .addOption(params.toArchive.makeOptionMandatory())
+  .addOption(params.toArchive)
   .addOption(params.withRemote)
   .addOption(params.debug)
 
