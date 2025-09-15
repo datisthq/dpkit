@@ -23,6 +23,7 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.fromResource)
   .addOption(params.toPath)
   .addOption(params.toFormat)
+  .addOption(params.overwrite)
   .addOption(params.debug)
 
   .optionsGroup("Table Dialect")
@@ -155,6 +156,7 @@ export const convertTableCommand = new Command("convert")
         format: options.toFormat,
         dialect: toDialect,
         schema: toSchema,
+        overwrite: options.overwrite,
         ...createSchemaOptionsFromToSchemaOptions(options),
       }),
     )
