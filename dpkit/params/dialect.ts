@@ -1,9 +1,16 @@
 import { Option } from "commander"
 
+export const dialect = new Option(
+  "--dialect <dialect>",
+  "path to a dialect to use for the table",
+)
+
 export const header = new Option(
   "--header",
   "whether the file includes a header row with field names",
-).default(true)
+)
+  .choices(["true", "false"])
+  .argParser((value: string) => value === "true")
 
 export const headerRows = new Option(
   "--header-rows <rows>",
@@ -93,7 +100,9 @@ export const table = new Option(
 export const toHeader = new Option(
   "--to-header",
   "whether the file includes a header row with field names",
-).default(true)
+)
+  .choices(["true", "false"])
+  .argParser((value: string) => value === "true")
 
 export const toHeaderRows = new Option(
   "--to-header-rows <rows>",
