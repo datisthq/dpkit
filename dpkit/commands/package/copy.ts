@@ -1,4 +1,4 @@
-import { loadPackage, savePackageToFolder } from "@dpkit/all"
+import { loadPackage, savePackage } from "@dpkit/all"
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
@@ -6,10 +6,12 @@ import * as params from "../../params/index.ts"
 
 export const copyPackageCommand = new Command("copy")
   .configureHelp(helpConfiguration)
-  .description("Copy a local or remote Data Package to a local folder")
+  .description(
+    "Copy a local or remote Data Package to a local folder, a ZIP archive or a database",
+  )
 
   .addArgument(params.positionalDescriptorPath)
-  .addOption(params.toFolder)
+  .addOption(params.toPathRequired)
   .addOption(params.withRemote)
   .addOption(params.debug)
 
@@ -23,11 +25,11 @@ export const copyPackageCommand = new Command("copy")
 
     await session.task(
       "Copying package",
-      savePackageToFolder(dp, {
-        folderPath: options.toFolder,
+      savePackage(dp, {
+        target: options.toPath,
         withRemote: options.withRemote,
       }),
     )
 
-    session.success(`Package from "${path}" copied to "${options.toFolder}"`)
+    session.success(`Package from "${path}" copied to "${options.toPath}"`)
   })
