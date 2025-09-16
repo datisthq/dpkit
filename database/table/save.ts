@@ -19,10 +19,12 @@ export async function saveDatabaseTable(
     throw new Error("Table name is not defined in dialect")
   }
 
-  const schema = await inferSchemaFromTable(table, {
-    ...options,
-    keepStrings: true,
-  })
+  const schema =
+    options.schema ??
+    (await inferSchemaFromTable(table, {
+      ...options,
+      keepStrings: true,
+    }))
 
   const adapter = createAdapter(format)
   table = await denormalizeTable(table, schema, {

@@ -1,8 +1,10 @@
+import type { Package } from "@dpkit/core"
 import { getTempFilePath } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import { DataFrame, DataType, Series } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { loadPackageFromDatabase } from "../package/index.ts"
+import { savePackageToDatabase } from "../package/index.ts"
 import { inferDatabaseSchema } from "../schema/index.ts"
 import { loadDatabaseTable, saveDatabaseTable } from "../table/index.ts"
 import { createAdapter } from "./create.ts"
@@ -176,6 +178,83 @@ describe.skipIf(process.env.CI)("SqliteAdapter", () => {
         },
       ],
     })
+  })
+
+  it("should save package to database", async () => {
+    const path = getTempFilePath()
+
+    const dataPackage: Package = {
+      resources: [
+        {
+          path: "table1.csv",
+          name: "table1",
+          format: "sqlite",
+          dialect: { table: "table1" },
+          schema: {
+            fields: [
+              { name: "id", type: "integer", constraints: { required: true } },
+              { name: "name", type: "string" },
+            ],
+          },
+        },
+        {
+          path: "table2.csv",
+          name: "table2",
+          format: "sqlite",
+          dialect: { table: "table2" },
+          schema: {
+            fields: [
+              { name: "id", type: "integer", constraints: { required: true } },
+              { name: "number", type: "number" },
+              { name: "boolean", type: "string" },
+            ],
+          },
+        },
+      ],
+    }
+
+    await savePackageToDatabase(dataPackage, {
+      target: path,
+      format: "sqlite",
+      plugins: [
+        {
+          loadTable: async resource => {
+            if (resource.name === "table1") {
+              return DataFrame([
+                Series("id", [1, 2]),
+                Series("name", ["english", "中文"]),
+              ]).lazy()
+            }
+
+            if (resource.name === "table2") {
+              return DataFrame([
+                Series("id", [1, 2]),
+                Series("number", [1.1, 2.2]),
+                Series("boolean", ["true", "false"]),
+              ]).lazy()
+            }
+
+            return undefined
+          },
+        },
+      ],
+    })
+
+    const adapter = createAdapter("sqlite")
+    const database = await adapter.connectDatabase(path)
+
+    const records1 = await database.selectFrom("table1").selectAll().execute()
+    const records2 = await database.selectFrom("table2").selectAll().execute()
+
+    expect(records1).toEqual([
+      { id: 1, name: "english" },
+      { id: 2, name: "中文" },
+    ])
+
+    expect(records2).toEqual([
+      { id: 1, number: 1.1, boolean: "true" },
+      { id: 2, number: 2.2, boolean: "false" },
+    ])
   })
 
   it("should throw error when loading from non-existent database", async () => {
