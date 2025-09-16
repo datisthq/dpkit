@@ -1,7 +1,8 @@
 import type { Descriptor, Package } from "@dpkit/core"
-import { loadDescriptor, validatePackageDescriptor } from "@dpkit/core"
-import { dpkit } from "../plugin.ts"
+import { validatePackageDescriptor } from "@dpkit/core"
+import { AssertionError } from "@dpkit/core"
 import { validateResource } from "../resource/index.ts"
+import { loadPackage } from "./load.ts"
 
 // TODO: Improve implementation
 // TODO: Support multipart resources? (clarify on the specs level)
@@ -10,37 +11,28 @@ export async function validatePackage(
   source: string | Descriptor | Partial<Package>,
   options?: { basepath?: string },
 ) {
-  let descriptor: Descriptor | undefined
-  let basepath = options?.basepath
+  let dataPackage: Package | undefined
 
-  if (typeof source !== "string") {
-    descriptor = source
-  } else {
-    for (const plugin of dpkit.plugins) {
-      const result = await plugin.loadPackage?.(source)
-      if (result) {
-        descriptor = result as unknown as Descriptor
-        break
+  if (typeof source === "string") {
+    try {
+      dataPackage = await loadPackage(source)
+    } catch (error) {
+      if (error instanceof AssertionError) {
+        return { valid: false, errors: error.errors }
       }
+
+      throw error
+    }
+  } else {
+    const result = await validatePackageDescriptor(source, {
+      basepath: options?.basepath,
+    })
+
+    if (!result.dataPackage) {
+      return { valid: false, errors: result.errors }
     }
 
-    if (!descriptor) {
-      const result = await loadDescriptor(source)
-      descriptor = result.descriptor
-      basepath = result.basepath
-    }
-  }
-
-  const { valid, errors, dataPackage } = await validatePackageDescriptor(
-    descriptor,
-    { basepath },
-  )
-
-  if (!dataPackage) {
-    return {
-      valid,
-      errors: errors.map(error => ({ ...error, resource: undefined })),
-    }
+    dataPackage = result.dataPackage
   }
 
   const resourceErrors = (
