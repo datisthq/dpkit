@@ -6,6 +6,7 @@ import React from "react"
 
 // TODO: Autocalculate geometry (e.g. row height etc)
 
+const MAX_COLUMNS = 10
 const MIN_COLUMN_WIDTH = 15
 export type Order = { col: number; dir: "asc" | "desc" }
 
@@ -20,17 +21,20 @@ export function DataGrid(props: {
   withTypes?: boolean
 }) {
   const { records, col, row, order, rowHeight, borderColor = "green" } = props
+
   const schema = props.schema ?? inferSchemaFromSample(DataFrame(records))
+  const startCol = col ? Math.floor((col - 1) / MAX_COLUMNS) * MAX_COLUMNS : 0
+  const fields = schema.fields.slice(startCol, startCol + MAX_COLUMNS)
 
   const colWidth = Math.min(
-    process.stdout.columns / schema.fields.length,
+    process.stdout.columns / fields.length,
     MIN_COLUMN_WIDTH,
   )
 
-  const tableWidth = schema.fields.length * colWidth
-  const selectColIndex = col ? col - 1 : -1
+  const tableWidth = fields.length * colWidth
+  const selectColIndex = col ? col - 1 - startCol : -1
   const selectRowIndex = row ? row - 1 : -1
-  const orderIndex = order?.col ? order?.col - 1 : -1
+  const orderIndex = order?.col ? order.col - 1 - startCol : -1
   const orderSign = order?.dir === "desc" ? " ▲" : " ▼"
 
   return (
@@ -38,10 +42,14 @@ export function DataGrid(props: {
       flexDirection="column"
       borderStyle="round"
       borderColor={borderColor}
+      borderLeftColor={startCol < 1 ? borderColor : "gray"}
+      borderRightColor={
+        startCol + MAX_COLUMNS >= schema.fields.length ? borderColor : "gray"
+      }
       width={tableWidth}
     >
       <Box>
-        {schema.fields.map((field, index) => (
+        {fields.map((field, index) => (
           <Box
             key={field.name}
             width={colWidth}
@@ -59,7 +67,7 @@ export function DataGrid(props: {
 
       {props.withTypes && (
         <Box>
-          {schema.fields.map((field, index) => (
+          {fields.map((field, index) => (
             <Box
               key={field.name}
               width={colWidth}
@@ -75,7 +83,7 @@ export function DataGrid(props: {
 
       {records.map((record, rowIndex) => (
         <Box key={rowIndex}>
-          {schema.fields.map((field, colIndex) => (
+          {fields.map((field, colIndex) => (
             <Box
               key={field.name}
               width={colWidth}
