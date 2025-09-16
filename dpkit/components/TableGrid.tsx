@@ -53,14 +53,15 @@ export function TableGrid(props: {
     }
   }
 
-  const handlePageChange = async (page: number, order?: Order) => {
+  const handlePageChange = async (page: number, newOrder?: Order) => {
+    const thisOrder = newOrder ?? order
     if (page === 0) return
 
     let ldf = table
-    if (order) {
-      const name = table.columns[order.col - 1]
+    if (thisOrder) {
+      const name = table.columns[thisOrder.col - 1]
       if (name) {
-        ldf = ldf.sort(name, order.dir === "desc")
+        ldf = ldf.sort(name, thisOrder.dir === "desc")
       }
     }
 
