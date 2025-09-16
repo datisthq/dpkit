@@ -26,6 +26,7 @@ export async function savePackageToDatabase(
         const dialect = { table: resource.name }
         const schema = await loadResourceSchema(resource.schema)
 
+        // TODO: support parallel saving?
         await saveDatabaseTable(table, {
           path: options.target,
           format: options.format,
