@@ -102,6 +102,7 @@ export function normalizePath(path: string, options: { basepath?: string }) {
     options.basepath ?? "",
     normalizedPath,
   )
+
   if (relativePath.startsWith("..")) {
     throw new Error(`Path ${path} is not a subpath of ${options.basepath}`)
   }
