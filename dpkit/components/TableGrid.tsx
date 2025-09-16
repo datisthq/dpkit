@@ -18,6 +18,7 @@ export function TableGrid(props: {
 
   const { exit } = useApp()
   const [col, setCol] = useState(0)
+  const [row, setRow] = useState(0)
   const [page, setPage] = useState(1)
   const [order, setOrder] = useState<Order>()
   const [records, setRecords] = useState<DataRecord[]>([])
@@ -27,6 +28,21 @@ export function TableGrid(props: {
     if (col > table.columns.length) return
 
     setCol(col)
+  }
+
+  const handleRowChange = async (row: number) => {
+    if (row > PAGE_SIZE) {
+      handlePageChange(page + 1)
+      row = 1
+    } else if (row < 1) {
+      if (page === 1) return
+      handlePageChange(page - 1)
+      row = 10
+    } else if (row > records.length) {
+      return
+    }
+
+    setRow(row)
   }
 
   const handleOrderChange = async (order?: Order) => {
@@ -67,12 +83,20 @@ export function TableGrid(props: {
       exit()
     }
 
-    if (key.upArrow || input === "k") {
+    if (key.pageUp || input === "p") {
       handlePageChange(page - 1)
     }
 
-    if (key.downArrow || input === "j") {
+    if (key.pageDown || input === "n") {
       handlePageChange(page + 1)
+    }
+
+    if (key.downArrow || input === "j") {
+      handleRowChange(row + 1)
+    }
+
+    if (key.upArrow || input === "k") {
+      handleRowChange(row - 1)
     }
 
     if (key.leftArrow || input === "h") {
@@ -101,6 +125,7 @@ export function TableGrid(props: {
         records={records}
         schema={schema}
         col={col}
+        row={row}
         order={order}
         rowHeight={2}
         borderColor={borderColor}
@@ -138,8 +163,10 @@ function Help() {
   return (
     <Box flexDirection="column" paddingLeft={1}>
       <Text bold>Table Usage</Text>
-      <HelpItem button="k, top" description="for prev page" />
-      <HelpItem button="j, down" description="for next page" />
+      <HelpItem button="p, pgUp" description="for prev page" />
+      <HelpItem button="n, pgDown" description="for next page" />
+      <HelpItem button="k, up" description="for prev row" />
+      <HelpItem button="j, down" description="for next row" />
       <HelpItem button="h, left" description="for prev column" />
       <HelpItem button="l, right" description="for next column" />
       <HelpItem button="o, enter" description="for order" />

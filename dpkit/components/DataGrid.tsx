@@ -13,12 +13,13 @@ export function DataGrid(props: {
   records: DataRecord[]
   schema?: Schema
   col?: number
+  row?: number
   order?: Order
   rowHeight?: number
   borderColor?: "green" | "red"
   withTypes?: boolean
 }) {
-  const { records, col, order, rowHeight, borderColor = "green" } = props
+  const { records, col, row, order, rowHeight, borderColor = "green" } = props
   const schema = props.schema ?? inferSchemaFromSample(DataFrame(records))
 
   const colWidth = Math.min(
@@ -27,7 +28,8 @@ export function DataGrid(props: {
   )
 
   const tableWidth = schema.fields.length * colWidth
-  const selectIndex = col ? col - 1 : -1
+  const selectColIndex = col ? col - 1 : -1
+  const selectRowIndex = row ? row - 1 : -1
   const orderIndex = order?.col ? order?.col - 1 : -1
   const orderSign = order?.dir === "desc" ? " ▲" : " ▼"
 
@@ -45,7 +47,7 @@ export function DataGrid(props: {
             width={colWidth}
             paddingLeft={1}
             justifyContent="center"
-            backgroundColor={index === selectIndex ? "#777" : "#555"}
+            backgroundColor={index === selectColIndex ? "#777" : "#555"}
           >
             <Text bold>
               {field.name}
@@ -63,7 +65,7 @@ export function DataGrid(props: {
               width={colWidth}
               paddingLeft={1}
               justifyContent="center"
-              backgroundColor={index === selectIndex ? "#777" : "#555"}
+              backgroundColor={index === selectColIndex ? "#777" : "#555"}
             >
               <Text>({field.type})</Text>
             </Box>
@@ -80,13 +82,19 @@ export function DataGrid(props: {
               paddingLeft={1}
               justifyContent="center"
               backgroundColor={
-                rowIndex % 2 === 0
-                  ? colIndex === selectIndex
-                    ? "#555"
-                    : "#333"
-                  : colIndex === selectIndex
-                    ? "#444"
-                    : undefined
+                rowIndex === selectRowIndex && colIndex === selectColIndex
+                  ? "#888"
+                  : rowIndex === selectRowIndex
+                    ? rowIndex % 2 === 0
+                      ? "#666"
+                      : "#555"
+                    : colIndex === selectColIndex
+                      ? rowIndex % 2 === 0
+                        ? "#555"
+                        : "#444"
+                      : rowIndex % 2 === 0
+                        ? "#333"
+                        : undefined
               }
               height={rowHeight}
               overflow="hidden"
