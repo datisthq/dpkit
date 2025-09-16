@@ -60,7 +60,7 @@ export function TableGrid(props: {
     if (order) {
       const name = table.columns[order.col - 1]
       if (name) {
-        ldf = ldf.sort(name, order.dir === "asc")
+        ldf = ldf.sort(name, order.dir === "desc")
       }
     }
 

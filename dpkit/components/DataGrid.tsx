@@ -35,7 +35,7 @@ export function DataGrid(props: {
   const selectColIndex = col ? col - 1 - startCol : -1
   const selectRowIndex = row ? row - 1 : -1
   const orderIndex = order?.col ? order.col - 1 - startCol : -1
-  const orderSign = order?.dir === "desc" ? " ▲" : " ▼"
+  const orderSign = order?.dir === "desc" ? " ▼" : " ▲"
 
   return (
     <Box
