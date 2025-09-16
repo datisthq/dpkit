@@ -1,16 +1,17 @@
-import type { Package } from "@dpkit/core"
+import type { Package, SavePackageOptions } from "@dpkit/core"
 import { savePackageDescriptor } from "@dpkit/core"
 import { dpkit } from "../plugin.ts"
 
 export async function savePackage(
   dataPackage: Package,
-  options: {
-    target: string
-    withRemote?: boolean
-  },
+  options: SavePackageOptions,
 ) {
   for (const plugin of dpkit.plugins) {
-    const result = await plugin.savePackage?.(dataPackage, options)
+    const result = await plugin.savePackage?.(dataPackage, {
+      plugins: dpkit.plugins,
+      ...options,
+    })
+
     if (result) return result
   }
 
