@@ -1392,7 +1392,6 @@
             "propertyOrder": 50,
             "title": "CSV Dialect",
             "type": ["string", "object"],
-            "required": ["delimiter", "doubleQuote"],
             "properties": {
               "csvddfVersion": {
                 "title": "CSV Dialect schema version",
