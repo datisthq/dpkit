@@ -1,5 +1,12 @@
 # @dpkit/file
 
+## 0.10.1
+
+### Patch Changes
+
+- Updated dependencies [498d02d]
+  - @dpkit/core@0.12.0
+
 ## 0.10.0
 
 ### Minor Changes

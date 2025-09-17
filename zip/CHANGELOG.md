@@ -1,5 +1,14 @@
 # @dpkit/zip
 
+## 0.9.1
+
+### Patch Changes
+
+- Updated dependencies [498d02d]
+  - @dpkit/core@0.12.0
+  - @dpkit/file@0.10.1
+  - @dpkit/folder@0.10.1
+
 ## 0.9.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/camtrap",
   "type": "module",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",

@@ -1,5 +1,16 @@
 # dpkit
 
+## 0.12.0
+
+### Minor Changes
+
+- 498d02d: Improved table in command-line
+
+### Patch Changes
+
+- Updated dependencies [498d02d]
+  - @dpkit/all@0.11.0
+
 ## 0.11.0
 
 ### Minor Changes
