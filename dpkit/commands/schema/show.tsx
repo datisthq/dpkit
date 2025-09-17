@@ -1,5 +1,6 @@
 import { loadSchema } from "@dpkit/all"
-import type { Schema } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
+import { loadResourceSchema } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { SchemaGrid } from "../../components/SchemaGrid.tsx"
@@ -26,27 +27,16 @@ export const showSchemaCommand = new Command("show")
       debug: options.debug,
     })
 
-    let schema: Schema | undefined
+    const resource: Partial<Resource> | undefined = !path
+      ? await selectResource(session, options)
+      : undefined
 
-    if (!path) {
-      const resource = await selectResource(session, options)
-      if (!resource.schema) {
-        Session.terminate("Schema is not available")
-      }
+    const schema = await session.task(
+      "Loading schema",
+      path ? loadSchema(path) : loadResourceSchema(resource?.schema),
+    )
 
-      if (typeof resource.schema !== "string") {
-        schema = resource.schema
-      } else {
-        path = resource.schema
-      }
-    }
-
-    if (!schema) {
-      // @ts-ignore
-      schema = await session.task("Loading schema", loadSchema(path))
-    }
-
-    if (isEmptyObject(schema)) {
+    if (!schema || isEmptyObject(schema)) {
       Session.terminate("Schema is not available")
     }
 

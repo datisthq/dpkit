@@ -26,6 +26,7 @@ export async function loadDatabaseTable(
   const adapter = createAdapter(resource.format)
   const database = await adapter.connectDatabase(path)
   const records = await database.selectFrom(dialect.table).selectAll().execute()
+  console.log(records)
 
   let table = DataFrame(records).lazy()
 

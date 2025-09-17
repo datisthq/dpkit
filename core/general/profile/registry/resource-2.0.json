@@ -28,16 +28,14 @@
       "oneOf": [
         {
           "title": "Path",
-          "type": "string",
-          "pattern": "^((?=[^./~])(?!file:)((?!\\/\\.\\.\\/)(?!\\\\)(?!:\\/\\/).)*|(http|ftp)s?:\\/\\/.*)$"
+          "type": "string"
         },
         {
           "type": "array",
           "minItems": 1,
           "items": {
             "title": "Path",
-            "type": "string",
-            "pattern": "^((?=[^./~])(?!file:)((?!\\/\\.\\.\\/)(?!\\\\)(?!:\\/\\/).)*|(http|ftp)s?:\\/\\/.*)$"
+            "type": "string"
           }
         }
       ]
@@ -175,7 +173,7 @@
     "dialect": {
       "propertyOrder": 130,
       "title": "Table Dialect",
-      "type": "object",
+      "type": ["string", "object"],
       "properties": {
         "$schema": {
           "default": "https://datapackage.org/profiles/1.0/tabledialect.json",

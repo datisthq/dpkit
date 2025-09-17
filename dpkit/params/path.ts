@@ -30,14 +30,9 @@ export const positionalFilePaths = new Argument(
   "local paths to files",
 )
 
-export const toPath = new Option("--to-path <path>", "a local output path")
+export const toPath = new Option("--to-path <toPath>", "a local output path")
 
-export const toFolder = new Option(
-  "--to-folder <path>",
-  "a local output folder path",
-)
-
-export const toArchive = new Option(
-  "--to-archive <path>",
-  "a local output zip file path",
-)
+export const toPathRequired = new Option(
+  "--to-path <toPath>",
+  "a local output path",
+).makeOptionMandatory()

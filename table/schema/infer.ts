@@ -15,6 +15,7 @@ export interface InferSchemaOptions extends SchemaOptions {
   monthFirst?: boolean
   keepStrings?: boolean
 }
+
 export async function inferSchemaFromTable(
   table: Table,
   options?: InferSchemaOptions,
@@ -58,7 +59,7 @@ export function inferSchemaFromSample(
     }
 
     let field = { name, type }
-    if (!keepStrings && type === "string") {
+    if (!keepStrings && type === "string" && !fieldTypes?.[name]) {
       for (const [regex, patch] of Object.entries(regexMapping)) {
         const failures = sample
           .filter(col(name).str.contains(regex).not())

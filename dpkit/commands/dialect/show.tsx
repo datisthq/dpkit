@@ -1,5 +1,6 @@
 import { loadDialect } from "@dpkit/all"
-import type { Dialect } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
+import { loadResourceDialect } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { DialectGrid } from "../../components/DialectGrid.tsx"
@@ -26,27 +27,16 @@ export const showDialectCommand = new Command("show")
       debug: options.debug,
     })
 
-    let dialect: Dialect | undefined
+    const resource: Partial<Resource> | undefined = !path
+      ? await selectResource(session, options)
+      : undefined
 
-    if (!path) {
-      const resource = await selectResource(session, options)
-      if (!resource.dialect) {
-        Session.terminate("Dialect is not available")
-      }
+    const dialect = await session.task(
+      "Loading dialect",
+      path ? loadDialect(path) : loadResourceDialect(resource?.dialect),
+    )
 
-      if (typeof resource.dialect !== "string") {
-        dialect = resource.dialect
-      } else {
-        path = resource.dialect
-      }
-    }
-
-    if (!dialect) {
-      // @ts-ignore
-      dialect = await session.task("Loading dialect", loadDialect(path))
-    }
-
-    if (isEmptyObject(dialect)) {
+    if (!dialect || isEmptyObject(dialect)) {
       Session.terminate("Dialect is not available")
     }
 

@@ -1,6 +1,7 @@
-import { inferSchemaFromTable, loadResourceSchema, loadTable } from "@dpkit/all"
-import { normalizeTable } from "@dpkit/all"
-import type { Resource, Schema } from "@dpkit/all"
+import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/all"
+import { loadSchema } from "@dpkit/all"
+import { loadDialect, loadTable, normalizeTable } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
@@ -20,6 +21,7 @@ export const exploreTableCommand = new Command("explore")
   .addOption(params.debug)
 
   .optionsGroup("Table Dialect")
+  .addOption(params.dialect)
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -37,8 +39,10 @@ export const exploreTableCommand = new Command("explore")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+  .addOption(params.sampleBytes)
 
   .optionsGroup("Table Schema")
+  .addOption(params.schema)
   .addOption(params.fieldNames)
   .addOption(params.fieldTypes)
   .addOption(params.missingValues)
@@ -56,6 +60,11 @@ export const exploreTableCommand = new Command("explore")
   .addOption(params.listItemType)
   .addOption(params.geopointFormat)
   .addOption(params.geojsonFormat)
+  .addOption(params.sampleRows)
+  .addOption(params.confidence)
+  .addOption(params.commaDecimal)
+  .addOption(params.monthFirst)
+  .addOption(params.keepStrings)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -63,17 +72,24 @@ export const exploreTableCommand = new Command("explore")
       debug: options.debug,
     })
 
+    const dialect = options.dialect
+      ? await session.task("Loading dialect", loadDialect(options.dialect))
+      : createDialectFromOptions(options)
+
+    let schema = options.schema
+      ? await session.task("Loading schema", loadSchema(options.schema))
+      : undefined
+
     const resource: Partial<Resource> = path
-      ? { path, dialect: createDialectFromOptions(options) }
+      ? { path, dialect, schema }
       : await selectResource(session, options)
 
-    const table = await session.task(
+    let table = await session.task(
       "Loading table",
       loadTable(resource, { denormalized: true }),
     )
 
-    let schema: Schema | undefined
-    if (resource.schema) {
+    if (!schema && resource.schema) {
       schema = await session.task(
         "Loading schema",
         loadResourceSchema(resource.schema),
@@ -83,12 +99,17 @@ export const exploreTableCommand = new Command("explore")
     if (!schema) {
       schema = await session.task(
         "Inferring schema",
-        // TODO: Fix typing
-        // @ts-ignore
         inferSchemaFromTable(table, options),
       )
     }
 
-    await session.task("Normalizing table", normalizeTable(table, schema))
-    await session.render(table, <TableGrid table={table} schema={schema} />)
+    table = await session.task(
+      "Normalizing table",
+      normalizeTable(table, schema),
+    )
+
+    await session.render(
+      table,
+      <TableGrid table={table} schema={schema} withTypes />,
+    )
   })

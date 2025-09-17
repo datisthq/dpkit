@@ -1,10 +1,14 @@
 import { getTempFilePath, loadFile } from "@dpkit/all"
+import { loadSchema } from "@dpkit/all"
+import { loadDialect } from "@dpkit/all"
 import { loadTable, saveTable } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
 import { Command } from "commander"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { createToDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
+import { createSchemaOptionsFromToSchemaOptions } from "../../helpers/schema.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
@@ -19,9 +23,11 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.fromResource)
   .addOption(params.toPath)
   .addOption(params.toFormat)
+  .addOption(params.overwrite)
   .addOption(params.debug)
 
   .optionsGroup("Table Dialect")
+  .addOption(params.dialect)
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -39,8 +45,10 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+  .addOption(params.sampleBytes)
 
   .optionsGroup("Table Schema")
+  .addOption(params.schema)
   .addOption(params.fieldNames)
   .addOption(params.fieldTypes)
   .addOption(params.missingValues)
@@ -58,8 +66,14 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.listItemType)
   .addOption(params.geopointFormat)
   .addOption(params.geojsonFormat)
+  .addOption(params.sampleRows)
+  .addOption(params.confidence)
+  .addOption(params.commaDecimal)
+  .addOption(params.monthFirst)
+  .addOption(params.keepStrings)
 
   .optionsGroup("Table Dialect (output)")
+  .addOption(params.toDialect)
   .addOption(params.toDelimiter)
   .addOption(params.toHeader)
   .addOption(params.toHeaderRows)
@@ -78,27 +92,67 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.toSheetName)
   .addOption(params.toTable)
 
+  .optionsGroup("Table Schema (output)")
+  .addOption(params.toSchema)
+  .addOption(params.toFieldNames)
+  .addOption(params.toFieldTypes)
+  .addOption(params.toMissingValues)
+  .addOption(params.toStringFormat)
+  .addOption(params.toDecimalChar)
+  .addOption(params.toGroupChar)
+  .addOption(params.toBareNumber)
+  .addOption(params.toTrueValues)
+  .addOption(params.toFalseValues)
+  .addOption(params.toDatetimeFormat)
+  .addOption(params.toDateFormat)
+  .addOption(params.toTimeFormat)
+  .addOption(params.toArrayType)
+  .addOption(params.toListDelimiter)
+  .addOption(params.toListItemType)
+  .addOption(params.toGeopointFormat)
+  .addOption(params.toGeojsonFormat)
+
   // TODO: Add support for output table schema
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Table errors",
+      title: "Convert table",
+      text: !options.toPath,
       debug: options.debug,
     })
 
-    const resource = path
-      ? { path, dialect: createDialectFromOptions(options) }
+    const dialect = options.dialect
+      ? await session.task("Loading dialect", loadDialect(options.dialect))
+      : createDialectFromOptions(options)
+
+    const schema = options.schema
+      ? await session.task("Loading schema", loadSchema(options.schema))
+      : undefined
+
+    const resource: Partial<Resource> = path
+      ? { path, dialect, schema }
       : await selectResource(session, options)
 
     const table = await session.task(
       "Loading table",
-      // TODO: Fix typing
-      // @ts-ignore
       loadTable(resource, options),
     )
 
     const toPath = options.toPath ?? getTempFilePath()
-    const toDialect = createToDialectFromOptions(options)
+
+    const toDialect = options.toDialect
+      ? await session.task(
+          "Loading dialect (output)",
+          loadDialect(options.toDialect),
+        )
+      : createToDialectFromOptions(options)
+
+    const toSchema = options.toSchema
+      ? await session.task(
+          "Loading schema (output)",
+          loadSchema(options.toSchema),
+        )
+      : undefined
 
     await session.task(
       "Saving table",
@@ -106,14 +160,16 @@ export const convertTableCommand = new Command("convert")
         path: toPath,
         format: options.toFormat,
         dialect: toDialect,
+        schema: toSchema,
+        overwrite: options.overwrite,
+        ...createSchemaOptionsFromToSchemaOptions(options),
       }),
     )
 
     if (!options.toPath) {
       const buffer = await loadFile(toPath)
-      console.log(buffer.toString().trim())
-      return
+      session.render(buffer.toString())
     }
 
-    console.log(`Converted table from ${path} to ${options.toPath}`)
+    session.success(`Converted table from ${path} to ${options.toPath}`)
   })

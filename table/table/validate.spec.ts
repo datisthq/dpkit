@@ -18,7 +18,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
 
       expect(errors).toEqual([])
     })
@@ -37,7 +37,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toEqual([
         {
           type: "field/name",
@@ -62,7 +62,7 @@ describe("validateTable", () => {
       ],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors).toContainEqual({
       type: "fields/extra",
       fieldNames: ["age"],
@@ -81,7 +81,7 @@ describe("validateTable", () => {
       ],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors).toContainEqual({
       type: "fields/missing",
       fieldNames: ["name"],
@@ -103,7 +103,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -122,7 +122,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toContainEqual({
         type: "fields/extra",
         fieldNames: ["age"],
@@ -142,7 +142,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toContainEqual({
         type: "fields/missing",
         fieldNames: ["name"],
@@ -166,7 +166,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -184,7 +184,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -201,7 +201,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toContainEqual({
         type: "fields/missing",
         fieldNames: ["name"],
@@ -223,7 +223,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -241,7 +241,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -260,7 +260,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toContainEqual({
         type: "fields/extra",
         fieldNames: ["age"],
@@ -283,7 +283,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toEqual([])
     })
 
@@ -301,7 +301,7 @@ describe("validateTable", () => {
         ],
       }
 
-      const errors = await validateTable(table, { schema })
+      const { errors } = await validateTable(table, { schema })
       expect(errors).toContainEqual({
         type: "fields/missing",
         fieldNames: ["id", "name"],

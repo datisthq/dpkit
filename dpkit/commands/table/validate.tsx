@@ -1,4 +1,8 @@
-import { validateResource } from "@dpkit/all"
+import { loadTable, validateTable } from "@dpkit/all"
+import { loadSchema } from "@dpkit/all"
+import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/all"
+import { loadDialect } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { ReportGrid } from "../../components/ReportGrid.tsx"
@@ -19,6 +23,7 @@ export const validateTableCommand = new Command("validate")
   .addOption(params.debug)
 
   .optionsGroup("Table Dialect")
+  .addOption(params.dialect)
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -36,6 +41,32 @@ export const validateTableCommand = new Command("validate")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+  .addOption(params.sampleBytes)
+
+  .optionsGroup("Table Schema")
+  .addOption(params.schema)
+  .addOption(params.fieldNames)
+  .addOption(params.fieldTypes)
+  .addOption(params.missingValues)
+  .addOption(params.stringFormat)
+  .addOption(params.decimalChar)
+  .addOption(params.groupChar)
+  .addOption(params.bareNumber)
+  .addOption(params.trueValues)
+  .addOption(params.falseValues)
+  .addOption(params.datetimeFormat)
+  .addOption(params.dateFormat)
+  .addOption(params.timeFormat)
+  .addOption(params.arrayType)
+  .addOption(params.listDelimiter)
+  .addOption(params.listItemType)
+  .addOption(params.geopointFormat)
+  .addOption(params.geojsonFormat)
+  .addOption(params.sampleRows)
+  .addOption(params.confidence)
+  .addOption(params.commaDecimal)
+  .addOption(params.monthFirst)
+  .addOption(params.keepStrings)
 
   // TODO: Add schema options
 
@@ -46,13 +77,40 @@ export const validateTableCommand = new Command("validate")
       debug: options.debug,
     })
 
-    const resource = path
-      ? { path, dialect: createDialectFromOptions(options) }
+    const dialect = options.dialect
+      ? await session.task("Loading dialect", loadDialect(options.dialect))
+      : createDialectFromOptions(options)
+
+    let schema = options.schema
+      ? await session.task("Loading schema", loadSchema(options.schema))
+      : undefined
+
+    const resource: Partial<Resource> = path
+      ? { path, dialect, schema }
       : await selectResource(session, options)
+
+    const table = await session.task(
+      "Loading table",
+      loadTable(resource, { denormalized: true }),
+    )
+
+    if (!schema && resource.schema) {
+      schema = await session.task(
+        "Loading schema",
+        loadResourceSchema(options.schema ?? resource.schema),
+      )
+    }
+
+    if (!schema) {
+      schema = await session.task(
+        "Inferring schema",
+        inferSchemaFromTable(table, options),
+      )
+    }
 
     const report = await session.task(
       "Validating table",
-      validateResource(resource),
+      validateTable(table, { schema }),
     )
 
     if (report.valid) {

@@ -159,16 +159,14 @@
             "oneOf": [
               {
                 "title": "Path",
-                "type": "string",
-                "pattern": "^(?=^[^./~])(^((?!\\.{2}).)*$).*$"
+                "type": "string"
               },
               {
                 "type": "array",
                 "minItems": 1,
                 "items": {
                   "title": "Path",
-                  "type": "string",
-                  "pattern": "^(?=^[^./~])(^((?!\\.{2}).)*$).*$"
+                  "type": "string"
                 }
               }
             ]
@@ -1392,7 +1390,6 @@
             "propertyOrder": 50,
             "title": "CSV Dialect",
             "type": ["string", "object"],
-            "required": ["delimiter", "doubleQuote"],
             "properties": {
               "csvddfVersion": {
                 "title": "CSV Dialect schema version",

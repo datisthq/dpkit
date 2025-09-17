@@ -13,10 +13,10 @@ export const ckanPublishPackageCommand = new Command("ckan")
   .addOption(params.debug)
 
   .optionsGroup("CKAN")
-  .addOption(params.toCkanApiKey.makeOptionMandatory())
-  .addOption(params.toCkanUrl.makeOptionMandatory())
-  .addOption(params.toCkanOwnerOrg.makeOptionMandatory())
-  .addOption(params.toCkanDatasetName.makeOptionMandatory())
+  .addOption(params.toCkanApiKey)
+  .addOption(params.toCkanUrl)
+  .addOption(params.toCkanOwnerOrg)
+  .addOption(params.toCkanDatasetName)
 
   .action(async (path, options) => {
     const session = Session.create({

@@ -12,10 +12,12 @@ export async function saveParquetTable(
     await assertLocalPathVacant(path)
   }
 
-  const schema = await inferSchemaFromTable(table, {
-    ...options,
-    keepStrings: true,
-  })
+  const schema =
+    options.schema ??
+    (await inferSchemaFromTable(table, {
+      ...options,
+      keepStrings: true,
+    }))
 
   table = await denormalizeTable(table, schema, {
     nativeTypes: [

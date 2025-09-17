@@ -1,4 +1,5 @@
 import { inferDialect } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { DialectGrid } from "../../components/DialectGrid.tsx"
@@ -17,6 +18,7 @@ export const inferDialectCommand = new Command("infer")
   .addOption(params.fromResource)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.sampleBytes)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -25,9 +27,15 @@ export const inferDialectCommand = new Command("infer")
       debug: options.debug,
     })
 
-    const resource = path ? { path } : await selectResource(session, options)
+    const resource: Partial<Resource> = path
+      ? { path }
+      : await selectResource(session, options)
 
-    const dialect = await session.task("Loading sample", inferDialect(resource))
+    const dialect = await session.task(
+      "Inferring dialect",
+      inferDialect(resource, options),
+    )
+
     if (isEmptyObject(dialect)) {
       Session.terminate("Could not infer dialect")
     }

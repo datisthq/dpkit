@@ -3,6 +3,8 @@ import { cache } from "./cache.ts"
 import type { ProfileType } from "./registry.ts"
 import { validateProfile } from "./validate.ts"
 
+// TODO: Narrow return type to valid JSON Schema
+
 export async function loadProfile(
   path: string,
   options?: { type?: ProfileType },

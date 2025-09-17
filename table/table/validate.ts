@@ -36,7 +36,7 @@ export async function validateTable(
     errors.push(...fieldErrors)
   }
 
-  return errors
+  return { errors, valid: !errors.length }
 }
 
 function validateFieldsMatch(props: {

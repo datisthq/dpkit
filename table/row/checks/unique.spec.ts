@@ -18,7 +18,7 @@ describe("validateTable (row/unique)", () => {
       primaryKey: ["id"],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
@@ -36,7 +36,7 @@ describe("validateTable (row/unique)", () => {
       primaryKey: ["id"],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors.filter(e => e.type === "row/unique")).toHaveLength(1)
     expect(errors).toContainEqual({
       type: "row/unique",
@@ -65,7 +65,7 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["email"]],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
@@ -89,7 +89,7 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["email"]],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors.filter(e => e.type === "row/unique")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "row/unique",
@@ -119,7 +119,7 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["category", "subcategory"]],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors.filter(e => e.type === "row/unique")).toHaveLength(1)
     expect(errors).toContainEqual({
       type: "row/unique",
@@ -149,7 +149,7 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["email"]],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
     expect(errors.filter(e => e.type === "row/unique")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "row/unique",
@@ -177,7 +177,7 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["id"], ["id", "name"]],
     }
 
-    const errors = await validateTable(table, { schema })
+    const { errors } = await validateTable(table, { schema })
 
     expect(errors).toHaveLength(2)
     expect(errors).toContainEqual({

@@ -3,6 +3,7 @@ import { loadResourceSchema } from "@dpkit/core"
 import { loadDescriptor, validateResourceDescriptor } from "@dpkit/core"
 import { validateFile } from "@dpkit/file"
 import { validateTable } from "@dpkit/table"
+import type { InferSchemaOptions } from "@dpkit/table"
 import { inferSchema } from "../schema/index.ts"
 import { loadTable } from "../table/index.ts"
 
@@ -10,7 +11,7 @@ import { loadTable } from "../table/index.ts"
 
 export async function validateResource(
   source: string | Descriptor | Partial<Resource>,
-  options?: { basepath?: string },
+  options?: InferSchemaOptions & { basepath?: string },
 ) {
   let descriptor = source
   let basepath = options?.basepath
@@ -43,13 +44,10 @@ export async function validateResource(
     // TODO: rebase on not-rasing?
     // It will raise if the resource is not a table
     let schema = await loadResourceSchema(resource.schema)
-    if (!schema) schema = await inferSchema(resource)
+    if (!schema) schema = await inferSchema(resource, options)
 
     const table = await loadTable(resource, { denormalized: true })
-    const errors = await validateTable(table, { schema })
-
-    const valid = errors.length === 0
-    return { valid, errors }
+    return await validateTable(table, { schema })
   } catch {}
 
   return { valid: true, errors: [] }

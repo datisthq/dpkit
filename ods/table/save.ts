@@ -7,10 +7,12 @@ import { utils, write } from "xlsx"
 export async function saveOdsTable(table: Table, options: SaveTableOptions) {
   const { path, overwrite } = options
 
-  const schema = await inferSchemaFromTable(table, {
-    ...options,
-    keepStrings: true,
-  })
+  const schema =
+    options.schema ??
+    (await inferSchemaFromTable(table, {
+      ...options,
+      keepStrings: true,
+    }))
 
   table = await denormalizeTable(table, schema, {
     nativeTypes: ["boolean", "integer", "number", "string", "year"],

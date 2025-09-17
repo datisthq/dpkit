@@ -1,4 +1,7 @@
 import { loadTable } from "@dpkit/all"
+import { loadSchema } from "@dpkit/all"
+import type { Resource } from "@dpkit/all"
+import { loadDialect } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { DataGrid } from "../../components/DataGrid.tsx"
@@ -19,6 +22,7 @@ export const statsTableCommand = new Command("stats")
   .addOption(params.debug)
 
   .optionsGroup("Table Dialect")
+  .addOption(params.dialect)
   .addOption(params.delimiter)
   .addOption(params.header)
   .addOption(params.headerRows)
@@ -36,8 +40,10 @@ export const statsTableCommand = new Command("stats")
   .addOption(params.sheetNumber)
   .addOption(params.sheetName)
   .addOption(params.table)
+  .addOption(params.sampleBytes)
 
   .optionsGroup("Table Schema")
+  .addOption(params.schema)
   .addOption(params.fieldNames)
   .addOption(params.fieldTypes)
   .addOption(params.missingValues)
@@ -55,6 +61,11 @@ export const statsTableCommand = new Command("stats")
   .addOption(params.listItemType)
   .addOption(params.geopointFormat)
   .addOption(params.geojsonFormat)
+  .addOption(params.sampleRows)
+  .addOption(params.confidence)
+  .addOption(params.commaDecimal)
+  .addOption(params.monthFirst)
+  .addOption(params.keepStrings)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -63,14 +74,20 @@ export const statsTableCommand = new Command("stats")
       debug: options.debug,
     })
 
-    const resource = path
-      ? { path, dialect: createDialectFromOptions(options) }
+    const dialect = options.dialect
+      ? await session.task("Loading dialect", loadDialect(options.dialect))
+      : createDialectFromOptions(options)
+
+    const schema = options.schema
+      ? await session.task("Loading schema", loadSchema(options.schema))
+      : undefined
+
+    const resource: Partial<Resource> = path
+      ? { path, dialect, schema }
       : await selectResource(session, options)
 
     const table = await session.task(
       "Loading table",
-      // TODO: Fix typing
-      // @ts-ignore
       loadTable(resource, options),
     )
 
