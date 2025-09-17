@@ -1,5 +1,11 @@
 # dpkit
 
+## 0.12.1
+
+### Patch Changes
+
+- 493ceb0: Removed node experimental warnings
+
 ## 0.12.0
 
 ### Minor Changes
