@@ -20,13 +20,12 @@ export async function loadFileStream(
 
   const isRemote = isRemotePath(path)
   const stream = isRemote
-    ? await loadRemoteFileStream(path)
-    : await loadLocalFileStream(path)
+    ? await loadRemoteFileStream(path, options)
+    : await loadLocalFileStream(path, options)
 
   return stream
 }
 
-// TODO: support maxBytes
 async function loadRemoteFileStream(
   path: string,
   options?: { maxBytes?: number },
@@ -49,7 +48,8 @@ async function loadLocalFileStream(
   path: string,
   options?: { maxBytes?: number },
 ) {
-  return createReadStream(path, { end: options?.maxBytes })
+  const end = options?.maxBytes ? options.maxBytes - 1 : undefined
+  return createReadStream(path, { end })
 }
 
 function limitBytesStream(inputStream: Readable, maxBytes: number) {
@@ -57,12 +57,13 @@ function limitBytesStream(inputStream: Readable, maxBytes: number) {
   return inputStream.pipe(
     new Transform({
       transform(chunk, _encoding, callback) {
-        total += chunk.length
-        if (total > maxBytes) {
+        if (total >= maxBytes) {
           callback(new Error("Byte limit exceeded"))
-        } else {
-          callback(null, chunk)
+          return
         }
+
+        total += chunk.length
+        callback(null, chunk)
       },
     }),
   )
