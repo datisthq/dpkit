@@ -173,7 +173,7 @@
     "dialect": {
       "propertyOrder": 130,
       "title": "Table Dialect",
-      "type": "object",
+      "type": ["string", "object"],
       "properties": {
         "$schema": {
           "default": "https://datapackage.org/profiles/1.0/tabledialect.json",
