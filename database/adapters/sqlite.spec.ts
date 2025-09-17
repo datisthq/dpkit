@@ -15,9 +15,7 @@ const dialect = { table: "dpkit" }
 const record1 = { id: 1, name: "english" }
 const record2 = { id: 2, name: "中文" }
 
-// TODO: Enable after fixing problem:
-// https://github.com/pnpm/pnpm/issues/9073
-describe.skipIf(process.env.CI)("SqliteAdapter", () => {
+describe("SqliteAdapter", () => {
   it("should infer schema", async () => {
     const path = getTempFilePath()
 
@@ -27,7 +25,13 @@ describe.skipIf(process.env.CI)("SqliteAdapter", () => {
       Series("number", [1.1], DataType.Float64),
     ]).lazy()
 
-    await saveDatabaseTable(source, { path, dialect, format: "sqlite" })
+    await saveDatabaseTable(source, {
+      path,
+      dialect,
+      format: "sqlite",
+      overwrite: true,
+    })
+
     const schema = await inferDatabaseSchema({
       path,
       dialect,
@@ -47,9 +51,14 @@ describe.skipIf(process.env.CI)("SqliteAdapter", () => {
     const path = getTempFilePath()
 
     const source = DataFrame([record1, record2]).lazy()
-    await saveDatabaseTable(source, { path, dialect, format: "sqlite" })
-    const target = await loadDatabaseTable({ path, dialect, format: "sqlite" })
+    await saveDatabaseTable(source, {
+      path,
+      dialect,
+      format: "sqlite",
+      overwrite: true,
+    })
 
+    const target = await loadDatabaseTable({ path, dialect, format: "sqlite" })
     expect((await target.collect()).toRecords()).toEqual([record1, record2])
   })
 
@@ -57,9 +66,14 @@ describe.skipIf(process.env.CI)("SqliteAdapter", () => {
     const path = `sqlite://${getTempFilePath()}`
 
     const source = DataFrame([record1, record2]).lazy()
-    await saveDatabaseTable(source, { path, dialect, format: "sqlite" })
-    const target = await loadDatabaseTable({ path, dialect, format: "sqlite" })
+    await saveDatabaseTable(source, {
+      path,
+      dialect,
+      format: "sqlite",
+      overwrite: true,
+    })
 
+    const target = await loadDatabaseTable({ path, dialect, format: "sqlite" })
     expect((await target.collect()).toRecords()).toEqual([record1, record2])
   })
 
@@ -88,6 +102,7 @@ describe.skipIf(process.env.CI)("SqliteAdapter", () => {
       path,
       dialect,
       format: "sqlite",
+      overwrite: true,
       fieldTypes: {
         geojson: "geojson",
         geopoint: "geopoint",
