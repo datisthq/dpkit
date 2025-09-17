@@ -1,5 +1,11 @@
 # @dpkit/core
 
+## 0.12.0
+
+### Minor Changes
+
+- 498d02d: Improved table in command-line
+
 ## 0.11.0
 
 ### Minor Changes

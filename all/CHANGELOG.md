@@ -1,5 +1,33 @@
 # @dpkit/all
 
+## 0.11.0
+
+### Minor Changes
+
+- 498d02d: Improved table in command-line
+
+### Patch Changes
+
+- Updated dependencies [498d02d]
+  - @dpkit/database@0.6.0
+  - @dpkit/parquet@0.6.0
+  - @dpkit/arrow@0.5.0
+  - @dpkit/table@0.11.0
+  - @dpkit/core@0.12.0
+  - @dpkit/json@0.7.0
+  - @dpkit/xlsx@0.6.0
+  - @dpkit/csv@0.8.0
+  - @dpkit/ods@0.6.0
+  - @dpkit/inline@0.8.3
+  - @dpkit/camtrap@0.7.1
+  - @dpkit/ckan@0.9.1
+  - @dpkit/datahub@0.9.1
+  - @dpkit/file@0.10.1
+  - @dpkit/folder@0.10.1
+  - @dpkit/github@0.10.1
+  - @dpkit/zenodo@0.9.1
+  - @dpkit/zip@0.9.1
+
 ## 0.10.3
 
 ### Patch Changes

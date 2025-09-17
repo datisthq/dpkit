@@ -1,5 +1,12 @@
 # @dpkit/camtrap
 
+## 0.7.1
+
+### Patch Changes
+
+- Updated dependencies [498d02d]
+  - @dpkit/core@0.12.0
+
 ## 0.7.0
 
 ### Minor Changes
