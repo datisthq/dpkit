@@ -115,14 +115,14 @@ function createRegexMapping(options?: InferSchemaOptions) {
   const mapping: Record<string, Partial<Field>> = {
     // Numeric
     "^\\d+$": { type: "integer" },
-    "^[,\\d]+$": commaDecimal
+    "^\\d{1,3}(,\\d{3})+$": commaDecimal
       ? { type: "number" }
       : { type: "integer", groupChar: "," },
     "^\\d+\\.\\d+$": commaDecimal
       ? { type: "integer", groupChar: "." }
       : { type: "number" },
-    "^[,\\d]+\\.\\d+$": { type: "number", groupChar: "," },
-    "^[.\\d]+\\,\\d+$": { type: "number", groupChar: ".", decimalChar: "," },
+    "^\\d{1,3}(,\\d{3})+\\.\\d+$": { type: "number", groupChar: "," },
+    "^\\d{1,3}(\\.\\d{3})+,\\d+$": { type: "number", groupChar: ".", decimalChar: "," },
 
     // Boolean
     "^(true|True|TRUE|false|False|FALSE)$": { type: "boolean" },

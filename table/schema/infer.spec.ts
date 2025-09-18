@@ -23,7 +23,7 @@ describe("inferSchemaFromTable", () => {
   it("should infer numeric", async () => {
     const table = DataFrame({
       name1: ["1", "2", "3"],
-      name2: ["1,1", "2,2", "3,3"],
+      name2: ["1,000", "2,000", "3,000"],
       name3: ["1.1", "2.2", "3.3"],
       name4: ["1,000.1", "2,000.2", "3,000.3"],
     }).lazy()
@@ -42,8 +42,8 @@ describe("inferSchemaFromTable", () => {
 
   it("should infer numeric (commaDecimal)", async () => {
     const table = DataFrame({
-      name1: ["1.1", "2.2", "3.3"],
-      name2: ["1.1,0", "2.2,0", "3.3,0"],
+      name1: ["1.000", "2.000", "3.000"],
+      name2: ["1.000,5", "2.000,5", "3.000,5"],
     }).lazy()
 
     const schema = {
