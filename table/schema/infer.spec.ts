@@ -293,4 +293,23 @@ describe("inferSchemaFromTable", () => {
       schemaMonthFirst,
     )
   })
+
+  it("should infer lists", async () => {
+    const table = DataFrame({
+      numericList: ["1.5,2.3", "4.1,5.9", "7.2,8.6"],
+      integerList: ["1,2", "3,4", "5,6"],
+      singleValue: ["1.5", "2.3", "4.1"],
+    }).lazy()
+
+    const schema = {
+      fields: [
+        { name: "numericList", type: "list", itemType: "number" },
+        { name: "integerList", type: "list", itemType: "integer" },
+        { name: "singleValue", type: "number" },
+      ],
+      missingValues: undefined,
+    }
+
+    expect(await inferSchemaFromTable(table)).toEqual(schema)
+  })
 })

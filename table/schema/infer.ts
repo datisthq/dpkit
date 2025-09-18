@@ -122,7 +122,11 @@ function createRegexMapping(options?: InferSchemaOptions) {
       ? { type: "integer", groupChar: "." }
       : { type: "number" },
     "^\\d{1,3}(,\\d{3})+\\.\\d+$": { type: "number", groupChar: "," },
-    "^\\d{1,3}(\\.\\d{3})+,\\d+$": { type: "number", groupChar: ".", decimalChar: "," },
+    "^\\d{1,3}(\\.\\d{3})+,\\d+$": {
+      type: "number",
+      groupChar: ".",
+      decimalChar: ",",
+    },
 
     // Boolean
     "^(true|True|TRUE|false|False|FALSE)$": { type: "boolean" },
@@ -171,6 +175,11 @@ function createRegexMapping(options?: InferSchemaOptions) {
 
     // Array
     "^\\[": { type: "array" },
+
+    // List
+    // TODO: Support commaDecimal
+    "^\\d+,\\d+$": { type: "list", itemType: "integer" },
+    "^[\\d.]+,[\\d.]+$": { type: "list", itemType: "number" },
   }
 
   return mapping
