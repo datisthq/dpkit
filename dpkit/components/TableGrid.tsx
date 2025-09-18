@@ -13,6 +13,7 @@ export function TableGrid(props: {
   schema?: Schema
   borderColor?: "green" | "red"
   withTypes?: boolean
+  quit?: boolean
 }) {
   const { table, schema, borderColor } = props
 
@@ -21,13 +22,13 @@ export function TableGrid(props: {
   const [row, setRow] = useState(0)
   const [page, setPage] = useState(1)
   const [order, setOrder] = useState<Order>()
-  const [records, setRecords] = useState<DataRecord[]>([])
+  const [records, setRecords] = useState<DataRecord[]>()
 
-  const handleColChange = async (col: number) => {
-    if (col === 0) return
-    if (col > table.columns.length) return
+  const handleColChange = async (newCol: number) => {
+    if (newCol <= 0) return
+    if (newCol > table.columns.length) return
 
-    setCol(col)
+    setCol(newCol)
   }
 
   const handleRowChange = async (row: number) => {
@@ -38,7 +39,7 @@ export function TableGrid(props: {
       if (page === 1) return
       handlePageChange(page - 1)
       row = 10
-    } else if (row > records.length) {
+    } else if (records && row > records.length) {
       return
     }
 
@@ -78,6 +79,10 @@ export function TableGrid(props: {
   useEffect(() => {
     handlePageChange(1)
   }, [table])
+
+  useEffect(() => {
+    if (records && props.quit) exit()
+  }, [records])
 
   useInput((input, key) => {
     if (key.escape || input === "q") {
@@ -119,6 +124,10 @@ export function TableGrid(props: {
       handleOrderChange(nextOrder)
     }
   })
+
+  if (!records) {
+    return null
+  }
 
   return (
     <Box flexDirection="column">

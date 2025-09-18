@@ -21,6 +21,7 @@ export const errorsTableCommand = new Command("errors")
   .addOption(params.fromResource)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.quit)
 
   .optionsGroup("Table Dialect")
   .addOption(params.dialect)
@@ -117,5 +118,5 @@ export const errorsTableCommand = new Command("errors")
       session.success("Table is valid")
     }
 
-    session.render(report, <ReportGrid report={report} />)
+    session.render(report, <ReportGrid report={report} quit={options.quit} />)
   })

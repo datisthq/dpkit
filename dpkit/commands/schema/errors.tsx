@@ -18,6 +18,7 @@ export const errorsSchemaCommand = new Command("errors")
   .addOption(params.fromResource)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.quit)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -56,5 +57,5 @@ export const errorsSchemaCommand = new Command("errors")
       session.success("Schema is valid")
     }
 
-    session.render(report, <ReportGrid report={report} />)
+    session.render(report, <ReportGrid report={report} quit={options.quit} />)
   })

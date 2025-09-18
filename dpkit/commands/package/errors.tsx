@@ -13,6 +13,7 @@ export const errorsPackageCommand = new Command("errors")
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.quit)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -27,5 +28,5 @@ export const errorsPackageCommand = new Command("errors")
       session.success("Package is valid")
     }
 
-    session.render(report, <ReportGrid report={report} />)
+    session.render(report, <ReportGrid report={report} quit={options.quit} />)
   })

@@ -15,6 +15,7 @@ export const errorsFileCommand = new Command("errors")
   .addOption(params.hash)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.quit)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -39,5 +40,5 @@ export const errorsFileCommand = new Command("errors")
       session.success("File is valid")
     }
 
-    session.render(report, <ReportGrid report={report} />)
+    session.render(report, <ReportGrid report={report} quit={options.quit} />)
   })

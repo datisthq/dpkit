@@ -16,6 +16,7 @@ export const errorsResourceCommand = new Command("errors")
   .addOption(params.fromResource)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.quit)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -35,5 +36,5 @@ export const errorsResourceCommand = new Command("errors")
       session.success("Resource is valid")
     }
 
-    session.render(report, <ReportGrid report={report} />)
+    session.render(report, <ReportGrid report={report} quit={options.quit} />)
   })

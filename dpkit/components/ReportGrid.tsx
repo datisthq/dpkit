@@ -5,10 +5,12 @@ import { DataGrid } from "./DataGrid.tsx"
 import { TableGrid } from "./TableGrid.tsx"
 
 // TODO: Improve implementation (esp. typing)
+// TODO: Split Error/ReportGrid?
 
 export function ReportGrid(props: {
   report: { valid: boolean; errors: Record<string, any>[] }
   groupBy?: "type" | "resource/type"
+  quit?: boolean
 }) {
   const { report, groupBy } = props
 
@@ -41,5 +43,5 @@ export function ReportGrid(props: {
   }
 
   const table = DataFrame(report.errors).lazy()
-  return <TableGrid borderColor="red" table={table} />
+  return <TableGrid borderColor="red" table={table} quit={props.quit} />
 }
