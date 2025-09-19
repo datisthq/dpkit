@@ -2,7 +2,7 @@ import { validatePackage } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
 import { ErrorGrid } from "../../components/ErrorGrid.tsx"
-import { selectErrorType } from "../../helpers/error.ts"
+import { selectErrorResource, selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
@@ -29,12 +29,14 @@ export const validatePackageCommand = new Command("validate")
     )
 
     if (report.errors.length && !options.quit) {
-      const type = await selectErrorType(session, report.errors)
+      // @ts-ignore
+      const name = await selectErrorResource(session, report.errors)
+      // @ts-ignore
+      if (name) report.errors = report.errors.filter(e => e.resource === name)
 
-      if (type) {
-        // @ts-ignore
-        report.errors = report.errors.filter(error => error.type === type)
-      }
+      const type = await selectErrorType(session, report.errors)
+      // @ts-ignore
+      if (type) report.errors = report.errors.filter(e => e.type === type)
     }
 
     if (report.valid) {

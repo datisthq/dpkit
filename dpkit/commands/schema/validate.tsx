@@ -56,10 +56,7 @@ export const validateSchemaCommand = new Command("validate")
 
     if (report.errors.length && !options.quit) {
       const type = await selectErrorType(session, report.errors)
-
-      if (type) {
-        report.errors = report.errors.filter(error => error.type === type)
-      }
+      if (type) report.errors = report.errors.filter(e => e.type === type)
     }
 
     if (report.valid) {
