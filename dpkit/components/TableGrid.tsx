@@ -141,12 +141,12 @@ export function TableGrid(props: {
         borderColor={borderColor}
         withTypes={props.withTypes}
       />
-      <Help />
+      <Help page={page} />
     </Box>
   )
 }
 
-function Help() {
+function Help(props: { page: number }) {
   const { exit } = useApp()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -163,6 +163,9 @@ function Help() {
   if (!isOpen) {
     return (
       <Box paddingLeft={1}>
+        <Text dimColor>page </Text>
+        <Text>{props.page}</Text>
+        <Text>{", "}</Text>
         <HelpItem button="d" description="to toggle docs" />
         <Text>{", "}</Text>
         <HelpItem button="q" description="to quit" />
