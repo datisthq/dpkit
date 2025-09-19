@@ -1,5 +1,4 @@
 import { setImmediate } from "node:timers/promises"
-import { setTimeout } from "node:timers/promises"
 import { spinner } from "@clack/prompts"
 import { intro, log, outro, select } from "@clack/prompts"
 import type { SelectOptions } from "@clack/prompts"
