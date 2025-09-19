@@ -1,7 +1,6 @@
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { copyPackageCommand } from "./copy.ts"
-import { errorsPackageCommand } from "./errors.tsx"
 import { inferPackageCommand } from "./infer.tsx"
 import { publishPackageCommand } from "./publish/index.ts"
 import { showPackageCommand } from "./show.tsx"
@@ -12,7 +11,6 @@ export const packageCommand = new Command("package")
   .description("Data Package related commands")
 
   .addCommand(copyPackageCommand)
-  .addCommand(errorsPackageCommand)
   .addCommand(inferPackageCommand)
   .addCommand(showPackageCommand)
   .addCommand(publishPackageCommand)

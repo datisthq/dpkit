@@ -1,7 +1,8 @@
 import { validatePackage } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
-import { ReportGrid } from "../../components/ReportGrid.tsx"
+import { ErrorGrid } from "../../components/ErrorGrid.tsx"
+import { selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
@@ -13,6 +14,7 @@ export const validatePackageCommand = new Command("validate")
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.quit)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -26,12 +28,21 @@ export const validatePackageCommand = new Command("validate")
       validatePackage(path),
     )
 
+    if (report.errors.length && !options.quit) {
+      const type = await selectErrorType(session, report.errors)
+
+      if (type) {
+        // @ts-ignore
+        report.errors = report.errors.filter(error => error.type === type)
+      }
+    }
+
     if (report.valid) {
-      session.success("Package is valid")
+      session.success("Table is valid")
     }
 
     session.render(
       report,
-      <ReportGrid report={report} groupBy="resource/type" />,
+      <ErrorGrid errors={report.errors} quit={options.quit} />,
     )
   })

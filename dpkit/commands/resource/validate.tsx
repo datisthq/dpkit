@@ -1,7 +1,8 @@
 import { validateResource } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
-import { ReportGrid } from "../../components/ReportGrid.tsx"
+import { ErrorGrid } from "../../components/ErrorGrid.tsx"
+import { selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
@@ -16,6 +17,7 @@ export const validateResourceCommand = new Command("validate")
   .addOption(params.fromResource)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.quit)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -31,9 +33,21 @@ export const validateResourceCommand = new Command("validate")
       validateResource(descriptor),
     )
 
-    if (report.valid) {
-      session.success("Resource is valid")
+    if (report.errors.length && !options.quit) {
+      const type = await selectErrorType(session, report.errors)
+
+      if (type) {
+        // @ts-ignore
+        report.errors = report.errors.filter(error => error.type === type)
+      }
     }
 
-    session.render(report, <ReportGrid report={report} groupBy="type" />)
+    if (report.valid) {
+      session.success("Table is valid")
+    }
+
+    session.render(
+      report,
+      <ErrorGrid errors={report.errors} quit={options.quit} />,
+    )
   })
