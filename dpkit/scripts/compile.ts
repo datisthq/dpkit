@@ -19,19 +19,19 @@ await $`
 pnpm deploy compile
 --legacy
 --production
---filter dpkit-cli
+--filter dpkit
 --config.node-linker=hoisted
 `
 
 // Linux
 
-await $`
-deno compile
---allow-all
---no-check
---output compile/targets/dp-${metadata.version}-x86_64-unknown-linux-gnu
-compile/main.ts
-`
+//await $`
+//deno compile
+//--allow-all
+//--no-check
+//--output compile/targets/dp-${metadata.version}-x86_64-unknown-linux-gnu
+//compile/main.ts
+//`
 
 // Clean pnpm bug (it creates an unwanted dpkit folder)
 
