@@ -11,7 +11,7 @@ import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const statsTableCommand = new Command("stats")
+export const describeTableCommand = new Command("describe")
   .configureHelp(helpConfiguration)
   .description("Show stats for a table from a local or remote path")
 
@@ -69,7 +69,7 @@ export const statsTableCommand = new Command("stats")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Table stats",
+      title: "Describe table",
       json: options.json,
       debug: options.debug,
     })
