@@ -1,21 +1,18 @@
 import { join } from "node:path"
-import { execa } from "execa"
+import * as execa from "execa"
 import metadata from "../package.json" with { type: "json" }
 
-const $ = execa({
-  preferLocal: true,
-  stdout: ["inherit"],
-  cwd: join(import.meta.dirname, ".."),
-})
+const $root = execa.$({ cwd: join(import.meta.dirname, "..") })
+const $compile = execa.$({ cwd: join(import.meta.dirname, "..", "compile") })
 
 // Cleanup
 
-await $`rm -rf compile`
-await $`mkdir compile`
+await $root`rm -rf compile`
+await $root`mkdir compile`
 
 // Build dependencies
 
-await $`
+await $root`
 pnpm deploy compile
 --legacy
 --production
@@ -25,14 +22,13 @@ pnpm deploy compile
 
 // Linux
 
-//await $`
-//deno compile
-//--allow-all
-//--no-check
-//--output compile/targets/dp-${metadata.version}-x86_64-unknown-linux-gnu
-//compile/main.ts
-//`
+await $compile`
+bun build main.ts
+--compile
+--outfile build/dp-${metadata.version}-x86_64-unknown-linux-gnu
+--target bun-linux-x64
+`
 
 // Clean pnpm bug (it creates an unwanted dpkit folder)
 
-await $`rm -r dpkit`
+await $root`rm -r dpkit`
