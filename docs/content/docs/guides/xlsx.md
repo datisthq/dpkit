@@ -177,7 +177,7 @@ const table = await loadXlsxTable({
     header: false
   }
 })
-// Columns will be: column_1, column_2, column_3, etc.
+// Columns will be: field1, field2, field3, etc.
 
 // Custom header row offset
 const table = await loadXlsxTable({

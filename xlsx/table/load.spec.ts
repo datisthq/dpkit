@@ -103,8 +103,8 @@ describe("loadXlsxTable", () => {
       })
 
       expect((await table.collect()).toRecords()).toEqual([
-        { column_1: 1, column_2: "english" },
-        { column_1: 2, column_2: "中文" },
+        { field1: 1, field2: "english" },
+        { field1: 2, field2: "中文" },
       ])
     })
 
