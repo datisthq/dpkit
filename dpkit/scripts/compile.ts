@@ -1,9 +1,14 @@
 import { join } from "node:path"
-import * as execa from "execa"
+import { execa } from "execa"
 import metadata from "../package.json" with { type: "json" }
 
-const $root = execa.$({ cwd: join(import.meta.dirname, "..") })
-const $compile = execa.$({ cwd: join(import.meta.dirname, "..", "compile") })
+function makeShell(...paths: string[]) {
+  const cwd = join(import.meta.dirname, ...paths)
+  return execa({ preferLocal: true, stdout: "inherit", cwd })
+}
+
+const $root = makeShell("..")
+const $compile = makeShell("..", "compile")
 
 // Cleanup
 
@@ -20,14 +25,22 @@ pnpm deploy compile
 --config.node-linker=hoisted
 `
 
-// Linux
+// Compile executable
 
-await $compile`
-bun build main.ts
---compile
---outfile build/dp-${metadata.version}-x86_64-unknown-linux-gnu
---target bun-linux-x64
-`
+const targets = [
+  { name: "bun-linux-x64", arch: "x86_64-unknown-linux" },
+  { name: "bun-darwin-x64", arch: "x86_64-apple-darwin" },
+  { name: "bun-windows-x64", arch: "x86_64-pc-windows" },
+]
+
+for (const target of targets) {
+  await $compile`
+  bun build main.ts
+  --compile
+  --outfile build/dp-${metadata.version}-${target.arch}/dp
+  --target ${target.name}
+  `
+}
 
 // Clean pnpm bug (it creates an unwanted dpkit folder)
 
