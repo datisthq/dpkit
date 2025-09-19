@@ -1,18 +1,18 @@
-import { loadDialect } from "@dpkit/all"
+import { loadSchema } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
-import { loadResourceDialect } from "@dpkit/all"
+import { loadResourceSchema } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
-import { DialectGrid } from "../../components/DialectGrid.tsx"
+import { SchemaGrid } from "../../components/SchemaGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { isEmptyObject } from "../../helpers/object.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const showDialectCommand = new Command("show")
+export const exploreSchemaCommand = new Command("explore")
   .configureHelp(helpConfiguration)
-  .description("Show a table dialect from a local or remote path")
+  .description("Explore a table schema from a local or remote path")
 
   .addArgument(params.positionalTablePath)
   .addOption(params.fromPackage)
@@ -22,7 +22,7 @@ export const showDialectCommand = new Command("show")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Show dialect",
+      title: "Explore schema",
       json: options.json,
       debug: options.debug,
     })
@@ -31,14 +31,14 @@ export const showDialectCommand = new Command("show")
       ? await selectResource(session, options)
       : undefined
 
-    const dialect = await session.task(
-      "Loading dialect",
-      path ? loadDialect(path) : loadResourceDialect(resource?.dialect),
+    const schema = await session.task(
+      "Loading schema",
+      path ? loadSchema(path) : loadResourceSchema(resource?.schema),
     )
 
-    if (!dialect || isEmptyObject(dialect)) {
-      Session.terminate("Dialect is not available")
+    if (!schema || isEmptyObject(schema)) {
+      Session.terminate("Schema is not available")
     }
 
-    await session.render(dialect, <DialectGrid dialect={dialect} />)
+    await session.render(schema, <SchemaGrid schema={schema} />)
   })

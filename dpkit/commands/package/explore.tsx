@@ -6,9 +6,9 @@ import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const showPackageCommand = new Command("show")
+export const explorePackageCommand = new Command("explore")
   .configureHelp(helpConfiguration)
-  .description("Show a Data Package descriptor")
+  .description("Explore a Data Package descriptor")
 
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.json)
@@ -16,7 +16,7 @@ export const showPackageCommand = new Command("show")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Show package",
+      title: "Explore package",
       json: options.json,
       debug: options.debug,
     })

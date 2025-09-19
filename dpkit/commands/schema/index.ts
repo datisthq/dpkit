@@ -1,7 +1,7 @@
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
+import { exploreSchemaCommand } from "./explore.tsx"
 import { inferSchemaCommand } from "./infer.tsx"
-import { showSchemaCommand } from "./show.tsx"
 import { validateSchemaCommand } from "./validate.tsx"
 
 export const schemaCommand = new Command("schema")
@@ -9,5 +9,5 @@ export const schemaCommand = new Command("schema")
   .description("Table Schema related commands")
 
   .addCommand(inferSchemaCommand)
-  .addCommand(showSchemaCommand)
+  .addCommand(exploreSchemaCommand)
   .addCommand(validateSchemaCommand)

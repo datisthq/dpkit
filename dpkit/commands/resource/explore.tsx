@@ -8,9 +8,9 @@ import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const showResourceCommand = new Command("show")
+export const exploreResourceCommand = new Command("explore")
   .configureHelp(helpConfiguration)
-  .description("Show a data resource from a local or remote path")
+  .description("Explore a data resource from a local or remote path")
 
   .addArgument(params.positionalTablePath)
   .addOption(params.fromPackage)
@@ -20,7 +20,7 @@ export const showResourceCommand = new Command("show")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Show resource",
+      title: "Explore resource",
       json: options.json,
       debug: options.debug,
     })

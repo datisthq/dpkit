@@ -1,7 +1,7 @@
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
+import { exploreDialectCommand } from "./explore.tsx"
 import { inferDialectCommand } from "./infer.tsx"
-import { showDialectCommand } from "./show.tsx"
 import { validateDialectCommand } from "./validate.tsx"
 
 export const dialectCommand = new Command("dialect")
@@ -9,5 +9,5 @@ export const dialectCommand = new Command("dialect")
   .description("Table Dialect related commands")
 
   .addCommand(inferDialectCommand)
-  .addCommand(showDialectCommand)
+  .addCommand(exploreDialectCommand)
   .addCommand(validateDialectCommand)
