@@ -4,6 +4,7 @@ import { countBy } from "../helpers/object.ts"
 import { DataGrid } from "./DataGrid.tsx"
 import { TableGrid } from "./TableGrid.tsx"
 
+// TODO: remove
 // TODO: Improve implementation (esp. typing)
 // TODO: Split Error/ReportGrid?
 
