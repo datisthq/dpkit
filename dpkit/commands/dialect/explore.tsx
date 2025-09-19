@@ -14,7 +14,7 @@ export const exploreDialectCommand = new Command("explore")
   .configureHelp(helpConfiguration)
   .description("Explore a table dialect from a local or remote path")
 
-  .addArgument(params.positionalTablePath)
+  .addArgument(params.positionalDescriptorPath)
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)

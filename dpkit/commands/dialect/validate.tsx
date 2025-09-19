@@ -14,7 +14,7 @@ export const validateDialectCommand = new Command("validate")
   .configureHelp(helpConfiguration)
   .description("Validate a table dialect from a local or remote path")
 
-  .addArgument(params.positionalTablePath)
+  .addArgument(params.positionalDescriptorPath)
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)

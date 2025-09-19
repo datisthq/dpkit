@@ -12,7 +12,7 @@ export const exploreResourceCommand = new Command("explore")
   .configureHelp(helpConfiguration)
   .description("Explore a data resource from a local or remote path")
 
-  .addArgument(params.positionalTablePath)
+  .addArgument(params.positionalDescriptorPath)
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
