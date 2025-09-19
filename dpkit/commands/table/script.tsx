@@ -1,11 +1,11 @@
 import repl from "node:repl"
+import { queryTable } from "@dpkit/all"
 import * as dpkit from "@dpkit/all"
 import { loadSchema } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
 import { loadDialect } from "@dpkit/all"
 import { loadTable } from "@dpkit/all"
 import { Command } from "commander"
-import { SQLContext } from "nodejs-polars"
 import pc from "picocolors"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
@@ -95,9 +95,7 @@ export const scriptTableCommand = new Command("script")
     )
 
     if (options.query) {
-      const context = SQLContext({ self: table })
-      const result = await context.execute(options.query).collect()
-      table = result.lazy()
+      table = queryTable(table, options.query)
     }
 
     console.log(

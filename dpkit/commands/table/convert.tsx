@@ -2,9 +2,9 @@ import { getTempFilePath, loadFile } from "@dpkit/all"
 import { loadSchema } from "@dpkit/all"
 import { loadDialect } from "@dpkit/all"
 import { loadTable, saveTable } from "@dpkit/all"
+import { queryTable } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
 import { Command } from "commander"
-import { SQLContext } from "nodejs-polars"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { createToDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
@@ -141,9 +141,7 @@ export const convertTableCommand = new Command("convert")
     )
 
     if (options.query) {
-      const context = SQLContext({ self: table })
-      const result = await context.execute(options.query).collect()
-      table = result.lazy()
+      table = queryTable(table, options.query)
     }
 
     const toPath = options.toPath ?? getTempFilePath()

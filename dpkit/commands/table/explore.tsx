@@ -1,9 +1,9 @@
 import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/all"
+import { queryTable } from "@dpkit/all"
 import { loadSchema } from "@dpkit/all"
 import { loadDialect, loadTable, normalizeTable } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
 import { Command } from "commander"
-import { SQLContext } from "nodejs-polars"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
@@ -112,9 +112,7 @@ export const exploreTableCommand = new Command("explore")
     )
 
     if (options.query) {
-      const context = SQLContext({ self: table })
-      const result = await context.execute(options.query).collect()
-      table = result.lazy()
+      table = queryTable(table, options.query)
       schema = await inferSchemaFromTable(table)
     }
 
