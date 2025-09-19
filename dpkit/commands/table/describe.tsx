@@ -3,6 +3,7 @@ import { loadSchema } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
 import { loadDialect } from "@dpkit/all"
 import { Command } from "commander"
+import { SQLContext } from "nodejs-polars"
 import React from "react"
 import { DataGrid } from "../../components/DataGrid.tsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
@@ -20,6 +21,7 @@ export const describeTableCommand = new Command("describe")
   .addOption(params.fromResource)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.query)
 
   .optionsGroup("Table Dialect")
   .addOption(params.dialect)
@@ -86,10 +88,16 @@ export const describeTableCommand = new Command("describe")
       ? { path, dialect, schema }
       : await selectResource(session, options)
 
-    const table = await session.task(
+    let table = await session.task(
       "Loading table",
       loadTable(resource, options),
     )
+
+    if (options.query) {
+      const context = SQLContext({ self: table })
+      const result = await context.execute(options.query).collect()
+      table = result.lazy()
+    }
 
     const df = await session.task("Calculating stats", table.collect())
 

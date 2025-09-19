@@ -3,6 +3,7 @@ import { loadSchema } from "@dpkit/all"
 import { loadDialect, loadTable, normalizeTable } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
 import { Command } from "commander"
+import { SQLContext } from "nodejs-polars"
 import React from "react"
 import { TableGrid } from "../../components/TableGrid.tsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
@@ -20,6 +21,7 @@ export const exploreTableCommand = new Command("explore")
   .addOption(params.fromResource)
   .addOption(params.debug)
   .addOption(params.quit)
+  .addOption(params.query)
 
   .optionsGroup("Table Dialect")
   .addOption(params.dialect)
@@ -108,6 +110,13 @@ export const exploreTableCommand = new Command("explore")
       "Normalizing table",
       normalizeTable(table, schema),
     )
+
+    if (options.query) {
+      const context = SQLContext({ self: table })
+      const result = await context.execute(options.query).collect()
+      table = result.lazy()
+      schema = await inferSchemaFromTable(table)
+    }
 
     await session.render(
       table,
