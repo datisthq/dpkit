@@ -1,14 +1,15 @@
+import repl from "node:repl"
 import { loadPackage } from "@dpkit/all"
+import * as dpkit from "@dpkit/all"
 import { Command } from "commander"
-import React from "react"
-import { PackageGrid } from "../../components/PackageGrid.tsx"
+import pc from "picocolors"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const explorePackageCommand = new Command("explore")
+export const scriptPackageCommand = new Command("script")
   .configureHelp(helpConfiguration)
-  .description("Explore a Data Package descriptor")
+  .description("Script a Data Package descriptor")
 
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.json)
@@ -16,12 +17,20 @@ export const explorePackageCommand = new Command("explore")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Explore package",
+      title: "Script package",
       json: options.json,
       debug: options.debug,
     })
 
     const dataPackage = await session.task("Loading package", loadPackage(path))
 
-    await session.render(dataPackage, <PackageGrid dataPackage={dataPackage} />)
+    console.log(
+      pc.dim(
+        "`dpkit` and `dataPackage` variables are available in the session",
+      ),
+    )
+
+    const replSession = repl.start({ prompt: "dp> " })
+    replSession.context.dpkit = dpkit
+    replSession.context.dataPackage = dataPackage
   })

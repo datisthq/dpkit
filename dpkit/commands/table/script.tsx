@@ -1,9 +1,11 @@
 import repl from "node:repl"
+import * as dpkit from "@dpkit/all"
 import { loadSchema } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
 import { loadDialect } from "@dpkit/all"
 import { loadTable } from "@dpkit/all"
 import { Command } from "commander"
+import pc from "picocolors"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
@@ -90,7 +92,11 @@ export const scriptTableCommand = new Command("script")
       loadTable(resource, options),
     )
 
+    console.log(
+      pc.dim("`dpkit` and `table` variables are available in the session"),
+    )
+
     const replSession = repl.start({ prompt: "dp> " })
+    replSession.context.dpkit = dpkit
     replSession.context.table = table
-    replSession.write("table")
   })

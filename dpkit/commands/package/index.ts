@@ -4,6 +4,7 @@ import { copyPackageCommand } from "./copy.ts"
 import { explorePackageCommand } from "./explore.tsx"
 import { inferPackageCommand } from "./infer.tsx"
 import { publishPackageCommand } from "./publish/index.ts"
+import { scriptPackageCommand } from "./script.tsx"
 import { validatePackageCommand } from "./validate.tsx"
 
 export const packageCommand = new Command("package")
@@ -14,4 +15,5 @@ export const packageCommand = new Command("package")
   .addCommand(inferPackageCommand)
   .addCommand(explorePackageCommand)
   .addCommand(publishPackageCommand)
+  .addCommand(scriptPackageCommand)
   .addCommand(validatePackageCommand)

@@ -2,6 +2,7 @@ import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { exploreSchemaCommand } from "./explore.tsx"
 import { inferSchemaCommand } from "./infer.tsx"
+import { scriptSchemaCommand } from "./script.tsx"
 import { validateSchemaCommand } from "./validate.tsx"
 
 export const schemaCommand = new Command("schema")
@@ -10,4 +11,5 @@ export const schemaCommand = new Command("schema")
 
   .addCommand(inferSchemaCommand)
   .addCommand(exploreSchemaCommand)
+  .addCommand(scriptSchemaCommand)
   .addCommand(validateSchemaCommand)
