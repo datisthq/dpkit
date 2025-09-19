@@ -1,6 +1,7 @@
 import type { DataRecord, Schema, Table } from "@dpkit/all"
 import { useApp, useInput } from "ink"
 import { Box, Text } from "ink"
+import pc from "picocolors"
 import { useEffect, useState } from "react"
 import React from "react"
 import type { Order } from "./DataGrid.tsx"
@@ -163,8 +164,7 @@ function Help(props: { page: number }) {
   if (!isOpen) {
     return (
       <Box paddingLeft={1}>
-        <Text dimColor>page </Text>
-        <Text>{props.page}</Text>
+        <PageItem page={props.page} />
         <Text>{", "}</Text>
         <HelpItem button="d" description="to toggle docs" />
         <Text>{", "}</Text>
@@ -185,6 +185,16 @@ function Help(props: { page: number }) {
       <HelpItem button="o, enter" description="for order" />
       <HelpItem button="q, esc" description="for quit" />
     </Box>
+  )
+}
+
+// It has weird Text.dimColor bug so we use picocolors here
+function PageItem(props: { page: number }) {
+  return (
+    <Text>
+      <Text>{pc.dim("page")} </Text>
+      <Text bold>{props.page}</Text>
+    </Text>
   )
 }
 
