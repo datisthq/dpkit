@@ -7,7 +7,7 @@ import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const statsFileCommand = new Command("stats")
+export const describeFileCommand = new Command("describe")
   .configureHelp(helpConfiguration)
   .description("Show stats for a local or remote file")
 
@@ -20,7 +20,7 @@ export const statsFileCommand = new Command("stats")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "File stats",
+      title: "Describe file",
       json: options.json,
       debug: options.debug,
     })

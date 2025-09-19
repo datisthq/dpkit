@@ -1,7 +1,7 @@
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { copyFileCommand } from "./copy.ts"
-import { statsFileCommand } from "./stats.tsx"
+import { describeFileCommand } from "./describe.tsx"
 import { validateFileCommand } from "./validate.tsx"
 
 export const fileCommand = new Command("file")
@@ -9,5 +9,5 @@ export const fileCommand = new Command("file")
   .description("File related commands")
 
   .addCommand(copyFileCommand)
-  .addCommand(statsFileCommand)
+  .addCommand(describeFileCommand)
   .addCommand(validateFileCommand)
