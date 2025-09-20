@@ -2,6 +2,7 @@ import { getTempFilePath, loadFile } from "@dpkit/all"
 import { loadSchema } from "@dpkit/all"
 import { loadDialect } from "@dpkit/all"
 import { loadTable, saveTable } from "@dpkit/all"
+import { queryTable } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
 import { Command } from "commander"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
@@ -25,6 +26,7 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.toFormat)
   .addOption(params.overwrite)
   .addOption(params.debug)
+  .addOption(params.query)
 
   .optionsGroup("Table Dialect")
   .addOption(params.dialect)
@@ -133,10 +135,14 @@ export const convertTableCommand = new Command("convert")
       ? { path, dialect, schema }
       : await selectResource(session, options)
 
-    const table = await session.task(
+    let table = await session.task(
       "Loading table",
       loadTable(resource, options),
     )
+
+    if (options.query) {
+      table = queryTable(table, options.query)
+    }
 
     const toPath = options.toPath ?? getTempFilePath()
 

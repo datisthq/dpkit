@@ -11,7 +11,7 @@ export const sampleBytes = new Option(
 ).argParser(Number.parseInt)
 
 export const header = new Option(
-  "--header",
+  "--header <header>",
   "whether the file includes a header row with field names",
 )
   .choices(["true", "false"])

@@ -1,26 +1,27 @@
-import { loadTable, validateTable } from "@dpkit/all"
+import { loadTable } from "@dpkit/all"
+import { queryTable } from "@dpkit/all"
 import { loadSchema } from "@dpkit/all"
-import { loadDialect } from "@dpkit/all"
-import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
+import { loadDialect } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
-import { ReportGrid } from "../../components/ReportGrid.tsx"
+import { DataGrid } from "../../components/DataGrid.tsx"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const errorsTableCommand = new Command("errors")
+export const describeTableCommand = new Command("describe")
   .configureHelp(helpConfiguration)
-  .description("Validate a table from a local or remote path")
+  .description("Show stats for a table from a local or remote path")
 
   .addArgument(params.positionalTablePath)
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.query)
 
   .optionsGroup("Table Dialect")
   .addOption(params.dialect)
@@ -68,11 +69,9 @@ export const errorsTableCommand = new Command("errors")
   .addOption(params.monthFirst)
   .addOption(params.keepStrings)
 
-  // TODO: Support schema options
-
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Table errors",
+      title: "Describe table",
       json: options.json,
       debug: options.debug,
     })
@@ -81,7 +80,7 @@ export const errorsTableCommand = new Command("errors")
       ? await session.task("Loading dialect", loadDialect(options.dialect))
       : createDialectFromOptions(options)
 
-    let schema = options.schema
+    const schema = options.schema
       ? await session.task("Loading schema", loadSchema(options.schema))
       : undefined
 
@@ -89,33 +88,19 @@ export const errorsTableCommand = new Command("errors")
       ? { path, dialect, schema }
       : await selectResource(session, options)
 
-    const table = await session.task(
+    let table = await session.task(
       "Loading table",
-      loadTable(resource, { denormalized: true }),
+      loadTable(resource, options),
     )
 
-    if (!schema && resource.schema) {
-      schema = await session.task(
-        "Loading schema",
-        loadResourceSchema(resource.schema),
-      )
+    if (options.query) {
+      table = queryTable(table, options.query)
     }
 
-    if (!schema) {
-      schema = await session.task(
-        "Inferring schema",
-        inferSchemaFromTable(table, options),
-      )
-    }
+    const df = await session.task("Calculating stats", table.collect())
 
-    const report = await session.task(
-      "Finding errors",
-      validateTable(table, { schema }),
-    )
+    const stats = df.describe().rename({ describe: "#" })
+    const records = stats.toRecords()
 
-    if (report.valid) {
-      session.success("Table is valid")
-    }
-
-    session.render(report, <ReportGrid report={report} />)
+    session.render(records, <DataGrid records={records} />)
   })

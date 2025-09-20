@@ -1,6 +1,7 @@
 import type { Dialect, Resource } from "@dpkit/core"
 import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
+import type { Table } from "@dpkit/table"
 import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
 import { stripInitialSpace } from "@dpkit/table"
 import { joinHeaderRows } from "@dpkit/table"
@@ -8,7 +9,7 @@ import { skipCommentRows } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
 import { scanCSV } from "nodejs-polars"
 import type { ScanCsvOptions } from "nodejs-polars"
-import { Utf8, concat } from "nodejs-polars"
+import { concat } from "nodejs-polars"
 import { inferCsvDialect } from "../dialect/index.ts"
 
 // TODO: Condier using sample to extract header first
@@ -19,8 +20,8 @@ export async function loadCsvTable(
   resource: Partial<Resource> & { format?: "csv" | "tsv" },
   options?: LoadTableOptions,
 ) {
-  const [firstPath, ...restPaths] = await prefetchFiles(resource.path)
-  if (!firstPath) {
+  const paths = await prefetchFiles(resource.path)
+  if (!paths.length) {
     throw new Error("Resource path is not defined")
   }
 
@@ -28,23 +29,21 @@ export async function loadCsvTable(
   if (!dialect) dialect = await inferCsvDialect(resource, options)
 
   const scanOptions = getScanOptions(resource, dialect)
-  let table = scanCSV(firstPath, scanOptions)
+  const tables: Table[] = []
+  for (const path of paths) {
+    const table = scanCSV(path, scanOptions)
+    tables.push(table)
+  }
 
-  const polarsSchema = Object.fromEntries(
-    table.columns.map(name => [name, Utf8]),
-  )
-
-  if (restPaths.length) {
-    table = concat([
-      table,
-      ...restPaths.map(path =>
-        scanCSV(path, {
-          ...scanOptions,
-          hasHeader: false,
-          schema: polarsSchema,
-        }),
+  // There is no way to specify column names in nodejs-polars by default
+  // so we have to rename `column_*` to `field*` is table doesn't have header
+  let table = concat(tables)
+  if (!scanOptions.hasHeader) {
+    table = table.rename(
+      Object.fromEntries(
+        table.columns.map(name => [name, name.replace("column_", "field")]),
       ),
-    ])
+    )
   }
 
   if (dialect) {

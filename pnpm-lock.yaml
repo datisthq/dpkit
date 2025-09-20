@@ -194,9 +194,9 @@ importers:
       kysely:
         specifier: ^0.28.5
         version: 0.28.6
-      kysely-generic-sqlite:
-        specifier: ^1.2.1
-        version: 1.2.1(kysely@0.28.6)
+      libsql:
+        specifier: ^0.6.0-pre.20
+        version: 0.6.0-pre.20
       lru-cache:
         specifier: ^11.2.1
         version: 11.2.1
@@ -280,12 +280,15 @@ importers:
       commander:
         specifier: ^14.0.0
         version: 14.0.1
+      es-toolkit:
+        specifier: ^1.39.10
+        version: 1.39.10
       exit-hook:
         specifier: ^4.0.0
         version: 4.0.0
       ink:
-        specifier: ^6.1.0
-        version: 6.3.0(@types/react@19.1.9)(react-devtools-core@4.28.5)(react@19.1.1)
+        specifier: ^6.3.1
+        version: 6.3.1(@types/react@19.1.9)(react-devtools-core@6.1.5)(react@19.1.1)
       nodejs-polars:
         specifier: ^0.21.0
         version: 0.21.1
@@ -296,8 +299,8 @@ importers:
         specifier: ^19.1.1
         version: 19.1.1
       react-devtools-core:
-        specifier: ^4.19.1
-        version: 4.28.5
+        specifier: ^6.1.2
+        version: 6.1.5
       tiny-invariant:
         specifier: ^1.3.3
         version: 1.3.3
@@ -2536,13 +2539,13 @@ packages:
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
-  ink@6.3.0:
-    resolution: {integrity: sha512-2CbJAa7XeziZYe6pDS5RVLirRY28iSGMQuEV8jRU5NQsONQNfcR/BZHHc9vkMg2lGYTHTM2pskxC1YmY28p6bQ==}
+  ink@6.3.1:
+    resolution: {integrity: sha512-3wGwITGrzL6rkWsi2gEKzgwdafGn4ZYd3u4oRp+sOPvfoxEHlnoB5Vnk9Uy5dMRUhDOqF3hqr4rLQ4lEzBc2sQ==}
     engines: {node: '>=20'}
     peerDependencies:
       '@types/react': '>=19.0.0'
       react: '>=19.0.0'
-      react-devtools-core: ^4.19.1
+      react-devtools-core: ^6.1.2
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -2713,14 +2716,45 @@ packages:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
 
-  kysely-generic-sqlite@1.2.1:
-    resolution: {integrity: sha512-/Bs3/Uktn04nQ9g/4oSphLMEtSHkS5+j5hbKjK5gMqXQfqr/v3V3FKtoN4pLTmo2W35hNdrIpQnBukGL1zZc6g==}
-    peerDependencies:
-      kysely: '>=0.26'
-
   kysely@0.28.6:
     resolution: {integrity: sha512-QQlpW/Db5yhhY9+c1jiCBCUCJqZoWLw6c1rE+H+FqGujMuIAxerCSdQNvyP3zyhQUO913J9Ank1NsQEb5a15mA==}
     engines: {node: '>=20.0.0'}
+
+  libsql-darwin-arm64@0.6.0-pre.20:
+    resolution: {integrity: sha512-ZRq6AL39vcvuSlriRVvte+ureH+AljDLN/KZb05YNfK3S/75rSawUFZ4Ek7c6jI1O+qsRyxIQ23TQnAOkkHEHQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+
+  libsql-darwin-x64@0.6.0-pre.20:
+    resolution: {integrity: sha512-z8hvmnmII/yvMz1rDsidfaz4q7e22idGqsrIBQHyCQFWNJxZax0w0ONnqKDLPSSgXzY2LXTxHITXV61p/ptWrA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+
+  libsql-linux-arm64-gnu@0.6.0-pre.20:
+    resolution: {integrity: sha512-w6CfqGuPTSVEfWbpKfoOvJ0v2HaRYpywGvBZOVh+fiGcZZ123YAMalSm2ZLVv0NnmqTe6ga1BsA86gehCeZ7BQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  libsql-linux-x64-gnu@0.6.0-pre.20:
+    resolution: {integrity: sha512-wm7Gba8sJpdLb4mQkHuHLSHaMWsWiVU8OwEVW8DDrXdY+/dbvYjmqJvhZOtbc7IA9m8a7OJO0acW2Y3N4raQCw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  libsql-linux-x64-musl@0.6.0-pre.20:
+    resolution: {integrity: sha512-Gk5u0a8qayKZU12TbxzBrnuit94dK3JeA5mACoIt8tmCnkacT5CQmQr8cZaGVAw1LTWLsWDNYiSJjO+hmTda2A==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  libsql@0.6.0-pre.20:
+    resolution: {integrity: sha512-5bWY19aojvO8O9MBOP6xs9Sy8Kjatpf3tJ+akWwKBfop5JVMTByDl5PNURTb27s8BRVi/CGM4D+EGanytF5ikA==}
+    engines: {node: '>= 10'}
+    cpu: [x64, arm64, wasm32, arm]
+    os: [darwin, linux, win32]
 
   lie@3.3.0:
     resolution: {integrity: sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==}
@@ -3444,8 +3478,8 @@ packages:
     resolution: {integrity: sha512-8zGqypfENjCIqGhgXToC8aB2r7YrBX+AQAfIPs/Mlk+BtPTztOvTS01NRW/3Eh60J+a48lt8qsCzirQ6loCVfA==}
     engines: {node: '>= 0.8'}
 
-  react-devtools-core@4.28.5:
-    resolution: {integrity: sha512-cq/o30z9W2Wb4rzBefjv5fBalHU0rJGZCHAkf/RHSBWSSYwh8PlQTqqOJmgIIbBtpj27T6FIPXeomIjZtCNVqA==}
+  react-devtools-core@6.1.5:
+    resolution: {integrity: sha512-ePrwPfxAnB+7hgnEr8vpKxL9cmnp7F322t8oqcPshbIQQhDKgFDW4tjhF2wjVbdXF9O/nyuy3sQWd9JGpiLPvA==}
 
   react-reconciler@0.32.0:
     resolution: {integrity: sha512-2NPMOzgTlG0ZWdIf3qG+dcbLSoAc/uLfOwckc3ofy5sSK0pLJqnQLpUFxvGcN2rlXSjnVtGeeFLNimCQEj5gOQ==}
@@ -6637,7 +6671,7 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  ink@6.3.0(@types/react@19.1.9)(react-devtools-core@4.28.5)(react@19.1.1):
+  ink@6.3.1(@types/react@19.1.9)(react-devtools-core@6.1.5)(react@19.1.1):
     dependencies:
       '@alcalzone/ansi-tokenize': 0.2.0
       ansi-escapes: 7.1.0
@@ -6665,7 +6699,7 @@ snapshots:
       yoga-layout: 3.2.1
     optionalDependencies:
       '@types/react': 19.1.9
-      react-devtools-core: 4.28.5
+      react-devtools-core: 6.1.5
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -6806,11 +6840,30 @@ snapshots:
 
   klona@2.0.6: {}
 
-  kysely-generic-sqlite@1.2.1(kysely@0.28.6):
-    dependencies:
-      kysely: 0.28.6
-
   kysely@0.28.6: {}
+
+  libsql-darwin-arm64@0.6.0-pre.20:
+    optional: true
+
+  libsql-darwin-x64@0.6.0-pre.20:
+    optional: true
+
+  libsql-linux-arm64-gnu@0.6.0-pre.20:
+    optional: true
+
+  libsql-linux-x64-gnu@0.6.0-pre.20:
+    optional: true
+
+  libsql-linux-x64-musl@0.6.0-pre.20:
+    optional: true
+
+  libsql@0.6.0-pre.20:
+    optionalDependencies:
+      libsql-darwin-arm64: 0.6.0-pre.20
+      libsql-darwin-x64: 0.6.0-pre.20
+      libsql-linux-arm64-gnu: 0.6.0-pre.20
+      libsql-linux-x64-gnu: 0.6.0-pre.20
+      libsql-linux-x64-musl: 0.6.0-pre.20
 
   lie@3.3.0:
     dependencies:
@@ -7735,7 +7788,7 @@ snapshots:
       iconv-lite: 0.4.24
       unpipe: 1.0.0
 
-  react-devtools-core@4.28.5:
+  react-devtools-core@6.1.5:
     dependencies:
       shell-quote: 1.8.3
       ws: 7.5.10

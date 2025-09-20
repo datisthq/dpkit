@@ -1,20 +1,20 @@
+import repl from "node:repl"
 import { loadSchema } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
 import { loadResourceSchema } from "@dpkit/all"
+import * as dpkit from "@dpkit/all"
 import { Command } from "commander"
-import React from "react"
-import { SchemaGrid } from "../../components/SchemaGrid.tsx"
+import pc from "picocolors"
 import { helpConfiguration } from "../../helpers/help.ts"
-import { isEmptyObject } from "../../helpers/object.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const showSchemaCommand = new Command("show")
+export const scriptSchemaCommand = new Command("script")
   .configureHelp(helpConfiguration)
-  .description("Show a table schema from a local or remote path")
+  .description("Script a table schema from a local or remote path")
 
-  .addArgument(params.positionalTablePath)
+  .addArgument(params.positionalDescriptorPath)
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
@@ -22,7 +22,7 @@ export const showSchemaCommand = new Command("show")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Show schema",
+      title: "Script schema",
       json: options.json,
       debug: options.debug,
     })
@@ -36,9 +36,11 @@ export const showSchemaCommand = new Command("show")
       path ? loadSchema(path) : loadResourceSchema(resource?.schema),
     )
 
-    if (!schema || isEmptyObject(schema)) {
-      Session.terminate("Schema is not available")
-    }
+    console.log(
+      pc.dim("`dpkit` and `schema` variables are available in the session"),
+    )
 
-    await session.render(schema, <SchemaGrid schema={schema} />)
+    const replSession = repl.start({ prompt: "dp> " })
+    replSession.context.dpkit = dpkit
+    replSession.context.schema = schema
   })

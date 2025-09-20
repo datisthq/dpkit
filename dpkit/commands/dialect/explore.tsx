@@ -10,11 +10,11 @@ import { selectResource } from "../../helpers/resource.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const showDialectCommand = new Command("show")
+export const exploreDialectCommand = new Command("explore")
   .configureHelp(helpConfiguration)
-  .description("Show a table dialect from a local or remote path")
+  .description("Explore a table dialect from a local or remote path")
 
-  .addArgument(params.positionalTablePath)
+  .addArgument(params.positionalDescriptorPath)
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.json)
@@ -22,7 +22,7 @@ export const showDialectCommand = new Command("show")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Show dialect",
+      title: "Explore dialect",
       json: options.json,
       debug: options.debug,
     })

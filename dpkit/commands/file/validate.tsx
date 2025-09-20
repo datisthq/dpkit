@@ -1,7 +1,8 @@
 import { validateFile } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
-import { ReportGrid } from "../../components/ReportGrid.tsx"
+import { ErrorGrid } from "../../components/ErrorGrid.tsx"
+import { selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
@@ -15,6 +16,7 @@ export const validateFileCommand = new Command("validate")
   .addOption(params.hash)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.quit)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -35,9 +37,17 @@ export const validateFileCommand = new Command("validate")
       }),
     )
 
-    if (report.valid) {
-      session.success("File is valid")
+    if (report.errors.length && !options.quit) {
+      const type = await selectErrorType(session, report.errors)
+      if (type) report.errors = report.errors.filter(e => e.type === type)
     }
 
-    session.render(report, <ReportGrid report={report} groupBy="type" />)
+    if (report.valid) {
+      session.success("Table is valid")
+    }
+
+    session.render(
+      report,
+      <ErrorGrid errors={report.errors} quit={options.quit} />,
+    )
   })

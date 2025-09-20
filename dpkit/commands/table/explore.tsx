@@ -1,4 +1,5 @@
 import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/all"
+import { queryTable } from "@dpkit/all"
 import { loadSchema } from "@dpkit/all"
 import { loadDialect, loadTable, normalizeTable } from "@dpkit/all"
 import type { Resource } from "@dpkit/all"
@@ -19,6 +20,8 @@ export const exploreTableCommand = new Command("explore")
   .addOption(params.fromPackage)
   .addOption(params.fromResource)
   .addOption(params.debug)
+  .addOption(params.quit)
+  .addOption(params.query)
 
   .optionsGroup("Table Dialect")
   .addOption(params.dialect)
@@ -108,8 +111,13 @@ export const exploreTableCommand = new Command("explore")
       normalizeTable(table, schema),
     )
 
+    if (options.query) {
+      table = queryTable(table, options.query)
+      schema = await inferSchemaFromTable(table)
+    }
+
     await session.render(
       table,
-      <TableGrid table={table} schema={schema} withTypes />,
+      <TableGrid table={table} schema={schema} withTypes quit={options.quit} />,
     )
   })

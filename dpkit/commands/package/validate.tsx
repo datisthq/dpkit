@@ -1,7 +1,8 @@
 import { validatePackage } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
-import { ReportGrid } from "../../components/ReportGrid.tsx"
+import { ErrorGrid } from "../../components/ErrorGrid.tsx"
+import { selectErrorResource, selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
@@ -13,6 +14,7 @@ export const validatePackageCommand = new Command("validate")
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.quit)
 
   .action(async (path, options) => {
     const session = Session.create({
@@ -26,12 +28,23 @@ export const validatePackageCommand = new Command("validate")
       validatePackage(path),
     )
 
+    if (report.errors.length && !options.quit) {
+      // @ts-ignore
+      const name = await selectErrorResource(session, report.errors)
+      // @ts-ignore
+      if (name) report.errors = report.errors.filter(e => e.resource === name)
+
+      const type = await selectErrorType(session, report.errors)
+      // @ts-ignore
+      if (type) report.errors = report.errors.filter(e => e.type === type)
+    }
+
     if (report.valid) {
-      session.success("Package is valid")
+      session.success("Table is valid")
     }
 
     session.render(
       report,
-      <ReportGrid report={report} groupBy="resource/type" />,
+      <ErrorGrid errors={report.errors} quit={options.quit} />,
     )
   })

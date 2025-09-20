@@ -23,7 +23,7 @@ describe("inferSchemaFromTable", () => {
   it("should infer numeric", async () => {
     const table = DataFrame({
       name1: ["1", "2", "3"],
-      name2: ["1,1", "2,2", "3,3"],
+      name2: ["1,000", "2,000", "3,000"],
       name3: ["1.1", "2.2", "3.3"],
       name4: ["1,000.1", "2,000.2", "3,000.3"],
     }).lazy()
@@ -42,8 +42,8 @@ describe("inferSchemaFromTable", () => {
 
   it("should infer numeric (commaDecimal)", async () => {
     const table = DataFrame({
-      name1: ["1.1", "2.2", "3.3"],
-      name2: ["1.1,0", "2.2,0", "3.3,0"],
+      name1: ["1.000", "2.000", "3.000"],
+      name2: ["1.000,5", "2.000,5", "3.000,5"],
     }).lazy()
 
     const schema = {
@@ -292,5 +292,24 @@ describe("inferSchemaFromTable", () => {
     expect(await inferSchemaFromTable(table, { monthFirst: true })).toEqual(
       schemaMonthFirst,
     )
+  })
+
+  it("should infer lists", async () => {
+    const table = DataFrame({
+      numericList: ["1.5,2.3", "4.1,5.9", "7.2,8.6"],
+      integerList: ["1,2", "3,4", "5,6"],
+      singleValue: ["1.5", "2.3", "4.1"],
+    }).lazy()
+
+    const schema = {
+      fields: [
+        { name: "numericList", type: "list", itemType: "number" },
+        { name: "integerList", type: "list", itemType: "integer" },
+        { name: "singleValue", type: "number" },
+      ],
+      missingValues: undefined,
+    }
+
+    expect(await inferSchemaFromTable(table)).toEqual(schema)
   })
 })

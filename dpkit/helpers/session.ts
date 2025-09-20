@@ -79,7 +79,11 @@ export class Session {
     }
   }
 
-  async render(_object: any, node?: React.ReactNode) {
+  async render(
+    _object: any,
+    node?: React.ReactNode,
+    //options?: { quit?: boolean },
+  ) {
     // Without waiting for the next tick after clack prompts,
     // ink render will be immidiately terminated
     await setImmediate()

@@ -1,6 +1,7 @@
 import type { DataRecord, Schema, Table } from "@dpkit/all"
 import { useApp, useInput } from "ink"
 import { Box, Text } from "ink"
+import pc from "picocolors"
 import { useEffect, useState } from "react"
 import React from "react"
 import type { Order } from "./DataGrid.tsx"
@@ -13,6 +14,7 @@ export function TableGrid(props: {
   schema?: Schema
   borderColor?: "green" | "red"
   withTypes?: boolean
+  quit?: boolean
 }) {
   const { table, schema, borderColor } = props
 
@@ -21,13 +23,13 @@ export function TableGrid(props: {
   const [row, setRow] = useState(0)
   const [page, setPage] = useState(1)
   const [order, setOrder] = useState<Order>()
-  const [records, setRecords] = useState<DataRecord[]>([])
+  const [records, setRecords] = useState<DataRecord[]>()
 
-  const handleColChange = async (col: number) => {
-    if (col === 0) return
-    if (col > table.columns.length) return
+  const handleColChange = async (newCol: number) => {
+    if (newCol <= 0) return
+    if (newCol > table.columns.length) return
 
-    setCol(col)
+    setCol(newCol)
   }
 
   const handleRowChange = async (row: number) => {
@@ -38,7 +40,7 @@ export function TableGrid(props: {
       if (page === 1) return
       handlePageChange(page - 1)
       row = 10
-    } else if (row > records.length) {
+    } else if (records && row > records.length) {
       return
     }
 
@@ -78,6 +80,10 @@ export function TableGrid(props: {
   useEffect(() => {
     handlePageChange(1)
   }, [table])
+
+  useEffect(() => {
+    if (records && props.quit) exit()
+  }, [records])
 
   useInput((input, key) => {
     if (key.escape || input === "q") {
@@ -120,6 +126,10 @@ export function TableGrid(props: {
     }
   })
 
+  if (!records) {
+    return null
+  }
+
   return (
     <Box flexDirection="column">
       <DataGrid
@@ -132,12 +142,12 @@ export function TableGrid(props: {
         borderColor={borderColor}
         withTypes={props.withTypes}
       />
-      <Help />
+      <Help page={page} />
     </Box>
   )
 }
 
-function Help() {
+function Help(props: { page: number }) {
   const { exit } = useApp()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -154,6 +164,8 @@ function Help() {
   if (!isOpen) {
     return (
       <Box paddingLeft={1}>
+        <PageItem page={props.page} />
+        <Text>{", "}</Text>
         <HelpItem button="d" description="to toggle docs" />
         <Text>{", "}</Text>
         <HelpItem button="q" description="to quit" />
@@ -173,6 +185,16 @@ function Help() {
       <HelpItem button="o, enter" description="for order" />
       <HelpItem button="q, esc" description="for quit" />
     </Box>
+  )
+}
+
+// It has weird Text.dimColor bug so we use picocolors here
+function PageItem(props: { page: number }) {
+  return (
+    <Text>
+      <Text>{pc.dim("page")} </Text>
+      <Text bold>{props.page}</Text>
+    </Text>
   )
 }
 

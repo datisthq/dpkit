@@ -1,10 +1,10 @@
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { copyPackageCommand } from "./copy.ts"
-import { errorsPackageCommand } from "./errors.tsx"
+import { explorePackageCommand } from "./explore.tsx"
 import { inferPackageCommand } from "./infer.tsx"
 import { publishPackageCommand } from "./publish/index.ts"
-import { showPackageCommand } from "./show.tsx"
+import { scriptPackageCommand } from "./script.tsx"
 import { validatePackageCommand } from "./validate.tsx"
 
 export const packageCommand = new Command("package")
@@ -12,8 +12,8 @@ export const packageCommand = new Command("package")
   .description("Data Package related commands")
 
   .addCommand(copyPackageCommand)
-  .addCommand(errorsPackageCommand)
   .addCommand(inferPackageCommand)
-  .addCommand(showPackageCommand)
+  .addCommand(explorePackageCommand)
   .addCommand(publishPackageCommand)
+  .addCommand(scriptPackageCommand)
   .addCommand(validatePackageCommand)

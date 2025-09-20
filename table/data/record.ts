@@ -34,7 +34,7 @@ function getHeaderFromRows(rows: DataRow[], dialect?: Dialect) {
 
   if (!hasHeader) {
     const length = Math.max(...rows.map(row => row.length))
-    const labels = Array.from({ length }, (_, idx) => `column_${idx + 1}`)
+    const labels = Array.from({ length }, (_, idx) => `field${idx + 1}`)
 
     return [labels]
   }

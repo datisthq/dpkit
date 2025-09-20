@@ -1,14 +1,14 @@
-import { validatePackage } from "@dpkit/all"
+import { loadPackage } from "@dpkit/all"
 import { Command } from "commander"
 import React from "react"
-import { ReportGrid } from "../../components/ReportGrid.tsx"
+import { PackageGrid } from "../../components/PackageGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
-export const errorsPackageCommand = new Command("errors")
+export const explorePackageCommand = new Command("explore")
   .configureHelp(helpConfiguration)
-  .description("Show errors for a data package from a local or remote path")
+  .description("Explore a Data Package descriptor")
 
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.json)
@@ -16,16 +16,12 @@ export const errorsPackageCommand = new Command("errors")
 
   .action(async (path, options) => {
     const session = Session.create({
-      title: "Package errors",
+      title: "Explore package",
       json: options.json,
       debug: options.debug,
     })
 
-    const report = await session.task("Finding errors", validatePackage(path))
+    const dataPackage = await session.task("Loading package", loadPackage(path))
 
-    if (report.valid) {
-      session.success("Package is valid")
-    }
-
-    session.render(report, <ReportGrid report={report} />)
+    await session.render(dataPackage, <PackageGrid dataPackage={dataPackage} />)
   })
