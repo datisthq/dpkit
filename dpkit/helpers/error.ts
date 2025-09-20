@@ -1,5 +1,5 @@
 import type { FileError, MetadataError, TableError } from "@dpkit/all"
-import { countBy } from "../helpers/object.ts"
+import { countBy } from "es-toolkit"
 import type { Session } from "./session.ts"
 
 export async function selectErrorResource(
