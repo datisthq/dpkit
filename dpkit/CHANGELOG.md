@@ -1,5 +1,11 @@
 # dpkit
 
+## 0.12.4
+
+### Patch Changes
+
+- 40b85b1: Fixed releasing
+
 ## 0.12.3
 
 ### Patch Changes
