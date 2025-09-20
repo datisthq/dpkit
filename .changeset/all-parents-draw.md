@@ -1,5 +1,0 @@
----
-"dpkit": patch
----
-
-Fixed releasing
