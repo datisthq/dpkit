@@ -1,5 +1,11 @@
 # dpkit
 
+## 0.12.3
+
+### Patch Changes
+
+- 473b8a7: Fixed github releasing
+
 ## 0.12.2
 
 ### Patch Changes
