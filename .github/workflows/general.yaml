@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags:
-      - "dpkit@*"
+      - dpkit@*.*.*
   pull_request:
     branches:
       - main
