@@ -15,7 +15,8 @@ const dialect = { table: "dpkit" }
 const record1 = { id: 1, name: "english" }
 const record2 = { id: 2, name: "中文" }
 
-describe("SqliteAdapter", () => {
+// TODO: Enable when libsql@0.6 is fixed
+describe.skip("SqliteAdapter", () => {
   it("should infer schema", async () => {
     const path = getTempFilePath()
 

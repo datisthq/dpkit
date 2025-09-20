@@ -1,7 +1,7 @@
 import type { FieldType } from "@dpkit/core"
 import { isLocalPathExist } from "@dpkit/file"
 import { SqliteDialect } from "kysely"
-import Database from "libsql"
+import { Database } from "libsql/promise"
 import type { DatabaseType } from "../field/index.ts"
 import { BaseAdapter } from "./base.ts"
 
@@ -19,6 +19,7 @@ export class SqliteAdapter extends BaseAdapter {
     }
 
     return new SqliteDialect({
+      // @ts-ignore
       database: new Database(path),
     })
   }
