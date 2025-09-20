@@ -1,5 +1,11 @@
 # @dpkit/file
 
+## 0.10.2
+
+### Patch Changes
+
+- 1e5d42f: Minor fixes
+
 ## 0.10.1
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @dpkit/ods
 
+## 0.6.1
+
+### Patch Changes
+
+- 1e5d42f: Minor fixes
+- Updated dependencies [1e5d42f]
+  - @dpkit/table@0.11.1
+  - @dpkit/file@0.10.2
+
 ## 0.6.0
 
 ### Minor Changes
