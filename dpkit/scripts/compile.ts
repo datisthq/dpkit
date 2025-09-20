@@ -3,8 +3,12 @@ import { execa } from "execa"
 import metadata from "../package.json" with { type: "json" }
 
 function makeShell(...paths: string[]) {
-  const cwd = join(import.meta.dirname, ...paths)
-  return execa({ preferLocal: true, stdout: "inherit", cwd })
+  return execa({
+    cwd: join(import.meta.dirname, ...paths),
+    stdout: ["inherit", "pipe"],
+    verbose: "short",
+    preferLocal: true,
+  })
 }
 
 const $root = makeShell("..")
@@ -25,13 +29,7 @@ pnpm deploy compile
 --config.node-linker=hoisted
 `
 
-// Normalize package.json
-
-await $compile`
-sed -i /workspace:/d package.json
-`
-
-// Uninstall binaries
+// Remove binaries
 
 const binaries = [
   { polars: "nodejs-polars-linux-x64-gnu", libsql: "@libsql/linux-x64-gnu" },
@@ -39,8 +37,8 @@ const binaries = [
 ]
 
 for (const binary of binaries) {
-  await $compile`npm uninstall ${binary.polars}`
-  await $compile`npm uninstall ${binary.libsql}`
+  await $compile`rm -rf node_modules/${binary.polars}`
+  await $compile`rm -rf node_modules/${binary.libsql}`
 }
 
 // Compile executable
@@ -49,7 +47,7 @@ const targets = [
   {
     name: "bun-linux-x64",
     arch: "x86_64-unknown-linux",
-    polars: "nodejs-polars-linux-x64-musl",
+    polars: "nodejs-polars-linux-x64-gnu",
     libsql: "@libsql/linux-x64-gnu",
   },
   {
@@ -67,8 +65,12 @@ const targets = [
 ]
 
 for (const target of targets) {
-  await $compile`npm install ${target.polars} --force`
-  await $compile`npm install ${target.libsql} --force`
+  for (const packageName of [target.polars, target.libsql]) {
+    const pack = await $compile`npm pack ${packageName}`
+    await $compile`mkdir -p node_modules/${packageName}`
+    await $compile`tar -xzf ${pack.stdout} -C node_modules/${packageName} --strip-components=1`
+    await $compile`rm ${pack.stdout}`
+  }
 
   await $compile`
   bun build main.ts
@@ -76,6 +78,9 @@ for (const target of targets) {
   --outfile build/dp-${metadata.version}-${target.arch}/dp
   --target ${target.name}
   `
+
+  await $compile`rm -rf node_modules/${target.polars}`
+  await $compile`rm -rf node_modules/${target.libsql}`
 }
 
 // Clean artifacts (pnpm creates an unwanted dpkit folder)
