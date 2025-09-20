@@ -72,8 +72,9 @@ for (const target of targets) {
     await $compile`rm ${pack.stdout}`
   }
 
-  await $compile`
-  bun build main.ts
+  // TODO: Remove shell and libsql inclusion when libsql@0.6 is released (napi-rs based)
+  await $compile({ shell: true })`
+  bun build main.ts node_modules/@libsql/**/*
   --compile
   --outfile build/dp-${metadata.version}-${target.arch}/dp
   --target ${target.name}
