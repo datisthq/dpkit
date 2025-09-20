@@ -13,9 +13,11 @@ function makeShell(...paths: string[]) {
 
 const $root = makeShell("..")
 const $compile = makeShell("..", "compile")
+const $build = makeShell("..", "compile", "build")
 
 // Cleanup
 
+await $root`rm -rf build`
 await $root`rm -rf compile`
 await $root`mkdir compile`
 
@@ -65,6 +67,8 @@ const targets = [
 ]
 
 for (const target of targets) {
+  const folder = `dp-${metadata.version}-${target.arch}`
+
   for (const packageName of [target.polars, target.libsql]) {
     const pack = await $compile`npm pack ${packageName}`
     await $compile`mkdir -p node_modules/${packageName}`
@@ -75,9 +79,17 @@ for (const target of targets) {
   await $compile`
   bun build main.ts
   --compile
-  --outfile build/dp-${metadata.version}-${target.arch}/dp
+  --outfile build/${folder}/dp
   --target ${target.name}
   `
+
+  // For some reason bun creates it with no permissions
+  if (target.name === "bun-windows-x64") {
+    await $build`chmod +r ${folder}/dp.exe`
+  }
+
+  await $build`zip -r ${folder}.zip ${folder}`
+  await $build`rm -rf ${folder}`
 
   await $compile`rm -rf node_modules/${target.polars}`
   await $compile`rm -rf node_modules/${target.libsql}`
@@ -85,4 +97,4 @@ for (const target of targets) {
 
 // Clean artifacts (pnpm creates an unwanted dpkit folder)
 
-await $root`rm -r dpkit`
+await $root`rm -rf dpkit`
