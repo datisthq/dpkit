@@ -1,5 +1,11 @@
 # @dpkit/table
 
+## 0.11.1
+
+### Patch Changes
+
+- 1e5d42f: Minor fixes
+
 ## 0.11.0
 
 ### Minor Changes
