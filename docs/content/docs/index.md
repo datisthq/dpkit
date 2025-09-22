@@ -15,7 +15,7 @@ This guide will help you get started with dpkit. If you are new to the core fram
 
 dpkit and all its packages support all the prominent TypeScript runtimes:
 
-- **Node.js v22+**
+- **Node v22+**
 - **Deno v2+**
 - **Bun v1+**
 
@@ -53,7 +53,7 @@ import { loadPackageDescriptor } from "https://esm.sh/@dpkit/core"
 ## TypeScript
 
 :::tip
-Use **Node.js v24+** to be able to run TypeScript files directly with the `node` binary like `node my-data-script.ts`
+Use **Node v24+** to be able to run TypeScript files directly with the `node` binary like `node my-data-script.ts`
 :::
 
 dpkit is built with type safety in mind. It uses TypeScript to provide type definitions for all packages and to enforce type safety throughout the framework. It's highly reccomended to setup a TypeScript aware environment to work with the project.
