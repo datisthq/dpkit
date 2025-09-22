@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/ods",
   "type": "module",
-  "version": "0.6.1",
+  "version": "development",
   "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",

@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/core",
   "type": "module",
-  "version": "0.12.0",
+  "version": "development",
   "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",

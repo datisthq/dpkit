@@ -1,6 +1,7 @@
 {
-  "name": "#dpkit",
+  "name": "dpkit",
   "type": "module",
+  "version": "development",
   "private": true,
   "engines": {
     "node": "^24.0.0",
@@ -24,13 +25,14 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@goreleaser/goreleaser": "2.11.2",
+    "@semantic-release/exec": "7.1.0",
     "@types/node": "24.2.0",
     "@vitest/coverage-v8": "3.1.4",
     "@vitest/ui": "3.1.4",
     "execa": "9.6.0",
     "husky": "9.1.7",
     "npm-check-updates": "18.0.1",
+    "semantic-release": "24.2.9",
     "tempy": "3.1.0",
     "type-fest": "^4.41.0",
     "typescript": "5.9.2",

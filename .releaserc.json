@@ -1,0 +1,21 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "pnpm -r version ${nextRelease.version}",
+        "publishCmd": "pnpm ci:publish",
+        "successCmd": "pnpm compile"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": ["dpkit/compile/build/*.zip"]
+      }
+    ]
+  ]
+}

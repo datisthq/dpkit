@@ -9,8 +9,9 @@ export const collections = {
     loader: changelogsLoader([
       {
         base: "changelog",
-        provider: "changeset",
-        changelog: "../all/CHANGELOG.md",
+        provider: "github",
+        owner: "datisthq",
+        repo: "dpkit",
       },
     ]),
   }),

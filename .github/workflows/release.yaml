@@ -1,12 +1,20 @@
-name: publish
+name: release
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  contents: write
+  issues: write
+  pull-requests: write
 
 jobs:
-  npm:
+  general:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
@@ -21,5 +29,10 @@ jobs:
         run: pnpm ci:install
       - name: Build Packages
         run: pnpm build
-      - name: Publish Packages
-        run: pnpm ci:publish
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Make Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm semantic-release
