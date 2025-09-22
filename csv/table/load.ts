@@ -26,7 +26,9 @@ export async function loadCsvTable(
   }
 
   let dialect = await loadResourceDialect(resource.dialect)
-  if (!dialect) dialect = await inferCsvDialect(resource, options)
+  if (!dialect) {
+    dialect = await inferCsvDialect({ ...resource, path: paths[0] }, options)
+  }
 
   const scanOptions = getScanOptions(resource, dialect)
   const tables: Table[] = []

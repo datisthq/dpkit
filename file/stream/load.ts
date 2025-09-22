@@ -58,7 +58,8 @@ function limitBytesStream(inputStream: Readable, maxBytes: number) {
     new Transform({
       transform(chunk, _encoding, callback) {
         if (total >= maxBytes) {
-          callback(new Error("Byte limit exceeded"))
+          this.push(null)
+          callback()
           return
         }
 
