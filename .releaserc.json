@@ -7,14 +7,19 @@
       "@semantic-release/exec",
       {
         "prepareCmd": "pnpm ci:version -- ${nextRelease.version}",
-        "publishCmd": "pnpm ci:publish",
-        "successCmd": "pnpm compile"
+        "publishCmd": "pnpm ci:publish"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "pnpm compile"
       }
     ],
     [
       "@semantic-release/github",
       {
-        "assets": ["dpkit/compile/build/*.zip"]
+        "assets": "dpkit/compile/build/*.zip"
       }
     ]
   ]
