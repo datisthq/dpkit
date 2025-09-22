@@ -6,7 +6,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "pnpm -r version ${nextRelease.version}",
+        "prepareCmd": "pnpm ci:version -- ${nextRelease.version}",
         "publishCmd": "pnpm ci:publish",
         "successCmd": "pnpm compile"
       }
