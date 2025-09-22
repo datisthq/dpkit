@@ -1,17 +1,22 @@
-name: test
+name: general
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
-  linux:
+  test-linux:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
       - name: Setup Pnpm
         uses: pnpm/action-setup@v4
       - name: Setup Node
@@ -33,8 +38,6 @@ jobs:
         with:
           slug: datisthq/dpkit
           token: ${{ secrets.CODECOV_TOKEN }}
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
       - name: Compile Binaries
         run: pnpm compile
       - name: Upload Binaries
@@ -64,14 +67,16 @@ jobs:
         ports:
           - 3306:3306
 
-  macos:
-    needs: linux
+  test-macos:
+    needs: [test-linux]
     runs-on: macos-latest
 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
-      - name: Setup pnpm
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Setup Pnpm
         uses: pnpm/action-setup@v4
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -92,14 +97,16 @@ jobs:
       # - name: Test Binaries
       #   run: unzip dpkit/compile/build/*darwin.zip "dp*" && ./dp --version
 
-  windows:
-    needs: linux
+  test-windows:
+    needs: [test-linux]
     runs-on: macos-latest
 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
-      - name: Setup pnpm
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Setup Pnpm
         uses: pnpm/action-setup@v4
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -119,3 +126,30 @@ jobs:
           path: dpkit/compile/build
       # - name: Test Binaries
       #   run: unzip dpkit/compile/build/*windows.zip "dp*" && ./dp.exe --version
+
+  release:
+    needs: [test-linux, test-macos, test-windows]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v5
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          node-version-file: package.json
+      - name: Install Dependencies
+        run: pnpm ci:install
+      - name: Build Packages
+        run: pnpm build
+      - name: Make Release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm semantic-release
