@@ -27,7 +27,7 @@ Project is a monorepo with the following packages:
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/dpkit.ts.git dpkit
+   git clone https://github.com/yourusername/dpkit.git dpkit
    cd dpkit
    ```
 
