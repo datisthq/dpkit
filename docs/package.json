@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/docs",
   "type": "module",
-  "version": "development",
+  "version": "0.0.0-development",
   "private": true,
   "scripts": {
     "build": "astro build",

@@ -1,7 +1,7 @@
 {
   "name": "dpkit",
   "type": "module",
-  "version": "development",
+  "version": "0.0.0-development",
   "bin": {
     "dp": "./build/entrypoints/run.js"
   },
