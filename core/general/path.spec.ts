@@ -1,4 +1,4 @@
-import { relative } from "node:path"
+import { join, relative } from "node:path"
 import { describe, expect, it } from "vitest"
 import {
   denormalizePath,
@@ -153,12 +153,12 @@ describe("getBasepath", () => {
     {
       description: "local file path",
       path: "some/path/to/file.txt",
-      basepath: "some/path/to",
+      basepath: join("some", "path", "to"),
     },
     {
       description: "local path with no file",
       path: "some/path/to/",
-      basepath: "some/path",
+      basepath: join("some", "path"),
     },
     {
       description: "root level file",
@@ -176,13 +176,13 @@ describe("normalizePath", () => {
       description: "local path without basepath",
       path: "path/to/file.txt",
       basepath: undefined,
-      normalizedPath: "path/to/file.txt",
+      normalizedPath: join("path", "to", "file.txt"),
     },
     {
       description: "local path with local basepath",
       path: "file.txt",
       basepath: "path/to",
-      normalizedPath: "path/to/file.txt",
+      normalizedPath: join("path", "to", "file.txt"),
     },
     {
       description: "remote path",
@@ -212,7 +212,7 @@ describe("normalizePath", () => {
       description: "path with empty basepath",
       path: "path/to/file.txt",
       basepath: "",
-      normalizedPath: "path/to/file.txt",
+      normalizedPath: join("path", "to", "file.txt"),
     },
   ])("$description", ({ path, basepath, normalizedPath }) => {
     expect(normalizePath(path, { basepath })).toEqual(normalizedPath)
