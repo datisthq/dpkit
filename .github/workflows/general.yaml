@@ -152,7 +152,7 @@ jobs:
           name: binaries
           path: dpkit/compile/build
       - name: Test Binaries
-        run: unzip -j dpkit/compile/build/*windows*.zip "dp*" && ./dp.exe --version
+        run: unzip -j dpkit\compile\build\*windows*.zip "dp*" && .\dp.exe --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes
