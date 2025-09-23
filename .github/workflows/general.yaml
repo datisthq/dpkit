@@ -72,7 +72,7 @@ jobs:
           name: build
           path: dpkit/compile/build
       - name: Test Binaries
-        run: unzip -j dpkit/compile/build/*linux.zip "dp*" && ./dp --version
+        run: unzip -j dpkit/compile/build/*linux*.zip "dp*" && ./dp --version
 
     services:
       postgres:
@@ -121,7 +121,7 @@ jobs:
           name: build
           path: dpkit/compile/build
       # - name: Test Binaries
-      #   run: unzip -j dpkit/compile/build/*macos.zip "dp*" && ./dp --version
+      #   run: unzip -j dpkit/compile/build/*macos*.zip "dp*" && ./dp --version
 
   test-windows:
     needs: [compile]
@@ -151,7 +151,7 @@ jobs:
           name: build
           path: dpkit/compile/build
       # - name: Test Binaries
-      #   run: unzip -j dpkit/compile/build/*windows.zip "dp*" && ./dp.exe --version
+      #   run: unzip -j dpkit/compile/build/*windows*.zip "dp*" && ./dp.exe --version
 
   release:
     needs: [test-linux, test-macos, test-windows]
