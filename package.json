@@ -21,7 +21,7 @@
     "prepare": "husky",
     "spec": "vitest run",
     "test": "pnpm lint && pnpm type && pnpm spec",
-    "win:test": "pnpm type && pnpm spec",
+    "win:test": "pnpm spec",
     "type": "tsc --noEmit"
   },
   "devDependencies": {

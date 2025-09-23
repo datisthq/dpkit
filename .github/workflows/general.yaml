@@ -72,7 +72,9 @@ jobs:
           name: binaries
           path: dpkit/compile/build
       - name: Test Binaries
-        run: unzip dpkit/compile/build/*linux*.zip && ./dp-*/dp --version
+        run: |
+          unzip -j dpkit/compile/build/*linux*.zip "dp*"
+          ./dp --version
 
     services:
       postgres:
@@ -120,8 +122,11 @@ jobs:
         with:
           name: binaries
           path: dpkit/compile/build
-      - name: Test Binaries
-        run: unzip dpkit/compile/build/*macos*.zip && ./dp-*/dp --version
+      # Github Actions does not support AVX2
+      # - name: Test Binaries
+      #   run: |
+      #     unzip -j dpkit/compile/build/*linux*.zip "dp*"
+      #     ./dp --version
 
   test-windows:
     needs: [test-compile]
