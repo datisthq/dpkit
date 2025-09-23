@@ -97,7 +97,7 @@ jobs:
 
   test-macos:
     needs: [test-compile]
-    runs-on: macos-latest
+    runs-on: macos-latest-large
 
     steps:
       - name: Checkout Repo
@@ -122,11 +122,10 @@ jobs:
         with:
           name: binaries
           path: dpkit/compile/build
-      # Github Actions does not support AVX2
-      # - name: Test Binaries
-      #   run: |
-      #     unzip -j dpkit/compile/build/*linux*.zip "dp*"
-      #     ./dp --version
+      - name: Test Binaries
+        run: |
+          unzip -j dpkit/compile/build/*linux*.zip "dp*"
+          ./dp --version
 
   test-windows:
     needs: [test-compile]
