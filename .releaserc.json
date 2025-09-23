@@ -2,20 +2,7 @@
   "branches": ["main"],
   "plugins": [
     "@semantic-release/commit-analyzer",
-    [
-      "@semantic-release/release-notes-generator",
-      {
-        "preset": "angular",
-        "presetConfig": {
-          "types": [
-            { "type": "feat", "section": "✨ Features" },
-            { "type": "fix", "section": "🐞 Bug Fixes" },
-            { "type": "docs", "section": "📚 Documentation" },
-            { "type": "chore", "section": "🏠 Maintenance" }
-          ]
-        }
-      }
-    ],
+    "@semantic-release/release-notes-generator",
     [
       "@semantic-release/exec",
       { "publishCmd": "pnpm ci:version -- ${nextRelease.version}" }
