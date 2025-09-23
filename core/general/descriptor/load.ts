@@ -1,4 +1,5 @@
 import { node } from "../node.ts"
+import { getProtocol } from "../path.ts"
 import { getBasepath, isRemotePath } from "../path.ts"
 import { parseDescriptor } from "./process/parse.ts"
 
@@ -23,12 +24,12 @@ export async function loadDescriptor(
     : await loadLocalDescriptor(path)
 }
 
-const ALLOWED_REMOTE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:"]
+const ALLOWED_REMOTE_PROTOCOLS = ["http", "https", "ftp", "ftps"]
 
 async function loadRemoteDescriptor(path: string) {
   const url = new URL(path)
 
-  const protocol = url.protocol.toLowerCase()
+  const protocol = getProtocol(path)
   if (protocol.length > 1 && !ALLOWED_REMOTE_PROTOCOLS.includes(protocol)) {
     throw new Error(`Unsupported remote protocol: ${protocol}`)
   }

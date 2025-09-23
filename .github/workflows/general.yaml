@@ -97,7 +97,7 @@ jobs:
 
   test-macos:
     needs: [test-compile]
-    runs-on: macos-latest-large
+    runs-on: macos-latest
 
     steps:
       - name: Checkout Repo
