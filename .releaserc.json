@@ -7,13 +7,7 @@
       "@semantic-release/exec",
       {
         "prepareCmd": "pnpm ci:version -- ${nextRelease.version}",
-        "publishCmd": "pnpm ci:publish"
-      }
-    ],
-    [
-      "@semantic-release/exec",
-      {
-        "publishCmd": "pnpm compile"
+        "publishCmd": "pnpm ci:publish && pnpm compile"
       }
     ],
     [
