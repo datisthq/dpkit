@@ -55,10 +55,22 @@ const targets = [
     libsql: "libsql-linux-x64-gnu",
   },
   {
+    name: "bun-linux-arm64",
+    dpkit: "linux-arm64",
+    polars: "nodejs-polars-linux-arm64-gnu",
+    libsql: "libsql-linux-arm64-gnu",
+  },
+  {
     name: "bun-darwin-x64",
     dpkit: "macos-x64",
     polars: "nodejs-polars-darwin-x64",
     libsql: "libsql-darwin-x64",
+  },
+  {
+    name: "bun-darwin-arm64",
+    dpkit: "macos-arm64",
+    polars: "nodejs-polars-darwin-arm64",
+    libsql: "libsql-darwin-arm64",
   },
   {
     name: "bun-windows-x64",
@@ -87,7 +99,7 @@ for (const target of targets) {
   `
 
   // For some reason bun creates it with no permissions
-  if (target.name === "bun-windows-x64") {
+  if (target.name.startsWith("bun-windows")) {
     await $build`chmod +r ${folder}/dp.exe`
   }
 

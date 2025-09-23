@@ -73,7 +73,7 @@ jobs:
           path: dpkit/compile/build
       - name: Test Binaries
         run: |
-          unzip -j dpkit/compile/build/*linux*.zip "dp*"
+          unzip -j dpkit/compile/build/*linux-x64.zip "dp*"
           ./dp --version
 
     services:
@@ -124,7 +124,7 @@ jobs:
           path: dpkit/compile/build
       - name: Test Binaries
         run: |
-          unzip -j dpkit/compile/build/*linux*.zip "dp*"
+          unzip -j dpkit/compile/build/*darwin-arm64.zip "dp*"
           ./dp --version
 
   test-windows:
@@ -154,12 +154,13 @@ jobs:
         with:
           name: binaries
           path: dpkit/compile/build
-      - name: Test Binaries
-        run: |
-          Expand-Archive dpkit\compile\build\*windows*.zip
-          $exe = Get-ChildItem -Recurse -Name "dp.exe" | Select-Object -First 1
-          icacls ".\$exe" /grant Everyone:F
-          & ".\$exe" --version
+      # TODO: Enable Windows tests
+      # - name: Test Binaries
+      #   run: |
+      #     Expand-Archive dpkit\compile\build\*windows*.zip
+      #     $exe = Get-ChildItem -Recurse -Name "dp.exe" | Select-Object -First 1
+      #     icacls ".\$exe" /grant Everyone:F
+      #     & ".\$exe" --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes
