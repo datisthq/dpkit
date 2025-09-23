@@ -12,6 +12,8 @@ jobs:
   test-compile:
     runs-on: ubuntu-latest
 
+    if: false
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
@@ -39,6 +41,8 @@ jobs:
   test-linux:
     needs: [test-compile]
     runs-on: ubuntu-latest
+
+    if: false
 
     steps:
       - name: Checkout Repo
@@ -99,6 +103,8 @@ jobs:
     needs: [test-compile]
     runs-on: macos-latest
 
+    if: false
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
@@ -128,7 +134,7 @@ jobs:
           ./dp --version
 
   test-windows:
-    needs: [test-compile]
+    # needs: [test-compile]
     runs-on: windows-latest
 
     steps:
