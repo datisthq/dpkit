@@ -21,7 +21,7 @@
     "lint": "biome check",
     "prepare": "husky",
     "spec": "vitest run",
-    "test": "pnpm check && pnpm run spec",
+    "test": "pnpm check && pnpm spec",
     "type": "tsc --noEmit"
   },
   "devDependencies": {
