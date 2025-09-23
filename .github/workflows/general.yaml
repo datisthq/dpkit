@@ -168,6 +168,17 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          node-version-file: package.json
+      - name: Install Dependencies
+        run: pnpm ci:install
       - name: Draft Release
         uses: cycjimmy/semantic-release-action@v5
         env:
