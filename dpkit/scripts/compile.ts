@@ -76,7 +76,7 @@ for (const target of targets) {
     await $compile`rm ${pack.stdout}`
   }
 
-  await $compile`ls -la node_modules`
+  await $compile`du -sh dpkit/compile/node_modules/*  | sort -h`
 
   await $compile`
   bun build main.ts
