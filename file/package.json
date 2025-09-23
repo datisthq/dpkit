@@ -2,7 +2,7 @@
   "name": "@dpkit/file",
   "type": "module",
   "version": "0.0.0-development",
-  "exports": "./build/index.js",
+  "exports": { ".": "./build/index.js" },
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
