@@ -125,7 +125,7 @@ jobs:
 
   test-windows:
     needs: [test-compile]
-    runs-on: macos-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Repo
