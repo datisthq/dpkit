@@ -3,12 +3,7 @@
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    [
-      "@semantic-release/exec",
-      { "publishCmd": "pnpm ci:version -- ${nextRelease.version}" }
-    ],
-    ["@semantic-release/exec", { "publishCmd": "pnpm compile" }],
-    ["@semantic-release/github", { "assets": "dpkit/compile/build/*.zip" }],
-    ["@semantic-release/exec", { "publishCmd": "pnpm ci:publish" }]
+    ["@semantic-release/github", { "draftRelease": true }],
+    ["@semantic-release/exec", { "publishCmd": "echo ${nextRelease.version}" }]
   ]
 }
