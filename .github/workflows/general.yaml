@@ -155,7 +155,7 @@ jobs:
         run: |
           $zipFile = Get-ChildItem dpkit/compile/build/*windows*.zip | Select-Object -First 1
           Expand-Archive -Path $zipFile.FullName -DestinationPath . -Force
-          ./dp.exe --version
+          .\dp.exe --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes
