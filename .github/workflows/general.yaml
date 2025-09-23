@@ -72,7 +72,7 @@ jobs:
           name: binaries
           path: dpkit/compile/build
       - name: Test Binaries
-        run: unzip -j dpkit/compile/build/*linux*.zip "dp*" && ./dp --version
+        run: unzip dpkit/compile/build/*linux*.zip && ./dp-*/dp --version
 
     services:
       postgres:
@@ -121,7 +121,7 @@ jobs:
           name: binaries
           path: dpkit/compile/build
       - name: Test Binaries
-        run: unzip -j dpkit/compile/build/*macos*.zip "dp*" && ./dp --version
+        run: unzip dpkit/compile/build/*macos*.zip && ./dp-*/dp --version
 
   test-windows:
     needs: [test-compile]
@@ -152,11 +152,7 @@ jobs:
           name: binaries
           path: dpkit/compile/build
       - name: Test Binaries
-        run: |
-          $zipFile = Get-ChildItem dpkit/compile/build/*windows*.zip | Select-Object -First 1
-          Expand-Archive -Path $zipFile.FullName -DestinationPath . -Force
-          Get-ChildItem
-          ./dp.exe --version
+        run: Expand-Archive dpkit/compile/build/*windows*.zip && ./dp-*/dp.exe --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes
