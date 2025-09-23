@@ -55,7 +55,8 @@ const targets = [
     libsql: "libsql-linux-x64-gnu",
   },
   {
-    name: "bun-darwin-x64",
+    // Github Actions doesn't support AVX
+    name: "bun-darwin-x64-baseline",
     dpkit: "macos-x64",
     polars: "nodejs-polars-darwin-x64",
     libsql: "libsql-darwin-x64",
