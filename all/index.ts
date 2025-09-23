@@ -9,7 +9,7 @@ export * from "@dpkit/github"
 export * from "@dpkit/inline"
 export * from "@dpkit/table"
 export * from "@dpkit/zenodo"
-export * from "@dpkit/zip"
+//export * from "@dpkit/zip"
 
 export * from "./dialect/index.ts"
 export * from "./package/index.ts"
