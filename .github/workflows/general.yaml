@@ -153,8 +153,9 @@ jobs:
       - name: Test Binaries
         run: |
           Expand-Archive dpkit\compile\build\*windows*.zip
-          $dir = Get-ChildItem dp-* -Directory | Select-Object -First 1
-          & ".\$($dir.Name)\dp.exe" --version
+          $exe = Get-ChildItem -Recurse -Name "dp.exe" | Select-Object -First 1
+          icacls ".\$exe" /grant Everyone:F
+          & ".\$exe" --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes
