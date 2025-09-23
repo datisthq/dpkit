@@ -76,6 +76,8 @@ for (const target of targets) {
     await $compile`rm ${pack.stdout}`
   }
 
+  await $compile`ls -la node_modules`
+
   await $compile`
   bun build main.ts
   --compile
