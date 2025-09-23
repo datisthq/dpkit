@@ -165,6 +165,10 @@ jobs:
       issues: write
       pull-requests: write
 
+    outputs:
+      created: ${{ steps.draft.outputs.new_release_published }}
+      version: ${{ steps.draft.outputs.new_release_version }}
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
@@ -180,13 +184,14 @@ jobs:
       - name: Install Dependencies
         run: pnpm ci:install
       - name: Draft Release
+        id: draft
         uses: cycjimmy/semantic-release-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release-publish:
     needs: [release-draft]
-    if: needs.release-draft.outputs.new_release_published == 'true'
+    if: needs.release-draft.outputs.created == 'true'
     runs-on: ubuntu-latest
 
     permissions:
@@ -207,7 +212,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm ci:install
       - name: Update Version
-        run: pnpm ci:version -- ${{ needs.release-draft.outputs.new_release_version }}
+        run: pnpm ci:version -- ${{ needs.release-draft.outputs.version }}
       - name: Build Packages
         run: pnpm build
       - name: Compile Packages
@@ -219,7 +224,7 @@ jobs:
       - name: Publish Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ needs.release-draft.outputs.new_release_version }}
+          tag_name: v${{ needs.release-draft.outputs.version }}
           files: dpkit/compile/build/*.zip
           make_latest: true
           draft: false
