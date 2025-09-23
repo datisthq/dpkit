@@ -144,15 +144,14 @@ jobs:
       - name: Build Packages
         run: pnpm build
       # - name: Test Packages
-      # TODO: Linting fails on Windows
-      # run: pnpm spec
+      # run: pnpm win:test
       - name: Download Binaries
         uses: actions/download-artifact@v5
         with:
           name: binaries
           path: dpkit/compile/build
       - name: Test Binaries
-        run: Expand-Archive dpkit/compile/build/*windows*.zip && ./dp-*/dp.exe --version
+        run: Expand-Archive dpkit\compile\build\*windows*.zip && .\dp-*\dp.exe --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes
