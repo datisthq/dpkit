@@ -52,10 +52,10 @@ describe("loadDescriptor", () => {
   })
 
   it("throws error for unsupported URL protocol", async () => {
-    const testUrl = "file:///path/to/schema.json"
+    const testUrl = "bad:///path/to/schema.json"
 
     await expect(loadDescriptor(testUrl)).rejects.toThrow(
-      "Unsupported remote protocol: file",
+      "Unsupported remote protocol: bad",
     )
   })
 

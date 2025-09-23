@@ -124,7 +124,7 @@ jobs:
           path: dpkit/compile/build
       - name: Test Binaries
         run: |
-          unzip -j dpkit/compile/build/*darwin-arm64.zip "dp*"
+          unzip -j dpkit/compile/build/*macos-arm64.zip "dp*"
           ./dp --version
 
   test-windows:

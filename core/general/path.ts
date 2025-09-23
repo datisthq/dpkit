@@ -2,12 +2,8 @@ import slugify from "@sindresorhus/slugify"
 import { node } from "./node.ts"
 
 export function isRemotePath(path: string) {
-  try {
-    new URL(path)
-    return true
-  } catch {
-    return false
-  }
+  const protocol = getProtocol(path)
+  return protocol !== "file"
 }
 
 export function getName(filename?: string) {
@@ -26,7 +22,14 @@ export function getName(filename?: string) {
 export function getProtocol(path: string) {
   try {
     const url = new URL(path)
-    return url.protocol.replace(":", "")
+    const protocol = url.protocol.replace(":", "")
+
+    // Handle Windows drive letters
+    if (protocol.length < 2) {
+      return "file"
+    }
+
+    return protocol
   } catch {
     return "file"
   }

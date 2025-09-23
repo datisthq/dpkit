@@ -30,7 +30,7 @@ async function loadRemoteDescriptor(path: string) {
   const url = new URL(path)
 
   const protocol = getProtocol(path)
-  if (protocol.length > 1 && !ALLOWED_REMOTE_PROTOCOLS.includes(protocol)) {
+  if (!ALLOWED_REMOTE_PROTOCOLS.includes(protocol)) {
     throw new Error(`Unsupported remote protocol: ${protocol}`)
   }
 

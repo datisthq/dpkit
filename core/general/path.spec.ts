@@ -28,7 +28,7 @@ describe("isRemotePath", () => {
     {
       description: "file URL",
       path: "file:///path/to/file.txt",
-      isRemote: true,
+      isRemote: false,
     },
     {
       description: "absolute path",
