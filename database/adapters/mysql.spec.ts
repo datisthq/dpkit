@@ -130,7 +130,7 @@ describe.skipIf(!path)("MysqlAdapter", () => {
   })
 
   it("should load package from database", async () => {
-    const adapter = createAdapter("sqlite")
+    const adapter = createAdapter("mysql")
     const database = await adapter.connectDatabase(path)
 
     await database.schema.dropTable("table1").ifExists().execute()

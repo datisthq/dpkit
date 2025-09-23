@@ -130,7 +130,7 @@ describe.skipIf(!path)("PostgresqlAdapter", () => {
   })
 
   it("should load package from database", async () => {
-    const adapter = createAdapter("sqlite")
+    const adapter = createAdapter("postgresql")
     const database = await adapter.connectDatabase(path)
 
     await database.schema.dropTable("table1").ifExists().execute()

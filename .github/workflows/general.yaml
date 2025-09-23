@@ -121,7 +121,7 @@ jobs:
           name: build
           path: dpkit/compile/build
       # - name: Test Binaries
-      #   run: unzip -j dpkit/compile/build/*darwin.zip "dp*" && ./dp --version
+      #   run: unzip -j dpkit/compile/build/*macos.zip "dp*" && ./dp --version
 
   test-windows:
     needs: [compile]
@@ -154,7 +154,7 @@ jobs:
       #   run: unzip -j dpkit/compile/build/*windows.zip "dp*" && ./dp.exe --version
 
   release:
-    # needs: [test-linux, test-macos, test-windows]
+    needs: [test-linux, test-macos, test-windows]
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
 

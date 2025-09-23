@@ -2,19 +2,26 @@
   "branches": ["main"],
   "plugins": [
     "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
     [
-      "@semantic-release/exec",
+      "@semantic-release/release-notes-generator",
       {
-        "prepareCmd": "pnpm ci:version -- ${nextRelease.version}",
-        "publishCmd": "pnpm compile"
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            { "type": "feat", "section": "✨ Features" },
+            { "type": "fix", "section": "🐞 Bug Fixes" },
+            { "type": "docs", "section": "📚 Documentation" },
+            { "type": "chore", "section": "🏠 Maintenance" }
+          ]
+        }
       }
     ],
     [
-      "@semantic-release/github",
-      {
-        "assets": "dpkit/compile/build/*.zip"
-      }
-    ]
+      "@semantic-release/exec",
+      { "publishCmd": "pnpm ci:version -- ${nextRelease.version}" }
+    ],
+    ["@semantic-release/exec", { "publishCmd": "pnpm compile" }],
+    ["@semantic-release/github", { "assets": "dpkit/compile/build/*.zip" }],
+    ["@semantic-release/exec", { "publishCmd": "pnpm ci:publish" }]
   ]
 }
