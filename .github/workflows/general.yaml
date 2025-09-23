@@ -150,8 +150,8 @@ jobs:
         with:
           name: binaries
           path: dpkit/compile/build
-      # - name: Test Binaries
-      #   run: unzip -j dpkit/compile/build/*windows*.zip "dp*" && ./dp.exe --version
+      - name: Test Binaries
+        run: unzip -j dpkit/compile/build/*windows*.zip "dp*" && ./dp.exe --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes
@@ -224,9 +224,7 @@ jobs:
       - name: Publish Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ needs.release-draft.outputs.version }}
           files: dpkit/compile/build/*.zip
-          make_latest: true
-          draft: false
+          tag_name: v${{ needs.release-draft.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
