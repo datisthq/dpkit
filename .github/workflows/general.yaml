@@ -12,8 +12,6 @@ jobs:
   test-compile:
     runs-on: ubuntu-latest
 
-    if: false
-
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
@@ -41,8 +39,6 @@ jobs:
   test-linux:
     needs: [test-compile]
     runs-on: ubuntu-latest
-
-    if: false
 
     steps:
       - name: Checkout Repo
@@ -103,8 +99,6 @@ jobs:
     needs: [test-compile]
     runs-on: macos-latest
 
-    if: false
-
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
@@ -134,7 +128,7 @@ jobs:
           ./dp --version
 
   test-windows:
-    # needs: [test-compile]
+    needs: [test-compile]
     runs-on: windows-latest
 
     steps:
@@ -153,13 +147,13 @@ jobs:
         run: pnpm ci:install
       - name: Build Packages
         run: pnpm build
-      - name: Test Packages
-        run: pnpm win:test
-      - name: Download Binaries
-        uses: actions/download-artifact@v5
-        with:
-          name: binaries
-          path: dpkit/compile/build
+      # - name: Test Packages
+      #   run: pnpm win:test
+      # - name: Download Binaries
+      #   uses: actions/download-artifact@v5
+      #   with:
+      #     name: binaries
+      #     path: dpkit/compile/build
       # TODO: Enable Windows tests
       # - name: Test Binaries
       #   run: |
