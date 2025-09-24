@@ -4,9 +4,7 @@ sidebar:
   order: 2
 ---
 
-:::note
-After instalation, the dpkit's command-line tool is available in your terminal under name `dp`
-:::
+After instalation, the dpkit's command-line tool is available in your terminal under name `dp`. Please read the [Getting Started](../../overview/getting-started) guide for more information.
 
 ## Command categories
 
@@ -17,20 +15,17 @@ The CLI commands are organized into categories named after the main objects they
 - dialect
 - schema
 - table
+- file
 
 Each category has its own commands for example the `table` category:
 
 - `dp table convert`
 - `dp table describe`
 - `dp table explore`
-- `dp table query`
+- `dp table script`
 - `dp table validate`
 
 ## Working with data packages
-
-:::caution
-This functionality is under development.
-:::
 
 Usually non-package command support the `-p/--package` and `-r/--resource` options to specify the datapackage file path and a resource name to access an object inside a data package.
 
