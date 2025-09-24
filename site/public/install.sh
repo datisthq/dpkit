@@ -80,7 +80,12 @@ fi
 archive="dp-$version-$platform.zip"
 source="https://github.com/datisthq/dpkit/releases/download/v$version/$archive"
 echo "Downloading: $source"
-wget -qL --show-progress $source -O $archive || curl -fL $source -o $archive
+
+if which wget >/dev/null ; then
+  wget -qL --show-progress $source -O $archive
+else
+  curl -fL $source -o $archive
+fi
 
 # Extract
 
