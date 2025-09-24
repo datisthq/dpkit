@@ -8,7 +8,7 @@
     "pnpm": "^10.0.0"
   },
   "scripts": {
-    "build": "pnpm -F '!docs' -F '!site' build",
+    "build": "pnpm -F !docs -F !site build",
     "bump": "ncu -ws -u",
     "ci:install": "pnpm install --ignore-scripts",
     "ci:publish": "pnpm -r publish --access public --ignore-scripts --no-git-checks",
