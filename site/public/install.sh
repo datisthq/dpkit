@@ -2,7 +2,7 @@
 
 # This script installs dpkit
 #
-# Quick install: `curl https://dpkit.dev/install.sh | sh`
+# Quick install: `curl -fsSL https://dpkit.dev/install.sh | sh`
 #
 # Acknowledgments:
 #   - eget (https://github.com/zyedidia/eget)
@@ -54,21 +54,21 @@ fi
 
 if [ "x$platform" = "x" ]; then
   cat << 'EOM'
-/=====================================\\
-|      COULD NOT DETECT PLATFORM      |
-\\=====================================/
-Uh oh! We couldn't automatically detect your operating system.
+We couldn't automatically detect your operating system.
+
 To continue with installation, please choose from one of the following values:
 - linux-x64
 - linux-arm64
 - macos-x64
 - macos-arm64
 - windows-x64
+
 Export your selection as the DPKIT_PLATFORM environment variable, and then
 re-run this script.
+
 For example:
   $ export DPKIT_PLATFORM=linux-x64
-  $ curl https://dpkit.dev/install.sh | sh
+  $ curl -fsSL https://dpkit.dev/install.sh | sh
 EOM
   exit 1
 else
