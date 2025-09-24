@@ -15,11 +15,10 @@ function makeShell(...paths: string[]) {
 
 const $root = makeShell("..")
 const $compile = makeShell("..", "compile")
-const $build = makeShell("..", "compile", "build")
+const $binaries = makeShell("..", "compile", "binaries")
 
 // Cleanup
 
-await $root`rm -rf build`
 await $root`rm -rf compile`
 await $root`mkdir compile`
 
@@ -94,17 +93,17 @@ for (const target of targets) {
   await $compile`
   bun build main.ts
   --compile
-  --outfile build/${folder}/dp
+  --outfile binaries/${folder}/dp
   --target ${target.name}
   `
 
   // For some reason bun creates it with no permissions
   if (target.name.startsWith("bun-windows")) {
-    await $build`chmod +r ${folder}/dp.exe`
+    await $binaries`chmod +r ${folder}/dp.exe`
   }
 
-  await $build`zip -r ${folder}.zip ${folder}`
-  await $build`rm -rf ${folder}`
+  await $binaries`zip -r ${folder}.zip ${folder}`
+  await $binaries`rm -rf ${folder}`
 
   await $compile`rm -rf node_modules/${target.polars}`
   //await $compile`rm -rf node_modules/${target.libsql}`
