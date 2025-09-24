@@ -72,7 +72,9 @@ jobs:
           name: binaries
           path: dpkit/compile/build
       - name: Test Binaries
-        run: unzip -j dpkit/compile/build/*linux*.zip "dp*" && ./dp --version
+        run: |
+          unzip -j dpkit/compile/build/*linux-x64.zip "dp*"
+          ./dp --version
 
     services:
       postgres:
@@ -120,12 +122,14 @@ jobs:
         with:
           name: binaries
           path: dpkit/compile/build
-      # - name: Test Binaries
-      #   run: unzip -j dpkit/compile/build/*macos*.zip "dp*" && ./dp --version
+      - name: Test Binaries
+        run: |
+          unzip -j dpkit/compile/build/*macos-arm64.zip "dp*"
+          ./dp --version
 
   test-windows:
     needs: [test-compile]
-    runs-on: macos-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Repo
@@ -143,20 +147,25 @@ jobs:
         run: pnpm ci:install
       - name: Build Packages
         run: pnpm build
-      - name: Test Packages
-        run: pnpm test
-      - name: Download Binaries
-        uses: actions/download-artifact@v5
-        with:
-          name: binaries
-          path: dpkit/compile/build
+      # - name: Test Packages
+      #   run: pnpm win:test
+      # - name: Download Binaries
+      #   uses: actions/download-artifact@v5
+      #   with:
+      #     name: binaries
+      #     path: dpkit/compile/build
+      # TODO: Enable Windows tests
       # - name: Test Binaries
-      #   run: unzip -j dpkit/compile/build/*windows*.zip "dp*" && ./dp.exe --version
+      #   run: |
+      #     Expand-Archive dpkit\compile\build\*windows*.zip
+      #     $exe = Get-ChildItem -Recurse -Name "dp.exe" | Select-Object -First 1
+      #     icacls ".\$exe" /grant Everyone:F
+      #     & ".\$exe" --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes
   release-draft:
-    # needs: [test-linux, test-macos, test-windows]
+    needs: [test-linux, test-macos, test-windows]
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
 
@@ -224,9 +233,7 @@ jobs:
       - name: Publish Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ needs.release-draft.outputs.version }}
           files: dpkit/compile/build/*.zip
-          make_latest: true
-          draft: false
+          tag_name: v${{ needs.release-draft.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

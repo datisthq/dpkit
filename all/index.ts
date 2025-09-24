@@ -9,7 +9,9 @@ export * from "@dpkit/github"
 export * from "@dpkit/inline"
 export * from "@dpkit/table"
 export * from "@dpkit/zenodo"
-export * from "@dpkit/zip"
+
+// TODO: Enable after migrated away from yauzl-promise (uses native crc32)
+//export * from "@dpkit/zip"
 
 export * from "./dialect/index.ts"
 export * from "./package/index.ts"
