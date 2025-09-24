@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# This script installs dpkit.
+# This script installs dpkit
 #
 # Quick install: `curl https://dpkit.dev/install.sh | sh`
 #
 # Acknowledgments:
-#   - eget (https://github.com/zyedidia/eget
+#   - eget (https://github.com/zyedidia/eget)
 
 set -e -u
 
