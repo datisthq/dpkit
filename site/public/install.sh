@@ -81,10 +81,10 @@ archive="dp-$version-$platform.zip"
 source="https://github.com/datisthq/dpkit/releases/download/v$version/$archive"
 echo "Downloading: $source"
 
-if which wget >/dev/null ; then
-  wget -qL --show-progress $source -O $archive
-else
+if [ "$platform" = "windows-x64" ]; then
   curl -fL $source -o $archive
+else
+  wget -qL --show-progress $source -O $archive
 fi
 
 # Extract
