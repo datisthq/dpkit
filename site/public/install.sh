@@ -81,11 +81,10 @@ archive="dp-$version-$platform.zip"
 source="https://github.com/datisthq/dpkit/releases/download/v$version/$archive"
 echo "Downloading: $source"
 
-if [ "$platform" = "windows-x64" ]; then
-  curl -fL $source -o $archive
-else
-  wget -qL --show-progress $source -O $archive
-fi
+case "$platform" in
+  windows*) curl -fL $source -o $archive ;;
+  *) wget -qL --show-progress $source -O $archive ;;
+esac
 
 # Extract
 
@@ -99,4 +98,9 @@ unlink $archive
 
 # Done
 
-echo 'Done: run it with "./dp"'
+case "$platform" in
+  windows*) command="./dp.exe" ;;
+  *) command="./dp" ;;
+esac
+
+echo "Done: run it with \"$command\""
