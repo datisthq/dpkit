@@ -28,8 +28,8 @@ echo "Version: $version"
 platform=''
 machine=$(uname -m)
 
-if [ "${GETEGET_PLATFORM:-x}" != "x" ]; then
-  platform="$GETEGET_PLATFORM"
+if [ "${DPKIT_PLATFORM:-x}" != "x" ]; then
+  platform="$DPKIT_PLATFORM"
 else
   case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
     "linux")
@@ -80,7 +80,7 @@ fi
 archive="dp-$version-$platform.zip"
 source="https://github.com/datisthq/dpkit/releases/download/v$version/$archive"
 echo "Downloading: $source"
-wget -qL --show-progress "https://github.com/datisthq/dpkit/releases/download/v$version/$archive" -O $archive
+wget -qL --show-progress $source -O $archive || curl -fL $source -o $archive
 
 # Extract
 

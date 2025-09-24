@@ -72,9 +72,7 @@ jobs:
           name: binaries
           path: dpkit/compile/build
       - name: Test Binaries
-        run: |
-          unzip -j dpkit/compile/build/*linux-x64.zip "dp*"
-          ./dp --version
+        run: unzip -j dpkit/compile/build/*linux-x64.zip && ./dp --version
 
     services:
       postgres:
@@ -123,9 +121,7 @@ jobs:
           name: binaries
           path: dpkit/compile/build
       - name: Test Binaries
-        run: |
-          unzip -j dpkit/compile/build/*macos-arm64.zip "dp*"
-          ./dp --version
+        run: unzip -j dpkit/compile/build/*macos-arm64.zip && ./dp --version
 
   test-windows:
     needs: [test-compile]
@@ -147,20 +143,16 @@ jobs:
         run: pnpm ci:install
       - name: Build Packages
         run: pnpm build
-      # - name: Test Packages
-      #   run: pnpm win:test
-      # - name: Download Binaries
-      #   uses: actions/download-artifact@v5
-      #   with:
-      #     name: binaries
-      #     path: dpkit/compile/build
-      # TODO: Enable Windows tests
-      # - name: Test Binaries
-      #   run: |
-      #     Expand-Archive dpkit\compile\build\*windows*.zip
-      #     $exe = Get-ChildItem -Recurse -Name "dp.exe" | Select-Object -First 1
-      #     icacls ".\$exe" /grant Everyone:F
-      #     & ".\$exe" --version
+      - name: Test Packages
+        run: pnpm win:test
+      - name: Download Binaries
+        uses: actions/download-artifact@v5
+        with:
+          name: binaries
+          path: dpkit/compile/build
+      - name: Test Binaries
+        shell: bash
+        run: unzip -j dpkit/compile/build/*windows-x64.zip && ./dp.exe --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes
@@ -233,6 +225,7 @@ jobs:
       - name: Publish Release
         uses: softprops/action-gh-release@v2
         with:
+          draft: false
           files: dpkit/compile/build/*.zip
           tag_name: v${{ needs.release-draft.outputs.version }}
         env:
