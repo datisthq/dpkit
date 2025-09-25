@@ -51,8 +51,14 @@ export function inferSchemaFromSample(
       throw new Error(`Field "${name}" not found in the table`)
     }
 
-    let type =
-      fieldTypes?.[name] ?? typeMapping[polarsField.type.variant] ?? "any"
+    // TODO: Remove this workaround once the issue is fixed
+    // https://github.com/pola-rs/nodejs-polars/issues/372
+    let variant = polarsField.type.variant as string
+    if (!typeMapping[variant]) {
+      variant = variant.slice(0, -1)
+    }
+
+    let type = fieldTypes?.[name] ?? typeMapping[variant] ?? "any"
 
     if (type === "array" && options?.arrayType === "list") {
       type = "list"
