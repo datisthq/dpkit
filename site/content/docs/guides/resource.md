@@ -4,8 +4,6 @@ sidebar:
   order: 4
 ---
 
-# Resource Commands
-
 Data Resource commands help you work with individual data resources - the building blocks of Data Packages. These commands allow you to infer metadata from data files, validate resource structure, and explore resource properties.
 
 ## Available Commands

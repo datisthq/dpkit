@@ -4,8 +4,6 @@ sidebar:
   order: 6
 ---
 
-# Schema Commands
-
 Table Schema commands help you work with table schemas - metadata that describes the structure, types, and constraints of tabular data. These commands allow you to infer schema from data, validate schema definitions, and explore schema properties.
 
 ## Available Commands

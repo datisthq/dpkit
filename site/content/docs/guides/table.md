@@ -4,8 +4,6 @@ sidebar:
   order: 7
 ---
 
-# Table Commands
-
 Table commands help you work directly with tabular data files. These commands allow you to explore, validate, convert, and analyze data tables with support for various formats including CSV, Excel, JSON, and more.
 
 ## Available Commands

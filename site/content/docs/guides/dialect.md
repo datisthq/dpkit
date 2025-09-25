@@ -4,8 +4,6 @@ sidebar:
   order: 5
 ---
 
-# Dialect Commands
-
 Table Dialect commands help you work with CSV dialects - metadata that describes how to parse CSV and similar tabular text files. These commands allow you to infer parsing parameters from files, validate dialect definitions, and explore dialect properties.
 
 ## Available Commands

@@ -4,8 +4,6 @@ sidebar:
   order: 3
 ---
 
-# Package Commands
-
 Data Package commands help you work with Data Packages - collections of data files along with their metadata. These commands allow you to create, validate, explore, and publish data packages across various platforms.
 
 ## Available Commands

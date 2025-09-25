@@ -4,8 +4,6 @@ sidebar:
   order: 8
 ---
 
-# File Commands
-
 File commands help you work with individual files, providing utilities for copying, describing, and validating files of various formats. These commands are useful for file-level operations and diagnostics.
 
 ## Available Commands
