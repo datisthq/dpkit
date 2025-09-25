@@ -279,7 +279,9 @@ describe("stringifyListField", () => {
       // Empty array
       [[], ""],
     ])("%s -> %s", async (value, expected) => {
-      const table = DataFrame([Series("name", [value], DataType.String)]).lazy()
+      const table = DataFrame([
+        Series("name", [value], DataType.List(DataType.String)),
+      ]).lazy()
 
       const schema = {
         fields: [{ name: "name", type: "list" as const, delimiter: ";" }],
