@@ -29,7 +29,7 @@
     "libsql": "^0.6.0-pre.20",
     "lru-cache": "^11.2.1",
     "mysql2": "^3.14.4",
-    "nodejs-polars": "^0.21.1",
+    "nodejs-polars": "^0.21.2",
     "pg": "^8.16.3"
   },
   "devDependencies": {

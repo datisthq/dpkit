@@ -120,8 +120,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       nodejs-polars:
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
     devDependencies:
       '@dpkit/test':
         specifier: workspace:*
@@ -176,8 +176,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       nodejs-polars:
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
     devDependencies:
       '@dpkit/test':
         specifier: workspace:*
@@ -204,8 +204,8 @@ importers:
         specifier: ^3.14.4
         version: 3.14.5
       nodejs-polars:
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
       pg:
         specifier: ^8.16.3
         version: 8.16.3
@@ -242,8 +242,8 @@ importers:
         specifier: 5.12.9
         version: 5.12.9(@types/node@24.2.0)(rollup@4.50.1)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
       nodejs-polars:
-        specifier: 0.21.1
-        version: 0.21.1
+        specifier: 0.21.2
+        version: 0.21.2
       sharp:
         specifier: 0.34.2
         version: 0.34.2
@@ -290,8 +290,8 @@ importers:
         specifier: ^6.3.1
         version: 6.3.1(@types/react@19.1.9)(react-devtools-core@6.1.5)(react@19.1.1)
       nodejs-polars:
-        specifier: ^0.21.0
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
       picocolors:
         specifier: ^1.1.1
         version: 1.1.1
@@ -376,8 +376,8 @@ importers:
         specifier: workspace:*
         version: link:../table
       nodejs-polars:
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
 
   json:
     dependencies:
@@ -394,8 +394,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       nodejs-polars:
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
     devDependencies:
       '@dpkit/test':
         specifier: workspace:*
@@ -413,8 +413,8 @@ importers:
         specifier: workspace:*
         version: link:../table
       nodejs-polars:
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
       xlsx:
         specifier: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
         version: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
@@ -438,8 +438,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       nodejs-polars:
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
     devDependencies:
       '@dpkit/test':
         specifier: workspace:*
@@ -478,8 +478,8 @@ importers:
         specifier: workspace:*
         version: link:../core
       nodejs-polars:
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
 
   test:
     dependencies:
@@ -505,8 +505,8 @@ importers:
         specifier: workspace:*
         version: link:../table
       nodejs-polars:
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.21.2
+        version: 0.21.2
       xlsx:
         specifier: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
         version: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
@@ -3332,56 +3332,56 @@ packages:
   node-mock-http@1.0.3:
     resolution: {integrity: sha512-jN8dK25fsfnMrVsEhluUTPkBFY+6ybu7jSB1n+ri/vOGjJxU8J9CZhpSGkHXSkFjtUhbmoncG/YG9ta5Ludqog==}
 
-  nodejs-polars-android-arm64@0.21.1:
-    resolution: {integrity: sha512-g/alCp4Hra/ZtVdEwhAb/yDwpdVmLzzK54Z4pL8LwHw/+FK8D1lULk2gDEoaTGy2WDUEa0lOR1PCHwvoXj9XGQ==}
+  nodejs-polars-android-arm64@0.21.2:
+    resolution: {integrity: sha512-LUavVQS6kIywk8Jdr8IS+9KbPAI+dxC86v4/7n/FRbZgivzJzIct3NxXJJHlry84OoBChA8RZ4+30YedfY3Axg==}
     engines: {node: '>= 16'}
     cpu: [arm64]
     os: [android]
 
-  nodejs-polars-darwin-arm64@0.21.1:
-    resolution: {integrity: sha512-55GQ0vRlUewTJLTdIl0RrpVl+LuxX9EFrMcMa4G/YlCSiBmzhEliE9pfX0NxKG5NPIQA187K9fLN2ZqwZCMKcA==}
+  nodejs-polars-darwin-arm64@0.21.2:
+    resolution: {integrity: sha512-KTelkb8bEQWm/g56sC6oEBLsWHQRdZZHWRxkUNlZpe+EVMPxrbBc2S5/6v+Vu2gpXjC5tJkg1FIzH7v/ovDr/g==}
     engines: {node: '>= 16'}
     cpu: [arm64]
     os: [darwin]
 
-  nodejs-polars-darwin-x64@0.21.1:
-    resolution: {integrity: sha512-3MuSKiHTIlfsvo/LBIgG7kBsxRd/dafGF2mmooCoyIHYETUWamCzSbM3cta5jNOTamDdIWhayuVVk4bQevfRrg==}
+  nodejs-polars-darwin-x64@0.21.2:
+    resolution: {integrity: sha512-a+5XNj077t43UAHMVrxcwJfbipSJNljkUXjYoRWh1xTQInA2oo98E72oeeJOTmpK0sohr3Y05qIZuFhit3wc/g==}
     engines: {node: '>= 16'}
     cpu: [x64]
     os: [darwin]
 
-  nodejs-polars-linux-arm64-gnu@0.21.1:
-    resolution: {integrity: sha512-woztH1q88m+dO2mR2lLTxd4Bi88GmsLQAgmDVskxwPUiv8VTOOKtItTzf+Vp2Kg4WIRFAhFiQiTyCqfK9SAhcg==}
+  nodejs-polars-linux-arm64-gnu@0.21.2:
+    resolution: {integrity: sha512-7oBtaFQ0JhryXCG7YPazBxhubtxbqKjgKx+hmv9qp+3s2vYtp2TI+hlfoYa1xrFuKDpqvCQwuFWHTN5fZwH+9A==}
     engines: {node: '>= 16'}
     cpu: [arm64]
     os: [linux]
 
-  nodejs-polars-linux-arm64-musl@0.21.1:
-    resolution: {integrity: sha512-7X82Jwutwu6MjhdxHfSX5a9Qgnkrmw11VsSHt755a+/zHym25bcSBFTafZ/wDKIG8gGH7GUKjLTR9Wn0fzHkoQ==}
+  nodejs-polars-linux-arm64-musl@0.21.2:
+    resolution: {integrity: sha512-FU26Hj8B2/hNxTiWADoWLlGNDnNyqaDMUOhGTknXZKZM6XL4tok+Nca9AwiSuIUNR7ga27JgmZZ0AlDOWnOYXQ==}
     engines: {node: '>= 16'}
     cpu: [arm64]
     os: [linux]
 
-  nodejs-polars-linux-x64-gnu@0.21.1:
-    resolution: {integrity: sha512-vsf15a0LWBjD3ce7lF10mhI/Ks2SUyVVbxur8r7wYfSEkKPfVmPprWvhTZJ7jjTnmxIvZ9Q+P5McA7mzzq/dAQ==}
+  nodejs-polars-linux-x64-gnu@0.21.2:
+    resolution: {integrity: sha512-tjhF1useVeDHeWCl7BB4GQ8AT1ykIBCO4BRBhMdQzKhs53MfXv452eCsApOcV35SabZoTGidFnkKep9DIDCWLg==}
     engines: {node: '>= 16'}
     cpu: [x64]
     os: [linux]
 
-  nodejs-polars-linux-x64-musl@0.21.1:
-    resolution: {integrity: sha512-6bcdDXRyqvDg5JKXOlrnzuqK6HhBggR10a+G/xbmU4tl8dBdm6RvhHQBdMczQF6XD7dRWk8fy6lcW+LjxGrWgQ==}
+  nodejs-polars-linux-x64-musl@0.21.2:
+    resolution: {integrity: sha512-U8WyZW1QKKEl4KO4gHKYHdjz7lgBbhxNmr1RRzA08nzynMa5Th5e9+OQd0AkK/YC5OA2GDiEhXLY0PF3j6qe1Q==}
     engines: {node: '>= 16'}
     cpu: [x64]
     os: [linux]
 
-  nodejs-polars-win32-x64-msvc@0.21.1:
-    resolution: {integrity: sha512-Mvgu6fi1iuvKzlyCHMUtDh7z8pESMpic3ejQ17dmcuyJqOX8oxgIoupF8awWqFjWeNWTvEdt2bS+RgAIONHNOQ==}
+  nodejs-polars-win32-x64-msvc@0.21.2:
+    resolution: {integrity: sha512-KX8fNcCGagBcXi5aKhus6gNL6lRo+HpPAqF8+0Qrz7Kc+TXwX2hvFFZ/JPPMjEduH/GO70iwksqBLi2ackVHJw==}
     engines: {node: '>= 16'}
     cpu: [x64]
     os: [win32]
 
-  nodejs-polars@0.21.1:
-    resolution: {integrity: sha512-tdKUZuWwZaqDEC4ovVqb/K15uEbV2DizHN59Wl2lJBp3GA1pHAN+7S/7GPDs+xlo3eHDqaslcS2iJDqslZmuWw==}
+  nodejs-polars@0.21.2:
+    resolution: {integrity: sha512-nQhNI1x85p7ctb786QdoK8zgovnGOokGb91BHcJZr0WlTexI4sEr+eG24r/4id9d9e6dE3y/FJR7YmWBso8XhA==}
     engines: {node: '>= 20'}
 
   normalize-package-data@6.0.2:
@@ -8100,40 +8100,40 @@ snapshots:
 
   node-mock-http@1.0.3: {}
 
-  nodejs-polars-android-arm64@0.21.1:
+  nodejs-polars-android-arm64@0.21.2:
     optional: true
 
-  nodejs-polars-darwin-arm64@0.21.1:
+  nodejs-polars-darwin-arm64@0.21.2:
     optional: true
 
-  nodejs-polars-darwin-x64@0.21.1:
+  nodejs-polars-darwin-x64@0.21.2:
     optional: true
 
-  nodejs-polars-linux-arm64-gnu@0.21.1:
+  nodejs-polars-linux-arm64-gnu@0.21.2:
     optional: true
 
-  nodejs-polars-linux-arm64-musl@0.21.1:
+  nodejs-polars-linux-arm64-musl@0.21.2:
     optional: true
 
-  nodejs-polars-linux-x64-gnu@0.21.1:
+  nodejs-polars-linux-x64-gnu@0.21.2:
     optional: true
 
-  nodejs-polars-linux-x64-musl@0.21.1:
+  nodejs-polars-linux-x64-musl@0.21.2:
     optional: true
 
-  nodejs-polars-win32-x64-msvc@0.21.1:
+  nodejs-polars-win32-x64-msvc@0.21.2:
     optional: true
 
-  nodejs-polars@0.21.1:
+  nodejs-polars@0.21.2:
     optionalDependencies:
-      nodejs-polars-android-arm64: 0.21.1
-      nodejs-polars-darwin-arm64: 0.21.1
-      nodejs-polars-darwin-x64: 0.21.1
-      nodejs-polars-linux-arm64-gnu: 0.21.1
-      nodejs-polars-linux-arm64-musl: 0.21.1
-      nodejs-polars-linux-x64-gnu: 0.21.1
-      nodejs-polars-linux-x64-musl: 0.21.1
-      nodejs-polars-win32-x64-msvc: 0.21.1
+      nodejs-polars-android-arm64: 0.21.2
+      nodejs-polars-darwin-arm64: 0.21.2
+      nodejs-polars-darwin-x64: 0.21.2
+      nodejs-polars-linux-arm64-gnu: 0.21.2
+      nodejs-polars-linux-arm64-musl: 0.21.2
+      nodejs-polars-linux-x64-gnu: 0.21.2
+      nodejs-polars-linux-x64-musl: 0.21.2
+      nodejs-polars-win32-x64-msvc: 0.21.2
 
   normalize-package-data@6.0.2:
     dependencies:
