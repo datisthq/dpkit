@@ -17,7 +17,7 @@ dp file copy <source-path> <target-path>
 ```
 
 **Options:**
-- `--debug`: Enable debug mode
+- `-d, --debug`: Enable debug mode
 
 **Examples:**
 ```bash
@@ -40,8 +40,8 @@ dp file describe <file-path>
 ```
 
 **Options:**
-- `--json`: Output as JSON
-- `--debug`: Enable debug mode
+- `-j, --json`: Output as JSON
+- `-d, --debug`: Enable debug mode
 
 **Examples:**
 ```bash
@@ -70,8 +70,8 @@ dp file validate <file-path>
 
 **Options:**
 - `--json`: Output validation results as JSON
-- `--debug`: Enable debug mode
-- `--quit`: Exit immediately after validation (don't prompt for error filtering)
+- `-d, --debug`: Enable debug mode
+- `-q, --quit`: Exit immediately after validation (don't prompt for error filtering)
 
 **Examples:**
 ```bash

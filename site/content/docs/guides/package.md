@@ -19,7 +19,7 @@ dp package copy <descriptor-path> --to-path <target>
 **Options:**
 - `--to-path` (required): Target destination for the copy
 - `--with-remote`: Include remote resources in the copy
-- `--debug`: Enable debug mode
+- `-d, --debug`: Enable debug mode
 
 **Examples:**
 ```bash
@@ -106,8 +106,8 @@ dp package explore <descriptor-path>
 ```
 
 **Options:**
-- `--json`: Output as JSON
-- `--debug`: Enable debug mode
+- `-j, --json`: Output as JSON
+- `-d, --debug`: Enable debug mode
 
 **Examples:**
 ```bash
@@ -131,8 +131,8 @@ dp package validate <descriptor-path>
 
 **Options:**
 - `--json`: Output validation results as JSON
-- `--debug`: Enable debug mode
-- `--quit`: Exit immediately after validation (don't prompt for error filtering)
+- `-d, --debug`: Enable debug mode
+- `-q, --quit`: Exit immediately after validation (don't prompt for error filtering)
 
 **Examples:**
 ```bash

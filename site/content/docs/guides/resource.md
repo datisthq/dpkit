@@ -17,10 +17,10 @@ dp resource infer <table-path>
 ```
 
 **Options:**
-- `--from-package`: Path to package containing the resource
-- `--from-resource`: Name of resource within package
-- `--json`: Output as JSON
-- `--debug`: Enable debug mode
+- `-p, --from-package`: Path to package containing the resource
+- `-r, --from-resource`: Name of resource within package
+- `-j, --json`: Output as JSON
+- `-d, --debug`: Enable debug mode
 
 **Table Dialect Options:**
 - `--delimiter`: Field delimiter character
@@ -93,10 +93,10 @@ dp resource explore <descriptor-path>
 ```
 
 **Options:**
-- `--from-package`: Path to package containing the resource
-- `--from-resource`: Name of resource within package
-- `--json`: Output as JSON
-- `--debug`: Enable debug mode
+- `-p, --from-package`: Path to package containing the resource
+- `-r, --from-resource`: Name of resource within package
+- `-j, --json`: Output as JSON
+- `-d, --debug`: Enable debug mode
 
 **Examples:**
 ```bash
@@ -126,7 +126,7 @@ dp resource validate [descriptor-path]
 - `--from-resource`: Name of resource within package
 - `--json`: Output validation results as JSON
 - `--debug`: Enable debug mode
-- `--quit`: Exit immediately after validation (don't prompt for error filtering)
+- `-q, --quit`: Exit immediately after validation (don't prompt for error filtering)
 
 **Examples:**
 ```bash
@@ -155,10 +155,10 @@ dp resource script <descriptor-path>
 ```
 
 **Options:**
-- `--from-package`: Path to package containing the resource
-- `--from-resource`: Name of resource within package
-- `--json`: Output as JSON
-- `--debug`: Enable debug mode
+- `-p, --from-package`: Path to package containing the resource
+- `-r, --from-resource`: Name of resource within package
+- `-j, --json`: Output as JSON
+- `-d, --debug`: Enable debug mode
 
 **Available Variables:**
 - `dpkit`: The dpkit library object

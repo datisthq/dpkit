@@ -17,9 +17,9 @@ dp table convert <source-path> <target-path>
 ```
 
 **Options:**
-- `--from-package`: Path to package containing the resource
-- `--from-resource`: Name of resource within package
-- `--debug`: Enable debug mode
+- `-p, --from-package`: Path to package containing the resource
+- `-r, --from-resource`: Name of resource within package
+- `-d, --debug`: Enable debug mode
 
 **Supported Formats:**
 - **Input**: CSV, TSV, Excel (.xlsx, .xls), JSON, Parquet, Arrow, ODS
@@ -49,10 +49,10 @@ dp table describe <table-path>
 ```
 
 **Options:**
-- `--from-package`: Path to package containing the resource
-- `--from-resource`: Name of resource within package
-- `--json`: Output as JSON
-- `--debug`: Enable debug mode
+- `-p, --from-package`: Path to package containing the resource
+- `-r, --from-resource`: Name of resource within package
+- `-j, --json`: Output as JSON
+- `-d, --debug`: Enable debug mode
 
 **Examples:**
 ```bash
@@ -118,7 +118,7 @@ dp table validate <table-path>
 - `--dialect`: Path to dialect file for parsing
 - `--json`: Output validation results as JSON
 - `--debug`: Enable debug mode
-- `--quit`: Exit immediately after validation (don't prompt for error filtering)
+- `-q, --quit`: Exit immediately after validation (don't prompt for error filtering)
 
 **Examples:**
 ```bash
