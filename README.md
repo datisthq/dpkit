@@ -2,6 +2,7 @@
 
 [![Build](https://img.shields.io/github/actions/workflow/status/datisthq/dpkit/general.yaml?branch=main)](https://github.com/datisthq/dpkit/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/datisthq/dpkit/main)](https://codecov.io/gh/datisthq/dpkit)
+[![Version](https://img.shields.io/npm/v/dpkit)](https://www.npmjs.com/package/dpkit)
 
 > [!NOTE]
 > Help this project grow by becoming a **[SPONSOR](https://github.com/sponsors/datisthq)** or adding a **[STAR](https://github.com/datisthq/dpkit/stargazers)** to the project on GitHub!
