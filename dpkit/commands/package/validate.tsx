@@ -28,7 +28,7 @@ export const validatePackageCommand = new Command("validate")
       validatePackage(path),
     )
 
-    if (report.errors.length && !options.quit) {
+    if (report.errors.length && !options.quit && !options.json) {
       // @ts-ignore
       const name = await selectErrorResource(session, report.errors)
       // @ts-ignore

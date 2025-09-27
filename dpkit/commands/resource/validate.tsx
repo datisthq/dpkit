@@ -33,7 +33,7 @@ export const validateResourceCommand = new Command("validate")
       validateResource(descriptor),
     )
 
-    if (report.errors.length && !options.quit) {
+    if (report.errors.length && !options.quit && !options.json) {
       const type = await selectErrorType(session, report.errors)
       // @ts-ignore
       if (type) report.errors = report.errors.filter(e => e.type === type)
