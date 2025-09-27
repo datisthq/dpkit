@@ -117,7 +117,7 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
   "profile": "tabular-data-package",
   "resources": [
     {
-      "$schema": "tabular-data-resource",
+      "$schema": undefined,
       "encoding": "UTF-8",
       "format": "csv",
       "mediatype": "text/csv",
@@ -353,7 +353,7 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
       "zenodo:url": undefined,
     },
     {
-      "$schema": "tabular-data-resource",
+      "$schema": undefined,
       "encoding": "UTF-8",
       "format": "csv",
       "mediatype": "text/csv",
@@ -566,7 +566,7 @@ exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = 
       "zenodo:url": undefined,
     },
     {
-      "$schema": "tabular-data-resource",
+      "$schema": undefined,
       "encoding": "UTF-8",
       "format": "csv",
       "mediatype": "text/csv",

@@ -37,7 +37,8 @@ export const inferDialectCommand = new Command("infer")
     )
 
     if (isEmptyObject(dialect)) {
-      Session.terminate("Could not infer dialect")
+      session.terminate("Could not infer dialect")
+      process.exit(1) // typescript ignore never return type above
     }
 
     await session.render(dialect, <DialectGrid dialect={dialect} />)

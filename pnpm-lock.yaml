@@ -160,6 +160,10 @@ importers:
       tiny-invariant:
         specifier: ^1.3.3
         version: 1.3.3
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
 
   csv:
     dependencies:

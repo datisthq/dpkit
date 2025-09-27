@@ -1,5 +1,9 @@
+import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
+import { loadDescriptor } from "../general/index.ts"
 import { validatePackageDescriptor } from "./validate.ts"
+
+useRecording()
 
 describe("validatePackageDescriptor", () => {
   it("returns valid result for valid package", async () => {
@@ -13,10 +17,10 @@ describe("validatePackageDescriptor", () => {
       ],
     }
 
-    const result = await validatePackageDescriptor(descriptor)
+    const { valid, errors } = await validatePackageDescriptor(descriptor)
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(valid).toBe(true)
+    expect(errors).toEqual([])
   })
 
   it("returns validation errors for invalid package", async () => {
@@ -25,15 +29,24 @@ describe("validatePackageDescriptor", () => {
       resources: "not-an-array", // Should be an array
     }
 
-    const result = await validatePackageDescriptor(descriptor)
+    const { valid, errors } = await validatePackageDescriptor(descriptor)
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(0)
+    expect(valid).toBe(false)
+    expect(errors.length).toBeGreaterThan(0)
 
-    const error = result.errors[0]
+    const error = errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("type")
     }
+  })
+
+  it("should validate camtrap dp (#144)", async () => {
+    const { descriptor } = await loadDescriptor(
+      "https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.2/example/datapackage.json",
+    )
+
+    const { valid } = await validatePackageDescriptor(descriptor)
+    expect(valid).toBe(true)
   })
 })

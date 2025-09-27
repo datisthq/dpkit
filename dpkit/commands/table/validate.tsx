@@ -23,6 +23,7 @@ export const validateTableCommand = new Command("validate")
   .addOption(params.json)
   .addOption(params.debug)
   .addOption(params.quit)
+  .addOption(params.all)
 
   .optionsGroup("Table Dialect")
   .addOption(params.dialect)
@@ -77,6 +78,8 @@ export const validateTableCommand = new Command("validate")
       title: "Validate Table",
       json: options.json,
       debug: options.debug,
+      quit: options.quit,
+      all: options.all,
     })
 
     const dialect = options.dialect
@@ -115,7 +118,7 @@ export const validateTableCommand = new Command("validate")
       validateTable(table, { schema }),
     )
 
-    if (report.errors.length && !options.quit) {
+    if (report.errors.length) {
       const type = await selectErrorType(session, report.errors)
       if (type) report.errors = report.errors.filter(e => e.type === type)
     }

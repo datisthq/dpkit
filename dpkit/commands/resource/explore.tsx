@@ -29,7 +29,8 @@ export const exploreResourceCommand = new Command("explore")
       : await selectResource(session, options)
 
     if (isEmptyObject(resource)) {
-      Session.terminate("Resource is not available")
+      session.terminate("Resource is not available")
+      process.exit(1) // typescript ignore never return type above
     }
 
     await session.render(resource, <ResourceGrid resource={resource} />)

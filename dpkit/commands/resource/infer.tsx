@@ -77,7 +77,8 @@ export const inferResourceCommand = new Command("infer")
     )
 
     if (isEmptyObject(result)) {
-      Session.terminate("Could not infer resource")
+      session.terminate("Could not infer resource")
+      process.exit(1) // typescript ignore never return type above
     }
 
     await session.render(result, <ResourceGrid resource={result} />)

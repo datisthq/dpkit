@@ -7,15 +7,21 @@ import { render } from "ink"
 import pc from "picocolors"
 import type React from "react"
 
+type SessionSelectOptions<T> = SelectOptions<T> & { skipable?: boolean }
+
 export class Session {
   title: string
   debug: boolean
+  quit: boolean
+  all: boolean
 
   static create(options: {
     title: string
     json?: boolean
     text?: boolean
     debug?: boolean
+    quit?: boolean
+    all?: boolean
   }) {
     let session = new Session(options)
 
@@ -26,14 +32,16 @@ export class Session {
     return session
   }
 
-  static terminate(message: string): never {
-    log.error(message)
-    process.exit(1)
-  }
-
-  constructor(options: { title: string; debug?: boolean }) {
+  constructor(options: {
+    title: string
+    debug?: boolean
+    quit?: boolean
+    all?: boolean
+  }) {
     this.title = options.title
     this.debug = options.debug ?? false
+    this.quit = options.quit ?? false
+    this.all = options.all ?? false
   }
   start() {
     intro(pc.bold(this.title))
@@ -48,7 +56,16 @@ export class Session {
     log.error(message)
   }
 
-  async select<T>(options: SelectOptions<T>) {
+  terminate(message: string): never {
+    log.error(message)
+    process.exit(1)
+  }
+
+  async select<T>(options: SessionSelectOptions<T>) {
+    if (options.skipable) {
+      if (this.quit || this.all) return undefined
+    }
+
     return await select(options)
   }
 
@@ -79,11 +96,7 @@ export class Session {
     }
   }
 
-  async render(
-    _object: any,
-    node?: React.ReactNode,
-    //options?: { quit?: boolean },
-  ) {
+  async render(_object: any, node?: React.ReactNode) {
     // Without waiting for the next tick after clack prompts,
     // ink render will be immidiately terminated
     await setImmediate()
@@ -109,8 +122,17 @@ class JsonSession extends Session {
   success = () => {}
   error = () => {}
 
-  async select<T>(_options: SelectOptions<T>): Promise<symbol | T> {
-    Session.terminate("Selection is not supported in JSON mode")
+  terminate(message: string): never {
+    console.log(JSON.stringify({ error: message }, null, 2))
+    process.exit(1)
+  }
+
+  async select<T>(options: SessionSelectOptions<T>) {
+    if (options.skipable) {
+      return undefined
+    }
+
+    this.terminate("Selection is not supported in JSON mode")
   }
 
   async render(object: any, _node: React.ReactNode) {
@@ -132,8 +154,12 @@ class TextSession extends Session {
   success = () => {}
   error = () => {}
 
-  async select<T>(_options: SelectOptions<T>): Promise<symbol | T> {
-    Session.terminate("Selection is not supported in TEXT mode")
+  async select<T>(options: SessionSelectOptions<T>) {
+    if (options.skipable) {
+      return undefined
+    }
+
+    this.terminate("Selection is not supported in TEXT mode")
   }
 
   async render(object: any, _node: React.ReactNode) {

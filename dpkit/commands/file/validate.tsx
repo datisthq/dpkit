@@ -17,16 +17,20 @@ export const validateFileCommand = new Command("validate")
   .addOption(params.json)
   .addOption(params.debug)
   .addOption(params.quit)
+  .addOption(params.all)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Validate file",
       json: options.json,
       debug: options.debug,
+      quit: options.quit,
+      all: options.all,
     })
 
     if (!options.bytes && !options.hash) {
-      Session.terminate("You must specify either --bytes or --hash")
+      session.terminate("You must specify either --bytes or --hash")
+      process.exit(1) // typescript ignore never return type above
     }
 
     const report = await session.task(
@@ -37,7 +41,7 @@ export const validateFileCommand = new Command("validate")
       }),
     )
 
-    if (report.errors.length && !options.quit) {
+    if (report.errors.length) {
       const type = await selectErrorType(session, report.errors)
       if (type) report.errors = report.errors.filter(e => e.type === type)
     }

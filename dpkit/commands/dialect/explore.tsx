@@ -37,7 +37,8 @@ export const exploreDialectCommand = new Command("explore")
     )
 
     if (!dialect || isEmptyObject(dialect)) {
-      Session.terminate("Dialect is not available")
+      session.terminate("Dialect is not available")
+      process.exit(1) // typescript ignore never return type above
     }
 
     await session.render(dialect, <DialectGrid dialect={dialect} />)

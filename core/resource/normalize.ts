@@ -1,6 +1,7 @@
 import { normalizeDialect } from "../dialect/index.ts"
 import { isDescriptor, normalizePath } from "../general/index.ts"
 import type { Descriptor } from "../general/index.ts"
+import { isRemotePath } from "../general/index.ts"
 import { normalizeSchema } from "../schema/index.ts"
 
 export function normalizeResource(
@@ -23,7 +24,15 @@ export function normalizeResource(
 }
 
 function normalizeProfile(descriptor: Descriptor) {
-  descriptor.$schema = descriptor.$schema ?? descriptor.profile
+  // We can ignore data-package/data-resource/tabular-data-package/tabular-data-resource
+  // special value profiles because they are already incorporated into the dpkit's built-in profiles
+  // https://specs.frictionlessdata.io/profiles/#profile-property
+  const remoteProfile =
+    typeof descriptor.profile === "string" && isRemotePath(descriptor.profile)
+      ? descriptor.profile
+      : undefined
+
+  descriptor.$schema = descriptor.$schema ?? remoteProfile
 }
 
 function normalizeUrl(descriptor: Descriptor) {

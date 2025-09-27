@@ -37,7 +37,8 @@ export const exploreSchemaCommand = new Command("explore")
     )
 
     if (!schema || isEmptyObject(schema)) {
-      Session.terminate("Schema is not available")
+      session.terminate("Schema is not available")
+      process.exit(1) // typescript ignore never return type above
     }
 
     await session.render(schema, <SchemaGrid schema={schema} />)
