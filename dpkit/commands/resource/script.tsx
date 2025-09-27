@@ -30,7 +30,8 @@ export const scriptResourceCommand = new Command("script")
       : await selectResource(session, options)
 
     if (isEmptyObject(resource)) {
-      Session.terminate("Resource is not available")
+      session.terminate("Resource is not available")
+      process.exit(1) // typescript ignore never return type above
     }
 
     console.log(

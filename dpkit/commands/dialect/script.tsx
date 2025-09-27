@@ -38,7 +38,8 @@ export const scriptDialectCommand = new Command("script")
     )
 
     if (!dialect || isEmptyObject(dialect)) {
-      Session.terminate("Dialect is not available")
+      session.terminate("Dialect is not available")
+      process.exit(1) // typescript ignore never return type above
     }
 
     console.log(

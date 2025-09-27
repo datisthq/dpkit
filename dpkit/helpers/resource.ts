@@ -1,12 +1,12 @@
 import { loadPackage } from "@dpkit/all"
-import { Session } from "./session.ts"
+import type { Session } from "./session.ts"
 
 export async function selectResource(
   session: Session,
   options: { package?: string; resource?: string },
 ) {
   if (!options.package) {
-    Session.terminate("Please provide a path argument or a package option")
+    session.terminate("Please provide a path argument or a package option")
   }
 
   const dataPackage = await session.task(
@@ -30,10 +30,10 @@ export async function selectResource(
 
   if (!resource) {
     if (typeof resourceName !== "string") {
-      Session.terminate("Resource selection cancelled")
+      session.terminate("Resource selection cancelled")
     }
 
-    Session.terminate(
+    session.terminate(
       `Resource "${resourceName}" is not found in the provided data package`,
     )
   }

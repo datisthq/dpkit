@@ -46,7 +46,8 @@ export const validateDialectCommand = new Command("validate")
         : { descriptor: undefined }
 
     if (!descriptor) {
-      Session.terminate("Dialect is not available")
+      session.terminate("Dialect is not available")
+      process.exit(1)
     }
 
     const report = await session.task(

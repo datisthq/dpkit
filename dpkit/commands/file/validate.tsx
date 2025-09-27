@@ -26,7 +26,8 @@ export const validateFileCommand = new Command("validate")
     })
 
     if (!options.bytes && !options.hash) {
-      Session.terminate("You must specify either --bytes or --hash")
+      session.terminate("You must specify either --bytes or --hash")
+      process.exit(1) // typescript ignore never return type above
     }
 
     const report = await session.task(

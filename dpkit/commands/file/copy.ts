@@ -25,7 +25,8 @@ export const copyFileCommand = new Command("copy")
       const resource = await selectResource(session, options)
 
       if (typeof resource.path !== "string") {
-        Session.terminate("Only single file resources are supported")
+        session.terminate("Only single file resources are supported")
+        process.exit(1) // typescript ignore never return type above
       }
 
       path = resource.path

@@ -46,7 +46,8 @@ export const validateSchemaCommand = new Command("validate")
         : { descriptor: undefined }
 
     if (!descriptor) {
-      Session.terminate("Schema is not available")
+      session.terminate("Schema is not available")
+      process.exit(1) // typescript ignore never return type above
     }
 
     const report = await session.task(

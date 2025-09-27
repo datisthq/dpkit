@@ -26,11 +26,6 @@ export class Session {
     return session
   }
 
-  static terminate(message: string): never {
-    log.error(message)
-    process.exit(1)
-  }
-
   constructor(options: { title: string; debug?: boolean }) {
     this.title = options.title
     this.debug = options.debug ?? false
@@ -46,6 +41,11 @@ export class Session {
 
   error(message: string) {
     log.error(message)
+  }
+
+  terminate(message: string): never {
+    log.error(message)
+    process.exit(1)
   }
 
   async select<T>(options: SelectOptions<T>) {
@@ -105,8 +105,13 @@ class JsonSession extends Session {
   success = () => {}
   error = () => {}
 
+  terminate(message: string): never {
+    console.log(JSON.stringify({ error: message }, null, 2))
+    process.exit(1)
+  }
+
   async select<T>(_options: SelectOptions<T>): Promise<symbol | T> {
-    Session.terminate("Selection is not supported in JSON mode")
+    this.terminate("Selection is not supported in JSON mode")
   }
 
   async render(object: any, _node: React.ReactNode) {
@@ -129,7 +134,7 @@ class TextSession extends Session {
   error = () => {}
 
   async select<T>(_options: SelectOptions<T>): Promise<symbol | T> {
-    Session.terminate("Selection is not supported in TEXT mode")
+    this.terminate("Selection is not supported in TEXT mode")
   }
 
   async render(object: any, _node: React.ReactNode) {

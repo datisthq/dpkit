@@ -85,7 +85,8 @@ export const inferSchemaCommand = new Command("infer")
     )
 
     if (isEmptyObject(inferredSchema)) {
-      Session.terminate("Could not infer schema")
+      session.terminate("Could not infer schema")
+      process.exit(1) // typescript ignore never return type above
     }
 
     await session.render(inferredSchema, <SchemaGrid schema={inferredSchema} />)
