@@ -119,6 +119,7 @@ dp table validate <table-path>
 - `--json`: Output validation results as JSON
 - `--debug`: Enable debug mode
 - `-q, --quit`: Exit immediately after validation (don't prompt for error filtering)
+- `-a, --all`: Skip selection prompts when all can be selected
 
 **Examples:**
 ```bash
