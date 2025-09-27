@@ -15,12 +15,15 @@ export const validatePackageCommand = new Command("validate")
   .addOption(params.json)
   .addOption(params.debug)
   .addOption(params.quit)
+  .addOption(params.all)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Validate package",
       json: options.json,
       debug: options.debug,
+      quit: options.quit,
+      all: options.all,
     })
 
     const report = await session.task(
@@ -28,7 +31,7 @@ export const validatePackageCommand = new Command("validate")
       validatePackage(path),
     )
 
-    if (report.errors.length && !options.quit && !options.json) {
+    if (report.errors.length) {
       // @ts-ignore
       const name = await selectErrorResource(session, report.errors)
       // @ts-ignore

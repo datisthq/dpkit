@@ -18,12 +18,15 @@ export const validateResourceCommand = new Command("validate")
   .addOption(params.json)
   .addOption(params.debug)
   .addOption(params.quit)
+  .addOption(params.all)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Validate resource",
       json: options.json,
       debug: options.debug,
+      quit: options.quit,
+      all: options.all,
     })
 
     const descriptor = path ? path : await selectResource(session, options)
@@ -33,7 +36,7 @@ export const validateResourceCommand = new Command("validate")
       validateResource(descriptor),
     )
 
-    if (report.errors.length && !options.quit && !options.json) {
+    if (report.errors.length) {
       const type = await selectErrorType(session, report.errors)
       // @ts-ignore
       if (type) report.errors = report.errors.filter(e => e.type === type)

@@ -10,6 +10,7 @@ export async function selectErrorResource(
 
   const name = await session.select({
     message: "Select error resource",
+    skipable: true,
     options: [
       { label: `all (${errors.length})`, value: undefined },
       ...Object.entries(groups).map(([name, count]) => ({
@@ -30,6 +31,7 @@ export async function selectErrorType(
 
   const type = await session.select({
     message: "Select error type",
+    skipable: true,
     options: [
       { label: `all (${errors.length})`, value: undefined },
       ...Object.entries(groups).map(([type, count]) => ({
