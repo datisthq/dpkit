@@ -8,14 +8,29 @@ import type { ForeignKey } from "./ForeignKey.ts"
  */
 export interface Schema extends Metadata {
   /**
+   * URL of profile (optional)
+   */
+  $schema?: string
+
+  /**
+   * Name of schema (optional)
+   */
+  name?: string
+
+  /**
+   * Title of schema (optional)
+   */
+  title?: string
+
+  /**
+   * Description of schema (optional)
+   */
+  description?: string
+
+  /**
    * Fields in this schema (required)
    */
   fields: Field[]
-
-  /**
-   * URL of schema (optional)
-   */
-  $schema?: string
 
   /**
    * Field matching rule (optional)

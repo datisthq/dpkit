@@ -15,6 +15,7 @@ packages:
   - github
   - inline
   - json
+  - jsonschema
   - ods
   - parquet
   - site
