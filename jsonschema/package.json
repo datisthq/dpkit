@@ -23,7 +23,8 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@dpkit/core": "workspace:*"
+    "@dpkit/core": "workspace:*",
+    "@types/json-schema": "^7.0.15"
   },
   "devDependencies": {
     "@dpkit/test": "workspace:*"
