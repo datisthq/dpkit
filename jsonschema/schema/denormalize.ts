@@ -40,6 +40,14 @@ export function denormalizeJsonSchema(schema: Schema): JSONSchema7 {
 function convertFieldToJsonSchemaProperty(field: Field): JSONSchema7 | null {
   const baseProperty: Partial<JSONSchema7> = {}
 
+  if (field.title) {
+    baseProperty.title = field.title
+  }
+
+  if (field.description) {
+    baseProperty.description = field.description
+  }
+
   // Handle different Table Schema field types
   switch (field.type) {
     case "string": {
