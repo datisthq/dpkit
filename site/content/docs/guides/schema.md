@@ -84,6 +84,40 @@ dp schema infer --from-package datapackage.json --from-resource "users"
 dp schema infer data.csv --json > schema.json
 ```
 
+### `dp schema convert`
+
+Convert table schemas between different formats, supporting bidirectional conversion between Table Schema and JSONSchema formats.
+
+```bash
+dp schema convert <descriptor-path>
+```
+
+**Options:**
+- `--format <format>`: Source schema format (`schema`, `jsonschema`)
+- `--to-format <format>`: Target schema format (`schema`, `jsonschema`)
+- `--to-path <path>`: Output path for converted schema
+- `-j, --json`: Output as JSON (automatically enabled when no --to-path)
+- `-d, --debug`: Enable debug mode
+
+**Supported Formats:**
+- **`schema`**: Data Package Table Schema format
+- **`jsonschema`**: JSON Schema format
+
+**Examples:**
+```bash
+# Convert Table Schema to JSONSchema
+dp schema convert schema.json --to-format jsonschema
+
+# Convert JSONSchema to Table Schema
+dp schema convert schema.jsonschema.json --format jsonschema
+
+# Save converted schema to file
+dp schema convert schema.json --to-format jsonschema --to-path converted.jsonschema.json
+
+# Convert from JSONSchema and save as Table Schema
+dp schema convert input.jsonschema.json --format jsonschema --to-path output.schema.json
+```
+
 ### `dp schema explore`
 
 Explore a table schema from a local or remote path to view its field definitions and constraints in an interactive format.
@@ -199,6 +233,20 @@ dp> schema.primaryKey
    dp schema explore schema.json
    ```
 
+### Schema Format Conversion
+
+```bash
+# Convert Table Schema to JSONSchema for JSON Schema validation tools
+dp schema infer data.csv --json > table.schema.json
+dp schema convert table.schema.json --to-format jsonschema --to-path api.jsonschema.json
+
+# Convert JSONSchema back to Table Schema for dpkit tools
+dp schema convert api.jsonschema.json --format jsonschema --to-path converted.schema.json
+
+# Validate the round-trip conversion
+dp schema validate converted.schema.json
+```
+
 ### Schema Analysis and Refinement
 
 ```bash
@@ -292,6 +340,23 @@ All schema commands support multiple output formats:
 - **Interactive Display**: Default rich terminal interface showing field definitions
 - **JSON**: Use `--json` flag for machine-readable output
 - **Debug Mode**: Use `--debug` for detailed operation logs
+
+## Schema Format Interoperability
+
+The `convert` command enables seamless integration with other schema ecosystems:
+
+```bash
+# Use with JSON Schema validation libraries
+dp schema infer data.csv --json > table.schema.json
+dp schema convert table.schema.json --to-format jsonschema --to-path validation.jsonschema.json
+
+# Import existing JSONSchema into dpkit workflow
+dp schema convert external.jsonschema.json --format jsonschema --to-path dpkit.schema.json
+dp table validate data.csv --schema dpkit.schema.json
+
+# Cross-platform schema sharing
+dp schema convert schema.json --to-format jsonschema --to-path api-spec.jsonschema.json
+```
 
 ## Integration with Other Commands
 
