@@ -18,6 +18,7 @@ export function denormalizeJsonSchema(schema: Schema): JSONSchema7 {
   }
 
   const jsonSchema: JSONSchema7 = {
+    $schema: "http://json-schema.org/draft-07/schema",
     type: "object",
     properties,
   }
