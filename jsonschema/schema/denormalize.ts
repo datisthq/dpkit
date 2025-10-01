@@ -1,6 +1,6 @@
 import type { Schema } from "@dpkit/core"
-import type { JSONSchema7 } from "json-schema"
+import type { JSONSchema7Object } from "json-schema"
 
-export function denormalizeJsonSchema(_schema: Schema): JSONSchema7 {
+export function denormalizeJsonSchema(_schema: Schema): JSONSchema7Object {
   return {}
 }

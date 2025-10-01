@@ -1,15 +1,13 @@
-import type { JSONSchema7 } from "json-schema"
+import type { JSONSchema7, JSONSchema7Object } from "json-schema"
 import type { Schema, Field } from "@dpkit/core"
 
-export function normalizeJsonSchema(jsonSchema: JSONSchema7): Schema {
-  if (jsonSchema.type !== "object" || !jsonSchema.properties) {
-    throw new Error("JSONSchema must be an object type with properties")
-  }
-
+export function normalizeJsonSchema(jsonSchema: JSONSchema7Object): Schema {
   const fields: Field[] = []
-  const requiredFields = new Set(jsonSchema.required || [])
+  const requiredFields = new Set(
+    Array.isArray(jsonSchema.required) ? jsonSchema.required : []
+  )
 
-  for (const [name, property] of Object.entries(jsonSchema.properties)) {
+  for (const [name, property] of Object.entries(jsonSchema.properties || {})) {
     if (typeof property === "boolean") {
       continue // Skip boolean schemas
     }
@@ -24,11 +22,11 @@ export function normalizeJsonSchema(jsonSchema: JSONSchema7): Schema {
     fields,
   }
 
-  if (jsonSchema.title) {
+  if (typeof jsonSchema.title === "string") {
     schema.title = jsonSchema.title
   }
 
-  if (jsonSchema.description) {
+  if (typeof jsonSchema.description === "string") {
     schema.description = jsonSchema.description
   }
 

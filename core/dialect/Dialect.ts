@@ -7,14 +7,14 @@ import type { Metadata } from "../general/index.ts"
  */
 export interface Dialect extends Metadata {
   /**
-   * The name of this dialect
-   */
-  name?: string
-
-  /**
    * JSON schema profile URL for validation
    */
   $schema?: string
+
+  /**
+   * The name of this dialect
+   */
+  name?: string
 
   /**
    * Whether the file includes a header row with field names

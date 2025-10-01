@@ -10,6 +10,11 @@ import type { Source } from "./Source.ts"
  */
 export interface Resource extends Metadata {
   /**
+   * JSON schema profile URL for validation
+   */
+  $schema?: string
+
+  /**
    * Unique resource identifier
    * Should use lowercase alphanumeric characters, periods, hyphens, and underscores
    */

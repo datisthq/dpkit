@@ -1,10 +1,10 @@
-import type { JSONSchema7 } from "json-schema"
+import type { JSONSchema7Object } from "json-schema"
 import { describe, expect, it } from "vitest"
 import { normalizeJsonSchema } from "./normalize.ts"
 
 describe("normalizeJsonSchema", () => {
   it("converts JSONSchema object to Table Schema", () => {
-    const jsonSchema: JSONSchema7 = {
+    const jsonSchema: JSONSchema7Object = {
       type: "object",
       title: "User Schema",
       description: "Schema for user data",
@@ -46,8 +46,8 @@ describe("normalizeJsonSchema", () => {
 
     const tableSchema = normalizeJsonSchema(jsonSchema)
 
-    expect((tableSchema as any).title).toBe("User Schema")
-    expect((tableSchema as any).description).toBe("Schema for user data")
+    expect(tableSchema.title).toBe("User Schema")
+    expect(tableSchema.description).toBe("Schema for user data")
     expect(tableSchema.fields).toHaveLength(7)
 
     const idField = tableSchema.fields.find(f => f.name === "id")
@@ -121,7 +121,7 @@ describe("normalizeJsonSchema", () => {
   })
 
   it("handles union types by picking first non-null type", () => {
-    const jsonSchema: JSONSchema7 = {
+    const jsonSchema: JSONSchema7Object = {
       type: "object",
       properties: {
         nullableString: {
@@ -145,7 +145,7 @@ describe("normalizeJsonSchema", () => {
   })
 
   it("defaults to string type for unknown types", () => {
-    const jsonSchema: JSONSchema7 = {
+    const jsonSchema: JSONSchema7Object = {
       type: "object",
       properties: {
         unknownField: {
@@ -160,29 +160,8 @@ describe("normalizeJsonSchema", () => {
     expect(unknownField?.type).toBe("string")
   })
 
-  it("throws error for non-object schemas", () => {
-    const jsonSchema: JSONSchema7 = {
-      type: "string",
-    }
-
-    expect(() => normalizeJsonSchema(jsonSchema)).toThrow(
-      "JSONSchema must be an object type with properties",
-    )
-  })
-
-  it("throws error for objects without properties", () => {
-    const jsonSchema: JSONSchema7 = {
-      type: "object",
-      // No properties
-    }
-
-    expect(() => normalizeJsonSchema(jsonSchema)).toThrow(
-      "JSONSchema must be an object type with properties",
-    )
-  })
-
   it("skips boolean schema properties", () => {
-    const jsonSchema: JSONSchema7 = {
+    const jsonSchema: JSONSchema7Object = {
       type: "object",
       properties: {
         validField: {
@@ -199,4 +178,3 @@ describe("normalizeJsonSchema", () => {
     expect(tableSchema.fields[0]?.name).toBe("validField")
   })
 })
-

@@ -8,6 +8,11 @@ import type { Contributor } from "./Contributor.ts"
  */
 export interface Package extends Metadata {
   /**
+   * URL of profile (optional)
+   */
+  $schema?: string
+
+  /**
    * Data resources in this package (required)
    */
   resources: Resource[]
@@ -17,11 +22,6 @@ export interface Package extends Metadata {
    * Should use lowercase alphanumeric characters, periods, hyphens, and underscores
    */
   name?: string
-
-  /**
-   * Package schema URL for validation
-   */
-  $schema?: string
 
   /**
    * Human-readable title
