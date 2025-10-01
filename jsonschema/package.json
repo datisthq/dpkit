@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "@dpkit/core": "workspace:*",
-    "@types/json-schema": "^7.0.15"
+    "@types/json-schema": "^7.0.15",
+    "json-schema": "^0.4.0"
   },
   "devDependencies": {
     "@dpkit/test": "workspace:*"
