@@ -1,10 +1,10 @@
-import type { JSONSchema7, JSONSchema7Object } from "json-schema"
-import type { Schema, Field } from "@dpkit/core"
+import type { Field, Schema } from "@dpkit/core"
+import type { JSONSchema7 } from "json-schema"
 
-export function normalizeJsonSchema(jsonSchema: JSONSchema7Object): Schema {
+export function normalizeJsonSchema(jsonSchema: JSONSchema7): Schema {
   const fields: Field[] = []
   const requiredFields = new Set(
-    Array.isArray(jsonSchema.required) ? jsonSchema.required : []
+    Array.isArray(jsonSchema.required) ? jsonSchema.required : [],
   )
 
   for (const [name, property] of Object.entries(jsonSchema.properties || {})) {
@@ -12,7 +12,11 @@ export function normalizeJsonSchema(jsonSchema: JSONSchema7Object): Schema {
       continue // Skip boolean schemas
     }
 
-    const field = convertJsonSchemaPropertyToField(name, property, requiredFields.has(name))
+    const field = convertJsonSchemaPropertyToField(
+      name,
+      property,
+      requiredFields.has(name),
+    )
     if (field) {
       fields.push(field)
     }
@@ -36,7 +40,7 @@ export function normalizeJsonSchema(jsonSchema: JSONSchema7Object): Schema {
 function convertJsonSchemaPropertyToField(
   name: string,
   property: JSONSchema7,
-  isRequired: boolean
+  isRequired: boolean,
 ): Field | null {
   if (typeof property === "boolean") {
     return null
@@ -120,7 +124,11 @@ function convertJsonSchemaPropertyToField(
         // For union types, pick the first non-null type or default to string
         const nonNullType = property.type.find(t => t !== "null")
         if (nonNullType) {
-          return convertJsonSchemaPropertyToField(name, { ...property, type: nonNullType }, isRequired)
+          return convertJsonSchemaPropertyToField(
+            name,
+            { ...property, type: nonNullType },
+            isRequired,
+          )
         }
       }
 

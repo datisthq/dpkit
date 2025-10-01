@@ -1,10 +1,10 @@
-import type { JSONSchema7Object } from "json-schema"
+import type { JSONSchema7 } from "json-schema"
 import { describe, expect, it } from "vitest"
 import { normalizeJsonSchema } from "./normalize.ts"
 
 describe("normalizeJsonSchema", () => {
   it("converts JSONSchema object to Table Schema", () => {
-    const jsonSchema: JSONSchema7Object = {
+    const jsonSchema: JSONSchema7 = {
       type: "object",
       title: "User Schema",
       description: "Schema for user data",
@@ -121,7 +121,7 @@ describe("normalizeJsonSchema", () => {
   })
 
   it("handles union types by picking first non-null type", () => {
-    const jsonSchema: JSONSchema7Object = {
+    const jsonSchema: JSONSchema7 = {
       type: "object",
       properties: {
         nullableString: {
@@ -145,7 +145,7 @@ describe("normalizeJsonSchema", () => {
   })
 
   it("defaults to string type for unknown types", () => {
-    const jsonSchema: JSONSchema7Object = {
+    const jsonSchema: JSONSchema7 = {
       type: "object",
       properties: {
         unknownField: {
@@ -161,7 +161,7 @@ describe("normalizeJsonSchema", () => {
   })
 
   it("skips boolean schema properties", () => {
-    const jsonSchema: JSONSchema7Object = {
+    const jsonSchema: JSONSchema7 = {
       type: "object",
       properties: {
         validField: {
