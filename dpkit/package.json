@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@types/node": "24.2.0",
-    "@types/react": "19.1.9",
+    "@types/react": "19.1.16",
     "tsx": "4.20.3"
   }
 }
