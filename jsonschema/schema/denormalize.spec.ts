@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest"
 import type { Schema } from "@dpkit/core"
+import { describe, expect, it } from "vitest"
 import { denormalizeJsonSchema } from "./denormalize.ts"
 
 describe("denormalizeJsonSchema", () => {
