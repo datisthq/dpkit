@@ -19,6 +19,7 @@ const PACKAGES = {
   "@dpkit/github": "../github",
   "@dpkit/inline": "../inline",
   "@dpkit/json": "../json",
+  "@dpkit/jsonschema": "../jsonschema",
   "@dpkit/ods": "../ods",
   "@dpkit/parquet": "../parquet",
   "@dpkit/table": "../table",
