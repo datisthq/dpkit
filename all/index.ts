@@ -1,15 +1,21 @@
+export * from "@dpkit/arrow"
 export * from "@dpkit/camtrap"
-export * from "@dpkit/csv"
 export * from "@dpkit/ckan"
 export * from "@dpkit/core"
+export * from "@dpkit/csv"
+export * from "@dpkit/database"
 export * from "@dpkit/datahub"
 export * from "@dpkit/file"
 export * from "@dpkit/folder"
 export * from "@dpkit/github"
 export * from "@dpkit/inline"
+export * from "@dpkit/json"
+export * from "@dpkit/jsonschema"
+export * from "@dpkit/ods"
+export * from "@dpkit/parquet"
 export * from "@dpkit/table"
+export * from "@dpkit/xlsx"
 export * from "@dpkit/zenodo"
-
 // TODO: Enable after migrated away from yauzl-promise (uses native crc32)
 //export * from "@dpkit/zip"
 

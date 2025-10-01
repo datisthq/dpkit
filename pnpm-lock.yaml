@@ -86,6 +86,9 @@ importers:
       '@dpkit/json':
         specifier: workspace:*
         version: link:../json
+      '@dpkit/jsonschema':
+        specifier: workspace:*
+        version: link:../jsonschema
       '@dpkit/ods':
         specifier: workspace:*
         version: link:../ods
