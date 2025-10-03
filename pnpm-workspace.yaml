@@ -13,6 +13,7 @@ packages:
   - file
   - folder
   - github
+  - html
   - inline
   - json
   - jsonschema

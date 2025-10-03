@@ -80,6 +80,9 @@ importers:
       '@dpkit/github':
         specifier: workspace:*
         version: link:../github
+      '@dpkit/html':
+        specifier: workspace:*
+        version: link:../html
       '@dpkit/inline':
         specifier: workspace:*
         version: link:../inline
@@ -372,6 +375,16 @@ importers:
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
+
+  html:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
     devDependencies:
       '@dpkit/test':
         specifier: workspace:*

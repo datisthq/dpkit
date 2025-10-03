@@ -30,6 +30,7 @@
     "@dpkit/file": "workspace:*",
     "@dpkit/folder": "workspace:*",
     "@dpkit/github": "workspace:*",
+    "@dpkit/html": "workspace:*",
     "@dpkit/inline": "workspace:*",
     "@dpkit/json": "workspace:*",
     "@dpkit/jsonschema": "workspace:*",

@@ -1,0 +1,31 @@
+{
+  "name": "@dpkit/html",
+  "type": "module",
+  "version": "0.0.0-development",
+  "exports": "./build/index.js",
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/dpkit",
+  "description": "Fast TypeScript data management framework built on top of the Data Package standard and Polars DataFrames",
+  "keywords": [
+    "data",
+    "polars",
+    "dataframe",
+    "datapackage",
+    "tableschema",
+    "typescript",
+    "validation",
+    "quality",
+    "fair",
+    "html"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@dpkit/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@dpkit/test": "workspace:*"
+  }
+}

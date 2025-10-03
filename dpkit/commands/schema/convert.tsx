@@ -1,5 +1,6 @@
 import {
   convertSchemaFromJsonSchema,
+  convertSchemaToHtml,
   convertSchemaToJsonSchema,
   convertSchemaToMarkdown,
 } from "@dpkit/all"
@@ -16,11 +17,11 @@ const format = new Option("--format <format>", "source schema format").choices([
 const toFormat = new Option(
   "--to-format <format>",
   "target schema format",
-).choices(["jsonschema", "markdown"])
+).choices(["jsonschema", "markdown", "html"])
 
 const frontmatter = new Option(
   "--frontmatter",
-  "use YAML frontmatter instead of H1 heading (to markdown only)",
+  "use YAML frontmatter instead of H1 heading (markdown and html only)",
 )
 
 export const convertSchemaCommand = new Command("convert")
@@ -57,6 +58,9 @@ export const convertSchemaCommand = new Command("convert")
     if (options.toFormat === "markdown") {
       converter = (schema: any) =>
         convertSchemaToMarkdown(schema, { frontmatter: options.frontmatter })
+    } else if (options.toFormat === "html") {
+      converter = (schema: any) =>
+        convertSchemaToHtml(schema, { frontmatter: options.frontmatter })
     } else if (options.toFormat === "jsonschema") {
       converter = convertSchemaToJsonSchema
     } else {
@@ -68,7 +72,7 @@ export const convertSchemaCommand = new Command("convert")
     const target = await session.task("Converting schema", converter(source))
 
     if (!options.toPath) {
-      if (options.toFormat === "markdown") {
+      if (options.toFormat === "markdown" || options.toFormat === "html") {
         console.log(target)
       } else {
         session.render(target)
@@ -76,7 +80,7 @@ export const convertSchemaCommand = new Command("convert")
       return
     }
 
-    if (options.toFormat === "markdown") {
+    if (options.toFormat === "markdown" || options.toFormat === "html") {
       const fs = await import("node:fs/promises")
       await session.task(
         "Saving schema",
