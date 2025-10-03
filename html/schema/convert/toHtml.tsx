@@ -52,9 +52,9 @@ function FieldsTable(props: { fields: Field[] }) {
       <h2>Fields</h2>
       <table>
         <colgroup>
-          <col width="25%" />
+          <col width="20%" />
           <col width="65%" />
-          <col width="10%" />
+          <col width="15%" />
         </colgroup>
         <thead>
           <tr>
@@ -92,8 +92,12 @@ function FieldRow(props: { field: Field }) {
   return (
     <tr>
       <td id={sanitizeId(fieldName)}>
-        <code>{fieldName}</code>
-        {isRequired && "*"}
+        <code>
+          <strong>
+            {fieldName}
+            {!isRequired && "?"}
+          </strong>
+        </code>
       </td>
       <td>
         {fieldDescription && <p>{fieldDescription}</p>}
@@ -102,7 +106,9 @@ function FieldRow(props: { field: Field }) {
         )}
         {field.example !== undefined && <Example value={field.example} />}
       </td>
-      <td>{fieldType}</td>
+      <td>
+        <code>{fieldType}</code>
+      </td>
     </tr>
   )
 }

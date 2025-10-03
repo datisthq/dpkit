@@ -28,12 +28,12 @@ describe("convertSchemaToHtml", () => {
     expect(result).toContain("<th>Name</th>")
     expect(result).toContain("<th>Definition</th>")
     expect(result).toContain("<th>Type</th>")
-    expect(result).toContain("<code>id</code>")
-    expect(result).toContain("<code>name</code>")
+    expect(result).toContain("<strong>id?</strong>")
+    expect(result).toContain("<strong>name?</strong>")
     expect(result).toContain("<p>Unique identifier</p>")
     expect(result).toContain("<p>Person name</p>")
-    expect(result).toContain("<td>integer</td>")
-    expect(result).toContain("<td>string</td>")
+    expect(result).toContain("<code>integer</code>")
+    expect(result).toContain("<code>string</code>")
   })
 
   it("includes schema title and description", () => {
@@ -108,9 +108,9 @@ describe("convertSchemaToHtml", () => {
 
     const result = convertSchemaToHtml(schema)
 
-    expect(result).toContain("<code>requiredField</code>")
-    expect(result).toContain("*")
-    expect(result).toContain("<code>optionalField</code>")
+    expect(result).toContain("<strong>requiredField</strong>")
+    expect(result).not.toContain("requiredField?")
+    expect(result).toContain("<strong>optionalField?</strong>")
   })
 
   it("handles empty fields array", () => {
@@ -233,12 +233,12 @@ describe("convertSchemaToHtml", () => {
 
     const result = convertSchemaToHtml(schema)
 
-    expect(result).toContain("<td>string</td>")
-    expect(result).toContain("<td>integer</td>")
-    expect(result).toContain("<td>number</td>")
-    expect(result).toContain("<td>boolean</td>")
-    expect(result).toContain("<td>datetime</td>")
-    expect(result).toContain("<td>any</td>")
+    expect(result).toContain("<code>string</code>")
+    expect(result).toContain("<code>integer</code>")
+    expect(result).toContain("<code>number</code>")
+    expect(result).toContain("<code>boolean</code>")
+    expect(result).toContain("<code>datetime</code>")
+    expect(result).toContain("<code>any</code>")
   })
 
   it("sanitizes IDs for anchors", () => {
@@ -303,8 +303,8 @@ describe("convertSchemaToHtml", () => {
 
     const result = convertSchemaToHtml(schema)
 
-    expect(result).toContain("<code>field1</code>")
-    expect(result).toContain("<td>string</td>")
+    expect(result).toContain("<strong>field1?</strong>")
+    expect(result).toContain("<code>string</code>")
   })
 
   it("uses frontmatter when frontmatter option is true", () => {
