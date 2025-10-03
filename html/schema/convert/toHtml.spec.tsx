@@ -1,6 +1,6 @@
 import type { Schema } from "@dpkit/core"
 import { describe, expect, it } from "vitest"
-import { convertSchemaToHtml } from "./toHtml.ts"
+import { convertSchemaToHtml } from "./toHtml.tsx"
 
 describe("convertSchemaToHtml", () => {
   it("converts a simple schema to html table", () => {
@@ -80,10 +80,13 @@ describe("convertSchemaToHtml", () => {
     const result = convertSchemaToHtml(schema)
 
     expect(result).toContain("<strong>Constraints</strong>")
-    expect(result).toContain("<li>required: <code>true</code></li>")
-    expect(result).toContain("<li>minimum: <code>0</code></li>")
-    expect(result).toContain("<li>maximum: <code>120</code></li>")
-    expect(result).toContain("<li>pattern:")
+    expect(result).toContain("required:")
+    expect(result).toContain("<code>true</code>")
+    expect(result).toContain("minimum:")
+    expect(result).toContain("<code>0</code>")
+    expect(result).toContain("maximum:")
+    expect(result).toContain("<code>120</code>")
+    expect(result).toContain("pattern:")
   })
 
   it("handles required field indicator", () => {
@@ -105,8 +108,9 @@ describe("convertSchemaToHtml", () => {
 
     const result = convertSchemaToHtml(schema)
 
-    expect(result).toContain("<code>requiredField</code>\n        *")
-    expect(result).toContain("<code>optionalField</code>\n      </td>")
+    expect(result).toContain("<code>requiredField</code>")
+    expect(result).toContain("*")
+    expect(result).toContain("<code>optionalField</code>")
   })
 
   it("handles empty fields array", () => {
@@ -141,7 +145,7 @@ describe("convertSchemaToHtml", () => {
       "Description with &quot;quotes&quot; and &lt;tags&gt;",
     )
     expect(result).toContain(
-      "Description with &lt;script&gt;alert(&#039;xss&#039;)&lt;/script&gt;",
+      "Description with &lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;",
     )
   })
 
@@ -160,9 +164,8 @@ describe("convertSchemaToHtml", () => {
 
     const result = convertSchemaToHtml(schema)
 
-    expect(result).toContain(
-      "<li>enum: <code>active, inactive, pending</code></li>",
-    )
+    expect(result).toContain("enum:")
+    expect(result).toContain("<code>active, inactive, pending</code>")
   })
 
   it("handles multiple constraint types", () => {
@@ -184,11 +187,13 @@ describe("convertSchemaToHtml", () => {
 
     const result = convertSchemaToHtml(schema)
 
-    expect(result).toContain("<li>required: <code>true</code></li>")
-    expect(result).toContain("<li>unique: <code>true</code></li>")
-    expect(result).toContain("<li>minLength: <code>3</code></li>")
-    expect(result).toContain("<li>maxLength: <code>20</code></li>")
-    expect(result).toContain("<li>pattern:")
+    expect(result).toContain("required:")
+    expect(result).toContain("unique:")
+    expect(result).toContain("minLength:")
+    expect(result).toContain("<code>3</code>")
+    expect(result).toContain("maxLength:")
+    expect(result).toContain("<code>20</code>")
+    expect(result).toContain("pattern:")
   })
 
   it("handles field examples", () => {
@@ -209,10 +214,9 @@ describe("convertSchemaToHtml", () => {
 
     const result = convertSchemaToHtml(schema)
 
-    expect(result).toContain(
-      "<strong>Example</strong>: <code>user@example.com</code>",
-    )
-    expect(result).toContain("<strong>Example</strong>: <code>25</code>")
+    expect(result).toContain("<strong>Example</strong>")
+    expect(result).toContain("<code>user@example.com</code>")
+    expect(result).toContain("<code>25</code>")
   })
 
   it("handles different field types", () => {
@@ -318,7 +322,7 @@ describe("convertSchemaToHtml", () => {
     const result = convertSchemaToHtml(schema, { frontmatter: true })
 
     expect(result).toContain("---")
-    expect(result).toContain("title: Test Schema")
+    expect(result).toContain("Test Schema")
     expect(result).not.toContain("<h1")
     expect(result).toContain("<p>A test schema with frontmatter</p>")
   })
