@@ -16,6 +16,7 @@ packages:
   - inline
   - json
   - jsonschema
+  - markdown
   - ods
   - parquet
   - site

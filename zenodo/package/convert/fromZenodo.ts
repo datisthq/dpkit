@@ -2,7 +2,9 @@ import type { Contributor, License, Package } from "@dpkit/core"
 import { convertResourceFromZenodo } from "../../resource/index.ts"
 import type { ZenodoPackage } from "../Package.ts"
 
-export function convertPackageFromZenodo(zenodoPackage: ZenodoPackage): Package {
+export function convertPackageFromZenodo(
+  zenodoPackage: ZenodoPackage,
+): Package {
   const datapackage: Package = {
     name: `record-${zenodoPackage.id}`,
     resources: [],

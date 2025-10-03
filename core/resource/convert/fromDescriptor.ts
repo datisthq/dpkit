@@ -56,10 +56,7 @@ function convertType(descriptor: Descriptor) {
   }
 }
 
-function convertPaths(
-  descriptor: Descriptor,
-  options?: { basepath?: string },
-) {
+function convertPaths(descriptor: Descriptor, options?: { basepath?: string }) {
   const basepath = options?.basepath
 
   if (typeof descriptor.path === "string") {

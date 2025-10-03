@@ -40,12 +40,10 @@ export function convertResourceFromCkan(ckanResource: CkanResource): Resource {
 }
 
 function convertName(name: string): string {
-  return (
-    name
-      .replace(/[\s\.\(\)\/\\,]+/g, "_")
-      .toLowerCase()
-      .replace(/[^a-z0-9_\-]/g, "")
-      .replace(/^(\d)/, "_$1")
-      .slice(0, 100)
-  )
+  return name
+    .replace(/[\s\.\(\)\/\\,]+/g, "_")
+    .toLowerCase()
+    .replace(/[^a-z0-9_\-]/g, "")
+    .replace(/^(\d)/, "_$1")
+    .slice(0, 100)
 }

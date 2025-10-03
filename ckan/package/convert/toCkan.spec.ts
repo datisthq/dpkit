@@ -1,11 +1,11 @@
 import type { Package } from "@dpkit/core"
 import { describe, expect, it } from "vitest"
 import type { CkanPackage } from "../Package.ts"
-import { convertPackageFromCkan } from "./fromCkan.ts"
-import { convertPackageToCkan } from "./toCkan.ts"
 import ckanPackageFixture from "../fixtures/ckan-package.json" with {
   type: "json",
 }
+import { convertPackageFromCkan } from "./fromCkan.ts"
+import { convertPackageToCkan } from "./toCkan.ts"
 
 describe("convertPackageToCkan", () => {
   it("converts a Frictionless Data Package to a CKAN package", () => {

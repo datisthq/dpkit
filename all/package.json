@@ -33,6 +33,7 @@
     "@dpkit/inline": "workspace:*",
     "@dpkit/json": "workspace:*",
     "@dpkit/jsonschema": "workspace:*",
+    "@dpkit/markdown": "workspace:*",
     "@dpkit/ods": "workspace:*",
     "@dpkit/parquet": "workspace:*",
     "@dpkit/table": "workspace:*",

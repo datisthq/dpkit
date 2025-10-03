@@ -1,7 +1,7 @@
 import type { Resource } from "@dpkit/core"
 import {
-  denormalizePath,
   convertResourceToDescriptor,
+  denormalizePath,
   getFilename,
   isRemotePath,
 } from "@dpkit/core"

@@ -2,7 +2,9 @@ import type { Contributor, License, Package } from "@dpkit/core"
 import { convertResourceFromGithub } from "../../resource/index.ts"
 import type { GithubPackage } from "../Package.ts"
 
-export function convertPackageFromGithub(githubPackage: GithubPackage): Package {
+export function convertPackageFromGithub(
+  githubPackage: GithubPackage,
+): Package {
   const datapackage: Package = {
     name: githubPackage.name,
     resources: [],

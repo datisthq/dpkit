@@ -1,4 +1,8 @@
-import { convertSchemaToJsonSchema, convertSchemaFromJsonSchema } from "@dpkit/all"
+import {
+  convertSchemaFromJsonSchema,
+  convertSchemaToJsonSchema,
+  convertSchemaToMarkdown,
+} from "@dpkit/all"
 import { loadDescriptor, saveDescriptor } from "@dpkit/all"
 import { Command, Option } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
@@ -6,14 +10,18 @@ import { Session } from "../../helpers/session.ts"
 import * as params from "../../params/index.ts"
 
 const format = new Option("--format <format>", "source schema format").choices([
-  "schema",
   "jsonschema",
 ])
 
 const toFormat = new Option(
   "--to-format <format>",
   "target schema format",
-).choices(["schema", "jsonschema"])
+).choices(["jsonschema", "markdown"])
+
+const frontmatter = new Option(
+  "--frontmatter",
+  "use YAML frontmatter instead of H1 heading (to markdown only)",
+)
 
 export const convertSchemaCommand = new Command("convert")
   .configureHelp(helpConfiguration)
@@ -22,6 +30,7 @@ export const convertSchemaCommand = new Command("convert")
   .addArgument(params.positionalDescriptorPath)
   .addOption(format)
   .addOption(toFormat)
+  .addOption(frontmatter)
   .addOption(params.toPath)
   .addOption(params.json)
   .addOption(params.debug)
@@ -43,29 +52,45 @@ export const convertSchemaCommand = new Command("convert")
       process.exit(1)
     }
 
-    const converter =
-      options.format === "schema" || options.toFormat === "jsonschema"
-        ? convertSchemaToJsonSchema
-        : convertSchemaFromJsonSchema
+    let converter: (schema: any) => any
 
-    const source = await session.task("Loading schema", loadDescriptor(path))
-    const target = await session.task(
-      "Converting schema",
-      // @ts-ignore
-      converter(source.descriptor),
-    )
+    if (options.toFormat === "markdown") {
+      converter = (schema: any) =>
+        convertSchemaToMarkdown(schema, { frontmatter: options.frontmatter })
+    } else if (options.toFormat === "jsonschema") {
+      converter = convertSchemaToJsonSchema
+    } else {
+      converter = convertSchemaFromJsonSchema
+    }
+
+    const loaded = await session.task("Loading schema", loadDescriptor(path))
+    const source = loaded.descriptor
+    const target = await session.task("Converting schema", converter(source))
 
     if (!options.toPath) {
-      session.render(target)
+      if (options.toFormat === "markdown") {
+        console.log(target)
+      } else {
+        session.render(target)
+      }
       return
     }
 
-    await session.task(
-      "Saving schema",
-      saveDescriptor(target as any, {
-        path: options.toPath,
-      }),
-    )
+    if (options.toFormat === "markdown") {
+      const fs = await import("node:fs/promises")
+      await session.task(
+        "Saving schema",
+        // @ts-ignore
+        fs.writeFile(options.toPath, target, "utf-8"),
+      )
+    } else {
+      await session.task(
+        "Saving schema",
+        saveDescriptor(target as any, {
+          path: options.toPath,
+        }),
+      )
+    }
 
     session.success(`Converted schema from ${path} to ${options.toPath}`)
   })
