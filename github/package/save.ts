@@ -1,7 +1,7 @@
 import { Buffer } from "node:buffer"
 import { buffer } from "node:stream/consumers"
 import type { Descriptor, Package } from "@dpkit/core"
-import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
+import { convertPackageToDescriptor, stringifyDescriptor } from "@dpkit/core"
 import { getPackageBasepath, loadFileStream } from "@dpkit/file"
 import { saveResourceFiles } from "@dpkit/file"
 import { makeGithubApiRequest } from "../github/index.ts"
@@ -61,7 +61,7 @@ export async function savePackageToGithub(
   }
 
   const descriptor = {
-    ...denormalizePackage(dataPackage, { basepath }),
+    ...convertPackageToDescriptor(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 

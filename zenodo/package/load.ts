@@ -1,7 +1,7 @@
 import { mergePackages } from "@dpkit/core"
 import { makeZenodoApiRequest } from "../zenodo/index.ts"
 import type { ZenodoPackage } from "./Package.ts"
-import { normalizeZenodoPackage } from "./normalize.ts"
+import { convertPackageFromZenodo } from "./convert/fromZenodo.ts"
 
 /**
  * Load a package from a Zenodo deposit
@@ -28,7 +28,7 @@ export async function loadPackageFromZenodo(
     sandbox,
   })
 
-  const systemPackage = normalizeZenodoPackage(zenodoPackage)
+  const systemPackage = convertPackageFromZenodo(zenodoPackage)
   const userPackagePath = systemPackage.resources
     .filter(resource => resource["zenodo:key"] === "datapackage.json")
     .map(resource => resource["zenodo:url"])

@@ -1,7 +1,7 @@
 import { type Descriptor, validateDescriptor } from "../general/index.ts"
 import { loadProfile } from "../general/index.ts"
 import type { Dialect } from "./Dialect.ts"
-import { normalizeDialect } from "./normalize.ts"
+import { convertDialectFromDescriptor } from "./convert/fromDescriptor.ts"
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tabledialect.json"
 
@@ -22,7 +22,7 @@ export async function validateDialect(source: Descriptor | Dialect) {
   let dialect: Dialect | undefined = undefined
   if (valid) {
     // Validation + normalization = we can cast it
-    dialect = normalizeDialect(descriptor) as Dialect
+    dialect = convertDialectFromDescriptor(descriptor) as Dialect
   }
 
   return { valid, errors, dialect }

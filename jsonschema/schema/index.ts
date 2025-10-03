@@ -1,2 +1,2 @@
-export { denormalizeJsonSchema } from "./denormalize.ts"
-export { normalizeJsonSchema } from "./normalize.ts"
+export { convertSchemaToJsonSchema } from "./convert/toJsonSchema.ts"
+export { convertSchemaFromJsonSchema } from "./convert/fromJsonSchema.ts"

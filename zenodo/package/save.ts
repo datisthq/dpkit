@@ -1,11 +1,11 @@
 import { blob } from "node:stream/consumers"
 import type { Descriptor, Package } from "@dpkit/core"
-import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
+import { convertPackageToDescriptor, stringifyDescriptor } from "@dpkit/core"
 import { loadFileStream, saveResourceFiles } from "@dpkit/file"
 import { getPackageBasepath } from "@dpkit/file"
 import { makeZenodoApiRequest } from "../zenodo/index.ts"
 import type { ZenodoPackage } from "./Package.ts"
-import { denormalizeZenodoPackage } from "./denormalize.ts"
+import { convertPackageToZenodo } from "./convert/toZenodo.ts"
 
 /**
  * Save a package to Zenodo
@@ -22,7 +22,7 @@ export async function savePackageToZenodo(
   const { apiKey, sandbox = false } = options
   const basepath = getPackageBasepath(dataPackage)
 
-  const newZenodoPackage = denormalizeZenodoPackage(dataPackage)
+  const newZenodoPackage = convertPackageToZenodo(dataPackage)
   const zenodoPackage = (await makeZenodoApiRequest({
     payload: newZenodoPackage,
     endpoint: "/deposit/depositions",
@@ -63,7 +63,7 @@ export async function savePackageToZenodo(
   }
 
   const descriptor = {
-    ...denormalizePackage(dataPackage, { basepath }),
+    ...convertPackageToDescriptor(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 

@@ -1,6 +1,6 @@
 import { saveDescriptor } from "../general/index.ts"
 import type { Schema } from "./Schema.ts"
-import { denormalizeSchema } from "./denormalize.ts"
+import { convertSchemaToDescriptor } from "./convert/toDescriptor.ts"
 
 const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/tableschema.json"
 
@@ -14,7 +14,7 @@ export async function saveSchema(
     path: string
   },
 ) {
-  const descriptor = denormalizeSchema(schema)
+  const descriptor = convertSchemaToDescriptor(schema)
   descriptor.$schema = descriptor.$schema ?? CURRENT_PROFILE
 
   await saveDescriptor(descriptor, { path: options.path })

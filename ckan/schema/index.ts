@@ -1,4 +1,4 @@
 export type { CkanSchema } from "./Schema.ts"
 export type { CkanField } from "./Field.ts"
-export { normalizeCkanSchema } from "./normalize.ts"
-export { denormalizeCkanSchema } from "./denormalize.ts"
+export { convertSchemaFromCkan } from "./convert/fromCkan.ts"
+export { convertSchemaToCkan } from "./convert/toCkan.ts"

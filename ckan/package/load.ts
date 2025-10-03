@@ -1,7 +1,7 @@
 import { mergePackages } from "@dpkit/core"
 import { makeCkanApiRequest } from "../ckan/index.ts"
 import type { CkanPackage } from "./Package.ts"
-import { normalizeCkanPackage } from "./normalize.ts"
+import { convertPackageFromCkan } from "./convert/fromCkan.ts"
 
 /**
  * Load a package from a CKAN instance
@@ -30,7 +30,7 @@ export async function loadPackageFromCkan(datasetUrl: string) {
     }
   }
 
-  const systemPackage = normalizeCkanPackage(ckanPackage)
+  const systemPackage = convertPackageFromCkan(ckanPackage)
   const userPackagePath = systemPackage.resources
     .filter(resource => resource["ckan:key"] === "datapackage.json")
     .map(resource => resource["ckan:url"])

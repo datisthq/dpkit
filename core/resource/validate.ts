@@ -4,7 +4,7 @@ import { type Descriptor, validateDescriptor } from "../general/index.ts"
 import { loadProfile } from "../general/index.ts"
 import { loadSchema } from "../schema/index.ts"
 import type { Resource } from "./Resource.ts"
-import { normalizeResource } from "./normalize.ts"
+import { convertResourceFromDescriptor } from "./convert/fromDescriptor.ts"
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/dataresource.json"
 
@@ -30,7 +30,7 @@ export async function validateResourceDescriptor(
   let resource: Resource | undefined = undefined
   if (valid) {
     // Validation + normalization = we can cast it
-    resource = normalizeResource(descriptor, {
+    resource = convertResourceFromDescriptor(descriptor, {
       basepath: options?.basepath,
     }) as unknown as Resource
   }

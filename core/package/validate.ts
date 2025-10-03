@@ -1,7 +1,7 @@
 import { type Descriptor, validateDescriptor } from "../general/index.ts"
 import { loadProfile } from "../general/index.ts"
 import type { Package } from "./Package.ts"
-import { normalizePackage } from "./normalize.ts"
+import { convertPackageFromDescriptor } from "./convert/fromDescriptor.ts"
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/datapackage.json"
 
@@ -27,7 +27,7 @@ export async function validatePackageDescriptor(
   let dataPackage: Package | undefined = undefined
   if (valid) {
     // Validation + normalization = we can cast it
-    dataPackage = normalizePackage(descriptor, {
+    dataPackage = convertPackageFromDescriptor(descriptor, {
       basepath: options?.basepath,
     }) as unknown as Package
   }

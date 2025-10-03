@@ -1,6 +1,6 @@
 import { getBasepath, saveDescriptor } from "../general/index.ts"
 import type { Package } from "./Package.ts"
-import { denormalizePackage } from "./denormalize.ts"
+import { convertPackageToDescriptor } from "./convert/toDescriptor.ts"
 
 const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/datapackage.json"
 
@@ -16,7 +16,7 @@ export async function savePackageDescriptor(
 ) {
   const basepath = getBasepath(options.path)
 
-  const descriptor = denormalizePackage(dataPackage, { basepath })
+  const descriptor = convertPackageToDescriptor(dataPackage, { basepath })
   descriptor.$schema = descriptor.$schema ?? CURRENT_PROFILE
 
   await saveDescriptor(descriptor, { path: options.path })

@@ -1,7 +1,7 @@
 import type { Resource } from "@dpkit/core"
 import {
   denormalizePath,
-  denormalizeResource,
+  convertResourceToDescriptor,
   getFilename,
   isRemotePath,
 } from "@dpkit/core"
@@ -25,7 +25,7 @@ export async function saveResourceFiles(
 ) {
   const { basepath, withRemote, withoutFolders } = options
 
-  const descriptor = denormalizeResource(resource, { basepath })
+  const descriptor = convertResourceToDescriptor(resource, { basepath })
   const dedupIndexes = new Map<string, number>()
 
   const saveFile = async (path: string, name: string, index: number) => {

@@ -1,7 +1,7 @@
 import { blob } from "node:stream/consumers"
 import type { Descriptor, Package } from "@dpkit/core"
 import {
-  denormalizePackage,
+  convertPackageToDescriptor,
   getFilename,
   getFormat,
   stringifyDescriptor,
@@ -13,8 +13,8 @@ import {
 } from "@dpkit/file"
 import { makeCkanApiRequest } from "../ckan/index.ts"
 import type { CkanResource } from "../resource/index.ts"
-import { denormalizeCkanResource } from "../resource/index.ts"
-import { denormalizeCkanPackage } from "./denormalize.ts"
+import { convertResourceToCkan } from "../resource/index.ts"
+import { convertPackageToCkan } from "./convert/toCkan.ts"
 
 export async function savePackageToCkan(
   dataPackage: Package,
@@ -28,7 +28,7 @@ export async function savePackageToCkan(
   const { apiKey, ckanUrl, ownerOrg, datasetName } = options
 
   const basepath = getPackageBasepath(dataPackage)
-  const ckanPackage = denormalizeCkanPackage(dataPackage)
+  const ckanPackage = convertPackageToCkan(dataPackage)
 
   const payload = {
     ...ckanPackage,
@@ -56,7 +56,7 @@ export async function savePackageToCkan(
         withoutFolders: true,
         saveFile: async options => {
           const filename = getFilename(options.normalizedPath)
-          const ckanResource = denormalizeCkanResource(resource)
+          const ckanResource = convertResourceToCkan(resource)
 
           const payload = {
             ...ckanResource,
@@ -85,7 +85,7 @@ export async function savePackageToCkan(
   }
 
   const descriptor = {
-    ...denormalizePackage(dataPackage, { basepath }),
+    ...convertPackageToDescriptor(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 

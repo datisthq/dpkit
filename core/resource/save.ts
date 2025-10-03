@@ -1,6 +1,6 @@
 import { getBasepath, saveDescriptor } from "../general/index.ts"
 import type { Resource } from "./Resource.ts"
-import { denormalizeResource } from "./denormalize.ts"
+import { convertResourceToDescriptor } from "./convert/toDescriptor.ts"
 
 const CURRENT_PROFILE = "https://datapackage.org/profiles/2.0/dataresource.json"
 
@@ -16,7 +16,7 @@ export async function saveResourceDescriptor(
 ) {
   const basepath = getBasepath(options.path)
 
-  const descriptor = denormalizeResource(resource, { basepath })
+  const descriptor = convertResourceToDescriptor(resource, { basepath })
   descriptor.$schema = descriptor.$schema ?? CURRENT_PROFILE
 
   await saveDescriptor(descriptor, { path: options.path })

@@ -1,5 +1,5 @@
 import { join } from "node:path"
-import { denormalizePackage, saveDescriptor } from "@dpkit/core"
+import { convertPackageToDescriptor, saveDescriptor } from "@dpkit/core"
 import type { Descriptor, Package } from "@dpkit/core"
 import {
   assertLocalPathVacant,
@@ -41,7 +41,7 @@ export async function savePackageToFolder(
   }
 
   const descriptor = {
-    ...denormalizePackage(dataPackage, { basepath }),
+    ...convertPackageToDescriptor(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 

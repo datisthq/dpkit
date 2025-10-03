@@ -1,4 +1,4 @@
-import { denormalizeJsonSchema, normalizeJsonSchema } from "@dpkit/all"
+import { convertSchemaToJsonSchema, convertSchemaFromJsonSchema } from "@dpkit/all"
 import { loadDescriptor, saveDescriptor } from "@dpkit/all"
 import { Command, Option } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
@@ -45,8 +45,8 @@ export const convertSchemaCommand = new Command("convert")
 
     const converter =
       options.format === "schema" || options.toFormat === "jsonschema"
-        ? denormalizeJsonSchema
-        : normalizeJsonSchema
+        ? convertSchemaToJsonSchema
+        : convertSchemaFromJsonSchema
 
     const source = await session.task("Loading schema", loadDescriptor(path))
     const target = await session.task(

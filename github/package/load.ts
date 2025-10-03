@@ -2,7 +2,7 @@ import { mergePackages } from "@dpkit/core"
 import { makeGithubApiRequest } from "../github/index.ts"
 import type { GithubResource } from "../resource/index.ts"
 import type { GithubPackage } from "./Package.ts"
-import { normalizeGithubPackage } from "./normalize.ts"
+import { convertPackageFromGithub } from "./convert/fromGithub.ts"
 
 /**
  * Load a package from a Github repository
@@ -36,7 +36,7 @@ export async function loadPackageFromGithub(
     })
   ).tree
 
-  const systemPackage = normalizeGithubPackage(githubPackage)
+  const systemPackage = convertPackageFromGithub(githubPackage)
   const userPackagePath = systemPackage.resources
     .filter(resource => resource["github:key"] === "datapackage.json")
     .map(resource => resource["github:url"])

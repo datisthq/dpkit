@@ -1,3 +1,3 @@
 export type { GithubResource } from "./Resource.ts"
-export { normalizeGithubResource } from "./normalize.ts"
-export { denormalizeGithubResource } from "./denormalize.ts"
+export { convertResourceFromGithub } from "./convert/fromGithub.ts"
+export { convertResourceToGithub } from "./convert/toGithub.ts"

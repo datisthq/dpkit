@@ -1,7 +1,7 @@
 import { type Descriptor, validateDescriptor } from "../general/index.ts"
 import { loadProfile } from "../general/index.ts"
 import type { Schema } from "./Schema.ts"
-import { normalizeSchema } from "./normalize.ts"
+import { convertSchemaFromDescriptor } from "./convert/fromDescriptor.ts"
 
 const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tableschema.json"
 
@@ -22,7 +22,7 @@ export async function validateSchema(source: Descriptor | Schema) {
   let schema: Schema | undefined = undefined
   if (valid) {
     // Validation + normalization = we can cast it
-    schema = normalizeSchema(descriptor) as unknown as Schema
+    schema = convertSchemaFromDescriptor(descriptor) as unknown as Schema
   }
 
   return { valid, errors, schema }

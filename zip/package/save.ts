@@ -2,7 +2,7 @@ import { Buffer } from "node:buffer"
 import { createWriteStream } from "node:fs"
 import { pipeline } from "node:stream/promises"
 import type { Descriptor, Package } from "@dpkit/core"
-import { denormalizePackage, stringifyDescriptor } from "@dpkit/core"
+import { convertPackageToDescriptor, stringifyDescriptor } from "@dpkit/core"
 import {
   assertLocalPathVacant,
   getPackageBasepath,
@@ -43,7 +43,7 @@ export async function savePackageToZip(
   }
 
   const descriptor = {
-    ...denormalizePackage(dataPackage, { basepath }),
+    ...convertPackageToDescriptor(dataPackage, { basepath }),
     resources: resourceDescriptors,
   }
 

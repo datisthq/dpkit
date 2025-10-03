@@ -1,3 +1,3 @@
 export type { ZenodoResource } from "./Resource.ts"
-export { normalizeZenodoResource } from "./normalize.ts"
-export { denormalizeZenodoResource } from "./denormalize.ts"
+export { convertResourceFromZenodo } from "./convert/fromZenodo.ts"
+export { convertResourceToZenodo } from "./convert/toZenodo.ts"
