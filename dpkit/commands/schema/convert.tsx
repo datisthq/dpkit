@@ -40,7 +40,8 @@ export const convertSchemaCommand = new Command("convert")
   .action(async (path, options) => {
     const session = Session.create({
       title: "Convert schema",
-      json: options.json || !options.toPath,
+      text: !options.toPath,
+      json: options.json,
       debug: options.debug,
       silent: options.silent,
     })
