@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@dpkit/test": "workspace:*",
-    "@types/react": "19.1.9",
+    "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0"
   }
 }
