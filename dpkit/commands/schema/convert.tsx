@@ -35,12 +35,14 @@ export const convertSchemaCommand = new Command("convert")
   .addOption(params.toPath)
   .addOption(params.json)
   .addOption(params.debug)
+  .addOption(params.silent)
 
   .action(async (path, options) => {
     const session = Session.create({
       title: "Convert schema",
       json: options.json || !options.toPath,
       debug: options.debug,
+      silent: options.silent,
     })
 
     if (!options.format && !options.toFormat) {
@@ -96,5 +98,5 @@ export const convertSchemaCommand = new Command("convert")
       )
     }
 
-    session.success(`Converted schema from ${path} to ${options.toPath}`)
+    session.success(`Converted schema from "${path}" to "${options.toPath}"`)
   })

@@ -25,6 +25,7 @@ export const convertTableCommand = new Command("convert")
   .addOption(params.toPath)
   .addOption(params.toFormat)
   .addOption(params.overwrite)
+  .addOption(params.silent)
   .addOption(params.debug)
   .addOption(params.query)
 
@@ -120,6 +121,7 @@ export const convertTableCommand = new Command("convert")
     const session = Session.create({
       title: "Convert table",
       text: !options.toPath,
+      silent: options.silent,
       debug: options.debug,
     })
 

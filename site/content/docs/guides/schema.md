@@ -97,6 +97,7 @@ dp schema convert <descriptor-path>
 - `--to-format <format>`: Target schema format (`schema`, `jsonschema`)
 - `--to-path <path>`: Output path for converted schema
 - `-j, --json`: Output as JSON (automatically enabled when no --to-path)
+- `-s, --silent`: Suppress all output except errors
 - `-d, --debug`: Enable debug mode
 
 **Supported Formats:**

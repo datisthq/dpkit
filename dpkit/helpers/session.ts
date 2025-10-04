@@ -12,6 +12,7 @@ type SessionSelectOptions<T> = SelectOptions<T> & { skipable?: boolean }
 export class Session {
   title: string
   debug: boolean
+  silent: boolean
   quit: boolean
   all: boolean
 
@@ -20,6 +21,7 @@ export class Session {
     json?: boolean
     text?: boolean
     debug?: boolean
+    silent?: boolean
     quit?: boolean
     all?: boolean
   }) {
@@ -35,21 +37,28 @@ export class Session {
   constructor(options: {
     title: string
     debug?: boolean
+    silent?: boolean
     quit?: boolean
     all?: boolean
   }) {
     this.title = options.title
+    this.silent = options.silent ?? false
     this.debug = options.debug ?? false
     this.quit = options.quit ?? false
     this.all = options.all ?? false
   }
   start() {
-    intro(pc.bold(this.title))
+    if (!this.silent) {
+      intro(pc.bold(this.title))
+    }
+
     this.#enableExitHook()
   }
 
   success(message: string) {
-    log.success(message)
+    if (!this.silent) {
+      log.success(message)
+    }
   }
 
   error(message: string) {
@@ -75,17 +84,23 @@ export class Session {
     const loader = spinner()
 
     this.#disableExitHook?.()
-    loader.start(message)
+    if (!this.silent) {
+      loader.start(message)
+    }
 
     try {
       const result = await promise
 
-      loader.stop(message)
-      this.#enableExitHook()
+      if (!this.silent) {
+        loader.stop(message)
+      }
 
+      this.#enableExitHook()
       return result
     } catch (error) {
-      loader.stop(message, 1)
+      if (!this.silent) {
+        loader.stop(message, 1)
+      }
 
       if (this.debug) {
         throw error
@@ -111,9 +126,11 @@ export class Session {
   }
 
   #handleExit() {
-    outro(
-      `Problems? ${pc.underline(pc.cyan("https://github.com/datisthq/dpkit/issues"))}`,
-    )
+    if (!this.silent) {
+      outro(
+        `Problems? ${pc.underline(pc.cyan("https://github.com/datisthq/dpkit/issues"))}`,
+      )
+    }
   }
 }
 

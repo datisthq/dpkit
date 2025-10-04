@@ -19,6 +19,7 @@ dp table convert <source-path> <target-path>
 **Options:**
 - `-p, --from-package`: Path to package containing the resource
 - `-r, --from-resource`: Name of resource within package
+- `-s, --silent`: Suppress all output except errors
 - `-d, --debug`: Enable debug mode
 
 **Supported Formats:**
