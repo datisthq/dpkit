@@ -10,19 +10,19 @@
   "scripts": {
     "build": "pnpm -F !docs -F !site build",
     "bump": "ncu -ws -u",
-    "ci:install": "pnpm install --ignore-scripts",
-    "ci:publish": "pnpm -r publish --access public --ignore-scripts --no-git-checks",
-    "ci:version": "pnpm -r exec pnpm version --no-git-tag-version",
     "clean": "npkill -D -x -y -nu && rm pnpm-lock.yaml",
     "compile": "pnpm -F dpkit compile",
     "coverage": "vitest --ui",
     "format": "biome check --write",
     "lint": "biome check",
+    "install:ci": "pnpm install --ignore-scripts",
     "prepare": "husky",
+    "publish": "pnpm -r publish --access public --ignore-scripts --no-git-checks",
     "spec": "vitest run",
     "test": "pnpm lint && pnpm type && pnpm spec",
-    "win:test": "pnpm spec",
-    "type": "tsc --noEmit"
+    "test:win": "pnpm spec",
+    "type": "tsc --noEmit",
+    "version": "pnpm -r exec pnpm version --no-git-tag-version"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
