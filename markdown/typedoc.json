@@ -1,4 +1,4 @@
 {
-  "$schema": "https://typedoc.org/schema.json",
-  "extends": ["../typedoc.json"]
+  "entryPoints": ["index.ts"],
+  "skipErrorChecking": true
 }

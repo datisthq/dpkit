@@ -63,6 +63,9 @@ export default defineConfig({
       },
       lastUpdated: true,
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
+      expressiveCode: {
+        themes: ["starlight-dark", "starlight-light"],
+      },
       plugins: [
         starlightScrollToTop(),
         starlightChangelogs(),

@@ -38,6 +38,9 @@ export default defineConfig({
       lastUpdated: true,
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
       plugins: [starlightScrollToTop(), starlightChangelogs()],
+      expressiveCode: {
+        themes: ["starlight-dark", "starlight-light"],
+      },
       sidebar: [
         { label: "Overview", autogenerate: { directory: "overview" } },
         { label: "Guides", autogenerate: { directory: "guides" } },
