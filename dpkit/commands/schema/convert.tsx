@@ -1,3 +1,4 @@
+import { writeFile } from "node:fs/promises"
 import {
   convertSchemaFromJsonSchema,
   convertSchemaToHtml,
@@ -76,15 +77,14 @@ export const convertSchemaCommand = new Command("convert")
 
     if (!options.toPath) {
       if (options.toFormat === "markdown" || options.toFormat === "html") {
-        console.log(target)
-      } else {
         session.render(target)
+      } else {
+        session.render(!options.json ? JSON.stringify(target, null, 2) : target)
       }
       return
     }
 
     if (options.toFormat === "markdown" || options.toFormat === "html") {
-      const fs = await import("node:fs/promises")
       await session.task(
         "Saving schema",
         // @ts-ignore

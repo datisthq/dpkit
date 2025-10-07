@@ -27,8 +27,8 @@ export class Session {
   }) {
     let session = new Session(options)
 
-    if (options.json) session = new JsonSession(options)
     if (options.text) session = new TextSession(options)
+    if (options.json) session = new JsonSession(options)
 
     session.start()
     return session
