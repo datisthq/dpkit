@@ -346,4 +346,157 @@ describe("convertSchemaToHtml", () => {
     expect(result).not.toContain("title: Test Schema")
     expect(result.startsWith("<h1")).toBe(true)
   })
+
+  it("handles schema with primary key", () => {
+    const schema: Schema = {
+      fields: [
+        {
+          name: "id",
+          type: "integer",
+        },
+        {
+          name: "name",
+          type: "string",
+        },
+      ],
+      primaryKey: ["id"],
+    }
+
+    const result = convertSchemaToHtml(schema)
+
+    expect(result).toContain("<h2>Primary Key</h2>")
+    expect(result).toContain("<code>id</code>")
+  })
+
+  it("handles schema with composite primary key", () => {
+    const schema: Schema = {
+      fields: [
+        {
+          name: "user_id",
+          type: "integer",
+        },
+        {
+          name: "project_id",
+          type: "integer",
+        },
+      ],
+      primaryKey: ["user_id", "project_id"],
+    }
+
+    const result = convertSchemaToHtml(schema)
+
+    expect(result).toContain("<h2>Primary Key</h2>")
+    expect(result).toContain("<code>user_id, project_id</code>")
+  })
+
+  it("handles schema with foreign keys", () => {
+    const schema: Schema = {
+      fields: [
+        {
+          name: "user_id",
+          type: "integer",
+        },
+      ],
+      foreignKeys: [
+        {
+          fields: ["user_id"],
+          reference: {
+            resource: "users",
+            fields: ["id"],
+          },
+        },
+      ],
+    }
+
+    const result = convertSchemaToHtml(schema)
+
+    expect(result).toContain("<h2>Foreign Keys</h2>")
+    expect(result).toContain("<th>Fields</th>")
+    expect(result).toContain("<th>Reference Resource</th>")
+    expect(result).toContain("<th>Reference Fields</th>")
+    expect(result).toContain("<code>user_id</code>")
+    expect(result).toContain("<code>users</code>")
+    expect(result).toContain("<code>id</code>")
+  })
+
+  it("handles schema with multiple foreign keys", () => {
+    const schema: Schema = {
+      fields: [
+        {
+          name: "user_id",
+          type: "integer",
+        },
+        {
+          name: "project_id",
+          type: "integer",
+        },
+      ],
+      foreignKeys: [
+        {
+          fields: ["user_id"],
+          reference: {
+            resource: "users",
+            fields: ["id"],
+          },
+        },
+        {
+          fields: ["project_id"],
+          reference: {
+            resource: "projects",
+            fields: ["id"],
+          },
+        },
+      ],
+    }
+
+    const result = convertSchemaToHtml(schema)
+
+    expect(result).toContain("<h2>Foreign Keys</h2>")
+    expect(result).toContain("<code>user_id</code>")
+    expect(result).toContain("<code>users</code>")
+    expect(result).toContain("<code>project_id</code>")
+    expect(result).toContain("<code>projects</code>")
+  })
+
+  it("handles foreign key without resource specified", () => {
+    const schema: Schema = {
+      fields: [
+        {
+          name: "parent_id",
+          type: "integer",
+        },
+      ],
+      foreignKeys: [
+        {
+          fields: ["parent_id"],
+          reference: {
+            fields: ["id"],
+          },
+        },
+      ],
+    }
+
+    const result = convertSchemaToHtml(schema)
+
+    expect(result).toContain("<h2>Foreign Keys</h2>")
+    expect(result).toContain("<code>parent_id</code>")
+    expect(result).toContain("<code>-</code>")
+    expect(result).toContain("<code>id</code>")
+  })
+
+  it("does not render primary key or foreign keys sections when not present", () => {
+    const schema: Schema = {
+      fields: [
+        {
+          name: "field1",
+          type: "string",
+        },
+      ],
+    }
+
+    const result = convertSchemaToHtml(schema)
+
+    expect(result).not.toContain("<h2>Primary Key</h2>")
+    expect(result).not.toContain("<h2>Foreign Keys</h2>")
+  })
 })

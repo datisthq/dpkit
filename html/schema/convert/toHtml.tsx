@@ -29,6 +29,10 @@ function SchemaTable(props: { schema: Schema; withTitle?: boolean }) {
   return (
     <>
       <SchemaHeader title={title} description={schema.description} />
+      {schema.primaryKey && <PrimaryKey fields={schema.primaryKey} />}
+      {schema.foreignKeys && schema.foreignKeys.length > 0 && (
+        <ForeignKeys foreignKeys={schema.foreignKeys} />
+      )}
       <FieldsTable fields={schema.fields} />
     </>
   )
@@ -213,6 +217,58 @@ function extractConstraints(field: Field): Constraint[] {
   }
 
   return constraints
+}
+
+function PrimaryKey(props: { fields: string[] }) {
+  const { fields } = props
+  return (
+    <>
+      <h2>Primary Key</h2>
+      <p>
+        <code>{fields.join(", ")}</code>
+      </p>
+    </>
+  )
+}
+
+function ForeignKeys(props: { foreignKeys: Schema["foreignKeys"] }) {
+  const { foreignKeys } = props
+  if (!foreignKeys) return null
+
+  return (
+    <>
+      <h2>Foreign Keys</h2>
+      <table>
+        <colgroup>
+          <col width="40%" />
+          <col width="30%" />
+          <col width="30%" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Fields</th>
+            <th>Reference Resource</th>
+            <th>Reference Fields</th>
+          </tr>
+        </thead>
+        <tbody>
+          {foreignKeys.map((fk, index) => (
+            <tr key={index}>
+              <td>
+                <code>{fk.fields.join(", ")}</code>
+              </td>
+              <td>
+                <code>{fk.reference.resource || "-"}</code>
+              </td>
+              <td>
+                <code>{fk.reference.fields.join(", ")}</code>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  )
 }
 
 function sanitizeId(text: string): string {
