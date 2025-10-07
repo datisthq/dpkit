@@ -18,7 +18,7 @@
     "install:ci": "pnpm install --ignore-scripts",
     "prepare": "husky",
     "publish": "pnpm -r publish --access public --ignore-scripts --no-git-checks",
-    "set:version": "pnpm -r exec pnpm version --no-git-tag-version",
+    "set:version": "pnpm --include-workspace-root -r exec pnpm version --no-git-tag-version",
     "spec": "vitest run",
     "test": "pnpm lint && pnpm type && pnpm spec",
     "test:win": "pnpm spec",
