@@ -18,11 +18,11 @@
     "install:ci": "pnpm install --ignore-scripts",
     "prepare": "husky",
     "publish": "pnpm -r publish --access public --ignore-scripts --no-git-checks",
+    "set:version": "pnpm -r exec pnpm version --no-git-tag-version",
     "spec": "vitest run",
     "test": "pnpm lint && pnpm type && pnpm spec",
     "test:win": "pnpm spec",
-    "type": "tsc --noEmit",
-    "version": "pnpm -r exec pnpm version --no-git-tag-version"
+    "type": "tsc --noEmit"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
