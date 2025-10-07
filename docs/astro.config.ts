@@ -7,6 +7,7 @@ import starlightScrollToTop from "starlight-scroll-to-top"
 import starlightTypeDoc from "starlight-typedoc"
 
 const PACKAGES = {
+  dpkit: "../dpkit",
   "@dpkit/all": "../all",
   "@dpkit/arrow": "../arrow",
   "@dpkit/camtrap": "../camtrap",

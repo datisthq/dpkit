@@ -9,7 +9,7 @@ Comprehensive Excel (.xlsx) file handling with sheet selection, advanced header 
 ## Introduction
 
 :::tip
-You can use `loadTable` and `saveTable` from `@dpkit/all` instead of `@dpkit/xlsx` to load and save XLSX files if the framework can infer that files are in the `xlsx` format.
+You can use `loadTable` and `saveTable` from `dpkit` instead of `@dpkit/xlsx` to load and save XLSX files if the framework can infer that files are in the `xlsx` format.
 :::
 
 The XLSX plugin is a part of the [dpkit](https://github.com/datisthq/dpkit) ecosystem providing these capabilities:

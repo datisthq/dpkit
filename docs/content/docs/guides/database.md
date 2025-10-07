@@ -9,7 +9,7 @@ Database connectivity and operations with support for SQLite, PostgreSQL, and My
 ## Introduction
 
 :::tip
-You can use `loadTable` and `saveTable` from `@dpkit/all` instead of `@dpkit/database` to load and save database tables if the framework can infer the database connection format.
+You can use `loadTable` and `saveTable` from `dpkit` instead of `@dpkit/database` to load and save database tables if the framework can infer the database connection format.
 :::
 
 The Database plugin is a part of the [dpkit](https://github.com/datisthq/dpkit) ecosystem providing these capabilities:

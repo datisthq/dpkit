@@ -32,19 +32,25 @@ The core package `@dpkit/core` additionally supports browser environments:
 The documentation uses `npm` command to install packages. If you are using other package managers, please adjust the commands accordingly.
 :::
 
-The framework can be installed as one package:
+The framework can be installed as one package including CLI:
+
+```bash
+npm install dpkit
+```
+
+If you don't need CLI, you can install it as:
 
 ```bash
 npm install @dpkit/all
 ```
 
-Or cherry-picked from individual packages:
+You car cherry-pick from individual packages:
 
 ```bash
 npm install @dpkit/core @dpkit/zenodo
 ```
 
-Or the core package can be just imported in browsers using NPM CDNs:
+In the browser, the core package can be just imported using NPM CDNs:
 
 ```js
 import { loadPackageDescriptor } from "https://esm.sh/@dpkit/core"
@@ -63,7 +69,7 @@ dpkit is built with type safety in mind. It uses TypeScript to provide type defi
 Loading a Camtrap DP package from Zenodo merging system Zenodo metadata into a user data package and validating its metadata:
 
 ```ts
-import { loadPackage } from "@dpkit/all"
+import { loadPackage } from "dpkit"
 
 const { dataPackage } = await loadPackage("https://zenodo.org/records/10053903")
 
@@ -79,7 +85,7 @@ console.log(dataPackage)
 Example of using a Data Package extension in type-safe manner. Not supported properties will indicate type errors in your IDE:
 
 ```ts
-import { loadPackage, assertCamtrapPackage } from "@dpkit/all"
+import { loadPackage, assertCamtrapPackage } from "dpkit"
 
 const { dataPackage } = await loadPackage("https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.1/example/datapackage.json")
 
@@ -94,7 +100,7 @@ console.log(camtrapPackage.bibliographicCitation)
 Validating an in-memory package descriptor:
 
 ```ts
-import { validatePackageDescriptor } from "@dpkit/all"
+import { validatePackageDescriptor } from "dpkit"
 
 const { valid, errors } = await validatePackageDescriptor({ name: "package" })
 
@@ -121,7 +127,7 @@ import {
   loadPackageFromZip,
   savePackageToZip,
   getTempFilePath,
-} from "@dpkit/all"
+} from "dpkit"
 
 const archivePath = getTempFilePath()
 const sourcePath = await loadPackageDescriptor(
@@ -136,7 +142,7 @@ console.log(targetPackage)
 Reading a CSV table:
 
 ```ts
-import { loadTable } from "@dpkit/all"
+import { loadTable } from "dpkit"
 
 const table = await loadTable({ path: "data.csv" })
 
@@ -153,4 +159,4 @@ const table = await loadTable({
 
 ## Reference
 
-See **API Reference** of each individual package for more details. Note, that `@dpkit/all` package re-exports most of the functionality.
+See **API Reference** of each individual package for more details. Note, that `dpkit` and `@dpkit/all` packages re-export most of the functionality.

@@ -9,7 +9,7 @@ Comprehensive OpenDocument Spreadsheet (ODS) file handling with sheet selection,
 ## Introduction
 
 :::tip
-You can use `loadTable` and `saveTable` from `@dpkit/all` instead of `@dpkit/ods` to load and save ODS files if the framework can infer that files are in the `ods` format.
+You can use `loadTable` and `saveTable` from `dpkit` instead of `@dpkit/ods` to load and save ODS files if the framework can infer that files are in the `ods` format.
 :::
 
 The ODS plugin is a part of the [dpkit](https://github.com/datisthq/dpkit) ecosystem providing these capabilities:

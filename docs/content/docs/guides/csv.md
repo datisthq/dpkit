@@ -9,7 +9,7 @@ Comprehensive CSV and TSV file handling with automatic format detection, advance
 ## Introduction
 
 :::tip
-You can use `loadTable` and `saveTable` from `@dpkit/all` instead of `@dpkit/csv` to load and save CSV files if the framework can infer that files are in the `csv/tsv` format.
+You can use `loadTable` and `saveTable` from `dpkit` instead of `@dpkit/csv` to load and save CSV files if the framework can infer that files are in the `csv/tsv` format.
 :::
 
 The CSV plugin is a part of the [dpkit](https://github.com/datisthq/dpkit) ecosystem providing these capabilities:
