@@ -17,12 +17,12 @@
     "lint": "biome check",
     "install:ci": "pnpm install --ignore-scripts",
     "prepare": "husky",
-    "publish": "pnpm -r publish --access public --ignore-scripts --no-git-checks",
-    "set:version": "pnpm --include-workspace-root -r exec pnpm version --no-git-tag-version",
+    "publish:ci": "pnpm -r publish --access public --ignore-scripts --no-git-checks",
     "spec": "vitest run",
     "test": "pnpm lint && pnpm type && pnpm spec",
     "test:win": "pnpm spec",
-    "type": "tsc --noEmit"
+    "type": "tsc --noEmit",
+    "version:ci": "pnpm --include-workspace-root -r exec pnpm version --no-git-tag-version"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

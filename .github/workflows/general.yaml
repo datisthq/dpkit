@@ -213,13 +213,13 @@ jobs:
       - name: Install Dependencies
         run: pnpm install:ci
       - name: Set Version
-        run: pnpm set:version ${{ needs.release-draft.outputs.version }}
+        run: pnpm version:ci ${{ needs.release-draft.outputs.version }}
       - name: Build Packages
         run: pnpm build
       - name: Compile Packages
         run: pnpm compile
       - name: Publish Packages
-        run: pnpm publish
+        run: pnpm publish:ci
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish Release
