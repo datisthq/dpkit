@@ -104,7 +104,14 @@ function FieldRow(props: { field: Field }) {
         {constraints.length > 0 && (
           <ConstraintsList constraints={constraints} />
         )}
-        {field.example !== undefined && <Example value={field.example} />}
+        {(field.type === "string" || field.type === "integer") &&
+          "categories" in field &&
+          field.categories !== undefined && (
+            <CategoriesList categories={field.categories} />
+          )}
+        {field.examples !== undefined && (
+          <ExamplesList examples={field.examples} />
+        )}
       </td>
       <td>
         <code>{fieldType}</code>
@@ -129,12 +136,46 @@ function ConstraintsList(props: { constraints: Constraint[] }) {
   )
 }
 
-function Example(props: { value: any }) {
-  const { value } = props
+function ExamplesList(props: { examples: any[] }) {
+  const { examples } = props
   return (
-    <p>
-      <strong>Example</strong>: <code>{String(value)}</code>
-    </p>
+    <>
+      <strong>Examples</strong>
+      <ul>
+        {examples.map((example, index) => (
+          <li key={index}>
+            <code>{String(example)}</code>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}
+
+function CategoriesList(props: {
+  categories:
+    | string[]
+    | number[]
+    | Array<{ value: string | number; label: string }>
+}) {
+  const { categories } = props
+  return (
+    <>
+      <strong>Categories</strong>
+      <ul>
+        {categories.map((category, index) => {
+          const value = typeof category === "object" ? category.value : category
+          const label =
+            typeof category === "object" ? category.label : undefined
+          return (
+            <li key={index}>
+              <code>{String(value)}</code>
+              {label && ` - ${label}`}
+            </li>
+          )
+        })}
+      </ul>
+    </>
   )
 }
 

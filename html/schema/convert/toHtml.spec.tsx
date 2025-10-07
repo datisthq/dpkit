@@ -202,21 +202,23 @@ describe("convertSchemaToHtml", () => {
         {
           name: "email",
           type: "string",
-          example: "user@example.com",
+          examples: ["user@example.com", "admin@test.org"],
         },
         {
           name: "age",
           type: "integer",
-          example: 25,
+          examples: [25, 30],
         },
       ],
     }
 
     const result = convertSchemaToHtml(schema)
 
-    expect(result).toContain("<strong>Example</strong>")
+    expect(result).toContain("<strong>Examples</strong>")
     expect(result).toContain("<code>user@example.com</code>")
+    expect(result).toContain("<code>admin@test.org</code>")
     expect(result).toContain("<code>25</code>")
+    expect(result).toContain("<code>30</code>")
   })
 
   it("handles different field types", () => {

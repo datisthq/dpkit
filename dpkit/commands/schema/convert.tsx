@@ -87,8 +87,7 @@ export const convertSchemaCommand = new Command("convert")
     if (options.toFormat === "markdown" || options.toFormat === "html") {
       await session.task(
         "Saving schema",
-        // @ts-ignore
-        fs.writeFile(options.toPath, target, "utf-8"),
+        writeFile(options.toPath, target as any, "utf-8"),
       )
     } else {
       await session.task(

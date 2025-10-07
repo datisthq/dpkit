@@ -25,6 +25,11 @@ export interface BaseField<T = BaseConstraints> extends Metadata {
   example?: any
 
   /**
+   * Examples for this field
+   */
+  examples?: any[]
+
+  /**
    * URI for semantic type (RDF)
    */
   rdfType?: string
