@@ -21,7 +21,7 @@ export async function denormalizeTable(
   const polarsSchema = getPolarsSchema(head.schema)
 
   return table.select(
-    Object.values(denormalizeFields(schema, polarsSchema, options)),
+    ...Object.values(denormalizeFields(schema, polarsSchema, options)),
   )
 }
 

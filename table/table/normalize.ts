@@ -23,7 +23,7 @@ export async function normalizeTable(
   const polarsSchema = getPolarsSchema(head.schema)
 
   return table.select(
-    Object.values(normalizeFields(schema, polarsSchema, { noParse })),
+    ...Object.values(normalizeFields(schema, polarsSchema, { noParse })),
   )
 }
 

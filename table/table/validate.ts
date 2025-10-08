@@ -54,11 +54,16 @@ function validateFieldsMatch(props: {
   const names = fields.map(field => field.name)
   const polarsNames = polarsFields.map(field => field.name)
 
+  const requiredNames = fields
+    .filter(field => field.constraints?.required)
+    .map(field => field.name)
+
   const extraFields = polarsFields.length - fields.length
   const missingFields = fields.length - polarsFields.length
 
   const extraNames = arrayDiff(polarsNames, names)
   const missingNames = arrayDiff(names, polarsNames)
+  const missingRequiredNames = arrayDiff(requiredNames, polarsNames)
 
   if (fieldsMatch === "exact") {
     if (extraFields > 0) {
@@ -84,19 +89,19 @@ function validateFieldsMatch(props: {
       })
     }
 
-    if (missingNames.length > 0) {
+    if (missingRequiredNames.length > 0) {
       errors.push({
         type: "fields/missing",
-        fieldNames: missingNames,
+        fieldNames: missingRequiredNames,
       })
     }
   }
 
   if (fieldsMatch === "subset") {
-    if (missingNames.length > 0) {
+    if (missingRequiredNames.length > 0) {
       errors.push({
         type: "fields/missing",
-        fieldNames: missingNames,
+        fieldNames: missingRequiredNames,
       })
     }
   }
@@ -147,12 +152,12 @@ async function validateFields(
 
   let errorTable = table
     .withRowCount()
-    .select([
+    .select(
       col("row_nr").add(1),
       lit(false).alias("error"),
       ...sources,
       ...targets,
-    ])
+    )
 
   for (const [index, field] of schema.fields.entries()) {
     const polarsField = matchField(index, field, schema, polarsSchema)

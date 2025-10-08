@@ -138,7 +138,11 @@ describe("validateTable", () => {
         fieldsMatch: "equal",
         fields: [
           { name: "id", type: "number" },
-          { name: "name", type: "string" },
+          {
+            name: "name",
+            type: "string",
+            constraints: { required: true },
+          },
         ],
       }
 
@@ -147,6 +151,23 @@ describe("validateTable", () => {
         type: "fields/missing",
         fieldNames: ["name"],
       })
+    })
+
+    it("should pass when non-required fields are missing", async () => {
+      const table = DataFrame({
+        id: [1, 2],
+      }).lazy()
+
+      const schema: Schema = {
+        fieldsMatch: "equal",
+        fields: [
+          { name: "id", type: "number" },
+          { name: "name", type: "string" },
+        ],
+      }
+
+      const { errors } = await validateTable(table, { schema })
+      expect(errors).toEqual([])
     })
   })
 
@@ -197,7 +218,11 @@ describe("validateTable", () => {
         fieldsMatch: "subset",
         fields: [
           { name: "id", type: "number" },
-          { name: "name", type: "string" },
+          {
+            name: "name",
+            type: "string",
+            constraints: { required: true },
+          },
         ],
       }
 
@@ -206,6 +231,23 @@ describe("validateTable", () => {
         type: "fields/missing",
         fieldNames: ["name"],
       })
+    })
+
+    it("should pass when non-required fields are missing", async () => {
+      const table = DataFrame({
+        id: [1, 2],
+      }).lazy()
+
+      const schema: Schema = {
+        fieldsMatch: "subset",
+        fields: [
+          { name: "id", type: "number" },
+          { name: "name", type: "string" },
+        ],
+      }
+
+      const { errors } = await validateTable(table, { schema })
+      expect(errors).toEqual([])
     })
   })
 

@@ -19,7 +19,7 @@ export async function joinHeaderRows(
     .withRowCount()
     .withColumn(col("row_nr").add(1))
     .filter(col("row_nr").add(headerOffset).isIn(headerRows))
-    .select(table.columns.map(name => col(name).str.concat(headerJoin)))
+    .select(...table.columns.map(name => col(name).str.concat(headerJoin)))
     .collect()
 
   const labels = table.columns
