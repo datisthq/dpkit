@@ -12,10 +12,14 @@ export async function saveSchema(
   schema: Schema,
   options: {
     path: string
+    overwrite?: boolean
   },
 ) {
   const descriptor = convertSchemaToDescriptor(schema)
   descriptor.$schema = descriptor.$schema ?? CURRENT_PROFILE
 
-  await saveDescriptor(descriptor, { path: options.path })
+  await saveDescriptor(descriptor, {
+    path: options.path,
+    overwrite: options.overwrite,
+  })
 }

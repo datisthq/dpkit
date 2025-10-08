@@ -12,6 +12,7 @@ export async function savePackageDescriptor(
   dataPackage: Package,
   options: {
     path: string
+    overwrite?: boolean
   },
 ) {
   const basepath = getBasepath(options.path)
@@ -19,5 +20,8 @@ export async function savePackageDescriptor(
   const descriptor = convertPackageToDescriptor(dataPackage, { basepath })
   descriptor.$schema = descriptor.$schema ?? CURRENT_PROFILE
 
-  await saveDescriptor(descriptor, { path: options.path })
+  await saveDescriptor(descriptor, {
+    path: options.path,
+    overwrite: options.overwrite,
+  })
 }

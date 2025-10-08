@@ -12,10 +12,14 @@ export async function saveDialect(
   dialect: Dialect,
   options: {
     path: string
+    overwrite?: boolean
   },
 ) {
   const descriptor = convertDialectToDescriptor(dialect)
   descriptor.$schema = descriptor.$schema ?? CURRENT_PROFILE
 
-  await saveDescriptor(descriptor, { path: options.path })
+  await saveDescriptor(descriptor, {
+    path: options.path,
+    overwrite: options.overwrite,
+  })
 }

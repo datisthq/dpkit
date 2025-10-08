@@ -79,4 +79,48 @@ describe("saveDescriptor", () => {
       expect(lines[1].startsWith("  ")).toBe(true)
     }
   })
+
+  it("should throw an error when file exists and overwrite is false", async () => {
+    await saveDescriptor(testDescriptor, { path: testPath })
+
+    await expect(
+      saveDescriptor(testDescriptor, { path: testPath, overwrite: false }),
+    ).rejects.toThrow()
+  })
+
+  it("should throw an error when file exists and overwrite is not specified", async () => {
+    await saveDescriptor(testDescriptor, { path: testPath })
+
+    await expect(
+      saveDescriptor(testDescriptor, { path: testPath }),
+    ).rejects.toThrow()
+  })
+
+  it("should overwrite existing file when overwrite is true", async () => {
+    const initialDescriptor = {
+      name: "initial",
+      version: "1.0.0",
+    }
+
+    const updatedDescriptor = {
+      name: "updated",
+      version: "2.0.0",
+      description: "Updated descriptor",
+    }
+
+    await saveDescriptor(initialDescriptor, { path: testPath })
+
+    const initialContent = await fs.readFile(testPath, "utf-8")
+    const initialParsed = JSON.parse(initialContent)
+    expect(initialParsed).toEqual(initialDescriptor)
+
+    await saveDescriptor(updatedDescriptor, {
+      path: testPath,
+      overwrite: true,
+    })
+
+    const updatedContent = await fs.readFile(testPath, "utf-8")
+    const updatedParsed = JSON.parse(updatedContent)
+    expect(updatedParsed).toEqual(updatedDescriptor)
+  })
 })
