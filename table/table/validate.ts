@@ -147,12 +147,12 @@ async function validateFields(
 
   let errorTable = table
     .withRowCount()
-    .select([
+    .select(
       col("row_nr").add(1),
       lit(false).alias("error"),
       ...sources,
       ...targets,
-    ])
+    )
 
   for (const [index, field] of schema.fields.entries()) {
     const polarsField = matchField(index, field, schema, polarsSchema)
