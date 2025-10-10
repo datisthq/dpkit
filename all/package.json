@@ -21,7 +21,6 @@
   ],
   "dependencies": {
     "@dpkit/arrow": "workspace:*",
-    "@dpkit/camtrap": "workspace:*",
     "@dpkit/ckan": "workspace:*",
     "@dpkit/core": "workspace:*",
     "@dpkit/csv": "workspace:*",

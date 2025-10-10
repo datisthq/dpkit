@@ -59,9 +59,6 @@ importers:
       '@dpkit/arrow':
         specifier: workspace:*
         version: link:../arrow
-      '@dpkit/camtrap':
-        specifier: workspace:*
-        version: link:../camtrap
       '@dpkit/ckan':
         specifier: workspace:*
         version: link:../ckan
@@ -141,12 +138,6 @@ importers:
       '@dpkit/test':
         specifier: workspace:*
         version: link:../test
-
-  camtrap:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
 
   ckan:
     dependencies:
@@ -254,12 +245,12 @@ importers:
       '@astrojs/starlight':
         specifier: 0.36.0
         version: 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
-      '@dpkit/all':
-        specifier: workspace:*
-        version: link:../all
       astro:
         specifier: 5.14.1
         version: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
+      dpkit:
+        specifier: workspace:*
+        version: link:../dpkit
       nodejs-polars:
         specifier: 0.21.2
         version: 0.21.2

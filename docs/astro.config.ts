@@ -10,7 +10,6 @@ const PACKAGES = {
   dpkit: "../dpkit",
   "@dpkit/all": "../all",
   "@dpkit/arrow": "../arrow",
-  "@dpkit/camtrap": "../camtrap",
   "@dpkit/ckan": "../ckan",
   "@dpkit/core": "../core",
   "@dpkit/csv": "../csv",

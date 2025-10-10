@@ -66,7 +66,7 @@ dpkit is built with type safety in mind. It uses TypeScript to provide type defi
 
 ## Examples
 
-Loading a Camtrap DP package from Zenodo merging system Zenodo metadata into a user data package and validating its metadata:
+Loading a Data Package from Zenodo merging system Zenodo metadata into a user data package and validating its metadata:
 
 ```ts
 import { loadPackage } from "dpkit"
@@ -80,21 +80,6 @@ console.log(dataPackage)
 //  ...
 //}
 
-```
-
-Example of using a Data Package extension in type-safe manner. Not supported properties will indicate type errors in your IDE:
-
-```ts
-import { loadPackage, assertCamtrapPackage } from "dpkit"
-
-const { dataPackage } = await loadPackage("https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.1/example/datapackage.json")
-
-const camtrapPackage = await assertCamtrapPackage(dataPackage)
-
-console.log(camtrapPackage.project.title)
-// Management of Invasive Coypu and muskrAt in Europe
-console.log(camtrapPackage.bibliographicCitation)
-// Desmet P, Neukermans A, Van der beeck D, Cartuyvels E (2022)...
 ```
 
 Validating an in-memory package descriptor:

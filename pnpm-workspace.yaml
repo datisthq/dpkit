@@ -2,7 +2,6 @@ dangerouslyAllowAllBuilds: true
 packages:
   - all
   - arrow
-  - camtrap
   - ckan
   - core
   - csv
