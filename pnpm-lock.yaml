@@ -260,6 +260,9 @@ importers:
       starlight-changelogs:
         specifier: 0.1.1
         version: 0.1.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      starlight-github-alerts:
+        specifier: 0.1.0
+        version: 0.1.0(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
       starlight-scroll-to-top:
         specifier: 0.3.1
         version: 0.3.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
@@ -529,6 +532,9 @@ importers:
       starlight-changelogs:
         specifier: 0.1.1
         version: 0.1.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      starlight-github-alerts:
+        specifier: 0.1.0
+        version: 0.1.0(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
       starlight-scroll-to-top:
         specifier: 0.3.1
         version: 0.3.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
@@ -4162,6 +4168,12 @@ packages:
 
   starlight-changelogs@0.1.1:
     resolution: {integrity: sha512-Upq5VMuzNiVbXHJLVTOpsaqJ14YykCefg5fhT+KdidxfG3Rd4M5kD53G2OIPxqQS0f/x6xWSdD1ORjgnKyLWeA==}
+    engines: {node: '>=18.17.1'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.35.0'
+
+  starlight-github-alerts@0.1.0:
+    resolution: {integrity: sha512-mz+btaGen5ByF1BRCMHnqkzSGXsHfvXfiPGGB9BgeczKUvbDR1PAciLYam0gN0JbZYwZSzmhJzgvcHG6gt4f/Q==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.35.0'
@@ -8984,6 +8996,11 @@ snapshots:
     transitivePeerDependencies:
       - astro
       - supports-color
+
+  starlight-github-alerts@0.1.0(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))):
+    dependencies:
+      '@astrojs/starlight': 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      unist-util-visit: 5.0.0
 
   starlight-scroll-to-top@0.3.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))):
     dependencies:

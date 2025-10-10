@@ -10,11 +10,12 @@
   },
   "devDependencies": {
     "@astrojs/starlight": "0.36.0",
-    "dpkit": "workspace:*",
     "astro": "5.14.1",
+    "dpkit": "workspace:*",
     "nodejs-polars": "0.21.2",
     "sharp": "0.34.2",
     "starlight-changelogs": "0.1.1",
+    "starlight-github-alerts": "0.1.0",
     "starlight-scroll-to-top": "0.3.1",
     "starlight-typedoc": "0.21.3",
     "tempy": "3.1.0",

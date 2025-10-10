@@ -48,6 +48,5 @@ Or this command using both the datapackage file path and the resource name makin
 dp table explore -p datapackage.json -r table
 ```
 
-:::tip
-When you use the `-p` option, the CLI will open any supported Data Package source including Zenodo, Ckan, and others.
-:::
+> [!TIP]
+> When you use the `-p` option, the CLI will open any supported Data Package source including Zenodo, Ckan, and others.

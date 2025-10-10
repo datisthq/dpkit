@@ -8,9 +8,8 @@ Comprehensive Excel (.xlsx) file handling with sheet selection, advanced header 
 
 ## Introduction
 
-:::tip
-You can use `loadTable` and `saveTable` from `dpkit` instead of `@dpkit/xlsx` to load and save XLSX files if the framework can infer that files are in the `xlsx` format.
-:::
+> [!TIP]
+> You can use `loadTable` and `saveTable` from `dpkit` instead of `@dpkit/xlsx` to load and save XLSX files if the framework can infer that files are in the `xlsx` format.
 
 The XLSX plugin is a part of the [dpkit](https://github.com/datisthq/dpkit) ecosystem providing these capabilities:
 
@@ -33,9 +32,8 @@ await saveXlsxTable(table, {path: "output.xlsx"})
 
 ### Reading XLSX Files
 
-:::tip
-The ouput of `loadXlsxTable` is a Polars LazyDataFrame, allowing you to use all of the power of Polars for data processing.
-:::
+> [!TIP]
+> The ouput of `loadXlsxTable` is a Polars LazyDataFrame, allowing you to use all of the power of Polars for data processing.
 
 ```typescript
 import { loadXlsxTable } from "@dpkit/xlsx"

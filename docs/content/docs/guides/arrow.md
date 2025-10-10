@@ -15,9 +15,8 @@ npm install @dpkit/arrow
 
 ## Basic Usage
 
-:::tip
-You can use `loadTable` and `saveTable` from `dpkit` instead of `@dpkit/arrow` to load and save ARROW files if the framework can infer that files are in the `arrow/feather` format.
-:::
+> [!TIP]
+> You can use `loadTable` and `saveTable` from `dpkit` instead of `@dpkit/arrow` to load and save ARROW files if the framework can infer that files are in the `arrow/feather` format.
 
 ### Loading Data
 

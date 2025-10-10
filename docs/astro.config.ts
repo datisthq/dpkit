@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config"
 import starlightChangelogs, {
   makeChangelogsSidebarLinks,
 } from "starlight-changelogs"
+import starlightGitHubAlerts from "starlight-github-alerts"
 import starlightScrollToTop from "starlight-scroll-to-top"
 import starlightTypeDoc from "starlight-typedoc"
 
@@ -67,6 +68,7 @@ export default defineConfig({
         themes: ["starlight-dark", "starlight-light"],
       },
       plugins: [
+        starlightGitHubAlerts(),
         starlightScrollToTop(),
         starlightChangelogs(),
         starlightTypeDoc({

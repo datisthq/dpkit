@@ -21,9 +21,8 @@ dpkit copy https://zenodo.org/records/7559361 --toFolder dataset --withRemote
 vd dataset/*.csv
 ```
 
-:::tip
-Functionality allowing to copy a Data Package to a SQLite database is under development. Once it is ready, it will be possible to prepare data to VisiData in more type-safe manner.
-:::
+> [!TIP]
+> Functionality allowing to copy a Data Package to a SQLite database is under development. Once it is ready, it will be possible to prepare data to VisiData in more type-safe manner.
 
 ## References
 

@@ -8,9 +8,8 @@ Database connectivity and operations with support for SQLite, PostgreSQL, and My
 
 ## Introduction
 
-:::tip
-You can use `loadTable` and `saveTable` from `dpkit` instead of `@dpkit/database` to load and save database tables if the framework can infer the database connection format.
-:::
+> [!TIP]
+> You can use `loadTable` and `saveTable` from `dpkit` instead of `@dpkit/database` to load and save database tables if the framework can infer the database connection format.
 
 The Database plugin is a part of the [dpkit](https://github.com/datisthq/dpkit) ecosystem providing these capabilities:
 
@@ -32,9 +31,8 @@ const table = await loadDatabaseTable({
 // or you can provide a Table Schema
 ```
 
-:::tip
-The ouput of `loadDatabaseTable` is a Polars LazyDataFrame, allowing you to use all of the power of Polars for data processing.
-:::
+> [!TIP]
+> The ouput of `loadDatabaseTable` is a Polars LazyDataFrame, allowing you to use all of the power of Polars for data processing.
 
 ## Supported Databases
 

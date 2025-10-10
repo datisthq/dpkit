@@ -9,9 +9,8 @@ This guide will help you get started with dpkit. If you are new to the core fram
 
 ## Runtimes
 
-:::tip
-- It is possible to use dpkit in [Jupyter Notebooks](/guides/jupyter)!
-:::
+> [!TIP]
+> - It is possible to use dpkit in [Jupyter Notebooks](/guides/jupyter)!
 
 dpkit and all its packages support all the prominent TypeScript runtimes:
 
@@ -28,9 +27,8 @@ The core package `@dpkit/core` additionally supports browser environments:
 
 ## Installation
 
-:::note
-The documentation uses `npm` command to install packages. If you are using other package managers, please adjust the commands accordingly.
-:::
+> [!NOTE]
+> The documentation uses `npm` command to install packages. If you are using other package managers, please adjust the commands accordingly.
 
 The framework can be installed as one package including CLI:
 
@@ -58,9 +56,8 @@ import { loadPackageDescriptor } from "https://esm.sh/@dpkit/core"
 
 ## TypeScript
 
-:::tip
-Use **Node v24+** to be able to run TypeScript files directly with the `node` binary like `node my-data-script.ts`
-:::
+> [!TIP]
+> Use **Node v24+** to be able to run TypeScript files directly with the `node` binary like `node my-data-script.ts`
 
 dpkit is built with type safety in mind. It uses TypeScript to provide type definitions for all packages and to enforce type safety throughout the framework. It's highly reccomended to setup a TypeScript aware environment to work with the project.
 
