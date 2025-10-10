@@ -16,7 +16,6 @@ packages:
   - html
   - inline
   - json
-  - jsonschema
   - lib
   - markdown
   - ods

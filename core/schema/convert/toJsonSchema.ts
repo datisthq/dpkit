@@ -1,5 +1,6 @@
-import type { Field, Schema } from "@dpkit/core"
 import type { JSONSchema7 } from "json-schema"
+import type { Field } from "../../field/index.ts"
+import type { Schema } from "../Schema.ts"
 
 export function convertSchemaToJsonSchema(schema: Schema): JSONSchema7 {
   const properties: Record<string, JSONSchema7> = {}

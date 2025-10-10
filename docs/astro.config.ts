@@ -21,7 +21,6 @@ const PACKAGES = {
   "@dpkit/html": "../html",
   "@dpkit/inline": "../inline",
   "@dpkit/json": "../json",
-  "@dpkit/jsonschema": "../jsonschema",
   "@dpkit/markdown": "../markdown",
   "@dpkit/ods": "../ods",
   "@dpkit/parquet": "../parquet",

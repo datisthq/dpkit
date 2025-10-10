@@ -1,5 +1,5 @@
-import type { Schema } from "@dpkit/core"
 import { describe, expect, it } from "vitest"
+import type { Schema } from "../Schema.ts"
 import { convertSchemaToJsonSchema } from "./toJsonSchema.ts"
 
 describe("convertSchemaToJsonSchema", () => {
