@@ -190,21 +190,19 @@ describe("stringifyListField", () => {
     })
   })
 
-  // TODO: Remove Int16Array once this issue is fixed:
-  // https://github.com/pola-rs/nodejs-polars/issues/362
   describe("integer item type", () => {
     it.each([
       // Integer lists to string
-      [new Int16Array([1, 2, 3]), "1,2,3"],
-      [new Int16Array([0, -1, 42]), "0,-1,42"],
-      [new Int16Array([-10, 0, 10]), "-10,0,10"],
+      [[1, 2, 3], "1,2,3"],
+      [[0, -1, 42], "0,-1,42"],
+      [[-10, 0, 10], "-10,0,10"],
 
       // Single item
-      [new Int16Array([42]), "42"],
+      [[42], "42"],
 
-      // With nulls
-      //[[1, null, 3], "1,,3"],
-      //[[null, 2, null], ",2,"],
+      // With nulls (nulls are filtered out)
+      [[1, null, 3], "1,3"],
+      [[null, 2, null], "2"],
 
       // Empty array
       [[], ""],

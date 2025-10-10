@@ -26,7 +26,7 @@
     "@dpkit/core": "workspace:*",
     "@dpkit/file": "workspace:*",
     "@dpkit/table": "workspace:*",
-    "nodejs-polars": "^0.21.2",
+    "nodejs-polars": "^0.22.1",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "devDependencies": {
