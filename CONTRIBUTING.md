@@ -15,10 +15,14 @@ Project is a monorepo with the following packages:
 - `@dpkit/cli`: Command-line interface for running tasks
 - `@dpkit/<name>`: Domain-specific functionality
 - `@dpkit/lib`: All-in-one package that re-exports all functionality
+- `dpkit`: Meta-package that re-exports `lib` and `cli`
 
 ## Development Environment
 
 ### Prerequisites
+
+> [!TIP]
+> For CLI compilation and development, we recommend using [Bun](https://bun.sh/). For example, to run CLI in dev `bun cli/main.ts`
 
 - **Node.js**: v24.0.0 or higher
 - **PNPM**: v10.0.0 or higher
