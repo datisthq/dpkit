@@ -18,7 +18,7 @@ describe("parseTimeField", () => {
     // Custom format tests
     ["06:00", "06:00:00", { format: "%H:%M" }],
     ["06:50", null, { format: "%M:%H" }], // Invalid format
-    ["3:00 am", null, { format: "%H:%M" }], // Not matching the format
+    ["3:00 am", "03:00:00", { format: "%H:%M" }],
     ["some night", null, { format: "%H:%M" }],
     ["invalid", null, { format: "%H:%M" }],
     ["", null, { format: "%H:%M" }],
