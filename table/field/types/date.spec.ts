@@ -13,7 +13,11 @@ describe("parseDateField", () => {
 
     // Custom format
     ["21/11/2006", new Date(Date.UTC(2006, 10, 21)), { format: "%d/%m/%Y" }],
-    ["21/11/06 16:30", new Date(Date.UTC(2006, 10, 21)), { format: "%d/%m/%y" }],
+    [
+      "21/11/06 16:30",
+      new Date(Date.UTC(2006, 10, 21)),
+      { format: "%d/%m/%y" },
+    ],
     ["invalid", null, { format: "%d/%m/%y" }],
     ["", null, { format: "%d/%m/%y" }],
     ["2006/11/21", new Date(Date.UTC(2006, 10, 21)), { format: "%Y/%m/%d" }],
