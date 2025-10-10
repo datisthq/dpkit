@@ -29,6 +29,10 @@ export async function selectErrorType(
 ) {
   const groups = countBy(errors, error => error.type)
 
+  if (Object.keys(groups).length <= 1) {
+    return undefined
+  }
+
   const type = await session.select({
     message: "Select error type",
     skipable: true,
