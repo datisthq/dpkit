@@ -1,4 +1,4 @@
-#!dpkit/node_modules/.bin/tsx
+#!cli/node_modules/.bin/tsx
 
 process.removeAllListeners("warning")
 process.on("warning", warning => {

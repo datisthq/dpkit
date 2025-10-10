@@ -90,11 +90,11 @@ export function TableGrid(props: {
       exit()
     }
 
-    if (key.pageUp || input === "p") {
+    if (key.pageUp || input === "K") {
       handlePageChange(page - 1)
     }
 
-    if (key.pageDown || input === "n") {
+    if (key.pageDown || input === "J") {
       handlePageChange(page + 1)
     }
 
@@ -176,8 +176,8 @@ function Help(props: { page: number }) {
   return (
     <Box flexDirection="column" paddingLeft={1}>
       <Text bold>Table Usage</Text>
-      <HelpItem button="p, pgUp" description="for prev page" />
-      <HelpItem button="n, pgDown" description="for next page" />
+      <HelpItem button="K, pgUp" description="for prev page" />
+      <HelpItem button="J, pgDown" description="for next page" />
       <HelpItem button="k, up" description="for prev row" />
       <HelpItem button="j, down" description="for next row" />
       <HelpItem button="h, left" description="for prev column" />
