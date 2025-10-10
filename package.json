@@ -11,7 +11,7 @@
     "build": "pnpm -F !docs -F !site build",
     "bump": "ncu -ws -u",
     "clean": "npkill -D -x -y -nu && rm pnpm-lock.yaml",
-    "compile": "pnpm -F dpkit compile",
+    "compile": "pnpm -F cli compile",
     "coverage": "vitest --ui",
     "format": "biome check --write",
     "lint": "biome check",
