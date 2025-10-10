@@ -47,7 +47,8 @@ export const validateFileCommand = new Command("validate")
     }
 
     if (report.valid) {
-      session.success("Table is valid")
+      session.success("File is valid")
+      return
     }
 
     session.render(

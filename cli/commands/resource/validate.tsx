@@ -43,7 +43,8 @@ export const validateResourceCommand = new Command("validate")
     }
 
     if (report.valid) {
-      session.success("Table is valid")
+      session.success("Resource is valid")
+      return
     }
 
     session.render(

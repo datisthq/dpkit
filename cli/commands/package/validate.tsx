@@ -43,7 +43,8 @@ export const validatePackageCommand = new Command("validate")
     }
 
     if (report.valid) {
-      session.success("Table is valid")
+      session.success("Package is valid")
+      return
     }
 
     session.render(

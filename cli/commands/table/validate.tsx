@@ -125,6 +125,7 @@ export const validateTableCommand = new Command("validate")
 
     if (report.valid) {
       session.success("Table is valid")
+      return
     }
 
     session.render(

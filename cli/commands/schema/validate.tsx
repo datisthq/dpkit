@@ -64,7 +64,8 @@ export const validateSchemaCommand = new Command("validate")
     }
 
     if (report.valid) {
-      session.success("Table is valid")
+      session.success("Schema is valid")
+      return
     }
 
     session.render(

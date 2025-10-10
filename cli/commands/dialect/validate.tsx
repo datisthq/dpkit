@@ -64,7 +64,8 @@ export const validateDialectCommand = new Command("validate")
     }
 
     if (report.valid) {
-      session.success("Table is valid")
+      session.success("Dialect is valid")
+      return
     }
 
     session.render(
