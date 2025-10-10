@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/all",
+  "name": "@dpkit/lib",
   "type": "module",
   "version": "0.0.0-dev",
   "exports": "./build/index.js",
@@ -17,7 +17,7 @@
     "validation",
     "quality",
     "fair",
-    "cli"
+    "lib"
   ],
   "dependencies": {
     "@dpkit/arrow": "workspace:*",

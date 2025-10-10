@@ -1,6 +1,5 @@
 dangerouslyAllowAllBuilds: true
 packages:
-  - all
   - app
   - arrow
   - ckan
@@ -17,6 +16,7 @@ packages:
   - inline
   - json
   - jsonschema
+  - lib
   - markdown
   - ods
   - parquet

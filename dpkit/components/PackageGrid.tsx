@@ -1,4 +1,4 @@
-import type { Package } from "@dpkit/all"
+import type { Package } from "@dpkit/lib"
 import React from "react"
 import { DataGrid } from "./DataGrid.tsx"
 

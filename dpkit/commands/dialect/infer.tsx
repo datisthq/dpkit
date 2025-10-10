@@ -1,5 +1,5 @@
-import { inferDialect } from "@dpkit/all"
-import type { Resource } from "@dpkit/all"
+import { inferDialect } from "@dpkit/lib"
+import type { Resource } from "@dpkit/lib"
 import { Command } from "commander"
 import React from "react"
 import { DialectGrid } from "../../components/DialectGrid.tsx"

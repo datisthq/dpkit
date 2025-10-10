@@ -5,7 +5,8 @@
   "exclude": [
     "${configDir}/**/docs/",
     "${configDir}/**/site/",
-    "${configDir}/**/build/"
+    "${configDir}/**/build/",
+    "${configDir}/**/compile/"
   ],
 
   "compilerOptions": {

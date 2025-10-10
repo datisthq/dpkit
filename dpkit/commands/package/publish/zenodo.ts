@@ -1,4 +1,4 @@
-import { loadPackage, savePackageToZenodo } from "@dpkit/all"
+import { loadPackage, savePackageToZenodo } from "@dpkit/lib"
 import { Command } from "commander"
 import { helpConfiguration } from "../../../helpers/help.ts"
 import { Session } from "../../../helpers/session.ts"

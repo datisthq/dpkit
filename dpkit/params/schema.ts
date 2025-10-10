@@ -1,4 +1,4 @@
-import type { FieldType } from "@dpkit/all"
+import type { FieldType } from "@dpkit/lib"
 import { Option } from "commander"
 
 export const schema = new Option(

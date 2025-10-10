@@ -1,4 +1,4 @@
-import type { FileError, MetadataError, TableError } from "@dpkit/all"
+import type { FileError, MetadataError, TableError } from "@dpkit/lib"
 import { DataFrame } from "nodejs-polars"
 import React from "react"
 import { TableGrid } from "./TableGrid.tsx"

@@ -1,4 +1,4 @@
-import { loadResourceDescriptor } from "@dpkit/all"
+import { loadResourceDescriptor } from "@dpkit/lib"
 import { Command } from "commander"
 import React from "react"
 import { ResourceGrid } from "../../components/ResourceGrid.tsx"

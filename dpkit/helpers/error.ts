@@ -1,4 +1,4 @@
-import type { FileError, MetadataError, TableError } from "@dpkit/all"
+import type { FileError, MetadataError, TableError } from "@dpkit/lib"
 import { countBy } from "es-toolkit"
 import type { Session } from "./session.ts"
 

@@ -39,7 +39,7 @@ npm install dpkit
 If you don't need CLI, you can install it as:
 
 ```bash
-npm install @dpkit/all
+npm install @dpkit/lib
 ```
 
 You car cherry-pick from individual packages:
@@ -141,4 +141,4 @@ const table = await loadTable({
 
 ## Reference
 
-See **API Reference** of each individual package for more details. Note, that `dpkit` and `@dpkit/all` packages re-export most of the functionality.
+See **API Reference** of each individual package for more details. Note, that `dpkit` and `@dpkit/lib` packages re-export most of the functionality.

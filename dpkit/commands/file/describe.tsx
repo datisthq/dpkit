@@ -1,4 +1,4 @@
-import { describeFile } from "@dpkit/all"
+import { describeFile } from "@dpkit/lib"
 import { Command } from "commander"
 import React from "react"
 import { DataGrid } from "../../components/DataGrid.tsx"

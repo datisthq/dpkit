@@ -4,8 +4,8 @@ import {
   convertSchemaToHtml,
   convertSchemaToJsonSchema,
   convertSchemaToMarkdown,
-} from "@dpkit/all"
-import { loadDescriptor, saveDescriptor } from "@dpkit/all"
+} from "@dpkit/lib"
+import { loadDescriptor, saveDescriptor } from "@dpkit/lib"
 import { Command, Option } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { Session } from "../../helpers/session.ts"

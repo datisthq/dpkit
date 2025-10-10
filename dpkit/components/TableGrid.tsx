@@ -1,4 +1,4 @@
-import type { DataRecord, Schema, Table } from "@dpkit/all"
+import type { DataRecord, Schema, Table } from "@dpkit/lib"
 import { useApp, useInput } from "ink"
 import { Box, Text } from "ink"
 import pc from "picocolors"

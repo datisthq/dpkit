@@ -1,6 +1,6 @@
 import repl from "node:repl"
-import { loadPackage } from "@dpkit/all"
-import * as dpkit from "@dpkit/all"
+import { loadPackage } from "@dpkit/lib"
+import * as dpkit from "@dpkit/lib"
 import { Command } from "commander"
 import pc from "picocolors"
 import { helpConfiguration } from "../../helpers/help.ts"

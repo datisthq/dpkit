@@ -33,7 +33,7 @@
   "dependencies": {
     "@clack/prompts": "^0.11.0",
     "@commander-js/extra-typings": "^14.0.0",
-    "@dpkit/all": "workspace:*",
+    "@dpkit/lib": "workspace:*",
     "commander": "^14.0.0",
     "es-toolkit": "^1.39.10",
     "exit-hook": "^4.0.0",

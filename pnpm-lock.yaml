@@ -54,69 +54,6 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(tsx@4.20.3)(yaml@2.8.1)
 
-  all:
-    dependencies:
-      '@dpkit/arrow':
-        specifier: workspace:*
-        version: link:../arrow
-      '@dpkit/ckan':
-        specifier: workspace:*
-        version: link:../ckan
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/csv':
-        specifier: workspace:*
-        version: link:../csv
-      '@dpkit/database':
-        specifier: workspace:*
-        version: link:../database
-      '@dpkit/datahub':
-        specifier: workspace:*
-        version: link:../datahub
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-      '@dpkit/folder':
-        specifier: workspace:*
-        version: link:../folder
-      '@dpkit/github':
-        specifier: workspace:*
-        version: link:../github
-      '@dpkit/html':
-        specifier: workspace:*
-        version: link:../html
-      '@dpkit/inline':
-        specifier: workspace:*
-        version: link:../inline
-      '@dpkit/json':
-        specifier: workspace:*
-        version: link:../json
-      '@dpkit/jsonschema':
-        specifier: workspace:*
-        version: link:../jsonschema
-      '@dpkit/markdown':
-        specifier: workspace:*
-        version: link:../markdown
-      '@dpkit/ods':
-        specifier: workspace:*
-        version: link:../ods
-      '@dpkit/parquet':
-        specifier: workspace:*
-        version: link:../parquet
-      '@dpkit/table':
-        specifier: workspace:*
-        version: link:../table
-      '@dpkit/xlsx':
-        specifier: workspace:*
-        version: link:../xlsx
-      '@dpkit/zenodo':
-        specifier: workspace:*
-        version: link:../zenodo
-      '@dpkit/zip':
-        specifier: workspace:*
-        version: link:../zip
-
   app: {}
 
   arrow:
@@ -289,9 +226,9 @@ importers:
       '@commander-js/extra-typings':
         specifier: ^14.0.0
         version: 14.0.0(commander@14.0.1)
-      '@dpkit/all':
+      '@dpkit/lib':
         specifier: workspace:*
-        version: link:../all
+        version: link:../lib
       commander:
         specifier: ^14.0.0
         version: 14.0.1
@@ -456,6 +393,69 @@ importers:
       '@dpkit/test':
         specifier: workspace:*
         version: link:../test
+
+  lib:
+    dependencies:
+      '@dpkit/arrow':
+        specifier: workspace:*
+        version: link:../arrow
+      '@dpkit/ckan':
+        specifier: workspace:*
+        version: link:../ckan
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+      '@dpkit/csv':
+        specifier: workspace:*
+        version: link:../csv
+      '@dpkit/database':
+        specifier: workspace:*
+        version: link:../database
+      '@dpkit/datahub':
+        specifier: workspace:*
+        version: link:../datahub
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
+      '@dpkit/folder':
+        specifier: workspace:*
+        version: link:../folder
+      '@dpkit/github':
+        specifier: workspace:*
+        version: link:../github
+      '@dpkit/html':
+        specifier: workspace:*
+        version: link:../html
+      '@dpkit/inline':
+        specifier: workspace:*
+        version: link:../inline
+      '@dpkit/json':
+        specifier: workspace:*
+        version: link:../json
+      '@dpkit/jsonschema':
+        specifier: workspace:*
+        version: link:../jsonschema
+      '@dpkit/markdown':
+        specifier: workspace:*
+        version: link:../markdown
+      '@dpkit/ods':
+        specifier: workspace:*
+        version: link:../ods
+      '@dpkit/parquet':
+        specifier: workspace:*
+        version: link:../parquet
+      '@dpkit/table':
+        specifier: workspace:*
+        version: link:../table
+      '@dpkit/xlsx':
+        specifier: workspace:*
+        version: link:../xlsx
+      '@dpkit/zenodo':
+        specifier: workspace:*
+        version: link:../zenodo
+      '@dpkit/zip':
+        specifier: workspace:*
+        version: link:../zip
 
   markdown:
     dependencies:
