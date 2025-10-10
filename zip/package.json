@@ -1,7 +1,7 @@
 {
   "name": "@dpkit/zip",
   "type": "module",
-  "version": "0.0.0-development",
+  "version": "0.0.0-dev",
   "exports": "./build/index.js",
   "license": "MIT",
   "author": "Evgeny Karev",
