@@ -3,6 +3,7 @@ packages:
   - app
   - arrow
   - ckan
+  - cli
   - core
   - csv
   - datahub

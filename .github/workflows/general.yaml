@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: binaries
-          path: dpkit/compile/binaries/*.zip
+          path: cli/compile/binaries/*.zip
 
   test-linux:
     needs: [test-compile]
@@ -70,9 +70,9 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: binaries
-          path: dpkit/compile/binaries
+          path: cli/compile/binaries
       - name: Test Binaries
-        run: unzip -j dpkit/compile/binaries/*linux-x64.zip && ./dp --version
+        run: unzip -j cli/compile/binaries/*linux-x64.zip && ./dp --version
 
     services:
       postgres:
@@ -119,9 +119,9 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: binaries
-          path: dpkit/compile/binaries
+          path: cli/compile/binaries
       - name: Test Binaries
-        run: unzip -j dpkit/compile/binaries/*macos-arm64.zip && ./dp --version
+        run: unzip -j cli/compile/binaries/*macos-arm64.zip && ./dp --version
 
   test-windows:
     needs: [test-compile]
@@ -149,10 +149,10 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: binaries
-          path: dpkit/compile/binaries
+          path: cli/compile/binaries
       - name: Test Binaries
         shell: bash
-        run: unzip -j dpkit/compile/binaries/*windows-x64.zip && ./dp.exe --version
+        run: unzip -j cli/compile/binaries/*windows-x64.zip && ./dp.exe --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes
@@ -226,7 +226,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           draft: false
-          files: dpkit/compile/binaries/*.zip
+          files: cli/compile/binaries/*.zip
           tag_name: v${{ needs.release-draft.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
