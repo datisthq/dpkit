@@ -1,6 +1,7 @@
 dangerouslyAllowAllBuilds: true
 packages:
   - all
+  - app
   - arrow
   - ckan
   - core
