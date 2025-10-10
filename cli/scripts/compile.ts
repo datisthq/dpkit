@@ -28,7 +28,7 @@ await $root`
 pnpm deploy compile
 --legacy
 --production
---filter dpkit
+--filter cli
 --config.node-linker=hoisted
 `
 
@@ -111,4 +111,4 @@ for (const target of targets) {
 
 // Clean artifacts (pnpm creates an unwanted dpkit folder)
 
-await $root`rm -rf dpkit`
+await $root`rm -rf cli`
