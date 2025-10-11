@@ -15,6 +15,7 @@
     "coverage": "vitest --ui",
     "format": "biome check --write",
     "lint": "biome check",
+    "login:ci": "pnpm config set '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'",
     "install:ci": "pnpm install --ignore-scripts",
     "prepare": "husky",
     "publish:ci": "pnpm -r publish --access public --ignore-scripts --no-git-checks",

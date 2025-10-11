@@ -218,6 +218,8 @@ jobs:
         run: pnpm build
       - name: Compile Packages
         run: pnpm compile
+      - name: Login Publisher
+        run: pnpm login:ci
       - name: Publish Packages
         run: pnpm publish:ci
         env:
