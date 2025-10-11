@@ -36,7 +36,7 @@ describe("loadJsonTable", () => {
       ])
     })
 
-    it.fails("should load remote file", async () => {
+    it("should load remote file", async () => {
       const table = await loadJsonTable({
         path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/json/table/fixtures/table.json",
       })
@@ -47,7 +47,7 @@ describe("loadJsonTable", () => {
       ])
     })
 
-    it.fails("should load remote file (multipart)", async () => {
+    it("should load remote file (multipart)", async () => {
       const table = await loadJsonTable({
         path: [
           "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/json/table/fixtures/table.json",
@@ -158,7 +158,7 @@ describe("loadJsonTable (format=jsonl)", () => {
       ])
     })
 
-    it.fails("should load remote file", async () => {
+    it("should load remote file", async () => {
       const table = await loadJsonTable({
         path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/json/table/fixtures/table.jsonl",
         format: "jsonl",
@@ -170,7 +170,7 @@ describe("loadJsonTable (format=jsonl)", () => {
       ])
     })
 
-    it.fails("should load remote file (multipart)", async () => {
+    it("should load remote file (multipart)", async () => {
       const table = await loadJsonTable({
         path: [
           "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/json/table/fixtures/table.jsonl",

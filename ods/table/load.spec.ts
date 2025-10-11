@@ -38,7 +38,7 @@ describe("loadOdsTable", () => {
       ])
     })
 
-    it.fails("should load remote file", async () => {
+    it("should load remote file", async () => {
       const table = await loadOdsTable({
         path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/ods/table/fixtures/table.ods",
       })
@@ -49,7 +49,7 @@ describe("loadOdsTable", () => {
       ])
     })
 
-    it.fails("should load multipart remote file", async () => {
+    it("should load multipart remote file", async () => {
       const table = await loadOdsTable({
         path: [
           "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/ods/table/fixtures/table.ods",

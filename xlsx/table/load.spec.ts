@@ -38,9 +38,9 @@ describe("loadXlsxTable", () => {
       ])
     })
 
-    it.fails("should load remote file", async () => {
+    it("should load remote file", async () => {
       const table = await loadXlsxTable({
-        path: "https://github.com/datisthq/dpkit/raw/refs/heads/main/xlsx/table/fixtures/table.xlsx",
+        path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/xlsx/table/fixtures/table.xlsx",
       })
 
       expect((await table.collect()).toRecords()).toEqual([
@@ -49,11 +49,11 @@ describe("loadXlsxTable", () => {
       ])
     })
 
-    it.fails("should load multipart remote file", async () => {
+    it("should load multipart remote file", async () => {
       const table = await loadXlsxTable({
         path: [
-          "https://github.com/datisthq/dpkit/raw/refs/heads/main/xlsx/table/fixtures/table.xlsx",
-          "https://github.com/datisthq/dpkit/raw/refs/heads/main/xlsx/table/fixtures/table.xlsx",
+          "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/xlsx/table/fixtures/table.xlsx",
+          "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/xlsx/table/fixtures/table.xlsx",
         ],
       })
 

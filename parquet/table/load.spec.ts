@@ -34,7 +34,7 @@ describe("loadParquetTable", () => {
       ])
     })
 
-    it.fails("should load remote file", async () => {
+    it("should load remote file", async () => {
       const table = await loadParquetTable({
         path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/parquet/table/fixtures/table.parquet",
       })
@@ -45,7 +45,7 @@ describe("loadParquetTable", () => {
       ])
     })
 
-    it.fails("should load remote file (multipart)", async () => {
+    it("should load remote file (multipart)", async () => {
       const table = await loadParquetTable({
         path: [
           "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/parquet/table/fixtures/table.parquet",
