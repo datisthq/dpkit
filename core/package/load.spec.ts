@@ -5,7 +5,7 @@ import { loadPackageDescriptor } from "./load.ts"
 
 describe("loadPackageDescriptor", async () => {
   const getFixturePath = (name: string) =>
-    relative(process.cwd(), join(__dirname, "fixtures", name))
+    relative(process.cwd(), join(import.meta.dirname, "fixtures", name))
 
   it("loads a package from a local file path", async () => {
     const datapackage = await loadPackageDescriptor(

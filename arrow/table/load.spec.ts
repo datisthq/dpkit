@@ -34,30 +34,30 @@ describe("loadArrowTable", () => {
       ])
     })
 
-    it.skip("should load remote file", async () => {
+    it("should load remote file", async () => {
       const table = await loadArrowTable({
-        path: "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.arrow",
+        path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/arrow/table/fixtures/table.arrow",
       })
 
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
-        { id: 2, name: "中国人" },
+        { id: 2, name: "中文" },
       ])
     })
 
-    it.skip("should load remote file (multipart)", async () => {
+    it("should load remote file (multipart)", async () => {
       const table = await loadArrowTable({
         path: [
-          "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.arrow",
-          "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.arrow",
+          "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/arrow/table/fixtures/table.arrow",
+          "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/arrow/table/fixtures/table.arrow",
         ],
       })
 
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
-        { id: 2, name: "中国人" },
+        { id: 2, name: "中文" },
         { id: 1, name: "english" },
-        { id: 2, name: "中国人" },
+        { id: 2, name: "中文" },
       ])
     })
   })

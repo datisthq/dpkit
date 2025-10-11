@@ -4,7 +4,8 @@ import type { Dialect } from "./Dialect.ts"
 import { loadDialect } from "./load.ts"
 
 describe("loadDialect", async () => {
-  const getFixturePath = (name: string) => join(__dirname, "fixtures", name)
+  const getFixturePath = (name: string) =>
+    join(import.meta.dirname, "fixtures", name)
   const descriptor = {
     delimiter: ";",
   }

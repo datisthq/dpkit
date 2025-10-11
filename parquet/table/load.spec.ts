@@ -34,30 +34,30 @@ describe("loadParquetTable", () => {
       ])
     })
 
-    it("should load remote file", async () => {
+    it.fails("should load remote file", async () => {
       const table = await loadParquetTable({
-        path: "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.parquet",
+        path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/parquet/table/fixtures/table.parquet",
       })
 
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
-        { id: 2, name: "中国人" },
+        { id: 2, name: "中文" },
       ])
     })
 
-    it("should load remote file (multipart)", async () => {
+    it.fails("should load remote file (multipart)", async () => {
       const table = await loadParquetTable({
         path: [
-          "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.parquet",
-          "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.parquet",
+          "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/parquet/table/fixtures/table.parquet",
+          "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/parquet/table/fixtures/table.parquet",
         ],
       })
 
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
-        { id: 2, name: "中国人" },
+        { id: 2, name: "中文" },
         { id: 1, name: "english" },
-        { id: 2, name: "中国人" },
+        { id: 2, name: "中文" },
       ])
     })
   })

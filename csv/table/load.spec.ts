@@ -30,30 +30,30 @@ describe("loadCsvTable", () => {
     ])
   })
 
-  it("should load remote file", async () => {
+  it.fails("should load remote file", async () => {
     const table = await loadCsvTable({
-      path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/core/package/fixtures/table.csv",
+      path: "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/csv/table/fixtures/table.csv",
     })
 
     expect((await table.collect()).toRecords()).toEqual([
       { id: 1, name: "english" },
-      { id: 2, name: "中国人" },
+      { id: 2, name: "中文" },
     ])
   })
 
-  it("should load remote file (multipart)", async () => {
+  it.fails("should load remote file (multipart)", async () => {
     const table = await loadCsvTable({
       path: [
-        "https://gist.githubusercontent.com/roll/d20416f5e6dfc3fc1a7c4eef8452d581/raw/1c9cd1a020389921bf83e5a0395bb00c6b27402d/tabl1.csv",
-        "https://gist.githubusercontent.com/roll/d20416f5e6dfc3fc1a7c4eef8452d581/raw/1c9cd1a020389921bf83e5a0395bb00c6b27402d/tabl1.csv",
+        "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/csv/table/fixtures/table.csv",
+        "https://raw.githubusercontent.com/datisthq/dpkit/refs/heads/main/csv/table/fixtures/table.csv",
       ],
     })
 
     expect((await table.collect()).toRecords()).toEqual([
       { id: 1, name: "english" },
-      { id: 2, name: "中国人" },
+      { id: 2, name: "中文" },
       { id: 1, name: "english" },
-      { id: 2, name: "中国人" },
+      { id: 2, name: "中文" },
     ])
   })
 

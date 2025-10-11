@@ -5,7 +5,7 @@ import { loadResourceDescriptor } from "./load.ts"
 
 describe("loadResourceDescriptor", async () => {
   const getFixturePath = (name: string) =>
-    relative(process.cwd(), join(__dirname, "fixtures", name))
+    relative(process.cwd(), join(import.meta.dirname, "fixtures", name))
 
   const descriptor = {
     name: "name",

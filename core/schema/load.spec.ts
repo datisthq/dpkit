@@ -4,7 +4,8 @@ import type { Schema } from "./Schema.ts"
 import { loadSchema } from "./load.ts"
 
 describe("loadSchema", () => {
-  const getFixturePath = (name: string) => join(__dirname, "fixtures", name)
+  const getFixturePath = (name: string) =>
+    join(import.meta.dirname, "fixtures", name)
   const expectedSchema = {
     fields: [
       {

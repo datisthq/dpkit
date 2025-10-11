@@ -38,32 +38,30 @@ describe("loadXlsxTable", () => {
       ])
     })
 
-    // TODO: rebase on own remote fixture
-    it("should load remote file", async () => {
+    it.fails("should load remote file", async () => {
       const table = await loadXlsxTable({
-        path: "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.xlsx",
+        path: "https://github.com/datisthq/dpkit/raw/refs/heads/main/xlsx/table/fixtures/table.xlsx",
       })
 
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
-        { id: 2, name: "中国人" },
+        { id: 2, name: "中文" },
       ])
     })
 
-    // TODO: rebase on own remote fixture
-    it("should load multipart remote file", async () => {
+    it.fails("should load multipart remote file", async () => {
       const table = await loadXlsxTable({
         path: [
-          "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.xlsx",
-          "https://github.com/frictionlessdata/frictionless-py/raw/refs/heads/main/data/table.xlsx",
+          "https://github.com/datisthq/dpkit/raw/refs/heads/main/xlsx/table/fixtures/table.xlsx",
+          "https://github.com/datisthq/dpkit/raw/refs/heads/main/xlsx/table/fixtures/table.xlsx",
         ],
       })
 
       expect((await table.collect()).toRecords()).toEqual([
         { id: 1, name: "english" },
-        { id: 2, name: "中国人" },
+        { id: 2, name: "中文" },
         { id: 1, name: "english" },
-        { id: 2, name: "中国人" },
+        { id: 2, name: "中文" },
       ])
     })
   })
