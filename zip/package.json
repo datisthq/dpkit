@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.0-dev",
   "exports": "./build/index.js",
+  "sideEffects": false,
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
