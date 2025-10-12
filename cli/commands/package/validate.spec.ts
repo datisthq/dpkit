@@ -1,3 +1,4 @@
+import { basename } from "node:path"
 import { writeTempFile } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import { Command } from "commander"
@@ -14,7 +15,7 @@ describe("package validate", () => {
       resources: [
         {
           name: "test-resource",
-          path: csvPath,
+          path: basename(csvPath),
         },
       ],
     })
@@ -100,7 +101,7 @@ describe("package validate", () => {
       resources: [
         {
           name: "test-data",
-          path: csvPath,
+          path: basename(csvPath),
         },
       ],
     })

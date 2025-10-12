@@ -1,3 +1,4 @@
+import { basename } from "node:path"
 import { writeTempFile } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
 import { Command } from "commander"
@@ -106,7 +107,7 @@ describe("resource validate", () => {
     const csvPath = await writeTempFile("id,name\n1,alice\n2,bob")
     const resourceContent = JSON.stringify({
       name: "test-resource",
-      path: csvPath,
+      path: basename(csvPath),
       schema: {
         fields: [
           { name: "id", type: "integer" },

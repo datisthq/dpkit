@@ -1,3 +1,4 @@
+import { basename } from "node:path"
 import { writeTempFile } from "@dpkit/file"
 import { describe, expect, it } from "vitest"
 import { loadPackage } from "./load.ts"
@@ -30,7 +31,7 @@ describe("loadPackage", () => {
       resources: [
         {
           name: "resource-1",
-          path: csvPath,
+          path: basename(csvPath),
           format: "csv",
         },
         {
