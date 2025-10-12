@@ -133,6 +133,12 @@ importers:
         specifier: ^0.14.0
         version: 0.14.0
     devDependencies:
+      '@dpkit/file':
+        specifier: workspace:*
+        version: link:../file
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
       '@types/node':
         specifier: 24.2.0
         version: 24.2.0

@@ -1,7 +1,7 @@
 import { Option } from "commander"
 
 export const toCkanApiKey = new Option(
-  "--to-api-key <apiKey>",
+  "--to-ckan-api-key <ckanApiKey>",
   "API key for CKAN API",
 ).makeOptionMandatory()
 
@@ -11,11 +11,11 @@ export const toCkanUrl = new Option(
 ).makeOptionMandatory()
 
 export const toCkanOwnerOrg = new Option(
-  "--to-owner-org <ownerOrg>",
+  "--to-ckan-owner-org <ckanOwnerOrg>",
   "Owner organization for the CKAN dataset",
 ).makeOptionMandatory()
 
 export const toCkanDatasetName = new Option(
-  "--to-dataset-name <datasetName>",
+  "--to-ckan-dataset-name <ckanDatasetName>",
   "Name for the CKAN dataset",
 ).makeOptionMandatory()

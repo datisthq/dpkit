@@ -11,6 +11,7 @@ export const githubPublishPackageCommand = new Command("github")
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.withRemote)
   .addOption(params.debug)
+  .addOption(params.silent)
 
   .optionsGroup("GitHub")
   .addOption(params.toGithubApiKey)
@@ -21,6 +22,7 @@ export const githubPublishPackageCommand = new Command("github")
     const session = Session.create({
       title: "Publish to GitHub",
       debug: options.debug,
+      silent: options.silent,
     })
 
     const dp = await session.task("Loading package", loadPackage(path))
@@ -28,9 +30,9 @@ export const githubPublishPackageCommand = new Command("github")
     const result = await session.task(
       "Publishing package",
       savePackageToGithub(dp, {
-        apiKey: options.toApiKey,
-        repo: options.toRepo,
-        org: options.toOrg,
+        apiKey: options.toGithubApiKey,
+        repo: options.toGithubRepo,
+        org: options.toGithubOrg,
       }),
     )
 

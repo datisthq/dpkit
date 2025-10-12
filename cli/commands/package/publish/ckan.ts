@@ -11,6 +11,7 @@ export const ckanPublishPackageCommand = new Command("ckan")
   .addArgument(params.positionalDescriptorPath)
   .addOption(params.withRemote)
   .addOption(params.debug)
+  .addOption(params.silent)
 
   .optionsGroup("CKAN")
   .addOption(params.toCkanApiKey)
@@ -22,6 +23,7 @@ export const ckanPublishPackageCommand = new Command("ckan")
     const session = Session.create({
       title: "Publish package",
       debug: options.debug,
+      silent: options.silent,
     })
 
     const dp = await session.task("Loading package", loadPackage(path))
@@ -30,9 +32,9 @@ export const ckanPublishPackageCommand = new Command("ckan")
       "Publishing package",
       savePackageToCkan(dp, {
         ckanUrl: options.toCkanUrl,
-        apiKey: options.toApiKey,
-        ownerOrg: options.toOwnerOrg,
-        datasetName: options.toDatasetName,
+        apiKey: options.toCkanApiKey,
+        ownerOrg: options.toCkanOwnerOrg,
+        datasetName: options.toCkanDatasetName,
       }),
     )
 

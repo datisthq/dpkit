@@ -43,7 +43,11 @@ export const validateResourceCommand = new Command("validate")
     }
 
     if (report.valid) {
-      session.success("Resource is valid")
+      if (options.json) {
+        session.render(report)
+      } else {
+        session.success("Resource is valid")
+      }
       return
     }
 

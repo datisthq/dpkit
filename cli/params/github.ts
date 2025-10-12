@@ -1,16 +1,16 @@
 import { Option } from "commander"
 
 export const toGithubApiKey = new Option(
-  "--to-api-key <apiKey>",
+  "--to-github-api-key <githubApiKey>",
   "API key for GitHub API",
 ).makeOptionMandatory()
 
 export const toGithubRepo = new Option(
-  "--to-repo <repo>",
+  "--to-github-repo <githubRepo>",
   "GitHub repository name",
 ).makeOptionMandatory()
 
 export const toGithubOrg = new Option(
-  "--to-org <org>",
+  "--to-github-org <githubOrg>",
   "GitHub organization (optional, defaults to user repositories)",
 )

@@ -46,6 +46,8 @@
     "ts-extras": "^0.14.0"
   },
   "devDependencies": {
+    "@dpkit/file": "workspace:*",
+    "@dpkit/test": "workspace:*",
     "@types/node": "24.2.0",
     "@types/react": "19.1.9"
   }

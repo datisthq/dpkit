@@ -1,11 +1,11 @@
 import { Option } from "commander"
 
 export const toZenodoApiKey = new Option(
-  "--to-api-key <apiKey>",
+  "--to-zenodo-api-key <zenodoApiKey>",
   "API key for Zenodo API",
 ).makeOptionMandatory()
 
 export const toZenodoSandbox = new Option(
-  "--to-sandbox",
+  "--to-zenodo-sandbox",
   "Use Zenodo sandbox environment",
 ).default(false)
