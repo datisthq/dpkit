@@ -12,7 +12,7 @@
     "bump": "ncu -ws -u",
     "clean": "npkill -D -x -y -nu && rm pnpm-lock.yaml",
     "compile": "pnpm -F cli compile",
-    "coverage": "vitest --ui",
+    "coverage": "sensible-browser coverage/index.html",
     "format": "biome check --write",
     "lint": "biome check",
     "login:ci": "pnpm config set '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'",
