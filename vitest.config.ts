@@ -10,14 +10,20 @@ try {
 export default defineConfig({
   test: {
     include: ["**/*.spec.(ts|tsx)"],
-    exclude: [...configDefaults.exclude, "**/build/**"],
+    exclude: [...configDefaults.exclude, "**/build/**", "**/compile/**"],
     testTimeout: 60 * 1000,
     passWithNoTests: true,
     silent: "passed-only",
     coverage: {
       enabled: true,
       reporter: ["html", "json"],
-      exclude: [...coverageConfigDefaults.exclude, "docs/**", "examples/**"],
+      exclude: [
+        ...coverageConfigDefaults.exclude,
+        "**/build/**",
+        "**/compile/**",
+        "docs/**",
+        "examples/**",
+      ],
     },
     resolveSnapshotPath: (testPath, snapExtension) => {
       return (
