@@ -4,7 +4,7 @@
 [![Coverage](https://img.shields.io/codecov/c/github/datisthq/dpkit/main)](https://codecov.io/gh/datisthq/dpkit)
 [![Version](https://img.shields.io/npm/v/dpkit)](https://www.npmjs.com/package/dpkit)
 
-dpkit is a fast data management framework built on top of the Data Package standard and Polars DataFrames. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub. For more information, please visit the [documentation portal](https://dpkit.datist.io).
+dpkit is a fast data management framework built on top of the Data Package standard and Polars DataFrames. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub. For more information, please visit the [documentation portal](https://dpkit.dev).
 
 ## Funding
 
