@@ -1,0 +1,115 @@
+{
+  "fields": [
+    {
+      "id": "id",
+      "type": "int",
+      "info": {
+        "label": "ID",
+        "notes": "Unique identifier",
+        "type_override": "int"
+      }
+    },
+    {
+      "id": "name",
+      "type": "text",
+      "info": {
+        "label": "Name",
+        "notes": "Person's full name",
+        "type_override": "text"
+      }
+    },
+    {
+      "id": "age",
+      "type": "int"
+    },
+    {
+      "id": "score",
+      "type": "numeric",
+      "info": {
+        "label": "Score",
+        "notes": "Test score",
+        "type_override": "numeric"
+      }
+    },
+    {
+      "id": "is_active",
+      "type": "bool"
+    },
+    {
+      "id": "birth_date",
+      "type": "date",
+      "info": {
+        "label": "Birth Date",
+        "notes": "Date of birth",
+        "type_override": "date"
+      }
+    },
+    {
+      "id": "start_time",
+      "type": "time"
+    },
+    {
+      "id": "created_at",
+      "type": "timestamp",
+      "info": {
+        "label": "Created At",
+        "notes": "Timestamp when record was created",
+        "type_override": "timestamp"
+      }
+    },
+    {
+      "id": "metadata",
+      "type": "json"
+    },
+    {
+      "id": "tags",
+      "type": "array",
+      "info": {
+        "label": "Tags",
+        "notes": "List of tags",
+        "type_override": "array"
+      }
+    },
+    {
+      "id": "string_field",
+      "type": "string"
+    },
+    {
+      "id": "integer_field",
+      "type": "integer"
+    },
+    {
+      "id": "number_field",
+      "type": "number"
+    },
+    {
+      "id": "float_field",
+      "type": "float"
+    },
+    {
+      "id": "boolean_field",
+      "type": "boolean"
+    },
+    {
+      "id": "datetime_field",
+      "type": "datetime"
+    },
+    {
+      "id": "object_field",
+      "type": "object"
+    },
+    {
+      "id": "unknown_field",
+      "type": "unknown_type"
+    },
+    {
+      "id": "override_field",
+      "type": "text",
+      "info": {
+        "label": "Override Field",
+        "notes": "Field with type override",
+        "type_override": "int"
+      }
+    }
+  ]
+}

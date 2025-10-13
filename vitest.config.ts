@@ -21,6 +21,7 @@ export default defineConfig({
         ...coverageConfigDefaults.exclude,
         "**/build/**",
         "**/compile/**",
+        "**/coverage/**",
         "docs/**",
         "examples/**",
       ],
