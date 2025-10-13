@@ -23,6 +23,7 @@ export default defineConfig({
         "**/compile/**",
         "**/coverage/**",
         "**/scripts/**",
+        "**/entrypoints/**",
         "docs/**",
         "site/**",
         "examples/**",
