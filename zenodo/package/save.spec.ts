@@ -535,4 +535,97 @@ describe("savePackageToZenodo", () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(2)
   })
+
+  it("includes contributors with author role as creators in metadata", async () => {
+    const packageWithContributors: Package = {
+      ...mockPackage,
+      contributors: [
+        {
+          title: "Alice Smith",
+          role: "author",
+          path: "University of Example",
+        },
+        {
+          title: "Bob Jones",
+          role: "author",
+          path: "Institute of Testing",
+        },
+        {
+          title: "Charlie Brown",
+          role: "contributor",
+        },
+      ],
+    }
+
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      json: () =>
+        Promise.resolve({
+          id: 12345,
+          links: {
+            self: "https://sandbox.zenodo.org/api/deposit/depositions/12345",
+            html: "https://sandbox.zenodo.org/deposit/12345",
+            files:
+              "https://sandbox.zenodo.org/api/deposit/depositions/12345/files",
+            bucket: "https://sandbox.zenodo.org/api/files/bucket-id",
+          },
+          metadata: {
+            title: "Test Package",
+            description: "A test package",
+            upload_type: "dataset",
+            creators: [
+              {
+                name: "Alice Smith",
+                affiliation: "University of Example",
+              },
+              {
+                name: "Bob Jones",
+                affiliation: "Institute of Testing",
+              },
+            ],
+          },
+          state: "unsubmitted",
+          submitted: false,
+          files: [],
+        }),
+    })
+
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      json: () =>
+        Promise.resolve({
+          id: "file-1",
+          filename: "data.csv",
+          filesize: 100,
+        }),
+    })
+
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      json: () =>
+        Promise.resolve({
+          id: "file-2",
+          filename: "datapackage.json",
+          filesize: 500,
+        }),
+    })
+
+    await savePackageToZenodo(packageWithContributors, mockOptions)
+
+    const depositionCreateCall = fetchMock.mock.calls[0]
+    expect(depositionCreateCall).toBeDefined()
+    if (!depositionCreateCall) return
+
+    const depositionPayload = JSON.parse(depositionCreateCall[1].body)
+    expect(depositionPayload.metadata.creators).toEqual([
+      {
+        name: "Alice Smith",
+        affiliation: "University of Example",
+      },
+      {
+        name: "Bob Jones",
+        affiliation: "Institute of Testing",
+      },
+    ])
+  })
 })
