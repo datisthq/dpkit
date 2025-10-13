@@ -145,6 +145,9 @@ importers:
       '@types/react':
         specifier: 19.1.9
         version: 19.1.9
+      ink-testing-library:
+        specifier: 4.0.0
+        version: 4.0.0(@types/react@19.1.9)
 
   core:
     dependencies:
@@ -2707,6 +2710,15 @@ packages:
 
   ini@1.3.8:
     resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
+
+  ink-testing-library@4.0.0:
+    resolution: {integrity: sha512-yF92kj3pmBvk7oKbSq5vEALO//o7Z9Ck/OaLNlkzXNeYdwfpxMQkSowGTFUCS5MSu9bWfSZMewGpp7bFc66D7Q==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   ink@6.3.1:
     resolution: {integrity: sha512-3wGwITGrzL6rkWsi2gEKzgwdafGn4ZYd3u4oRp+sOPvfoxEHlnoB5Vnk9Uy5dMRUhDOqF3hqr4rLQ4lEzBc2sQ==}
@@ -7229,6 +7241,10 @@ snapshots:
   inherits@2.0.4: {}
 
   ini@1.3.8: {}
+
+  ink-testing-library@4.0.0(@types/react@19.1.9):
+    optionalDependencies:
+      '@types/react': 19.1.9
 
   ink@6.3.1(@types/react@19.1.9)(react-devtools-core@6.1.5)(react@19.2.0):
     dependencies:
