@@ -292,7 +292,9 @@ describe("convertSchemaToCkan", () => {
 
     const resultCkanSchema = convertSchemaToCkan(frictionlessSchema)
 
-    expect(resultCkanSchema.fields).toHaveLength(originalCkanSchema.fields.length)
+    expect(resultCkanSchema.fields).toHaveLength(
+      originalCkanSchema.fields.length,
+    )
 
     originalCkanSchema.fields.forEach(originalField => {
       const resultField = resultCkanSchema.fields.find(
