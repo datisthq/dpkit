@@ -24,6 +24,7 @@ export default defineConfig({
         "**/coverage/**",
         "**/scripts/**",
         "**/entrypoints/**",
+        "app/**",
         "docs/**",
         "site/**",
         "examples/**",
