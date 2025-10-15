@@ -6,7 +6,6 @@ import { Pages } from "#constants/page.ts"
 const routes: RouteConfig = []
 
 routes.push(
-  route("*", "system/fallback.tsx"),
   route("", "system/redirects/home.ts"),
 
   route("sitemap.xml", "sitemap/root.ts"),

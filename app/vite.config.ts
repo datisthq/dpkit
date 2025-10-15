@@ -5,12 +5,12 @@ import { defineConfig } from "vite"
 export default defineConfig({
   assetsInclude: ["**/*.md"],
   plugins: [
+    // @ts-ignore
     cloudflare({ viteEnvironment: { name: "ssr" } }),
+    // @ts-ignore
     reactRouter(),
   ],
   resolve: {
-    alias: [
-      { find: "@dpkit/app", replacement: import.meta.dirname },
-    ],
-  }
+    alias: [{ find: "@dpkit/app", replacement: import.meta.dirname }],
+  },
 })

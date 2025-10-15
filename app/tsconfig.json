@@ -1,7 +1,12 @@
 {
   "extends": "../tsconfig.json",
+  "include": [
+    "${configDir}/**/*.ts",
+    "${configDir}/**/*.tsx",
+    "${configDir}.react-router/types/**/*"
+  ],
   "compilerOptions": {
-    "rootDir": "${configDir}",
+    "rootDirs": ["${configDir}", "${configDir}/.react-router/types"],
     "lib": ["ESNext", "DOM"],
     "types": ["vite/client"],
     "jsx": "react-jsx",
