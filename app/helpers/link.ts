@@ -12,7 +12,9 @@ export function makeLink(options: {
   const { languageId, pageId, absolute, fragment } = options
 
   const page = Pages[pageId]
-  const path = href(`/:languageId${page.path[languageId]}`, { languageId })
+  const path = href(`/:languageId${page.path?.[languageId] ?? ""}`, {
+    languageId,
+  })
 
   const url = new URL(path, settings.URL)
   if (fragment) {

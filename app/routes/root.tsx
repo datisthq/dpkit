@@ -2,6 +2,7 @@
 // ---
 import "#styles/index.ts"
 // ---
+import { useMatches } from "react-router"
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router"
 import { useRouteError } from "react-router"
 import { isRouteErrorResponse } from "react-router"
@@ -13,7 +14,6 @@ import { System } from "#components/System/index.ts"
 import { createPayload } from "#payload.ts"
 import * as settings from "#settings.ts"
 import type * as types from "#types/index.ts"
-import type { Route } from "./+types/root.ts"
 
 export function headers() {
   return {
@@ -31,9 +31,11 @@ export function ErrorBoundary() {
   return <Error code={code} />
 }
 
-export function Layout(props: Route.ComponentProps) {
+export function Layout() {
   const canonicalUrl = useHref("")
-  const match = props.matches.at(-1) as any
+
+  const matches = useMatches()
+  const match = matches.at(-1) as any
 
   const payload: types.Payload = match?.data?.payload ?? createPayload().payload
   const languageId = payload.language.languageId
@@ -74,7 +76,7 @@ export function Layout(props: Route.ComponentProps) {
       </head>
 
       <body>
-        <System>
+        <System payload={payload}>
           <components.Layout>
             <Outlet />
           </components.Layout>

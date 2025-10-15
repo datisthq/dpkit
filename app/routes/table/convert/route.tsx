@@ -7,6 +7,6 @@ export async function loader({ params }: Route.LoaderArgs) {
   return { payload }
 }
 
-export default function Page(props: Route.ComponentProps) {
+export default function Page(_props: Route.ComponentProps) {
   return "tableConvert"
 }

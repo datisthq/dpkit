@@ -9,22 +9,17 @@ routes.push(
   route("", "system/redirects/home.ts"),
 
   route("sitemap.xml", "sitemap/root.ts"),
-  route(":languageId/sitemap.xml", "sitemap/pages.ts"),
+  route(":languageId/sitemap.xml", "sitemap/page.ts"),
 )
 
 for (const [pageId, page] of objectEntries(Pages)) {
-  if (typeof page.path === "string") {
-    const id = pageId
-    const path = `:languageId/${page.path}`
+  for (const languageId of objectKeys(Languages)) {
+    const id = [languageId, pageId].join("/")
+    const path = [":languageId", page.path?.[languageId]]
+      .filter(Boolean)
+      .join("")
 
     routes.push(route(path, page.file, { id }))
-  } else {
-    for (const languageId of objectKeys(Languages)) {
-      const id = [languageId, pageId].join("/")
-      const path = `:languageId/${page.path[languageId]}`
-
-      routes.push(route(path, page.file, { id }))
-    }
   }
 }
 

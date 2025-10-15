@@ -6,6 +6,6 @@ export function usePayload() {
   return {
     ...payload,
     languageId: payload.language.languageId,
-    pageId: payload.page.id,
+    pageId: payload.page.pageId,
   }
 }

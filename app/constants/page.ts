@@ -6,16 +6,7 @@ export const Pages = {
   home: {
     pageId: "home",
     file: "home/route.tsx",
-    path: {
-      de: "",
-      en: "",
-      es: "",
-      fr: "",
-      it: "",
-      pt: "",
-      ru: "",
-      uk: "",
-    },
+    path: undefined,
     title: {
       de: "Home",
       en: "Home",
@@ -76,7 +67,7 @@ export const Pages = {
 interface AbstractPage {
   pageId: string
   file: string
-  path: Record<types.LanguageId, string>
+  path?: Record<types.LanguageId, string>
   title: Record<types.LanguageId, string>
   description: Record<types.LanguageId, string>
 }
