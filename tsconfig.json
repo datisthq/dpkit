@@ -3,6 +3,7 @@
 
   "include": ["${configDir}/**/*.ts", "${configDir}/**/*.tsx"],
   "exclude": [
+    "${configDir}/**/app/",
     "${configDir}/**/docs/",
     "${configDir}/**/site/",
     "${configDir}/**/build/",

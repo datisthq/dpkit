@@ -6,11 +6,13 @@
     "${configDir}.react-router/types/**/*"
   ],
   "compilerOptions": {
+    "rootDir": "${configDir}",
     "rootDirs": ["${configDir}", "${configDir}/.react-router/types"],
     "lib": ["ESNext", "DOM"],
     "types": ["vite/client"],
     "jsx": "react-jsx",
     "declaration": false,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": false
   }
 }

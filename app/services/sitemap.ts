@@ -1,6 +1,6 @@
-import invariant from "tiny-invariant"
 import { js2xml } from "xml-js"
 import { Languages } from "#constants/language.ts"
+import { makeLink } from "#helpers/link.ts"
 import type * as types from "#types/index.ts"
 
 class BaseSitemap {
@@ -35,15 +35,12 @@ export class IndexSitemap extends BaseSitemap {
 
 export class PartitionSitemap extends BaseSitemap {
   languageId: types.LanguageId
-  countryId: types.CountryId
 
   constructor(options: {
     languageId: types.LanguageId
-    countryId: types.CountryId
   }) {
     super()
     this.languageId = options.languageId
-    this.countryId = options.countryId
   }
 
   toXml() {
@@ -68,15 +65,10 @@ export class PartitionSitemap extends BaseSitemap {
     params?: Record<string, string>
   }) {
     const language = Languages[this.languageId]
-    const country = Countries[this.countryId]
-    invariant(language)
-    invariant(country)
 
     const link = makeLink({
       languageId: language.languageId,
-      countryId: country.countryId,
       pageId: options.pageId,
-      params: options.params,
       absolute: true,
     })
 

@@ -10,39 +10,38 @@ import { useMemo, useState } from "react"
 import { I18nextProvider } from "react-i18next"
 import { useTranslation } from "react-i18next"
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router"
-import { useMatches, useParams, useRouteError } from "react-router"
+import { useRouteError } from "react-router"
 import { isRouteErrorResponse } from "react-router"
 import { useHref } from "react-router"
 import { JsonLd } from "react-schemaorg"
+import { LanguageIdDefault, Languages } from "#constants/language.ts"
 import { locale } from "#locale.ts"
 import * as settings from "#settings.ts"
 import { theme } from "#theme.ts"
-import type * as types from "#types/index.ts"
+import type { Route } from "./+types/root.ts"
 import classes from "./root.module.css"
-import type { Route } from "./types/routes/+types/root.ts"
 
-export function Layout(props: { children: React.ReactNode }) {
-  const params = useParams()
-  const matches = useMatches()
+export function headers() {
+  return {
+    "Cache-Control": `public, max-age=${60 * 60 * 24}`,
+  }
+}
+
+export function Layout(props: Route.ComponentProps) {
   const canonicalUrl = useHref("")
   const [queryClient] = useState(createQueryClient)
 
+  const language =
+    Object.values(Languages).find(
+      language => language.languageId === props.params.languageId,
+    ) ?? Languages[LanguageIdDefault]
+
   const i18n = useMemo(() => {
-    return locale.cloneInstance({ lng: props.languageId })
-  }, [props.languageId])
-
-  const match = matches.at(-1) as any
-  const payload: types.Payload =
-    match?.data?.payload ?? createDefaultPayload().payload
-
-  const pageId = payload.page.pageId
-  const languageId = payload.language.languageId
-
-  const title = [payload.page.title[languageId], settings.TITLE].join(" - ")
-  const description = payload.page.description[languageId]
+    return locale.cloneInstance({ lng: language.languageId })
+  }, [language.languageId])
 
   return (
-    <html lang={params.languageId} dir="ltr">
+    <html lang={language.languageId} dir="ltr">
       <head>
         <meta charSet="utf-8" />
         <meta
@@ -50,15 +49,15 @@ export function Layout(props: { children: React.ReactNode }) {
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
 
-        <title>{title}</title>
-        {!!description && <meta name="description" content={description} />}
+        <title>{settings.TITLE}</title>
+        <meta name="description" content={settings.DESCRIPTION} />
 
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
+        <meta property="og:title" content={settings.TITLE} />
+        <meta property="og:description" content={settings.DESCRIPTION} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:site_name" content={settings.TITLE} />
-        <meta property="og:locale" content={params.languageId} />
+        <meta property="og:locale" content={language.languageId} />
 
         <link rel="canonical" href={canonicalUrl} />
         <link rel="icon" type="image/png" href="/favicon.png" />
@@ -80,7 +79,9 @@ export function Layout(props: { children: React.ReactNode }) {
         <ColorSchemeScript defaultColorScheme="auto" />
         <MantineProvider theme={theme} defaultColorScheme="auto">
           <QueryClientProvider client={queryClient}>
-            <I18nextProvider i18n={i18n}>{props.children}</I18nextProvider>
+            <I18nextProvider i18n={i18n}>
+              <Outlet />
+            </I18nextProvider>
             <TanstackDevtools />
           </QueryClientProvider>
         </MantineProvider>

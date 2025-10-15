@@ -6,7 +6,16 @@ export const Pages = {
   home: {
     pageId: "home",
     file: "home/route.tsx",
-    path: "",
+    path: {
+      de: "",
+      en: "",
+      es: "",
+      fr: "",
+      it: "",
+      pt: "",
+      ru: "",
+      uk: "",
+    },
     title: {
       de: "Home",
       en: "Home",
@@ -32,14 +41,14 @@ export const Pages = {
     pageId: "tableConvert",
     file: "table/convert/route.tsx",
     path: {
-      de: "konvertieren-tabelle",
-      en: "convert-table",
-      es: "convertir-tabla",
-      fr: "convertir-table",
-      it: "convertire-tabella",
-      pt: "converter-tabela",
-      ru: "конвертировать-таблицу",
-      uk: "конвертувати-таблицю",
+      de: "/konvertieren-tabelle",
+      en: "/convert-table",
+      es: "/convertir-tabla",
+      fr: "/convertir-table",
+      it: "/convertire-tabella",
+      pt: "/converter-tabela",
+      ru: "/конвертировать-таблицу",
+      uk: "/конвертувати-таблицю",
     },
     title: {
       de: "Tabelle Konvertieren",
@@ -67,7 +76,7 @@ export const Pages = {
 interface AbstractPage {
   pageId: string
   file: string
-  path: string | Record<types.LanguageId, string>
+  path: Record<types.LanguageId, string>
   title: Record<types.LanguageId, string>
   description: Record<types.LanguageId, string>
 }
