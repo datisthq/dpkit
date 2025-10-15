@@ -5,12 +5,11 @@ import "#styles"
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router"
 import { useMatches, useParams, useRouteError } from "react-router"
 import { isRouteErrorResponse } from "react-router"
+import { useHref } from "react-router"
 import { JsonLd } from "react-schemaorg"
 import { Error } from "#components/Error/index.ts"
 import { Layout as LayoutComponent } from "#components/Layout/index.ts"
 import { System } from "#components/System/index.ts"
-import { makeLink } from "#helpers/link.ts"
-import { createDefaultPayload } from "#payload.ts"
 import * as settings from "#settings.ts"
 import type * as types from "#types/index.ts"
 
@@ -28,6 +27,7 @@ export function ErrorBoundary() {
 export function Layout(props: { children: React.ReactNode }) {
   const params = useParams()
   const matches = useMatches()
+  const canonicalUrl = useHref("")
 
   const match = matches.at(-1) as any
   const payload: types.Payload =
@@ -35,7 +35,6 @@ export function Layout(props: { children: React.ReactNode }) {
 
   const pageId = payload.page.pageId
   const languageId = payload.language.languageId
-  const canonicalLink = makeLink({ languageId, pageId, params })
 
   const title = [payload.page.title[languageId], settings.TITLE].join(" - ")
   const description = payload.page.description[languageId]
@@ -55,11 +54,11 @@ export function Layout(props: { children: React.ReactNode }) {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={links[0]?.href || settings.URL} />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:site_name" content={settings.TITLE} />
         <meta property="og:locale" content={params.languageId} />
 
-        <link rel="canonical" href="https://mycarro.app/en/portugal" />
+        <link rel="canonical" href={canonicalUrl} />
         <link rel="icon" type="image/png" href="/favicon.png" />
 
         <JsonLd
@@ -76,9 +75,7 @@ export function Layout(props: { children: React.ReactNode }) {
       </head>
 
       <body>
-        <System payload={payload}>
-          <LayoutComponent>{props.children}</LayoutComponent>
-        </System>
+        <System>{props.children}</System>
 
         <ScrollRestoration />
         <Scripts />

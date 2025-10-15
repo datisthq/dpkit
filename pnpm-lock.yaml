@@ -59,6 +59,9 @@ importers:
       '@mantine/core':
         specifier: 8.3.5
         version: 8.3.5(@mantine/hooks@8.3.5(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@tanstack/react-query':
+        specifier: 5.90.3
+        version: 5.90.3(react@19.2.0)
       i18next:
         specifier: 25.6.0
         version: 25.6.0(typescript@5.9.2)
@@ -80,6 +83,15 @@ importers:
       react-schemaorg:
         specifier: 2.0.0
         version: 2.0.0(react@19.2.0)(schema-dts@1.1.5)(typescript@5.9.2)
+      remix-utils:
+        specifier: 9.0.0
+        version: 9.0.0(@oslojs/encoding@1.1.0)(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
+      tiny-invariant:
+        specifier: ^1.3.3
+        version: 1.3.3
+      ts-extras:
+        specifier: ^0.14.0
+        version: 0.14.0
     devDependencies:
       '@cloudflare/vite-plugin':
         specifier: 1.13.13
@@ -87,6 +99,9 @@ importers:
       '@react-router/dev':
         specifier: 7.9.4
         version: 7.9.4(@types/node@24.2.0)(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(vite@7.1.9(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(wrangler@4.43.0)(yaml@2.8.1)
+      '@tanstack/react-query-devtools':
+        specifier: 5.90.2
+        version: 5.90.2(@tanstack/react-query@5.90.3(react@19.2.0))(react@19.2.0)
       '@types/react':
         specifier: 19.2.2
         version: 19.2.2
@@ -2082,6 +2097,23 @@ packages:
 
   '@swc/helpers@0.5.17':
     resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
+
+  '@tanstack/query-core@5.90.3':
+    resolution: {integrity: sha512-HtPOnCwmx4dd35PfXU8jjkhwYrsHfuqgC8RCJIwWglmhIUIlzPP0ZcEkDAc+UtAWCiLm7T8rxeEfHZlz3hYMCA==}
+
+  '@tanstack/query-devtools@5.90.1':
+    resolution: {integrity: sha512-GtINOPjPUH0OegJExZ70UahT9ykmAhmtNVcmtdnOZbxLwT7R5OmRztR5Ahe3/Cu7LArEmR6/588tAycuaWb1xQ==}
+
+  '@tanstack/react-query-devtools@5.90.2':
+    resolution: {integrity: sha512-vAXJzZuBXtCQtrY3F/yUNJCV4obT/A/n81kb3+YqLbro5Z2+phdAbceO+deU3ywPw8B42oyJlp4FhO0SoivDFQ==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.90.2
+      react: ^18 || ^19
+
+  '@tanstack/react-query@5.90.3':
+    resolution: {integrity: sha512-i/LRL6DtuhG6bjGzavIMIVuKKPWx2AnEBIsBfuMm3YoHne0a20nWmsatOCBcVSaT0/8/5YFjNkebHAPLVUSi0Q==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -4801,6 +4833,42 @@ packages:
   remark@15.0.1:
     resolution: {integrity: sha512-Eht5w30ruCXgFmxVUSlNWQ9iiimq07URKeFS3hNc8cUWy1llX4KDWfyEDZRycMc+znsN9Ux5/tJ/BFdgdOwA3A==}
 
+  remix-utils@9.0.0:
+    resolution: {integrity: sha512-xpDnw6hIjYbHR9/noE4lKNPRzfxvGai3XBQcjOjcwIwZVW9O1bdsnYAl+aqJ2fMXSQTNMjNuR8Cetn76HqwXCg==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      '@edgefirst-dev/batcher': ^1.0.0
+      '@edgefirst-dev/jwt': ^1.2.0
+      '@edgefirst-dev/server-timing': ^0.0.1
+      '@oslojs/crypto': ^1.0.1
+      '@oslojs/encoding': ^1.1.0
+      '@standard-schema/spec': ^1.0.0
+      intl-parse-accept-language: ^1.0.0
+      is-ip: ^5.0.1
+      react: ^18.0.0 || ^19.0.0
+      react-router: ^7.0.0
+    peerDependenciesMeta:
+      '@edgefirst-dev/batcher':
+        optional: true
+      '@edgefirst-dev/jwt':
+        optional: true
+      '@edgefirst-dev/server-timing':
+        optional: true
+      '@oslojs/crypto':
+        optional: true
+      '@oslojs/encoding':
+        optional: true
+      '@standard-schema/spec':
+        optional: true
+      intl-parse-accept-language:
+        optional: true
+      is-ip:
+        optional: true
+      react:
+        optional: true
+      react-router:
+        optional: true
+
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
@@ -7309,6 +7377,21 @@ snapshots:
   '@swc/helpers@0.5.17':
     dependencies:
       tslib: 2.8.1
+
+  '@tanstack/query-core@5.90.3': {}
+
+  '@tanstack/query-devtools@5.90.1': {}
+
+  '@tanstack/react-query-devtools@5.90.2(@tanstack/react-query@5.90.3(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@tanstack/query-devtools': 5.90.1
+      '@tanstack/react-query': 5.90.3(react@19.2.0)
+      react: 19.2.0
+
+  '@tanstack/react-query@5.90.3(react@19.2.0)':
+    dependencies:
+      '@tanstack/query-core': 5.90.3
+      react: 19.2.0
 
   '@tybys/wasm-util@0.10.1':
     dependencies:
@@ -10486,6 +10569,14 @@ snapshots:
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
+
+  remix-utils@9.0.0(@oslojs/encoding@1.1.0)(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0):
+    dependencies:
+      type-fest: 4.41.0
+    optionalDependencies:
+      '@oslojs/encoding': 1.1.0
+      react: 19.2.0
+      react-router: 7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
 
   require-directory@2.1.1: {}
 
