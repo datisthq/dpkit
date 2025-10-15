@@ -1,15 +1,11 @@
-import { Pages } from "#constants/page.ts"
+import { usePayload } from "#components/System/index.ts"
 import * as settings from "#settings.ts"
-import type * as types from "#types/index.ts"
 
-export function Meta(props: {
-  languageId: types.LanguageId
-  pageId: types.PageId
-}) {
-  const page = Pages[props.pageId]
+export function Meta() {
+  const { page, languageId } = usePayload()
 
-  const title = [page.title[props.languageId], settings.TITLE].join(" - ")
-  const description = page.description[props.languageId]
+  const title = [page.title[languageId], settings.TITLE].join(" - ")
+  const description = page.description[languageId]
 
   return (
     <>

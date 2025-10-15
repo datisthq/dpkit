@@ -1,9 +1,9 @@
-.errorRoot {
+.container {
   padding-top: rem(80px);
   padding-bottom: rem(80px);
 }
 
-.errorLabel {
+.label {
   text-align: center;
   font-weight: 900;
   line-height: 1;
@@ -16,14 +16,14 @@
   }
 }
 
-.errorDescription {
+.description {
   max-width: rem(500px);
   margin: auto;
   margin-top: var(--mantine-spacing-xl);
   margin-bottom: calc(1.5 * var(--mantine-spacing-xl));
 }
 
-.errorTitle {
+.title {
   font-family: var(--mantine-font-family);
   text-align: center;
   font-weight: 900;

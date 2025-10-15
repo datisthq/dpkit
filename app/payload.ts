@@ -7,16 +7,16 @@ export type Payload = {
   page: types.Page
 }
 
-export function createPayload(options: {
-  pageId?: types.PageId
-  params?: Record<string, string>
+export function createPayload(options?: {
+  pageId: types.PageId
+  params: Record<string, string>
 }) {
-  const page = Pages[options.pageId ?? PageIdDefault]
+  const page = Pages[options?.pageId ?? PageIdDefault]
 
   let language: types.Language | undefined = Languages[LanguageIdDefault]
-  if (options.params?.languageId) {
+  if (options?.params.languageId) {
     language = Object.values(Languages).find(
-      language => language.languageId === options.params?.languageId,
+      language => language.languageId === options.params.languageId,
     )
   }
 

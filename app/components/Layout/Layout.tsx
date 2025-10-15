@@ -7,12 +7,10 @@ import { Meta } from "./Meta.tsx"
 
 export function Layout(props: {
   children?: React.ReactNode
-  languageId: types.LanguageId
-  pageId: types.PageId
 }) {
   return (
     <Box>
-      <Meta languageId={props.languageId} pageId={props.pageId} />
+      <Meta />
       <Header />
       <Content children={props.children} />
       <Footer />
