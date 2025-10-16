@@ -2,6 +2,7 @@ import { omit } from "es-toolkit"
 import type { ComponentProps } from "react"
 import { Link as ReactRouterLink } from "react-router"
 import { useMakeLink } from "#components/System/index.ts"
+import classes from "./Link.module.css"
 
 export function Link(
   props: ComponentProps<typeof ReactRouterLink> & {
@@ -23,6 +24,7 @@ export function Link(
 
   return (
     <ReactRouterLink
+      className={classes.root}
       viewTransition
       to={href}
       prefetch="intent"
