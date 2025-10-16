@@ -1,4 +1,5 @@
-import { Stack } from "@mantine/core"
+import { Box, Stack } from "@mantine/core"
+import { Banner } from "./Banner.tsx"
 import { Content } from "./Content.tsx"
 import { Footer } from "./Footer.tsx"
 import { Header } from "./Header.tsx"
@@ -10,7 +11,10 @@ export function Layout(props: {
   return (
     <Stack gap="lg">
       <Meta />
-      <Header />
+      <Box>
+        <Header />
+        <Banner />
+      </Box>
       <Content children={props.children} />
       <Footer />
     </Stack>

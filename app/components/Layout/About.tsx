@@ -17,7 +17,7 @@ export function About() {
       </div>
       <p>
         We are bringing technological innovation and consultancy
-        <br /> services to open data field.
+        <br /> services to open data field
       </p>
     </article>
   )
