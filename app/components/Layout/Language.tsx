@@ -47,7 +47,7 @@ export function Language(props: { fullWidth?: boolean }) {
       shadow="sm"
     >
       <Menu.Target>
-        <Tooltip openDelay={300} label={t("Change Language")} position="left">
+        <Tooltip openDelay={300} label={t("Change Language")} position="bottom">
           <UnstyledButton
             w={props.fullWidth ? "100%" : undefined}
             className={classes.control}
@@ -55,7 +55,7 @@ export function Language(props: { fullWidth?: boolean }) {
           >
             <Group gap={4} wrap="nowrap" w="100%" justify="center">
               <icons.Language strokeWidth={1.5} />
-              <Box className={classes.label} visibleFrom="md">
+              <Box className={classes.label} visibleFrom="xl">
                 {selected.title}
               </Box>
             </Group>
