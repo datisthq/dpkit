@@ -1,0 +1,31 @@
+.article {
+  max-width: 40rem;
+  margin-inline: auto;
+  padding-block: 1rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  display: flex;
+}
+
+.article > * {
+  max-width: 50ch;
+}
+
+.small {
+  color: var(--mantine-color-gray-6);
+}
+
+.imageWrapper {
+  padding: 5px;
+  padding-bottom: 0;
+  border-radius: 15px;
+  border: dashed 1px
+    light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-4));
+}
+
+.image {
+  border-radius: 15px;
+  background-color: white;
+}

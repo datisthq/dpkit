@@ -16,7 +16,7 @@ export function Breadcrumbs() {
   return (
     <MantineBreadcrumbs>
       <Anchor to={makeLink({ pageId: "home" })} component={Link}>
-        {t("Home")}
+        {t("Tools")}
       </Anchor>
       <Anchor to={makeLink({ pageId: "home" })} component={Link}>
         {payload.page.title[payload.language.languageId]}

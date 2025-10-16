@@ -17,7 +17,9 @@ import type * as types from "#types/index.ts"
 
 export function headers() {
   return {
-    "Cache-Control": `public, max-age=${60 * 60 * 24}`,
+    "Cache-Control": import.meta.env.PROD
+      ? `public, max-age=${60 * 60 * 24}`
+      : "private",
   }
 }
 
