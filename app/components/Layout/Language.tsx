@@ -34,7 +34,7 @@ export function Language(props: { fullWidth?: boolean }) {
     const location = globalThis.location
     if (location) {
       // We intentionally do not use client-side routing here
-      location.href = makeLink({ languageId })
+      location.href = makeLink({ languageId, pageId: payload.page.pageId })
     }
   }
 

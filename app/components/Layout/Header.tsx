@@ -1,4 +1,4 @@
-import { Group } from "@mantine/core"
+import { Box, Group } from "@mantine/core"
 import { Breadcrumbs } from "./Breadcrumbs.tsx"
 import classes from "./Header.module.css"
 import { Language } from "./Language.tsx"
@@ -8,13 +8,17 @@ import { Theme } from "./Theme.tsx"
 
 export function Header() {
   return (
-    <Group component="header" className={classes.root} align="center">
+    <Group component="header" className={classes.root} align="center" px="sm">
       <Logo />
-      <Group flex={1} visibleFrom="md">
-        <Breadcrumbs />
-      </Group>
+      <Box flex={1}>
+        <Box visibleFrom="md">
+          <Breadcrumbs />
+        </Box>
+      </Box>
       <Group>
-        <Navigation />
+        <Box visibleFrom="md">
+          <Navigation />
+        </Box>
         <Theme />
         <Language />
       </Group>
