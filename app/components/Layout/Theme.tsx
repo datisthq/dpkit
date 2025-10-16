@@ -2,6 +2,7 @@ import { Box, Button, Group, Tooltip } from "@mantine/core"
 import { useComputedColorScheme, useMantineColorScheme } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import * as icons from "#icons.ts"
+import * as settings from "#settings.ts"
 import classes from "./Theme.module.css"
 
 export function Theme(props: {
@@ -31,13 +32,13 @@ export function Theme(props: {
         aria-label="Toggle color scheme"
       >
         <Group darkHidden gap={4} wrap="nowrap">
-          <icons.LightTheme className={classes.icon} strokeWidth={1.5} />
+          <icons.LightTheme className={classes.icon} strokeWidth={settings.ICON_STROKE_WIDTH} />
           <Box mr={4} visibleFrom="xl">
             {t("Light")}
           </Box>
         </Group>
         <Group lightHidden gap={4} wrap="nowrap">
-          <icons.DarkTheme className={classes.icon} strokeWidth={1.5} />
+          <icons.DarkTheme className={classes.icon} strokeWidth={settings.ICON_STROKE_WIDTH} />
           <Box mr={4} visibleFrom="xl">
             {t("Dark")}
           </Box>
