@@ -1,0 +1,15 @@
+.loader {
+  animation: rotateAnimation 2s linear infinite;
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+    /* Initial position */
+  }
+
+  100% {
+    transform: rotate(360deg);
+    /* Full rotation */
+  }
+}

@@ -1,0 +1,5 @@
+.root {
+  position: sticky;
+  border-bottom: 1px solid var(--mantine-color-gray-3);
+  height: 64px;
+}
