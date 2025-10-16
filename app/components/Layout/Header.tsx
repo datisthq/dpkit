@@ -5,6 +5,7 @@ import { Language } from "./Language.tsx"
 import { Logo } from "./Logo.tsx"
 import { Navigation } from "./Navigation.tsx"
 import { Repository } from "./Repository.tsx"
+import { Share } from "./Share.tsx"
 import { Theme } from "./Theme.tsx"
 
 export function Header() {
@@ -28,6 +29,7 @@ export function Header() {
         </Box>
         <Theme />
         <Language />
+        <Share />
         <Repository />
       </Group>
     </Group>

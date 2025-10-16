@@ -5,6 +5,7 @@ import { usePayload } from "#components/System/index.ts"
 import { useMakeLink } from "#components/System/index.ts"
 import { Languages } from "#constants/language.ts"
 import * as icons from "#icons.ts"
+import * as settings from "#settings.ts"
 import type { LanguageId } from "#types/index.ts"
 import classes from "./Language.module.css"
 
@@ -54,7 +55,7 @@ export function Language(props: { fullWidth?: boolean }) {
             data-expanded={opened || undefined}
           >
             <Group gap={4} wrap="nowrap" w="100%" justify="center">
-              <icons.Language strokeWidth={1.5} />
+              <icons.Language strokeWidth={settings.ICON_STROKE_WIDTH} />
               <Box className={classes.label} visibleFrom="xl">
                 {selected.title}
               </Box>
