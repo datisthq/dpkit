@@ -1,6 +1,5 @@
-import { Box, ColorSchemeScript, MantineProvider } from "@mantine/core"
+import { ColorSchemeScript, MantineProvider } from "@mantine/core"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { omit } from "es-toolkit"
 import { useMemo, useState } from "react"
 import { I18nextProvider } from "react-i18next"
@@ -16,7 +15,7 @@ export function System(props: {
   const { payload } = props
   const [queryClient] = useState(createQueryClient)
 
-  const boundI18n = useMemo(() => {
+  const i18nForLanguage = useMemo(() => {
     return i18n.cloneInstance({ lng: payload.language.languageId })
   }, [payload.language.languageId])
 
@@ -25,8 +24,9 @@ export function System(props: {
       <ColorSchemeScript defaultColorScheme="auto" />
       <MantineProvider theme={theme} defaultColorScheme="auto">
         <QueryClientProvider client={queryClient}>
-          <I18nextProvider i18n={boundI18n}>{props.children}</I18nextProvider>
-          <TanstackDevtools />
+          <I18nextProvider i18n={i18nForLanguage}>
+            {props.children}
+          </I18nextProvider>
         </QueryClientProvider>
       </MantineProvider>
     </SystemContext>
@@ -43,13 +43,8 @@ function createQueryClient() {
     },
   })
 
-  return queryClient
-}
+  // @ts-ignore (enabling devtools)
+  globalThis.__TANSTACK_QUERY_CLIENT__ = queryClient
 
-function TanstackDevtools() {
-  return (
-    <Box visibleFrom="md">
-      <ReactQueryDevtools />
-    </Box>
-  )
+  return queryClient
 }
