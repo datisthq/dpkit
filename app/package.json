@@ -10,6 +10,7 @@
     "generate": "pnpm generate:cf && pnpm generate:rr",
     "generate:cf": "wrangler types",
     "generate:rr": "react-router typegen",
+    "start": "react-router dev --port 4000 --host",
     "type": "tsc --noEmit"
   },
   "dependencies": {

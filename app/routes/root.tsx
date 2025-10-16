@@ -35,9 +35,9 @@ export function Layout() {
   const canonicalUrl = useHref("")
 
   const matches = useMatches()
-  const match = matches.at(-1) as any
+  const route = matches.at(-1) as any
 
-  const payload: types.Payload = match?.data?.payload ?? createPayload().payload
+  const payload: types.Payload = route?.data?.payload ?? createPayload().payload
   const languageId = payload.language.languageId
 
   return (
