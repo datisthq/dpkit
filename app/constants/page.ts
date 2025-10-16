@@ -130,11 +130,12 @@ export const Pages = {
       uk: "Визначайте схему таблиці швидко та легко. Безкоштовний онлайн-інструмент для створення схем таблиць.",
     },
   },
+  // TODO: update translations
   tableConvert: {
     pageId: "tableConvert",
     file: "table/convert/route.tsx",
     path: {
-      en: "/convert-table",
+      en: "/convert-table-format",
       de: "/konvertieren-tabelle",
       es: "/convertir-tabla",
       fr: "/convertir-table",
@@ -144,7 +145,7 @@ export const Pages = {
       uk: "/конвертувати-таблицю",
     },
     title: {
-      en: "Convert Table",
+      en: "Convert Table Format",
       de: "Tabelle Konvertieren",
       es: "Convertir Tabla",
       fr: "Convertir Table",
