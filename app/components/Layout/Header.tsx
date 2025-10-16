@@ -8,7 +8,13 @@ import { Theme } from "./Theme.tsx"
 
 export function Header() {
   return (
-    <Group component="header" className={classes.root} align="center" px="sm">
+    <Group
+      component="header"
+      className={classes.root}
+      align="center"
+      px="sm"
+      gap="xl"
+    >
       <Logo />
       <Box flex={1}>
         <Box visibleFrom="md">

@@ -21,15 +21,19 @@ export function Logo(props: {
 
   const PlainLogo = () => {
     return (
-      <Group h="100%" wrap="nowrap" gap={0}>
-        <ThemeIcon variant="transparent" size="md" mr={{ xs: 5, md: "xs" }}>
-          <Icon className={iconClassName} width={24} height={24} />
+      <Group h="100%" wrap="nowrap" gap={5}>
+        <ThemeIcon variant="transparent" size="lg">
+          <Icon className={iconClassName} />
         </ThemeIcon>
-        <Group gap="xs" pos="relative">
-          <Title lh={1} lineClamp={2} order={3} className={classes.title}>
-            {title}
-          </Title>
-        </Group>
+        <Title
+          lh={1}
+          lineClamp={2}
+          order={3}
+          className={classes.title}
+          td="underline"
+        >
+          {title}
+        </Title>
       </Group>
     )
   }
