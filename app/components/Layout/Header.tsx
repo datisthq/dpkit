@@ -17,12 +17,12 @@ export function Header() {
     >
       <Logo />
       <Box flex={1}>
-        <Box visibleFrom="md">
+        <Box visibleFrom="lg">
           <Breadcrumbs />
         </Box>
       </Box>
       <Group>
-        <Box visibleFrom="md">
+        <Box visibleFrom="sm">
           <Navigation />
         </Box>
         <Theme />

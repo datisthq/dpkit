@@ -5,9 +5,9 @@ export default {
       variables: {
         "mantine-breakpoint-xs": "0em",
         "mantine-breakpoint-sm": "30em",
-        "mantine-breakpoint-md": "60em",
-        "mantine-breakpoint-lg": "90em",
-        "mantine-breakpoint-xl": "120em",
+        "mantine-breakpoint-md": "50em",
+        "mantine-breakpoint-lg": "60em",
+        "mantine-breakpoint-xl": "80em",
       },
     },
   },

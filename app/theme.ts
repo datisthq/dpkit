@@ -8,9 +8,9 @@ export const theme = createTheme({
   breakpoints: {
     xs: "0em", // 0px - mobile
     sm: "30em", // 480px - tablet
-    md: "60em", // 960px - desktop
-    lg: "90em", // 1440px
-    xl: "120em", // 1920px
+    md: "50em", // 800px - desktop
+    lg: "60em", // 960px
+    xl: "80em", // 1280px
   },
   headings: {
     sizes: {
