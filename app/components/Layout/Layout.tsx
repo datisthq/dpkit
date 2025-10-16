@@ -15,7 +15,7 @@ export function Layout(props: {
         <Header />
         <Banner />
       </Box>
-      <Content children={props.children} />
+      <Content>{props.children}</Content>
       <Footer />
     </Stack>
   )

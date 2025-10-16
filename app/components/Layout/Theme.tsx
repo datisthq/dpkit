@@ -32,13 +32,19 @@ export function Theme(props: {
         aria-label="Toggle color scheme"
       >
         <Group darkHidden gap={4} wrap="nowrap">
-          <icons.LightTheme className={classes.icon} strokeWidth={settings.ICON_STROKE_WIDTH} />
+          <icons.LightTheme
+            className={classes.icon}
+            strokeWidth={settings.ICON_STROKE_WIDTH}
+          />
           <Box mr={4} visibleFrom="xl">
             {t("Light")}
           </Box>
         </Group>
         <Group lightHidden gap={4} wrap="nowrap">
-          <icons.DarkTheme className={classes.icon} strokeWidth={settings.ICON_STROKE_WIDTH} />
+          <icons.DarkTheme
+            className={classes.icon}
+            strokeWidth={settings.ICON_STROKE_WIDTH}
+          />
           <Box mr={4} visibleFrom="xl">
             {t("Dark")}
           </Box>

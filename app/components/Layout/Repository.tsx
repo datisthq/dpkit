@@ -26,12 +26,21 @@ export function Repository(props: {
         aria-label="View repository on GitHub"
       >
         <Group gap={4} wrap="nowrap">
-          <icons.GitHub className={classes.icon} strokeWidth={settings.ICON_STROKE_WIDTH} />
+          <icons.GitHub
+            className={classes.icon}
+            strokeWidth={settings.ICON_STROKE_WIDTH}
+          />
           <Box mr={4} visibleFrom="xl">
             GitHub
           </Box>
-          <Box visibleFrom="xl" style={{ display: "flex", alignItems: "center" }}>
-            <icons.ExternalLink size={settings.ICON_SIZE_SMALL} strokeWidth={settings.ICON_STROKE_WIDTH} />
+          <Box
+            visibleFrom="xl"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <icons.ExternalLink
+              size={settings.ICON_SIZE_SMALL}
+              strokeWidth={settings.ICON_STROKE_WIDTH}
+            />
           </Box>
         </Group>
       </Button>
