@@ -3,7 +3,7 @@
 import "#styles/index.ts"
 // ---
 import { useMatches } from "react-router"
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router"
+import { Outlet, Scripts, ScrollRestoration } from "react-router"
 import { useRouteError } from "react-router"
 import { isRouteErrorResponse } from "react-router"
 import { useHref } from "react-router"
@@ -73,8 +73,11 @@ export function Layout() {
           }}
         />
 
-        <Meta />
-        <Links />
+        <script
+          src="https://plausible.io/js/script.js"
+          data-domain="cloud.dpkit.dev"
+          defer
+        ></script>
       </head>
 
       <body>
