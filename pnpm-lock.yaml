@@ -52,10 +52,10 @@ importers:
         version: 5.9.2
       vite:
         specifier: 7.1.10
-        version: 7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+        version: 7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
 
   app:
     dependencies:
@@ -86,6 +86,9 @@ importers:
       react-dom:
         specifier: 19.2.0
         version: 19.2.0(react@19.2.0)
+      react-flags-select:
+        specifier: 2.5.0
+        version: 2.5.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react-i18next:
         specifier: 16.0.1
         version: 16.0.1(i18next@25.6.0(typescript@5.9.2))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.2)
@@ -113,10 +116,10 @@ importers:
     devDependencies:
       '@cloudflare/vite-plugin':
         specifier: 1.13.13
-        version: 1.13.13(vite@7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251008.0)(wrangler@4.43.0)
+        version: 1.13.13(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251008.0)(wrangler@4.43.0)
       '@react-router/dev':
         specifier: 7.9.4
-        version: 7.9.4(@types/node@24.2.0)(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(wrangler@4.43.0)(yaml@2.8.1)
+        version: 7.9.4(@types/node@24.2.0)(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(wrangler@4.43.0)(yaml@2.8.1)
       '@types/react':
         specifier: 19.2.2
         version: 19.2.2
@@ -134,7 +137,7 @@ importers:
         version: 7.0.1(postcss@8.5.6)
       vite-plugin-svgr:
         specifier: 4.5.0
-        version: 4.5.0(rollup@4.52.4)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))
+        version: 4.5.0(rollup@4.52.4)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))
       wrangler:
         specifier: 4.43.0
         version: 4.43.0
@@ -327,10 +330,10 @@ importers:
     devDependencies:
       '@astrojs/starlight':
         specifier: 0.36.0
-        version: 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+        version: 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
       astro:
         specifier: 5.14.1
-        version: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
+        version: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
       dpkit:
         specifier: workspace:*
         version: link:../dpkit
@@ -342,16 +345,16 @@ importers:
         version: 0.34.2
       starlight-changelogs:
         specifier: 0.1.1
-        version: 0.1.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+        version: 0.1.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
       starlight-github-alerts:
         specifier: 0.1.0
-        version: 0.1.0(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
+        version: 0.1.0(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
       starlight-scroll-to-top:
         specifier: 0.3.1
-        version: 0.3.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
+        version: 0.3.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
       starlight-typedoc:
         specifier: 0.21.3
-        version: 0.21.3(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(typedoc-plugin-markdown@4.8.0(typedoc@0.28.9(typescript@5.9.2)))(typedoc@0.28.9(typescript@5.9.2))
+        version: 0.21.3(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(typedoc-plugin-markdown@4.8.0(typedoc@0.28.9(typescript@5.9.2)))(typedoc@0.28.9(typescript@5.9.2))
       tempy:
         specifier: 3.1.0
         version: 3.1.0
@@ -606,25 +609,25 @@ importers:
     devDependencies:
       '@astrojs/starlight':
         specifier: 0.36.0
-        version: 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+        version: 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
       astro:
         specifier: 5.14.1
-        version: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
+        version: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
       sharp:
         specifier: 0.34.2
         version: 0.34.2
       starlight-changelogs:
         specifier: 0.1.1
-        version: 0.1.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+        version: 0.1.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
       starlight-github-alerts:
         specifier: 0.1.0
-        version: 0.1.0(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
+        version: 0.1.0(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
       starlight-scroll-to-top:
         specifier: 0.3.1
-        version: 0.3.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
+        version: 0.3.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))
       starlight-typedoc:
         specifier: 0.21.3
-        version: 0.21.3(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(typedoc-plugin-markdown@4.8.0(typedoc@0.28.9(typescript@5.9.2)))(typedoc@0.28.9(typescript@5.9.2))
+        version: 0.21.3(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(typedoc-plugin-markdown@4.8.0(typedoc@0.28.9(typescript@5.9.2)))(typedoc@0.28.9(typescript@5.9.2))
       typedoc:
         specifier: 0.28.9
         version: 0.28.9(typescript@5.9.2)
@@ -1835,6 +1838,88 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@parcel/watcher-android-arm64@2.5.1':
+    resolution: {integrity: sha512-KF8+j9nNbUN8vzOFDpRMsaKBHZ/mcjEjMToVMJOhTozkDonQFFrRcfdLWn6yWKCmJKmdVxSgHiYvTCef4/qcBA==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [android]
+
+  '@parcel/watcher-darwin-arm64@2.5.1':
+    resolution: {integrity: sha512-eAzPv5osDmZyBhou8PoF4i6RQXAfeKL9tjb3QzYuccXFMQU0ruIc/POh30ePnaOyD1UXdlKguHBmsTs53tVoPw==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@parcel/watcher-darwin-x64@2.5.1':
+    resolution: {integrity: sha512-1ZXDthrnNmwv10A0/3AJNZ9JGlzrF82i3gNQcWOzd7nJ8aj+ILyW1MTxVk35Db0u91oD5Nlk9MBiujMlwmeXZg==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@parcel/watcher-freebsd-x64@2.5.1':
+    resolution: {integrity: sha512-SI4eljM7Flp9yPuKi8W0ird8TI/JK6CSxju3NojVI6BjHsTyK7zxA9urjVjEKJ5MBYC+bLmMcbAWlZ+rFkLpJQ==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@parcel/watcher-linux-arm-glibc@2.5.1':
+    resolution: {integrity: sha512-RCdZlEyTs8geyBkkcnPWvtXLY44BCeZKmGYRtSgtwwnHR4dxfHRG3gR99XdMEdQ7KeiDdasJwwvNSF5jKtDwdA==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm]
+    os: [linux]
+
+  '@parcel/watcher-linux-arm-musl@2.5.1':
+    resolution: {integrity: sha512-6E+m/Mm1t1yhB8X412stiKFG3XykmgdIOqhjWj+VL8oHkKABfu/gjFj8DvLrYVHSBNC+/u5PeNrujiSQ1zwd1Q==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm]
+    os: [linux]
+
+  '@parcel/watcher-linux-arm64-glibc@2.5.1':
+    resolution: {integrity: sha512-LrGp+f02yU3BN9A+DGuY3v3bmnFUggAITBGriZHUREfNEzZh/GO06FF5u2kx8x+GBEUYfyTGamol4j3m9ANe8w==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@parcel/watcher-linux-arm64-musl@2.5.1':
+    resolution: {integrity: sha512-cFOjABi92pMYRXS7AcQv9/M1YuKRw8SZniCDw0ssQb/noPkRzA+HBDkwmyOJYp5wXcsTrhxO0zq1U11cK9jsFg==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@parcel/watcher-linux-x64-glibc@2.5.1':
+    resolution: {integrity: sha512-GcESn8NZySmfwlTsIur+49yDqSny2IhPeZfXunQi48DMugKeZ7uy1FX83pO0X22sHntJ4Ub+9k34XQCX+oHt2A==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [linux]
+
+  '@parcel/watcher-linux-x64-musl@2.5.1':
+    resolution: {integrity: sha512-n0E2EQbatQ3bXhcH2D1XIAANAcTZkQICBPVaxMeaCVBtOpBZpWJuf7LwyWPSBDITb7In8mqQgJ7gH8CILCURXg==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [linux]
+
+  '@parcel/watcher-win32-arm64@2.5.1':
+    resolution: {integrity: sha512-RFzklRvmc3PkjKjry3hLF9wD7ppR4AKcWNzH7kXR7GUe0Igb3Nz8fyPwtZCSquGrhU5HhUNDr/mKBqj7tqA2Vw==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@parcel/watcher-win32-ia32@2.5.1':
+    resolution: {integrity: sha512-c2KkcVN+NJmuA7CGlaGD1qJh1cLfDnQsHjE89E60vUEMlqduHGCdCLJCID5geFVM0dOtA3ZiIO8BoEQmzQVfpQ==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [ia32]
+    os: [win32]
+
+  '@parcel/watcher-win32-x64@2.5.1':
+    resolution: {integrity: sha512-9lHBdJITeNR++EvSQVUcaZoWupyHfXe1jZvGZ06O/5MflPcuPLtEphScIBL+AiCWBO46tDSHzWyD0uDmmZqsgA==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [win32]
+
+  '@parcel/watcher@2.5.1':
+    resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
+    engines: {node: '>= 10.0.0'}
+
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
@@ -2894,6 +2979,11 @@ packages:
     resolution: {integrity: sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
 
+  detect-libc@1.0.3:
+    resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
+    engines: {node: '>=0.10'}
+    hasBin: true
+
   detect-libc@2.1.1:
     resolution: {integrity: sha512-ecqj/sy1jcK1uWrwpR67UhYrIFQ+5WlGxth34WquCbamhFA6hkkwiu37o6J5xCHdo1oixJRfVRw+ywV+Hq/0Aw==}
     engines: {node: '>=8'}
@@ -3487,6 +3577,9 @@ packages:
     resolution: {integrity: sha512-cf6L2Ds3h57VVmkZe+Pn+5APsT7FpqJtEhhieDCvrE2MK5Qk9MyffgQyuxQTm6BChfeZNtcOLHp9IcWRVcIcBQ==}
     engines: {node: '>=0.10.0'}
 
+  immutable@5.1.4:
+    resolution: {integrity: sha512-p6u1bG3YSnINT5RQmx/yRZBpenIl30kVxkTLDyHLIMk0gict704Q9n+thfDI7lTRm9vXdDYutVzXhzcThxTnXA==}
+
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
     engines: {node: '>=6'}
@@ -3580,6 +3673,10 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
 
+  is-extglob@2.1.1:
+    resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
+    engines: {node: '>=0.10.0'}
+
   is-fullwidth-code-point@3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
     engines: {node: '>=8'}
@@ -3591,6 +3688,10 @@ packages:
   is-fullwidth-code-point@5.1.0:
     resolution: {integrity: sha512-5XHYaSyiqADb4RnZ1Bdad6cPp8Toise4TzEjcOYDHZkTCbKgiUl7WTUCpNWHuxmDt91wnsZBc9xinNzopv3JMQ==}
     engines: {node: '>=18'}
+
+  is-glob@4.0.3:
+    resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==}
+    engines: {node: '>=0.10.0'}
 
   is-hexadecimal@2.0.1:
     resolution: {integrity: sha512-DgZQp241c8oO6cA1SbTEWiXeoxV42vlcJxgH+B3hi1AiqqKruZR3ZGF8In3fj4+/y/7rHvlOZLZtgJ/4ttYGZg==}
@@ -4182,6 +4283,9 @@ packages:
   nocache@3.0.4:
     resolution: {integrity: sha512-WDD0bdg9mbq6F4mRxEYcPWwfA1vxd0mrvKOyxI7Xj/atfRHVeutzuWByG//jfm4uPzp0y4Kj051EORCBSQMycw==}
     engines: {node: '>=12.0.0'}
+
+  node-addon-api@7.1.1:
+    resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
   node-emoji@2.2.0:
     resolution: {integrity: sha512-Z3lTE9pLaJF47NyMhd4ww1yFTAP8YhYI8SleJiHzM46Fgpm5cnNzSl9XfzFNqbaz+VlJrIj3fXQ4DeN1Rjm6cw==}
@@ -4780,6 +4884,12 @@ packages:
     peerDependencies:
       react: ^19.2.0
 
+  react-flags-select@2.5.0:
+    resolution: {integrity: sha512-3i7FLFwkTb1j9pO3gCsN9i7xMG9RQWK2wGJ7R+ME9/SBFpjLEZPgi9qqQlvaYN+PCOISYdeEXePStLgfmxMpOQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+
   react-i18next@16.0.1:
     resolution: {integrity: sha512-0S//bpYEkCPjzuVmxDf9Z6+Y+ArNvpAUk7eDL4qNCZXjDh6Z9j6MZ+NThU7kMCOsmYmDCun3GYEwkiOjjZo9Ug==}
     peerDependencies:
@@ -5073,6 +5183,11 @@ packages:
 
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
+
+  sass@1.93.2:
+    resolution: {integrity: sha512-t+YPtOQHpGW1QWsh1CHQ5cPIr9lbbGZLZnbihP/D/qZj/yuV68m8qarcV17nvkOX81BCrvzAlq2klCQFZghyTg==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
 
   sax@1.4.1:
     resolution: {integrity: sha512-+aWOz7yVScEGoKNd4PA10LZ8sk0A/z5+nXQG5giUO5rprX9jgYsTdov9qCchZiPIZezbZH+jRut8nPodFAX4Jg==}
@@ -6122,9 +6237,9 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
 
-  '@ascorbic/loader-utils@1.0.2(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))':
+  '@ascorbic/loader-utils@1.0.2(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))':
     dependencies:
-      astro: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
+      astro: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
 
   '@astrojs/compiler@2.13.0': {}
 
@@ -6156,12 +6271,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@4.3.6(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))':
+  '@astrojs/mdx@4.3.6(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))':
     dependencies:
       '@astrojs/markdown-remark': 6.3.7
       '@mdx-js/mdx': 3.1.1
       acorn: 8.15.0
-      astro: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
+      astro: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
       es-module-lexer: 1.7.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -6185,17 +6300,17 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.25.76
 
-  '@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))':
+  '@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))':
     dependencies:
       '@astrojs/markdown-remark': 6.3.7
-      '@astrojs/mdx': 4.3.6(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      '@astrojs/mdx': 4.3.6(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
       '@astrojs/sitemap': 3.6.0
       '@pagefind/default-ui': 1.4.0
       '@types/hast': 3.0.4
       '@types/js-yaml': 4.0.9
       '@types/mdast': 4.0.4
-      astro: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
-      astro-expressive-code: 0.41.3(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      astro: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
+      astro-expressive-code: 0.41.3(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.4
@@ -6484,7 +6599,7 @@ snapshots:
     optionalDependencies:
       workerd: 1.20251008.0
 
-  '@cloudflare/vite-plugin@1.13.13(vite@7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251008.0)(wrangler@4.43.0)':
+  '@cloudflare/vite-plugin@1.13.13(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251008.0)(wrangler@4.43.0)':
     dependencies:
       '@cloudflare/unenv-preset': 2.7.7(unenv@2.0.0-rc.21)(workerd@1.20251008.0)
       '@remix-run/node-fetch-server': 0.8.1
@@ -6493,7 +6608,7 @@ snapshots:
       picocolors: 1.1.1
       tinyglobby: 0.2.15
       unenv: 2.0.0-rc.21
-      vite: 7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vite: 7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
       wrangler: 4.43.0
       ws: 8.18.0
     transitivePeerDependencies:
@@ -7182,6 +7297,67 @@ snapshots:
   '@pagefind/windows-x64@1.4.0':
     optional: true
 
+  '@parcel/watcher-android-arm64@2.5.1':
+    optional: true
+
+  '@parcel/watcher-darwin-arm64@2.5.1':
+    optional: true
+
+  '@parcel/watcher-darwin-x64@2.5.1':
+    optional: true
+
+  '@parcel/watcher-freebsd-x64@2.5.1':
+    optional: true
+
+  '@parcel/watcher-linux-arm-glibc@2.5.1':
+    optional: true
+
+  '@parcel/watcher-linux-arm-musl@2.5.1':
+    optional: true
+
+  '@parcel/watcher-linux-arm64-glibc@2.5.1':
+    optional: true
+
+  '@parcel/watcher-linux-arm64-musl@2.5.1':
+    optional: true
+
+  '@parcel/watcher-linux-x64-glibc@2.5.1':
+    optional: true
+
+  '@parcel/watcher-linux-x64-musl@2.5.1':
+    optional: true
+
+  '@parcel/watcher-win32-arm64@2.5.1':
+    optional: true
+
+  '@parcel/watcher-win32-ia32@2.5.1':
+    optional: true
+
+  '@parcel/watcher-win32-x64@2.5.1':
+    optional: true
+
+  '@parcel/watcher@2.5.1':
+    dependencies:
+      detect-libc: 1.0.3
+      is-glob: 4.0.3
+      micromatch: 4.0.8
+      node-addon-api: 7.1.1
+    optionalDependencies:
+      '@parcel/watcher-android-arm64': 2.5.1
+      '@parcel/watcher-darwin-arm64': 2.5.1
+      '@parcel/watcher-darwin-x64': 2.5.1
+      '@parcel/watcher-freebsd-x64': 2.5.1
+      '@parcel/watcher-linux-arm-glibc': 2.5.1
+      '@parcel/watcher-linux-arm-musl': 2.5.1
+      '@parcel/watcher-linux-arm64-glibc': 2.5.1
+      '@parcel/watcher-linux-arm64-musl': 2.5.1
+      '@parcel/watcher-linux-x64-glibc': 2.5.1
+      '@parcel/watcher-linux-x64-musl': 2.5.1
+      '@parcel/watcher-win32-arm64': 2.5.1
+      '@parcel/watcher-win32-ia32': 2.5.1
+      '@parcel/watcher-win32-x64': 2.5.1
+    optional: true
+
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
@@ -7268,7 +7444,7 @@ snapshots:
 
   '@poppinss/exception@1.2.2': {}
 
-  '@react-router/dev@7.9.4(@types/node@24.2.0)(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(wrangler@4.43.0)(yaml@2.8.1)':
+  '@react-router/dev@7.9.4(@types/node@24.2.0)(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(wrangler@4.43.0)(yaml@2.8.1)':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/generator': 7.28.3
@@ -7297,8 +7473,8 @@ snapshots:
       semver: 7.7.2
       tinyglobby: 0.2.15
       valibot: 1.1.0(typescript@5.9.2)
-      vite: 7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
-      vite-node: 3.2.4(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vite: 7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vite-node: 3.2.4(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
     optionalDependencies:
       typescript: 5.9.2
       wrangler: 4.43.0
@@ -7725,7 +7901,7 @@ snapshots:
       std-env: 3.9.0
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7737,13 +7913,13 @@ snapshots:
       chai: 5.3.3
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.2.4(vite@7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))':
+  '@vitest/mocker@3.2.4(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))':
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
       magic-string: 0.30.19
     optionalDependencies:
-      vite: 7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vite: 7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
 
   '@vitest/pretty-format@3.2.4':
     dependencies:
@@ -7774,7 +7950,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
 
   '@vitest/utils@3.2.4':
     dependencies:
@@ -7871,12 +8047,12 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-expressive-code@0.41.3(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)):
+  astro-expressive-code@0.41.3(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)):
     dependencies:
-      astro: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
+      astro: 5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
       rehype-expressive-code: 0.41.3
 
-  astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1):
+  astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1):
     dependencies:
       '@astrojs/compiler': 2.13.0
       '@astrojs/internal-helpers': 0.7.3
@@ -7932,8 +8108,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.17.1
       vfile: 6.0.3
-      vite: 6.3.6(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
-      vitefu: 1.1.1(vite@6.3.6(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))
+      vite: 6.3.6(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vitefu: 1.1.1(vite@6.3.6(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.3
@@ -8382,6 +8558,9 @@ snapshots:
   destr@2.0.5: {}
 
   destroy@1.2.0: {}
+
+  detect-libc@1.0.3:
+    optional: true
 
   detect-libc@2.1.1: {}
 
@@ -9184,6 +9363,8 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
+  immutable@5.1.4: {}
+
   import-fresh@3.3.1:
     dependencies:
       parent-module: 1.0.1
@@ -9277,6 +9458,9 @@ snapshots:
 
   is-docker@3.0.0: {}
 
+  is-extglob@2.1.1:
+    optional: true
+
   is-fullwidth-code-point@3.0.0: {}
 
   is-fullwidth-code-point@4.0.0: {}
@@ -9284,6 +9468,11 @@ snapshots:
   is-fullwidth-code-point@5.1.0:
     dependencies:
       get-east-asian-width: 1.4.0
+
+  is-glob@4.0.3:
+    dependencies:
+      is-extglob: 2.1.1
+    optional: true
 
   is-hexadecimal@2.0.1: {}
 
@@ -10110,6 +10299,9 @@ snapshots:
 
   nocache@3.0.4: {}
 
+  node-addon-api@7.1.1:
+    optional: true
+
   node-emoji@2.2.0:
     dependencies:
       '@sindresorhus/is': 4.6.0
@@ -10590,6 +10782,13 @@ snapshots:
       react: 19.2.0
       scheduler: 0.27.0
 
+  react-flags-select@2.5.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+    dependencies:
+      classnames: 2.5.1
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+      sass: 1.93.2
+
   react-i18next@16.0.1(i18next@25.6.0(typescript@5.9.2))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.2):
     dependencies:
       '@babel/runtime': 7.28.4
@@ -10952,6 +11151,14 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
+  sass@1.93.2:
+    dependencies:
+      chokidar: 4.0.3
+      immutable: 5.1.4
+      source-map-js: 1.2.1
+    optionalDependencies:
+      '@parcel/watcher': 2.5.1
+
   sax@1.4.1: {}
 
   scheduler@0.26.0: {}
@@ -11233,10 +11440,10 @@ snapshots:
 
   stackback@0.0.2: {}
 
-  starlight-changelogs@0.1.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)):
+  starlight-changelogs@0.1.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)):
     dependencies:
-      '@ascorbic/loader-utils': 1.0.2(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
-      '@astrojs/starlight': 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      '@ascorbic/loader-utils': 1.0.2(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      '@astrojs/starlight': 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
       github-slugger: 2.0.0
       mdast-util-from-markdown: 2.0.2
       mdast-util-to-markdown: 2.1.2
@@ -11246,18 +11453,18 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-github-alerts@0.1.0(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))):
+  starlight-github-alerts@0.1.0(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))):
     dependencies:
-      '@astrojs/starlight': 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      '@astrojs/starlight': 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
       unist-util-visit: 5.0.0
 
-  starlight-scroll-to-top@0.3.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))):
+  starlight-scroll-to-top@0.3.1(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))):
     dependencies:
-      '@astrojs/starlight': 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      '@astrojs/starlight': 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
 
-  starlight-typedoc@0.21.3(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(typedoc-plugin-markdown@4.8.0(typedoc@0.28.9(typescript@5.9.2)))(typedoc@0.28.9(typescript@5.9.2)):
+  starlight-typedoc@0.21.3(@astrojs/starlight@0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)))(typedoc-plugin-markdown@4.8.0(typedoc@0.28.9(typescript@5.9.2)))(typedoc@0.28.9(typescript@5.9.2)):
     dependencies:
-      '@astrojs/starlight': 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
+      '@astrojs/starlight': 0.36.0(astro@5.14.1(@types/node@24.2.0)(rollup@4.52.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1))
       github-slugger: 2.0.0
       typedoc: 0.28.9(typescript@5.9.2)
       typedoc-plugin-markdown: 4.8.0(typedoc@0.28.9(typescript@5.9.2))
@@ -11674,13 +11881,13 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite-node@3.2.4(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1):
+  vite-node@3.2.4(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1):
     dependencies:
       cac: 6.7.14
       debug: 4.4.3
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vite: 7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -11695,18 +11902,18 @@ snapshots:
       - tsx
       - yaml
 
-  vite-plugin-svgr@4.5.0(rollup@4.52.4)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)):
+  vite-plugin-svgr@4.5.0(rollup@4.52.4)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)):
     dependencies:
       '@rollup/pluginutils': 5.3.0(rollup@4.52.4)
       '@svgr/core': 8.1.0(typescript@5.9.2)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.9.2))
-      vite: 7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vite: 7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
     transitivePeerDependencies:
       - rollup
       - supports-color
       - typescript
 
-  vite@6.3.6(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1):
+  vite@6.3.6(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1):
     dependencies:
       esbuild: 0.25.10
       fdir: 6.5.0(picomatch@4.0.3)
@@ -11717,11 +11924,12 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.2.0
       fsevents: 2.3.3
+      sass: 1.93.2
       sugarss: 5.0.1(postcss@8.5.6)
       tsx: 4.20.3
       yaml: 2.8.1
 
-  vite@7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1):
+  vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1):
     dependencies:
       esbuild: 0.25.10
       fdir: 6.5.0(picomatch@4.0.3)
@@ -11732,19 +11940,20 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.2.0
       fsevents: 2.3.3
+      sass: 1.93.2
       sugarss: 5.0.1(postcss@8.5.6)
       tsx: 4.20.3
       yaml: 2.8.1
 
-  vitefu@1.1.1(vite@6.3.6(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)):
+  vitefu@1.1.1(vite@6.3.6(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)):
     optionalDependencies:
-      vite: 6.3.6(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vite: 6.3.6(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
 
-  vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1):
+  vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1):
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
-      '@vitest/mocker': 3.2.4(vite@7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))
+      '@vitest/mocker': 3.2.4(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))
       '@vitest/pretty-format': 3.2.4
       '@vitest/runner': 3.2.4
       '@vitest/snapshot': 3.2.4
@@ -11762,8 +11971,8 @@ snapshots:
       tinyglobby: 0.2.15
       tinypool: 1.1.1
       tinyrainbow: 2.0.0
-      vite: 7.1.10(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
-      vite-node: 3.2.4(@types/node@24.2.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vite: 7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vite-node: 3.2.4(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/debug': 4.1.12

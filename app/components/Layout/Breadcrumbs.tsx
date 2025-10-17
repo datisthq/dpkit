@@ -18,7 +18,19 @@ export function Breadcrumbs() {
       </Anchor>
       {payload.page.pageId === "home" ? (
         <Text color="dimmed">
-          <TypeAnimation sequence={[t("Select from the list below")]} />
+          <TypeAnimation
+            sequence={[
+              t("Validate data package"),
+              1000,
+              t("Infer table dialect"),
+              1000,
+              t("Infer table schema"),
+              1000,
+              t("Convert table format"),
+              1000,
+              t("Select a tool below"),
+            ]}
+          />
         </Text>
       ) : (
         <Anchor to={makeLink({ pageId: payload.page.pageId })} component={Link}>

@@ -10,5 +10,10 @@
   "View Repository": "View Repository",
   "Share": "Share",
   "Tools": "Tools",
-  "Select from the list below": "Select from the list below"
+  "Select from the list below": "Select from the list below",
+  "Validate data package": "Validate data package",
+  "Infer table dialect": "Infer table dialect",
+  "Infer table schema": "Infer table schema",
+  "Convert table format": "Convert table format",
+  "Select a tool below": "Select a tool below"
 }
