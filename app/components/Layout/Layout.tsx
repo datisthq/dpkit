@@ -9,7 +9,7 @@ export function Layout(props: {
   children?: React.ReactNode
 }) {
   return (
-    <Stack gap="lg">
+    <Stack gap={40}>
       <Meta />
       <Box>
         <Header />
