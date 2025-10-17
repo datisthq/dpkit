@@ -177,6 +177,42 @@ export const Pages = {
       uk: "Конвертуйте таблиці між CSV, Excel, JSON, Parquet та іншими форматами швидко та легко. Безкоштовний онлайн-інструмент для перетворення даних.",
     },
   },
+  about: {
+    pageId: "about",
+    file: "about/route.tsx",
+    path: {
+      en: "/about",
+      de: "/uber",
+      es: "/acerca-de",
+      fr: "/a-propos",
+      it: "/chi-siamo",
+      pt: "/sobre",
+      ru: "/о-нас",
+      uk: "/про-нас",
+    },
+    Icon: undefined,
+    color: undefined,
+    title: {
+      en: "About",
+      de: "Über",
+      es: "Acerca de",
+      fr: "À propos",
+      it: "Chi siamo",
+      pt: "Sobre",
+      ru: "О нас",
+      uk: "Про нас",
+    },
+    description: {
+      en: "About",
+      de: "Über",
+      es: "Acerca de",
+      fr: "À propos",
+      it: "Chi siamo",
+      pt: "Sobre",
+      ru: "О нас",
+      uk: "Про нас",
+    },
+  },
 } as const satisfies Record<string, AbstractPage>
 
 interface AbstractPage {

@@ -27,14 +27,15 @@ export default function Page(_props: Route.ComponentProps) {
           dpkit Cloud
         </Title>
         <Text size="xl">
-          Free online tools for{" "}
+          Free online privicy-first tools for{" "}
           <Text component="span" fw="bold" td="underline">
             converting and validating data
           </Text>
           . Unlike others, dpkit Cloud is free and completely{" "}
-          <Link to="https://github.com/datisthq/dpkit">open source</Link>. We do
-          not collect any data following the privacy-first paradigm. In 2025,
-          the project was funded by{" "}
+          <Link to="https://github.com/datisthq/dpkit">open source</Link>{" "}
+          allowing you to review the code or{" "}
+          <Link to={makeLink({ pageId: "about" })}>self-host</Link> the service.
+          In 2025, the project was funded by{" "}
           <Link to="https://nlnet.nl/project/DataPackage-TS/">
             European Comission
           </Link>

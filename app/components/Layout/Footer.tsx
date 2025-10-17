@@ -17,7 +17,7 @@ export function Footer() {
         <Container size="lg">
           <Group px="sm" py="xl" justify="center">
             {Object.values(Pages)
-              .filter(page => page.pageId !== "home")
+              .filter(page => !!page.Icon)
               .map(page => (
                 <Link to={makeLink({ pageId: page.pageId })} key={page.pageId}>
                   {page.title[languageId]}

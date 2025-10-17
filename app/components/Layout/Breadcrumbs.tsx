@@ -17,7 +17,7 @@ export function Breadcrumbs() {
         {t("Tools")}
       </Anchor>
       {payload.page.pageId === "home" ? (
-        <Text color="dimmed">
+        <Text c="dimmed">
           <TypeAnimation
             sequence={[
               t("Validate data package"),

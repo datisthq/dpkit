@@ -3,6 +3,7 @@ import { useNavigation } from "react-router"
 // @ts-ignore
 import LogoIcon from "#assets/logo.svg?react"
 import { Link } from "#components/Link/index.ts"
+import { useMakeLink } from "#components/System/index.ts"
 import * as icons from "#icons.ts"
 import classes from "./Logo.module.css"
 
@@ -11,10 +12,11 @@ export function Logo(props: {
   Icon?: any
   to?: string
 }) {
+  const makeLink = useMakeLink()
   const navigation = useNavigation()
   const isProgress = navigation?.state === "loading"
 
-  const to = props.to ?? "https://dpkit.dev"
+  const to = props.to ?? makeLink({ pageId: "home" })
   const title = props.title ?? "dpkit"
   const Icon = isProgress ? icons.Loader : props.Icon || LogoIcon
   const iconClassName = isProgress ? classes.loader : undefined
