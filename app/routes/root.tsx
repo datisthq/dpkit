@@ -75,7 +75,7 @@ export function Layout() {
 
         <script
           src="https://plausible.io/js/script.js"
-          data-domain="cloud.dpkit.dev"
+          data-domain="dpkit.dev"
           defer
         ></script>
       </head>
