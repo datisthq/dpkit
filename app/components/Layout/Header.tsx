@@ -1,4 +1,4 @@
-import { Box, Group } from "@mantine/core"
+import { Box, Flex } from "@mantine/core"
 import { Breadcrumbs } from "./Breadcrumbs.tsx"
 import classes from "./Header.module.css"
 import { Language } from "./Language.tsx"
@@ -10,39 +10,31 @@ import { Theme } from "./Theme.tsx"
 
 export function Header() {
   return (
-    <Group
+    <Flex
       component="header"
       className={classes.root}
       wrap="nowrap"
       align="center"
       px="sm"
-      gap={0}
+      gap={{ base: 5, sm: 20 }}
     >
       <Logo />
-      <Gap double />
       <Box flex={1}>
-        <Box visibleFrom="lg">
+        <Flex visibleFrom="lg">
           <Breadcrumbs />
-          <Gap double />
-        </Box>
+        </Flex>
       </Box>
-      <Group wrap="nowrap" gap={0}>
-        <Group visibleFrom="md" wrap="nowrap" gap={0}>
+      <Flex wrap="nowrap" gap={{ base: 5, sm: 20 }}>
+        <Flex visibleFrom="md">
           <Navigation />
-          <Gap double />
-        </Group>
-        <Theme />
-        <Gap />
-        <Language />
-        <Gap />
-        <Share />
-        <Gap />
-        <Repository />
-      </Group>
-    </Group>
+        </Flex>
+        <Flex wrap="nowrap" gap={{ base: 5, sm: 10 }}>
+          <Theme />
+          <Language />
+          <Share />
+          <Repository />
+        </Flex>
+      </Flex>
+    </Flex>
   )
-}
-
-function Gap(props: { double?: boolean }) {
-  return <Box w={{ base: 5, sm: props.double ? 20 : 10 }} />
 }

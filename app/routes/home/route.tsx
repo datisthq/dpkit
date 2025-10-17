@@ -30,8 +30,7 @@ export default function Page(_props: Route.ComponentProps) {
             component={Link}
             to={makeLink({ pageId: tool.pageId })}
             shadow="sm"
-            p="xl"
-            px="40"
+            p={{ base: "md", md: "xl" }}
             radius="md"
             withBorder
             style={{ cursor: "pointer" }}
@@ -44,7 +43,7 @@ export default function Page(_props: Route.ComponentProps) {
                 style={{ color: tool.color, flexShrink: 0 }}
                 className={classes.icon}
               />
-              <Title order={3} className={classes.title}>
+              <Title order={2} className={classes.title}>
                 {tool.title[payload.language.languageId]}
               </Title>
             </Group>

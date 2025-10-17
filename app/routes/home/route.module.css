@@ -14,3 +14,10 @@
   transform: rotate(360deg);
   transition: transform 0.5s ease;
 }
+
+.title {
+  font-size: var(--mantine-h3-font-size);
+  @mixin smaller-than $mantine-breakpoint-md {
+    font-size: var(--mantine-h4-font-size);
+  }
+}
