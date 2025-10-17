@@ -1,4 +1,4 @@
-import { Button, Stack, Tabs } from "@mantine/core"
+import { Box, Button, CloseButton, Stack, Tabs } from "@mantine/core"
 import { FileInput, TextInput, Textarea } from "@mantine/core"
 import { isJSONString, isNotEmpty, useForm } from "@mantine/form"
 import { FileText, Globe, Upload } from "lucide-react"
@@ -63,8 +63,6 @@ export function Form(props: { onSubmit: () => void }) {
 }
 
 function UrlForm(props: { onSubmit: () => void }) {
-  const { t } = useTranslation()
-
   const form = useForm({
     initialValues: {
       url: "",
@@ -94,19 +92,21 @@ function UrlForm(props: { onSubmit: () => void }) {
           placeholder="Enter data package URL"
           size="lg"
           label="Data Package URL"
+          rightSection={
+            <CloseButton
+              onClick={() => form.setFieldValue("url", "")}
+              disabled={!form.values.url}
+            />
+          }
           {...form.getInputProps("url")}
         />
-        <Button type="submit" size="lg">
-          {t("Validate Data Package")}
-        </Button>
+        <SubmitButton disabled={!form.values.url} />
       </Stack>
     </form>
   )
 }
 
 function FileForm(props: { onSubmit: () => void }) {
-  const { t } = useTranslation()
-
   const form = useForm({
     initialValues: {
       file: null as File | null,
@@ -127,19 +127,21 @@ function FileForm(props: { onSubmit: () => void }) {
           placeholder="Select data package file"
           size="lg"
           label="Data Package File"
+          rightSection={
+            <CloseButton
+              onClick={() => form.setFieldValue("file", null)}
+              disabled={!form.values.file}
+            />
+          }
           {...form.getInputProps("file")}
         />
-        <Button type="submit" size="lg">
-          {t("Validate Data Package")}
-        </Button>
+        <SubmitButton disabled={!form.values.file} />
       </Stack>
     </form>
   )
 }
 
 function TextForm(props: { onSubmit: () => void }) {
-  const { t } = useTranslation()
-
   const form = useForm({
     initialValues: {
       text: "",
@@ -166,12 +168,32 @@ function TextForm(props: { onSubmit: () => void }) {
           label="Data Package JSON"
           autosize
           minRows={5}
+          rightSection={
+            <Box mt="xs" style={{ alignSelf: "flex-start" }}>
+              <CloseButton
+                onClick={() => form.setFieldValue("text", "")}
+                disabled={!form.values.text}
+              />
+            </Box>
+          }
           {...form.getInputProps("text")}
         />
-        <Button type="submit" size="lg">
-          {t("Validate Data Package")}
-        </Button>
+        <SubmitButton disabled={!form.values.text} />
       </Stack>
     </form>
+  )
+}
+
+function SubmitButton(props: { disabled: boolean }) {
+  const { t } = useTranslation()
+
+  return (
+    <Button
+      type="submit"
+      size="lg"
+      variant={props.disabled ? "light" : "filled"}
+    >
+      {t("Validate Data Package")}
+    </Button>
   )
 }

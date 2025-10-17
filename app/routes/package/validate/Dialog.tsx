@@ -1,7 +1,10 @@
 import { Container } from "@mantine/core"
 import { Drawer } from "vaul"
 
-export function Dialog(props: { isOpen: boolean; onOpenChange: (open: boolean) => void }) {
+export function Dialog(props: {
+  isOpen: boolean
+  onOpenChange: (open: boolean) => void
+}) {
   return (
     <Drawer.Root open={props.isOpen} onOpenChange={props.onOpenChange}>
       <Drawer.Portal>
