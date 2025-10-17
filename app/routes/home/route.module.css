@@ -10,10 +10,7 @@
   border-color: var(--mantine-color-blue-6);
 }
 
-.icon {
-  transition: transform 0.5s ease;
-}
-
 .card:hover .icon {
   transform: rotate(360deg);
+  transition: transform 0.5s ease;
 }
