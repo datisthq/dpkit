@@ -13,25 +13,36 @@ export function Header() {
     <Group
       component="header"
       className={classes.root}
+      wrap="nowrap"
       align="center"
       px="sm"
-      gap="xl"
+      gap={0}
     >
       <Logo />
+      <Gap double />
       <Box flex={1}>
         <Box visibleFrom="lg">
           <Breadcrumbs />
+          <Gap double />
         </Box>
       </Box>
-      <Group>
-        <Box visibleFrom="sm">
+      <Group wrap="nowrap" gap={0}>
+        <Group visibleFrom="md" wrap="nowrap" gap={0}>
           <Navigation />
-        </Box>
+          <Gap double />
+        </Group>
         <Theme />
+        <Gap />
         <Language />
+        <Gap />
         <Share />
+        <Gap />
         <Repository />
       </Group>
     </Group>
   )
+}
+
+function Gap(props: { double?: boolean }) {
+  return <Box w={{ base: 5, sm: props.double ? 20 : 10 }} />
 }
