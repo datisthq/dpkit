@@ -1,25 +1,22 @@
-import { Text } from "@mantine/core"
+import { Anchor, Box, Image, Stack, Text } from "@mantine/core"
 import aboutImage from "#assets/about.png"
+import { Link } from "#components/Link/index.ts"
 import classes from "./About.module.css"
 
 export function About() {
   return (
-    <article className={classes.article}>
-      <small className={classes.small}>Brought to you by</small>
-      <div className={classes.imageWrapper}>
-        <a href="https://datist.io">
-          <img
-            src={aboutImage}
-            alt="Datist"
-            width={300}
-            className={classes.image}
-          />
-        </a>
-      </div>
-      <Text color="dimmed">
-        We are bringing technological innovation and consultancy
-        <br /> services to open data field
+    <Stack component="article" gap="xs" align="center" maw="40rem" mx="auto" py="md">
+      <Text c="dimmed" size="sm">
+        Brought to you by
       </Text>
-    </article>
+      <Box className={classes.imageWrapper}>
+        <Anchor component={Link} to="https://datist.io" target="_blank" rel="noopener noreferrer">
+          <Image src={aboutImage} alt="Datist" w={300} radius="md" bg="white" />
+        </Anchor>
+      </Box>
+      <Text c="dimmed" ta="center" maw="50ch">
+        We are bringing technological innovation and consultancy services to open data field
+      </Text>
+    </Stack>
   )
 }
