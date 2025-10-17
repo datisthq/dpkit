@@ -1,3 +1,5 @@
+import { Box, FileSliders, Grid2x2, RefreshCw } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 import type * as types from "#types/index.ts"
 
 export const PageIdDefault = "home"
@@ -7,6 +9,7 @@ export const Pages = {
     pageId: "home",
     file: "home/route.tsx",
     path: undefined,
+    icon: undefined,
     title: {
       en: "Home",
       de: "Home",
@@ -41,6 +44,7 @@ export const Pages = {
       ru: "/проверить-пакет",
       uk: "/перевірити-пакет",
     },
+    icon: Box,
     title: {
       en: "Validate Data Package",
       de: "Datenpaket validieren",
@@ -75,6 +79,7 @@ export const Pages = {
       ru: "/инферер-диалект",
       uk: "/інферер-діалект",
     },
+    icon: FileSliders,
     title: {
       en: "Infer Table Dialect",
       de: "Tabellendialekt ableiten",
@@ -109,6 +114,7 @@ export const Pages = {
       ru: "/определить-схему",
       uk: "/визначити-схему",
     },
+    icon: Grid2x2,
     title: {
       en: "Infer Table Schema",
       de: "Tabellenschema ableiten",
@@ -144,6 +150,7 @@ export const Pages = {
       ru: "/конвертировать-таблицу",
       uk: "/конвертувати-таблицю",
     },
+    icon: RefreshCw,
     title: {
       en: "Convert Table Format",
       de: "Tabelle Konvertieren",
@@ -171,6 +178,7 @@ interface AbstractPage {
   pageId: string
   file: string
   path?: Record<types.LanguageId, string>
+  icon?: LucideIcon
   title: Record<types.LanguageId, string>
   description: Record<types.LanguageId, string>
 }

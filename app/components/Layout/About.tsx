@@ -1,3 +1,4 @@
+import { Text } from "@mantine/core"
 import aboutImage from "#assets/about.png"
 import classes from "./About.module.css"
 
@@ -15,10 +16,10 @@ export function About() {
           />
         </a>
       </div>
-      <p>
+      <Text color="dimmed">
         We are bringing technological innovation and consultancy
         <br /> services to open data field
-      </p>
+      </Text>
     </article>
   )
 }
