@@ -9,7 +9,8 @@ export const Pages = {
     pageId: "home",
     file: "home/route.tsx",
     path: undefined,
-    icon: undefined,
+    Icon: undefined,
+    color: undefined,
     title: {
       en: "Home",
       de: "Home",
@@ -44,7 +45,8 @@ export const Pages = {
       ru: "/проверить-пакет",
       uk: "/перевірити-пакет",
     },
-    icon: Box,
+    Icon: Box,
+    color: "#40c057",
     title: {
       en: "Validate Data Package",
       de: "Datenpaket validieren",
@@ -79,7 +81,8 @@ export const Pages = {
       ru: "/инферер-диалект",
       uk: "/інферер-діалект",
     },
-    icon: FileSliders,
+    Icon: FileSliders,
+    color: "#228be6",
     title: {
       en: "Infer Table Dialect",
       de: "Tabellendialekt ableiten",
@@ -114,7 +117,8 @@ export const Pages = {
       ru: "/определить-схему",
       uk: "/визначити-схему",
     },
-    icon: Grid2x2,
+    Icon: Grid2x2,
+    color: "#fa5252",
     title: {
       en: "Infer Table Schema",
       de: "Tabellenschema ableiten",
@@ -150,7 +154,8 @@ export const Pages = {
       ru: "/конвертировать-таблицу",
       uk: "/конвертувати-таблицю",
     },
-    icon: RefreshCw,
+    Icon: RefreshCw,
+    color: "#fd7e14",
     title: {
       en: "Convert Table Format",
       de: "Tabelle Konvertieren",
@@ -178,7 +183,8 @@ interface AbstractPage {
   pageId: string
   file: string
   path?: Record<types.LanguageId, string>
-  icon?: LucideIcon
+  Icon?: LucideIcon
+  color?: string
   title: Record<types.LanguageId, string>
   description: Record<types.LanguageId, string>
 }

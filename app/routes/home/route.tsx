@@ -8,13 +8,6 @@ import * as settings from "#settings.ts"
 import type { Route } from "./+types/route.tsx"
 import classes from "./route.module.css"
 
-const TOOL_COLORS = {
-  packageValidate: "#40c057",
-  dialectInfer: "#228be6",
-  schemaInfer: "#fa5252",
-  tableConvert: "#fd7e14",
-} as const
-
 export async function loader({ params }: Route.LoaderArgs) {
   const { payload } = createPayload({ pageId: "home", params })
 
@@ -30,9 +23,7 @@ export default function Page(_props: Route.ComponentProps) {
   return (
     <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
       {tools.map(tool => {
-        const Icon = tool.icon
-        const color = TOOL_COLORS[tool.pageId as keyof typeof TOOL_COLORS]
-        if (!Icon) return null
+        if (!tool.Icon) return null
         return (
           <Card
             key={tool.pageId}
@@ -47,10 +38,10 @@ export default function Page(_props: Route.ComponentProps) {
             className={classes.card}
           >
             <Group gap="sm" mb="md" wrap="nowrap">
-              <Icon
+              <tool.Icon
                 size={32}
                 strokeWidth={settings.ICON_STROKE_WIDTH}
-                style={{ color, flexShrink: 0 }}
+                style={{ color: tool.color, flexShrink: 0 }}
                 className={classes.icon}
               />
               <Title order={3} className={classes.title}>
