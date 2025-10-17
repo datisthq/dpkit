@@ -31,6 +31,7 @@
     "react-type-animation": "^3.2.0",
     "remix-utils": "9.0.0",
     "ts-extras": "^0.14.0",
+    "vaul": "^1.1.2",
     "xml-js": "1.6.11"
   },
   "devDependencies": {
