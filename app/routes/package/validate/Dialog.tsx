@@ -29,7 +29,7 @@ export function Dialog() {
           gap: "24px",
         }}
       >
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, padding: "24px" }}>
           {isPending && (
             <Center style={{ flexDirection: "column", gap: "24px" }}>
               <Group>
