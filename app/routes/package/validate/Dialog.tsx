@@ -1,12 +1,17 @@
 import { Container } from "@mantine/core"
 import { Drawer } from "vaul"
+import { store } from "./store.ts"
 
-export function Dialog(props: {
-  isOpen: boolean
-  onOpenChange: (open: boolean) => void
-}) {
+export function Dialog() {
+  const report = store.useState(state => state.report)
+  const isDialogOpen = store.useState(state => state.isDialogOpen)
+
+  const handleOpenChange = (isDialogOpen: boolean) => {
+    store.setState({ isDialogOpen, report: undefined })
+  }
+
   return (
-    <Drawer.Root open={props.isOpen} onOpenChange={props.onOpenChange}>
+    <Drawer.Root open={isDialogOpen} onOpenChange={handleOpenChange}>
       <Drawer.Portal>
         <Drawer.Overlay
           style={{
@@ -48,7 +53,9 @@ export function Dialog(props: {
               Validation Results
             </Drawer.Title>
             <Drawer.Description style={{ marginBottom: "16px" }}>
-              Data package validation in progress...
+              {report
+                ? JSON.stringify(report)
+                : "Data package validation in progress..."}
             </Drawer.Description>
           </Container>
         </Drawer.Content>

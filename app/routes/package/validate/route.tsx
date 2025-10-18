@@ -1,5 +1,4 @@
 import { Box, Stack, Text, Title } from "@mantine/core"
-import { useState } from "react"
 import { usePayload } from "#components/System/index.ts"
 import { Pages } from "#constants/page.ts"
 import { createPayload } from "#payload.ts"
@@ -15,23 +14,17 @@ export async function loader({ params }: Route.LoaderArgs) {
 
 export default function Page(_props: Route.ComponentProps) {
   const { languageId } = usePayload()
-  const [isOpen, setIsOpen] = useState(false)
-
   const page = Pages.packageValidate
-
-  const handleSubmit = () => {
-    setIsOpen(true)
-  }
 
   return (
     <Box>
       <Stack gap="md">
         <Title order={1}>{page.title[languageId]}</Title>
         <Text size="lg">{page.description[languageId]}</Text>
-        <Form onSubmit={handleSubmit} />
+        <Form />
       </Stack>
 
-      <Dialog isOpen={isOpen} onOpenChange={setIsOpen} />
+      <Dialog />
     </Box>
   )
 }

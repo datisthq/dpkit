@@ -5,8 +5,9 @@ import { FileText, Globe, Upload } from "lucide-react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import * as settings from "#settings.ts"
+import { useValidatePackage } from "./queries.ts"
 
-export function Form(props: { onSubmit: () => void }) {
+export function Form() {
   const [activeTab, setActiveTab] = useState<string | null>("url")
 
   return (
@@ -48,21 +49,23 @@ export function Form(props: { onSubmit: () => void }) {
       </Tabs.List>
 
       <Tabs.Panel value="url" pt="md">
-        <UrlForm onSubmit={props.onSubmit} />
+        <UrlForm />
       </Tabs.Panel>
 
       <Tabs.Panel value="file" pt="md">
-        <FileForm onSubmit={props.onSubmit} />
+        <FileForm />
       </Tabs.Panel>
 
       <Tabs.Panel value="text" pt="md">
-        <TextForm onSubmit={props.onSubmit} />
+        <TextForm />
       </Tabs.Panel>
     </Tabs>
   )
 }
 
-function UrlForm(props: { onSubmit: () => void }) {
+function UrlForm() {
+  const validatePackage = useValidatePackage()
+
   const form = useForm({
     initialValues: {
       url: "",
@@ -82,7 +85,7 @@ function UrlForm(props: { onSubmit: () => void }) {
   })
 
   const handleSubmit = form.onSubmit(() => {
-    props.onSubmit()
+    validatePackage.mutate(form.values.url)
   })
 
   return (
@@ -106,7 +109,7 @@ function UrlForm(props: { onSubmit: () => void }) {
   )
 }
 
-function FileForm(props: { onSubmit: () => void }) {
+function FileForm() {
   const form = useForm({
     initialValues: {
       file: null as File | null,
@@ -117,7 +120,7 @@ function FileForm(props: { onSubmit: () => void }) {
   })
 
   const handleSubmit = form.onSubmit(() => {
-    props.onSubmit()
+    console.log(form.values.file)
   })
 
   return (
@@ -141,7 +144,7 @@ function FileForm(props: { onSubmit: () => void }) {
   )
 }
 
-function TextForm(props: { onSubmit: () => void }) {
+function TextForm() {
   const form = useForm({
     initialValues: {
       text: "",
@@ -156,7 +159,7 @@ function TextForm(props: { onSubmit: () => void }) {
   })
 
   const handleSubmit = form.onSubmit(() => {
-    props.onSubmit()
+    console.log(form.values.text)
   })
 
   return (

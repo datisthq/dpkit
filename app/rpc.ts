@@ -3,10 +3,8 @@ import { RpcTarget, nodeHttpBatchRpcResponse } from "capnweb"
 import { validatePackage } from "#routes/package/validate/services.ts"
 
 export class Rpc extends RpcTarget {
-  validatePackage = validatePackage
-
-  hello(name: string) {
-    return `Hello, ${name}!`
+  validatePackage(...args: Parameters<typeof validatePackage>) {
+    return validatePackage(...args)
   }
 }
 
