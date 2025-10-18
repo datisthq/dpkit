@@ -14,7 +14,6 @@ const server = http.createServer(async (request, response) => {
   try {
     await nodeHttpBatchRpcResponse(request, response, new Rpc())
   } catch (err: any) {
-    response.writeHead(500, { "content-type": "text/plain" })
     response.end(String(err?.stack || err))
   }
 })

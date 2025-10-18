@@ -9,5 +9,26 @@
   },
   "observability": {
     "enabled": true
-  }
+  },
+  "containers": [
+    {
+      "class_name": "Rpc",
+      "image": "./Dockerfile",
+      "image_build_context": "../"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "class_name": "Rpc",
+        "name": "RPC"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "new_sqlite_classes": ["Rpc"],
+      "tag": "v1"
+    }
+  ]
 }
