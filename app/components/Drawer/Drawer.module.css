@@ -1,0 +1,34 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.content {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: light-dark(white, var(--mantine-color-dark-6));
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 16px;
+}
+
+.handle {
+  width: 40px;
+  height: 5px;
+  background-color: #d1d5db;
+  border-radius: 9999px;
+  margin: 8px auto 16px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.description {
+  margin-bottom: 16px;
+}
