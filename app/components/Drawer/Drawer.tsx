@@ -7,18 +7,14 @@ import classes from "./Drawer.module.css"
 export function Drawer(props: {
   open?: boolean
   title?: string
-  size?: "sm" | "md" | "lg"
   children: ReactNode
   onOpenChange: (open: boolean) => void
 }) {
-  const size = props.size ?? "md"
-  const height = size === "sm" ? "25vh" : size === "md" ? "50vh" : "75vh"
-
   return (
     <VaulDrawer.Root open={props.open} onOpenChange={props.onOpenChange}>
       <VaulDrawer.Portal>
         <VaulDrawer.Overlay className={classes.overlay} />
-        <VaulDrawer.Content className={classes.content} style={{ height }}>
+        <VaulDrawer.Content className={classes.content}>
           <Container size="lg">
             <div className={classes.handle} />
             {props.title && (
