@@ -8,7 +8,7 @@ COPY pnpm-lock.yaml .
 RUN pnpm fetch
 
 COPY . .
-RUN pnpm install
+RUN pnpm install:ci
 RUN pnpm build
 
 EXPOSE 8080
