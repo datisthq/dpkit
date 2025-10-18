@@ -11,7 +11,7 @@ export function Repository(props: {
   const { t } = useTranslation()
 
   return (
-    <Tooltip openDelay={300} label={t("View Repository")} position="bottom">
+    <Tooltip openDelay={300} label={t("View Repository")} position="left">
       <Button
         component={Link}
         to="https://github.com/datisthq/dpkit"

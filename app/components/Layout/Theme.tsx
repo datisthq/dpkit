@@ -20,7 +20,7 @@ export function Theme(props: {
   }
 
   return (
-    <Tooltip openDelay={300} label={t("Change Theme")} position="bottom">
+    <Tooltip openDelay={300} label={t("Change Theme")} position="left">
       <Button
         h={40}
         px={8}
