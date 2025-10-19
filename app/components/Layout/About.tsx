@@ -35,7 +35,7 @@ export function About() {
         </Box>
         <Text c="dimmed" ta="center" maw="50ch">
           We are bringing technological innovation and consultancy services to
-          open data field
+          the open data field
         </Text>
       </Stack>
     </Container>
