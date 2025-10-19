@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mantine/core"
+import { Button, Flex } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import { Dialog } from "#components/Dialog/index.ts"
 import { Report } from "#components/Report/index.ts"
@@ -21,8 +21,16 @@ export function ValidatePackageDialog() {
   }
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
-      <Stack gap={40} pt={20}>
+    <Dialog
+      open={isDialogOpen}
+      onOpenChange={handleOpenChange}
+      fullScreen={!!report?.errors.length}
+    >
+      <Flex
+        gap={{ base: 20, md: 40 }}
+        pt={{ base: 10, md: 20 }}
+        direction="column"
+      >
         <Status
           status={getStatus()}
           pendingTitle={t("Validating data package...")}
@@ -41,7 +49,7 @@ export function ValidatePackageDialog() {
         >
           {t("Close")}
         </Button>
-      </Stack>
+      </Flex>
     </Dialog>
   )
 }

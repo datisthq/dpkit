@@ -1,6 +1,6 @@
 import type { FileError, MetadataError, TableError } from "@dpkit/lib"
-import { Badge, Stack, Tabs } from "@mantine/core"
-import { capitalize, groupBy } from "es-toolkit"
+import { Card, Divider, Stack, Tabs } from "@mantine/core"
+import { groupBy } from "es-toolkit"
 import { useState } from "react"
 import { objectKeys } from "ts-extras"
 import { Error } from "./Error.tsx"
@@ -20,33 +20,50 @@ export function Report(props: {
   }
 
   return (
-    <Tabs color="red" value={selectedType} onChange={setSelectedType}>
-      <Tabs.List>
+    <Tabs
+      color="red"
+      variant="pills"
+      value={selectedType}
+      onChange={setSelectedType}
+    >
+      <Stack gap="lg">
+        <Divider label="Errors" labelPosition="center" />
+        <Tabs.List justify="left">
+          {errorTypes.map(type => {
+            return (
+              <Tabs.Tab
+                key={type}
+                value={type}
+                w={{ base: "100%", sm: "auto" }}
+                fw={selectedType === type ? "bold" : "normal"}
+                tt="uppercase"
+              >
+                {type} ({errorsByType[type].length})
+              </Tabs.Tab>
+            )
+          })}
+        </Tabs.List>
+
         {errorTypes.map(type => {
           return (
-            <Tabs.Tab key={type} value={type}>
-              <Badge
-                color="red"
-                variant={selectedType === type ? "filled" : "light"}
-              >
-                {capitalize(type)} ({errorsByType[type].length})
-              </Badge>
-            </Tabs.Tab>
+            <Tabs.Panel key={type} value={type}>
+              <Stack gap="md">
+                {errorsByType[type].map((error, index) => (
+                  <Card
+                    key={index}
+                    style={{
+                      backgroundColor:
+                        "light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))",
+                    }}
+                  >
+                    <Error error={error} />
+                  </Card>
+                ))}
+              </Stack>
+            </Tabs.Panel>
           )
         })}
-      </Tabs.List>
-
-      {errorTypes.map(type => {
-        return (
-          <Tabs.Panel key={type} value={type} pt="md">
-            <Stack gap="md">
-              {errorsByType[type].map((error, index) => (
-                <Error key={index} error={error} />
-              ))}
-            </Stack>
-          </Tabs.Panel>
-        )
-      })}
+      </Stack>
     </Tabs>
   )
 }
