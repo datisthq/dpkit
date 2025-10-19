@@ -1,6 +1,7 @@
 import { Button, Stack } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import { Dialog } from "#components/Dialog/index.ts"
+import { Report } from "#components/Report/index.ts"
 import { Status } from "#components/Status/index.ts"
 import { store } from "./store.ts"
 
@@ -21,13 +22,15 @@ export function ValidatePackageDialog() {
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
-      <Stack>
+      <Stack gap={40} pt={40}>
         <Status
           status={getStatus()}
           pendingTitle={t("Validating data package...")}
           successTitle={t("Valid data package")}
           errorTitle={t("Invalid data package")}
         />
+
+        {report?.errors.length && <Report errors={report.errors} />}
 
         <Button
           onClick={() => handleOpenChange(false)}
