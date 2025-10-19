@@ -3,7 +3,7 @@ import type { validatePackage } from "./services.ts"
 
 export interface State {
   isDialogOpen?: boolean
-  progress?: "starting" | "pending"
+  isPending?: boolean
   report?: Awaited<ReturnType<typeof validatePackage>>
 }
 

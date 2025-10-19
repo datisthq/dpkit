@@ -7,7 +7,7 @@ import { store } from "./store.ts"
 export function Dialog() {
   const { t } = useTranslation()
   const report = store.useState(state => state.report)
-  const progress = store.useState(state => state.progress)
+  const isPending = store.useState(state => state.isPending)
   const isDialogOpen = store.useState(state => state.isDialogOpen)
 
   const handleOpenChange = (isDialogOpen: boolean) => {
@@ -16,7 +16,7 @@ export function Dialog() {
 
   const getStatus = () => {
     if (report) return report.valid ? "success" : "error"
-    return progress
+    return isPending ? "pending" : undefined
   }
 
   return (
