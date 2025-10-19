@@ -8,12 +8,18 @@ export function useValidatePackage() {
     mutationKey: ["validatePackage"],
     mutationFn: async (source: string) => {
       store.setState({ isDialogOpen: true })
-      store.setState({ isPending: true })
+      store.setState({ progress: "starting" })
+
+      setTimeout(() => {
+        if (store.getState().progress === "starting") {
+          store.setState({ progress: "pending" })
+        }
+      }, 1_000)
 
       const rpc = newHttpBatchRpcSession<Rpc>("/rpc")
       const report = await rpc.validatePackage(source)
 
-      store.setState({ isPending: false })
+      store.setState({ progress: undefined })
       store.setState({ report })
     },
   })

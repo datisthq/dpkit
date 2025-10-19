@@ -27,7 +27,9 @@ export default function Page(_props: Route.ComponentProps) {
           dpkit Cloud
         </Title>
         <Text size="xl">
-          Free online privicy-first tools for{" "}
+          Free online{" "}
+          <Link to={makeLink({ pageId: "about" })}>privacy-first</Link> tools
+          for{" "}
           <Text component="span" fw="bold" td="underline">
             converting and validating data
           </Text>

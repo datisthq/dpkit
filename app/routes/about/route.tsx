@@ -25,6 +25,16 @@ export default function Page(_props: Route.ComponentProps) {
         .
       </Text>
       <Stack gap="md">
+        <Title order={2}>Privacy-first</Title>
+        <Text size="lg">
+          dpkit Cloud performs all the operation in complete isolation using
+          only ephermal storages. For each request, a private container is
+          created and destroyed after the request is completed. This ensures
+          that your data is not collected on our servers and is only accessible
+          to you durine the processing of your request.
+        </Text>
+      </Stack>
+      <Stack gap="md">
         <Title order={2}>Self-hosting</Title>
         <Text size="lg">
           dpkit Cloud is completely open source and can be self-hosted. Visit

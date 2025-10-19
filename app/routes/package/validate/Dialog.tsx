@@ -5,7 +5,7 @@ import { store } from "./store.ts"
 
 export function Dialog() {
   const report = store.useState(state => state.report)
-  const isPending = store.useState(state => state.isPending)
+  const progress = store.useState(state => state.progress)
   const isDialogOpen = store.useState(state => state.isDialogOpen)
 
   const handleOpenChange = (isDialogOpen: boolean) => {
@@ -30,7 +30,23 @@ export function Dialog() {
         }}
       >
         <div style={{ flex: 1, padding: "24px" }}>
-          {isPending && (
+          {progress === "starting" && (
+            <Center style={{ flexDirection: "column", gap: "24px" }}>
+              <Group>
+                <Loader
+                  size={100}
+                  style={{
+                    animation: "spin 1s linear infinite",
+                    color: "var(--mantine-color-blue-6)",
+                  }}
+                />
+                <span style={{ fontSize: "50px", fontWeight: "600" }}>
+                  Starting private container...
+                </span>
+              </Group>
+            </Center>
+          )}
+          {progress === "pending" && (
             <Center style={{ flexDirection: "column", gap: "24px" }}>
               <Group>
                 <Loader
