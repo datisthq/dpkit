@@ -1,5 +1,5 @@
 import type { FileError, MetadataError, TableError } from "@dpkit/lib"
-import { Stack, Tabs } from "@mantine/core"
+import { Badge, Stack, Tabs } from "@mantine/core"
 import { capitalize, groupBy } from "es-toolkit"
 import { objectKeys } from "ts-extras"
 import { Error } from "./Error.tsx"
@@ -20,7 +20,9 @@ export function Report(props: {
         {errorTypes.map(type => {
           return (
             <Tabs.Tab key={type} value={type}>
-              {capitalize(type)} ({errorsByType[type].length})
+              <Badge color="red" variant="filled">
+                {capitalize(type)} ({errorsByType[type].length})
+              </Badge>
             </Tabs.Tab>
           )
         })}

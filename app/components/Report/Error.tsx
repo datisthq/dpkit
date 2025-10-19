@@ -1,5 +1,5 @@
 import type * as errorTypes from "@dpkit/lib"
-import { Text } from "@mantine/core"
+import { Badge, Code, Group, Text } from "@mantine/core"
 
 export function Error(props: {
   error: errorTypes.MetadataError | errorTypes.FileError | errorTypes.TableError
@@ -51,7 +51,12 @@ export function MetadataError(props: { error: errorTypes.MetadataError }) {
     <Text>
       <strong>{props.error.keyword}</strong>
       {props.error.message && `: ${props.error.message}`}
-      {props.error.instancePath && ` at ${props.error.instancePath}`}
+      {props.error.instancePath && (
+        <>
+          {" at "}
+          <Code>{props.error.instancePath}</Code>
+        </>
+      )}
     </Text>
   )
 }
