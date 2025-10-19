@@ -3,7 +3,7 @@ import { Error, Pending, Starting, Success } from "#icons.ts"
 import classes from "./Status.module.css"
 
 export interface StatusProps {
-  status: "starting" | "pending" | "success" | "error"
+  status?: "starting" | "pending" | "success" | "error"
   pendingTitle: string
   successTitle: string
   errorTitle: string

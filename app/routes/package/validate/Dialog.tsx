@@ -12,18 +12,9 @@ export function Dialog() {
     store.setState({ isDialogOpen, report: undefined })
   }
 
-  const handleClose = () => {
-    store.setState({ isDialogOpen: false, report: undefined })
-  }
-
-  const isValid = report && !report.errors?.length
-  const isInvalid = report && report.errors?.length > 0
-
   const getStatus = () => {
-    if (progress === "starting") return "starting"
-    if (isValid) return "success"
-    if (isInvalid) return "error"
-    return "pending"
+    if (report) return report.valid ? "success" : "error"
+    return progress
   }
 
   return (
@@ -46,7 +37,7 @@ export function Dialog() {
         </div>
 
         <Button
-          onClick={handleClose}
+          onClick={() => handleOpenChange(false)}
           color="gray"
           fullWidth
           variant="outline"
