@@ -14,7 +14,7 @@ export function useValidatePackage() {
         if (store.getState().progress === "starting") {
           store.setState({ progress: "pending" })
         }
-      }, 1_000)
+      }, 2_000)
 
       const rpc = newHttpBatchRpcSession<Rpc>("/rpc")
       const report = await rpc.validatePackage(source)

@@ -1,4 +1,5 @@
-import { Center, Group } from "@mantine/core"
+import { Center, Flex } from "@mantine/core"
+import type { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 import { Error, Pending, Starting, Success } from "#icons.ts"
 import classes from "./Status.module.css"
@@ -11,56 +12,34 @@ export interface StatusProps {
 }
 
 export function Status(props: StatusProps) {
-  if (props.status === "starting") return <StartingStatus />
-  if (props.status === "pending")
-    return <PendingStatus title={props.pendingTitle} />
-  if (props.status === "success")
-    return <SuccessStatus title={props.successTitle} />
-  if (props.status === "error") return <ErrorStatus title={props.errorTitle} />
-  return null
-}
-
-function StartingStatus() {
   const { t } = useTranslation()
-  return (
-    <Center className={classes.container}>
-      <Group>
-        <Starting size={100} className={classes.loaderStarting} />
-        <span className={classes.title}>{t("Starting private container...")}</span>
-      </Group>
-    </Center>
-  )
-}
 
-function PendingStatus(props: { title: string }) {
-  return (
-    <Center className={classes.container}>
-      <Group>
-        <Pending size={100} className={classes.loaderPending} />
-        <span className={classes.title}>{props.title}</span>
-      </Group>
-    </Center>
-  )
-}
+  const getIcon = (): ReactNode => {
+    if (props.status === "starting")
+      return <Starting size={100} className={classes.loaderStarting} />
+    if (props.status === "pending")
+      return <Pending size={100} className={classes.loaderPending} />
+    if (props.status === "success")
+      return <Success size={100} className={classes.iconSuccess} />
+    if (props.status === "error")
+      return <Error size={100} className={classes.iconError} />
+    return null
+  }
 
-function SuccessStatus(props: { title: string }) {
-  return (
-    <Center className={classes.container}>
-      <Group>
-        <Success size={100} className={classes.iconSuccess} />
-        <span className={classes.title}>{props.title}</span>
-      </Group>
-    </Center>
-  )
-}
+  const getTitle = (): string => {
+    if (props.status === "starting") return t("Starting private container...")
+    if (props.status === "pending") return props.pendingTitle
+    if (props.status === "success") return props.successTitle
+    if (props.status === "error") return props.errorTitle
+    return ""
+  }
 
-function ErrorStatus(props: { title: string }) {
   return (
     <Center className={classes.container}>
-      <Group>
-        <Error size={100} className={classes.iconError} />
-        <span className={classes.title}>{props.title}</span>
-      </Group>
+      <Flex direction={{ base: "column", sm: "row" }} align="center" gap="md">
+        {getIcon()}
+        <span className={classes.title}>{getTitle()}</span>
+      </Flex>
     </Center>
   )
 }

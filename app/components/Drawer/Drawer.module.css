@@ -1,10 +1,11 @@
 .overlay {
   position: fixed;
-  inset: 0;
   background-color: rgba(0, 0, 0, 0.4);
+  inset: 0;
 }
 
 .content {
+  z-index: 100;
   position: fixed;
   bottom: 0;
   left: 0;
