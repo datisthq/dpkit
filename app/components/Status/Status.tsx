@@ -1,4 +1,5 @@
 import { Center, Group } from "@mantine/core"
+import { useTranslation } from "react-i18next"
 import { Error, Pending, Starting, Success } from "#icons.ts"
 import classes from "./Status.module.css"
 
@@ -20,11 +21,12 @@ export function Status(props: StatusProps) {
 }
 
 function StartingStatus() {
+  const { t } = useTranslation()
   return (
     <Center className={classes.container}>
       <Group>
         <Starting size={100} className={classes.loaderStarting} />
-        <span className={classes.title}>Starting private container...</span>
+        <span className={classes.title}>{t("Starting private container...")}</span>
       </Group>
     </Center>
   )

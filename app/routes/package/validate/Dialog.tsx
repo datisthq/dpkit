@@ -1,9 +1,11 @@
-import { Button } from "@mantine/core"
+import { Button, Stack } from "@mantine/core"
+import { useTranslation } from "react-i18next"
 import { Drawer } from "#components/Drawer/index.ts"
 import { Status } from "#components/Status/index.ts"
 import { store } from "./store.ts"
 
 export function Dialog() {
+  const { t } = useTranslation()
   const report = store.useState(state => state.report)
   const progress = store.useState(state => state.progress)
   const isDialogOpen = store.useState(state => state.isDialogOpen)
@@ -19,22 +21,13 @@ export function Dialog() {
 
   return (
     <Drawer open={isDialogOpen} onOpenChange={handleOpenChange}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
-          gap: "24px",
-        }}
-      >
-        <div style={{ flex: 1, padding: "24px" }}>
-          <Status
-            status={getStatus()}
-            pendingTitle="Validating data package..."
-            successTitle="Valid data package"
-            errorTitle="Invalid data package"
-          />
-        </div>
+      <Stack>
+        <Status
+          status={getStatus()}
+          pendingTitle={t("Validating data package...")}
+          successTitle={t("Valid data package")}
+          errorTitle={t("Invalid data package")}
+        />
 
         <Button
           onClick={() => handleOpenChange(false)}
@@ -43,9 +36,9 @@ export function Dialog() {
           variant="outline"
           size="lg"
         >
-          Close
+          {t("Close")}
         </Button>
-      </div>
+      </Stack>
     </Drawer>
   )
 }

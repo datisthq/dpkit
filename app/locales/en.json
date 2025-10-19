@@ -16,5 +16,10 @@
   "Validate table data": "Validate table data",
   "Infer table schema": "Infer table schema",
   "Convert table format": "Convert table format",
-  "Select a tool below": "Select a tool below"
+  "Select a tool below": "Select a tool below",
+  "Validating data package...": "Validating data package...",
+  "Valid data package": "Valid data package",
+  "Invalid data package": "Invalid data package",
+  "Starting private container...": "Starting private container...",
+  "Close": "Close"
 }
