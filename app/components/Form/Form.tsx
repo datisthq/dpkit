@@ -56,7 +56,7 @@ export function Form(props: FormProps) {
       </Tabs.Panel>
 
       <Tabs.Panel value="file" pt="md">
-        <TextForm onSubmit={props.onSubmit} />
+        <FileForm onSubmit={props.onSubmit} />
       </Tabs.Panel>
 
       <Tabs.Panel value="text" pt="md">
@@ -110,7 +110,7 @@ function UrlForm(props: { onSubmit: (value: string) => void }) {
   )
 }
 
-function TextForm(props: { onSubmit: (value: File) => void }) {
+function FileForm(props: { onSubmit: (value: File) => void }) {
   const form = useForm({
     initialValues: {
       file: null as File | null,
