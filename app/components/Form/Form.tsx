@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next"
 import * as settings from "#settings.ts"
 
 export interface FormProps {
-  onSubmit: (value: string | File) => void
+  onSubmit: (value: string | File | Record<string, any>) => void
 }
 
 export function Form(props: FormProps) {
@@ -59,7 +59,7 @@ export function Form(props: FormProps) {
         <FileForm onSubmit={props.onSubmit} />
       </Tabs.Panel>
 
-      <Tabs.Panel value="text" pt="md">
+      <Tabs.Panel value="json" pt="md">
         <JsonForm onSubmit={props.onSubmit} />
       </Tabs.Panel>
     </Tabs>
@@ -147,7 +147,7 @@ function FileForm(props: { onSubmit: (value: File) => void }) {
   )
 }
 
-function JsonForm(props: { onSubmit: (value: string) => void }) {
+function JsonForm(props: { onSubmit: (value: Record<string, any>) => void }) {
   const form = useForm({
     initialValues: {
       text: "",
@@ -162,7 +162,8 @@ function JsonForm(props: { onSubmit: (value: string) => void }) {
   })
 
   const handleSubmit = form.onSubmit(() => {
-    props.onSubmit(form.values.text)
+    const parsed = JSON.parse(form.values.text)
+    props.onSubmit(parsed)
   })
 
   return (
