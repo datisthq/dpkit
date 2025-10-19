@@ -1,9 +1,9 @@
 import { Box, Button, CloseButton, Stack, Tabs } from "@mantine/core"
 import { FileInput, TextInput, Textarea } from "@mantine/core"
 import { isJSONString, isNotEmpty, useForm } from "@mantine/form"
-import { FileText, Globe, Upload } from "lucide-react"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import * as icons from "#icons.ts"
 import * as settings from "#settings.ts"
 
 export interface FormProps {
@@ -19,7 +19,7 @@ export function Form(props: FormProps) {
         <Tabs.Tab
           value="url"
           leftSection={
-            <Globe
+            <icons.Url
               size={settings.ICON_SIZE}
               strokeWidth={settings.ICON_STROKE_WIDTH}
             />
@@ -30,7 +30,7 @@ export function Form(props: FormProps) {
         <Tabs.Tab
           value="file"
           leftSection={
-            <Upload
+            <icons.File
               size={settings.ICON_SIZE}
               strokeWidth={settings.ICON_STROKE_WIDTH}
             />
@@ -39,15 +39,15 @@ export function Form(props: FormProps) {
           File
         </Tabs.Tab>
         <Tabs.Tab
-          value="json"
+          value="text"
           leftSection={
-            <FileText
+            <icons.Text
               size={settings.ICON_SIZE}
               strokeWidth={settings.ICON_STROKE_WIDTH}
             />
           }
         >
-          JSON
+          Text
         </Tabs.Tab>
       </Tabs.List>
 
@@ -56,10 +56,10 @@ export function Form(props: FormProps) {
       </Tabs.Panel>
 
       <Tabs.Panel value="file" pt="md">
-        <FileForm onSubmit={props.onSubmit} />
+        <TextForm onSubmit={props.onSubmit} />
       </Tabs.Panel>
 
-      <Tabs.Panel value="json" pt="md">
+      <Tabs.Panel value="text" pt="md">
         <JsonForm onSubmit={props.onSubmit} />
       </Tabs.Panel>
     </Tabs>
@@ -110,7 +110,7 @@ function UrlForm(props: { onSubmit: (value: string) => void }) {
   )
 }
 
-function FileForm(props: { onSubmit: (value: File) => void }) {
+function TextForm(props: { onSubmit: (value: File) => void }) {
   const form = useForm({
     initialValues: {
       file: null as File | null,
@@ -120,9 +120,16 @@ function FileForm(props: { onSubmit: (value: File) => void }) {
     },
   })
 
-  const handleSubmit = form.onSubmit(() => {
-    if (form.values.file) {
-      props.onSubmit(form.values.file)
+  const handleSubmit = form.onSubmit(async () => {
+    const file = form.values.file
+    if (!file) return
+
+    try {
+      const text = await file.text()
+      const json = JSON.parse(text)
+      props.onSubmit(json)
+    } catch (err) {
+      form.setErrors({ file: "Invalid JSON file" })
     }
   })
 
