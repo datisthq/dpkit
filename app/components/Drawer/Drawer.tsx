@@ -3,13 +3,15 @@ import type { ReactNode } from "react"
 import { Drawer as VaulDrawer } from "vaul"
 import classes from "./Drawer.module.css"
 
-// TODO: support proper snap points
-export function Drawer(props: {
+export interface DrawerProps {
   open?: boolean
   title?: string
   children: ReactNode
   onOpenChange: (open: boolean) => void
-}) {
+}
+
+// TODO: support proper snap points
+export function Drawer(props: DrawerProps) {
   return (
     <VaulDrawer.Root open={props.open} onOpenChange={props.onOpenChange}>
       <VaulDrawer.Portal>

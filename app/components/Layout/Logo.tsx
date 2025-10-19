@@ -18,7 +18,7 @@ export function Logo(props: {
 
   const to = props.to ?? makeLink({ pageId: "home" })
   const title = props.title ?? "dpkit"
-  const Icon = isProgress ? icons.Loader : props.Icon || LogoIcon
+  const Icon = isProgress ? icons.Pending : props.Icon || LogoIcon
   const iconClassName = isProgress ? classes.loader : undefined
 
   const PlainLogo = () => {

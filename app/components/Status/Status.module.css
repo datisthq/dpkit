@@ -1,0 +1,36 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  flex-direction: column;
+  gap: 24px;
+}
+
+.loaderStarting {
+  animation: spin 1s linear infinite;
+  color: var(--mantine-color-blue-6);
+}
+
+.loaderPending {
+  animation: spin 1s linear infinite;
+  color: var(--mantine-color-yellow-6);
+}
+
+.iconSuccess {
+  color: #10b981;
+}
+
+.iconError {
+  color: #ef4444;
+}
+
+.title {
+  font-size: 50px;
+  font-weight: 600;
+}
