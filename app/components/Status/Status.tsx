@@ -23,7 +23,8 @@ export function Status(props: StatusProps) {
     return () => clearTimeout(timer)
   }, [])
 
-  const status = isStarting ? "starting" : props.status
+  const status =
+    props.status === "pending" && isStarting ? "starting" : props.status
 
   const getIcon = (): ReactNode => {
     if (status === "starting")

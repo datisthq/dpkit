@@ -1,8 +1,8 @@
 import type { FileError, MetadataError, TableError } from "@dpkit/lib"
-import { Stack, Tabs, Text } from "@mantine/core"
-import { capitalize } from "es-toolkit"
-import { groupBy } from "es-toolkit"
+import { Stack, Tabs } from "@mantine/core"
+import { capitalize, groupBy } from "es-toolkit"
 import { objectKeys } from "ts-extras"
+import { Error } from "./Error.tsx"
 
 export function Report(props: {
   errors: (MetadataError | FileError | TableError)[]
@@ -31,7 +31,7 @@ export function Report(props: {
           <Tabs.Panel key={type} value={type} pt="md">
             <Stack gap="md">
               {errorsByType[type].map((error, index) => (
-                <Text key={index}>{JSON.stringify(error, null, 2)}</Text>
+                <Error key={index} error={error} />
               ))}
             </Stack>
           </Tabs.Panel>
