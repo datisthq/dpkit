@@ -1,6 +1,7 @@
 import type { FileError, MetadataError, TableError } from "@dpkit/lib"
 import { Badge, Stack, Tabs } from "@mantine/core"
 import { capitalize, groupBy } from "es-toolkit"
+import { useState } from "react"
 import { objectKeys } from "ts-extras"
 import { Error } from "./Error.tsx"
 
@@ -10,17 +11,24 @@ export function Report(props: {
   const errorsByType = groupBy(props.errors, error => error.type)
   const errorTypes = objectKeys(errorsByType)
 
+  const [selectedType, setSelectedType] = useState<string | null>(
+    errorTypes?.[0] ?? null,
+  )
+
   if (errorTypes.length === 0) {
     return null
   }
 
   return (
-    <Tabs color="red" defaultValue={errorTypes[0]}>
+    <Tabs color="red" value={selectedType} onChange={setSelectedType}>
       <Tabs.List>
         {errorTypes.map(type => {
           return (
             <Tabs.Tab key={type} value={type}>
-              <Badge color="red" variant="filled">
+              <Badge
+                color="red"
+                variant={selectedType === type ? "filled" : "light"}
+              >
                 {capitalize(type)} ({errorsByType[type].length})
               </Badge>
             </Tabs.Tab>

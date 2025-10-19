@@ -22,7 +22,7 @@ export function ValidatePackageDialog() {
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
-      <Stack gap={40} pt={40}>
+      <Stack gap={40} pt={20}>
         <Status
           status={getStatus()}
           pendingTitle={t("Validating data package...")}
@@ -30,7 +30,7 @@ export function ValidatePackageDialog() {
           errorTitle={t("Invalid data package")}
         />
 
-        {report?.errors.length && <Report errors={report.errors} />}
+        {!!report?.errors.length && <Report errors={report.errors} />}
 
         <Button
           onClick={() => handleOpenChange(false)}

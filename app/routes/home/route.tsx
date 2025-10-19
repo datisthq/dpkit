@@ -27,13 +27,13 @@ export default function Page(_props: Route.ComponentProps) {
           dpkit Cloud
         </Title>
         <Text size="xl">
-          Free online{" "}
-          <Link to={makeLink({ pageId: "about" })}>privacy-first</Link> tools
-          for{" "}
+          Free online tools for{" "}
           <Text component="span" fw="bold" td="underline">
             converting and validating data
           </Text>
-          . Unlike others, dpkit Cloud is completely{" "}
+          . Unlike others, dpkit Cloud is{" "}
+          <Link to={makeLink({ pageId: "about" })}>privacy-first</Link> and
+          completely{" "}
           <Link to="https://github.com/datisthq/dpkit">open source</Link>{" "}
           allowing you to review the code or{" "}
           <Link to={makeLink({ pageId: "about" })}>self-host</Link> the service.
