@@ -64,8 +64,8 @@ export function MetadataError(props: { error: errorTypes.MetadataError }) {
 export function BytesError(props: { error: errorTypes.BytesError }) {
   return (
     <Text>
-      File size mismatch: expected {props.error.bytes} bytes, got{" "}
-      {props.error.actualBytes} bytes
+      File size mismatch: expected <Code>{props.error.bytes}</Code> bytes, got{" "}
+      <Code>{props.error.actualBytes}</Code> bytes
     </Text>
   )
 }
@@ -73,8 +73,8 @@ export function BytesError(props: { error: errorTypes.BytesError }) {
 export function HashError(props: { error: errorTypes.HashError }) {
   return (
     <Text>
-      File hash mismatch: expected {props.error.hash}, got{" "}
-      {props.error.actualHash}
+      File hash mismatch: expected <Code>{props.error.hash}</Code>, got{" "}
+      <Code>{props.error.actualHash}</Code>
     </Text>
   )
 }
@@ -82,20 +82,40 @@ export function HashError(props: { error: errorTypes.HashError }) {
 export function FieldsMissingError(props: {
   error: errorTypes.FieldsMissingError
 }) {
-  return <Text>Missing fields: {props.error.fieldNames.join(", ")}</Text>
+  return (
+    <Text>
+      Missing fields:{" "}
+      {props.error.fieldNames.map((name, i) => (
+        <span key={i}>
+          {i > 0 && ", "}
+          <Code>{name}</Code>
+        </span>
+      ))}
+    </Text>
+  )
 }
 
 export function FieldsExtraError(props: {
   error: errorTypes.FieldsExtraError
 }) {
-  return <Text>Extra fields: {props.error.fieldNames.join(", ")}</Text>
+  return (
+    <Text>
+      Extra fields:{" "}
+      {props.error.fieldNames.map((name, i) => (
+        <span key={i}>
+          {i > 0 && ", "}
+          <Code>{name}</Code>
+        </span>
+      ))}
+    </Text>
+  )
 }
 
 export function FieldNameError(props: { error: errorTypes.FieldNameError }) {
   return (
     <Text>
-      Field name mismatch: expected "{props.error.fieldName}", got "
-      {props.error.actualFieldName}"
+      Field name mismatch: expected <Code>{props.error.fieldName}</Code>, got{" "}
+      <Code>{props.error.actualFieldName}</Code>
     </Text>
   )
 }
@@ -103,8 +123,9 @@ export function FieldNameError(props: { error: errorTypes.FieldNameError }) {
 export function FieldTypeError(props: { error: errorTypes.FieldTypeError }) {
   return (
     <Text>
-      Field "{props.error.fieldName}" type mismatch: expected{" "}
-      {props.error.fieldType}, got {props.error.actualFieldType}
+      Field <Code>{props.error.fieldName}</Code> type mismatch: expected{" "}
+      <Code>{props.error.fieldType}</Code>, got{" "}
+      <Code>{props.error.actualFieldType}</Code>
     </Text>
   )
 }
@@ -112,8 +133,14 @@ export function FieldTypeError(props: { error: errorTypes.FieldTypeError }) {
 export function RowUniqueError(props: { error: errorTypes.RowUniqueError }) {
   return (
     <Text>
-      Row {props.error.rowNumber} is not unique (fields:{" "}
-      {props.error.fieldNames.join(", ")})
+      Row <Code>{props.error.rowNumber}</Code> is not unique (fields:{" "}
+      {props.error.fieldNames.map((name, i) => (
+        <span key={i}>
+          {i > 0 && ", "}
+          <Code>{name}</Code>
+        </span>
+      ))}
+      )
     </Text>
   )
 }
@@ -121,8 +148,8 @@ export function RowUniqueError(props: { error: errorTypes.RowUniqueError }) {
 export function CellTypeError(props: { error: errorTypes.CellTypeError }) {
   return (
     <Text>
-      Cell type error at row {props.error.rowNumber}, field "
-      {props.error.fieldName}": {props.error.cell}
+      Cell type error at row <Code>{props.error.rowNumber}</Code>, field{" "}
+      <Code>{props.error.fieldName}</Code>: <Code>{props.error.cell}</Code>
     </Text>
   )
 }
@@ -132,8 +159,8 @@ export function CellRequiredError(props: {
 }) {
   return (
     <Text>
-      Required cell missing at row {props.error.rowNumber}, field "
-      {props.error.fieldName}"
+      Required cell missing at row <Code>{props.error.rowNumber}</Code>, field{" "}
+      <Code>{props.error.fieldName}</Code>
     </Text>
   )
 }
@@ -143,8 +170,8 @@ export function CellMinimumError(props: {
 }) {
   return (
     <Text>
-      Cell value below minimum at row {props.error.rowNumber}, field "
-      {props.error.fieldName}": {props.error.cell}
+      Cell value below minimum at row <Code>{props.error.rowNumber}</Code>, field{" "}
+      <Code>{props.error.fieldName}</Code>: <Code>{props.error.cell}</Code>
     </Text>
   )
 }
@@ -154,8 +181,8 @@ export function CellMaximumError(props: {
 }) {
   return (
     <Text>
-      Cell value above maximum at row {props.error.rowNumber}, field "
-      {props.error.fieldName}": {props.error.cell}
+      Cell value above maximum at row <Code>{props.error.rowNumber}</Code>, field{" "}
+      <Code>{props.error.fieldName}</Code>: <Code>{props.error.cell}</Code>
     </Text>
   )
 }
@@ -165,8 +192,9 @@ export function CellExclusiveMinimumError(props: {
 }) {
   return (
     <Text>
-      Cell value at or below exclusive minimum at row {props.error.rowNumber},
-      field "{props.error.fieldName}": {props.error.cell}
+      Cell value at or below exclusive minimum at row{" "}
+      <Code>{props.error.rowNumber}</Code>, field{" "}
+      <Code>{props.error.fieldName}</Code>: <Code>{props.error.cell}</Code>
     </Text>
   )
 }
@@ -176,8 +204,9 @@ export function CellExclusiveMaximumError(props: {
 }) {
   return (
     <Text>
-      Cell value at or above exclusive maximum at row {props.error.rowNumber},
-      field "{props.error.fieldName}": {props.error.cell}
+      Cell value at or above exclusive maximum at row{" "}
+      <Code>{props.error.rowNumber}</Code>, field{" "}
+      <Code>{props.error.fieldName}</Code>: <Code>{props.error.cell}</Code>
     </Text>
   )
 }
@@ -187,8 +216,8 @@ export function CellMinLengthError(props: {
 }) {
   return (
     <Text>
-      Cell value too short at row {props.error.rowNumber}, field "
-      {props.error.fieldName}": {props.error.cell}
+      Cell value too short at row <Code>{props.error.rowNumber}</Code>, field{" "}
+      <Code>{props.error.fieldName}</Code>: <Code>{props.error.cell}</Code>
     </Text>
   )
 }
@@ -198,8 +227,8 @@ export function CellMaxLengthError(props: {
 }) {
   return (
     <Text>
-      Cell value too long at row {props.error.rowNumber}, field "
-      {props.error.fieldName}": {props.error.cell}
+      Cell value too long at row <Code>{props.error.rowNumber}</Code>, field{" "}
+      <Code>{props.error.fieldName}</Code>: <Code>{props.error.cell}</Code>
     </Text>
   )
 }
@@ -209,8 +238,8 @@ export function CellPatternError(props: {
 }) {
   return (
     <Text>
-      Cell value doesn't match pattern at row {props.error.rowNumber}, field "
-      {props.error.fieldName}": {props.error.cell}
+      Cell value doesn't match pattern at row <Code>{props.error.rowNumber}</Code>,
+      field <Code>{props.error.fieldName}</Code>: <Code>{props.error.cell}</Code>
     </Text>
   )
 }
@@ -218,8 +247,8 @@ export function CellPatternError(props: {
 export function CellUniqueError(props: { error: errorTypes.CellUniqueError }) {
   return (
     <Text>
-      Cell value is not unique at row {props.error.rowNumber}, field "
-      {props.error.fieldName}": {props.error.cell}
+      Cell value is not unique at row <Code>{props.error.rowNumber}</Code>, field{" "}
+      <Code>{props.error.fieldName}</Code>: <Code>{props.error.cell}</Code>
     </Text>
   )
 }
@@ -227,8 +256,8 @@ export function CellUniqueError(props: { error: errorTypes.CellUniqueError }) {
 export function CellEnumError(props: { error: errorTypes.CellEnumError }) {
   return (
     <Text>
-      Cell value not in allowed values at row {props.error.rowNumber}, field "
-      {props.error.fieldName}": {props.error.cell}
+      Cell value not in allowed values at row <Code>{props.error.rowNumber}</Code>,
+      field <Code>{props.error.fieldName}</Code>: <Code>{props.error.cell}</Code>
     </Text>
   )
 }
