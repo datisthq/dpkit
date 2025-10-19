@@ -1,10 +1,10 @@
 import { Button, Stack } from "@mantine/core"
 import { useTranslation } from "react-i18next"
-import { Drawer } from "#components/Drawer/index.ts"
+import { Dialog } from "#components/Dialog/index.ts"
 import { Status } from "#components/Status/index.ts"
 import { store } from "./store.ts"
 
-export function Dialog() {
+export function ValidatePackageDialog() {
   const { t } = useTranslation()
   const report = store.useState(state => state.report)
   const isPending = store.useState(state => state.isPending)
@@ -20,7 +20,7 @@ export function Dialog() {
   }
 
   return (
-    <Drawer open={isDialogOpen} onOpenChange={handleOpenChange}>
+    <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
       <Stack>
         <Status
           status={getStatus()}
@@ -39,6 +39,6 @@ export function Dialog() {
           {t("Close")}
         </Button>
       </Stack>
-    </Drawer>
+    </Dialog>
   )
 }

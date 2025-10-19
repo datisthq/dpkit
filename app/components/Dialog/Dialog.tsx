@@ -1,17 +1,14 @@
 import { Container } from "@mantine/core"
 import type { ReactNode } from "react"
 import { Drawer as VaulDrawer } from "vaul"
-import classes from "./Drawer.module.css"
+import classes from "./Dialog.module.css"
 
-export interface DrawerProps {
+export function Dialog(props: {
   open?: boolean
   title?: string
   children: ReactNode
   onOpenChange: (open: boolean) => void
-}
-
-// TODO: support proper snap points
-export function Drawer(props: DrawerProps) {
+}) {
   return (
     <VaulDrawer.Root open={props.open} onOpenChange={props.onOpenChange}>
       <VaulDrawer.Portal>

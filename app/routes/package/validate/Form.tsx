@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next"
 import * as settings from "#settings.ts"
 import { useValidatePackage } from "./queries.ts"
 
-export function Form() {
+export function ValidatePackageForm() {
   const [activeTab, setActiveTab] = useState<string | null>("url")
 
   return (

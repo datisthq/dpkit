@@ -3,8 +3,8 @@ import { usePayload } from "#components/System/index.ts"
 import { Pages } from "#constants/page.ts"
 import { createPayload } from "#payload.ts"
 import type { Route } from "./+types/route.tsx"
-import { Dialog } from "./Dialog.tsx"
-import { Form } from "./Form.tsx"
+import { ValidatePackageDialog } from "./Dialog.tsx"
+import { ValidatePackageForm } from "./Form.tsx"
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { payload } = createPayload({ pageId: "packageValidate", params })
@@ -21,10 +21,10 @@ export default function Page(_props: Route.ComponentProps) {
       <Stack gap="md">
         <Title order={1}>{page.title[languageId]}</Title>
         <Text size="lg">{page.description[languageId]}</Text>
-        <Form />
+        <ValidatePackageForm />
       </Stack>
 
-      <Dialog />
+      <ValidatePackageDialog />
     </Box>
   )
 }
