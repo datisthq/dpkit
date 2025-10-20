@@ -1,8 +1,8 @@
 export const LanguageIdDefault = "en"
 
 export const Languages = {
-  de: { languageId: "de", title: "Deutsch" },
   en: { languageId: "en", title: "English" },
+  de: { languageId: "de", title: "Deutsch" },
   es: { languageId: "es", title: "Español" },
   fr: { languageId: "fr", title: "Français" },
   it: { languageId: "it", title: "Italiano" },
