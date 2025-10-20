@@ -1,4 +1,5 @@
 import { Stack, Text, Title } from "@mantine/core"
+import { useTranslation } from "react-i18next"
 import { Link } from "#components/Link/index.ts"
 import { createPayload } from "#payload.ts"
 import type { Route } from "./+types/route.tsx"
@@ -10,40 +11,35 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export default function Page(_props: Route.ComponentProps) {
+  const { t } = useTranslation()
+
   return (
     <Stack gap="xl">
-      <Title order={1}>About dpkit Cloud</Title>
+      <Title order={1}>{t("about-dpkit-cloud-title")}</Title>
       <Text size="xl">
-        dpkit Cloud provides free online privacy-first tools for converting and
-        validating data. Unlike others, dpkit Cloud is free and completely{" "}
-        <Link to="https://github.com/datisthq/dpkit">open source</Link> allowing
-        you to review the code or self-host the service. In 2025, the project
-        was funded by{" "}
+        {t("about-description-intro")}{" "}
+        <Link to="https://github.com/datisthq/dpkit">{t("open source")}</Link>{" "}
+        {t("allowing you to review the code or")} {t("self-host")}{" "}
+        {t("the service. In 2025, the project was funded by")}{" "}
         <Link to="https://nlnet.nl/project/DataPackage-TS/">
-          European Comission
+          {t("European Commission")}
         </Link>
         .
       </Text>
       <Stack gap="md">
-        <Title order={2}>Privacy-first</Title>
-        <Text size="lg">
-          dpkit Cloud performs all the operation in complete isolation using
-          only ephermal storages. For each request, a private container is
-          created and destroyed after the request is completed. This ensures
-          that your data is not collected on our servers and is only accessible
-          to you durine the processing of your request.
-        </Text>
+        <Title order={2}>{t("about-privacy-first-title")}</Title>
+        <Text size="lg">{t("about-privacy-first-description")}</Text>
       </Stack>
       <Stack gap="md">
-        <Title order={2}>Self-hosting</Title>
+        <Title order={2}>{t("about-self-hosting-title")}</Title>
         <Text size="lg">
-          dpkit Cloud is completely open source and can be self-hosted. Visit
-          our{" "}
-          <Link to="https://github.com/datisthq/dpkit">GitHub repository</Link>{" "}
-          to get started. For assistance with self-hosting or custom
-          deployments, please{" "}
+          {t("about-self-hosting-intro")}{" "}
+          <Link to="https://github.com/datisthq/dpkit">
+            {t("about-github-repository")}
+          </Link>{" "}
+          {t("about-self-hosting-middle")}{" "}
           <Link to="https://www.linkedin.com/in/evgeny-karev/">
-            get in touch with us
+            {t("about-get-in-touch")}
           </Link>
           .
         </Text>

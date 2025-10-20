@@ -11,6 +11,7 @@ export interface FormProps {
 }
 
 export function Form(props: FormProps) {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState<string | null>("url")
 
   return (
@@ -25,7 +26,7 @@ export function Form(props: FormProps) {
             />
           }
         >
-          URL
+          {t("URL")}
         </Tabs.Tab>
         <Tabs.Tab
           value="file"
@@ -36,7 +37,7 @@ export function Form(props: FormProps) {
             />
           }
         >
-          File
+          {t("File")}
         </Tabs.Tab>
         <Tabs.Tab
           value="text"
@@ -47,7 +48,7 @@ export function Form(props: FormProps) {
             />
           }
         >
-          Text
+          {t("Text")}
         </Tabs.Tab>
       </Tabs.List>
 
@@ -67,19 +68,20 @@ export function Form(props: FormProps) {
 }
 
 function UrlForm(props: { onSubmit: (value: string) => void }) {
+  const { t } = useTranslation()
   const form = useForm({
     initialValues: {
       url: "",
     },
     validate: {
       url: value => {
-        const notEmpty = isNotEmpty("URL is required")(value)
+        const notEmpty = isNotEmpty(t("URL is required"))(value)
         if (notEmpty) return notEmpty
         try {
           new URL(value)
           return null
         } catch {
-          return "Invalid URL format"
+          return t("Invalid URL format")
         }
       },
     },
@@ -93,9 +95,9 @@ function UrlForm(props: { onSubmit: (value: string) => void }) {
     <form onSubmit={handleSubmit}>
       <Stack gap="md">
         <TextInput
-          placeholder="Enter data package URL"
+          placeholder={t("Enter data package URL")}
           size="lg"
-          label="Data Package URL"
+          label={t("Data Package URL")}
           rightSection={
             <CloseButton
               onClick={() => form.setFieldValue("url", "")}
@@ -111,12 +113,13 @@ function UrlForm(props: { onSubmit: (value: string) => void }) {
 }
 
 function FileForm(props: { onSubmit: (value: File) => void }) {
+  const { t } = useTranslation()
   const form = useForm({
     initialValues: {
       file: null as File | null,
     },
     validate: {
-      file: isNotEmpty("File is required"),
+      file: isNotEmpty(t("File is required")),
     },
   })
 
@@ -129,7 +132,7 @@ function FileForm(props: { onSubmit: (value: File) => void }) {
       const json = JSON.parse(text)
       props.onSubmit(json)
     } catch (err) {
-      form.setErrors({ file: "Invalid JSON file" })
+      form.setErrors({ file: t("Invalid JSON file") })
     }
   })
 
@@ -137,9 +140,9 @@ function FileForm(props: { onSubmit: (value: File) => void }) {
     <form onSubmit={handleSubmit}>
       <Stack gap="md">
         <FileInput
-          placeholder="Select data package file"
+          placeholder={t("Select data package file")}
           size="lg"
-          label="Data Package File"
+          label={t("Data Package File")}
           rightSection={
             <CloseButton
               onClick={() => form.setFieldValue("file", null)}
@@ -155,15 +158,16 @@ function FileForm(props: { onSubmit: (value: File) => void }) {
 }
 
 function JsonForm(props: { onSubmit: (value: Record<string, any>) => void }) {
+  const { t } = useTranslation()
   const form = useForm({
     initialValues: {
       text: "",
     },
     validate: {
       text: value => {
-        const notEmpty = isNotEmpty("Text is required")(value)
+        const notEmpty = isNotEmpty(t("Text is required"))(value)
         if (notEmpty) return notEmpty
-        return isJSONString("Invalid JSON format")(value)
+        return isJSONString(t("Invalid JSON format"))(value)
       },
     },
   })
@@ -177,9 +181,9 @@ function JsonForm(props: { onSubmit: (value: Record<string, any>) => void }) {
     <form onSubmit={handleSubmit}>
       <Stack gap="md">
         <Textarea
-          placeholder="Paste data package JSON"
+          placeholder={t("Paste data package JSON")}
           size="lg"
-          label="Data Package JSON"
+          label={t("Data Package JSON")}
           autosize
           minRows={5}
           rightSection={

@@ -1,4 +1,5 @@
 import { Card, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core"
+import { useTranslation } from "react-i18next"
 import { Link } from "#components/Link/index.ts"
 import { usePayload } from "#components/System/index.ts"
 import { useMakeLink } from "#components/System/index.ts"
@@ -15,6 +16,7 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export default function Page(_props: Route.ComponentProps) {
+  const { t } = useTranslation()
   const payload = usePayload()
   const makeLink = useMakeLink()
 
@@ -24,22 +26,22 @@ export default function Page(_props: Route.ComponentProps) {
     <Stack gap="xl">
       <Stack gap="md">
         <Title order={1} size={40}>
-          dpkit Cloud
+          {t("dpkit Cloud")}
         </Title>
         <Text size="xl">
-          Free online tools for{" "}
+          {t("Free online tools for")}{" "}
           <Text component="span" fw="bold" td="underline">
-            converting and validating data
+            {t("converting and validating data")}
           </Text>
-          . Unlike others, dpkit Cloud is{" "}
-          <Link to={makeLink({ pageId: "about" })}>privacy-first</Link> and
-          completely{" "}
-          <Link to="https://github.com/datisthq/dpkit">open source</Link>{" "}
-          allowing you to review the code or{" "}
-          <Link to={makeLink({ pageId: "about" })}>self-host</Link> the service.
-          In 2025, the project was funded by{" "}
+          . {t("Unlike others, dpkit Cloud is")}{" "}
+          <Link to={makeLink({ pageId: "about" })}>{t("privacy-first")}</Link>{" "}
+          {t("and completely")}{" "}
+          <Link to="https://github.com/datisthq/dpkit">{t("open source")}</Link>{" "}
+          {t("allowing you to review the code or")}{" "}
+          <Link to={makeLink({ pageId: "about" })}>{t("self-host")}</Link>{" "}
+          {t("the service. In 2025, the project was funded by")}{" "}
           <Link to="https://nlnet.nl/project/DataPackage-TS/">
-            European Comission
+            {t("European Commission")}
           </Link>
           .
         </Text>

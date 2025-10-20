@@ -2,12 +2,14 @@ import type { FileError, MetadataError, TableError } from "@dpkit/lib"
 import { Card, Divider, ScrollArea, Stack, Tabs } from "@mantine/core"
 import { groupBy } from "es-toolkit"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { objectKeys } from "ts-extras"
 import { Error } from "./Error/Error.tsx"
 
 export function Report(props: {
   errors?: (MetadataError | FileError | TableError)[]
 }) {
+  const { t } = useTranslation()
   const { errors } = props
 
   const errorsByType = {
@@ -32,7 +34,7 @@ export function Report(props: {
       onChange={value => setSelectedType(value ?? "all")}
     >
       <Stack gap="lg">
-        <Divider label="Errors" labelPosition="center" />
+        <Divider label={t("Errors")} labelPosition="center" />
         <Tabs.List justify="left">
           {errorTypes.map(type => {
             return (
@@ -43,7 +45,7 @@ export function Report(props: {
                 fw={selectedType === type ? "bold" : "normal"}
                 tt="uppercase"
               >
-                {type} ({errorsByType[type].length})
+                {t(type as any)} ({errorsByType[type].length})
               </Tabs.Tab>
             )
           })}

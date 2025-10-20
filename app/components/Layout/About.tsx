@@ -1,9 +1,12 @@
 import { Anchor, Box, Container, Image, Stack, Text } from "@mantine/core"
+import { useTranslation } from "react-i18next"
 import aboutImage from "#assets/about.png"
 import { Link } from "#components/Link/index.ts"
 import classes from "./About.module.css"
 
 export function About() {
+  const { t } = useTranslation()
+
   return (
     <Container size="lg">
       <Stack
@@ -15,7 +18,7 @@ export function About() {
         py="md"
       >
         <Text c="dimmed" size="sm">
-          Brought to you by
+          {t("Brought to you by")}
         </Text>
         <Box className={classes.imageWrapper}>
           <Anchor
@@ -34,8 +37,9 @@ export function About() {
           </Anchor>
         </Box>
         <Text c="dimmed" ta="center" maw="50ch">
-          We are bringing technological innovation and consultancy services to
-          the open data field
+          {t(
+            "We are bringing technological innovation and consultancy services to the open data field",
+          )}
         </Text>
       </Stack>
     </Container>
