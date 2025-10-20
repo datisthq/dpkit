@@ -1,4 +1,4 @@
-import { Button, Container, Flex } from "@mantine/core"
+import { Box, Button, Container, Flex } from "@mantine/core"
 import { useEffect, useState } from "react"
 import type { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
@@ -10,7 +10,6 @@ const snapPoints = [0.3, 0.9] as const
 // TODO: Rebase on snapPoints
 export function Dialog(props: {
   open?: boolean
-  title?: string
   children: ReactNode
   fullScreen?: boolean
   onOpenChange: (open: boolean) => void
@@ -33,31 +32,25 @@ export function Dialog(props: {
       <VaulDrawer.Portal>
         <VaulDrawer.Overlay className={classes.overlay} />
         <VaulDrawer.Content className={classes.content}>
-          <Container size="lg">
-            <div className={classes.handle} />
-            {props.title && (
-              <VaulDrawer.Title className={classes.title}>
-                {props.title}
-              </VaulDrawer.Title>
-            )}
-            <VaulDrawer.Description className={classes.description}>
-              <Flex
-                gap={{ base: 20, md: 40 }}
-                pt={{ base: 10, md: 20 }}
-                direction="column"
+          <div className={classes.handle} />
+          <Container size="lg" h="100%">
+            <Flex
+              gap={{ base: 20, md: 40 }}
+              pt={{ base: 10, md: 20 }}
+              direction="column"
+              h="100%"
+            >
+              <Box>{props.children}</Box>
+              <Button
+                onClick={() => props.onOpenChange(false)}
+                color="gray"
+                fullWidth
+                variant="outline"
+                size="lg"
               >
-                {props.children}
-                <Button
-                  onClick={() => props.onOpenChange(false)}
-                  color="gray"
-                  fullWidth
-                  variant="outline"
-                  size="lg"
-                >
-                  {t("Close")}
-                </Button>
-              </Flex>
-            </VaulDrawer.Description>
+                {t("Close")}
+              </Button>
+            </Flex>
           </Container>
         </VaulDrawer.Content>
       </VaulDrawer.Portal>
