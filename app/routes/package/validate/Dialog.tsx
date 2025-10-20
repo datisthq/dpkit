@@ -1,4 +1,3 @@
-import { Button, Flex } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import { Dialog } from "#components/Dialog/index.ts"
 import { Report } from "#components/Report/index.ts"
@@ -26,30 +25,14 @@ export function ValidatePackageDialog() {
       onOpenChange={handleOpenChange}
       fullScreen={!!report?.errors.length}
     >
-      <Flex
-        gap={{ base: 20, md: 40 }}
-        pt={{ base: 10, md: 20 }}
-        direction="column"
-      >
-        <Status
-          status={getStatus()}
-          pendingTitle={t("Validating data package...")}
-          successTitle={t("Valid data package")}
-          errorTitle={t("Invalid data package")}
-        />
+      <Status
+        status={getStatus()}
+        pendingTitle={t("Validating data package...")}
+        successTitle={t("Valid data package")}
+        errorTitle={t("Invalid data package")}
+      />
 
-        {!!report?.errors.length && <Report errors={report.errors} />}
-
-        <Button
-          onClick={() => handleOpenChange(false)}
-          color="gray"
-          fullWidth
-          variant="outline"
-          size="lg"
-        >
-          {t("Close")}
-        </Button>
-      </Flex>
+      <Report errors={report?.errors} />
     </Dialog>
   )
 }

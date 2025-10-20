@@ -6,9 +6,9 @@ import { objectKeys } from "ts-extras"
 import { Error } from "./Error/Error.tsx"
 
 export function Report(props: {
-  errors: (MetadataError | FileError | TableError)[]
+  errors?: (MetadataError | FileError | TableError)[]
 }) {
-  const errorsByType = groupBy(props.errors, error => error.type)
+  const errorsByType = groupBy(props.errors ?? [], error => error.type)
   const errorTypes = objectKeys(errorsByType)
 
   const [selectedType, setSelectedType] = useState<string | null>(
