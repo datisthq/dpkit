@@ -23,7 +23,7 @@ export function Report(props: {
     <Tabs
       color="red"
       variant="pills"
-      value={selectedType}
+      value={selectedType ?? errorTypes[0]}
       onChange={setSelectedType}
     >
       <Stack gap="lg">
