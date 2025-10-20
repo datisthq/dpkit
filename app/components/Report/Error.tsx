@@ -49,8 +49,10 @@ export function Error(props: {
 export function MetadataError(props: { error: errorTypes.MetadataError }) {
   return (
     <Text>
-      <strong>{props.error.keyword}</strong>
-      {props.error.message && `: ${props.error.message}`}
+      <Code fz="lg" fw="bold">
+        {props.error.keyword}
+      </Code>
+      {props.error.message && ` ${props.error.message}`}
       {props.error.instancePath && (
         <>
           {" at "}
