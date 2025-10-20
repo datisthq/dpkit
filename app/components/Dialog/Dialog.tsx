@@ -13,7 +13,7 @@ export function Dialog(props: {
 }) {
   const { t } = useTranslation()
 
-  const snapPoints = [0.3, 1] as const
+  const snapPoints = [0.5, 1] as const
   const [snap, setSnap] = useState<number | string | null>(snapPoints[0])
 
   useEffect(() => {
@@ -34,7 +34,9 @@ export function Dialog(props: {
           <Container size="lg" h="100%">
             <Flex gap={{ base: 20, md: 40 }} direction="column" h="100%">
               <Box className={classes.handle} />
-              <ScrollArea flex={1}>{props.children}</ScrollArea>
+              <ScrollArea flex={props.fullScreen ? 1 : undefined}>
+                {props.children}
+              </ScrollArea>
               <Button
                 onClick={() => props.onOpenChange(false)}
                 color="gray"

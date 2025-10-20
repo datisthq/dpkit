@@ -11,7 +11,7 @@
   left: 0;
   right: 0;
   height: 100%;
-  max-height: 90%;
+  max-height: calc(100% - 80px);
   background-color: light-dark(white, var(--mantine-color-dark-6));
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
