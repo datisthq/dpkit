@@ -1,5 +1,5 @@
 import type { FileError, MetadataError, TableError } from "@dpkit/lib"
-import { Card, Divider, Stack, Tabs } from "@mantine/core"
+import { Card, Divider, ScrollArea, Stack, Tabs } from "@mantine/core"
 import { groupBy } from "es-toolkit"
 import { useState } from "react"
 import { objectKeys } from "ts-extras"
@@ -47,19 +47,21 @@ export function Report(props: {
         {errorTypes.map(type => {
           return (
             <Tabs.Panel key={type} value={type}>
-              <Stack gap="md">
-                {errorsByType[type].map((error, index) => (
-                  <Card
-                    key={index}
-                    style={{
-                      backgroundColor:
-                        "light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))",
-                    }}
-                  >
-                    <Error error={error} />
-                  </Card>
-                ))}
-              </Stack>
+              <ScrollArea>
+                <Stack gap="md">
+                  {errorsByType[type].map((error, index) => (
+                    <Card
+                      key={index}
+                      style={{
+                        backgroundColor:
+                          "light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))",
+                      }}
+                    >
+                      <Error error={error} />
+                    </Card>
+                  ))}
+                </Stack>
+              </ScrollArea>
             </Tabs.Panel>
           )
         })}

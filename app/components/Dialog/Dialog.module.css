@@ -11,18 +11,19 @@
   left: 0;
   right: 0;
   height: 100%;
+  max-height: 90%;
   background-color: light-dark(white, var(--mantine-color-dark-6));
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding: 16px;
+  padding: var(--mantine-spacing-lg);
 }
 
 .handle {
-  width: 40px;
-  height: 5px;
-  background-color: #d1d5db;
-  border-radius: 9999px;
-  margin: 8px auto 16px;
+  width: 60px;
+  height: 6px;
+  background-color: var(--mantine-color-gray-4);
+  border-radius: 100px;
+  margin: 0 auto;
 }
 
 .title {

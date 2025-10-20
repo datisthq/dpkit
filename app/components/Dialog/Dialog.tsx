@@ -1,13 +1,10 @@
-import { Box, Button, Container, Flex } from "@mantine/core"
+import { Box, Button, Container, Flex, ScrollArea } from "@mantine/core"
 import { useEffect, useState } from "react"
 import type { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer as VaulDrawer } from "vaul"
 import classes from "./Dialog.module.css"
 
-const snapPoints = [0.3, 0.9] as const
-
-// TODO: Rebase on snapPoints
 export function Dialog(props: {
   open?: boolean
   children: ReactNode
@@ -15,6 +12,8 @@ export function Dialog(props: {
   onOpenChange: (open: boolean) => void
 }) {
   const { t } = useTranslation()
+
+  const snapPoints = [0.3, 1] as const
   const [snap, setSnap] = useState<number | string | null>(snapPoints[0])
 
   useEffect(() => {
@@ -32,15 +31,10 @@ export function Dialog(props: {
       <VaulDrawer.Portal>
         <VaulDrawer.Overlay className={classes.overlay} />
         <VaulDrawer.Content className={classes.content}>
-          <div className={classes.handle} />
           <Container size="lg" h="100%">
-            <Flex
-              gap={{ base: 20, md: 40 }}
-              pt={{ base: 10, md: 20 }}
-              direction="column"
-              h="100%"
-            >
-              <Box>{props.children}</Box>
+            <Flex gap={{ base: 20, md: 40 }} direction="column" h="100%">
+              <Box className={classes.handle} />
+              <ScrollArea flex={1}>{props.children}</ScrollArea>
               <Button
                 onClick={() => props.onOpenChange(false)}
                 color="gray"
