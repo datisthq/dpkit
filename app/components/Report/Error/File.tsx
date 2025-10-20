@@ -1,30 +1,34 @@
 import type * as errorTypes from "@dpkit/lib"
 import { Code, Text } from "@mantine/core"
+import { useTranslation } from "react-i18next"
 
 export function BytesError(props: { error: errorTypes.BytesError }) {
+  const { t } = useTranslation()
+
   return (
     <Text>
-      File size mismatch: expected{" "}
+      {t("File size")} {t("is expected to be")}{" "}
       <Code fz="lg" fw="bold">
-        {props.error.bytes}
+        {props.error.bytes} bytes
       </Code>{" "}
-      bytes, got{" "}
+      {t("but it is actually")}{" "}
       <Code fz="lg" fw="bold">
-        {props.error.actualBytes}
-      </Code>{" "}
-      bytes
+        {props.error.actualBytes} bytes
+      </Code>
     </Text>
   )
 }
 
 export function HashError(props: { error: errorTypes.HashError }) {
+  const { t } = useTranslation()
+
   return (
     <Text>
-      File hash mismatch: expected{" "}
+      {t("File hash")} {t("is expected to be")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.hash}
-      </Code>
-      , got{" "}
+      </Code>{" "}
+      {t("but it is actually")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.actualHash}
       </Code>

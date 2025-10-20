@@ -6,7 +6,7 @@ export function FieldNameError(props: { error: errorTypes.FieldNameError }) {
   const { t } = useTranslation()
   return (
     <Text>
-      {t("Field name is expected to be")}{" "}
+      {t("Field name")} {t("is expected to be")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
       </Code>{" "}

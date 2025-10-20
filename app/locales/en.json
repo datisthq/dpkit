@@ -42,5 +42,8 @@
   "is expected to be": "is expected to be",
   "The fields": "The fields",
   "are missing": "are missing",
-  "are not expected": "are not expected"
+  "are not expected": "are not expected",
+  "File size": "File size",
+  "File hash": "File hash",
+  "Field name": "Field name"
 }
