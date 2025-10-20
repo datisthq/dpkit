@@ -8,14 +8,19 @@ import { Error } from "./Error/Error.tsx"
 export function Report(props: {
   errors?: (MetadataError | FileError | TableError)[]
 }) {
-  const errorsByType = groupBy(props.errors ?? [], error => error.type)
-  const errorTypes = objectKeys(errorsByType)
+  const { errors } = props
 
-  const [selectedType, setSelectedType] = useState<string | null>(
-    errorTypes?.[0] ?? null,
+  const errorsByType = {
+    all: errors ?? [],
+    ...groupBy(errors ?? [], error => error.type),
+  }
+
+  const errorTypes = objectKeys(errorsByType)
+  const [selectedType, setSelectedType] = useState<string>(
+    errorTypes?.[0] ?? "all",
   )
 
-  if (errorTypes.length === 0) {
+  if (!errors?.length) {
     return null
   }
 
@@ -23,8 +28,8 @@ export function Report(props: {
     <Tabs
       color="red"
       variant="pills"
-      value={selectedType ?? errorTypes[0]}
-      onChange={setSelectedType}
+      value={selectedType}
+      onChange={value => setSelectedType(value ?? "all")}
     >
       <Stack gap="lg">
         <Divider label="Errors" labelPosition="center" />
