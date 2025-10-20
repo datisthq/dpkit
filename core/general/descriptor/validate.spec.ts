@@ -132,4 +132,42 @@ describe("validateDescriptor", () => {
 
     expect(hasEmailPatternError).toBe(true)
   })
+
+  it("returns multiple errors for descriptor with multiple issues", async () => {
+    const profile = {
+      type: "object",
+      required: ["name", "version", "license"],
+      additionalProperties: false,
+      properties: {
+        name: { type: "string", minLength: 3 },
+        version: { type: "string", pattern: "^\\d+\\.\\d+\\.\\d+$" },
+        license: { type: "string" },
+        description: { type: "string" },
+        keywords: {
+          type: "array",
+          items: { type: "string" },
+        },
+      },
+    }
+
+    const descriptor = {
+      name: "ab",
+      version: "not-a-version",
+      description: 123,
+      keywords: ["valid", 456, "another"],
+      extra_field: "should not be here",
+    }
+
+    const result = await validateDescriptor(descriptor, { profile })
+
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBeGreaterThan(3)
+
+    const errorKeywords = result.errors.map(err => err?.keyword)
+    expect(errorKeywords).toContain("required")
+    expect(errorKeywords).toContain("minLength")
+    expect(errorKeywords).toContain("pattern")
+    expect(errorKeywords).toContain("type")
+    expect(errorKeywords).toContain("additionalProperties")
+  })
 })
