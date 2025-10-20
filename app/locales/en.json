@@ -46,5 +46,7 @@
   "File size": "File size",
   "File hash": "File hash",
   "Field name": "Field name",
-  "at": "at"
+  "at": "at",
+  "The cell values of the fields": "The cell values of the fields",
+  "are not unique": "are not unique"
 }

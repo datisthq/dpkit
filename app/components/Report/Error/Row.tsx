@@ -1,23 +1,16 @@
 import type * as errorTypes from "@dpkit/lib"
 import { Code, Text } from "@mantine/core"
+import { useTranslation } from "react-i18next"
 
 export function RowUniqueError(props: { error: errorTypes.RowUniqueError }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Row{" "}
+      {t("The cell values of the fields")}{" "}
       <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
+        {props.error.fieldNames.join(", ")}
       </Code>{" "}
-      is not unique (fields:{" "}
-      {props.error.fieldNames.map((name, i) => (
-        <span key={i}>
-          {i > 0 && ", "}
-          <Code fz="lg" fw="bold">
-            {name}
-          </Code>
-        </span>
-      ))}
-      )
+      {t("are not unique")}
     </Text>
   )
 }
