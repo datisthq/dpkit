@@ -19,46 +19,49 @@ import { MetadataError } from "./Metadata.tsx"
 import { RowUniqueError } from "./Row.tsx"
 
 export function Error(props: {
+  // TODO: should be lib.Error
   error: errorTypes.MetadataError | errorTypes.FileError | errorTypes.TableError
 }) {
-  switch (props.error.type) {
+  const { error } = props
+
+  switch (error.type) {
     case "metadata":
-      return <MetadataError error={props.error} />
+      return <MetadataError error={error} />
     case "file/bytes":
-      return <BytesError error={props.error} />
+      return <BytesError error={error} />
     case "file/hash":
-      return <HashError error={props.error} />
+      return <HashError error={error} />
     case "fields/missing":
-      return <FieldsMissingError error={props.error} />
+      return <FieldsMissingError error={error} />
     case "fields/extra":
-      return <FieldsExtraError error={props.error} />
+      return <FieldsExtraError error={error} />
     case "field/name":
-      return <FieldNameError error={props.error} />
+      return <FieldNameError error={error} />
     case "field/type":
-      return <FieldTypeError error={props.error} />
+      return <FieldTypeError error={error} />
     case "row/unique":
-      return <RowUniqueError error={props.error} />
+      return <RowUniqueError error={error} />
     case "cell/type":
-      return <CellTypeError error={props.error} />
+      return <CellTypeError error={error} />
     case "cell/required":
-      return <CellRequiredError error={props.error} />
+      return <CellRequiredError error={error} />
     case "cell/minimum":
-      return <CellMinimumError error={props.error} />
+      return <CellMinimumError error={error} />
     case "cell/maximum":
-      return <CellMaximumError error={props.error} />
+      return <CellMaximumError error={error} />
     case "cell/exclusiveMinimum":
-      return <CellExclusiveMinimumError error={props.error} />
+      return <CellExclusiveMinimumError error={error} />
     case "cell/exclusiveMaximum":
-      return <CellExclusiveMaximumError error={props.error} />
+      return <CellExclusiveMaximumError error={error} />
     case "cell/minLength":
-      return <CellMinLengthError error={props.error} />
+      return <CellMinLengthError error={error} />
     case "cell/maxLength":
-      return <CellMaxLengthError error={props.error} />
+      return <CellMaxLengthError error={error} />
     case "cell/pattern":
-      return <CellPatternError error={props.error} />
+      return <CellPatternError error={error} />
     case "cell/unique":
-      return <CellUniqueError error={props.error} />
+      return <CellUniqueError error={error} />
     case "cell/enum":
-      return <CellEnumError error={props.error} />
+      return <CellEnumError error={error} />
   }
 }

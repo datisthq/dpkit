@@ -21,5 +21,19 @@
   "Valid data package": "Valid data package",
   "Invalid data package": "Invalid data package",
   "Starting private container...": "Starting private container...",
-  "Close": "Close"
+  "Close": "Close",
+  "Value of the cell": "Value of the cell",
+  "in field": "in field",
+  "of row": "of row",
+  "has a wrong type": "has a wrong type",
+  "A required cell in field": "A required cell in field",
+  "is missing": "is missing",
+  "is less than minimum": "is less than minimum",
+  "is more than maximum": "is more than maximum",
+  "is less or equal to exclusive minimum": "is less or equal to exclusive minimum",
+  "is more or equal to exclusive maximum": "is more or equal to exclusive maximum",
+  "Length of the cell": "Length of the cell",
+  "does not match the pattern": "does not match the pattern",
+  "is not unique": "is not unique",
+  "is not in allowed values": "is not in allowed values"
 }

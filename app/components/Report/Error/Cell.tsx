@@ -1,22 +1,24 @@
 import type * as errorTypes from "@dpkit/lib"
 import { Code, Text } from "@mantine/core"
+import { useTranslation } from "react-i18next"
 
 export function CellTypeError(props: { error: errorTypes.CellTypeError }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Value of the cell{" "}
+      {t("Value of the cell")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
-      </Code>
-      in field{" "}
+      </Code>{" "}
+      {t("in field")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
-      </Code>
-      of row{" "}
+      </Code>{" "}
+      {t("of row")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.rowNumber}
-      </Code>
-      has a wrong type
+      </Code>{" "}
+      {t("has a wrong type")}
     </Text>
   )
 }
@@ -24,17 +26,18 @@ export function CellTypeError(props: { error: errorTypes.CellTypeError }) {
 export function CellRequiredError(props: {
   error: errorTypes.CellRequiredError
 }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      A required cell in field{" "}
+      {t("A required cell in field")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
-      </Code>
-      of row{" "}
+      </Code>{" "}
+      {t("of row")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.rowNumber}
-      </Code>
-      is missing
+      </Code>{" "}
+      {t("is missing")}
     </Text>
   )
 }
@@ -42,21 +45,22 @@ export function CellRequiredError(props: {
 export function CellMinimumError(props: {
   error: errorTypes.CellMinimumError
 }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Value of the cell{" "}
+      {t("Value of the cell")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
-      </Code>
-      in field{" "}
+      </Code>{" "}
+      {t("in field")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
-      </Code>
-      of row{" "}
+      </Code>{" "}
+      {t("of row")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.rowNumber}
-      </Code>
-      is less than minimum
+      </Code>{" "}
+      {t("is less than minimum")}
     </Text>
   )
 }
@@ -64,21 +68,22 @@ export function CellMinimumError(props: {
 export function CellMaximumError(props: {
   error: errorTypes.CellMaximumError
 }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Value of the cell{" "}
+      {t("Value of the cell")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
-      </Code>
-      in field{" "}
+      </Code>{" "}
+      {t("in field")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
-      </Code>
-      of row{" "}
+      </Code>{" "}
+      {t("of row")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.rowNumber}
-      </Code>
-      is more than maximum
+      </Code>{" "}
+      {t("is more than maximum")}
     </Text>
   )
 }
@@ -86,21 +91,22 @@ export function CellMaximumError(props: {
 export function CellExclusiveMinimumError(props: {
   error: errorTypes.CellExclusiveMinimumError
 }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Value of the cell{" "}
+      {t("Value of the cell")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
-      </Code>
-      in field{" "}
+      </Code>{" "}
+      {t("in field")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
-      </Code>
-      of row{" "}
+      </Code>{" "}
+      {t("of row")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.rowNumber}
-      </Code>
-      is less or equal to exclusive minimum
+      </Code>{" "}
+      {t("is less or equal to exclusive minimum")}
     </Text>
   )
 }
@@ -108,21 +114,22 @@ export function CellExclusiveMinimumError(props: {
 export function CellExclusiveMaximumError(props: {
   error: errorTypes.CellExclusiveMaximumError
 }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Value of the cell{" "}
+      {t("Value of the cell")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
-      </Code>
-      in field{" "}
+      </Code>{" "}
+      {t("in field")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
-      </Code>
-      of row{" "}
+      </Code>{" "}
+      {t("of row")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.rowNumber}
-      </Code>
-      is more or equal to exclusive maximum
+      </Code>{" "}
+      {t("is more or equal to exclusive maximum")}
     </Text>
   )
 }
@@ -130,21 +137,22 @@ export function CellExclusiveMaximumError(props: {
 export function CellMinLengthError(props: {
   error: errorTypes.CellMinLengthError
 }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Lenght of the cell{" "}
+      {t("Length of the cell")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
-      </Code>
-      in field{" "}
+      </Code>{" "}
+      {t("in field")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
-      </Code>
-      of row{" "}
+      </Code>{" "}
+      {t("of row")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.rowNumber}
-      </Code>
-      is less than minimum
+      </Code>{" "}
+      {t("is less than minimum")}
     </Text>
   )
 }
@@ -152,21 +160,22 @@ export function CellMinLengthError(props: {
 export function CellMaxLengthError(props: {
   error: errorTypes.CellMaxLengthError
 }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Value of the cell{" "}
+      {t("Length of the cell")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
-      </Code>
-      in field{" "}
+      </Code>{" "}
+      {t("in field")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
-      </Code>
-      of row{" "}
+      </Code>{" "}
+      {t("of row")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.rowNumber}
-      </Code>
-      is more or equal to exclusive maximum
+      </Code>{" "}
+      {t("is more than maximum")}
     </Text>
   )
 }
@@ -174,60 +183,64 @@ export function CellMaxLengthError(props: {
 export function CellPatternError(props: {
   error: errorTypes.CellPatternError
 }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Value of the cell{" "}
+      {t("Value of the cell")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
-      </Code>
-      in field{" "}
+      </Code>{" "}
+      {t("in field")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
-      </Code>
-      of row{" "}
+      </Code>{" "}
+      {t("of row")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.rowNumber}
-      </Code>
-      does not match the pattern
+      </Code>{" "}
+      {t("does not match the pattern")}
     </Text>
   )
 }
 
 export function CellUniqueError(props: { error: errorTypes.CellUniqueError }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Cell value is not unique at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.fieldName}
-      </Code>
-      :{" "}
+      {t("Value of the cell")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
-      </Code>
+      </Code>{" "}
+      {t("in field")}{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldName}
+      </Code>{" "}
+      {t("of row")}{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>{" "}
+      {t("is not unique")}
     </Text>
   )
 }
 
 export function CellEnumError(props: { error: errorTypes.CellEnumError }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Value of the cell{" "}
+      {t("Value of the cell")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
-      </Code>
-      in field{" "}
+      </Code>{" "}
+      {t("in field")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
-      </Code>
-      of row{" "}
+      </Code>{" "}
+      {t("of row")}{" "}
       <Code fz="lg" fw="bold">
         {props.error.rowNumber}
-      </Code>
-      is not in allowed values
+      </Code>{" "}
+      {t("is not in allowed values")}
     </Text>
   )
 }
