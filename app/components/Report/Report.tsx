@@ -3,7 +3,7 @@ import { Card, Divider, Stack, Tabs } from "@mantine/core"
 import { groupBy } from "es-toolkit"
 import { useState } from "react"
 import { objectKeys } from "ts-extras"
-import { Error } from "./Error.tsx"
+import { Error } from "./Error/Error.tsx"
 
 export function Report(props: {
   errors: (MetadataError | FileError | TableError)[]
