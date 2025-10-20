@@ -4,11 +4,11 @@ import { Code, Text } from "@mantine/core"
 export function FieldNameError(props: { error: errorTypes.FieldNameError }) {
   return (
     <Text>
-      Field name mismatch: expected{" "}
+      Field name is expected to be{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
       </Code>
-      , got{" "}
+      but it is actually{" "}
       <Code fz="lg" fw="bold">
         {props.error.actualFieldName}
       </Code>
@@ -23,11 +23,11 @@ export function FieldTypeError(props: { error: errorTypes.FieldTypeError }) {
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
       </Code>{" "}
-      type mismatch: expected{" "}
+      is expected to be{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldType}
       </Code>
-      , got{" "}
+      but it is actually{" "}
       <Code fz="lg" fw="bold">
         {props.error.actualFieldType}
       </Code>

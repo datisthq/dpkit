@@ -4,18 +4,19 @@ import { Code, Text } from "@mantine/core"
 export function CellTypeError(props: { error: errorTypes.CellTypeError }) {
   return (
     <Text>
-      Cell type error at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.fieldName}
-      </Code>
-      :{" "}
+      Value of the cell{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
       </Code>
+      in field{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldName}
+      </Code>
+      of row{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>
+      has a wrong type
     </Text>
   )
 }
@@ -25,14 +26,15 @@ export function CellRequiredError(props: {
 }) {
   return (
     <Text>
-      Required cell missing at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
+      A required cell in field{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
       </Code>
+      of row{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>
+      is missing
     </Text>
   )
 }
@@ -42,18 +44,19 @@ export function CellMinimumError(props: {
 }) {
   return (
     <Text>
-      Cell value below minimum at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.fieldName}
-      </Code>
-      :{" "}
+      Value of the cell{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
       </Code>
+      in field{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldName}
+      </Code>
+      of row{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>
+      is less than minimum
     </Text>
   )
 }
@@ -63,18 +66,19 @@ export function CellMaximumError(props: {
 }) {
   return (
     <Text>
-      Cell value above maximum at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.fieldName}
-      </Code>
-      :{" "}
+      Value of the cell{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
       </Code>
+      in field{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldName}
+      </Code>
+      of row{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>
+      is more than maximum
     </Text>
   )
 }
@@ -84,18 +88,19 @@ export function CellExclusiveMinimumError(props: {
 }) {
   return (
     <Text>
-      Cell value at or below exclusive minimum at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.fieldName}
-      </Code>
-      :{" "}
+      Value of the cell{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
       </Code>
+      in field{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldName}
+      </Code>
+      of row{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>
+      is less or equal to exclusive minimum
     </Text>
   )
 }
@@ -105,18 +110,19 @@ export function CellExclusiveMaximumError(props: {
 }) {
   return (
     <Text>
-      Cell value at or above exclusive maximum at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.fieldName}
-      </Code>
-      :{" "}
+      Value of the cell{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
       </Code>
+      in field{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldName}
+      </Code>
+      of row{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>
+      is more or equal to exclusive maximum
     </Text>
   )
 }
@@ -126,18 +132,19 @@ export function CellMinLengthError(props: {
 }) {
   return (
     <Text>
-      Cell value too short at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.fieldName}
-      </Code>
-      :{" "}
+      Lenght of the cell{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
       </Code>
+      in field{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldName}
+      </Code>
+      of row{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>
+      is less than minimum
     </Text>
   )
 }
@@ -147,18 +154,19 @@ export function CellMaxLengthError(props: {
 }) {
   return (
     <Text>
-      Cell value too long at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.fieldName}
-      </Code>
-      :{" "}
+      Value of the cell{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
       </Code>
+      in field{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldName}
+      </Code>
+      of row{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>
+      is more or equal to exclusive maximum
     </Text>
   )
 }
@@ -168,18 +176,19 @@ export function CellPatternError(props: {
 }) {
   return (
     <Text>
-      Cell value doesn't match pattern at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.fieldName}
-      </Code>
-      :{" "}
+      Value of the cell{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
       </Code>
+      in field{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldName}
+      </Code>
+      of row{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>
+      does not match the pattern
     </Text>
   )
 }
@@ -206,18 +215,19 @@ export function CellUniqueError(props: { error: errorTypes.CellUniqueError }) {
 export function CellEnumError(props: { error: errorTypes.CellEnumError }) {
   return (
     <Text>
-      Cell value not in allowed values at row{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.rowNumber}
-      </Code>
-      , field{" "}
-      <Code fz="lg" fw="bold">
-        {props.error.fieldName}
-      </Code>
-      :{" "}
+      Value of the cell{" "}
       <Code fz="lg" fw="bold">
         {props.error.cell}
       </Code>
+      in field{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldName}
+      </Code>
+      of row{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.rowNumber}
+      </Code>
+      is not in allowed values
     </Text>
   )
 }
