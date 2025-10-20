@@ -14,7 +14,9 @@ export default function Page(_props: Route.ComponentProps) {
   return (
     <Alert
       title={t("Under Construction")}
-      description={t("This tool is currently under construction and not yet available")}
+      description={t(
+        "This tool is currently under construction and not yet available",
+      )}
     />
   )
 }
