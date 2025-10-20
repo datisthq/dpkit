@@ -1,8 +1,11 @@
 import { Button, Container, Flex } from "@mantine/core"
+import { useEffect, useState } from "react"
 import type { ReactNode } from "react"
 import { useTranslation } from "react-i18next"
 import { Drawer as VaulDrawer } from "vaul"
 import classes from "./Dialog.module.css"
+
+const snapPoints = [0.3, 0.9] as const
 
 // TODO: Rebase on snapPoints
 export function Dialog(props: {
@@ -13,15 +16,23 @@ export function Dialog(props: {
   onOpenChange: (open: boolean) => void
 }) {
   const { t } = useTranslation()
+  const [snap, setSnap] = useState<number | string | null>(snapPoints[0])
+
+  useEffect(() => {
+    setSnap(props.fullScreen ? snapPoints[1] : snapPoints[0])
+  }, [props.fullScreen])
 
   return (
-    <VaulDrawer.Root open={props.open} onOpenChange={props.onOpenChange}>
+    <VaulDrawer.Root
+      open={props.open}
+      onOpenChange={props.onOpenChange}
+      activeSnapPoint={snap}
+      snapPoints={snapPoints as any}
+      setActiveSnapPoint={setSnap}
+    >
       <VaulDrawer.Portal>
         <VaulDrawer.Overlay className={classes.overlay} />
-        <VaulDrawer.Content
-          className={classes.content}
-          style={{ height: props.fullScreen ? "85vh" : "auto" }}
-        >
+        <VaulDrawer.Content className={classes.content}>
           <Container size="lg">
             <div className={classes.handle} />
             {props.title && (
