@@ -1,20 +1,18 @@
 import type * as errorTypes from "@dpkit/lib"
 import { Code, Text } from "@mantine/core"
+import { useTranslation } from "react-i18next"
 
 export function FieldsMissingError(props: {
   error: errorTypes.FieldsMissingError
 }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Missing fields:{" "}
-      {props.error.fieldNames.map((name, i) => (
-        <span key={i}>
-          {i > 0 && ", "}
-          <Code fz="lg" fw="bold">
-            {name}
-          </Code>
-        </span>
-      ))}
+      {t("The fields")}{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldNames.join(", ")}
+      </Code>{" "}
+      {t("are missing")}
     </Text>
   )
 }
@@ -22,17 +20,14 @@ export function FieldsMissingError(props: {
 export function FieldsExtraError(props: {
   error: errorTypes.FieldsExtraError
 }) {
+  const { t } = useTranslation()
   return (
     <Text>
-      Extra fields:{" "}
-      {props.error.fieldNames.map((name, i) => (
-        <span key={i}>
-          {i > 0 && ", "}
-          <Code fz="lg" fw="bold">
-            {name}
-          </Code>
-        </span>
-      ))}
+      {t("The fields")}{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.fieldNames.join(", ")}
+      </Code>{" "}
+      {t("are not expected")}
     </Text>
   )
 }

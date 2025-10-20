@@ -39,5 +39,8 @@
   "Field name is expected to be": "Field name is expected to be",
   "but it is actually": "but it is actually",
   "Field": "Field",
-  "is expected to be": "is expected to be"
+  "is expected to be": "is expected to be",
+  "The fields": "The fields",
+  "are missing": "are missing",
+  "are not expected": "are not expected"
 }
