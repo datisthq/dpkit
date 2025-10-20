@@ -35,5 +35,9 @@
   "Length of the cell": "Length of the cell",
   "does not match the pattern": "does not match the pattern",
   "is not unique": "is not unique",
-  "is not in allowed values": "is not in allowed values"
+  "is not in allowed values": "is not in allowed values",
+  "Field name is expected to be": "Field name is expected to be",
+  "but it is actually": "but it is actually",
+  "Field": "Field",
+  "is expected to be": "is expected to be"
 }
