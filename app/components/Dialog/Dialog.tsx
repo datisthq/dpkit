@@ -27,6 +27,7 @@ export function Dialog(props: {
       activeSnapPoint={snap}
       snapPoints={snapPoints as any}
       setActiveSnapPoint={setSnap}
+      fadeFromIndex={0}
     >
       <VaulDrawer.Portal>
         <VaulDrawer.Overlay className={classes.overlay} />
@@ -34,7 +35,10 @@ export function Dialog(props: {
           <Container size="lg" h="100%">
             <Flex gap={{ base: 20, md: 40 }} direction="column" h="100%">
               <Box className={classes.handle} />
-              <ScrollArea flex={props.fullScreen ? 1 : undefined}>
+              <ScrollArea
+                flex={props.fullScreen ? 1 : undefined}
+                type={props.fullScreen ? "auto" : "never"}
+              >
                 {props.children}
               </ScrollArea>
               <Button
