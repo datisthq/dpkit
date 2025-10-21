@@ -13,11 +13,15 @@ export function useValidatePackage() {
       const rpc = createRpcSession()
       const report = await rpc.validatePackage(source)
 
+      return report
+    },
+    onSettled: () => {
       store.setState({ isPending: false })
+    },
+    onSuccess: report => {
       store.setState({ report })
     },
     onError: () => {
-      store.setState({ isPending: false })
       store.setState({ isError: true })
     },
   })
