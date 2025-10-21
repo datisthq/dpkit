@@ -11,6 +11,7 @@ import { JsonLd } from "react-schemaorg"
 import { Layout as LayoutComponent } from "#components/Layout/index.ts"
 import { Error } from "#components/System/index.ts"
 import { System } from "#components/System/index.ts"
+import { makeHeadLinks } from "#helpers/link.ts"
 import { getRevisionCacheControl } from "#helpers/revision.ts"
 import { createPayload } from "#payload.ts"
 import * as settings from "#settings.ts"
@@ -29,17 +30,19 @@ export default function Page() {
 export function ErrorBoundary() {
   const error = useRouteError()
   const code = isRouteErrorResponse(error) ? error.status : 500
+
   return <Error code={code} />
 }
 
 export function Layout() {
-  const canonicalUrl = useHref("")
-
   const matches = useMatches()
   const route = matches.at(-1) as any
 
   const payload: types.Payload = route?.data?.payload ?? createPayload().payload
   const languageId = payload.language.languageId
+  const pageId = payload.page.pageId
+
+  const links = makeHeadLinks({ languageId, pageId })
 
   return (
     <html lang={languageId} dir="ltr">
@@ -56,12 +59,19 @@ export function Layout() {
         <meta property="og:title" content={settings.TITLE} />
         <meta property="og:description" content={settings.DESCRIPTION} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:url" content={links[0]?.href ?? settings.URL} />
         <meta property="og:site_name" content={settings.TITLE} />
         <meta property="og:locale" content={languageId} />
 
-        <link rel="canonical" href={canonicalUrl} />
         <link rel="icon" type="image/png" href="/favicon.png" />
+        {links.map(link => (
+          <link
+            rel={link.rel}
+            hrefLang={link.hreflang}
+            href={link.href}
+            key={link.href}
+          />
+        ))}
 
         <JsonLd
           item={{

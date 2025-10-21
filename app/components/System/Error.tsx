@@ -6,6 +6,8 @@ export function Error(props: { code: number }) {
   const { code } = props
   const { t } = useTranslation()
 
+  console.log(code)
+
   const title = code === 404 ? t("Page not found") : t("Something went wrong")
   const text = code === 404 ? t("error404") : t("error500")
 
