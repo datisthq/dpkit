@@ -4,9 +4,7 @@ import "#styles/index.ts"
 // ---
 import { useMatches } from "react-router"
 import { Outlet, Scripts, ScrollRestoration } from "react-router"
-import { useRouteError } from "react-router"
 import { isRouteErrorResponse } from "react-router"
-import { useHref } from "react-router"
 import { JsonLd } from "react-schemaorg"
 import { Layout as LayoutComponent } from "#components/Layout/index.ts"
 import { Error } from "#components/System/index.ts"
@@ -16,6 +14,7 @@ import { getRevisionCacheControl } from "#helpers/revision.ts"
 import { createPayload } from "#payload.ts"
 import * as settings from "#settings.ts"
 import type * as types from "#types/index.ts"
+import type { Route } from "./+types/root.tsx"
 
 export function headers() {
   return {
@@ -27,21 +26,20 @@ export default function Page() {
   return <Outlet />
 }
 
-export function ErrorBoundary() {
-  const error = useRouteError()
-  const code = isRouteErrorResponse(error) ? error.status : 500
+export function ErrorBoundary(props: Route.ErrorBoundaryProps) {
+  const code = isRouteErrorResponse(props.error) ? props.error.status : 500
 
   return <Error code={code} />
 }
 
-export function Layout() {
+export function Layout(props: { children: React.ReactNode }) {
   const matches = useMatches()
   const route = matches.at(-1) as any
 
   const payload: types.Payload = route?.data?.payload ?? createPayload().payload
   const languageId = payload.language.languageId
-  const pageId = payload.page.pageId
 
+  const pageId = payload.page.pageId
   const links = makeHeadLinks({ languageId, pageId })
 
   return (
@@ -91,9 +89,7 @@ export function Layout() {
 
       <body>
         <System payload={payload}>
-          <LayoutComponent>
-            <Outlet />
-          </LayoutComponent>
+          <LayoutComponent>{props.children}</LayoutComponent>
         </System>
 
         <ScrollRestoration />
