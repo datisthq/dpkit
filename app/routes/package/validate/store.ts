@@ -7,4 +7,4 @@ export interface State {
   report?: Awaited<ReturnType<typeof validatePackage>>
 }
 
-export const store = createStore<State>()
+export const store = createStore<State>("validatePackage")
