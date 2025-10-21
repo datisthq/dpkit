@@ -89,6 +89,9 @@ importers:
       isbot:
         specifier: 5.1.31
         version: 5.1.31
+      loglayer:
+        specifier: 6.9.1
+        version: 6.9.1
       lucide-react:
         specifier: 0.545.0
         version: 0.545.0(react@19.2.0)
@@ -1655,6 +1658,22 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@loglayer/context-manager@1.1.6':
+    resolution: {integrity: sha512-kntdCN9MtNctoMpDBMk9D1begChINbdYJNso5YLB0bbKNIy819rKfarSn7Xmtcq0aBxFUHPp04wj6XnvWseFOQ==}
+    engines: {node: '>=18'}
+
+  '@loglayer/plugin@2.1.6':
+    resolution: {integrity: sha512-jZWnExpiYl+BefpiZC34/Finuu9fucxkPfz6re0xF1cUSOmZjy3fGeQtB+zVFYQz7mf6bWbN8dn5z22cH+Hdug==}
+    engines: {node: '>=18'}
+
+  '@loglayer/shared@2.5.3':
+    resolution: {integrity: sha512-KT8ic1wWstCKOjZNR6Vqpk9rK7PPx/QPjGhfqePGYjo6l9R94mSHry+zdtYjIrIPvQHbnzsp/wd6lj6IvD3MvQ==}
+    engines: {node: '>=18'}
+
+  '@loglayer/transport@2.3.4':
+    resolution: {integrity: sha512-SHvaex987nfqV9hNj/KEMEnE7SwtDa5YwxqXbZNEtWDSWimn6agHyce73/qJC86GVrtOJmLj2HMii9JdKeZozw==}
+    engines: {node: '>=18'}
 
   '@mantine/core@8.3.5':
     resolution: {integrity: sha512-PdVNLMgOS2vFhOujRi6/VC9ic8w3UDyKX7ftwDeJ7yQT8CiepUxfbWWYpVpnq23bdWh/7fIT2Pn1EY8r8GOk7g==}
@@ -4101,6 +4120,10 @@ packages:
 
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
+  loglayer@6.9.1:
+    resolution: {integrity: sha512-NNqSGZYwFFw3x5abn1nc2OcDm8WnWdZ0Ai08rYbVbwZf5bVJNMLVeTwrT12vid0nxv3imzMgJWZShpO4TH5XKw==}
+    engines: {node: '>=18'}
 
   loglevel@1.9.2:
     resolution: {integrity: sha512-HgMmCqIJSAKqo68l0rS2AanEWfkxaZ5wNiEFb5ggm08lDs9Xl2KxBlX3PTcaD2chBM1gXAYf491/M2Rv8Jwayg==}
@@ -7277,6 +7300,20 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
+  '@loglayer/context-manager@1.1.6':
+    dependencies:
+      '@loglayer/shared': 2.5.3
+
+  '@loglayer/plugin@2.1.6':
+    dependencies:
+      '@loglayer/shared': 2.5.3
+
+  '@loglayer/shared@2.5.3': {}
+
+  '@loglayer/transport@2.3.4':
+    dependencies:
+      '@loglayer/shared': 2.5.3
+
   '@mantine/core@8.3.5(@mantine/hooks@8.3.5(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@floating-ui/react': 0.27.16(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -10000,6 +10037,13 @@ snapshots:
   lodash.uniqby@4.7.0: {}
 
   lodash@4.17.21: {}
+
+  loglayer@6.9.1:
+    dependencies:
+      '@loglayer/context-manager': 1.1.6
+      '@loglayer/plugin': 2.1.6
+      '@loglayer/shared': 2.5.3
+      '@loglayer/transport': 2.3.4
 
   loglevel@1.9.2: {}
 
