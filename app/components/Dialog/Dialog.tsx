@@ -35,6 +35,9 @@ export function Dialog(props: {
           <Container size="lg" h="100%">
             <Flex gap={{ base: 20, md: 40 }} direction="column" h="100%">
               <Box className={classes.handle} />
+              <VaulDrawer.Title className={classes.title}>
+                {t("Dialog")}
+              </VaulDrawer.Title>
               <ScrollArea
                 flex={props.fullScreen ? 1 : undefined}
                 type={props.fullScreen ? "auto" : "never"}

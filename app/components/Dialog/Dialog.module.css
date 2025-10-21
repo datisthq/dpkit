@@ -4,6 +4,10 @@
   inset: 0;
 }
 
+.title {
+  display: none;
+}
+
 .content {
   z-index: 100;
   position: fixed;
