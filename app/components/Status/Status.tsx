@@ -1,8 +1,6 @@
 import { Center, Flex } from "@mantine/core"
 import type { ReactNode } from "react"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Error, Pending, Starting, Success } from "#icons.ts"
+import { Error, Pending, Success } from "#icons.ts"
 import classes from "./Status.module.css"
 
 export interface StatusProps {
@@ -13,22 +11,9 @@ export interface StatusProps {
 }
 
 export function Status(props: StatusProps) {
-  const { t } = useTranslation()
-  const [isStarting, setIsStarting] = useState(true)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsStarting(false)
-    }, 2000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  const status =
-    props.status === "pending" && isStarting ? "starting" : props.status
+  const { status } = props
 
   const getIcon = (): ReactNode => {
-    if (status === "starting")
-      return <Starting size={100} className={classes.loaderStarting} />
     if (status === "pending")
       return <Pending size={100} className={classes.loaderPending} />
     if (status === "success")
@@ -39,7 +24,6 @@ export function Status(props: StatusProps) {
   }
 
   const getTitle = (): string => {
-    if (status === "starting") return t("Starting private container...")
     if (status === "pending") return props.pendingTitle
     if (status === "success") return props.successTitle
     if (status === "error") return props.errorTitle
