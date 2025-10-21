@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { omit } from "es-toolkit"
 import { useMemo, useState } from "react"
 import { I18nextProvider } from "react-i18next"
+import { getRevisionStaleTime } from "#helpers/revision.ts"
 import { i18n } from "#i18n.ts"
 import { theme } from "#theme.ts"
 import type * as types from "#types/index.ts"
@@ -34,13 +35,10 @@ export function System(props: {
 }
 
 function createQueryClient() {
+  const staleTime = getRevisionStaleTime()
+
   const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: Number.POSITIVE_INFINITY,
-        gcTime: Number.POSITIVE_INFINITY,
-      },
-    },
+    defaultOptions: { queries: { staleTime, gcTime: staleTime } },
   })
 
   // @ts-ignore (enabling devtools)

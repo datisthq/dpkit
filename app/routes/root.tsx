@@ -11,15 +11,14 @@ import { JsonLd } from "react-schemaorg"
 import * as components from "#components/Layout/index.ts"
 import { Error } from "#components/System/index.ts"
 import { System } from "#components/System/index.ts"
+import { getRevisionCacheControl } from "#helpers/revision.ts"
 import { createPayload } from "#payload.ts"
 import * as settings from "#settings.ts"
 import type * as types from "#types/index.ts"
 
 export function headers() {
   return {
-    "Cache-Control": import.meta.env.PROD
-      ? `public, max-age=${60 * 60 * 24}`
-      : "private",
+    "Cache-Control": getRevisionCacheControl(),
   }
 }
 
