@@ -8,7 +8,7 @@ export interface Env {
 
 export class Rpc extends Container {
   defaultPort = 8080
-  sleepAfter = import.meta.env.DEV ? "1h" : "0h"
+  sleepAfter = import.meta.env.PROD ? "0h" : "1h"
 }
 
 declare module "react-router" {
@@ -31,7 +31,7 @@ export default {
     const path = new URL(request.url).pathname
 
     if (path === "/rpc") {
-      const name = import.meta.env.DEV ? "development" : randomUUID()
+      const name = import.meta.env.PROD ? randomUUID() : "dev"
       const containerInstance = getContainer(env.RPC, name)
       return containerInstance.fetch(request)
     }

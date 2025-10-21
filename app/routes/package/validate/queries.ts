@@ -1,6 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { newHttpBatchRpcSession } from "capnweb"
-import type { Rpc } from "#rpc.ts"
+import { createRpcSession } from "#helpers/rpc.ts"
 import type { validatePackage } from "./services.ts"
 import { store } from "./store.ts"
 
@@ -11,7 +10,7 @@ export function useValidatePackage() {
       store.setState({ isDialogOpen: true })
       store.setState({ isPending: true })
 
-      const rpc = newHttpBatchRpcSession<Rpc>("/rpc")
+      const rpc = createRpcSession()
       const report = await rpc.validatePackage(source)
 
       store.setState({ isPending: false })
