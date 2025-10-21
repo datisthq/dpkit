@@ -1,6 +1,6 @@
 import { join } from "node:path"
 import { execa } from "execa"
-import metadata from "../package.json" with { type: "json" }
+import metadata from "./package.json" with { type: "json" }
 
 // TODO: Enable SQLite support
 
@@ -13,9 +13,9 @@ function makeShell(...paths: string[]) {
   })
 }
 
-const $root = makeShell("..")
-const $compile = makeShell("..", "compile")
-const $binaries = makeShell("..", "compile", "binaries")
+const $root = makeShell()
+const $compile = makeShell("compile")
+const $binaries = makeShell("compile", "binaries")
 
 // Cleanup
 

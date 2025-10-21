@@ -10,7 +10,7 @@
   "scripts": {
     "build": "pnpm -F !docs -F !site build",
     "bump": "ncu -ws -u",
-    "clean": "npkill -D -x -y -nu && rm pnpm-lock.yaml",
+    "clean": "rm -rf **/node_modules",
     "compile": "pnpm -F cli compile",
     "coverage": "sensible-browser coverage/index.html",
     "format": "biome check --write",
@@ -34,12 +34,12 @@
     "conventional-changelog-conventionalcommits": "9.1.0",
     "execa": "9.6.0",
     "husky": "9.1.7",
-    "npkill": "0.12.2",
     "npm-check-updates": "18.0.1",
     "semantic-release": "24.2.9",
     "tempy": "3.1.0",
     "type-fest": "^4.41.0",
     "typescript": "5.9.2",
+    "vite": "7.1.10",
     "vitest": "3.2.4"
   },
   "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"

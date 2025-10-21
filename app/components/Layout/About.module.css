@@ -1,0 +1,6 @@
+.imageWrapper {
+  padding: 5px;
+  border-radius: 15px;
+  border: dashed 1px
+    light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-1));
+}

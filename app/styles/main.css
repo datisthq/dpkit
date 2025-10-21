@@ -1,0 +1,3 @@
+html[data-mantine-color-scheme="light"] {
+  scrollbar-color: var(--mantine-color-gray-3) var(--mantine-color-gray-0);
+}

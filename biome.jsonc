@@ -7,7 +7,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignore": ["pnpm-lock.yaml"],
+    "ignore": ["pnpm-lock.yaml", "**/*.module.css", "**/*d.ts"],
     "ignoreUnknown": true
   },
   "organizeImports": {

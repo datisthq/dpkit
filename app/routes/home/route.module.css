@@ -1,0 +1,23 @@
+.card {
+  transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.card:hover {
+  background-color: light-dark(
+    var(--mantine-color-blue-0),
+    var(--mantine-color-dark-5)
+  );
+  border-color: var(--mantine-color-blue-6);
+}
+
+.card:hover .icon {
+  transform: rotate(360deg);
+  transition: transform 0.5s ease;
+}
+
+.title {
+  font-size: var(--mantine-h3-font-size);
+  @mixin smaller-than $mantine-breakpoint-md {
+    font-size: var(--mantine-h4-font-size);
+  }
+}

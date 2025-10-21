@@ -1,0 +1,6 @@
+.git
+.user
+**/node_modules
+**/build
+**/compile
+**/coverage

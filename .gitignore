@@ -59,6 +59,7 @@ pids
 .clinic/
 .vscode/
 .wrangler/
+.react-router
 build/
 compile/
 dist/
