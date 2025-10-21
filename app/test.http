@@ -1,0 +1,8 @@
+### RPC Request
+POST http://localhost:8080/rpc
+Content-Type: application/json
+
+{
+  event: "validatePackage",
+  source: "test"
+}
