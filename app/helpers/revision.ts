@@ -1,7 +1,6 @@
 export function getRevisionCacheControl() {
-  return import.meta.env.PROD
-    ? `public, max-age=${getRevisionMaxAge()}`
-    : "private"
+  const maxAge = getRevisionMaxAge()
+  return import.meta.env.DEV ? "private" : `public, max-age=${maxAge}`
 }
 
 export function getRevisionMaxAge() {

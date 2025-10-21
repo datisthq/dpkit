@@ -3,7 +3,7 @@
 import "#styles/index.ts"
 // ---
 import { useMatches } from "react-router"
-import { Outlet, Scripts, ScrollRestoration } from "react-router"
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router"
 import { isRouteErrorResponse } from "react-router"
 import { JsonLd } from "react-schemaorg"
 import { Layout as LayoutComponent } from "#components/Layout/index.ts"
@@ -85,6 +85,9 @@ export function Layout(props: { children: React.ReactNode }) {
           data-domain="dpkit.dev"
           defer
         />
+
+        <Links />
+        <Meta />
       </head>
 
       <body>
