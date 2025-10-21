@@ -1,6 +1,7 @@
 {
   "name": "dpkit-cloud",
   "main": "main.ts",
+  "preview_urls": true,
   "compatibility_date": "2025-08-15",
   "compatibility_flags": ["nodejs_compat"],
   "upload_source_maps": true,
