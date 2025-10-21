@@ -385,6 +385,9 @@ importers:
       typedoc-plugin-markdown:
         specifier: 4.8.0
         version: 4.8.0(typedoc@0.28.9(typescript@5.9.2))
+      wrangler:
+        specifier: 4.43.0
+        version: 4.43.0
 
   dpkit:
     dependencies:
@@ -655,6 +658,9 @@ importers:
       typedoc-plugin-markdown:
         specifier: 4.8.0
         version: 4.8.0(typedoc@0.28.9(typescript@5.9.2))
+      wrangler:
+        specifier: 4.43.0
+        version: 4.43.0
 
   table:
     dependencies:
