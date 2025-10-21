@@ -11,14 +11,24 @@ export class Rpc extends RpcTarget {
 
 const server = http.createServer(async (request, response) => {
   try {
+    // For health-checks we just return 200
+    if (request.url === "/") {
+      response.statusCode = 200
+      response.end()
+      return
+    }
+
     await nodeHttpBatchRpcResponse(request, response, new Rpc())
-    logger.info(`[${request.method}] ${request.url}`, response.statusCode)
   } catch (error: any) {
-    logger.error(`[${request.method}] ${request.url}`, error)
+    response.statusCode = 500
     response.end("Internal Error")
+
+    logger.error(error)
+  } finally {
+    logger.info(`[${request.method}] ${request.url}`, response.statusCode)
   }
 })
 
 server.listen(8080, () => {
-  logger.info("RPC server listening on port 8080")
+  logger.info("Listening on port 8080")
 })
