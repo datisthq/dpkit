@@ -9,18 +9,6 @@
   }
 }
 
-.loaderStarting {
-  animation: spin 1s linear infinite;
-  color: var(--mantine-color-blue-6);
-  width: 80px;
-  height: 80px;
-
-  @mixin smaller-than $mantine-breakpoint-sm {
-    width: 40px;
-    height: 40px;
-  }
-}
-
 .loaderPending {
   animation: spin 1s linear infinite;
   color: var(--mantine-color-yellow-6);
@@ -46,6 +34,17 @@
 
 .iconError {
   color: var(--mantine-color-red-6);
+  width: 80px;
+  height: 80px;
+
+  @mixin smaller-than $mantine-breakpoint-sm {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.iconFault {
+  color: var(--mantine-color-gray-6);
   width: 80px;
   height: 80px;
 
