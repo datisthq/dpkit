@@ -1,4 +1,4 @@
-//import { randomUUID } from "node:crypto"
+import { randomUUID } from "node:crypto"
 import { Container, getContainer } from "@cloudflare/containers"
 import { createRequestHandler } from "react-router"
 
@@ -8,8 +8,7 @@ export interface Env {
 
 export class Rpc extends Container {
   defaultPort = 8080
-  //sleepAfter = import.meta.env.PROD ? "0h" : "1h"
-  sleepAfter = import.meta.env.PROD ? "1h" : "1h"
+  sleepAfter = import.meta.env.PROD ? "0h" : "1h"
 }
 
 declare module "react-router" {
@@ -32,8 +31,7 @@ export default {
     const path = new URL(request.url).pathname
 
     if (path === "/rpc") {
-      //const name = import.meta.env.PROD ? randomUUID() : "dev"
-      const name = import.meta.env.PROD ? "dev" : "dev"
+      const name = import.meta.env.PROD ? randomUUID() : "dev"
       const containerInstance = getContainer(env.RPC, name)
       return containerInstance.fetch(request)
     }
