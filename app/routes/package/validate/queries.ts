@@ -16,5 +16,9 @@ export function useValidatePackage() {
       store.setState({ isPending: false })
       store.setState({ report })
     },
+    onError: () => {
+      store.setState({ isPending: false })
+      store.setState({ isError: true })
+    },
   })
 }

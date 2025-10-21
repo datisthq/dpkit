@@ -4,6 +4,7 @@ import type { validatePackage } from "./services.ts"
 export interface State {
   isDialogOpen?: boolean
   isPending?: boolean
+  isError?: boolean
   report?: Awaited<ReturnType<typeof validatePackage>>
 }
 
