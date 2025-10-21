@@ -8,7 +8,7 @@ export interface Env {
 
 export class Rpc extends Container {
   defaultPort = 8080
-  sleepAfter = import.meta.env.DEV ? "1h" : "1m"
+  sleepAfter = import.meta.env.DEV ? "1h" : "0h"
 }
 
 declare module "react-router" {
