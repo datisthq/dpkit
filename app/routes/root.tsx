@@ -8,7 +8,7 @@ import { useRouteError } from "react-router"
 import { isRouteErrorResponse } from "react-router"
 import { useHref } from "react-router"
 import { JsonLd } from "react-schemaorg"
-import * as components from "#components/Layout/index.ts"
+import { Layout as LayoutComponent } from "#components/Layout/index.ts"
 import { Error } from "#components/System/index.ts"
 import { System } from "#components/System/index.ts"
 import { getRevisionCacheControl } from "#helpers/revision.ts"
@@ -81,9 +81,9 @@ export function Layout() {
 
       <body>
         <System payload={payload}>
-          <components.Layout>
+          <LayoutComponent>
             <Outlet />
-          </components.Layout>
+          </LayoutComponent>
         </System>
 
         <ScrollRestoration />

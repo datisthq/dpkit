@@ -3,6 +3,7 @@
   "Something went wrong": "Algo salió mal",
   "Take me back to home page": "Volver a la página de inicio",
   "error404": "Es posible que haya escrito mal la dirección o que la página se haya movido a otra URL.",
+  "error500": "Algo salió mal. Por favor, inténtelo de nuevo más tarde.",
   "Change Theme": "Cambiar tema",
   "Light": "Claro",
   "Dark": "Oscuro",

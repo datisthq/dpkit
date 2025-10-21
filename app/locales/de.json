@@ -3,6 +3,7 @@
   "Something went wrong": "Etwas ist schief gelaufen",
   "Take me back to home page": "Zurück zur Startseite",
   "error404": "Möglicherweise haben Sie die Adresse falsch eingegeben oder die Seite wurde an eine andere URL verschoben.",
+  "error500": "Etwas ist schief gelaufen. Bitte versuchen Sie es später erneut.",
   "Change Theme": "Design ändern",
   "Light": "Hell",
   "Dark": "Dunkel",
