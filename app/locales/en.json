@@ -94,7 +94,7 @@
   "about-dpkit-cloud-title": "About dpkit Cloud",
   "about-dpkit-cloud-description": "dpkit Cloud provides free online privacy-first tools for converting and validating data. Unlike others, dpkit Cloud is free and completely open source allowing you to review the code or self-host the service. In 2025, the project was funded by European Commission.",
   "about-privacy-first-title": "Privacy-first",
-  "about-privacy-first-description": "dpkit Cloud performs all the operation in complete isolation using only ephemeral storages. For each request, a private container is created and destroyed after the request is completed. This ensures that your data is not collected on our servers and is only accessible to you during the processing of your request.",
+  "about-privacy-first-description": "dpkit Cloud is a competely open source project being under constant peer-review. The code is transparent and auditable, ensuring your data is never collected on our servers and remains accessible only to you during processing. dpkit Cloud does not collect your data or store your data after processing.",
   "about-self-hosting-title": "Self-hosting",
   "about-self-hosting-description": "dpkit Cloud is completely open source and can be self-hosted. Visit our GitHub repository to get started. For assistance with self-hosting or custom deployments, please get in touch with us.",
   "about-github-repository": "GitHub repository",

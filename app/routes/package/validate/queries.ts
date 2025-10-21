@@ -10,8 +10,6 @@ export function useValidatePackage() {
       store.setState({ isDialogOpen: true })
       store.setState({ isPending: true })
 
-      throw new Error("Not implemented")
-
       const rpc = createRpcSession()
       const report = await rpc.validatePackage(source)
 
