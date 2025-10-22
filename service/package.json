@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.0-dev",
   "exports": {
-    "./client": "./build/exports/client.js",
-    "./server": "./build/exports/server.js"
+    "./client": "./build/runtimes/client.js",
+    "./server": "./build/runtimes/server.js"
   },
   "sideEffects": false,
   "license": "MIT",

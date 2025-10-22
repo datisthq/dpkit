@@ -34,10 +34,9 @@ export function createServer(options?: {
       options?.withDocumentation ?? settings.WITH_DOCUMENTATION,
   }
 
-  const url = new URL(
-    config.prefix,
-    `${config.protocol}://${config.host}:${config.port}`,
-  )
+  const port = ![80, 443].includes(config.port) ? config.port : undefined
+  const host = [config.host, port].filter(Boolean).join(":")
+  const url = new URL(config.prefix, `${config.protocol}://${host}`)
 
   const openAPIHandler = new OpenAPIHandler(config.router, {
     plugins: [

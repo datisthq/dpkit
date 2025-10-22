@@ -9,7 +9,7 @@ export const validatePackage = os
   })
   .input(
     z.object({
-      source: z.string(),
+      source: z.union([z.string(), z.record(z.string(), z.unknown())]),
     }),
   )
   .output(

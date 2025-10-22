@@ -2,10 +2,10 @@ import { Container, getContainer } from "@cloudflare/containers"
 import { createRequestHandler } from "react-router"
 
 export interface Env {
-  SERVICE: DurableObjectNamespace<Service>
+  API: DurableObjectNamespace<API>
 }
 
-export class Service extends Container {
+export class API extends Container {
   defaultPort = 8080
   sleepAfter = "1h"
 }
@@ -30,7 +30,7 @@ export default {
     const path = new URL(request.url).pathname
 
     if (path.startsWith("/api")) {
-      const containerInstance = getContainer(env.SERVICE, path)
+      const containerInstance = getContainer(env.API, path)
       return await containerInstance.fetch(request)
     }
 

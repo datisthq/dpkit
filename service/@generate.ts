@@ -7,5 +7,5 @@ const contractJson = minifyContractRouter(router)
 
 fs.writeFileSync(
   join(import.meta.dirname, "contract.json"),
-  JSON.stringify(contractJson, null, 2),
+  `${JSON.stringify(contractJson, null, 2)}\n`,
 )

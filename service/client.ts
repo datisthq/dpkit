@@ -9,7 +9,7 @@ import { logger } from "./logger.ts"
 import * as settings from "./settings.ts"
 
 export function createClient(options?: {
-  contract: ContractRouter<any>
+  contract?: ContractRouter<any>
   logger?: Logger<any>
   protocol?: "http" | "https"
   host?: string
@@ -25,17 +25,12 @@ export function createClient(options?: {
     prefix: options?.prefix ?? settings.PREFIX,
   }
 
-  const url = new URL(
-    config.prefix,
-    `${config.protocol}://${config.host}:${config.port}`,
-  )
-
-  const link = new OpenAPILink(config.contract, {
-    url,
-  })
+  const port = ![80, 443].includes(config.port) ? config.port : undefined
+  const host = [config.host, port].filter(Boolean).join(":")
+  const url = new URL(config.prefix, `${config.protocol}://${host}`)
 
   const client: JsonifiedClient<ContractRouterClient<typeof contract>> =
-    createORPCClient(link)
+    createORPCClient(new OpenAPILink(config.contract, { url }))
 
   return client
 }

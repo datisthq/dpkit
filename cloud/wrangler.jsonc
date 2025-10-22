@@ -13,7 +13,7 @@
   },
   "containers": [
     {
-      "class_name": "Service",
+      "class_name": "API",
       "image": "./Dockerfile",
       "image_build_context": "../",
       "instance_type": "standard-1",
@@ -23,14 +23,14 @@
   "durable_objects": {
     "bindings": [
       {
-        "class_name": "Service",
-        "name": "SERVICE"
+        "class_name": "API",
+        "name": "API"
       }
     ]
   },
   "migrations": [
     {
-      "new_sqlite_classes": ["Service"],
+      "new_sqlite_classes": ["API"],
       "tag": "v1"
     }
   ]
