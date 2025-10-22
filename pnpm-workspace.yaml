@@ -21,6 +21,7 @@ packages:
   - markdown
   - ods
   - parquet
+  - service
   - site
   - table
   - test

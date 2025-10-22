@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/browser",
+  "name": "@dpkit/service",
   "type": "module",
   "version": "0.0.0-dev",
   "private": true,
@@ -19,9 +19,16 @@
     "validation",
     "quality",
     "fair",
-    "browser"
+    "service"
   ],
   "scripts": {
     "build": "tsc"
+  },
+  "dependencies": {
+    "@dpkit/lib": "workspace:*",
+    "@loglayer/transport-tslog": "^3.0.4",
+    "@orpc/server": "^1.10.0",
+    "loglayer": "6.9.1",
+    "tslog": "^4.10.2"
   }
 }
