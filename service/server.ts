@@ -3,7 +3,7 @@ import { OpenAPIGenerator } from "@orpc/openapi"
 import { OpenAPIHandler } from "@orpc/openapi/node"
 import type { Router } from "@orpc/server"
 import { CORSPlugin } from "@orpc/server/plugins"
-import { ZodSmartCoercionPlugin, ZodToJsonSchemaConverter } from "@orpc/zod"
+import { ZodToJsonSchemaConverter } from "@orpc/zod"
 import type { Logger } from "tslog"
 import { logger } from "./logger.ts"
 import metadata from "./package.json" with { type: "json" }
@@ -41,8 +41,10 @@ export function createServer(options?: {
 
   const openAPIHandler = new OpenAPIHandler(config.router, {
     plugins: [
-      new CORSPlugin({ allowMethods: config.corsMethods }),
-      new ZodSmartCoercionPlugin(),
+      new CORSPlugin({
+        allowMethods: config.corsMethods,
+        exposeHeaders: ["Content-Disposition"],
+      }),
     ],
   })
 
@@ -87,7 +89,6 @@ export function createServer(options?: {
             version: metadata.version,
           },
           servers: [{ url: url.toString() }],
-          security: [{ bearerAuth: [] }],
         })
 
         res.writeHead(200, { "Content-Type": "application/json" })

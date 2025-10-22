@@ -172,9 +172,6 @@ importers:
       '@mantine/hooks':
         specifier: 8.3.5
         version: 8.3.5(react@19.2.0)
-      '@orpc/client':
-        specifier: 1.10.0
-        version: 1.10.0
       '@orpc/openapi-client':
         specifier: 1.10.0
         version: 1.10.0
