@@ -52,7 +52,11 @@ export function createServer(options?: {
 
   const server = http.createServer(async (req, res) => {
     try {
-      if (req.url === config.prefix) {
+      if (req.url === "/") {
+        // Handle health checks
+        res.writeHead(200)
+        res.end()
+      } else if (req.url === config.prefix) {
         const html = `
         <!doctype html>
         <html>

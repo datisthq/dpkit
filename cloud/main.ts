@@ -29,7 +29,7 @@ export default {
   async fetch(request, env, ctx) {
     const path = new URL(request.url).pathname
 
-    if (path === "/api") {
+    if (path.startsWith("/api")) {
       const containerInstance = getContainer(env.SERVICE, path)
       return await containerInstance.fetch(request)
     }

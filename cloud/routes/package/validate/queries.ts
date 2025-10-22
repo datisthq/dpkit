@@ -1,14 +1,12 @@
 import { useMutation } from "@tanstack/react-query"
-import { service } from "#service.ts"
+import { api } from "#api/client.ts"
 import { store } from "./store.ts"
 
 export function useValidatePackage() {
   return useMutation({
     mutationKey: ["validatePackage"],
-    mutationFn: async (
-      input: Parameters<typeof service.package.validate>[0],
-    ) => {
-      return await service.package.validate(input)
+    mutationFn: async (input: Parameters<typeof api.package.validate>[0]) => {
+      return await api.package.validate(input)
     },
     onMutate: () => {
       store.setState({ isDialogOpen: true })
@@ -20,7 +18,8 @@ export function useValidatePackage() {
     onSuccess: report => {
       store.setState({ report })
     },
-    onError: () => {
+    onError: error => {
+      console.log(error)
       store.setState({ isFault: true })
     },
   })
