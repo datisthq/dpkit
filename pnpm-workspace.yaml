@@ -1,8 +1,8 @@
 dangerouslyAllowAllBuilds: true
 packages:
-  - app
   - arrow
   - browser
+  - cloud
   - ckan
   - cli
   - core

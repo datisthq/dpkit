@@ -13,6 +13,6 @@ export default defineConfig({
     svgr(),
   ],
   resolve: {
-    alias: [{ find: "@dpkit/app", replacement: import.meta.dirname }],
+    alias: [{ find: "@dpkit/cloud", replacement: import.meta.dirname }],
   },
 })

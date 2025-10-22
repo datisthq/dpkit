@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/app",
+  "name": "@dpkit/cloud",
   "type": "module",
   "version": "0.0.0-dev",
   "private": true,
@@ -15,6 +15,7 @@
     "type": "tsc --noEmit"
   },
   "devDependencies": {
+    "@dpkit/service": "workspace:*",
     "@cloudflare/containers": "0.0.28",
     "@mantine/core": "8.3.5",
     "@mantine/form": "8.3.5",
