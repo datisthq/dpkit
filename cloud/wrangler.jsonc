@@ -1,0 +1,37 @@
+{
+  "name": "dpkit-cloud",
+  "main": "main.ts",
+  "preview_urls": true,
+  "compatibility_date": "2025-08-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "upload_source_maps": true,
+  "placement": {
+    "mode": "smart"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "containers": [
+    {
+      "class_name": "API",
+      "image": "./Dockerfile",
+      "image_build_context": "../",
+      "instance_type": "standard-1",
+      "max_instances": 10
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "class_name": "API",
+        "name": "API"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "new_sqlite_classes": ["API"],
+      "tag": "v1"
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 dangerouslyAllowAllBuilds: true
 packages:
-  - app
   - arrow
+  - browser
+  - cloud
   - ckan
   - cli
   - core
@@ -20,6 +21,7 @@ packages:
   - markdown
   - ods
   - parquet
+  - service
   - site
   - table
   - test

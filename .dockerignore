@@ -1,5 +1,9 @@
 .git
 .user
+cli/
+docs/
+dpkit/
+site/
 **/node_modules
 **/build
 **/compile

@@ -1,0 +1,14 @@
+{
+  "package": {
+    "validate": {
+      "~orpc": {
+        "errorMap": {},
+        "meta": {},
+        "route": {
+          "method": "POST",
+          "path": "/package/validate"
+        }
+      }
+    }
+  }
+}
