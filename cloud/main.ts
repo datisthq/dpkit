@@ -1,5 +1,6 @@
 import { Container, getContainer } from "@cloudflare/containers"
 import { createRequestHandler } from "react-router"
+import * as settings from "#settings.ts"
 
 export interface Env {
   API: DurableObjectNamespace<API>
@@ -29,8 +30,8 @@ export default {
   async fetch(request, env, ctx) {
     const path = new URL(request.url).pathname
 
-    if (path.startsWith("/api")) {
-      const containerInstance = getContainer(env.API, "/api")
+    if (path.startsWith(settings.API_PREFIX)) {
+      const containerInstance = getContainer(env.API, settings.API_PREFIX)
       return await containerInstance.fetch(request)
     }
 
