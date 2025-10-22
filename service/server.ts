@@ -1,27 +1,47 @@
 import * as http from "node:http"
 import { OpenAPIGenerator } from "@orpc/openapi"
 import { OpenAPIHandler } from "@orpc/openapi/node"
+import type { Router } from "@orpc/server"
 import { CORSPlugin } from "@orpc/server/plugins"
 import { ZodSmartCoercionPlugin, ZodToJsonSchemaConverter } from "@orpc/zod"
+import type { Logger } from "tslog"
+import { logger } from "./logger.ts"
 import metadata from "./package.json" with { type: "json" }
 import { router } from "./router.ts"
+import * as settings from "./settings.ts"
 
-export function createServer(options: {
-  protocol: "http" | "https"
-  host: string
-  port: number
-  prefix: `/${string}`
-  corsMethods: string[]
-  withDocumentation: boolean
+export function createServer(options?: {
+  start?: boolean
+  router?: Router<any, any>
+  logger?: Logger<any>
+  protocol?: "http" | "https"
+  host?: string
+  port?: number
+  prefix?: `/${string}`
+  corsMethods?: string[]
+  withDocumentation?: boolean
 }) {
+  const config = {
+    start: options?.start ?? settings.START,
+    router: options?.router ?? router,
+    logger: options?.logger ?? logger,
+    protocol: options?.protocol ?? settings.PROTOCOL,
+    host: options?.host ?? settings.HOST,
+    port: options?.port ?? settings.PORT,
+    prefix: options?.prefix ?? settings.PREFIX,
+    corsMethods: options?.corsMethods ?? settings.CORS_METHODS,
+    withDocumentation:
+      options?.withDocumentation ?? settings.WITH_DOCUMENTATION,
+  }
+
   const url = new URL(
-    options.prefix,
-    `${options.protocol}://${options.host}:${options.port}`,
+    config.prefix,
+    `${config.protocol}://${config.host}:${config.port}`,
   )
 
-  const openAPIHandler = new OpenAPIHandler(router, {
+  const openAPIHandler = new OpenAPIHandler(config.router, {
     plugins: [
-      new CORSPlugin({ allowMethods: options.corsMethods }),
+      new CORSPlugin({ allowMethods: config.corsMethods }),
       new ZodSmartCoercionPlugin(),
     ],
   })
@@ -30,11 +50,11 @@ export function createServer(options: {
     schemaConverters: [new ZodToJsonSchemaConverter()],
   })
 
-  return http.createServer(async (req, res) => {
+  const server = http.createServer(async (req, res) => {
     console.log(req.url)
 
     const { matched } = await openAPIHandler.handle(req, res, {
-      prefix: options.prefix,
+      prefix: config.prefix,
     })
 
     if (matched) {
@@ -42,7 +62,7 @@ export function createServer(options: {
     }
 
     if (req.url === "/spec.json") {
-      const spec = await openAPIGenerator.generate(router, {
+      const spec = await openAPIGenerator.generate(config.router, {
         info: {
           title: "dpkit Service",
           version: metadata.version,
@@ -86,4 +106,12 @@ export function createServer(options: {
     res.writeHead(404)
     res.end()
   })
+
+  if (config.start) {
+    server.listen(config.port, () =>
+      logger.info(`Listening on ${url.toString()}`),
+    )
+  }
+
+  return server
 }
