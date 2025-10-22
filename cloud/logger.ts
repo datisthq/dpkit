@@ -1,7 +1,9 @@
-import { ConsoleTransport, LogLayer } from "loglayer"
+import { TsLogTransport } from "@loglayer/transport-tslog"
+import { LogLayer } from "loglayer"
+import { Logger } from "tslog"
 
 export const logger = new LogLayer({
-  transport: new ConsoleTransport({
-    logger: console,
+  transport: new TsLogTransport({
+    logger: new Logger({ type: "pretty" }),
   }),
 })

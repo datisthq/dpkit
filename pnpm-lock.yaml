@@ -150,6 +150,13 @@ importers:
         version: 4.0.0(@types/react@19.1.9)
 
   cloud:
+    dependencies:
+      '@loglayer/transport-tslog':
+        specifier: ^3.0.4
+        version: 3.0.4(tslog@4.10.2)
+      tslog:
+        specifier: ^4.10.2
+        version: 4.10.2
     devDependencies:
       '@cloudflare/containers':
         specifier: 0.0.28
@@ -169,6 +176,9 @@ importers:
       '@mantine/hooks':
         specifier: 8.3.5
         version: 8.3.5(react@19.2.0)
+      '@orpc/client':
+        specifier: 1.10.0
+        version: 1.10.0
       '@react-router/dev':
         specifier: 7.9.4
         version: 7.9.4(@types/node@24.2.0)(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(wrangler@4.43.0)(yaml@2.8.1)

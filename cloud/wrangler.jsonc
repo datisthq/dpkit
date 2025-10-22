@@ -13,7 +13,7 @@
   },
   "containers": [
     {
-      "class_name": "Rpc",
+      "class_name": "Service",
       "image": "./Dockerfile",
       "image_build_context": "../",
       "instance_type": "standard-1",
@@ -23,14 +23,14 @@
   "durable_objects": {
     "bindings": [
       {
-        "class_name": "Rpc",
-        "name": "RPC"
+        "class_name": "Service",
+        "name": "SERVICE"
       }
     ]
   },
   "migrations": [
     {
-      "new_sqlite_classes": ["Rpc"],
+      "new_sqlite_classes": ["Service"],
       "tag": "v1"
     }
   ]

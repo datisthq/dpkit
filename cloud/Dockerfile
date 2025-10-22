@@ -11,4 +11,4 @@ RUN pnpm install:ci
 RUN pnpm build
 
 EXPOSE 8080
-CMD ["node", "cloud/rpc.ts"]
+CMD ["node", "service/main.ts"]
