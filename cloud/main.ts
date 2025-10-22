@@ -32,7 +32,7 @@ export default {
 
     if (path.startsWith(settings.API_PREFIX)) {
       const containerInstance = getContainer(env.API, settings.API_PREFIX)
-      return await containerInstance.fetch(request)
+      return await containerInstance.containerFetch(request)
     }
 
     return await requestHandler(request, {
