@@ -51,60 +51,62 @@ export function createServer(options?: {
   })
 
   const server = http.createServer(async (req, res) => {
-    console.log(req.url)
+    try {
+      if (req.url === config.prefix) {
+        const html = `
+        <!doctype html>
+        <html>
+          <head>
+            <title>dpkit Service</title>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" type="image/png" href="https://dpkit.dev/favicon.png" />
+          </head>
+          <body>
+            <div id="root"></div>
+            <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
+            <script>
+              Scalar.createApiReference('#root', {
+                url: '${config.prefix}/spec.json',
+              })
+            </script>
+          </body>
+        </html>
+      `
 
-    const { matched } = await openAPIHandler.handle(req, res, {
-      prefix: config.prefix,
-    })
+        res.writeHead(200, { "Content-Type": "text/html" })
+        res.end(html)
+      } else if (req.url === `${config.prefix}/spec.json`) {
+        const spec = await openAPIGenerator.generate(config.router, {
+          info: {
+            title: "dpkit Service",
+            version: metadata.version,
+          },
+          servers: [{ url: url.toString() }],
+          security: [{ bearerAuth: [] }],
+        })
 
-    if (matched) {
-      return
+        res.writeHead(200, { "Content-Type": "application/json" })
+        res.end(JSON.stringify(spec))
+        return
+      } else {
+        const { matched } = await openAPIHandler.handle(req, res, {
+          prefix: config.prefix,
+        })
+
+        if (!matched) {
+          res.writeHead(404)
+          res.end()
+        }
+      }
+    } catch (error: any) {
+      logger.error(error)
+
+      res.writeHead(500)
+      res.end()
+    } finally {
+      logger.info(`[${req.method}] ${req.url} → ${res.statusCode}`)
     }
-
-    if (req.url === `${config.prefix}/spec.json`) {
-      const spec = await openAPIGenerator.generate(config.router, {
-        info: {
-          title: "dpkit Service",
-          version: metadata.version,
-        },
-        servers: [{ url: url.toString() }],
-        security: [{ bearerAuth: [] }],
-      })
-
-      res.writeHead(200, { "Content-Type": "application/json" })
-      res.end(JSON.stringify(spec))
-      return
-    }
-
-    if (req.url === config.prefix) {
-      const html = `
-      <!doctype html>
-      <html>
-        <head>
-          <title>dpkit Service</title>
-          <meta charset="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" type="image/png" href="https://dpkit.dev/favicon.png" />
-        </head>
-        <body>
-          <div id="root"></div>
-          <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
-          <script>
-            Scalar.createApiReference('#root', {
-              url: '${config.prefix}/spec.json',
-            })
-          </script>
-        </body>
-      </html>
-    `
-
-      res.writeHead(200, { "Content-Type": "text/html" })
-      res.end(html)
-      return
-    }
-
-    res.writeHead(404)
-    res.end()
   })
 
   if (config.start) {
