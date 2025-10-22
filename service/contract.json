@@ -4,7 +4,10 @@
       "~orpc": {
         "errorMap": {},
         "meta": {},
-        "route": {}
+        "route": {
+          "method": "POST",
+          "path": "/package/validate"
+        }
       }
     }
   }

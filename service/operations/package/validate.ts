@@ -3,6 +3,10 @@ import { os } from "@orpc/server"
 import * as z from "zod"
 
 export const validatePackage = os
+  .route({
+    method: "POST",
+    path: "/package/validate",
+  })
   .input(
     z.object({
       source: z.string(),
