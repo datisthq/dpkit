@@ -30,7 +30,7 @@ export default {
     const path = new URL(request.url).pathname
 
     if (path.startsWith("/api")) {
-      const containerInstance = getContainer(env.API, path)
+      const containerInstance = getContainer(env.API, "/api")
       return await containerInstance.fetch(request)
     }
 
