@@ -61,7 +61,7 @@ export function createServer(options?: {
       return
     }
 
-    if (req.url === "/spec.json") {
+    if (req.url === `${config.prefix}/spec.json`) {
       const spec = await openAPIGenerator.generate(config.router, {
         info: {
           title: "dpkit Service",
@@ -76,7 +76,7 @@ export function createServer(options?: {
       return
     }
 
-    if (req.url === "/") {
+    if (req.url === config.prefix) {
       const html = `
       <!doctype html>
       <html>
@@ -91,7 +91,7 @@ export function createServer(options?: {
           <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
           <script>
             Scalar.createApiReference('#root', {
-              url: '/spec.json',
+              url: '${config.prefix}/spec.json',
             })
           </script>
         </body>

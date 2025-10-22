@@ -55,13 +55,13 @@ importers:
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
 
   app:
-    dependencies:
+    devDependencies:
       '@cloudflare/containers':
         specifier: 0.0.28
         version: 0.0.28
-      '@dpkit/lib':
-        specifier: workspace:*
-        version: link:../lib
+      '@cloudflare/vite-plugin':
+        specifier: 1.13.13
+        version: 1.13.13(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251008.0)(wrangler@4.43.0)
       '@mantine/core':
         specifier: 8.3.5
         version: 8.3.5(@mantine/hooks@8.3.5(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -71,12 +71,18 @@ importers:
       '@mantine/hooks':
         specifier: 8.3.5
         version: 8.3.5(react@19.2.0)
+      '@react-router/dev':
+        specifier: 7.9.4
+        version: 7.9.4(@types/node@24.2.0)(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(wrangler@4.43.0)(yaml@2.8.1)
       '@tanstack/react-query':
         specifier: 5.90.3
         version: 5.90.3(react@19.2.0)
-      capnweb:
-        specifier: 0.1.0
-        version: 0.1.0
+      '@types/react':
+        specifier: 19.2.2
+        version: 19.2.2
+      '@types/react-dom':
+        specifier: ^19.2.0
+        version: 19.2.0(@types/react@19.2.2)
       es-toolkit:
         specifier: 1.39.10
         version: 1.39.10
@@ -95,6 +101,15 @@ importers:
       lucide-react:
         specifier: 0.545.0
         version: 0.545.0(react@19.2.0)
+      postcss:
+        specifier: 8.5.6
+        version: 8.5.6
+      postcss-preset-mantine:
+        specifier: 1.18.0
+        version: 1.18.0(postcss@8.5.6)
+      postcss-simple-vars:
+        specifier: 7.0.1
+        version: 7.0.1(postcss@8.5.6)
       react:
         specifier: 19.2.0
         version: 19.2.0
@@ -128,34 +143,6 @@ importers:
       vaul:
         specifier: 1.1.2
         version: 1.1.2(@types/react-dom@19.2.0(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      xml-js:
-        specifier: 1.6.11
-        version: 1.6.11
-      zustand:
-        specifier: 5.0.8
-        version: 5.0.8(@types/react@19.2.2)(immer@10.1.3)(react@19.2.0)
-    devDependencies:
-      '@cloudflare/vite-plugin':
-        specifier: 1.13.13
-        version: 1.13.13(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251008.0)(wrangler@4.43.0)
-      '@react-router/dev':
-        specifier: 7.9.4
-        version: 7.9.4(@types/node@24.2.0)(react-router@7.9.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(typescript@5.9.2)(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(wrangler@4.43.0)(yaml@2.8.1)
-      '@types/react':
-        specifier: 19.2.2
-        version: 19.2.2
-      '@types/react-dom':
-        specifier: ^19.2.0
-        version: 19.2.0(@types/react@19.2.2)
-      postcss:
-        specifier: 8.5.6
-        version: 8.5.6
-      postcss-preset-mantine:
-        specifier: 1.18.0
-        version: 1.18.0(postcss@8.5.6)
-      postcss-simple-vars:
-        specifier: 7.0.1
-        version: 7.0.1(postcss@8.5.6)
       vite-plugin-devtools-json:
         specifier: 1.0.0
         version: 1.0.0(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))
@@ -165,6 +152,12 @@ importers:
       wrangler:
         specifier: 4.43.0
         version: 4.43.0
+      xml-js:
+        specifier: 1.6.11
+        version: 1.6.11
+      zustand:
+        specifier: 5.0.8
+        version: 5.0.8(@types/react@19.2.2)(immer@10.1.3)(react@19.2.0)
 
   arrow:
     dependencies:
@@ -635,7 +628,7 @@ importers:
         version: link:../test
 
   service:
-    dependencies:
+    devDependencies:
       '@dpkit/lib':
         specifier: workspace:*
         version: link:../lib
@@ -2970,9 +2963,6 @@ packages:
 
   caniuse-lite@1.0.30001750:
     resolution: {integrity: sha512-cuom0g5sdX6rw00qOoLNSFCJ9/mYIsuSOA+yzpDw8eopiFqcVwQvZHqov0vmEighRxX++cfC0Vg1G+1Iy/mSpQ==}
-
-  capnweb@0.1.0:
-    resolution: {integrity: sha512-+pygKx1JFTZTRdd1hHgaBRg5BwULEDZq8ZoHXkYP2GXNV3lrjXLj5qzlGz+SgBCJjWUmNBtlh7JPWdr0wIbY8w==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -8937,8 +8927,6 @@ snapshots:
   camelcase@8.0.0: {}
 
   caniuse-lite@1.0.30001750: {}
-
-  capnweb@0.1.0: {}
 
   ccount@2.0.1: {}
 

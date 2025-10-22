@@ -24,7 +24,7 @@
   "scripts": {
     "build": "tsc"
   },
-  "dependencies": {
+  "devDependencies": {
     "@dpkit/lib": "workspace:*",
     "@loglayer/transport-tslog": "^3.0.4",
     "@orpc/openapi": "^1.10.0",
