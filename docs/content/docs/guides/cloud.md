@@ -18,7 +18,7 @@ This document provides a brief overview of self-hosting [dpkit Cloud](https://cl
 4. Setup a new CloudFlare worker with the following configuration:
   - Name: e.g. `dpkit-cloud-custom` (should be the same as in `wrangler.jsonc`)
   - Github repository: point to your forked repository
-  - Build command: `pnpm -F cloud build`
+  - Build command: `pnpm build && pnpm -F cloud build`
   - Deploy command: `cd cloud && pnpm wrangler deploy`
   - Branch deploy command: `cd cloud && pnpm wrangler versions upload`
   - Variables ans secrets: `NODE_VERSION=24`
