@@ -1,4 +1,4 @@
-import { validatePackage } from "./endpoints/package/validate.ts"
+import { validatePackage } from "./operations/package/validate.ts"
 
 export const router = {
   package: {

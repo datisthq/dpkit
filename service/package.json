@@ -2,8 +2,10 @@
   "name": "@dpkit/service",
   "type": "module",
   "version": "0.0.0-dev",
-  "private": true,
-  "exports": "./build/index.js",
+  "exports": {
+    "./client": "./build/exports/client.js",
+    "./server": "./build/exports/server.js"
+  },
   "sideEffects": false,
   "license": "MIT",
   "author": "Evgeny Karev",
@@ -22,12 +24,16 @@
     "service"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "generate": "node @generate.ts"
   },
   "dependencies": {
     "@dpkit/lib": "workspace:*",
     "@loglayer/transport-tslog": "3.0.4",
+    "@orpc/client": "^1.10.0",
+    "@orpc/contract": "^1.10.0",
     "@orpc/openapi": "1.10.0",
+    "@orpc/openapi-client": "1.10.0",
     "@orpc/server": "1.10.0",
     "@orpc/zod": "1.10.0",
     "loglayer": "6.9.1",
