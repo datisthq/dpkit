@@ -34,8 +34,8 @@ export default function Page(_props: Route.ComponentProps) {
         <Title order={2}>{t("about-self-hosting-title")}</Title>
         <Text size="lg">
           {t("about-self-hosting-intro")}{" "}
-          <Link to="https://github.com/datisthq/dpkit">
-            {t("about-github-repository")}
+          <Link to="http://typescript.dpkit.dev/guides/cloud/">
+            {t("about-self-hosting-docs")}
           </Link>{" "}
           {t("about-self-hosting-middle")}{" "}
           <Link to="https://www.linkedin.com/in/evgeny-karev/">
