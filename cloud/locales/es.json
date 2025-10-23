@@ -1,4 +1,5 @@
 {
+  "Share": "Compartir",
   "Please try again later": "Por favor, inténtelo de nuevo más tarde",
   "Page not found": "Página no encontrada",
   "Something went wrong": "Algo salió mal",
@@ -16,6 +17,7 @@
   "Validate data package": "Validar paquete de datos",
   "Validate Data Package": "Validar paquete de datos",
   "Validate table data": "Validar datos de tabla",
+  "Infer table dialect": "Inferir dialecto de tabla",
   "Infer table schema": "Inferir esquema de tabla",
   "Convert table format": "Convertir formato de tabla",
   "Select a tool below": "Seleccione una herramienta a continuación",

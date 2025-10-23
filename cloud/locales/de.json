@@ -1,4 +1,5 @@
 {
+  "Share": "Teilen",
   "Please try again later": "Bitte versuchen Sie es später erneut",
   "Page not found": "Seite nicht gefunden",
   "Something went wrong": "Etwas ist schief gelaufen",
@@ -16,6 +17,7 @@
   "Validate data package": "Datenpaket validieren",
   "Validate Data Package": "Datenpaket validieren",
   "Validate table data": "Tabellendaten validieren",
+  "Infer table dialect": "Tabellendialekt ableiten",
   "Infer table schema": "Tabellenschema ableiten",
   "Convert table format": "Tabellenformat konvertieren",
   "Select a tool below": "Wählen Sie unten ein Werkzeug",

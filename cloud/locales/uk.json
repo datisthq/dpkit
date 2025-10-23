@@ -1,4 +1,5 @@
 {
+  "Share": "Поділитися",
   "Please try again later": "Будь ласка, спробуйте пізніше",
   "Page not found": "Сторінку не знайдено",
   "Something went wrong": "Щось пішло не так",
@@ -16,6 +17,7 @@
   "Validate data package": "Перевірити пакет даних",
   "Validate Data Package": "Перевірити пакет даних",
   "Validate table data": "Перевірити дані таблиці",
+  "Infer table dialect": "Вивести діалект таблиці",
   "Infer table schema": "Вивести схему таблиці",
   "Convert table format": "Конвертувати формат таблиці",
   "Select a tool below": "Виберіть інструмент нижче",

@@ -4,6 +4,8 @@ import { Report } from "#components/Report/index.ts"
 import { Status } from "#components/Status/index.ts"
 import { store } from "./store.ts"
 
+// TODO: fix error type casting using any
+
 export function ValidatePackageDialog() {
   const { t } = useTranslation()
   const report = store.useState(state => state.report)
@@ -35,7 +37,7 @@ export function ValidatePackageDialog() {
         errorTitle={t("Invalid data package")}
       />
 
-      <Report errors={report?.errors} />
+      <Report errors={report?.errors as any} />
     </Dialog>
   )
 }

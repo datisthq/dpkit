@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.0-dev",
   "exports": {
-    "./client": "./build/runtimes/client.js",
-    "./server": "./build/runtimes/server.js"
+    "./browser": "./build/runtimes/browser.js",
+    "./node": "./build/runtimes/node.js"
   },
   "sideEffects": false,
   "license": "MIT",

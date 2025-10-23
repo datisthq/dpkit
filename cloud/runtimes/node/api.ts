@@ -1,4 +1,4 @@
-import { createServer } from "@dpkit/service/server"
+import { createServer } from "@dpkit/service/node"
 import * as settings from "#settings.ts"
 
 createServer({

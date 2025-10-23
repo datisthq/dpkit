@@ -13,7 +13,7 @@ This document provides a brief overview of self-hosting **dpkit Service** on you
 2. Within your project, create a `main.ts` file:
 
 ```ts
-import { createServer } from "@dpkit/service"
+import { createServer } from "@dpkit/service/node"
 
 createServer({ start: true })
 ```

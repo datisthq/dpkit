@@ -1,4 +1,4 @@
-import { createClient } from "@dpkit/service/client"
+import { createClient } from "@dpkit/service/browser"
 import * as settings from "#settings.ts"
 
 export const api = createClient({

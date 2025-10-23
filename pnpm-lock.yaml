@@ -157,6 +157,9 @@ importers:
       '@cloudflare/vite-plugin':
         specifier: 1.13.13
         version: 1.13.13(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251008.0)(wrangler@4.43.0)
+      '@dpkit/lib':
+        specifier: workspace:*
+        version: link:../lib
       '@dpkit/service':
         specifier: workspace:*
         version: link:../service

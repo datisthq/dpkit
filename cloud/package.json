@@ -11,14 +11,15 @@
     "generate": "pnpm generate:cf && pnpm generate:rr",
     "generate:cf": "wrangler types",
     "generate:rr": "react-router typegen",
-    "start": "concurrently 'pnpm start:api' 'pnpm start:web'",
-    "start:api": "node api/server.ts --watch",
-    "start:web": "react-router dev",
+    "start": "concurrently 'pnpm start:api' 'pnpm start:main'",
+    "start:api": "node runtimes/node/api.ts --watch",
+    "start:main": "react-router dev",
     "type": "tsc --noEmit"
   },
   "devDependencies": {
     "@cloudflare/containers": "0.0.28",
     "@cloudflare/vite-plugin": "1.13.13",
+    "@dpkit/lib": "workspace:*",
     "@dpkit/service": "workspace:*",
     "@loglayer/transport-tslog": "3.0.4",
     "@mantine/core": "8.3.5",
