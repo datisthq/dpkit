@@ -10,28 +10,30 @@
   },
   "observability": {
     "enabled": true
-  },
-  "containers": [
-    {
-      "class_name": "API",
-      "image": "./Dockerfile",
-      "image_build_context": "../",
-      "instance_type": "standard-1",
-      "max_instances": 10
-    }
-  ],
-  "durable_objects": {
-    "bindings": [
-      {
-        "class_name": "API",
-        "name": "API"
-      }
-    ]
-  },
-  "migrations": [
-    {
-      "new_sqlite_classes": ["API"],
-      "tag": "v1"
-    }
-  ]
+  }
+  // https://github.com/cloudflare/containers/issues/101
+  //
+  //"containers": [
+  //  {
+  //    "class_name": "API",
+  //    "image": "./Dockerfile",
+  //    "image_build_context": "../",
+  //    "instance_type": "standard-1",
+  //    "max_instances": 10
+  //  }
+  //],
+  //"durable_objects": {
+  //  "bindings": [
+  //    {
+  //      "class_name": "API",
+  //      "name": "API"
+  //    }
+  //  ]
+  //},
+  //"migrations": [
+  //  {
+  //    "new_sqlite_classes": ["API"],
+  //    "tag": "v1"
+  //  }
+  //]
 }

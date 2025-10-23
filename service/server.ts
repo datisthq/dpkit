@@ -6,7 +6,6 @@ import { CORSPlugin } from "@orpc/server/plugins"
 import { ZodToJsonSchemaConverter } from "@orpc/zod"
 import type { Logger } from "tslog"
 import { logger } from "./logger.ts"
-import metadata from "./package.json" with { type: "json" }
 import { router } from "./router.ts"
 import * as settings from "./settings.ts"
 
@@ -32,6 +31,7 @@ export function createServer(options?: {
 
   const url = new URL(config.prefix, config.origin)
   const port = url.port ?? (url.protocol === "https:" ? 443 : 80)
+  const version = config.prefix.match(/v(\d+)/)?.[1] ?? "1"
 
   const openAPIHandler = new OpenAPIHandler(config.router, {
     plugins: [
@@ -80,7 +80,7 @@ export function createServer(options?: {
         const spec = await openAPIGenerator.generate(config.router, {
           info: {
             title: "dpkit Service",
-            version: metadata.version,
+            version,
           },
           servers: [{ url: url.toString() }],
         })
@@ -109,9 +109,9 @@ export function createServer(options?: {
   })
 
   if (config.start) {
-    server.listen(port, () =>
-      logger.info(`Server listening on ${url.toString()}`),
-    )
+    server.listen(port, () => {
+      logger.info(`Listening on ${url.toString()}`)
+    })
   }
 
   return server

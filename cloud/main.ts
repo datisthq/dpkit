@@ -1,15 +1,17 @@
-import { Container, getContainer } from "@cloudflare/containers"
+//import { Container, getContainer } from "@cloudflare/containers"
 import { createRequestHandler } from "react-router"
 import * as settings from "#settings.ts"
 
-export interface Env {
-  API: DurableObjectNamespace<API>
-}
+// https://github.com/cloudflare/containers/issues/101
+//
+//export interface Env {
+//  API: DurableObjectNamespace<API>
+//}
 
-export class API extends Container {
-  defaultPort = 8080
-  sleepAfter = "1h"
-}
+//export class API extends Container {
+//  defaultPort = 8080
+//  sleepAfter = "1h"
+//}
 
 declare module "react-router" {
   export interface AppLoadContext {
@@ -27,15 +29,28 @@ const requestHandler = createRequestHandler(
 )
 
 export default {
-  async fetch(request, env, ctx) {
-    const path = new URL(request.url).pathname
+  async fetch(req, env, ctx) {
+    const path = new URL(req.url).pathname
 
     if (path.startsWith(settings.API_PREFIX)) {
-      const containerInstance = getContainer(env.API, settings.API_PREFIX)
-      return await containerInstance.containerFetch(request)
+      //const containerInstance = getContainer(env.API, settings.API_PREFIX)
+      //return await containerInstance.containerFetch(req)
+
+      const clientUrl = new URL(req.url)
+      const serverUrl = new URL(
+        import.meta.env.PROD
+          ? settings.API_ORIGIN_PROD
+          : settings.API_ORIGIN_DEV,
+      )
+
+      serverUrl.pathname = clientUrl.pathname
+      serverUrl.search = clientUrl.search
+      serverUrl.hash = clientUrl.hash
+
+      return await fetch(serverUrl, req)
     }
 
-    return await requestHandler(request, {
+    return await requestHandler(req, {
       cloudflare: { env, ctx },
     })
   },

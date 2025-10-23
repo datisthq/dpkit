@@ -7,6 +7,9 @@ sidebar:
 
 This document provides a brief overview of self-hosting [dpkit Cloud](https://cloud.dpkit.dev) on your own infrastructure.
 
+> [!WARNING]
+> Currently, this setup below is blocked by [this CloudFlare issue](https://github.com/cloudflare/containers/issues/101).
+
 > [!TIP]
 > dpkit Cloud is built on top of [Cloudflare Workers](https://workers.cloudflare.com/) but it is possible to use any other runtime that fits your needs e.g. Digital Ocean Apps or Docker.
 

@@ -3,6 +3,9 @@ import * as settings from "#settings.ts"
 
 createServer({
   start: true,
-  origin: undefined, // use default
   prefix: settings.API_PREFIX,
+  origin:
+    process.env.NODE_ENV === "production"
+      ? settings.API_ORIGIN_PROD
+      : settings.API_ORIGIN_DEV,
 })

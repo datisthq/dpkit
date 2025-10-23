@@ -4,6 +4,9 @@ import { Logger } from "tslog"
 
 export const logger = new LogLayer({
   transport: new TsLogTransport({
-    logger: new Logger({ type: "pretty" }),
+    logger: new Logger({
+      type: "pretty",
+      hideLogPositionForProduction: true,
+    }),
   }),
 })

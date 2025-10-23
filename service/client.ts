@@ -17,11 +17,11 @@ export function createClient(options?: {
   const config = {
     contract: options?.contract ?? contract,
     logger: options?.logger ?? logger,
-    origin: options?.origin ?? settings.ORIGIN,
+    origin: options?.origin,
     prefix: options?.prefix ?? settings.PREFIX,
   }
 
-  const url = new URL(config.prefix, config.origin)
+  const url = [config.origin, config.prefix].filter(Boolean).join("")
 
   const client: JsonifiedClient<ContractRouterClient<typeof contract>> =
     createORPCClient(new OpenAPILink(config.contract, { url }))
