@@ -3,8 +3,6 @@ import { createClient } from "@dpkit/service/client"
 import * as settings from "#settings.ts"
 
 export const api = createClient({
-  protocol: import.meta.env.PROD ? "https" : "http",
-  host: import.meta.env.PROD ? settings.API_HOST : "localhost",
-  port: import.meta.env.PROD ? 80 : 4000,
+  origin: import.meta.env.PROD ? settings.URL : undefined, // use default in dev
   prefix: settings.API_PREFIX,
 })

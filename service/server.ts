@@ -14,9 +14,7 @@ export function createServer(options?: {
   start?: boolean
   router?: Router<any, any>
   logger?: Logger<any>
-  protocol?: "http" | "https"
-  host?: string
-  port?: number
+  origin?: string
   prefix?: `/${string}`
   corsMethods?: string[]
   withDocumentation?: boolean
@@ -25,18 +23,15 @@ export function createServer(options?: {
     start: options?.start ?? settings.START,
     router: options?.router ?? router,
     logger: options?.logger ?? logger,
-    protocol: options?.protocol ?? settings.PROTOCOL,
-    host: options?.host ?? settings.HOST,
-    port: options?.port ?? settings.PORT,
+    origin: options?.origin ?? settings.ORIGIN,
     prefix: options?.prefix ?? settings.PREFIX,
     corsMethods: options?.corsMethods ?? settings.CORS_METHODS,
     withDocumentation:
       options?.withDocumentation ?? settings.WITH_DOCUMENTATION,
   }
 
-  const port = ![80, 443].includes(config.port) ? config.port : undefined
-  const host = [config.host, port].filter(Boolean).join(":")
-  const url = new URL(config.prefix, `${config.protocol}://${host}`)
+  const url = new URL(config.prefix, config.origin)
+  const port = url.port ?? (url.protocol === "https:" ? 443 : 80)
 
   const openAPIHandler = new OpenAPIHandler(config.router, {
     plugins: [
@@ -114,8 +109,8 @@ export function createServer(options?: {
   })
 
   if (config.start) {
-    server.listen(config.port, () =>
-      logger.info(`Listening on ${url.toString()}`),
+    server.listen(port, () =>
+      logger.info(`Server listening on ${url.toString()}`),
     )
   }
 

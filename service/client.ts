@@ -11,23 +11,17 @@ import * as settings from "./settings.ts"
 export function createClient(options?: {
   contract?: ContractRouter<any>
   logger?: Logger<any>
-  protocol?: "http" | "https"
-  host?: string
-  port?: number
+  origin?: string
   prefix?: `/${string}`
 }) {
   const config = {
     contract: options?.contract ?? contract,
     logger: options?.logger ?? logger,
-    protocol: options?.protocol ?? settings.PROTOCOL,
-    host: options?.host ?? settings.HOST,
-    port: options?.port ?? settings.PORT,
+    origin: options?.origin ?? settings.ORIGIN,
     prefix: options?.prefix ?? settings.PREFIX,
   }
 
-  const port = ![80, 443].includes(config.port) ? config.port : undefined
-  const host = [config.host, port].filter(Boolean).join(":")
-  const url = new URL(config.prefix, `${config.protocol}://${host}`)
+  const url = new URL(config.prefix, config.origin)
 
   const client: JsonifiedClient<ContractRouterClient<typeof contract>> =
     createORPCClient(new OpenAPILink(config.contract, { url }))
