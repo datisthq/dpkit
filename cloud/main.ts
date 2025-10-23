@@ -39,8 +39,8 @@ export default {
       const clientUrl = new URL(req.url)
       const serverUrl = new URL(
         import.meta.env.PROD
-          ? settings.API_ORIGIN_PROD
-          : settings.API_ORIGIN_DEV,
+          ? settings.API_ORIGIN_EXTERNAL
+          : settings.API_ORIGIN_INTERNAL,
       )
 
       serverUrl.pathname = clientUrl.pathname
