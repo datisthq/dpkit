@@ -1,0 +1,70 @@
+{
+  "name": "invalid-package",
+  "version": "not-a-version",
+  "title": "Test Package with Errors",
+  "description": "A test package with intentional validation errors",
+  "created": "invalid-date-format",
+  "resources": [
+    {
+      "name": "test-data",
+      "type": "table",
+      "data": [
+        ["id", "name", "email", "age", "score", "status"],
+        [1, "John Doe", "john@example.com", 25, 75.5, "active"]
+      ],
+      "schema": {
+        "fields": [
+          {
+            "name": "id",
+            "type": "number",
+            "constraints": {
+              "required": true,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "minLength": 3,
+              "maxLength": 20
+            }
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+            }
+          },
+          {
+            "name": "age",
+            "type": "number",
+            "constraints": {
+              "minimum": 18,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "score",
+            "type": "number",
+            "constraints": {
+              "exclusiveMinimum": 0,
+              "exclusiveMaximum": 100
+            }
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "constraints": {
+              "enum": ["active", "inactive", "pending"]
+            }
+          }
+        ],
+        "primaryKey": ["id"]
+      }
+    }
+  ]
+}

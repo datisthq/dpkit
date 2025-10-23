@@ -1,0 +1,54 @@
+{
+  "primaryKey": ["id"],
+  "fields": [
+    {
+      "name": "id",
+      "type": "integer",
+      "constraints": {
+        "required": true,
+        "minimum": 1
+      }
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "constraints": {
+        "required": true,
+        "minLength": 3,
+        "maxLength": 10
+      }
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "constraints": {
+        "required": true,
+        "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+      }
+    },
+    {
+      "name": "age",
+      "type": "integer",
+      "constraints": {
+        "minimum": 18,
+        "maximum": 100
+      }
+    },
+    {
+      "name": "score",
+      "type": "number",
+      "constraints": {
+        "exclusiveMinimum": 0,
+        "exclusiveMaximum": 100
+      }
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "constraints": {
+        "enum": ["active", "inactive"],
+        "unique": true
+      }
+    }
+  ]
+}

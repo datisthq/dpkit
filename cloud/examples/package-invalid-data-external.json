@@ -1,0 +1,15 @@
+{
+  "name": "invalid-package",
+  "version": "not-a-version",
+  "title": "Test Package with Errors",
+  "description": "A test package with intentional validation errors",
+  "created": "invalid-date-format",
+  "resources": [
+    {
+      "name": "test-data",
+      "type": "table",
+      "path": "table-invalid.csv",
+      "schema": "schema.json"
+    }
+  ]
+}
