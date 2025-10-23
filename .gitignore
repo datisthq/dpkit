@@ -47,7 +47,7 @@ pids
 .ipynb_checkpoints/
 
 # React
-.react-router/
+# .react-router/
 
 # User
 .vim/
@@ -59,7 +59,6 @@ pids
 .clinic/
 .vscode/
 .wrangler/
-.react-router
 build/
 compile/
 dist/

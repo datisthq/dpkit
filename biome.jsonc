@@ -7,7 +7,12 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignore": ["pnpm-lock.yaml", "**/*.module.css", "**/*d.ts"],
+    "ignore": [
+      "**/*d.ts",
+      "**/*.module.css",
+      "**/.react-router",
+      "pnpm-lock.yaml"
+    ],
     "ignoreUnknown": true
   },
   "organizeImports": {
