@@ -34,7 +34,7 @@ export default {
 
     if (path.startsWith(settings.API_PREFIX)) {
       //const containerInstance = getContainer(env.API, settings.API_PREFIX)
-      //return await containerInstance.containerFetch(req)
+      //return await containerInstance.fetch(req)
 
       const clientUrl = new URL(req.url)
       const serverUrl = new URL(
