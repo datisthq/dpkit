@@ -51,6 +51,7 @@
   "are not expected": "не ожидаются",
   "File size": "Размер файла",
   "File hash": "Хеш файла",
+  "File encoding": "Кодировка файла",
   "Field name": "Имя поля",
   "at": "в",
   "The cell values of the fields": "Значения ячеек полей",

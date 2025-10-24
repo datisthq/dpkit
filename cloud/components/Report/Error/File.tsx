@@ -35,3 +35,20 @@ export function HashError(props: { error: errorTypes.HashError }) {
     </Text>
   )
 }
+
+export function EncodingError(props: { error: errorTypes.EncodingError }) {
+  const { t } = useTranslation()
+
+  return (
+    <Text>
+      {t("File encoding")} {t("is expected to be")}{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.encoding}
+      </Code>{" "}
+      {t("but it is actually")}{" "}
+      <Code fz="lg" fw="bold">
+        {props.error.actualEncoding}
+      </Code>
+    </Text>
+  )
+}

@@ -51,6 +51,7 @@
   "are not expected": "no se esperan",
   "File size": "Tamaño del archivo",
   "File hash": "Hash del archivo",
+  "File encoding": "Codificación del archivo",
   "Field name": "Nombre del campo",
   "at": "en",
   "The cell values of the fields": "Los valores de celda de los campos",

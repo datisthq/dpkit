@@ -51,6 +51,7 @@
   "are not expected": "ne sont pas attendus",
   "File size": "Taille du fichier",
   "File hash": "Hash du fichier",
+  "File encoding": "Encodage du fichier",
   "Field name": "Nom du champ",
   "at": "à",
   "The cell values of the fields": "Les valeurs de cellule des champs",

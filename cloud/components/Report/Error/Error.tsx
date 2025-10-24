@@ -14,7 +14,7 @@ import {
 } from "./Cell.tsx"
 import { FieldNameError, FieldTypeError } from "./Field.tsx"
 import { FieldsExtraError, FieldsMissingError } from "./Fields.tsx"
-import { BytesError, HashError } from "./File.tsx"
+import { BytesError, EncodingError, HashError } from "./File.tsx"
 import { MetadataError } from "./Metadata.tsx"
 import { RowUniqueError } from "./Row.tsx"
 
@@ -31,6 +31,8 @@ export function Error(props: {
       return <BytesError error={error} />
     case "file/hash":
       return <HashError error={error} />
+    case "file/encoding":
+      return <EncodingError error={error} />
     case "fields/missing":
       return <FieldsMissingError error={error} />
     case "fields/extra":
