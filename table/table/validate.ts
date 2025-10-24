@@ -179,20 +179,27 @@ async function validateFields(
     .collect()
 
   for (const record of errorFrame.toRecords() as any[]) {
+    const typeErrorInFields: string[] = []
     for (const [key, value] of Object.entries(record)) {
       const [kind, type, name] = key.split(":")
-
       if (kind === "error" && value === true && type && name) {
         const rowNumber = record.row_nr
 
         // Cell-level errors
         if (type.startsWith("cell/")) {
-          errors.push({
-            rowNumber,
-            type: type as any,
-            fieldName: name as any,
-            cell: (record[`source:${name}`] ?? "").toString(),
-          })
+          if (!typeErrorInFields.includes(name)) {
+            errors.push({
+              rowNumber,
+              type: type as any,
+              fieldName: name as any,
+              cell: (record[`source:${name}`] ?? "").toString(),
+            })
+          }
+
+          // Type error is a terminating error for a cell
+          if (type === "cell/type") {
+            typeErrorInFields.push(name)
+          }
         }
 
         // Row-level errors
