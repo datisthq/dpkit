@@ -39,6 +39,7 @@ export async function validateResourceData(
   const fileReport = await validateFile(resource.path, {
     bytes: resource.bytes,
     hash: resource.hash,
+    encoding: resource.encoding,
   })
 
   if (!fileReport.valid) {

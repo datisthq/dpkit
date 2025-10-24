@@ -1,10 +1,10 @@
 import type { FileError } from "../error/index.ts"
 import { prefetchFiles } from "./fetch.ts"
-import { inferFileBytes, inferFileHash } from "./infer.ts"
+import { inferFileBytes, inferFileEncoding, inferFileHash } from "./infer.ts"
 
 export async function validateFile(
   path?: string | string[],
-  options?: { bytes?: number; hash?: string },
+  options?: { bytes?: number; hash?: string; encoding?: string },
 ) {
   const errors: FileError[] = []
   const localPaths = await prefetchFiles(path)
@@ -25,11 +25,24 @@ export async function validateFile(
     const hash = await inferFileHash(localPaths, {
       hashType: hashType as any,
     })
+
     if (hash !== options.hash) {
       errors.push({
         type: "file/hash",
         hash: options.hash,
         actualHash: hash,
+      })
+    }
+  }
+
+  if (options?.encoding) {
+    const encoding = await inferFileEncoding(localPaths)
+
+    if (encoding && encoding !== options.encoding) {
+      errors.push({
+        type: "file/encoding",
+        encoding: options.encoding,
+        actualEncoding: encoding,
       })
     }
   }
