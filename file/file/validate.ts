@@ -3,7 +3,7 @@ import { prefetchFiles } from "./fetch.ts"
 import { inferFileBytes, inferFileHash } from "./infer.ts"
 
 export async function validateFile(
-  path: string | string[],
+  path?: string | string[],
   options?: { bytes?: number; hash?: string },
 ) {
   const errors: FileError[] = []
@@ -22,7 +22,9 @@ export async function validateFile(
 
   if (options?.hash) {
     const [_hashValue, hashType = "md5"] = options.hash.split(":").toReversed()
-    const hash = await inferFileHash(localPaths, { hashType: hashType as any })
+    const hash = await inferFileHash(localPaths, {
+      hashType: hashType as any,
+    })
     if (hash !== options.hash) {
       errors.push({
         type: "file/hash",

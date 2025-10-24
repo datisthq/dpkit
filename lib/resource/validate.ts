@@ -7,8 +7,6 @@ import type { InferSchemaOptions } from "@dpkit/table"
 import { inferSchema } from "../schema/index.ts"
 import { loadTable } from "../table/index.ts"
 
-// TODO: Support multipart resources? (clarify on the specs level)
-
 export async function validateResource(
   source: string | Descriptor | Partial<Resource>,
   options?: InferSchemaOptions & { basepath?: string },
@@ -31,28 +29,32 @@ export async function validateResource(
     return { valid, errors }
   }
 
+  return await validateResourceData(resource, options)
+}
+
+export async function validateResourceData(
+  resource: Partial<Resource>,
+  options?: InferSchemaOptions,
+) {
   const fileReport = await validateFile(resource.path, {
     bytes: resource.bytes,
     hash: resource.hash,
   })
 
+  if (!fileReport.valid) {
+    return fileReport
+  }
+
   const table = await loadTable(resource, { denormalized: true })
   if (table) {
     let schema = await loadResourceSchema(resource.schema)
     if (!schema) schema = await inferSchema(resource, options)
+    const tableReport = await validateTable(table, { schema })
+
+    if (!tableReport.valid) {
+      return tableReport
+    }
   }
-
-  try {
-    // TODO: rebase on not-rasing?
-    // It will raise if the resource is not a table
-
-    return await validateTable(table, { schema })
-  } catch {}
 
   return { valid: true, errors: [] }
 }
-
-export async function validateResourceData(
-  source: Partial<Resource>,
-  options?: InferSchemaOptions,
-) {}

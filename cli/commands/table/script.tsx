@@ -94,6 +94,11 @@ export const scriptTableCommand = new Command("script")
       loadTable(resource, options),
     )
 
+    if (!table) {
+      session.terminate("Could not load table")
+      process.exit(1)
+    }
+
     if (options.query) {
       table = queryTable(table, options.query)
     }

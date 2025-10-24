@@ -99,6 +99,11 @@ export const validateTableCommand = new Command("validate")
       loadTable(resource, { denormalized: true }),
     )
 
+    if (!table) {
+      session.terminate("Could not load table")
+      process.exit(1)
+    }
+
     if (!schema && resource.schema) {
       schema = await session.task(
         "Loading schema",

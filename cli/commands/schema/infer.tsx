@@ -79,6 +79,11 @@ export const inferSchemaCommand = new Command("infer")
       loadTable(resource, { denormalized: true }),
     )
 
+    if (!table) {
+      session.terminate("Could not load table")
+      process.exit(1)
+    }
+
     const inferredSchema = await session.task(
       "Inferring schema",
       inferSchemaFromTable(table, options),
@@ -86,7 +91,7 @@ export const inferSchemaCommand = new Command("infer")
 
     if (isEmptyObject(inferredSchema)) {
       session.terminate("Could not infer schema")
-      process.exit(1) // typescript ignore never return type above
+      process.exit(1)
     }
 
     await session.render(inferredSchema, <SchemaGrid schema={inferredSchema} />)
