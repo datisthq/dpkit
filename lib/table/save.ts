@@ -9,5 +9,5 @@ export async function saveTable(table: Table, options: SaveTableOptions) {
     }
   }
 
-  throw new Error(`No plugin can save the table to the path: ${options.path}`)
+  throw new Error(`No plugin can save the table: ${options.path}`)
 }

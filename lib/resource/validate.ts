@@ -40,13 +40,16 @@ export async function validateResource(
     }
   }
 
+  const table = await loadTable(resource, { denormalized: true })
+  if (table) {
+    let schema = await loadResourceSchema(resource.schema)
+    if (!schema) schema = await inferSchema(resource, options)
+  }
+
   try {
     // TODO: rebase on not-rasing?
     // It will raise if the resource is not a table
-    let schema = await loadResourceSchema(resource.schema)
-    if (!schema) schema = await inferSchema(resource, options)
 
-    const table = await loadTable(resource, { denormalized: true })
     return await validateTable(table, { schema })
   } catch {}
 
