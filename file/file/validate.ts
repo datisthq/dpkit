@@ -1,16 +1,16 @@
 import type { FileError } from "../error/index.ts"
-import { prefetchFile } from "./fetch.ts"
+import { prefetchFiles } from "./fetch.ts"
 import { inferFileBytes, inferFileHash } from "./infer.ts"
 
 export async function validateFile(
-  path: string,
+  path: string | string[],
   options?: { bytes?: number; hash?: string },
 ) {
   const errors: FileError[] = []
-  const localPath = await prefetchFile(path)
+  const localPaths = await prefetchFiles(path)
 
   if (options?.bytes) {
-    const bytes = await inferFileBytes(localPath)
+    const bytes = await inferFileBytes(localPaths)
     if (bytes !== options.bytes) {
       errors.push({
         type: "file/bytes",
@@ -22,9 +22,7 @@ export async function validateFile(
 
   if (options?.hash) {
     const [_hashValue, hashType = "md5"] = options.hash.split(":").toReversed()
-    // TODO: figure out how we should handle other hash types
-    // @ts-ignore
-    const hash = await inferFileHash(localPath, { hashType })
+    const hash = await inferFileHash(localPaths, { hashType: hashType as any })
     if (hash !== options.hash) {
       errors.push({
         type: "file/hash",
