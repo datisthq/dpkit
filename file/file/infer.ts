@@ -41,7 +41,7 @@ export async function inferFileEncoding(
   options?: { sampleBytes?: number; confidencePercent?: number },
 ) {
   const maxBytes = options?.sampleBytes ?? 10_000
-  const confidencePercent = options?.confidencePercent ?? 75
+  const confidencePercent = options?.confidencePercent ?? 80
 
   const firstPath = Array.isArray(path) ? path[0] : path
   if (!firstPath) return undefined

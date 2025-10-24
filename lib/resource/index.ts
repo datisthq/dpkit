@@ -1,2 +1,2 @@
 export { inferResource } from "./infer.ts"
-export { validateResource } from "./validate.ts"
+export { validateResource, validateResourceData } from "./validate.ts"
