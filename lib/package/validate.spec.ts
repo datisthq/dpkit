@@ -170,4 +170,13 @@ describe("validatePackage", () => {
       expect(error.resource).toBe("error-resource")
     })
   })
+
+  it("should detect tabular validation errors (issue-153)", async () => {
+    const dataPackage = "lib/package/fixtures/issue-153/datapackage.json"
+
+    const result = await validatePackage(dataPackage)
+
+    expect(result.valid).toBe(false)
+    expect(result.errors.length).toBe(1)
+  })
 })
