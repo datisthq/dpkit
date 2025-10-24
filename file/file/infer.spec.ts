@@ -4,71 +4,71 @@ import { inferFileBytes, inferFileEncoding, inferFileHash } from "./infer.ts"
 import { writeTempFile } from "./temp.ts"
 
 vi.mock("./fetch.ts", () => ({
-  prefetchFile: vi.fn(),
+  prefetchFiles: vi.fn(),
 }))
 
 describe("inferFileHash", () => {
-  let mockPrefetchFile: ReturnType<typeof vi.fn>
+  let mockPrefetchFiles: ReturnType<typeof vi.fn>
   let tempFilePath: string
 
   beforeEach(async () => {
-    mockPrefetchFile = vi.mocked(fetchModule.prefetchFile)
+    mockPrefetchFiles = vi.mocked(fetchModule.prefetchFiles)
     tempFilePath = await writeTempFile("Hello, World!")
     vi.clearAllMocks()
   })
 
   it("should compute sha256 hash by default", async () => {
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await inferFileHash("https://example.com/file.txt")
 
-    expect(mockPrefetchFile).toHaveBeenCalledWith(
+    expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.txt",
     )
     expect(result).toMatch(/^sha256:[a-f0-9]{64}$/)
   })
 
   it("should compute md5 hash when specified", async () => {
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await inferFileHash("https://example.com/file.txt", {
       hashType: "md5",
     })
 
-    expect(mockPrefetchFile).toHaveBeenCalledWith(
+    expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.txt",
     )
     expect(result).toMatch(/^md5:[a-f0-9]{32}$/)
   })
 
   it("should compute sha1 hash when specified", async () => {
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await inferFileHash("https://example.com/file.txt", {
       hashType: "sha1",
     })
 
-    expect(mockPrefetchFile).toHaveBeenCalledWith(
+    expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.txt",
     )
     expect(result).toMatch(/^sha1:[a-f0-9]{40}$/)
   })
 
   it("should compute sha512 hash when specified", async () => {
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await inferFileHash("https://example.com/file.txt", {
       hashType: "sha512",
     })
 
-    expect(mockPrefetchFile).toHaveBeenCalledWith(
+    expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.txt",
     )
     expect(result).toMatch(/^sha512:[a-f0-9]{128}$/)
   })
 
   it("should compute consistent hashes for same content", async () => {
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result1 = await inferFileHash("https://example.com/file.txt")
     const result2 = await inferFileHash("https://example.com/file.txt")
@@ -78,20 +78,20 @@ describe("inferFileHash", () => {
 })
 
 describe("inferFileBytes", () => {
-  let mockPrefetchFile: ReturnType<typeof vi.fn>
+  let mockPrefetchFiles: ReturnType<typeof vi.fn>
 
   beforeEach(() => {
-    mockPrefetchFile = vi.mocked(fetchModule.prefetchFile)
+    mockPrefetchFiles = vi.mocked(fetchModule.prefetchFiles)
     vi.clearAllMocks()
   })
 
   it("should return file size in bytes", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await inferFileBytes("https://example.com/file.txt")
 
-    expect(mockPrefetchFile).toHaveBeenCalledWith(
+    expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.txt",
     )
     expect(result).toBe(13)
@@ -99,7 +99,7 @@ describe("inferFileBytes", () => {
 
   it("should handle empty files", async () => {
     const tempFilePath = await writeTempFile("")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await inferFileBytes("https://example.com/empty.txt")
 
@@ -108,7 +108,7 @@ describe("inferFileBytes", () => {
 
   it("should handle larger files", async () => {
     const tempFilePath = await writeTempFile("x".repeat(10000))
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await inferFileBytes("https://example.com/large.txt")
 
@@ -119,11 +119,11 @@ describe("inferFileBytes", () => {
     const tempFilePath = await writeTempFile(
       Buffer.from([0xff, 0xd8, 0xff, 0xe0]),
     )
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await inferFileBytes("https://example.com/file.bin")
 
-    expect(mockPrefetchFile).toHaveBeenCalledWith(
+    expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.bin",
     )
     expect(result).toBe(4)
