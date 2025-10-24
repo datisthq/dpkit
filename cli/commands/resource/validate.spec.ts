@@ -9,9 +9,10 @@ useRecording()
 
 describe("resource validate", () => {
   it("should validate a valid resource", async () => {
+    const csvPath = await writeTempFile("id,name\n1,alice\n2,bob")
     const resourceContent = JSON.stringify({
       name: "test-resource",
-      path: "data.csv",
+      path: basename(csvPath),
     })
     const resourcePath = await writeTempFile(resourceContent)
 

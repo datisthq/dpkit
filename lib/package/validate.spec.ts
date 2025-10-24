@@ -170,4 +170,21 @@ describe("validatePackage", () => {
       expect(error.resource).toBe("error-resource")
     })
   })
+
+  it("should detect bad cell type (issue-153)", async () => {
+    const dataPackage = "lib/package/fixtures/issue-153/datapackage.json"
+
+    const result = await validatePackage(dataPackage)
+
+    expect(result.valid).toBe(false)
+    expect(result.errors).toEqual([
+      {
+        rowNumber: 3,
+        type: "cell/type",
+        fieldName: "longitude",
+        cell: "bad",
+        resource: "deployments",
+      },
+    ])
+  })
 })

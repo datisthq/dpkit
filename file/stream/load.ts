@@ -3,7 +3,7 @@ import { Readable, Transform } from "node:stream"
 import { isRemotePath } from "@dpkit/core"
 
 export async function loadFileStream(
-  pathOrPaths: string | string[],
+  path: string | string[],
   options?: {
     index?: number
     maxBytes?: number
@@ -11,17 +11,17 @@ export async function loadFileStream(
 ) {
   const index = options?.index ?? 0
 
-  const paths = Array.isArray(pathOrPaths) ? pathOrPaths : [pathOrPaths]
-  const path = paths[index]
+  const paths = Array.isArray(path) ? path : [path]
+  const indexPath = paths[index]
 
-  if (!path) {
-    throw new Error(`Cannot stream resource ${path} at index ${index}`)
+  if (!indexPath) {
+    throw new Error(`Cannot stream resource ${indexPath} at index ${index}`)
   }
 
-  const isRemote = isRemotePath(path)
+  const isRemote = isRemotePath(indexPath)
   const stream = isRemote
-    ? await loadRemoteFileStream(path, options)
-    : await loadLocalFileStream(path, options)
+    ? await loadRemoteFileStream(indexPath, options)
+    : await loadLocalFileStream(indexPath, options)
 
   return stream
 }

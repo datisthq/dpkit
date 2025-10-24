@@ -71,6 +71,15 @@ function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
 
   if (resource.encoding) {
     options.encoding = resource.encoding
+
+    // Polars supports only utf-8 and utf-8-lossy encodings
+    if (options.encoding === "utf-8") {
+      options.encoding = "utf8"
+    }
+
+    if (options.encoding !== "utf8") {
+      throw new Error(`Encoding ${options.encoding} for CSV files is not supported`)
+    }
   }
 
   options.skipRows = getRowsToSkip(dialect)

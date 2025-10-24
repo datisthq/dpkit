@@ -1,10 +1,7 @@
 import type { Descriptor, Package } from "@dpkit/core"
 import { loadDescriptor, validatePackageDescriptor } from "@dpkit/core"
 import { dpkit } from "../plugin.ts"
-import { validateResource } from "../resource/index.ts"
-
-// TODO: Improve implementation
-// TODO: Support multipart resources? (clarify on the specs level)
+import { validateResourceData } from "../resource/index.ts"
 
 export async function validatePackage(
   source: string | Descriptor | Partial<Package>,
@@ -43,15 +40,24 @@ export async function validatePackage(
     }
   }
 
-  const resourceErrors = (
+  return await validatePackageData(dataPackage)
+}
+
+export async function validatePackageData(dataPackage: Package) {
+  const errors = (
     await Promise.all(
       dataPackage.resources.map(async resource => {
-        const { errors } = await validateResource(resource)
-        return errors.map(error => ({ ...error, resource: resource.name }))
+        try {
+          const { errors } = await validateResourceData(resource)
+          return errors.map(error => ({ ...error, resource: resource.name }))
+        } catch (error) {
+          const message = error instanceof Error ? error.message : String(error)
+          throw new Error(`[${resource.name}] ${message}`)
+        }
       }),
     )
   ).flat()
 
-  const resourceValid = !resourceErrors.length
-  return { valid: resourceValid, errors: resourceErrors }
+  const valid = !errors.length
+  return { valid, errors: errors }
 }

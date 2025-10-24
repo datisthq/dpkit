@@ -1,38 +1,52 @@
 import { stat } from "node:fs/promises"
 import chardet from "chardet"
-import { hashFile } from "hasha"
+import * as hasha from "hasha"
 import { isBinaryFile } from "isbinaryfile"
-import { prefetchFile } from "./fetch.ts"
+import pMap from "p-map"
+import { concatFileStreams } from "../stream/concat.ts"
+import { loadFileStream } from "../stream/index.ts"
+import { prefetchFiles } from "./fetch.ts"
 import { loadFile } from "./load.ts"
 
 export type HashType = "md5" | "sha1" | "sha256" | "sha512"
 
-export async function inferFileHash(
-  path: string,
-  options?: { hashType?: HashType },
-) {
-  const localPath = await prefetchFile(path)
-  const algorithm = options?.hashType ?? "sha256"
+export async function inferFileBytes(path: string | string[]) {
+  const localPaths = await prefetchFiles(path)
 
-  const result = await hashFile(localPath, { algorithm })
-  return `${algorithm}:${result}`
+  let bytes = 0
+  for (const localPath of localPaths) {
+    const result = await stat(localPath)
+    bytes += result.size
+  }
+
+  return bytes
 }
 
-export async function inferFileBytes(path: string) {
-  const localPath = await prefetchFile(path)
+export async function inferFileHash(
+  path: string | string[],
+  options?: { hashType?: HashType },
+) {
+  const algorithm = options?.hashType ?? "sha256"
+  const localPaths = await prefetchFiles(path)
 
-  const result = await stat(localPath)
-  return result.size
+  const streams = await pMap(localPaths, async path => loadFileStream(path))
+  const stream = concatFileStreams(streams)
+
+  const hash = await hasha.hash(stream, { algorithm })
+  return `${algorithm}:${hash}`
 }
 
 export async function inferFileEncoding(
-  path: string,
+  path: string | string[],
   options?: { sampleBytes?: number; confidencePercent?: number },
 ) {
   const maxBytes = options?.sampleBytes ?? 10_000
-  const confidencePercent = options?.confidencePercent ?? 75
+  const confidencePercent = options?.confidencePercent ?? 80
 
-  const buffer = await loadFile(path, { maxBytes })
+  const firstPath = Array.isArray(path) ? path[0] : path
+  if (!firstPath) return undefined
+
+  const buffer = await loadFile(firstPath, { maxBytes })
   const isBinary = await isBinaryFile(buffer)
 
   if (!isBinary) {

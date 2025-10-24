@@ -1,5 +1,5 @@
 import type { Field } from "@dpkit/core"
-import { col, lit, when } from "nodejs-polars"
+import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import { stringifyArrayField } from "./types/array.ts"
 import { stringifyBooleanField } from "./types/boolean.ts"
@@ -17,68 +17,41 @@ import { stringifyTimeField } from "./types/time.ts"
 import { stringifyYearField } from "./types/year.ts"
 import { stringifyYearmonthField } from "./types/yearmonth.ts"
 
-const DEFAULT_MISSING_VALUE = ""
-
 export function stringifyField(field: Field, expr?: Expr) {
   expr = expr ?? col(field.name)
 
   switch (field.type) {
     case "array":
-      expr = stringifyArrayField(field, expr)
-      break
+      return stringifyArrayField(field, expr)
     case "boolean":
-      expr = stringifyBooleanField(field, expr)
-      break
+      return stringifyBooleanField(field, expr)
     case "date":
-      expr = stringifyDateField(field, expr)
-      break
+      return stringifyDateField(field, expr)
     case "datetime":
-      expr = stringifyDatetimeField(field, expr)
-      break
+      return stringifyDatetimeField(field, expr)
     case "duration":
-      expr = stringifyDurationField(field, expr)
-      break
+      return stringifyDurationField(field, expr)
     case "geojson":
-      expr = stringifyGeojsonField(field, expr)
-      break
+      return stringifyGeojsonField(field, expr)
     case "geopoint":
-      expr = stringifyGeopointField(field, expr)
-      break
+      return stringifyGeopointField(field, expr)
     case "integer":
-      expr = stringifyIntegerField(field, expr)
-      break
+      return stringifyIntegerField(field, expr)
     case "list":
-      expr = stringifyListField(field, expr)
-      break
+      return stringifyListField(field, expr)
     case "number":
-      expr = stringifyNumberField(field, expr)
-      break
+      return stringifyNumberField(field, expr)
     case "object":
-      expr = stringifyObjectField(field, expr)
-      break
+      return stringifyObjectField(field, expr)
     case "string":
-      expr = stringifyStringField(field, expr)
-      break
+      return stringifyStringField(field, expr)
     case "time":
-      expr = stringifyTimeField(field, expr)
-      break
+      return stringifyTimeField(field, expr)
     case "year":
-      expr = stringifyYearField(field, expr)
-      break
+      return stringifyYearField(field, expr)
     case "yearmonth":
-      expr = stringifyYearmonthField(field, expr)
-      break
+      return stringifyYearmonthField(field, expr)
+    default:
+      return expr
   }
-
-  const flattenMissingValues = field.missingValues?.map(it =>
-    typeof it === "string" ? it : it.value,
-  )
-
-  const missingValue = flattenMissingValues?.[0] ?? DEFAULT_MISSING_VALUE
-  expr = when(expr.isNull())
-    .then(lit(missingValue))
-    .otherwise(expr)
-    .alias(field.name)
-
-  return expr
 }

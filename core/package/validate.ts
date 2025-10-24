@@ -8,7 +8,7 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/datapackage.json"
 /**
  * Validate a Package descriptor (JSON Object) against its profile
  */
-export async function validatePackageDescriptor(
+export async function validatePackageMetadata(
   source: Descriptor | Package,
   options?: {
     basepath?: string

@@ -1,5 +1,7 @@
+export { denormalizeField } from "./denormalize.ts"
 export { parseField } from "./parse.ts"
 export { validateField } from "./validate.ts"
 export { matchField } from "./match.ts"
+export { normalizeField } from "./normalize.ts"
 export { stringifyField } from "./stringify.ts"
 export type { PolarsField } from "./Field.ts"

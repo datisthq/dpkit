@@ -1,11 +1,11 @@
 import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
 import { loadDescriptor } from "../general/index.ts"
-import { validatePackageDescriptor } from "./validate.ts"
+import { validatePackageMetadata } from "./validate.ts"
 
 useRecording()
 
-describe("validatePackageDescriptor", () => {
+describe("validatePackageMetadata", () => {
   it("returns valid result for valid package", async () => {
     const descriptor = {
       name: "example-package",
@@ -17,7 +17,7 @@ describe("validatePackageDescriptor", () => {
       ],
     }
 
-    const { valid, errors } = await validatePackageDescriptor(descriptor)
+    const { valid, errors } = await validatePackageMetadata(descriptor)
 
     expect(valid).toBe(true)
     expect(errors).toEqual([])
@@ -29,7 +29,7 @@ describe("validatePackageDescriptor", () => {
       resources: "not-an-array", // Should be an array
     }
 
-    const { valid, errors } = await validatePackageDescriptor(descriptor)
+    const { valid, errors } = await validatePackageMetadata(descriptor)
 
     expect(valid).toBe(false)
     expect(errors.length).toBeGreaterThan(0)
@@ -46,7 +46,7 @@ describe("validatePackageDescriptor", () => {
       "https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.2/example/datapackage.json",
     )
 
-    const { valid } = await validatePackageDescriptor(descriptor)
+    const { valid } = await validatePackageMetadata(descriptor)
     expect(valid).toBe(true)
   })
 })

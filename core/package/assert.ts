@@ -1,7 +1,7 @@
 import { AssertionError } from "../error/index.ts"
 import type { Descriptor } from "../general/index.ts"
 import type { Package } from "./Package.ts"
-import { validatePackageDescriptor } from "./validate.ts"
+import { validatePackageMetadata } from "./validate.ts"
 
 /**
  * Assert a Package descriptor (JSON Object) against its profile
@@ -12,10 +12,7 @@ export async function assertPackage(
     basepath?: string
   },
 ) {
-  const { errors, dataPackage } = await validatePackageDescriptor(
-    source,
-    options,
-  )
+  const { errors, dataPackage } = await validatePackageMetadata(source, options)
 
   if (!dataPackage) throw new AssertionError(errors)
   return dataPackage

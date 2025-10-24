@@ -3,7 +3,7 @@ import type { Expr } from "nodejs-polars"
 import { DataType } from "nodejs-polars"
 import { col, lit } from "nodejs-polars"
 import { matchField } from "../field/index.ts"
-import { parseField } from "../field/index.ts"
+import { normalizeField } from "../field/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { PolarsSchema } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
@@ -14,16 +14,16 @@ export async function normalizeTable(
   table: Table,
   schema: Schema,
   options?: {
-    noParse?: boolean
+    dontParse?: boolean
   },
 ) {
-  const { noParse } = options ?? {}
+  const { dontParse } = options ?? {}
 
   const head = await table.head(HEAD_ROWS).collect()
   const polarsSchema = getPolarsSchema(head.schema)
 
   return table.select(
-    ...Object.values(normalizeFields(schema, polarsSchema, { noParse })),
+    ...Object.values(normalizeFields(schema, polarsSchema, { dontParse })),
   )
 }
 
@@ -31,10 +31,10 @@ export function normalizeFields(
   schema: Schema,
   polarsSchema: PolarsSchema,
   options?: {
-    noParse?: boolean
+    dontParse?: boolean
   },
 ) {
-  const { noParse } = options ?? {}
+  const { dontParse } = options ?? {}
   const exprs: Record<string, Expr> = {}
 
   for (const [index, field] of schema.fields.entries()) {
@@ -44,10 +44,11 @@ export function normalizeFields(
     if (polarsField) {
       expr = col(polarsField.name).alias(field.name)
 
-      if (!noParse && polarsField.type.equals(DataType.String)) {
+      // TODO: Move this logic to normalizeField?
+      if (polarsField.type.equals(DataType.String)) {
         const missingValues = field.missingValues ?? schema.missingValues
         const mergedField = { ...field, missingValues }
-        expr = parseField(mergedField, expr)
+        expr = normalizeField(mergedField, expr, { dontParse })
       }
     }
 
