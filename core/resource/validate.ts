@@ -11,7 +11,7 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/dataresource.json"
 /**
  * Validate a Resource descriptor (JSON Object) against its profile
  */
-export async function validateResourceDescriptor(
+export async function validateResourceMetadata(
   source: Descriptor | Resource,
   options?: {
     basepath?: string

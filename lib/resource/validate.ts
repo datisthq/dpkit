@@ -1,6 +1,6 @@
 import type { Descriptor, Resource } from "@dpkit/core"
 import { loadResourceSchema } from "@dpkit/core"
-import { loadDescriptor, validateResourceDescriptor } from "@dpkit/core"
+import { loadDescriptor, validateResourceMetadata } from "@dpkit/core"
 import { validateFile } from "@dpkit/file"
 import { validateTable } from "@dpkit/table"
 import type { InferSchemaOptions } from "@dpkit/table"
@@ -22,7 +22,7 @@ export async function validateResource(
     basepath = result.basepath
   }
 
-  const { valid, errors, resource } = await validateResourceDescriptor(
+  const { valid, errors, resource } = await validateResourceMetadata(
     descriptor,
     { basepath },
   )
@@ -31,14 +31,10 @@ export async function validateResource(
     return { valid, errors }
   }
 
-  if (resource.bytes || resource.hash) {
-    if (typeof resource.path === "string") {
-      return await validateFile(resource.path, {
-        bytes: resource.bytes,
-        hash: resource.hash,
-      })
-    }
-  }
+  const fileReport = await validateFile(resource.path, {
+    bytes: resource.bytes,
+    hash: resource.hash,
+  })
 
   const table = await loadTable(resource, { denormalized: true })
   if (table) {
@@ -55,3 +51,8 @@ export async function validateResource(
 
   return { valid: true, errors: [] }
 }
+
+export async function validateResourceData(
+  source: Partial<Resource>,
+  options?: InferSchemaOptions,
+) {}

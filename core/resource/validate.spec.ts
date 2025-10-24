@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
-import { validateResourceDescriptor } from "./validate.ts"
+import { validateResourceMetadata } from "./validate.ts"
 
-describe("validateResourceDescriptor", () => {
+describe("validateResourceMetadata", () => {
   it("returns valid result for valid resource", async () => {
     const descriptor = {
       name: "example-resource",
@@ -10,7 +10,7 @@ describe("validateResourceDescriptor", () => {
       encoding: "utf-8",
     }
 
-    const result = await validateResourceDescriptor(descriptor)
+    const result = await validateResourceMetadata(descriptor)
 
     expect(result.valid).toBe(true)
     expect(result.errors).toEqual([])
@@ -22,7 +22,7 @@ describe("validateResourceDescriptor", () => {
       path: true, // Should be a string or array of strings
     }
 
-    const result = await validateResourceDescriptor(invalidResource)
+    const result = await validateResourceMetadata(invalidResource)
 
     expect(result.valid).toBe(false)
     expect(result.errors.length).toBeGreaterThan(0)

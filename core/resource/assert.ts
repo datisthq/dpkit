@@ -1,7 +1,7 @@
 import { AssertionError } from "../error/index.ts"
 import type { Descriptor } from "../general/index.ts"
 import type { Resource } from "./Resource.ts"
-import { validateResourceDescriptor } from "./validate.ts"
+import { validateResourceMetadata } from "./validate.ts"
 
 /**
  * Assert a Resource descriptor (JSON Object) against its profile
@@ -12,7 +12,7 @@ export async function assertResource(
     basepath?: string
   },
 ) {
-  const { errors, resource } = await validateResourceDescriptor(source, options)
+  const { errors, resource } = await validateResourceMetadata(source, options)
 
   if (!resource) throw new AssertionError(errors)
   return resource
