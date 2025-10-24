@@ -1,7 +1,7 @@
 import type { Field, Schema } from "@dpkit/core"
 import { col, lit } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
-import { stringifyField } from "../field/index.ts"
+import { denormalizeField } from "../field/index.ts"
 import type { PolarsSchema } from "../schema/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
@@ -40,10 +40,11 @@ export function denormalizeFields(
     if (polarsField) {
       expr = col(polarsField.name).alias(field.name)
 
+      // TODO: Move this logic to denormalizeField?
       if (!nativeTypes?.includes(field.type ?? "any")) {
         const missingValues = field.missingValues ?? schema.missingValues
         const mergedField = { ...field, missingValues }
-        expr = stringifyField(mergedField, expr)
+        expr = denormalizeField(mergedField, expr)
       }
     }
 

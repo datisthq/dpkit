@@ -1,5 +1,5 @@
 import type { Field } from "@dpkit/core"
-import { col, lit, when } from "nodejs-polars"
+import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import { parseArrayField } from "./types/array.ts"
 import { parseBooleanField } from "./types/boolean.ts"
@@ -17,21 +17,8 @@ import { parseTimeField } from "./types/time.ts"
 import { parseYearField } from "./types/year.ts"
 import { parseYearmonthField } from "./types/yearmonth.ts"
 
-const DEFAULT_MISSING_VALUES = [""]
-
 export function parseField(field: Field, expr?: Expr) {
   expr = expr ?? col(field.name)
-
-  const flattenMissingValues =
-    field.missingValues?.map(it => (typeof it === "string" ? it : it.value)) ??
-    DEFAULT_MISSING_VALUES
-
-  if (flattenMissingValues.length) {
-    expr = when(expr.isIn(flattenMissingValues))
-      .then(lit(null))
-      .otherwise(expr)
-      .alias(field.name)
-  }
 
   switch (field.type) {
     case "array":

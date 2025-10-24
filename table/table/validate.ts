@@ -137,13 +137,13 @@ async function validateFields(
   const targetNames: string[] = []
 
   const sources = Object.entries(
-    normalizeFields(schema, polarsSchema, { noParse: true }),
+    normalizeFields(schema, polarsSchema, { dontParse: true }),
   ).map(([name, expr]) => {
     return expr.alias(`source:${name}`)
   })
 
   const targets = Object.entries(
-    normalizeFields(schema, polarsSchema, { noParse: false }),
+    normalizeFields(schema, polarsSchema, { dontParse: false }),
   ).map(([name, expr]) => {
     const targetName = `target:${name}`
     targetNames.push(targetName)
