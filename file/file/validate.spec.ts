@@ -5,24 +5,24 @@ import { writeTempFile } from "./temp.ts"
 import { validateFile } from "./validate.ts"
 
 vi.mock("./fetch.ts", () => ({
-  prefetchFile: vi.fn(),
+  prefetchFiles: vi.fn(),
 }))
 
 describe("validateFile", () => {
-  let mockPrefetchFile: ReturnType<typeof vi.fn>
+  let mockPrefetchFiles: ReturnType<typeof vi.fn>
 
   beforeEach(() => {
-    mockPrefetchFile = vi.mocked(fetchModule.prefetchFile)
+    mockPrefetchFiles = vi.mocked(fetchModule.prefetchFiles)
     vi.clearAllMocks()
   })
 
   it("should return valid result when no validation options provided", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await validateFile("https://example.com/file.txt")
 
-    expect(mockPrefetchFile).toHaveBeenCalledWith(
+    expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.txt",
     )
     expect(result).toEqual({ valid: true, errors: [] })
@@ -30,7 +30,7 @@ describe("validateFile", () => {
 
   it("should validate bytes successfully when they match", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await validateFile("https://example.com/file.txt", {
       bytes: 13,
@@ -41,7 +41,7 @@ describe("validateFile", () => {
 
   it("should return error when bytes do not match", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await validateFile("https://example.com/file.txt", {
       bytes: 1024,
@@ -58,7 +58,7 @@ describe("validateFile", () => {
 
   it("should validate hash successfully when it matches", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
@@ -71,7 +71,7 @@ describe("validateFile", () => {
 
   it("should return error when hash does not match", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
@@ -90,7 +90,7 @@ describe("validateFile", () => {
 
   it("should validate sha256 hash", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "sha256" })
 
@@ -103,7 +103,7 @@ describe("validateFile", () => {
 
   it("should validate sha1 hash", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "sha1" })
 
@@ -116,7 +116,7 @@ describe("validateFile", () => {
 
   it("should validate sha512 hash", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "sha512" })
 
@@ -129,7 +129,7 @@ describe("validateFile", () => {
 
   it("should validate both bytes and hash when both match", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
@@ -143,7 +143,7 @@ describe("validateFile", () => {
 
   it("should return multiple errors when both bytes and hash do not match", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
@@ -168,7 +168,7 @@ describe("validateFile", () => {
 
   it("should return error when only bytes mismatch", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
@@ -184,7 +184,7 @@ describe("validateFile", () => {
 
   it("should return error when only hash mismatch", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await validateFile("https://example.com/file.txt", {
       bytes: 13,
@@ -198,17 +198,17 @@ describe("validateFile", () => {
 
   it("should handle local file paths", async () => {
     const tempFilePath = await writeTempFile("x".repeat(2048))
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await validateFile("/local/path/file.txt", { bytes: 2048 })
 
-    expect(mockPrefetchFile).toHaveBeenCalledWith("/local/path/file.txt")
+    expect(mockPrefetchFiles).toHaveBeenCalledWith("/local/path/file.txt")
     expect(result).toEqual({ valid: true, errors: [] })
   })
 
   it("should handle empty file validation", async () => {
     const tempFilePath = await writeTempFile("")
-    mockPrefetchFile.mockResolvedValue(tempFilePath)
+    mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
     const result = await validateFile("https://example.com/empty.txt", {
       bytes: 0,
