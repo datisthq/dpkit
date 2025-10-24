@@ -171,7 +171,7 @@ describe("validatePackage", () => {
     })
   })
 
-  it.fails("should detect bad cell type (issue-153)", async () => {
+  it("should detect bad cell type (issue-153)", async () => {
     const dataPackage = "lib/package/fixtures/issue-153/datapackage.json"
 
     const result = await validatePackage(dataPackage)
