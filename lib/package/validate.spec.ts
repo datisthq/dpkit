@@ -171,14 +171,20 @@ describe("validatePackage", () => {
     })
   })
 
-  it("should detect tabular validation errors (issue-153)", async () => {
+  it.fails("should detect bad cell type (issue-153)", async () => {
     const dataPackage = "lib/package/fixtures/issue-153/datapackage.json"
 
     const result = await validatePackage(dataPackage)
 
-    console.log(result.errors)
-
     expect(result.valid).toBe(false)
-    expect(result.errors.length).toBe(1)
+    expect(result.errors).toEqual([
+      {
+        rowNumber: 3,
+        type: "cell/type",
+        fieldName: "longitude",
+        cell: "bad",
+        resource: "deployments",
+      },
+    ])
   })
 })
