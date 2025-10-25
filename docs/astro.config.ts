@@ -31,7 +31,7 @@ const PACKAGES = {
 }
 
 export default defineConfig({
-  site: "https://typescript.dpkit.dev",
+  site: "https://typescript.dpkit.app",
   srcDir: ".",
   outDir: "build",
   integrations: [
@@ -112,7 +112,7 @@ export default defineConfig({
           tag: "script",
           attrs: {
             src: "https://plausible.io/js/script.js",
-            "data-domain": "dpkit.dev",
+            "data-domain": "dpkit.app",
             defer: true,
           },
         },

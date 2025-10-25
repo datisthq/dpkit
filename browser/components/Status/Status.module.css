@@ -1,0 +1,73 @@
+.container {
+  flex-direction: column;
+  gap: 24px;
+
+  @mixin smaller-than $mantine-breakpoint-sm {
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.loaderPending {
+  animation: spin 1s linear infinite;
+  color: var(--mantine-color-yellow-6);
+  width: 80px;
+  height: 80px;
+
+  @mixin smaller-than $mantine-breakpoint-sm {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.iconSuccess {
+  color: var(--mantine-color-green-6);
+  width: 80px;
+  height: 80px;
+
+  @mixin smaller-than $mantine-breakpoint-sm {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.iconError {
+  color: var(--mantine-color-red-6);
+  width: 80px;
+  height: 80px;
+
+  @mixin smaller-than $mantine-breakpoint-sm {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.iconFault {
+  color: var(--mantine-color-gray-6);
+  width: 80px;
+  height: 80px;
+
+  @mixin smaller-than $mantine-breakpoint-sm {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 600;
+
+  @mixin smaller-than $mantine-breakpoint-sm {
+    font-size: 20px;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

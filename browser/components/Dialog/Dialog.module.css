@@ -1,0 +1,42 @@
+.overlay {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  inset: 0;
+}
+
+.title {
+  display: none;
+}
+
+.content {
+  z-index: 100;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  max-height: calc(100% - 80px);
+  background-color: light-dark(white, var(--mantine-color-dark-6));
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: var(--mantine-spacing-lg);
+}
+
+.handle {
+  width: 60px;
+  height: 6px;
+  background-color: var(--mantine-color-gray-4);
+  border-radius: 100px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.description {
+  margin-bottom: 16px;
+  height: 100%;
+}

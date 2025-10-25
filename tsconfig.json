@@ -7,6 +7,7 @@
     "${configDir}/**/site/",
     "${configDir}/**/build/",
     "${configDir}/**/cloud/",
+    "${configDir}/**/browser/",
     "${configDir}/**/compile/",
     "${configDir}/**/*.spec.*/"
   ],

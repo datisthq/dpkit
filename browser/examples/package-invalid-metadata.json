@@ -1,0 +1,20 @@
+{
+  "name": "invalid-package",
+  "version": "not-a-version",
+  "title": 3,
+  "description": 3,
+  "created": "invalid-date-format",
+  "licenses": [
+    { "name": "test", "path": 1 },
+    { "name": "test", "path": 2 },
+    { "name": "test", "path": 3 },
+    { "name": "test", "path": 4 },
+    { "name": "test", "path": 5 }
+  ],
+  "resources": [
+    {
+      "name": "table",
+      "type": "table"
+    }
+  ]
+}

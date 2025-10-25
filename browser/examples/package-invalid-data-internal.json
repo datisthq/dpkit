@@ -1,0 +1,74 @@
+{
+  "name": "invalid-package",
+  "version": "not-a-version",
+  "title": "Test Package with Errors",
+  "description": "A test package with intentional validation errors",
+  "created": "invalid-date-format",
+  "resources": [
+    {
+      "name": "test-data",
+      "type": "table",
+      "data": [
+        ["id", "name", "email", "age", "score", "status"],
+        [1, "John Doe", "john@example.com", 25, 75.5, "active"],
+        [2, "AB", "invalid-email", 30, 50.0, "pending"],
+        [3, "Jane Smith", "jane@example.com", 150, 80.5, "active"],
+        ["bad", "Jane Smith Very Long", "jane@example.com", 150, 80.5, "active"]
+      ],
+      "schema": {
+        "primaryKey": ["id"],
+        "fields": [
+          {
+            "name": "id",
+            "type": "integer",
+            "constraints": {
+              "required": true,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "minLength": 3,
+              "maxLength": 10
+            }
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "constraints": {
+              "required": true,
+              "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+            }
+          },
+          {
+            "name": "age",
+            "type": "integer",
+            "constraints": {
+              "minimum": 18,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "score",
+            "type": "number",
+            "constraints": {
+              "exclusiveMinimum": 0,
+              "exclusiveMaximum": 100
+            }
+          },
+          {
+            "name": "status",
+            "type": "string",
+            "constraints": {
+              "enum": ["active", "inactive"],
+              "unique": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

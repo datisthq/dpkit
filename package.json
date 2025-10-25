@@ -8,7 +8,7 @@
     "pnpm": "^10.0.0"
   },
   "scripts": {
-    "build": "pnpm -F !cloud -F !docs -F !site build",
+    "build": "pnpm -F !browser && pnpm -F !cloud -F !docs -F !site build",
     "bump": "ncu -ws -u",
     "clean": "rm -rf **/node_modules",
     "compile": "pnpm -F cli compile",
@@ -22,7 +22,7 @@
     "spec": "vitest run",
     "test": "pnpm lint && pnpm type && pnpm spec",
     "test:win": "pnpm spec",
-    "type": "tsc --noEmit && pnpm -F cloud type",
+    "type": "tsc --noEmit && pnpm -F browser type && pnpm -F cloud type",
     "version:ci": "pnpm --include-workspace-root -r exec pnpm version --no-git-tag-version"
   },
   "devDependencies": {
