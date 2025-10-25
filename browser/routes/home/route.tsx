@@ -25,9 +25,9 @@ export default function Page(_props: Route.ComponentProps) {
   return (
     <Stack gap="xl">
       <Stack gap="md">
-        <Title order={1} size={40}>
+        <Title order={1} fz={40} style={{ whiteSpace: "nowrap" }}>
           dpkit{" "}
-          <Text component="span" color="dimmed" fz="xl">
+          <Text component="span" color="dimmed" fz={{ base: "lg", md: "xl" }}>
             / data processing kit /
           </Text>
         </Title>
