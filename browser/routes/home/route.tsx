@@ -26,7 +26,10 @@ export default function Page(_props: Route.ComponentProps) {
     <Stack gap="xl">
       <Stack gap="md">
         <Title order={1} size={40}>
-          {t("dpkit Cloud")}
+          dpkit{" "}
+          <Text component="span" color="dimmed" fz="xl">
+            / data processing kit /
+          </Text>
         </Title>
         <Text size="xl">
           {t("Free online tools for")}{" "}

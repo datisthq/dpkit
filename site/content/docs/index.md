@@ -1,11 +1,11 @@
 ---
-title: dpkit Command-Line
+title: dpkit Terminal
 sidebar:
   order: 1
   label: Getting Started
 ---
 
-This guide will help you get started with dpkit. If you are new to the core framework's tecnhologies, please take a look at the [Data Package standard](https://datapackage.org/) and [Polars DataFrames](https://pola.rs/) documentation.
+This guide will help you get started with dpkit in Terminal. If you are new to the core framework's tecnhologies, please take a look at the [Data Package standard](https://datapackage.org/) and [Polars DataFrames](https://pola.rs/) documentation.
 
 ## Prerequisites
 
