@@ -63,6 +63,7 @@ export function Layout(props: { children: React.ReactNode }) {
 
         <link rel="sitemap" type="text/xml" href="/sitemap.xml" />
         <link rel="icon" type="image/png" href="/favicon.png" />
+
         {links.map(link => (
           <link
             rel={link.rel}
