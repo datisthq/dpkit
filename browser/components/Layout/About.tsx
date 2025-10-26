@@ -1,6 +1,7 @@
 import { Anchor, Box, Container, Image, Stack, Text } from "@mantine/core"
 import { useTranslation } from "react-i18next"
-import aboutImage from "#assets/about.png"
+import datistLogoTextDark from "#assets/datist-logo-text-dark.svg"
+import datistLogoTextLight from "#assets/datist-logo-text-light.svg"
 import { Link } from "#components/Link/index.ts"
 import classes from "./About.module.css"
 
@@ -20,7 +21,7 @@ export function About() {
         <Text c="dimmed" size="sm">
           {t("Brought to you by")}
         </Text>
-        <Box className={classes.imageWrapper}>
+        <Box className={classes.imageContainer}>
           <Anchor
             component={Link}
             to="https://datist.io"
@@ -28,11 +29,20 @@ export function About() {
             rel="noopener noreferrer"
           >
             <Image
-              src={aboutImage}
+              src={datistLogoTextLight}
               alt="Datist"
               maw={300}
               radius="md"
-              bg="white"
+              data-variant="light"
+              className={classes.image}
+            />
+            <Image
+              src={datistLogoTextDark}
+              alt="Datist"
+              maw={300}
+              radius="md"
+              data-variant="dark"
+              className={classes.image}
             />
           </Anchor>
         </Box>

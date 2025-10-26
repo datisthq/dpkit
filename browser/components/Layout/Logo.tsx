@@ -1,7 +1,7 @@
 import { Anchor, Group, ThemeIcon, Title } from "@mantine/core"
 import { useNavigation } from "react-router"
 // @ts-ignore
-import LogoIcon from "#assets/logo.svg?react"
+import LogoIcon from "#assets/dpkit-logo.svg?react"
 import { Link } from "#components/Link/index.ts"
 import { useMakeLink } from "#components/System/index.ts"
 import * as icons from "#icons.ts"
