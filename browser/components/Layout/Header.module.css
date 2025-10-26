@@ -1,10 +1,18 @@
 .root {
   height: 64px;
-  position: sticky;
   border-bottom: 1px solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-9));
   background-color: light-dark(
     var(--mantine-color-gray-0),
     var(--mantine-color-dark-6)
   );
+
+  @mixin smaller-than $mantine-breakpoint-md {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    position: fixed;
+    box-shadow: var(--mantine-shadow-sm);
+  }
 }

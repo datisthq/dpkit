@@ -1,0 +1,6 @@
+.root {
+  @mixin smaller-than $mantine-breakpoint-md {
+   padding-top: 64px;
+  }
+}
+
