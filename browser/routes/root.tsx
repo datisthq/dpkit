@@ -61,6 +61,7 @@ export function Layout(props: { children: React.ReactNode }) {
         <meta property="og:site_name" content={settings.TITLE} />
         <meta property="og:locale" content={languageId} />
 
+        <link rel="sitemap" type="text/xml" href="/sitemap.xml" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         {links.map(link => (
           <link
