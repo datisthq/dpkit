@@ -22,7 +22,6 @@ export default defineConfig({
       logo: {
         src: "/assets/dpkit-logo.svg",
         alt: "DPkit Logo",
-        replacesTitle: false,
       },
       social: [
         {
@@ -46,7 +45,14 @@ export default defineConfig({
         themes: ["starlight-dark", "starlight-light"],
       },
       sidebar: [
-        { label: "Overview", autogenerate: { directory: "overview" } },
+        {
+          label: "Overview",
+          items: [
+            { label: "Getting Started", slug: "index" },
+            { label: "Contributing", slug: "overview/contributing" },
+            { label: "Funding", slug: "overview/funding" },
+          ],
+        },
         { label: "Guides", autogenerate: { directory: "guides" } },
         {
           label: "Changelog",

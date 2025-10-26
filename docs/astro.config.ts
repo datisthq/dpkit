@@ -46,7 +46,6 @@ export default defineConfig({
       logo: {
         src: "/assets/dpkit-logo.svg",
         alt: "DPkit Logo",
-        replacesTitle: true,
       },
       social: [
         {
