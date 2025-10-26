@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next"
 import datistLogoTextDark from "#assets/datist-logo-text-dark.svg"
 import datistLogoTextLight from "#assets/datist-logo-text-light.svg"
 import { Link } from "#components/Link/index.ts"
-import classes from "./About.module.css"
+import classes from "./Credits.module.css"
 
-export function About() {
+export function Credits() {
   const { t } = useTranslation()
 
   return (

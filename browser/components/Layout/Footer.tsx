@@ -1,12 +1,12 @@
 import { Stack } from "@mantine/core"
-import { About } from "./About.tsx"
+import { Credits } from "./Credits.tsx"
 import { Sitemap } from "./Sitemap.tsx"
 
 export function Footer() {
   return (
     <Stack component="footer">
       <Sitemap />
-      <About />
+      <Credits />
     </Stack>
   )
 }
