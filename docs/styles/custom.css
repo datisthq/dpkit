@@ -17,28 +17,36 @@
   /* --sl-color-bg-inline-code: #228be6; */
 }
 
-/* Scrollbar */
+/* logo */
+
+.site-title {
+  gap: 5px;
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.site-title img {
+  width: 34px;
+  height: 34px;
+}
+
+html[data-theme="light"] .site-title {
+  color: black;
+}
+
+html[data-theme="dark"] .site-title {
+  color: white;
+}
+
+/* scrollbar */
 
 * {
   scrollbar-color: var(--scrollbar-color) transparent;
   scrollbar-gutter: stable;
 }
 
-/* Markdown heading links. */
-
-.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) > a {
-  color: var(--sl-color-white);
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-article.card {
-  border-radius: 15px;
-}
-
-/* Scroll-to-top button */
+/* scroll-to-top */
 
 #scroll-to-top-button {
   accent-color: var(--sl-color-text-accent);

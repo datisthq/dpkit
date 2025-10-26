@@ -35,6 +35,7 @@ export function About() {
               radius="md"
               data-variant="light"
               className={classes.image}
+              darkHidden
             />
             <Image
               src={datistLogoTextDark}
@@ -43,6 +44,7 @@ export function About() {
               radius="md"
               data-variant="dark"
               className={classes.image}
+              lightHidden
             />
           </Anchor>
         </Box>

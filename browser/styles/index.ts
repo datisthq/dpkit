@@ -2,4 +2,4 @@
 // ---
 import "@mantine/core/styles.css"
 // ---
-import "./main.css"
+import "./custom.css"

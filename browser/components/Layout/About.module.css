@@ -3,17 +3,3 @@
   border-radius: 15px;
   border: dashed 1px #aaa;
 }
-
-.image {
-  display: none;
-}
-
-html[data-theme='light'] .image[data-variant="light"],
-html[data-mantine-color-scheme='light'] .image[data-variant="light"] {
-  display: block;
-}
-
-html[data-theme='dark'] .image[data-variant="dark"],
-html[data-mantine-color-scheme='dark'] .image[data-variant="dark"] {
-  display: block;
-}

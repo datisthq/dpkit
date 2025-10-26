@@ -39,13 +39,12 @@ export default defineConfig({
       title: "dpkit",
       description:
         "dpkit is a fast data management framework built on top of the Data Package standard and Polars DataFrames. It supports various formats like CSV, JSON, and Parquet and integrates with data platforms such as CKAN, Zenodo, and GitHub",
-      customCss: ["/assets/styles.css"],
+      customCss: ["/styles/custom.css"],
       components: {
-        SocialIcons: "./components/Header/SocialIcons.astro",
+        SocialIcons: "./components/SocialIcons.astro",
       },
       logo: {
-        light: "/assets/logo-light.png",
-        dark: "/assets/logo-dark.png",
+        src: "/assets/dpkit-logo.svg",
         alt: "DPkit Logo",
         replacesTitle: true,
       },
