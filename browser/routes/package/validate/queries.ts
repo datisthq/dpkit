@@ -20,7 +20,7 @@ export function useValidatePackage() {
     },
     onError: error => {
       console.log(error)
-      store.setState({ isFault: true })
+      store.setState({ error })
     },
   })
 }
