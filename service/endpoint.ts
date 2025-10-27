@@ -6,7 +6,7 @@ export const baseEndpoint = os.errors({
 
 const errorMiddleware = baseEndpoint.middleware(async ({ next, errors }) => {
   try {
-    return next()
+    return await next()
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     throw errors.ERROR({ message })
