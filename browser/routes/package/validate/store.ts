@@ -4,8 +4,8 @@ import type { api } from "#runtimes/browser/api.ts"
 export interface State {
   isDialogOpen?: boolean
   isPending?: boolean
-  isFault?: boolean
   report?: Awaited<ReturnType<typeof api.package.validate>>
+  error?: Error
 }
 
 export const store = createStore<State>("validatePackage")

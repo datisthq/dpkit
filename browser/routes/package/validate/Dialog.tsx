@@ -8,20 +8,25 @@ import { store } from "./store.ts"
 
 export function ValidatePackageDialog() {
   const { t } = useTranslation()
+  const error = store.useState(state => state.error)
   const report = store.useState(state => state.report)
-  const isFault = store.useState(state => state.isFault)
   const isPending = store.useState(state => state.isPending)
   const isDialogOpen = store.useState(state => state.isDialogOpen)
 
   const handleOpenChange = (isDialogOpen: boolean) => {
-    store.setState({ isDialogOpen, isFault: undefined, report: undefined })
+    store.setState({ isDialogOpen, error: undefined, report: undefined })
   }
 
   const getStatus = () => {
     if (report) return report.valid ? "success" : "error"
     if (isPending) return "pending"
-    if (isFault) return "fault"
+    if (error) return "error"
     return undefined
+  }
+
+  const getErrorTitle = () => {
+    if (error) return t(error.message as any)
+    return "Invalid data package"
   }
 
   return (
@@ -34,7 +39,7 @@ export function ValidatePackageDialog() {
         status={getStatus()}
         pendingTitle={t("Validating data package...")}
         successTitle={t("Valid data package")}
-        errorTitle={t("Invalid data package")}
+        errorTitle={getErrorTitle()}
       />
 
       <Report errors={report?.errors as any} />

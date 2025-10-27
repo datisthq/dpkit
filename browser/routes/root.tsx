@@ -64,12 +64,12 @@ export function Layout(props: { children: React.ReactNode }) {
         <link rel="sitemap" type="text/xml" href="/sitemap.xml" />
         <link rel="icon" type="image/png" href="/favicon.png" />
 
-        {links.map(link => (
+        {links.map((link, index) => (
           <link
+            key={index}
             rel={link.rel}
-            hrefLang={link.hreflang}
             href={link.href}
-            key={link.href}
+            hrefLang={link.hreflang}
           />
         ))}
 

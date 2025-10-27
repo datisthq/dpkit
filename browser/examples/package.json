@@ -6,7 +6,7 @@
   "created": "invalid-date-format",
   "resources": [
     {
-      "name": "test-data",
+      "name": "table",
       "type": "table",
       "data": [
         ["id", "name", "email", "age", "score", "status"],

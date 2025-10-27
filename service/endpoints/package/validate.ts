@@ -1,8 +1,8 @@
 import * as dpkit from "@dpkit/lib"
-import { os } from "@orpc/server"
 import * as z from "zod"
+import { endpoint } from "../../endpoint.ts"
 
-export const validatePackage = os
+export const validatePackage = endpoint
   .route({
     method: "POST",
     path: "/package/validate",
