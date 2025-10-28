@@ -17,7 +17,7 @@ export async function validateTable(
     maxErorrs?: number
   },
 ) {
-  const { schema, sampleRows = 100, maxErorrs = 100 } = options ?? {}
+  const { schema, sampleRows = 100, maxErorrs = 1000 } = options ?? {}
   const errors: TableError[] = []
 
   if (schema) {
@@ -139,14 +139,19 @@ async function validateFields(
   const errors: TableError[] = []
   const concurrency = os.cpus().length - 1
   const abortController = new AbortController()
+  const maxFieldErrors = Math.ceil(maxErrors / schema.fields.length)
 
   const collectFieldErrors = async (index: number, field: Field) => {
     const polarsField = matchField(index, field, schema, polarsSchema)
     if (!polarsField) return
 
-    const report = await validateField(field, { table, polarsField, maxErrors })
-    errors.push(...report.errors)
+    const report = await validateField(field, {
+      table,
+      polarsField,
+      maxErrors: maxFieldErrors,
+    })
 
+    errors.push(...report.errors)
     if (errors.length > maxErrors) {
       abortController.abort()
     }
