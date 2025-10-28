@@ -1,5 +1,5 @@
 import type { Field } from "@dpkit/core"
-import { col } from "nodejs-polars"
+import { col, lit } from "nodejs-polars"
 import type { TableError } from "../error/index.ts"
 import type { Table } from "../table/index.ts"
 import type { PolarsField } from "./Field.ts"
@@ -94,12 +94,13 @@ function validateType(field: Field, polarsField: PolarsField) {
 function validateData(field: Field, polarsField: PolarsField, table: Table) {
   const fieldExpr = col(polarsField.name)
 
-  const checkTable = table
+  const fieldTable = table
     .withRowCount()
     .select(
       col("row_nr").add(1).alias("number"),
       substituteField(field, fieldExpr).alias("source"),
       normalizeField(field, fieldExpr).alias("target"),
+      lit(null).alias("error"),
     )
 
   return []
