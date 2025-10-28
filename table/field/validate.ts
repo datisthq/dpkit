@@ -109,7 +109,7 @@ async function validateData(
       lit(null).alias("error"),
     )
 
-  for (const checkCell of [checkCellType, checkCellUnique]) {
+  for (const checkCell of [checkCellType, checkCellRequired, checkCellUnique]) {
     const check = checkCell(field, col("target"), col("source"))
 
     if (check) {
