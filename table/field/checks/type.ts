@@ -8,6 +8,7 @@ export function checkCellType(field: Field) {
   const errorTemplate: CellTypeError = {
     type: "cell/type",
     fieldName: field.name,
+    fieldType: field.type ?? "any",
     rowNumber: 0,
     cell: "",
   }

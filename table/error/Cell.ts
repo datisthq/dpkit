@@ -1,3 +1,4 @@
+import type { FieldType } from "@dpkit/core"
 import type { BaseTableError } from "./Base.ts"
 
 export type CellError =
@@ -21,6 +22,7 @@ export interface BaseCellError extends BaseTableError {
 
 export interface CellTypeError extends BaseCellError {
   type: "cell/type"
+  fieldType: FieldType
 }
 
 export interface CellRequiredError extends BaseCellError {
