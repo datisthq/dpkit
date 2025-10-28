@@ -1,19 +1,20 @@
 import type { Field } from "@dpkit/core"
-import { col } from "nodejs-polars"
-import type { Table } from "../../table/index.ts"
+import type { Expr } from "nodejs-polars"
+import type { CellUniqueError } from "../../error/index.ts"
 
 // TODO: Support schema.primaryKey and schema.uniqueKeys
-export function checkCellUnique(field: Field, errorTable: Table) {
+export function checkCellUnique(field: Field, target: Expr) {
   const unique = field.constraints?.unique
+  if (!unique) return undefined
 
-  if (unique) {
-    const target = col(`target:${field.name}`)
-    const errorName = `error:cell/unique:${field.name}`
+  const isErrorExpr = target.isNotNull().and(target.isFirstDistinct().not())
 
-    errorTable = errorTable.withColumn(
-      target.isNotNull().and(target.isFirstDistinct().not()).alias(errorName),
-    )
+  const errorTemplate: CellUniqueError = {
+    type: "cell/unique",
+    fieldName: field.name,
+    rowNumber: 0,
+    cell: "",
   }
 
-  return errorTable
+  return { isErrorExpr, errorTemplate }
 }

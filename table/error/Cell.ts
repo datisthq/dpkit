@@ -23,6 +23,7 @@ export interface BaseCellError extends BaseTableError {
 export interface CellTypeError extends BaseCellError {
   type: "cell/type"
   fieldType: FieldType
+  fieldFormat?: string
 }
 
 export interface CellRequiredError extends BaseCellError {

@@ -4,8 +4,8 @@ import type { Expr } from "nodejs-polars"
 
 const DEFAULT_MISSING_VALUE = ""
 
-export function desubstituteField(field: Field, expr?: Expr) {
-  expr = expr ?? col(field.name)
+export function desubstituteField(field: Field, fieldExpr?: Expr) {
+  let expr = fieldExpr ?? col(field.name)
 
   const flattenMissingValues = field.missingValues?.map(it =>
     typeof it === "string" ? it : it.value,

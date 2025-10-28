@@ -104,15 +104,15 @@ async function validateData(
     .withRowCount()
     .select(
       col("row_nr").add(1).alias("number"),
-      substituteField(field, fieldExpr).alias("source"),
       normalizeField(field, fieldExpr).alias("target"),
+      substituteField(field, fieldExpr).alias("source"),
       lit(null).alias("error"),
     )
 
-  for (const checkCell of [checkCellType]) {
-    const check = checkCell(field)
+  for (const checkCell of [checkCellType, checkCellUnique]) {
+    const check = checkCell(field, col("target"), col("source"))
 
-    if (check.isErrorExpr) {
+    if (check) {
       fieldCheckTable = fieldCheckTable.withColumn(
         when(col("error").isNotNull())
           .then(col("error"))
