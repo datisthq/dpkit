@@ -1,20 +1,21 @@
 import type { Field } from "@dpkit/core"
-import { col } from "nodejs-polars"
-import type { Table } from "../../table/index.ts"
+import type { Expr } from "nodejs-polars"
+import type { CellEnumError } from "../../error/index.ts"
 
-export function checkCellEnum(field: Field, errorTable: Table) {
-  if (field.type === "string") {
-    const rawEnum = field.constraints?.enum
+export function checkCellEnum(field: Field, target: Expr) {
+  if (field.type !== "string") return undefined
 
-    if (rawEnum) {
-      const target = col(`target:${field.name}`)
-      const errorName = `error:cell/enum:${field.name}`
+  const rawEnum = field.constraints?.enum
+  if (!rawEnum) return undefined
 
-      errorTable = errorTable.withColumn(
-        target.isIn(rawEnum).not().alias(errorName),
-      )
-    }
+  const isErrorExpr = target.isIn(rawEnum).not()
+
+  const errorTemplate: CellEnumError = {
+    type: "cell/enum",
+    fieldName: field.name,
+    rowNumber: 0,
+    cell: "",
   }
 
-  return errorTable
+  return { isErrorExpr, errorTemplate }
 }
