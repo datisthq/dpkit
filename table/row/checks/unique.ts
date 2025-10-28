@@ -25,7 +25,6 @@ export function checkRowUnique(schema: Schema, errorTable: Table) {
           .and(col(errorName).isFirstDistinct().not())
           .alias(errorName),
       )
-      .withColumn(col("error").or(col(errorName)).alias("error"))
   }
 
   return errorTable

@@ -28,17 +28,13 @@ export function checkCellMaximum(
         const parsedMaximum =
           typeof maximum === "string" ? parser(maximum) : maximum
 
-        errorTable = errorTable
-          .withColumn(
-            options?.isExclusive
-              ? target.gtEq(parsedMaximum).alias(errorName)
-              : target.gt(parsedMaximum).alias(errorName),
-          )
-          .withColumn(col("error").or(col(errorName)).alias("error"))
+        errorTable = errorTable.withColumn(
+          options?.isExclusive
+            ? target.gtEq(parsedMaximum).alias(errorName)
+            : target.gt(parsedMaximum).alias(errorName),
+        )
       } catch (error) {
-        errorTable = errorTable
-          .withColumn(lit(true).alias(errorName))
-          .withColumn(lit(true).alias("error"))
+        errorTable = errorTable.withColumn(lit(true).alias(errorName))
       }
     }
   }

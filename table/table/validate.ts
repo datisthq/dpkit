@@ -1,5 +1,5 @@
 import type { Schema } from "@dpkit/core"
-import { col, lit } from "nodejs-polars"
+import { anyHorizontal, col } from "nodejs-polars"
 import type { TableError } from "../error/index.ts"
 import { matchField } from "../field/index.ts"
 import { validateField } from "../field/index.ts"
@@ -152,12 +152,7 @@ async function validateFields(
 
   let errorTable = table
     .withRowCount()
-    .select(
-      col("row_nr").add(1),
-      lit(false).alias("error"),
-      ...sources,
-      ...targets,
-    )
+    .select(col("row_nr").add(1), ...sources, ...targets)
 
   for (const [index, field] of schema.fields.entries()) {
     const polarsField = matchField(index, field, schema, polarsSchema)
@@ -172,8 +167,16 @@ async function validateFields(
   errorTable = rowsResult.errorTable
   errors.push(...rowsResult.errors)
 
+  const erorrColumns = errorTable.columns.filter(name =>
+    name.startsWith("error:"),
+  )
+
+  if (!erorrColumns.length) {
+    return errors
+  }
+
   const errorFrame = await errorTable
-    .filter(col("error").eq(true))
+    .filter(anyHorizontal(erorrColumns.map(col)))
     .head(invalidRowsLimit)
     .drop(targetNames)
     .collect()

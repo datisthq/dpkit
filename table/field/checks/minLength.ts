@@ -10,9 +10,9 @@ export function checkCellMinLength(field: Field, errorTable: Table) {
       const target = col(`target:${field.name}`)
       const errorName = `error:cell/minLength:${field.name}`
 
-      errorTable = errorTable
-        .withColumn(target.str.lengths().lt(minLength).alias(errorName))
-        .withColumn(col("error").or(col(errorName)).alias("error"))
+      errorTable = errorTable.withColumn(
+        target.str.lengths().lt(minLength).alias(errorName),
+      )
     }
   }
 

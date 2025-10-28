@@ -27,17 +27,13 @@ export function checkCellMinimum(
         const parsedMinimum =
           typeof minimum === "string" ? parser(minimum) : minimum
 
-        errorTable = errorTable
-          .withColumn(
-            options?.isExclusive
-              ? target.ltEq(parsedMinimum).alias(errorName)
-              : target.lt(parsedMinimum).alias(errorName),
-          )
-          .withColumn(col("error").or(col(errorName)).alias("error"))
+        errorTable = errorTable.withColumn(
+          options?.isExclusive
+            ? target.ltEq(parsedMinimum).alias(errorName)
+            : target.lt(parsedMinimum).alias(errorName),
+        )
       } catch (error) {
-        errorTable = errorTable
-          .withColumn(lit(true).alias(errorName))
-          .withColumn(lit(true).alias("error"))
+        errorTable = errorTable.withColumn(lit(true).alias(errorName))
       }
     }
   }

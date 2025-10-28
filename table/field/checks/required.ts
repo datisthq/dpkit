@@ -9,7 +9,6 @@ export function checkCellRequired(field: Field, errorTable: Table) {
 
     errorTable = errorTable
       .withColumn(target.isNull().alias(errorName))
-      .withColumn(col("error").or(col(errorName)).alias("error"))
   }
 
   return errorTable

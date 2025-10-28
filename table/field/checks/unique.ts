@@ -10,11 +10,9 @@ export function checkCellUnique(field: Field, errorTable: Table) {
     const target = col(`target:${field.name}`)
     const errorName = `error:cell/unique:${field.name}`
 
-    errorTable = errorTable
-      .withColumn(
-        target.isNotNull().and(target.isFirstDistinct().not()).alias(errorName),
-      )
-      .withColumn(col("error").or(col(errorName)).alias("error"))
+    errorTable = errorTable.withColumn(
+      target.isNotNull().and(target.isFirstDistinct().not()).alias(errorName),
+    )
   }
 
   return errorTable
