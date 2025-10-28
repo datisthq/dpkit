@@ -1,20 +1,21 @@
 import type { Field } from "@dpkit/core"
-import { col } from "nodejs-polars"
-import type { Table } from "../../table/index.ts"
+import type { Expr } from "nodejs-polars"
+import type { CellMaxLengthError } from "../../error/index.ts"
 
-export function checkCellMaxLength(field: Field, errorTable: Table) {
-  if (field.type === "string") {
-    const maxLength = field.constraints?.maxLength
+export function checkCellMaxLength(field: Field, target: Expr) {
+  if (field.type !== "string") return undefined
 
-    if (maxLength !== undefined) {
-      const target = col(`target:${field.name}`)
-      const errorName = `error:cell/maxLength:${field.name}`
+  const maxLength = field.constraints?.maxLength
+  if (!maxLength) return undefined
 
-      errorTable = errorTable.withColumn(
-        target.str.lengths().gt(maxLength).alias(errorName),
-      )
-    }
+  const isErrorExpr = target.str.lengths().gt(maxLength)
+
+  const errorTemplate: CellMaxLengthError = {
+    type: "cell/maxLength",
+    fieldName: field.name,
+    rowNumber: 0,
+    cell: "",
   }
 
-  return errorTable
+  return { isErrorExpr, errorTemplate }
 }
