@@ -1,4 +1,5 @@
 import type { Field } from "@dpkit/core"
+import { col } from "nodejs-polars"
 import type { TableError } from "../error/index.ts"
 import type { Table } from "../table/index.ts"
 import type { PolarsField } from "./Field.ts"
@@ -11,11 +12,14 @@ import { checkCellPattern } from "./checks/pattern.ts"
 import { checkCellRequired } from "./checks/required.ts"
 import { checkCellType } from "./checks/type.ts"
 import { checkCellUnique } from "./checks/unique.ts"
+import { normalizeField } from "./normalize.ts"
+import { parseField } from "./parse.ts"
+import { substituteField } from "./substitute.ts"
 
-export function validateField(
+export async function validateField(
   field: Field,
   options: {
-    errorTable: Table
+    table: Table
     polarsField: PolarsField
   },
 ) {
@@ -28,11 +32,12 @@ export function validateField(
   const typeErrors = validateType(field, polarsField)
   errors.push(...typeErrors)
 
-  const errorTable = !typeErrors.length
-    ? validateCells(field, options.errorTable)
-    : options.errorTable
+  if (!typeErrors.length) {
+    const dataErorrs = validateData(field, options.polarsField, options.table)
+    errors.push(...dataErorrs)
+  }
 
-  return { valid: !errors.length, errors, errorTable }
+  return { errors, valid: !errors.length }
 }
 
 function validateName(field: Field, polarsField: PolarsField) {
@@ -86,17 +91,16 @@ function validateType(field: Field, polarsField: PolarsField) {
   return errors
 }
 
-function validateCells(field: Field, errorTable: Table) {
-  errorTable = checkCellType(field, errorTable)
-  errorTable = checkCellRequired(field, errorTable)
-  errorTable = checkCellPattern(field, errorTable)
-  errorTable = checkCellEnum(field, errorTable)
-  errorTable = checkCellMinimum(field, errorTable)
-  errorTable = checkCellMaximum(field, errorTable)
-  errorTable = checkCellMinimum(field, errorTable, { isExclusive: true })
-  errorTable = checkCellMaximum(field, errorTable, { isExclusive: true })
-  errorTable = checkCellMinLength(field, errorTable)
-  errorTable = checkCellMaxLength(field, errorTable)
-  errorTable = checkCellUnique(field, errorTable)
-  return errorTable
+function validateData(field: Field, polarsField: PolarsField, table: Table) {
+  const fieldExpr = col(polarsField.name)
+
+  const checkTable = table
+    .withRowCount()
+    .select(
+      col("row_nr").add(1).alias("number"),
+      substituteField(field, fieldExpr).alias("source"),
+      normalizeField(field, fieldExpr).alias("target"),
+    )
+
+  return []
 }

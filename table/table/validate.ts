@@ -1,5 +1,7 @@
-import type { Schema } from "@dpkit/core"
+import os from "node:os"
+import type { Field, Schema } from "@dpkit/core"
 import { anyHorizontal, col } from "nodejs-polars"
+import pAll from "p-all"
 import type { TableError } from "../error/index.ts"
 import { matchField } from "../field/index.ts"
 import { validateField } from "../field/index.ts"
@@ -14,10 +16,10 @@ export async function validateTable(
   options?: {
     schema?: Schema
     sampleRows?: number
-    invalidRowsLimit?: number
+    maxErorrs?: number
   },
 ) {
-  const { schema, sampleRows = 100, invalidRowsLimit = 100 } = options ?? {}
+  const { schema, sampleRows = 100, maxErorrs = 100 } = options ?? {}
   const errors: TableError[] = []
 
   if (schema) {
@@ -31,12 +33,15 @@ export async function validateTable(
       table,
       schema,
       polarsSchema,
-      invalidRowsLimit,
+      maxErorrs,
     )
     errors.push(...fieldErrors)
   }
 
-  return { errors, valid: !errors.length }
+  return {
+    errors: errors.slice(0, maxErorrs),
+    valid: !errors.length,
+  }
 }
 
 function validateFieldsMatch(props: {
@@ -131,90 +136,32 @@ async function validateFields(
   table: Table,
   schema: Schema,
   polarsSchema: PolarsSchema,
-  invalidRowsLimit: number,
+  maxErorrs: number,
 ) {
   const errors: TableError[] = []
-  const targetNames: string[] = []
+  const concurrency = os.cpus().length
+  const abortController = new AbortController()
 
-  const sources = Object.entries(
-    normalizeFields(schema, polarsSchema, { dontParse: true }),
-  ).map(([name, expr]) => {
-    return expr.alias(`source:${name}`)
-  })
-
-  const targets = Object.entries(
-    normalizeFields(schema, polarsSchema, { dontParse: false }),
-  ).map(([name, expr]) => {
-    const targetName = `target:${name}`
-    targetNames.push(targetName)
-    return expr.alias(targetName)
-  })
-
-  let errorTable = table
-    .withRowCount()
-    .select(col("row_nr").add(1), ...sources, ...targets)
-
-  for (const [index, field] of schema.fields.entries()) {
+  const collectFieldErrors = async (index: number, field: Field) => {
     const polarsField = matchField(index, field, schema, polarsSchema)
-    if (polarsField) {
-      const fieldResult = validateField(field, { errorTable, polarsField })
-      errorTable = fieldResult.errorTable
-      errors.push(...fieldResult.errors)
+    if (!polarsField) return
+
+    const report = await validateField(field, { table, polarsField })
+    errors.push(...report.errors)
+
+    if (errors.length > maxErorrs) {
+      abortController.abort()
     }
   }
 
-  const rowsResult = validateRows(schema, errorTable)
-  errorTable = rowsResult.errorTable
-  errors.push(...rowsResult.errors)
-
-  const erorrColumns = errorTable.columns.filter(name =>
-    name.startsWith("error:"),
-  )
-
-  if (!erorrColumns.length) {
-    return errors
-  }
-
-  const errorFrame = await errorTable
-    .filter(anyHorizontal(erorrColumns.map(col)))
-    .limit(invalidRowsLimit)
-    .drop(targetNames)
-    .collect({ streaming: true })
-
-  for (const record of errorFrame.toRecords() as any[]) {
-    const typeErrorInFields: string[] = []
-    for (const [key, value] of Object.entries(record)) {
-      const [kind, type, name] = key.split(":")
-      if (kind === "error" && value === true && type && name) {
-        const rowNumber = record.row_nr
-
-        // Cell-level errors
-        if (type.startsWith("cell/")) {
-          if (!typeErrorInFields.includes(name)) {
-            errors.push({
-              rowNumber,
-              type: type as any,
-              fieldName: name as any,
-              cell: (record[`source:${name}`] ?? "").toString(),
-            })
-          }
-
-          // Type error is a terminating error for a cell
-          if (type === "cell/type") {
-            typeErrorInFields.push(name)
-          }
-        }
-
-        // Row-level errors
-        if (type.startsWith("row/")) {
-          errors.push({
-            rowNumber,
-            type: type as any,
-            fieldNames: name.split(","),
-          })
-        }
-      }
-    }
+  try {
+    await pAll(
+      schema.fields.map((field, idx) => () => collectFieldErrors(idx, field)),
+      { concurrency },
+    )
+  } catch (error) {
+    const isAborted = error instanceof Error && error.name === "AbortError"
+    if (!isAborted) throw error
   }
 
   return errors

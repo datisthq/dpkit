@@ -17,8 +17,8 @@ import { parseTimeField } from "./types/time.ts"
 import { parseYearField } from "./types/year.ts"
 import { parseYearmonthField } from "./types/yearmonth.ts"
 
-export function parseField(field: Field, expr?: Expr) {
-  expr = expr ?? col(field.name)
+export function parseField(field: Field, fieldExpr?: Expr) {
+  const expr = fieldExpr ?? col(field.name)
 
   switch (field.type) {
     case "array":

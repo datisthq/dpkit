@@ -17,8 +17,8 @@ import { stringifyTimeField } from "./types/time.ts"
 import { stringifyYearField } from "./types/year.ts"
 import { stringifyYearmonthField } from "./types/yearmonth.ts"
 
-export function stringifyField(field: Field, expr?: Expr) {
-  expr = expr ?? col(field.name)
+export function stringifyField(field: Field, fieldExpr?: Expr) {
+  const expr = fieldExpr ?? col(field.name)
 
   switch (field.type) {
     case "array":
