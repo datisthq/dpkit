@@ -179,7 +179,7 @@ async function validateFields(
     .filter(anyHorizontal(erorrColumns.map(col)))
     .limit(invalidRowsLimit)
     .drop(targetNames)
-    .collect()
+    .collect({ streaming: true })
 
   for (const record of errorFrame.toRecords() as any[]) {
     const typeErrorInFields: string[] = []
