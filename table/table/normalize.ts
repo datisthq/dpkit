@@ -10,31 +10,14 @@ import type { Table } from "./Table.ts"
 
 const HEAD_ROWS = 100
 
-export async function normalizeTable(
-  table: Table,
-  schema: Schema,
-  options?: {
-    dontParse?: boolean
-  },
-) {
-  const { dontParse } = options ?? {}
-
+export async function normalizeTable(table: Table, schema: Schema) {
   const head = await table.head(HEAD_ROWS).collect()
   const polarsSchema = getPolarsSchema(head.schema)
 
-  return table.select(
-    ...Object.values(normalizeFields(schema, polarsSchema, { dontParse })),
-  )
+  return table.select(...Object.values(normalizeFields(schema, polarsSchema)))
 }
 
-export function normalizeFields(
-  schema: Schema,
-  polarsSchema: PolarsSchema,
-  options?: {
-    dontParse?: boolean
-  },
-) {
-  const { dontParse } = options ?? {}
+export function normalizeFields(schema: Schema, polarsSchema: PolarsSchema) {
   const exprs: Record<string, Expr> = {}
 
   for (const [index, field] of schema.fields.entries()) {
@@ -48,7 +31,7 @@ export function normalizeFields(
       if (polarsField.type.equals(DataType.String)) {
         const missingValues = field.missingValues ?? schema.missingValues
         const mergedField = { ...field, missingValues }
-        expr = normalizeField(mergedField, expr, { dontParse })
+        expr = normalizeField(mergedField, expr)
       }
     }
 
