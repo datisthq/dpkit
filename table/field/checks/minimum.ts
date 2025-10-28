@@ -1,42 +1,40 @@
 import type { Field } from "@dpkit/core"
-import { col, lit } from "nodejs-polars"
-import type { Table } from "../../table/index.ts"
+import { lit } from "nodejs-polars"
+import type { Expr } from "nodejs-polars"
+import type { CellExclusiveMinimumError } from "../../error/index.ts"
+import type { CellMinimumError } from "../../error/index.ts"
 
-export function checkCellMinimum(
-  field: Field,
-  errorTable: Table,
-  options?: {
-    isExclusive?: boolean
-  },
-) {
-  if (field.type === "integer" || field.type === "number") {
+export function createCheckCellMinimum(options?: { isExclusive?: boolean }) {
+  return (field: Field, target: Expr) => {
+    if (field.type !== "integer" && field.type !== "number") return undefined
+
     const minimum = options?.isExclusive
       ? field.constraints?.exclusiveMinimum
       : field.constraints?.minimum
+    if (minimum === undefined) return undefined
 
-    if (minimum !== undefined) {
-      const target = col(`target:${field.name}`)
-      const errorName = options?.isExclusive
-        ? `error:cell/exclusiveMinimum:${field.name}`
-        : `error:cell/minimum:${field.name}`
+    let isErrorExpr: Expr
+    const parser =
+      field.type === "integer" ? Number.parseInt : Number.parseFloat
 
-      const parser =
-        field.type === "integer" ? Number.parseInt : Number.parseFloat
+    try {
+      const parsedMinimum =
+        typeof minimum === "string" ? parser(minimum) : minimum
 
-      try {
-        const parsedMinimum =
-          typeof minimum === "string" ? parser(minimum) : minimum
-
-        errorTable = errorTable.withColumn(
-          options?.isExclusive
-            ? target.ltEq(parsedMinimum).alias(errorName)
-            : target.lt(parsedMinimum).alias(errorName),
-        )
-      } catch (error) {
-        errorTable = errorTable.withColumn(lit(true).alias(errorName))
-      }
+      isErrorExpr = options?.isExclusive
+        ? target.ltEq(parsedMinimum)
+        : target.lt(parsedMinimum)
+    } catch (error) {
+      isErrorExpr = lit(true)
     }
-  }
 
-  return errorTable
+    const errorTemplate: CellMinimumError | CellExclusiveMinimumError = {
+      type: options?.isExclusive ? "cell/exclusiveMinimum" : "cell/minimum",
+      fieldName: field.name,
+      rowNumber: 0,
+      cell: "",
+    }
+
+    return { isErrorExpr, errorTemplate }
+  }
 }

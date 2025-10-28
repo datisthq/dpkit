@@ -1,43 +1,40 @@
 import type { Field } from "@dpkit/core"
-import { col, lit } from "nodejs-polars"
-import type { Table } from "../../table/index.ts"
+import { lit } from "nodejs-polars"
+import type { Expr } from "nodejs-polars"
+import type { CellExclusiveMaximumError } from "../../error/index.ts"
+import type { CellMaximumError } from "../../error/index.ts"
 
-export function checkCellMaximum(
-  field: Field,
-  errorTable: Table,
-  options?: {
-    isExclusive?: boolean
-  },
-) {
-  if (field.type === "integer" || field.type === "number") {
+export function createCheckCellMaximum(options?: { isExclusive?: boolean }) {
+  return (field: Field, target: Expr) => {
+    if (field.type !== "integer" && field.type !== "number") return undefined
+
     const maximum = options?.isExclusive
       ? field.constraints?.exclusiveMaximum
       : field.constraints?.maximum
+    if (maximum === undefined) return undefined
 
-    if (maximum !== undefined) {
-      const target = col(`target:${field.name}`)
-      const errorName = options?.isExclusive
-        ? `error:cell/exclusiveMaximum:${field.name}`
-        : `error:cell/maximum:${field.name}`
+    let isErrorExpr: Expr
+    const parser =
+      field.type === "integer" ? Number.parseInt : Number.parseFloat
 
-      // TODO: Support numeric options (decimalChar, groupChar, etc)
-      const parser =
-        field.type === "integer" ? Number.parseInt : Number.parseFloat
+    try {
+      const parsedMaximum =
+        typeof maximum === "string" ? parser(maximum) : maximum
 
-      try {
-        const parsedMaximum =
-          typeof maximum === "string" ? parser(maximum) : maximum
-
-        errorTable = errorTable.withColumn(
-          options?.isExclusive
-            ? target.gtEq(parsedMaximum).alias(errorName)
-            : target.gt(parsedMaximum).alias(errorName),
-        )
-      } catch (error) {
-        errorTable = errorTable.withColumn(lit(true).alias(errorName))
-      }
+      isErrorExpr = options?.isExclusive
+        ? target.gtEq(parsedMaximum)
+        : target.gt(parsedMaximum)
+    } catch (error) {
+      isErrorExpr = lit(true)
     }
-  }
 
-  return errorTable
+    const errorTemplate: CellMaximumError | CellExclusiveMaximumError = {
+      type: options?.isExclusive ? "cell/exclusiveMaximum" : "cell/maximum",
+      fieldName: field.name,
+      rowNumber: 0,
+      cell: "",
+    }
+
+    return { isErrorExpr, errorTemplate }
+  }
 }

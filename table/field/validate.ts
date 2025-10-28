@@ -5,9 +5,9 @@ import type { Table } from "../table/index.ts"
 import type { PolarsField } from "./Field.ts"
 import { checkCellEnum } from "./checks/enum.ts"
 import { checkCellMaxLength } from "./checks/maxLength.ts"
-import { checkCellMaximum } from "./checks/maximum.ts"
+import { createCheckCellMaximum } from "./checks/maximum.ts"
 import { checkCellMinLength } from "./checks/minLength.ts"
-import { checkCellMinimum } from "./checks/minimum.ts"
+import { createCheckCellMinimum } from "./checks/minimum.ts"
 import { checkCellPattern } from "./checks/pattern.ts"
 import { checkCellRequired } from "./checks/required.ts"
 import { checkCellType } from "./checks/type.ts"
@@ -33,7 +33,7 @@ export async function validateField(
   errors.push(...typeErrors)
 
   if (!typeErrors.length) {
-    const dataErorrs = await validateData(field, polarsField, maxErrors, table)
+    const dataErorrs = await validateCells(field, polarsField, maxErrors, table)
     errors.push(...dataErorrs)
   }
 
@@ -91,7 +91,7 @@ function validateType(field: Field, polarsField: PolarsField) {
   return errors
 }
 
-async function validateData(
+async function validateCells(
   field: Field,
   polarsField: PolarsField,
   maxErrors: number,
@@ -113,6 +113,13 @@ async function validateData(
     checkCellType,
     checkCellRequired,
     checkCellPattern,
+    checkCellEnum,
+    createCheckCellMinimum(),
+    createCheckCellMaximum(),
+    createCheckCellMinimum({ isExclusive: true }),
+    createCheckCellMaximum({ isExclusive: true }),
+    checkCellMinLength,
+    checkCellMaxLength,
     checkCellUnique,
   ]) {
     const check = checkCell(field, col("target"), col("source"))
