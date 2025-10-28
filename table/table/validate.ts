@@ -1,6 +1,5 @@
 import os from "node:os"
 import type { Field, Schema } from "@dpkit/core"
-import { anyHorizontal, col } from "nodejs-polars"
 import pAll from "p-all"
 import type { TableError } from "../error/index.ts"
 import { matchField } from "../field/index.ts"
@@ -9,7 +8,6 @@ import { validateRows } from "../row/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { PolarsSchema } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
-import { normalizeFields } from "./normalize.ts"
 
 export async function validateTable(
   table: Table,
@@ -136,20 +134,20 @@ async function validateFields(
   table: Table,
   schema: Schema,
   polarsSchema: PolarsSchema,
-  maxErorrs: number,
+  maxErrors: number,
 ) {
   const errors: TableError[] = []
-  const concurrency = os.cpus().length
+  const concurrency = os.cpus().length - 1
   const abortController = new AbortController()
 
   const collectFieldErrors = async (index: number, field: Field) => {
     const polarsField = matchField(index, field, schema, polarsSchema)
     if (!polarsField) return
 
-    const report = await validateField(field, { table, polarsField })
+    const report = await validateField(field, { table, polarsField, maxErrors })
     errors.push(...report.errors)
 
-    if (errors.length > maxErorrs) {
+    if (errors.length > maxErrors) {
       abortController.abort()
     }
   }

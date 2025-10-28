@@ -1,5 +1,7 @@
 import type { BaseTableError } from "./Base.ts"
 
+export type FieldsError = FieldsMissingError | FieldsExtraError
+
 export interface BaseFieldsError extends BaseTableError {
   fieldNames: string[]
 }

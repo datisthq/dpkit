@@ -1,6 +1,6 @@
 import type { Field } from "@dpkit/core"
-import { col, lit } from "nodejs-polars"
-import type { TableError } from "../error/index.ts"
+import { col, lit, when } from "nodejs-polars"
+import type { CellError, FieldError, TableError } from "../error/index.ts"
 import type { Table } from "../table/index.ts"
 import type { PolarsField } from "./Field.ts"
 import { checkCellEnum } from "./checks/enum.ts"
@@ -13,17 +13,17 @@ import { checkCellRequired } from "./checks/required.ts"
 import { checkCellType } from "./checks/type.ts"
 import { checkCellUnique } from "./checks/unique.ts"
 import { normalizeField } from "./normalize.ts"
-import { parseField } from "./parse.ts"
 import { substituteField } from "./substitute.ts"
 
 export async function validateField(
   field: Field,
   options: {
-    table: Table
     polarsField: PolarsField
+    maxErrors: number
+    table: Table
   },
 ) {
-  const { polarsField } = options
+  const { polarsField, maxErrors, table } = options
   const errors: TableError[] = []
 
   const nameErrors = validateName(field, polarsField)
@@ -33,7 +33,7 @@ export async function validateField(
   errors.push(...typeErrors)
 
   if (!typeErrors.length) {
-    const dataErorrs = validateData(field, options.polarsField, options.table)
+    const dataErorrs = await validateData(field, polarsField, maxErrors, table)
     errors.push(...dataErorrs)
   }
 
@@ -41,7 +41,7 @@ export async function validateField(
 }
 
 function validateName(field: Field, polarsField: PolarsField) {
-  const errors: TableError[] = []
+  const errors: FieldError[] = []
 
   if (field.name !== polarsField.name) {
     errors.push({
@@ -55,7 +55,7 @@ function validateName(field: Field, polarsField: PolarsField) {
 }
 
 function validateType(field: Field, polarsField: PolarsField) {
-  const errors: TableError[] = []
+  const errors: FieldError[] = []
 
   const mapping: Record<string, Field["type"]> = {
     Bool: "boolean",
@@ -91,10 +91,16 @@ function validateType(field: Field, polarsField: PolarsField) {
   return errors
 }
 
-function validateData(field: Field, polarsField: PolarsField, table: Table) {
+async function validateData(
+  field: Field,
+  polarsField: PolarsField,
+  maxErrors: number,
+  table: Table,
+) {
+  const errors: CellError[] = []
   const fieldExpr = col(polarsField.name)
 
-  const fieldTable = table
+  let fieldCheckTable = table
     .withRowCount()
     .select(
       col("row_nr").add(1).alias("number"),
@@ -103,5 +109,35 @@ function validateData(field: Field, polarsField: PolarsField, table: Table) {
       lit(null).alias("error"),
     )
 
-  return []
+  for (const checkCell of [checkCellType]) {
+    const check = checkCell(field)
+
+    if (check.isErrorExpr) {
+      fieldCheckTable = fieldCheckTable.withColumn(
+        when(col("error").isNotNull())
+          .then(col("error"))
+          .when(check.isErrorExpr)
+          .then(lit(JSON.stringify(check.errorTemplate)))
+          .otherwise(lit(null))
+          .alias("error"),
+      )
+    }
+  }
+
+  const fieldCheckFrame = await fieldCheckTable
+    .filter(col("error").isNotNull())
+    .drop(["target"])
+    .head(maxErrors)
+    .collect()
+
+  for (const row of fieldCheckFrame.toRecords() as any[]) {
+    const errorTemplate = JSON.parse(row.error) as CellError
+    errors.push({
+      ...errorTemplate,
+      rowNumber: row.number,
+      cell: String(row.source ?? ""),
+    })
+  }
+
+  return errors
 }

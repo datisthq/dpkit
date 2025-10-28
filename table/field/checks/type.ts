@@ -1,13 +1,16 @@
 import type { Field } from "@dpkit/core"
 import { col } from "nodejs-polars"
-import type { Table } from "../../table/index.ts"
+import type { CellTypeError } from "../../error/index.ts"
 
-export function checkCellType(field: Field, errorTable: Table) {
-  const source = col(`source:${field.name}`)
-  const target = col(`target:${field.name}`)
-  const errorName = `error:cell/type:${field.name}`
+export function checkCellType(field: Field) {
+  const isErrorExpr = col("source").isNotNull().and(col("target").isNull())
 
-  return errorTable.withColumn(
-    source.isNotNull().and(target.isNull()).alias(errorName),
-  )
+  const errorTemplate: CellTypeError = {
+    type: "cell/type",
+    fieldName: field.name,
+    rowNumber: 0,
+    cell: "",
+  }
+
+  return { isErrorExpr, errorTemplate }
 }

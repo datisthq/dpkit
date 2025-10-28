@@ -1,5 +1,18 @@
 import type { BaseTableError } from "./Base.ts"
 
+export type CellError =
+  | CellTypeError
+  | CellRequiredError
+  | CellMinimumError
+  | CellMaximumError
+  | CellExclusiveMinimumError
+  | CellExclusiveMaximumError
+  | CellMinLengthError
+  | CellMaxLengthError
+  | CellPatternError
+  | CellUniqueError
+  | CellEnumError
+
 export interface BaseCellError extends BaseTableError {
   fieldName: string
   rowNumber: number
