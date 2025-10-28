@@ -176,9 +176,9 @@ async function validateFields(
   }
 
   const errorFrame = await errorTable
+    .drop(targetNames)
     .filter(anyHorizontal(erorrColumns.map(col)))
     .head(invalidRowsLimit)
-    .drop(targetNames)
     .collect()
 
   for (const record of errorFrame.toRecords() as any[]) {
