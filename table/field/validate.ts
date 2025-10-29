@@ -13,7 +13,6 @@ import { checkCellRequired } from "./checks/required.ts"
 import { checkCellType } from "./checks/type.ts"
 import { checkCellUnique } from "./checks/unique.ts"
 import { normalizeField } from "./normalize.ts"
-import { substituteField } from "./substitute.ts"
 
 export async function validateField(
   mapping: FieldMapping,
@@ -105,7 +104,7 @@ async function validateCells(
     .select(
       col("row_nr").add(1).alias("number"),
       normalizeField(mapping).alias("target"),
-      substituteField(mapping.target, col(mapping.source.name)).alias("source"),
+      normalizeField(mapping, { keepType: true }).alias("source"),
       lit(null).alias("error"),
     )
 
