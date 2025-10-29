@@ -31,6 +31,7 @@ export function createCheckCellMaximum(options?: { isExclusive?: boolean }) {
     const errorTemplate: CellMaximumError | CellExclusiveMaximumError = {
       type: options?.isExclusive ? "cell/exclusiveMaximum" : "cell/maximum",
       fieldName: field.name,
+      maximum: String(maximum),
       rowNumber: 0,
       cell: "",
     }

@@ -32,30 +32,37 @@ export interface CellRequiredError extends BaseCellError {
 
 export interface CellMinimumError extends BaseCellError {
   type: "cell/minimum"
+  minimum: string
 }
 
 export interface CellMaximumError extends BaseCellError {
   type: "cell/maximum"
+  maximum: string
 }
 
 export interface CellExclusiveMinimumError extends BaseCellError {
   type: "cell/exclusiveMinimum"
+  minimum: string
 }
 
 export interface CellExclusiveMaximumError extends BaseCellError {
   type: "cell/exclusiveMaximum"
+  maximum: string
 }
 
 export interface CellMinLengthError extends BaseCellError {
   type: "cell/minLength"
+  minLength: number
 }
 
 export interface CellMaxLengthError extends BaseCellError {
   type: "cell/maxLength"
+  maxLength: number
 }
 
 export interface CellPatternError extends BaseCellError {
   type: "cell/pattern"
+  pattern: string
 }
 
 export interface CellUniqueError extends BaseCellError {
@@ -64,4 +71,5 @@ export interface CellUniqueError extends BaseCellError {
 
 export interface CellEnumError extends BaseCellError {
   type: "cell/enum"
+  enum: string[]
 }

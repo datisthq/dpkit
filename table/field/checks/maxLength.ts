@@ -13,6 +13,7 @@ export function checkCellMaxLength(field: Field, target: Expr) {
   const errorTemplate: CellMaxLengthError = {
     type: "cell/maxLength",
     fieldName: field.name,
+    maxLength: maxLength,
     rowNumber: 0,
     cell: "",
   }

@@ -13,6 +13,7 @@ export function checkCellMinLength(field: Field, target: Expr) {
   const errorTemplate: CellMinLengthError = {
     type: "cell/minLength",
     fieldName: field.name,
+    minLength: minLength,
     rowNumber: 0,
     cell: "",
   }

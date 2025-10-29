@@ -13,6 +13,7 @@ export function checkCellPattern(field: Field, target: Expr) {
   const errorTemplate: CellPatternError = {
     type: "cell/pattern",
     fieldName: field.name,
+    pattern: pattern,
     rowNumber: 0,
     cell: "",
   }

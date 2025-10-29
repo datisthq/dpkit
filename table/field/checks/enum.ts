@@ -13,6 +13,7 @@ export function checkCellEnum(field: Field, target: Expr) {
   const errorTemplate: CellEnumError = {
     type: "cell/enum",
     fieldName: field.name,
+    enum: rawEnum.map(String),
     rowNumber: 0,
     cell: "",
   }

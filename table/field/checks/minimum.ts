@@ -31,6 +31,7 @@ export function createCheckCellMinimum(options?: { isExclusive?: boolean }) {
     const errorTemplate: CellMinimumError | CellExclusiveMinimumError = {
       type: options?.isExclusive ? "cell/exclusiveMinimum" : "cell/minimum",
       fieldName: field.name,
+      minimum: String(minimum),
       rowNumber: 0,
       cell: "",
     }
