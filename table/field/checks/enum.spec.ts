@@ -26,6 +26,8 @@ describe("validateTable (cell/enum)", () => {
   })
 
   it("should report errors for values not in the enum", async () => {
+    const allowedValues = ["pending", "approved", "rejected"]
+
     const table = DataFrame({
       status: ["pending", "approved", "unknown", "cancelled", "rejected"],
     }).lazy()
@@ -36,7 +38,7 @@ describe("validateTable (cell/enum)", () => {
           name: "status",
           type: "string",
           constraints: {
-            enum: ["pending", "approved", "rejected"],
+            enum: allowedValues,
           },
         },
       ],
@@ -47,12 +49,14 @@ describe("validateTable (cell/enum)", () => {
     expect(errors).toContainEqual({
       type: "cell/enum",
       fieldName: "status",
+      enum: allowedValues,
       rowNumber: 3,
       cell: "unknown",
     })
     expect(errors).toContainEqual({
       type: "cell/enum",
       fieldName: "status",
+      enum: allowedValues,
       rowNumber: 4,
       cell: "cancelled",
     })
@@ -80,6 +84,8 @@ describe("validateTable (cell/enum)", () => {
   })
 
   it("should handle case sensitivity correctly", async () => {
+    const allowedValues = ["pending", "approved", "rejected"]
+
     const table = DataFrame({
       status: ["Pending", "APPROVED", "rejected"],
     }).lazy()
@@ -90,7 +96,7 @@ describe("validateTable (cell/enum)", () => {
           name: "status",
           type: "string",
           constraints: {
-            enum: ["pending", "approved", "rejected"],
+            enum: allowedValues,
           },
         },
       ],
@@ -101,12 +107,14 @@ describe("validateTable (cell/enum)", () => {
     expect(errors).toContainEqual({
       type: "cell/enum",
       fieldName: "status",
+      enum: allowedValues,
       rowNumber: 1,
       cell: "Pending",
     })
     expect(errors).toContainEqual({
       type: "cell/enum",
       fieldName: "status",
+      enum: allowedValues,
       rowNumber: 2,
       cell: "APPROVED",
     })
