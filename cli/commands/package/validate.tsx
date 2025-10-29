@@ -37,6 +37,7 @@ export const validatePackageCommand = new Command("validate")
       // @ts-ignore
       if (name) report.errors = report.errors.filter(e => e.resource === name)
 
+      // @ts-ignore
       const type = await selectErrorType(session, report.errors)
       // @ts-ignore
       if (type) report.errors = report.errors.filter(e => e.type === type)
@@ -49,6 +50,7 @@ export const validatePackageCommand = new Command("validate")
 
     session.render(
       report,
+      // @ts-ignore
       <ErrorGrid errors={report.errors} quit={options.quit} />,
     )
   })

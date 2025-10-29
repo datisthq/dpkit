@@ -2,7 +2,7 @@ import type { Field } from "@dpkit/core"
 import { col, lit, when } from "nodejs-polars"
 import type { CellError, FieldError, TableError } from "../error/index.ts"
 import type { Table } from "../table/index.ts"
-import type { PolarsField } from "./Field.ts"
+import type { FieldMapping } from "./Mapping.ts"
 import { checkCellEnum } from "./checks/enum.ts"
 import { checkCellMaxLength } from "./checks/maxLength.ts"
 import { createCheckCellMaximum } from "./checks/maximum.ts"
@@ -16,48 +16,47 @@ import { normalizeField } from "./normalize.ts"
 import { substituteField } from "./substitute.ts"
 
 export async function validateField(
-  field: Field,
+  mapping: FieldMapping,
+  table: Table,
   options: {
-    polarsField: PolarsField
     maxErrors: number
-    table: Table
   },
 ) {
-  const { polarsField, maxErrors, table } = options
+  const { maxErrors } = options
   const errors: TableError[] = []
 
-  const nameErrors = validateName(field, polarsField)
+  const nameErrors = validateName(mapping)
   errors.push(...nameErrors)
 
-  const typeErrors = validateType(field, polarsField)
+  const typeErrors = validateType(mapping)
   errors.push(...typeErrors)
 
   if (!typeErrors.length) {
-    const dataErorrs = await validateCells(field, polarsField, maxErrors, table)
+    const dataErorrs = await validateCells(mapping, table, { maxErrors })
     errors.push(...dataErorrs)
   }
 
   return { errors, valid: !errors.length }
 }
 
-function validateName(field: Field, polarsField: PolarsField) {
+function validateName(mapping: FieldMapping) {
   const errors: FieldError[] = []
 
-  if (field.name !== polarsField.name) {
+  if (mapping.source.name !== mapping.target.name) {
     errors.push({
       type: "field/name",
-      fieldName: field.name,
-      actualFieldName: polarsField.name,
+      fieldName: mapping.target.name,
+      actualFieldName: mapping.source.name,
     })
   }
 
   return errors
 }
 
-function validateType(field: Field, polarsField: PolarsField) {
+function validateType(mapping: FieldMapping) {
   const errors: FieldError[] = []
 
-  const mapping: Record<string, Field["type"]> = {
+  const types: Record<string, Field["type"]> = {
     Bool: "boolean",
     Date: "date",
     Datetime: "datetime",
@@ -77,13 +76,13 @@ function validateType(field: Field, polarsField: PolarsField) {
     Utf8: "string",
   }
 
-  const actualFieldType = mapping[polarsField.type.variant] ?? "any"
+  const actualFieldType = types[mapping.source.type.variant] ?? "any"
 
-  if (actualFieldType !== field.type && actualFieldType !== "string") {
+  if (actualFieldType !== mapping.target.type && actualFieldType !== "string") {
     errors.push({
       type: "field/type",
-      fieldName: field.name,
-      fieldType: field.type ?? "any",
+      fieldName: mapping.target.name,
+      fieldType: mapping.target.type ?? "any",
       actualFieldType,
     })
   }
@@ -92,20 +91,21 @@ function validateType(field: Field, polarsField: PolarsField) {
 }
 
 async function validateCells(
-  field: Field,
-  polarsField: PolarsField,
-  maxErrors: number,
+  mapping: FieldMapping,
   table: Table,
+  options: {
+    maxErrors: number
+  },
 ) {
+  const { maxErrors } = options
   const errors: CellError[] = []
-  const fieldExpr = col(polarsField.name)
 
   let fieldCheckTable = table
     .withRowCount()
     .select(
       col("row_nr").add(1).alias("number"),
-      normalizeField(field, fieldExpr).alias("target"),
-      substituteField(field, fieldExpr).alias("source"),
+      normalizeField(mapping).alias("target"),
+      substituteField(mapping.target, col(mapping.source.name)).alias("source"),
       lit(null).alias("error"),
     )
 
@@ -122,7 +122,7 @@ async function validateCells(
     checkCellMaxLength,
     checkCellUnique,
   ]) {
-    const check = checkCell(field, col("target"), col("source"))
+    const check = checkCell(mapping.target, col("target"), col("source"))
 
     if (check) {
       fieldCheckTable = fieldCheckTable.withColumn(

@@ -1,5 +1,4 @@
 import type { Field } from "@dpkit/core"
-import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import { stringifyArrayField } from "./types/array.ts"
 import { stringifyBooleanField } from "./types/boolean.ts"
@@ -17,9 +16,7 @@ import { stringifyTimeField } from "./types/time.ts"
 import { stringifyYearField } from "./types/year.ts"
 import { stringifyYearmonthField } from "./types/yearmonth.ts"
 
-export function stringifyField(field: Field, fieldExpr?: Expr) {
-  const expr = fieldExpr ?? col(field.name)
-
+export function stringifyField(field: Field, expr: Expr) {
   switch (field.type) {
     case "array":
       return stringifyArrayField(field, expr)

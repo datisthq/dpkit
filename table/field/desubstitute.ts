@@ -1,12 +1,10 @@
 import type { Field } from "@dpkit/core"
-import { col, lit, when } from "nodejs-polars"
+import { lit, when } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
 const DEFAULT_MISSING_VALUE = ""
 
-export function desubstituteField(field: Field, fieldExpr?: Expr) {
-  let expr = fieldExpr ?? col(field.name)
-
+export function desubstituteField(field: Field, expr: Expr) {
   const flattenMissingValues = field.missingValues?.map(it =>
     typeof it === "string" ? it : it.value,
   )

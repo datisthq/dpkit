@@ -1,5 +1,4 @@
 import type { Field } from "@dpkit/core"
-import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import { parseArrayField } from "./types/array.ts"
 import { parseBooleanField } from "./types/boolean.ts"
@@ -17,9 +16,7 @@ import { parseTimeField } from "./types/time.ts"
 import { parseYearField } from "./types/year.ts"
 import { parseYearmonthField } from "./types/yearmonth.ts"
 
-export function parseField(field: Field, fieldExpr?: Expr) {
-  const expr = fieldExpr ?? col(field.name)
-
+export function parseField(field: Field, expr: Expr) {
   switch (field.type) {
     case "array":
       return parseArrayField(field, expr)

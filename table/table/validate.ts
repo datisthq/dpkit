@@ -2,11 +2,11 @@ import os from "node:os"
 import type { Field, Schema } from "@dpkit/core"
 import pAll from "p-all"
 import type { TableError } from "../error/index.ts"
-import { matchField } from "../field/index.ts"
 import { validateField } from "../field/index.ts"
+import { matchSchemaField } from "../schema/index.ts"
 //import { validateRows } from "../row/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
-import type { PolarsSchema } from "../schema/index.ts"
+import type { SchemaMapping } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
 
 export async function validateTable(
@@ -14,45 +14,36 @@ export async function validateTable(
   options?: {
     schema?: Schema
     sampleRows?: number
-    maxErorrs?: number
+    maxErrors?: number
   },
 ) {
-  const { schema, sampleRows = 100, maxErorrs = 1000 } = options ?? {}
+  const { schema, sampleRows = 100, maxErrors = 1000 } = options ?? {}
   const errors: TableError[] = []
 
   if (schema) {
     const sample = await table.head(sampleRows).collect()
     const polarsSchema = getPolarsSchema(sample.schema)
+    const mapping = { source: polarsSchema, target: schema }
 
-    const matchErrors = validateFieldsMatch({ schema, polarsSchema })
+    const matchErrors = validateFieldsMatch(mapping)
     errors.push(...matchErrors)
 
-    const fieldErrors = await validateFields(
-      table,
-      schema,
-      polarsSchema,
-      maxErorrs,
-    )
+    const fieldErrors = await validateFields(mapping, table, { maxErrors })
     errors.push(...fieldErrors)
   }
 
   return {
-    errors: errors.slice(0, maxErorrs),
+    errors: errors.slice(0, maxErrors),
     valid: !errors.length,
   }
 }
 
-function validateFieldsMatch(props: {
-  schema: Schema
-  polarsSchema: PolarsSchema
-}) {
-  const { schema, polarsSchema } = props
-
+function validateFieldsMatch(mapping: SchemaMapping) {
   const errors: TableError[] = []
-  const fieldsMatch = schema.fieldsMatch ?? "exact"
+  const fieldsMatch = mapping.target.fieldsMatch ?? "exact"
 
-  const fields = schema.fields
-  const polarsFields = polarsSchema.fields
+  const fields = mapping.target.fields
+  const polarsFields = mapping.source.fields
 
   const names = fields.map(field => field.name)
   const polarsNames = polarsFields.map(field => field.name)
@@ -131,23 +122,24 @@ function validateFieldsMatch(props: {
 }
 
 async function validateFields(
+  mapping: SchemaMapping,
   table: Table,
-  schema: Schema,
-  polarsSchema: PolarsSchema,
-  maxErrors: number,
+  options: {
+    maxErrors: number
+  },
 ) {
+  const { maxErrors } = options
   const errors: TableError[] = []
+  const fields = mapping.target.fields
   const concurrency = os.cpus().length - 1
   const abortController = new AbortController()
-  const maxFieldErrors = Math.ceil(maxErrors / schema.fields.length)
+  const maxFieldErrors = Math.ceil(maxErrors / mapping.target.fields.length)
 
   const collectFieldErrors = async (index: number, field: Field) => {
-    const polarsField = matchField(index, field, schema, polarsSchema)
-    if (!polarsField) return
+    const fieldMapping = matchSchemaField(mapping, field, index)
+    if (!fieldMapping) return
 
-    const report = await validateField(field, {
-      table,
-      polarsField,
+    const report = await validateField(fieldMapping, table, {
       maxErrors: maxFieldErrors,
     })
 
@@ -159,7 +151,7 @@ async function validateFields(
 
   try {
     await pAll(
-      schema.fields.map((field, idx) => () => collectFieldErrors(idx, field)),
+      fields.map((field, index) => () => collectFieldErrors(index, field)),
       { concurrency },
     )
   } catch (error) {

@@ -1,14 +1,23 @@
 import type { Field } from "@dpkit/core"
 import { col } from "nodejs-polars"
-import type { Expr } from "nodejs-polars"
 import { desubstituteField } from "./desubstitute.ts"
 import { stringifyField } from "./stringify.ts"
 
-export function denormalizeField(field: Field, fieldExpr?: Expr) {
-  let expr = fieldExpr ?? col(field.name)
+export type DenormalizeFieldOptions = {
+  nativeTypes?: Exclude<Field["type"], undefined>[]
+}
 
-  expr = stringifyField(field, expr)
-  expr = desubstituteField(field, expr)
+export function denormalizeField(
+  field: Field,
+  options?: DenormalizeFieldOptions,
+) {
+  let expr = col(field.name)
+  const { nativeTypes } = options ?? {}
+
+  if (!nativeTypes?.includes(field.type ?? "any")) {
+    expr = stringifyField(field, expr)
+    expr = desubstituteField(field, expr)
+  }
 
   return expr
 }
