@@ -11,10 +11,10 @@ export function normalizeField(
   let fieldExpr = col(mapping.source.name)
 
   if (mapping.source.type.equals(DataType.String)) {
-    fieldExpr = substituteField(mapping.target, fieldExpr)
+    fieldExpr = substituteField(mapping, fieldExpr)
 
     if (!options?.keepType) {
-      fieldExpr = parseField(mapping.target, fieldExpr)
+      fieldExpr = parseField(mapping, fieldExpr)
     }
   }
 
