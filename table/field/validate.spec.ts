@@ -138,12 +138,14 @@ describe("validateField", () => {
         type: "cell/type",
         cell: "bad",
         fieldName: "id",
+        fieldType: "integer",
         rowNumber: 2,
       })
       expect(errors).toContainEqual({
         type: "cell/type",
         cell: "4x",
         fieldName: "id",
+        fieldType: "integer",
         rowNumber: 4,
       })
     })
@@ -169,12 +171,14 @@ describe("validateField", () => {
         type: "cell/type",
         cell: "twenty",
         fieldName: "price",
+        fieldType: "number",
         rowNumber: 2,
       })
       expect(errors).toContainEqual({
         type: "cell/type",
         cell: "$40",
         fieldName: "price",
+        fieldType: "number",
         rowNumber: 4,
       })
     })
@@ -200,6 +204,7 @@ describe("validateField", () => {
         type: "cell/type",
         cell: "yes",
         fieldName: "active",
+        fieldType: "boolean",
         rowNumber: 2,
       })
     })
@@ -225,18 +230,21 @@ describe("validateField", () => {
         type: "cell/type",
         cell: "Jan 15, 2023",
         fieldName: "created",
+        fieldType: "date",
         rowNumber: 2,
       })
       expect(errors).toContainEqual({
         type: "cell/type",
         cell: "20230115",
         fieldName: "created",
+        fieldType: "date",
         rowNumber: 3,
       })
       expect(errors).toContainEqual({
         type: "cell/type",
         cell: "not-a-date",
         fieldName: "created",
+        fieldType: "date",
         rowNumber: 4,
       })
     })
@@ -262,18 +270,21 @@ describe("validateField", () => {
         type: "cell/type",
         cell: "2:30pm",
         fieldName: "time",
+        fieldType: "time",
         rowNumber: 2,
       })
       expect(errors).toContainEqual({
         type: "cell/type",
         cell: "invalid",
         fieldName: "time",
+        fieldType: "time",
         rowNumber: 3,
       })
       expect(errors).toContainEqual({
         type: "cell/type",
         cell: "14h30",
         fieldName: "time",
+        fieldType: "time",
         rowNumber: 4,
       })
     })
@@ -299,18 +310,21 @@ describe("validateField", () => {
         type: "cell/type",
         cell: "23",
         fieldName: "year",
+        fieldType: "year",
         rowNumber: 2,
       })
       expect(errors).toContainEqual({
         type: "cell/type",
         cell: "MMXXIII",
         fieldName: "year",
+        fieldType: "year",
         rowNumber: 3,
       })
       expect(errors).toContainEqual({
         type: "cell/type",
         cell: "two-thousand-twenty-three",
         fieldName: "year",
+        fieldType: "year",
         rowNumber: 4,
       })
     })
@@ -344,6 +358,7 @@ describe("validateField", () => {
         type: "cell/type",
         cell: "January 15, 2023 2:30 PM",
         fieldName: "timestamp",
+        fieldType: "datetime",
         rowNumber: 2,
       })
 
@@ -351,6 +366,7 @@ describe("validateField", () => {
         type: "cell/type",
         cell: "not-a-datetime",
         fieldName: "timestamp",
+        fieldType: "datetime",
         rowNumber: 4,
       })
     })

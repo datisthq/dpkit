@@ -43,6 +43,7 @@ describe("validateTable (cell/minimum)", () => {
     expect(errors).toContainEqual({
       type: "cell/minimum",
       fieldName: "temperature",
+      minimum: "10",
       rowNumber: 4,
       cell: "3.5",
     })
@@ -70,12 +71,14 @@ describe("validateTable (cell/minimum)", () => {
     expect(errors).toContainEqual({
       type: "cell/exclusiveMinimum",
       fieldName: "temperature",
+      minimum: "10",
       rowNumber: 3,
       cell: "10",
     })
     expect(errors).toContainEqual({
       type: "cell/exclusiveMinimum",
       fieldName: "temperature",
+      minimum: "10",
       rowNumber: 4,
       cell: "5.5",
     })

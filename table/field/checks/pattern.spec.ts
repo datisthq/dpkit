@@ -26,6 +26,8 @@ describe("validateTable (cell/pattern)", () => {
   })
 
   it("should report an error for strings that don't match the pattern", async () => {
+    const pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+
     const table = DataFrame({
       email: ["john@example.com", "alice@domain", "test.io", "valid@email.com"],
     }).lazy()
@@ -36,7 +38,7 @@ describe("validateTable (cell/pattern)", () => {
           name: "email",
           type: "string",
           constraints: {
-            pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+            pattern,
           },
         },
       ],
@@ -47,13 +49,15 @@ describe("validateTable (cell/pattern)", () => {
     expect(errors).toContainEqual({
       type: "cell/pattern",
       fieldName: "email",
-      rowNumber: 2, // Second row (alice@domain)
+      pattern,
+      rowNumber: 2,
       cell: "alice@domain",
     })
     expect(errors).toContainEqual({
       type: "cell/pattern",
       fieldName: "email",
-      rowNumber: 3, // Third row (test.io)
+      pattern,
+      rowNumber: 3,
       cell: "test.io",
     })
   })

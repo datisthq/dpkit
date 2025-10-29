@@ -13,20 +13,19 @@ export async function normalizeTable(table: Table, schema: Schema) {
   const head = await table.head(HEAD_ROWS).collect()
   const polarsSchema = getPolarsSchema(head.schema)
 
-  const schemaMapping = { source: polarsSchema, target: schema }
-  return table.select(...Object.values(normalizeFields(schemaMapping)))
+  const mapping = { source: polarsSchema, target: schema }
+  return table.select(...Object.values(normalizeFields(mapping)))
 }
 
-export function normalizeFields(schemaMapping: SchemaMapping) {
+export function normalizeFields(mapping: SchemaMapping) {
   const exprs: Record<string, Expr> = {}
 
-  for (const [index, field] of schemaMapping.target.fields.entries()) {
-    const fieldMapping = matchSchemaField(schemaMapping, field, index)
+  for (const [index, field] of mapping.target.fields.entries()) {
+    const fieldMapping = matchSchemaField(mapping, field, index)
     let expr = lit(null).alias(field.name)
 
     if (fieldMapping) {
-      const missingValues =
-        field.missingValues ?? schemaMapping.target.missingValues
+      const missingValues = field.missingValues ?? mapping.target.missingValues
       const mergedField = { ...field, missingValues }
 
       const column = { source: fieldMapping.source, target: mergedField }

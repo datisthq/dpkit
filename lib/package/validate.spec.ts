@@ -182,6 +182,7 @@ describe("validatePackage", () => {
         rowNumber: 3,
         type: "cell/type",
         fieldName: "longitude",
+        fieldType: "number",
         cell: "bad",
         resource: "deployments",
       },

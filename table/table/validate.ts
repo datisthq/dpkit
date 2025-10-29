@@ -23,14 +23,12 @@ export async function validateTable(
   if (schema) {
     const sample = await table.head(sampleRows).collect()
     const polarsSchema = getPolarsSchema(sample.schema)
-    const schemaMapping = { source: polarsSchema, target: schema }
+    const mapping = { source: polarsSchema, target: schema }
 
-    const matchErrors = validateFieldsMatch(schemaMapping)
+    const matchErrors = validateFieldsMatch(mapping)
     errors.push(...matchErrors)
 
-    const fieldErrors = await validateFields(schemaMapping, table, {
-      maxErrors,
-    })
+    const fieldErrors = await validateFields(mapping, table, { maxErrors })
     errors.push(...fieldErrors)
   }
 
@@ -40,12 +38,12 @@ export async function validateTable(
   }
 }
 
-function validateFieldsMatch(schemaMapping: SchemaMapping) {
+function validateFieldsMatch(mapping: SchemaMapping) {
   const errors: TableError[] = []
-  const fieldsMatch = schemaMapping.target.fieldsMatch ?? "exact"
+  const fieldsMatch = mapping.target.fieldsMatch ?? "exact"
 
-  const fields = schemaMapping.target.fields
-  const polarsFields = schemaMapping.source.fields
+  const fields = mapping.target.fields
+  const polarsFields = mapping.source.fields
 
   const names = fields.map(field => field.name)
   const polarsNames = polarsFields.map(field => field.name)
@@ -124,7 +122,7 @@ function validateFieldsMatch(schemaMapping: SchemaMapping) {
 }
 
 async function validateFields(
-  schemaMapping: SchemaMapping,
+  mapping: SchemaMapping,
   table: Table,
   options: {
     maxErrors: number
@@ -132,16 +130,14 @@ async function validateFields(
 ) {
   const { maxErrors } = options
   const errors: TableError[] = []
-  const fields = schemaMapping.target.fields
+  const fields = mapping.target.fields
   const concurrency = os.cpus().length - 1
   const abortController = new AbortController()
 
-  const maxFieldErrors = Math.ceil(
-    maxErrors / schemaMapping.target.fields.length,
-  )
+  const maxFieldErrors = Math.ceil(maxErrors / mapping.target.fields.length)
 
   const collectFieldErrors = async (index: number, field: Field) => {
-    const fieldMapping = matchSchemaField(schemaMapping, field, index)
+    const fieldMapping = matchSchemaField(mapping, field, index)
     if (!fieldMapping) return
 
     const report = await validateField(fieldMapping, table, {
