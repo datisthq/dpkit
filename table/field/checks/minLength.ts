@@ -1,14 +1,14 @@
 import type { Field } from "@dpkit/core"
-import type { Expr } from "nodejs-polars"
 import type { CellMinLengthError } from "../../error/index.ts"
+import type { CellMapping } from "../Mapping.ts"
 
-export function checkCellMinLength(field: Field, target: Expr) {
+export function checkCellMinLength(field: Field, mapping: CellMapping) {
   if (field.type !== "string") return undefined
 
   const minLength = field.constraints?.minLength
   if (!minLength) return undefined
 
-  const isErrorExpr = target.str.lengths().lt(minLength)
+  const isErrorExpr = mapping.target.str.lengths().lt(minLength)
 
   const errorTemplate: CellMinLengthError = {
     type: "cell/minLength",

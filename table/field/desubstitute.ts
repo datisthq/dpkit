@@ -4,16 +4,16 @@ import type { Expr } from "nodejs-polars"
 
 const DEFAULT_MISSING_VALUE = ""
 
-export function desubstituteField(field: Field, expr: Expr) {
+export function desubstituteField(field: Field, fieldExpr: Expr) {
   const flattenMissingValues = field.missingValues?.map(it =>
     typeof it === "string" ? it : it.value,
   )
 
   const missingValue = flattenMissingValues?.[0] ?? DEFAULT_MISSING_VALUE
-  expr = when(expr.isNull())
+  fieldExpr = when(fieldExpr.isNull())
     .then(lit(missingValue))
-    .otherwise(expr)
+    .otherwise(fieldExpr)
     .alias(field.name)
 
-  return expr
+  return fieldExpr
 }

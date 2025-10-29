@@ -122,7 +122,8 @@ async function validateCells(
     checkCellMaxLength,
     checkCellUnique,
   ]) {
-    const check = checkCell(mapping.target, col("target"), col("source"))
+    const cellMapping = { source: col("source"), target: col("target") }
+    const check = checkCell(mapping.target, cellMapping)
 
     if (check) {
       fieldCheckTable = fieldCheckTable.withColumn(

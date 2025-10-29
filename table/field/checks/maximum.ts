@@ -3,9 +3,10 @@ import { lit } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import type { CellExclusiveMaximumError } from "../../error/index.ts"
 import type { CellMaximumError } from "../../error/index.ts"
+import type { CellMapping } from "../Mapping.ts"
 
 export function createCheckCellMaximum(options?: { isExclusive?: boolean }) {
-  return (field: Field, target: Expr) => {
+  return (field: Field, mapping: CellMapping) => {
     if (field.type !== "integer" && field.type !== "number") return undefined
 
     const maximum = options?.isExclusive
@@ -22,8 +23,8 @@ export function createCheckCellMaximum(options?: { isExclusive?: boolean }) {
         typeof maximum === "string" ? parser(maximum) : maximum
 
       isErrorExpr = options?.isExclusive
-        ? target.gtEq(parsedMaximum)
-        : target.gt(parsedMaximum)
+        ? mapping.target.gtEq(parsedMaximum)
+        : mapping.target.gt(parsedMaximum)
     } catch (error) {
       isErrorExpr = lit(true)
     }

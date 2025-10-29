@@ -1,12 +1,12 @@
 import type { Field } from "@dpkit/core"
 import type { CellRequiredError } from "../../error/index.ts"
-import type { Expr } from "nodejs-polars"
+import type { CellMapping } from "../Mapping.ts"
 
-export function checkCellRequired(field: Field, target: Expr) {
+export function checkCellRequired(field: Field, mapping: CellMapping) {
   const required = field.constraints?.required
   if (!required) return undefined
 
-  const isErrorExpr = target.isNull()
+  const isErrorExpr = mapping.target.isNull()
 
   const errorTemplate: CellRequiredError = {
     type: "cell/required",

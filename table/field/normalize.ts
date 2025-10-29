@@ -5,12 +5,12 @@ import { parseField } from "./parse.ts"
 import { substituteField } from "./substitute.ts"
 
 export function normalizeField(mapping: FieldMapping) {
-  let expr = col(mapping.source.name)
+  let fieldExpr = col(mapping.source.name)
 
   if (mapping.source.type.equals(DataType.String)) {
-    expr = substituteField(mapping.target, expr)
-    expr = parseField(mapping.target, expr)
+    fieldExpr = substituteField(mapping.target, fieldExpr)
+    fieldExpr = parseField(mapping.target, fieldExpr)
   }
 
-  return expr.alias(mapping.target.name)
+  return fieldExpr.alias(mapping.target.name)
 }

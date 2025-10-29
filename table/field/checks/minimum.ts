@@ -3,9 +3,10 @@ import { lit } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import type { CellExclusiveMinimumError } from "../../error/index.ts"
 import type { CellMinimumError } from "../../error/index.ts"
+import type { CellMapping } from "../Mapping.ts"
 
 export function createCheckCellMinimum(options?: { isExclusive?: boolean }) {
-  return (field: Field, target: Expr) => {
+  return (field: Field, mapping: CellMapping) => {
     if (field.type !== "integer" && field.type !== "number") return undefined
 
     const minimum = options?.isExclusive
@@ -22,8 +23,8 @@ export function createCheckCellMinimum(options?: { isExclusive?: boolean }) {
         typeof minimum === "string" ? parser(minimum) : minimum
 
       isErrorExpr = options?.isExclusive
-        ? target.ltEq(parsedMinimum)
-        : target.lt(parsedMinimum)
+        ? mapping.target.ltEq(parsedMinimum)
+        : mapping.target.lt(parsedMinimum)
     } catch (error) {
       isErrorExpr = lit(true)
     }

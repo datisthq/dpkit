@@ -16,39 +16,39 @@ import { stringifyTimeField } from "./types/time.ts"
 import { stringifyYearField } from "./types/year.ts"
 import { stringifyYearmonthField } from "./types/yearmonth.ts"
 
-export function stringifyField(field: Field, expr: Expr) {
+export function stringifyField(field: Field, fieldExpr: Expr) {
   switch (field.type) {
     case "array":
-      return stringifyArrayField(field, expr)
+      return stringifyArrayField(field, fieldExpr)
     case "boolean":
-      return stringifyBooleanField(field, expr)
+      return stringifyBooleanField(field, fieldExpr)
     case "date":
-      return stringifyDateField(field, expr)
+      return stringifyDateField(field, fieldExpr)
     case "datetime":
-      return stringifyDatetimeField(field, expr)
+      return stringifyDatetimeField(field, fieldExpr)
     case "duration":
-      return stringifyDurationField(field, expr)
+      return stringifyDurationField(field, fieldExpr)
     case "geojson":
-      return stringifyGeojsonField(field, expr)
+      return stringifyGeojsonField(field, fieldExpr)
     case "geopoint":
-      return stringifyGeopointField(field, expr)
+      return stringifyGeopointField(field, fieldExpr)
     case "integer":
-      return stringifyIntegerField(field, expr)
+      return stringifyIntegerField(field, fieldExpr)
     case "list":
-      return stringifyListField(field, expr)
+      return stringifyListField(field, fieldExpr)
     case "number":
-      return stringifyNumberField(field, expr)
+      return stringifyNumberField(field, fieldExpr)
     case "object":
-      return stringifyObjectField(field, expr)
+      return stringifyObjectField(field, fieldExpr)
     case "string":
-      return stringifyStringField(field, expr)
+      return stringifyStringField(field, fieldExpr)
     case "time":
-      return stringifyTimeField(field, expr)
+      return stringifyTimeField(field, fieldExpr)
     case "year":
-      return stringifyYearField(field, expr)
+      return stringifyYearField(field, fieldExpr)
     case "yearmonth":
-      return stringifyYearmonthField(field, expr)
+      return stringifyYearmonthField(field, fieldExpr)
     default:
-      return expr
+      return fieldExpr
   }
 }
