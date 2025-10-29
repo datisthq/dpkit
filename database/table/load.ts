@@ -1,4 +1,4 @@
-import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
+import { resolveDialect, resolveSchema } from "@dpkit/core"
 import type { Resource } from "@dpkit/core"
 import { normalizeTable } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
@@ -13,7 +13,7 @@ export async function loadDatabaseTable(
   resource: Partial<Resource> & { format: "postgresql" | "mysql" | "sqlite" },
   options?: LoadTableOptions,
 ) {
-  const dialect = await loadResourceDialect(resource.dialect)
+  const dialect = await resolveDialect(resource.dialect)
   if (!dialect?.table) {
     throw new Error("Table name is not defined in dialect")
   }
@@ -31,7 +31,7 @@ export async function loadDatabaseTable(
   let table = DataFrame(records).lazy()
 
   if (!options?.denormalized) {
-    let schema = await loadResourceSchema(resource.schema)
+    let schema = await resolveSchema(resource.schema)
     if (!schema) schema = await inferDatabaseSchema(resource)
     table = await normalizeTable(table, schema)
   }

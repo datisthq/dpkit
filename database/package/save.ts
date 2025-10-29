@@ -1,5 +1,5 @@
 import type { Package } from "@dpkit/core"
-import { loadResourceSchema } from "@dpkit/core"
+import { resolveSchema } from "@dpkit/core"
 import { isRemoteResource } from "@dpkit/core"
 import type { SavePackageOptions } from "@dpkit/core"
 import type { TablePlugin } from "@dpkit/table"
@@ -24,7 +24,7 @@ export async function savePackageToDatabase(
 
       if (table) {
         const dialect = { table: resource.name }
-        const schema = await loadResourceSchema(resource.schema)
+        const schema = await resolveSchema(resource.schema)
 
         // TODO: support parallel saving?
         await saveDatabaseTable(table, {

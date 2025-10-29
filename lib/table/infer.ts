@@ -1,11 +1,11 @@
 import type { Resource } from "@dpkit/core"
-import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
+import { resolveDialect, resolveSchema } from "@dpkit/core"
 import { inferSchemaFromTable } from "@dpkit/table"
 import { inferDialect } from "../dialect/index.ts"
 import { loadTable } from "./load.ts"
 
 export async function inferTable(resource: Partial<Resource>) {
-  let dialect = await loadResourceDialect(resource.dialect)
+  let dialect = await resolveDialect(resource.dialect)
   if (!dialect) {
     dialect = await inferDialect(resource)
   }
@@ -19,7 +19,7 @@ export async function inferTable(resource: Partial<Resource>) {
     return undefined
   }
 
-  let schema = await loadResourceSchema(resource.schema)
+  let schema = await resolveSchema(resource.schema)
   if (!schema) {
     schema = await inferSchemaFromTable(table)
   }

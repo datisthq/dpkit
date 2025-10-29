@@ -1,6 +1,6 @@
 import { loadDescriptor, validateDialect } from "@dpkit/lib"
 import type { Resource } from "@dpkit/lib"
-import { loadResourceDialect } from "@dpkit/lib"
+import { resolveDialect } from "@dpkit/lib"
 import { Command } from "commander"
 import React from "react"
 import { ErrorGrid } from "../../components/ErrorGrid.tsx"
@@ -36,10 +36,7 @@ export const validateDialectCommand = new Command("validate")
       : undefined
 
     const dialect = resource?.dialect
-      ? await session.task(
-          "Loading dialect",
-          loadResourceDialect(resource.dialect),
-        )
+      ? await session.task("Loading dialect", resolveDialect(resource.dialect))
       : undefined
 
     const { descriptor } = path

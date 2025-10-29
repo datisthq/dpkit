@@ -1,6 +1,6 @@
 import { loadSchema } from "@dpkit/lib"
 import type { Resource } from "@dpkit/lib"
-import { loadResourceSchema } from "@dpkit/lib"
+import { resolveSchema } from "@dpkit/lib"
 import { Command } from "commander"
 import React from "react"
 import { SchemaGrid } from "../../components/SchemaGrid.tsx"
@@ -33,7 +33,7 @@ export const exploreSchemaCommand = new Command("explore")
 
     const schema = await session.task(
       "Loading schema",
-      path ? loadSchema(path) : loadResourceSchema(resource?.schema),
+      path ? loadSchema(path) : resolveSchema(resource?.schema),
     )
 
     if (!schema || isEmptyObject(schema)) {

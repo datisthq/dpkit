@@ -1,6 +1,6 @@
 import { loadDialect } from "@dpkit/lib"
 import type { Resource } from "@dpkit/lib"
-import { loadResourceDialect } from "@dpkit/lib"
+import { resolveDialect } from "@dpkit/lib"
 import { Command } from "commander"
 import React from "react"
 import { DialectGrid } from "../../components/DialectGrid.tsx"
@@ -33,7 +33,7 @@ export const exploreDialectCommand = new Command("explore")
 
     const dialect = await session.task(
       "Loading dialect",
-      path ? loadDialect(path) : loadResourceDialect(resource?.dialect),
+      path ? loadDialect(path) : resolveDialect(resource?.dialect),
     )
 
     if (!dialect || isEmptyObject(dialect)) {

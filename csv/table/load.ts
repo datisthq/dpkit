@@ -1,5 +1,5 @@
 import type { Dialect, Resource } from "@dpkit/core"
-import { loadResourceDialect, loadResourceSchema } from "@dpkit/core"
+import { resolveDialect, resolveSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
 import type { Table } from "@dpkit/table"
 import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
@@ -25,7 +25,7 @@ export async function loadCsvTable(
     throw new Error("Resource path is not defined")
   }
 
-  let dialect = await loadResourceDialect(resource.dialect)
+  let dialect = await resolveDialect(resource.dialect)
   if (!dialect) {
     dialect = await inferCsvDialect({ ...resource, path: paths[0] }, options)
   }
@@ -55,7 +55,7 @@ export async function loadCsvTable(
   }
 
   if (!options?.denormalized) {
-    let schema = await loadResourceSchema(resource.schema)
+    let schema = await resolveSchema(resource.schema)
     if (!schema) schema = await inferSchemaFromTable(table, options)
     table = await normalizeTable(table, schema)
   }

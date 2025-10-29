@@ -1,4 +1,4 @@
-import { loadResourceDialect } from "@dpkit/core"
+import { resolveDialect } from "@dpkit/core"
 import { saveFile } from "@dpkit/file"
 import { denormalizeTable, inferSchemaFromTable } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
@@ -19,7 +19,7 @@ export async function saveOdsTable(table: Table, options: SaveTableOptions) {
   })
 
   const df = await table.collect()
-  const dialect = await loadResourceDialect(options.dialect)
+  const dialect = await resolveDialect(options.dialect)
   const sheetName = dialect?.sheetName ?? "Sheet1"
 
   const sheet = utils.json_to_sheet(df.toRecords())
