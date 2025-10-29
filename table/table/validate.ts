@@ -1,13 +1,15 @@
 import os from "node:os"
 import type { Field, Schema } from "@dpkit/core"
+import { col, lit, when } from "nodejs-polars"
 import pAll from "p-all"
+import type { RowError } from "../error/index.ts"
 import type { TableError } from "../error/index.ts"
 import { validateField } from "../field/index.ts"
 import { matchSchemaField } from "../schema/index.ts"
-//import { validateRows } from "../row/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { SchemaMapping } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
+import { createChecksRowUnique } from "./checks/unique.ts"
 
 export async function validateTable(
   table: Table,
@@ -30,6 +32,9 @@ export async function validateTable(
 
     const fieldErrors = await validateFields(mapping, table, { maxErrors })
     errors.push(...fieldErrors)
+
+    const rowErrors = await validateRows(mapping, table, { maxErrors })
+    errors.push(...rowErrors)
   }
 
   return {
@@ -133,8 +138,7 @@ async function validateFields(
   const fields = mapping.target.fields
   const concurrency = os.cpus().length - 1
   const abortController = new AbortController()
-
-  const maxFieldErrors = Math.ceil(maxErrors / mapping.target.fields.length)
+  const maxFieldErrors = Math.ceil(maxErrors / fields.length)
 
   const collectFieldErrors = async (index: number, field: Field) => {
     const fieldMapping = matchSchemaField(mapping, field, index)
@@ -153,6 +157,61 @@ async function validateFields(
   try {
     await pAll(
       fields.map((field, index) => () => collectFieldErrors(index, field)),
+      { concurrency },
+    )
+  } catch (error) {
+    const isAborted = error instanceof Error && error.name === "AbortError"
+    if (!isAborted) throw error
+  }
+
+  return errors
+}
+
+async function validateRows(
+  mapping: SchemaMapping,
+  table: Table,
+  options: { maxErrors: number },
+) {
+  const { maxErrors } = options
+  const errors: TableError[] = []
+  const fields = mapping.target.fields
+  const concurrency = os.cpus().length - 1
+  const abortController = new AbortController()
+  const maxRowErrors = Math.ceil(maxErrors / fields.length)
+
+  const collectRowErrors = async (check: any) => {
+    const rowCheckTable = table
+      .withRowCount()
+      .withColumn(col("row_nr").add(1))
+      .rename({ row_nr: "dpkit:number" })
+      .withColumn(
+        when(check.isErrorExpr)
+          .then(lit(JSON.stringify(check.errorTemplate)))
+          .otherwise(lit(null))
+          .alias("dpkit:error"),
+      )
+
+    const rowCheckFrame = await rowCheckTable
+      .filter(col("dpkit:error").isNotNull())
+      .head(maxRowErrors)
+      .collect()
+
+    for (const row of rowCheckFrame.toRecords() as any[]) {
+      const errorTemplate = JSON.parse(row["dpkit:error"]) as RowError
+      errors.push({
+        ...errorTemplate,
+        rowNumber: row["dpkit:number"],
+      })
+    }
+
+    if (errors.length > maxErrors) {
+      abortController.abort()
+    }
+  }
+
+  try {
+    await pAll(
+      [...createChecksRowUnique(mapping)].map(it => () => collectRowErrors(it)),
       { concurrency },
     )
   } catch (error) {

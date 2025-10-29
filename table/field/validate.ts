@@ -122,18 +122,18 @@ async function validateCells(
     checkCellUnique,
   ]) {
     const cellMapping = { source: col("source"), target: col("target") }
-    const check = checkCell(mapping.target, cellMapping)
 
-    if (check) {
-      fieldCheckTable = fieldCheckTable.withColumn(
-        when(col("error").isNotNull())
-          .then(col("error"))
-          .when(check.isErrorExpr)
-          .then(lit(JSON.stringify(check.errorTemplate)))
-          .otherwise(lit(null))
-          .alias("error"),
-      )
-    }
+    const check = checkCell(mapping.target, cellMapping)
+    if (!check) continue
+
+    fieldCheckTable = fieldCheckTable.withColumn(
+      when(col("error").isNotNull())
+        .then(col("error"))
+        .when(check.isErrorExpr)
+        .then(lit(JSON.stringify(check.errorTemplate)))
+        .otherwise(lit(null))
+        .alias("error"),
+    )
   }
 
   const fieldCheckFrame = await fieldCheckTable

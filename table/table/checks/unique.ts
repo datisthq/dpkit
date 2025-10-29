@@ -1,31 +1,29 @@
-import type { Schema } from "@dpkit/core"
-import { col, concatList } from "nodejs-polars"
-import type { Table } from "../../table/Table.ts"
+import { concatList } from "nodejs-polars"
+import type { RowUniqueError } from "../../error/index.ts"
+import type { SchemaMapping } from "../../schema/index.ts"
 
-// TODO: fold is not available so we use a tricky way to eliminate list nulls
-// TODO: Using comma as separator might rarely clash with comma in field names
-export function checkRowUnique(schema: Schema, errorTable: Table) {
-  const uniqueKeys = schema.uniqueKeys ?? []
+export function createChecksRowUnique(mapping: SchemaMapping) {
+  const uniqueKeys = mapping.target.uniqueKeys ?? []
 
-  if (schema.primaryKey) {
-    uniqueKeys.push(schema.primaryKey)
+  if (mapping.target.primaryKey) {
+    uniqueKeys.push(mapping.target.primaryKey)
   }
 
-  for (const uniqueKey of uniqueKeys) {
-    const targetNames = uniqueKey.map(field => `target:${field}`)
-    const errorName = `error:row/unique:${uniqueKey.join(",")}`
+  return uniqueKeys.map(createCheckRowUnique)
+}
 
-    errorTable = errorTable
-      .withColumn(concatList(targetNames).alias(errorName))
-      .withColumn(
-        col(errorName)
-          .lst.min()
-          .isNull()
-          .not()
-          .and(col(errorName).isFirstDistinct().not())
-          .alias(errorName),
-      )
+function createCheckRowUnique(uniqueKey: string[]) {
+  const isErrorExpr = concatList(uniqueKey)
+    .isFirstDistinct()
+    .not()
+    // Fold is not available so we use a tricky way to eliminate nulls
+    .and(concatList(uniqueKey).lst.min().isNotNull())
+
+  const errorTemplate: RowUniqueError = {
+    type: "row/unique",
+    fieldNames: uniqueKey,
+    rowNumber: 0,
   }
 
-  return errorTable
+  return { isErrorExpr, errorTemplate }
 }
