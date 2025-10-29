@@ -55,34 +55,34 @@ function validateName(mapping: FieldMapping) {
 function validateType(mapping: FieldMapping) {
   const errors: FieldError[] = []
 
-  const types: Record<string, Field["type"]> = {
-    Bool: "boolean",
-    Date: "date",
-    Datetime: "datetime",
-    Float32: "number",
-    Float64: "number",
-    Int16: "integer",
-    Int32: "integer",
-    Int64: "integer",
-    Int8: "integer",
-    List: "list",
-    String: "string",
-    Time: "time",
-    UInt16: "integer",
-    UInt32: "integer",
-    UInt64: "integer",
-    UInt8: "integer",
-    Utf8: "string",
+  const compatMapping: Record<string, Field["type"][]> = {
+    Bool: ["boolean"],
+    Date: ["date"],
+    Datetime: ["datetime"],
+    Float32: ["number", "integer"],
+    Float64: ["number", "integer"],
+    Int16: ["integer"],
+    Int32: ["integer"],
+    Int64: ["integer"],
+    Int8: ["integer"],
+    List: ["list"],
+    Time: ["time"],
+    UInt16: ["integer"],
+    UInt32: ["integer"],
+    UInt64: ["integer"],
+    UInt8: ["integer"],
+    Utf8: ["string"],
   }
 
-  const actualFieldType = types[mapping.source.type.variant] ?? "any"
+  const compatTypes = compatMapping[mapping.source.type.variant]
+  if (!compatTypes) return errors
 
-  if (actualFieldType !== mapping.target.type && actualFieldType !== "string") {
+  if (!compatTypes.includes(mapping.target.type)) {
     errors.push({
       type: "field/type",
       fieldName: mapping.target.name,
       fieldType: mapping.target.type ?? "any",
-      actualFieldType,
+      actualFieldType: compatTypes[0] ?? "any",
     })
   }
 
