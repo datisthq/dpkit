@@ -1,4 +1,5 @@
 import type { Field } from "@dpkit/core"
+import type { Expr } from "nodejs-polars"
 import * as pl from "nodejs-polars"
 import type { CellEnumError } from "../../error/index.ts"
 import { evaluateExpression } from "../../helpers.ts"
@@ -12,13 +13,29 @@ import { parseYearField } from "../types/year.ts"
 import { parseYearmonthField } from "../types/yearmonth.ts"
 
 export function checkCellEnum(field: Field, mapping: CellMapping) {
-  if (field.type !== "string") return undefined
+  if (
+    field.type !== "string" &&
+    field.type !== "integer" &&
+    field.type !== "number" &&
+    field.type !== "date" &&
+    field.type !== "time" &&
+    field.type !== "datetime" &&
+    field.type !== "year" &&
+    field.type !== "yearmonth"
+  ) {
+    return undefined
+  }
 
   const rawEnum = field.constraints?.enum
   if (!rawEnum) return undefined
 
-  const parsedEnum = parseConstraint(field, rawEnum)
-  const isErrorExpr = mapping.target.isIn(parsedEnum).not()
+  let isErrorExpr: Expr
+  try {
+    const parsedEnum = parseConstraint(field, rawEnum)
+    isErrorExpr = mapping.target.isIn(parsedEnum).not()
+  } catch (error) {
+    isErrorExpr = pl.lit(true)
+  }
 
   const errorTemplate: CellEnumError = {
     type: "cell/enum",
@@ -31,7 +48,7 @@ export function checkCellEnum(field: Field, mapping: CellMapping) {
   return { isErrorExpr, errorTemplate }
 }
 
-function parseConstraint(field: Field, value: string[]) {
+function parseConstraint(field: Field, value: number[] | string[]) {
   return value.map(it => parseConstraintItem(field, it))
 }
 
