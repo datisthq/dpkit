@@ -10,6 +10,7 @@ import { parseDatetimeField } from "../types/datetime.ts"
 import { parseIntegerField } from "../types/integer.ts"
 import { parseNumberField } from "../types/number.ts"
 import { parseTimeField } from "../types/time.ts"
+import { parseYearField } from "../types/year.ts"
 
 export function createCheckCellMaximum(options?: { isExclusive?: boolean }) {
   return (field: Field, mapping: CellMapping) => {
@@ -18,7 +19,8 @@ export function createCheckCellMaximum(options?: { isExclusive?: boolean }) {
       field.type !== "number" &&
       field.type !== "date" &&
       field.type !== "time" &&
-      field.type !== "datetime"
+      field.type !== "datetime" &&
+      field.type !== "year"
     ) {
       return undefined
     }
@@ -63,6 +65,8 @@ function parseConstraint(field: Field, constraint: number | string) {
     expr = parseTimeField(field, expr)
   } else if (field.type === "datetime") {
     expr = parseDatetimeField(field, expr)
+  } else if (field.type === "year") {
+    expr = parseYearField(field, expr)
   }
 
   return evaluateExpression(expr)

@@ -380,4 +380,67 @@ describe("validateTable (cell/minimum)", () => {
       },
     ])
   })
+
+  it("should handle minimum for year fields", async () => {
+    const table = DataFrame({
+      year: ["2020", "2021", "2018"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "year",
+          type: "year",
+          constraints: { minimum: "2019" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "year",
+        minimum: "2019",
+        rowNumber: 3,
+        cell: "2018",
+      },
+    ])
+  })
+
+  it("should handle exclusiveMinimum for year fields", async () => {
+    const table = DataFrame({
+      year: ["2020", "2021", "2019", "2018"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "year",
+          type: "year",
+          constraints: { exclusiveMinimum: "2019" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/exclusiveMinimum",
+        fieldName: "year",
+        minimum: "2019",
+        rowNumber: 3,
+        cell: "2019",
+      },
+      {
+        type: "cell/exclusiveMinimum",
+        fieldName: "year",
+        minimum: "2019",
+        rowNumber: 4,
+        cell: "2018",
+      },
+    ])
+  })
 })

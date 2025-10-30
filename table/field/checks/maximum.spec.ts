@@ -380,4 +380,67 @@ describe("validateTable (cell/maximum)", () => {
       },
     ])
   })
+
+  it("should handle maximum for year fields", async () => {
+    const table = DataFrame({
+      year: ["2020", "2021", "2023"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "year",
+          type: "year",
+          constraints: { maximum: "2022" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/maximum",
+        fieldName: "year",
+        maximum: "2022",
+        rowNumber: 3,
+        cell: "2023",
+      },
+    ])
+  })
+
+  it("should handle exclusiveMaximum for year fields", async () => {
+    const table = DataFrame({
+      year: ["2020", "2021", "2022", "2023"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "year",
+          type: "year",
+          constraints: { exclusiveMaximum: "2022" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/exclusiveMaximum",
+        fieldName: "year",
+        maximum: "2022",
+        rowNumber: 3,
+        cell: "2022",
+      },
+      {
+        type: "cell/exclusiveMaximum",
+        fieldName: "year",
+        maximum: "2022",
+        rowNumber: 4,
+        cell: "2023",
+      },
+    ])
+  })
 })
