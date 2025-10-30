@@ -148,7 +148,6 @@ describe("validateGeojsonField", () => {
       data: [
         '{"type":"Point","coordinates":[0,0]}',
         "invalid json",
-        '{"type":"Feature"}',
         "{broken}",
       ],
     }).lazy()
@@ -175,7 +174,7 @@ describe("validateGeojsonField", () => {
       type: "cell/type",
       fieldName: "data",
       fieldType: "geojson",
-      rowNumber: 4,
+      rowNumber: 3,
       cell: "{broken}",
     })
   })
@@ -264,12 +263,148 @@ describe("validateGeojsonField", () => {
     ])
   })
 
-  it("should not report errors for GeoJSON matching jsonSchema", async () => {
+  it("should report errors for invalid GeoJSON Point coordinates", async () => {
     const table = DataFrame({
       location: [
         '{"type":"Point","coordinates":[0,0]}',
-        '{"type":"Point","coordinates":[12.5,41.9]}',
-        '{"type":"Point","coordinates":[-73.9,40.7]}',
+        '{"type":"Point","coordinates":[0]}',
+        '{"type":"Point","coordinates":[0,0,0,0]}',
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "location",
+          type: "geojson",
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toHaveLength(2)
+    expect(errors).toContainEqual({
+      type: "cell/type",
+      fieldName: "location",
+      fieldType: "geojson",
+      rowNumber: 2,
+      cell: '{"type":"Point","coordinates":[0]}',
+    })
+    expect(errors).toContainEqual({
+      type: "cell/type",
+      fieldName: "location",
+      fieldType: "geojson",
+      rowNumber: 3,
+      cell: '{"type":"Point","coordinates":[0,0,0,0]}',
+    })
+  })
+
+  it("should report errors for invalid GeoJSON LineString", async () => {
+    const table = DataFrame({
+      line: [
+        '{"type":"LineString","coordinates":[[0,0],[1,1]]}',
+        '{"type":"LineString","coordinates":[[0,0]]}',
+        '{"type":"LineString","coordinates":[0,0]}',
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "line",
+          type: "geojson",
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toHaveLength(2)
+    expect(errors).toContainEqual({
+      type: "cell/type",
+      fieldName: "line",
+      fieldType: "geojson",
+      rowNumber: 2,
+      cell: '{"type":"LineString","coordinates":[[0,0]]}',
+    })
+    expect(errors).toContainEqual({
+      type: "cell/type",
+      fieldName: "line",
+      fieldType: "geojson",
+      rowNumber: 3,
+      cell: '{"type":"LineString","coordinates":[0,0]}',
+    })
+  })
+
+  it("should report errors for incomplete GeoJSON Feature", async () => {
+    const table = DataFrame({
+      feature: [
+        '{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]},"properties":{}}',
+        '{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]}}',
+        '{"type":"Feature","properties":{}}',
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "feature",
+          type: "geojson",
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toHaveLength(2)
+    expect(errors).toContainEqual({
+      type: "cell/type",
+      fieldName: "feature",
+      fieldType: "geojson",
+      rowNumber: 2,
+      cell: '{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]}}',
+    })
+    expect(errors).toContainEqual({
+      type: "cell/type",
+      fieldName: "feature",
+      fieldType: "geojson",
+      rowNumber: 3,
+      cell: '{"type":"Feature","properties":{}}',
+    })
+  })
+
+  it("should report errors for invalid GeoJSON FeatureCollection", async () => {
+    const table = DataFrame({
+      collection: [
+        '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]},"properties":{}}]}',
+        '{"type":"FeatureCollection"}',
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "collection",
+          type: "geojson",
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toEqual([
+      {
+        type: "cell/type",
+        fieldName: "collection",
+        fieldType: "geojson",
+        rowNumber: 2,
+        cell: '{"type":"FeatureCollection"}',
+      },
+    ])
+  })
+
+  it("should not validate jsonSchema constraints for geojson fields", async () => {
+    const table = DataFrame({
+      location: [
+        '{"type":"Point","coordinates":[0,0]}',
+        '{"type":"Point","coordinates":[100,200]}',
       ],
     }).lazy()
 
@@ -282,15 +417,11 @@ describe("validateGeojsonField", () => {
             jsonSchema: {
               type: "object",
               properties: {
-                type: { type: "string", const: "Point" },
                 coordinates: {
                   type: "array",
-                  items: { type: "number" },
-                  minItems: 2,
-                  maxItems: 2,
+                  items: { type: "number", minimum: -50, maximum: 50 },
                 },
               },
-              required: ["type", "coordinates"],
             },
           },
         },
@@ -301,163 +432,107 @@ describe("validateGeojsonField", () => {
     expect(errors).toHaveLength(0)
   })
 
-  it("should report errors for GeoJSON not matching jsonSchema", async () => {
-    const jsonSchema = {
-      type: "object",
-      properties: {
-        type: { type: "string", const: "Point" },
-        coordinates: {
-          type: "array",
-          items: { type: "number" },
-          minItems: 2,
-          maxItems: 2,
-        },
-      },
-      required: ["type", "coordinates"],
-    }
-
+  it("should not report errors for valid TopoJSON", async () => {
     const table = DataFrame({
-      location: [
-        '{"type":"Point","coordinates":[0,0]}',
-        '{"type":"LineString","coordinates":[[0,0],[1,1]]}',
-        '{"type":"Point"}',
-        '{"type":"Point","coordinates":[0,0,0]}',
+      topology: [
+        '{"type":"Topology","objects":{"example":{"type":"GeometryCollection","geometries":[{"type":"Point","coordinates":[0,0]}]}},"arcs":[]}',
+        '{"type":"Topology","objects":{"collection":{"type":"GeometryCollection","geometries":[]}},"arcs":[]}',
       ],
     }).lazy()
 
     const schema: Schema = {
       fields: [
         {
-          name: "location",
+          name: "topology",
           type: "geojson",
-          constraints: {
-            jsonSchema,
-          },
+          format: "topojson",
         },
       ],
     }
 
     const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/jsonSchema")).toHaveLength(3)
+    expect(errors).toHaveLength(0)
+  })
+
+  it("should report errors for invalid TopoJSON structure", async () => {
+    const table = DataFrame({
+      topology: [
+        '{"type":"Topology","objects":{"example":{"type":"GeometryCollection","geometries":[]}},"arcs":[]}',
+        '{"type":"Topology","objects":{}}',
+        '{"type":"Topology"}',
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "topology",
+          type: "geojson",
+          format: "topojson",
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toHaveLength(2)
     expect(errors).toContainEqual({
-      type: "cell/jsonSchema",
-      fieldName: "location",
-      jsonSchema,
+      type: "cell/type",
+      fieldName: "topology",
+      fieldType: "geojson",
       rowNumber: 2,
-      cell: '{"type":"LineString","coordinates":[[0,0],[1,1]]}',
+      cell: '{"type":"Topology","objects":{}}',
     })
     expect(errors).toContainEqual({
-      type: "cell/jsonSchema",
-      fieldName: "location",
-      jsonSchema,
+      type: "cell/type",
+      fieldName: "topology",
+      fieldType: "geojson",
       rowNumber: 3,
-      cell: '{"type":"Point"}',
-    })
-    expect(errors).toContainEqual({
-      type: "cell/jsonSchema",
-      fieldName: "location",
-      jsonSchema,
-      rowNumber: 4,
-      cell: '{"type":"Point","coordinates":[0,0,0]}',
+      cell: '{"type":"Topology"}',
     })
   })
 
-  it("should validate complex GeoJSON Feature with jsonSchema", async () => {
+  it("should accept TopoJSON geometry objects", async () => {
     const table = DataFrame({
-      feature: [
-        '{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]},"properties":{"name":"Valid","category":"test"}}',
-        '{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]},"properties":{"name":"Missing category"}}',
+      geometry: [
+        '{"type":"Point","coordinates":[0,0]}',
+        '{"type":"LineString","arcs":[0,1]}',
+        '{"type":"Polygon","arcs":[[0,1,2]]}',
       ],
     }).lazy()
 
     const schema: Schema = {
       fields: [
         {
-          name: "feature",
+          name: "geometry",
           type: "geojson",
-          constraints: {
-            jsonSchema: {
-              type: "object",
-              properties: {
-                type: { type: "string", const: "Feature" },
-                geometry: { type: "object" },
-                properties: {
-                  type: "object",
-                  properties: {
-                    name: { type: "string" },
-                    category: { type: "string" },
-                  },
-                  required: ["name", "category"],
-                },
-              },
-              required: ["type", "geometry", "properties"],
-            },
-          },
+          format: "topojson",
         },
       ],
     }
 
     const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
-      {
-        type: "cell/jsonSchema",
-        fieldName: "feature",
-        // @ts-ignore
-        jsonSchema: schema.fields[0].constraints?.jsonSchema,
-        rowNumber: 2,
-        cell: '{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]},"properties":{"name":"Missing category"}}',
-      },
-    ])
+    expect(errors).toHaveLength(0)
   })
 
-  it("should validate GeoJSON FeatureCollection with jsonSchema", async () => {
+  it("should handle null values for topojson format", async () => {
     const table = DataFrame({
-      collection: [
-        '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]},"properties":{}}]}',
-        '{"type":"FeatureCollection","features":"invalid"}',
+      topology: [
+        '{"type":"Topology","objects":{"example":{"type":"GeometryCollection","geometries":[]}},"arcs":[]}',
+        null,
       ],
     }).lazy()
 
     const schema: Schema = {
       fields: [
         {
-          name: "collection",
+          name: "topology",
           type: "geojson",
-          constraints: {
-            jsonSchema: {
-              type: "object",
-              properties: {
-                type: { type: "string", const: "FeatureCollection" },
-                features: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                    properties: {
-                      type: { type: "string", const: "Feature" },
-                      geometry: { type: "object" },
-                      properties: { type: "object" },
-                    },
-                    required: ["type", "geometry", "properties"],
-                  },
-                },
-              },
-              required: ["type", "features"],
-            },
-          },
+          format: "topojson",
         },
       ],
     }
 
     const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
-      {
-        type: "cell/jsonSchema",
-        fieldName: "collection",
-        // @ts-ignore
-        jsonSchema: schema.fields[0].constraints?.jsonSchema,
-        rowNumber: 2,
-        cell: '{"type":"FeatureCollection","features":"invalid"}',
-      },
-    ])
+    expect(errors).toHaveLength(0)
   })
 })

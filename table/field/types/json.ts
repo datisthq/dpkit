@@ -52,9 +52,8 @@ export async function validateJsonField(
 
     if (formatProfile) {
       // TODO: Extract more generic function validateJson?
-      // @ts-ignore
-      const report = await validateDescriptor(target, {
-        profile: constraintProfile,
+      const report = await validateDescriptor(target as any, {
+        profile: formatProfile,
       })
 
       if (!report.valid) {
@@ -72,8 +71,7 @@ export async function validateJsonField(
 
     if (constraintProfile) {
       // TODO: Extract more generic function validateJson?
-      // @ts-ignore
-      const report = await validateDescriptor(target, {
+      const report = await validateDescriptor(target as any, {
         profile: constraintProfile,
       })
 
