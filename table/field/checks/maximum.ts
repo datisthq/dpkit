@@ -1,9 +1,12 @@
 import type { Field } from "@dpkit/core"
-import { lit } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 import type { CellExclusiveMaximumError } from "../../error/index.ts"
 import type { CellMaximumError } from "../../error/index.ts"
+import { evaluateExpression } from "../../helpers.ts"
 import type { CellMapping } from "../Mapping.ts"
+import { parseIntegerField } from "../types/integer.ts"
+import { parseNumberField } from "../types/number.ts"
 
 export function createCheckCellMaximum(options?: { isExclusive?: boolean }) {
   return (field: Field, mapping: CellMapping) => {
@@ -15,18 +18,13 @@ export function createCheckCellMaximum(options?: { isExclusive?: boolean }) {
     if (maximum === undefined) return undefined
 
     let isErrorExpr: Expr
-    const parser =
-      field.type === "integer" ? Number.parseInt : Number.parseFloat
-
     try {
-      const parsedMaximum =
-        typeof maximum === "string" ? parser(maximum) : maximum
-
+      const parsedMaximum = parseConstraint(field, maximum)
       isErrorExpr = options?.isExclusive
         ? mapping.target.gtEq(parsedMaximum)
         : mapping.target.gt(parsedMaximum)
     } catch (error) {
-      isErrorExpr = lit(true)
+      isErrorExpr = pl.lit(true)
     }
 
     const errorTemplate: CellMaximumError | CellExclusiveMaximumError = {
@@ -39,4 +37,16 @@ export function createCheckCellMaximum(options?: { isExclusive?: boolean }) {
 
     return { isErrorExpr, errorTemplate }
   }
+}
+
+function parseConstraint(field: Field, constraint: number | string) {
+  let expr = pl.lit(constraint)
+
+  if (field.type === "integer") {
+    expr = parseIntegerField(field, expr)
+  } else if (field.type === "number") {
+    expr = parseNumberField(field, expr)
+  }
+
+  return evaluateExpression(expr)
 }

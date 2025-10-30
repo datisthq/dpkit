@@ -146,4 +146,121 @@ describe("validateTable (cell/minimum)", () => {
       },
     ])
   })
+
+  it("should handle minimum as string with groupChar", async () => {
+    const table = DataFrame({
+      price: ["5,000", "10,500", "2,500"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "price",
+          type: "integer",
+          groupChar: ",",
+          constraints: { minimum: "3,000" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "price",
+        minimum: "3,000",
+        rowNumber: 3,
+        cell: "2,500",
+      },
+    ])
+  })
+
+  it("should handle minimum as string with decimalChar", async () => {
+    const table = DataFrame({
+      price: ["5,5", "10,75", "2,3"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "price",
+          type: "number",
+          decimalChar: ",",
+          constraints: { minimum: "3,0" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "price",
+        minimum: "3,0",
+        rowNumber: 3,
+        cell: "2,3",
+      },
+    ])
+  })
+
+  it("should handle minimum as string with groupChar and decimalChar", async () => {
+    const table = DataFrame({
+      price: ["5.000,50", "10.500,75", "2.500,30"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "price",
+          type: "number",
+          groupChar: ".",
+          decimalChar: ",",
+          constraints: { minimum: "3.000,00" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "price",
+        minimum: "3.000,00",
+        rowNumber: 3,
+        cell: "2.500,30",
+      },
+    ])
+  })
+
+  it("should handle minimum as string with bareNumber false", async () => {
+    const table = DataFrame({
+      price: ["$5.00", "$10.50", "$2.50"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "price",
+          type: "number",
+          bareNumber: false,
+          constraints: { minimum: "$3.00" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "price",
+        minimum: "$3.00",
+        rowNumber: 3,
+        cell: "$2.50",
+      },
+    ])
+  })
 })
