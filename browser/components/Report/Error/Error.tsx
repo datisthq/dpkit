@@ -3,6 +3,7 @@ import {
   CellEnumError,
   CellExclusiveMaximumError,
   CellExclusiveMinimumError,
+  CellJsonSchemaError,
   CellMaxLengthError,
   CellMaximumError,
   CellMinLengthError,
@@ -65,5 +66,7 @@ export function Error(props: {
       return <CellUniqueError error={error} />
     case "cell/enum":
       return <CellEnumError error={error} />
+    case "cell/jsonSchema":
+      return <CellJsonSchemaError error={error} />
   }
 }

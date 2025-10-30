@@ -22,6 +22,11 @@ export interface GeojsonField extends BaseField<GeojsonConstraints> {
  */
 export interface GeojsonConstraints extends BaseConstraints {
   /**
+   * JSON Schema object for validating the object structure and properties
+   */
+  jsonSchema?: Record<string, any>
+
+  /**
    * Restrict values to a specified set of GeoJSON objects
    * Serialized as strings or GeoJSON object literals
    */

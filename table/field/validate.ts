@@ -13,6 +13,9 @@ import { checkCellRequired } from "./checks/required.ts"
 import { checkCellType } from "./checks/type.ts"
 import { checkCellUnique } from "./checks/unique.ts"
 import { normalizeField } from "./normalize.ts"
+import { validateArrayField } from "./types/array.ts"
+import { validateGeojsonField } from "./types/geojson.ts"
+import { validateObjectField } from "./types/object.ts"
 
 export async function validateField(
   mapping: FieldMapping,
@@ -54,9 +57,13 @@ function validateName(mapping: FieldMapping) {
 
 function validateType(mapping: FieldMapping) {
   const errors: FieldError[] = []
+  const variant = mapping.source.type.variant
 
+  // TODO: Rebase on proper polars type definition when available
+  // https://github.com/pola-rs/nodejs-polars/issues/372
   const compatMapping: Record<string, Field["type"][]> = {
     Bool: ["boolean"],
+    Categorical: ["string"],
     Date: ["date"],
     Datetime: ["datetime"],
     Float32: ["number", "integer"],
@@ -66,18 +73,21 @@ function validateType(mapping: FieldMapping) {
     Int64: ["integer"],
     Int8: ["integer"],
     List: ["list"],
+    String: ["any"],
     Time: ["time"],
     UInt16: ["integer"],
     UInt32: ["integer"],
     UInt64: ["integer"],
     UInt8: ["integer"],
-    Utf8: ["string"],
+    Utf8: ["any"],
   }
 
-  const compatTypes = compatMapping[mapping.source.type.variant]
-  if (!compatTypes) return errors
+  const compatTypes = compatMapping[variant] ?? []
+  const isCompat = !!new Set(compatTypes).intersection(
+    new Set([mapping.target.type, "any"]),
+  ).size
 
-  if (!compatTypes.includes(mapping.target.type)) {
+  if (!isCompat) {
     errors.push({
       type: "field/type",
       fieldName: mapping.target.name,
@@ -98,6 +108,16 @@ async function validateCells(
 ) {
   const { maxErrors } = options
   const errors: CellError[] = []
+
+  // Types that require non-polars validation
+  switch (mapping.target.type) {
+    case "array":
+      return await validateArrayField(mapping.target, table)
+    case "geojson":
+      return await validateGeojsonField(mapping.target, table)
+    case "object":
+      return await validateObjectField(mapping.target, table)
+  }
 
   let fieldCheckTable = table
     .withRowCount()

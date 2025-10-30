@@ -1,74 +1,391 @@
-import { DataFrame, DataType, Series } from "nodejs-polars"
+import type { Schema } from "@dpkit/core"
+import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { denormalizeTable, normalizeTable } from "../../table/index.ts"
+import { validateTable } from "../../table/index.ts"
 
-describe("parseObjectField", () => {
-  it.each([
-    // Valid JSON objects
-    ['{"name":"John","age":30}', { name: "John", age: 30 }],
-    ['{"numbers":[1,2,3]}', { numbers: [1, 2, 3] }],
-    ['{"nested":{"prop":"value"}}', { nested: { prop: "value" } }],
-    ["{}", {}],
+describe("validateObjectField", () => {
+  it("should not report errors for valid JSON objects", async () => {
+    const table = DataFrame({
+      metadata: ['{"key":"value"}', '{"num":123}', '{"arr":[1,2,3]}'],
+    }).lazy()
 
-    // JSON but not an object
-    ["[1,2,3]", null],
-    ['["a","b","c"]', null],
-
-    // Trimming whitespace
-    //[' {"name":"John"} ', { name: "John" }],
-    //['\t{"name":"John"}\n', { name: "John" }],
-
-    // Invalid JSON
-    //["{invalid}", null],
-    ["not json", null],
-    ["", null],
-    ["null", null],
-    ["undefined", null],
-  ])("%s -> %s", async (cell, value) => {
-    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
-
-    const schema = {
-      fields: [{ name: "name", type: "object" as const }],
+    const schema: Schema = {
+      fields: [
+        {
+          name: "metadata",
+          type: "object",
+        },
+      ],
     }
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-
-    const res = df.getColumn("name").get(0)
-    expect(res ? JSON.parse(res) : res).toEqual(value)
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toHaveLength(0)
   })
-})
 
-describe("stringifyObjectField", () => {
-  it.each([
-    // JSON strings should be returned as-is
-    ['{"name":"John","age":30}', '{"name":"John","age":30}'],
-    ['{"numbers":[1,2,3]}', '{"numbers":[1,2,3]}'],
-    ['{"nested":{"prop":"value"}}', '{"nested":{"prop":"value"}}'],
-    ["{}", "{}"],
+  it("should report errors for JSON arrays", async () => {
+    const table = DataFrame({
+      data: ["[1,2,3]", '{"key":"value"}', '["a","b","c"]'],
+    }).lazy()
 
-    // Complex nested objects as JSON strings
-    [
-      '{"users":[{"id":1,"name":"Alice"},{"id":2,"name":"Bob"}]}',
-      '{"users":[{"id":1,"name":"Alice"},{"id":2,"name":"Bob"}]}',
-    ],
-    [
-      '{"config":{"debug":true,"timeout":5000}}',
-      '{"config":{"debug":true,"timeout":5000}}',
-    ],
-
-    // Null handling
-    [null, ""],
-  ])("%s -> %s", async (value, expected) => {
-    const table = DataFrame([Series("name", [value], DataType.String)]).lazy()
-
-    const schema = {
-      fields: [{ name: "name", type: "object" as const }],
+    const schema: Schema = {
+      fields: [
+        {
+          name: "data",
+          type: "object",
+        },
+      ],
     }
 
-    const ldf = await denormalizeTable(table, schema)
-    const df = await ldf.collect()
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toEqual([
+      {
+        type: "cell/type",
+        fieldName: "data",
+        fieldType: "object",
+        rowNumber: 1,
+        cell: "[1,2,3]",
+      },
+      {
+        type: "cell/type",
+        fieldName: "data",
+        fieldType: "object",
+        rowNumber: 3,
+        cell: '["a","b","c"]',
+      },
+    ])
+  })
 
-    expect(df.toRecords()[0]?.name).toEqual(expected)
+  it("should not report errors for null values", async () => {
+    const table = DataFrame({
+      config: ['{"key":"value"}', null, '{"num":123}'],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "config",
+          type: "object",
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toHaveLength(0)
+  })
+
+  it("should report errors for invalid JSON", async () => {
+    const table = DataFrame({
+      data: ['{"valid":true}', "invalid json", '{"key":"value"}', "{broken}"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "data",
+          type: "object",
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/type")).toHaveLength(2)
+    expect(errors).toContainEqual({
+      type: "cell/type",
+      fieldName: "data",
+      fieldType: "object",
+      rowNumber: 2,
+      cell: "invalid json",
+    })
+    expect(errors).toContainEqual({
+      type: "cell/type",
+      fieldName: "data",
+      fieldType: "object",
+      rowNumber: 4,
+      cell: "{broken}",
+    })
+  })
+
+  it("should handle complex nested JSON structures", async () => {
+    const table = DataFrame({
+      complex: [
+        '{"user":{"name":"John","age":30,"tags":["admin","user"]}}',
+        '{"nested":{"deep":{"value":true}}}',
+        '{"array":[{"id":1},{"id":2}]}',
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "complex",
+          type: "object",
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toHaveLength(0)
+  })
+
+  it("should report errors for empty strings", async () => {
+    const table = DataFrame({
+      data: ['{"valid":true}', "", '{"key":"value"}'],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "data",
+          type: "object",
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toEqual([
+      {
+        type: "cell/type",
+        fieldName: "data",
+        fieldType: "object",
+        rowNumber: 2,
+        cell: "",
+      },
+    ])
+  })
+
+  it("should report errors for JSON primitives", async () => {
+    const table = DataFrame({
+      data: ['"string"', "123", "true", "false", "null"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "data",
+          type: "object",
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toEqual([
+      {
+        type: "cell/type",
+        fieldName: "data",
+        fieldType: "object",
+        rowNumber: 1,
+        cell: '"string"',
+      },
+      {
+        type: "cell/type",
+        fieldName: "data",
+        fieldType: "object",
+        rowNumber: 2,
+        cell: "123",
+      },
+      {
+        type: "cell/type",
+        fieldName: "data",
+        fieldType: "object",
+        rowNumber: 3,
+        cell: "true",
+      },
+      {
+        type: "cell/type",
+        fieldName: "data",
+        fieldType: "object",
+        rowNumber: 4,
+        cell: "false",
+      },
+      {
+        type: "cell/type",
+        fieldName: "data",
+        fieldType: "object",
+        rowNumber: 5,
+        cell: "null",
+      },
+    ])
+  })
+
+  it("should not report errors for objects matching jsonSchema", async () => {
+    const table = DataFrame({
+      user: [
+        '{"name":"John","age":30}',
+        '{"name":"Jane","age":25}',
+        '{"name":"Bob","age":35}',
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "user",
+          type: "object",
+          constraints: {
+            jsonSchema: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                age: { type: "number" },
+              },
+              required: ["name", "age"],
+            },
+          },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toHaveLength(0)
+  })
+
+  it("should report errors for objects not matching jsonSchema", async () => {
+    const jsonSchema = {
+      type: "object",
+      properties: {
+        name: { type: "string" },
+        age: { type: "number" },
+      },
+      required: ["name", "age"],
+    }
+
+    const table = DataFrame({
+      user: [
+        '{"name":"John","age":30}',
+        '{"name":"Jane"}',
+        '{"age":25}',
+        '{"name":"Bob","age":"invalid"}',
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "user",
+          type: "object",
+          constraints: {
+            jsonSchema,
+          },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/jsonSchema")).toHaveLength(3)
+    expect(errors).toContainEqual({
+      type: "cell/jsonSchema",
+      fieldName: "user",
+      jsonSchema,
+      rowNumber: 2,
+      cell: '{"name":"Jane"}',
+    })
+    expect(errors).toContainEqual({
+      type: "cell/jsonSchema",
+      fieldName: "user",
+      jsonSchema,
+      rowNumber: 3,
+      cell: '{"age":25}',
+    })
+    expect(errors).toContainEqual({
+      type: "cell/jsonSchema",
+      fieldName: "user",
+      jsonSchema,
+      rowNumber: 4,
+      cell: '{"name":"Bob","age":"invalid"}',
+    })
+  })
+
+  it("should validate complex jsonSchema with nested objects", async () => {
+    const table = DataFrame({
+      config: [
+        '{"database":{"host":"localhost","port":5432},"cache":{"enabled":true}}',
+        '{"database":{"host":"localhost","port":"invalid"},"cache":{"enabled":true}}',
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "config",
+          type: "object",
+          constraints: {
+            jsonSchema: {
+              type: "object",
+              properties: {
+                database: {
+                  type: "object",
+                  properties: {
+                    host: { type: "string" },
+                    port: { type: "number" },
+                  },
+                  required: ["host", "port"],
+                },
+                cache: {
+                  type: "object",
+                  properties: {
+                    enabled: { type: "boolean" },
+                  },
+                  required: ["enabled"],
+                },
+              },
+              required: ["database", "cache"],
+            },
+          },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toEqual([
+      {
+        type: "cell/jsonSchema",
+        fieldName: "config",
+        jsonSchema: schema.fields[0].constraints?.jsonSchema,
+        rowNumber: 2,
+        cell: '{"database":{"host":"localhost","port":"invalid"},"cache":{"enabled":true}}',
+      },
+    ])
+  })
+
+  it("should validate jsonSchema with array properties", async () => {
+    const table = DataFrame({
+      data: [
+        '{"items":[1,2,3],"name":"test"}',
+        '{"items":["not","numbers"],"name":"test"}',
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "data",
+          type: "object",
+          constraints: {
+            jsonSchema: {
+              type: "object",
+              properties: {
+                items: {
+                  type: "array",
+                  items: { type: "number" },
+                },
+                name: { type: "string" },
+              },
+              required: ["items", "name"],
+            },
+          },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+    expect(errors).toEqual([
+      {
+        type: "cell/jsonSchema",
+        fieldName: "data",
+        jsonSchema: schema.fields[0].constraints?.jsonSchema,
+        rowNumber: 2,
+        cell: '{"items":["not","numbers"],"name":"test"}',
+      },
+    ])
   })
 })
