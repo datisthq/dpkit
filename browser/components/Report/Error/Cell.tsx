@@ -215,6 +215,7 @@ export function CellMaxLengthError(props: {
       <Code fz="lg" fw="bold">
         {error.rowNumber}
       </Code>{" "}
+      {t("is more than")}
       <Code fz="lg" fw="bold">
         {error.maxLength}
       </Code>{" "}

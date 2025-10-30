@@ -1,4 +1,4 @@
-import type { Descriptor, Resource } from "@dpkit/core"
+import type { DataError, Descriptor, Resource } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
 import { loadDescriptor, validateResourceMetadata } from "@dpkit/core"
 import { validateFile } from "@dpkit/file"
@@ -36,6 +36,8 @@ export async function validateResourceData(
   resource: Partial<Resource>,
   options?: InferSchemaOptions,
 ) {
+  const errors: DataError[] = []
+
   const fileReport = await validateFile(resource.path, {
     bytes: resource.bytes,
     hash: resource.hash,
@@ -46,19 +48,25 @@ export async function validateResourceData(
     return fileReport
   }
 
-  let schema = await resolveSchema(resource.schema)
   const table = await loadTable(resource, { denormalized: true })
-
   if (table) {
+    let schema = await resolveSchema(resource.schema)
     if (!schema) schema = await inferSchema(resource, options)
     const tableReport = await validateTable(table, { schema })
 
     if (!tableReport.valid) {
       return tableReport
     }
-  } else if (schema) {
-    const error = {}
   }
 
-  return { valid: true, errors: [] }
+  // TODO: Add document validation here
+
+  if (!table && resource.schema) {
+    errors.push({
+      type: "data",
+      message: "missing table",
+    })
+  }
+
+  return { valid: errors.length === 0, errors }
 }

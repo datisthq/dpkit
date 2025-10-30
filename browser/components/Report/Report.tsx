@@ -1,4 +1,9 @@
-import type { FileError, MetadataError, TableError } from "@dpkit/lib"
+import type {
+  DataError,
+  FileError,
+  MetadataError,
+  TableError,
+} from "@dpkit/lib"
 import { Card, Divider, ScrollArea, Stack, Tabs } from "@mantine/core"
 import { groupBy } from "es-toolkit"
 import { useState } from "react"
@@ -7,7 +12,7 @@ import { objectKeys } from "ts-extras"
 import { Error } from "./Error/Error.tsx"
 
 export function Report(props: {
-  errors?: (MetadataError | FileError | TableError)[]
+  errors?: (MetadataError | DataError | FileError | TableError)[]
 }) {
   const { t } = useTranslation()
   const { errors } = props
