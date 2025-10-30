@@ -301,3 +301,28 @@ export function CellEnumError(props: { error: errorTypes.CellEnumError }) {
     </Text>
   )
 }
+
+export function CellJsonSchemaError(props: {
+  error: errorTypes.CellJsonSchemaError
+}) {
+  const { t } = useTranslation()
+  const { error } = props
+
+  return (
+    <Text>
+      {t("Value of the cell")}{" "}
+      <Code fz="lg" fw="bold">
+        {error.cell}
+      </Code>{" "}
+      {t("in field")}{" "}
+      <Code fz="lg" fw="bold">
+        {error.fieldName}
+      </Code>{" "}
+      {t("of row")}{" "}
+      <Code fz="lg" fw="bold">
+        {error.rowNumber}
+      </Code>{" "}
+      {t("does not match the")} JSON schema
+    </Text>
+  )
+}

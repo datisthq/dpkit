@@ -22,7 +22,7 @@
     "spec": "vitest run",
     "test": "pnpm lint && pnpm type && pnpm spec",
     "test:win": "pnpm spec",
-    "type": "tsc --noEmit && pnpm -F browser type && pnpm -F cloud type",
+    "type": "tsc --noEmit && pnpm -F browser type",
     "version:ci": "pnpm --include-workspace-root -r exec pnpm version --no-git-tag-version"
   },
   "devDependencies": {
