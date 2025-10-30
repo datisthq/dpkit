@@ -54,9 +54,13 @@ function validateName(mapping: FieldMapping) {
 
 function validateType(mapping: FieldMapping) {
   const errors: FieldError[] = []
+  const variant = mapping.source.type.variant
 
+  // TODO: Rebase on proper polars type definition when available
+  // https://github.com/pola-rs/nodejs-polars/issues/372
   const compatMapping: Record<string, Field["type"][]> = {
     Bool: ["boolean"],
+    Categorical: ["string"],
     Date: ["date"],
     Datetime: ["datetime"],
     Float32: ["number", "integer"],
@@ -66,18 +70,21 @@ function validateType(mapping: FieldMapping) {
     Int64: ["integer"],
     Int8: ["integer"],
     List: ["list"],
+    String: ["any"],
     Time: ["time"],
     UInt16: ["integer"],
     UInt32: ["integer"],
     UInt64: ["integer"],
     UInt8: ["integer"],
-    Utf8: ["string"],
+    Utf8: ["any"],
   }
 
-  const compatTypes = compatMapping[mapping.source.type.variant]
-  if (!compatTypes) return errors
+  const compatTypes = compatMapping[variant] ?? []
+  const isCompatible = !!new Set(compatTypes).intersection(
+    new Set([mapping.target.type, "any"]),
+  ).size
 
-  if (!compatTypes.includes(mapping.target.type)) {
+  if (!isCompatible) {
     errors.push({
       type: "field/type",
       fieldName: mapping.target.name,
