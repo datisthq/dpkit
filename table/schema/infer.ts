@@ -58,21 +58,38 @@ export function inferSchemaFromSample(
       variant = variant.slice(0, -1)
     }
 
-    let type = fieldTypes?.[name] ?? typeMapping[variant] ?? "any"
-
-    if (type === "array" && options?.arrayType === "list") {
-      type = "list"
-    }
-
+    const type = fieldTypes?.[name] ?? typeMapping[variant] ?? "any"
     let field = { name, type }
-    if (!keepStrings && type === "string" && !fieldTypes?.[name]) {
-      for (const [regex, patch] of Object.entries(regexMapping)) {
+
+    if (!fieldTypes?.[name]) {
+      if (type === "array") {
+        if (options?.arrayType === "list") {
+          field.type = "list"
+        }
+      }
+
+      if (type === "string") {
+        if (!keepStrings) {
+          for (const [regex, patch] of Object.entries(regexMapping)) {
+            const failures = sample
+              .filter(col(name).str.contains(regex).not())
+              .head(failureThreshold).height
+
+            if (failures < failureThreshold) {
+              field = { ...field, ...patch }
+              break
+            }
+          }
+        }
+      }
+
+      if (type === "number") {
         const failures = sample
-          .filter(col(name).str.contains(regex).not())
+          .filter(col(name).eq(col(name).round(0)).not())
           .head(failureThreshold).height
+
         if (failures < failureThreshold) {
-          field = { ...field, ...patch }
-          break
+          field.type = "integer"
         }
       }
     }
