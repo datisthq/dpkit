@@ -3,7 +3,7 @@ import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { validateTable } from "../../table/index.ts"
 
-describe("validateTable (object field)", () => {
+describe("validateObjectField", () => {
   it("should not report errors for valid JSON objects", async () => {
     const table = DataFrame({
       metadata: ['{"key":"value"}', '{"num":123}', '{"arr":[1,2,3]}'],
@@ -24,7 +24,7 @@ describe("validateTable (object field)", () => {
 
   it("should report errors for JSON arrays", async () => {
     const table = DataFrame({
-      data: ['[1,2,3]', '{"key":"value"}', '["a","b","c"]'],
+      data: ["[1,2,3]", '{"key":"value"}', '["a","b","c"]'],
     }).lazy()
 
     const schema: Schema = {
@@ -75,7 +75,7 @@ describe("validateTable (object field)", () => {
 
   it("should report errors for invalid JSON", async () => {
     const table = DataFrame({
-      data: ['{"valid":true}', 'invalid json', '{"key":"value"}', '{broken}'],
+      data: ['{"valid":true}', "invalid json", '{"key":"value"}', "{broken}"],
     }).lazy()
 
     const schema: Schema = {

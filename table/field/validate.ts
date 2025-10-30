@@ -13,6 +13,7 @@ import { checkCellRequired } from "./checks/required.ts"
 import { checkCellType } from "./checks/type.ts"
 import { checkCellUnique } from "./checks/unique.ts"
 import { normalizeField } from "./normalize.ts"
+import { validateArrayField } from "./types/array.ts"
 import { validateObjectField } from "./types/object.ts"
 
 export async function validateField(
@@ -109,6 +110,8 @@ async function validateCells(
 
   // Types that require non-polars validation
   switch (mapping.target.type) {
+    case "array":
+      return await validateArrayField(mapping.target, table)
     case "object":
       return await validateObjectField(mapping.target, table)
   }
