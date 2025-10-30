@@ -1,4 +1,5 @@
 import type { Descriptor } from "../../general/index.ts"
+import { isRemotePath } from "../../general/index.ts"
 import { convertResourceFromDescriptor } from "../../resource/index.ts"
 
 export function convertPackageFromDescriptor(
@@ -17,7 +18,12 @@ export function convertPackageFromDescriptor(
 }
 
 function convertProfile(descriptor: Descriptor) {
-  descriptor.$schema = descriptor.$schema ?? descriptor.profile
+  const remoteProfile =
+    typeof descriptor.profile === "string" && isRemotePath(descriptor.profile)
+      ? descriptor.profile
+      : undefined
+
+  descriptor.$schema = descriptor.$schema ?? remoteProfile
 }
 
 function convertResources(
