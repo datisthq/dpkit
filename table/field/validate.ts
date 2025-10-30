@@ -13,6 +13,7 @@ import { checkCellRequired } from "./checks/required.ts"
 import { checkCellType } from "./checks/type.ts"
 import { checkCellUnique } from "./checks/unique.ts"
 import { normalizeField } from "./normalize.ts"
+import { validateObjectField } from "./types/object.ts"
 
 export async function validateField(
   mapping: FieldMapping,
@@ -105,6 +106,12 @@ async function validateCells(
 ) {
   const { maxErrors } = options
   const errors: CellError[] = []
+
+  // Types that require non-polars validation
+  switch (mapping.target.type) {
+    case "object":
+      return await validateObjectField(mapping.target, table)
+  }
 
   let fieldCheckTable = table
     .withRowCount()
