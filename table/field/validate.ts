@@ -81,11 +81,11 @@ function validateType(mapping: FieldMapping) {
   }
 
   const compatTypes = compatMapping[variant] ?? []
-  const isCompatible = !!new Set(compatTypes).intersection(
+  const isCompat = !!new Set(compatTypes).intersection(
     new Set([mapping.target.type, "any"]),
   ).size
 
-  if (!isCompatible) {
+  if (!isCompat) {
     errors.push({
       type: "field/type",
       fieldName: mapping.target.name,
