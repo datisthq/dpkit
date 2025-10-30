@@ -11,9 +11,14 @@ import type { Table } from "../../table/index.ts"
 export async function validateJsonField(
   field: ArrayField | GeojsonField | ObjectField,
   table: Table,
+  options?: {
+    formatProfile?: Record<string, any>
+  },
 ) {
   const errors: CellError[] = []
-  const jsonSchema = field.constraints?.jsonSchema
+
+  const formatProfile = options?.formatProfile
+  const constraintProfile = field.constraints?.jsonSchema
 
   const frame = await table
     .withRowCount()
@@ -38,17 +43,39 @@ export async function validateJsonField(
         type: "cell/type",
         cell: String(row.source),
         fieldName: field.name,
-        fieldType: "object",
+        fieldType: field.type,
         rowNumber: row.number,
       })
 
       continue
     }
 
-    if (jsonSchema) {
+    if (formatProfile) {
       // TODO: Extract more generic function validateJson?
       // @ts-ignore
-      const report = await validateDescriptor(target, { profile: jsonSchema })
+      const report = await validateDescriptor(target, {
+        profile: constraintProfile,
+      })
+
+      if (!report.valid) {
+        errors.push({
+          type: "cell/type",
+          cell: String(row.source),
+          fieldName: field.name,
+          fieldType: field.type,
+          rowNumber: row.number,
+        })
+      }
+
+      continue
+    }
+
+    if (constraintProfile) {
+      // TODO: Extract more generic function validateJson?
+      // @ts-ignore
+      const report = await validateDescriptor(target, {
+        profile: constraintProfile,
+      })
 
       if (!report.valid) {
         errors.push({
@@ -56,7 +83,7 @@ export async function validateJsonField(
           cell: String(row.source),
           fieldName: field.name,
           rowNumber: row.number,
-          jsonSchema,
+          jsonSchema: constraintProfile,
         })
       }
     }

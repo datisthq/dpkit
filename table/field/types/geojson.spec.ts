@@ -136,7 +136,7 @@ describe("validateGeojsonField", () => {
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "geojson",
         rowNumber: 2,
         cell: "[[0,0],[1,1]]",
       },
@@ -167,14 +167,14 @@ describe("validateGeojsonField", () => {
     expect(errors).toContainEqual({
       type: "cell/type",
       fieldName: "data",
-      fieldType: "object",
+      fieldType: "geojson",
       rowNumber: 2,
       cell: "invalid json",
     })
     expect(errors).toContainEqual({
       type: "cell/type",
       fieldName: "data",
-      fieldType: "object",
+      fieldType: "geojson",
       rowNumber: 4,
       cell: "{broken}",
     })
@@ -203,7 +203,7 @@ describe("validateGeojsonField", () => {
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "geojson",
         rowNumber: 2,
         cell: "",
       },
@@ -229,35 +229,35 @@ describe("validateGeojsonField", () => {
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "geojson",
         rowNumber: 1,
         cell: '"string"',
       },
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "geojson",
         rowNumber: 2,
         cell: "123",
       },
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "geojson",
         rowNumber: 3,
         cell: "true",
       },
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "geojson",
         rowNumber: 4,
         cell: "false",
       },
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "geojson",
         rowNumber: 5,
         cell: "null",
       },

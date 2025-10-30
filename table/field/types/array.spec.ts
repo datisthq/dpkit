@@ -77,7 +77,7 @@ describe("validateArrayField", () => {
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "array",
         rowNumber: 2,
         cell: '{"key":"value"}',
       },
@@ -103,14 +103,14 @@ describe("validateArrayField", () => {
     expect(errors).toContainEqual({
       type: "cell/type",
       fieldName: "data",
-      fieldType: "object",
+      fieldType: "array",
       rowNumber: 2,
       cell: "invalid json",
     })
     expect(errors).toContainEqual({
       type: "cell/type",
       fieldName: "data",
-      fieldType: "object",
+      fieldType: "array",
       rowNumber: 4,
       cell: "[broken",
     })
@@ -153,7 +153,7 @@ describe("validateArrayField", () => {
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "array",
         rowNumber: 2,
         cell: "",
       },
@@ -179,35 +179,35 @@ describe("validateArrayField", () => {
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "array",
         rowNumber: 1,
         cell: '"string"',
       },
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "array",
         rowNumber: 2,
         cell: "123",
       },
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "array",
         rowNumber: 3,
         cell: "true",
       },
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "array",
         rowNumber: 4,
         cell: "false",
       },
       {
         type: "cell/type",
         fieldName: "data",
-        fieldType: "object",
+        fieldType: "array",
         rowNumber: 5,
         cell: "null",
       },
