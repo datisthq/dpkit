@@ -1,4 +1,4 @@
-import type { DataError, Descriptor, Resource } from "@dpkit/core"
+import type { Descriptor, Resource } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
 import { loadDescriptor, validateResourceMetadata } from "@dpkit/core"
 import { validateFile } from "@dpkit/file"
