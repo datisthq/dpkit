@@ -137,7 +137,7 @@ async function validateFields(
   const { maxErrors } = options
   const errors: TableError[] = []
   const fields = mapping.target.fields
-  const concurrency = os.cpus().length - 1
+  const concurrency = os.cpus().length
   const abortController = new AbortController()
   const maxFieldErrors = Math.ceil(maxErrors / fields.length)
 
