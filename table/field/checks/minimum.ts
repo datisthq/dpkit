@@ -54,9 +54,10 @@ export function createCheckCellMinimum(options?: { isExclusive?: boolean }) {
   }
 }
 
-function parseConstraint(field: Field, constraint: number | string) {
-  let expr = pl.lit(constraint)
+function parseConstraint(field: Field, value: number | string) {
+  if (typeof value !== "string") return value
 
+  let expr = pl.lit(value)
   if (field.type === "integer") {
     expr = parseIntegerField(field, expr)
   } else if (field.type === "number") {
