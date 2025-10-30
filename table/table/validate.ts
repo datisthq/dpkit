@@ -5,6 +5,7 @@ import pAll from "p-all"
 import type { RowError } from "../error/index.ts"
 import type { TableError } from "../error/index.ts"
 import { validateField } from "../field/index.ts"
+import { arrayDiff } from "../helpers.ts"
 import { matchSchemaField } from "../schema/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { SchemaMapping } from "../schema/index.ts"
@@ -220,8 +221,4 @@ async function validateRows(
   }
 
   return errors
-}
-
-function arrayDiff(a: string[], b: string[]) {
-  return a.filter(x => !b.includes(x))
 }

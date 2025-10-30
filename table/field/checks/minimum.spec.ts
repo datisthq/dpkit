@@ -83,4 +83,67 @@ describe("validateTable (cell/minimum)", () => {
       cell: "5.5",
     })
   })
+
+  it("should handle minimum as string", async () => {
+    const table = DataFrame({
+      price: [10.5, 20.75, 3.0],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "price",
+          type: "number",
+          constraints: { minimum: "5" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "price",
+        minimum: "5",
+        rowNumber: 3,
+        cell: "3",
+      },
+    ])
+  })
+
+  it("should handle exclusiveMinimum as string", async () => {
+    const table = DataFrame({
+      temperature: [20.5, 10.0, 5.5],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "temperature",
+          type: "number",
+          constraints: { exclusiveMinimum: "10" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/exclusiveMinimum",
+        fieldName: "temperature",
+        minimum: "10",
+        rowNumber: 2,
+        cell: "10",
+      },
+      {
+        type: "cell/exclusiveMinimum",
+        fieldName: "temperature",
+        minimum: "10",
+        rowNumber: 3,
+        cell: "5.5",
+      },
+    ])
+  })
 })
