@@ -1,7 +1,7 @@
 import repl from "node:repl"
 import { loadSchema } from "@dpkit/lib"
 import type { Resource } from "@dpkit/lib"
-import { loadResourceSchema } from "@dpkit/lib"
+import { resolveSchema } from "@dpkit/lib"
 import * as dpkit from "@dpkit/lib"
 import { Command } from "commander"
 import pc from "picocolors"
@@ -33,7 +33,7 @@ export const scriptSchemaCommand = new Command("script")
 
     const schema = await session.task(
       "Loading schema",
-      path ? loadSchema(path) : loadResourceSchema(resource?.schema),
+      path ? loadSchema(path) : resolveSchema(resource?.schema),
     )
 
     console.log(

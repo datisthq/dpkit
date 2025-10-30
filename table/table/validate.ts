@@ -1,55 +1,55 @@
-import type { Schema } from "@dpkit/core"
-import { col, lit } from "nodejs-polars"
+import os from "node:os"
+import type { Field, Schema } from "@dpkit/core"
+import { col, lit, when } from "nodejs-polars"
+import pAll from "p-all"
+import type { RowError } from "../error/index.ts"
 import type { TableError } from "../error/index.ts"
-import { matchField } from "../field/index.ts"
 import { validateField } from "../field/index.ts"
-import { validateRows } from "../row/index.ts"
+import { arrayDiff } from "../helpers.ts"
+import { matchSchemaField } from "../schema/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
-import type { PolarsSchema } from "../schema/index.ts"
+import type { SchemaMapping } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
-import { normalizeFields } from "./normalize.ts"
+import { createChecksRowUnique } from "./checks/unique.ts"
 
 export async function validateTable(
   table: Table,
   options?: {
     schema?: Schema
     sampleRows?: number
-    invalidRowsLimit?: number
+    maxErrors?: number
   },
 ) {
-  const { schema, sampleRows = 100, invalidRowsLimit = 100 } = options ?? {}
+  const { schema, sampleRows = 100, maxErrors = 1000 } = options ?? {}
   const errors: TableError[] = []
 
   if (schema) {
     const sample = await table.head(sampleRows).collect()
     const polarsSchema = getPolarsSchema(sample.schema)
+    const mapping = { source: polarsSchema, target: schema }
 
-    const matchErrors = validateFieldsMatch({ schema, polarsSchema })
+    const matchErrors = validateFieldsMatch(mapping)
     errors.push(...matchErrors)
 
-    const fieldErrors = await validateFields(
-      table,
-      schema,
-      polarsSchema,
-      invalidRowsLimit,
-    )
+    const fieldErrors = await validateFields(mapping, table, { maxErrors })
     errors.push(...fieldErrors)
+
+    const rowErrors = await validateRows(mapping, table, { maxErrors })
+    errors.push(...rowErrors)
   }
 
-  return { errors, valid: !errors.length }
+  return {
+    errors: errors.slice(0, maxErrors),
+    valid: !errors.length,
+  }
 }
 
-function validateFieldsMatch(props: {
-  schema: Schema
-  polarsSchema: PolarsSchema
-}) {
-  const { schema, polarsSchema } = props
-
+function validateFieldsMatch(mapping: SchemaMapping) {
   const errors: TableError[] = []
-  const fieldsMatch = schema.fieldsMatch ?? "exact"
+  const fieldsMatch = mapping.target.fieldsMatch ?? "exact"
 
-  const fields = schema.fields
-  const polarsFields = polarsSchema.fields
+  const fields = mapping.target.fields
+  const polarsFields = mapping.source.fields
 
   const names = fields.map(field => field.name)
   const polarsNames = polarsFields.map(field => field.name)
@@ -128,95 +128,97 @@ function validateFieldsMatch(props: {
 }
 
 async function validateFields(
+  mapping: SchemaMapping,
   table: Table,
-  schema: Schema,
-  polarsSchema: PolarsSchema,
-  invalidRowsLimit: number,
+  options: {
+    maxErrors: number
+  },
 ) {
+  const { maxErrors } = options
   const errors: TableError[] = []
-  const targetNames: string[] = []
+  const fields = mapping.target.fields
+  const concurrency = os.cpus().length - 1
+  const abortController = new AbortController()
+  const maxFieldErrors = Math.ceil(maxErrors / fields.length)
 
-  const sources = Object.entries(
-    normalizeFields(schema, polarsSchema, { dontParse: true }),
-  ).map(([name, expr]) => {
-    return expr.alias(`source:${name}`)
-  })
+  const collectFieldErrors = async (index: number, field: Field) => {
+    const fieldMapping = matchSchemaField(mapping, field, index)
+    if (!fieldMapping) return
 
-  const targets = Object.entries(
-    normalizeFields(schema, polarsSchema, { dontParse: false }),
-  ).map(([name, expr]) => {
-    const targetName = `target:${name}`
-    targetNames.push(targetName)
-    return expr.alias(targetName)
-  })
+    const report = await validateField(fieldMapping, table, {
+      maxErrors: maxFieldErrors,
+    })
 
-  let errorTable = table
-    .withRowCount()
-    .select(
-      col("row_nr").add(1),
-      lit(false).alias("error"),
-      ...sources,
-      ...targets,
-    )
-
-  for (const [index, field] of schema.fields.entries()) {
-    const polarsField = matchField(index, field, schema, polarsSchema)
-    if (polarsField) {
-      const fieldResult = validateField(field, { errorTable, polarsField })
-      errorTable = fieldResult.errorTable
-      errors.push(...fieldResult.errors)
+    errors.push(...report.errors)
+    if (errors.length > maxErrors) {
+      abortController.abort()
     }
   }
 
-  const rowsResult = validateRows(schema, errorTable)
-  errorTable = rowsResult.errorTable
-  errors.push(...rowsResult.errors)
-
-  const errorFrame = await errorTable
-    .filter(col("error").eq(true))
-    .head(invalidRowsLimit)
-    .drop(targetNames)
-    .collect()
-
-  for (const record of errorFrame.toRecords() as any[]) {
-    const typeErrorInFields: string[] = []
-    for (const [key, value] of Object.entries(record)) {
-      const [kind, type, name] = key.split(":")
-      if (kind === "error" && value === true && type && name) {
-        const rowNumber = record.row_nr
-
-        // Cell-level errors
-        if (type.startsWith("cell/")) {
-          if (!typeErrorInFields.includes(name)) {
-            errors.push({
-              rowNumber,
-              type: type as any,
-              fieldName: name as any,
-              cell: (record[`source:${name}`] ?? "").toString(),
-            })
-          }
-
-          // Type error is a terminating error for a cell
-          if (type === "cell/type") {
-            typeErrorInFields.push(name)
-          }
-        }
-
-        // Row-level errors
-        if (type.startsWith("row/")) {
-          errors.push({
-            rowNumber,
-            type: type as any,
-            fieldNames: name.split(","),
-          })
-        }
-      }
-    }
+  try {
+    await pAll(
+      fields.map((field, index) => () => collectFieldErrors(index, field)),
+      { concurrency },
+    )
+  } catch (error) {
+    const isAborted = error instanceof Error && error.name === "AbortError"
+    if (!isAborted) throw error
   }
 
   return errors
 }
 
-function arrayDiff(a: string[], b: string[]) {
-  return a.filter(x => !b.includes(x))
+async function validateRows(
+  mapping: SchemaMapping,
+  table: Table,
+  options: { maxErrors: number },
+) {
+  const { maxErrors } = options
+  const errors: TableError[] = []
+  const fields = mapping.target.fields
+  const concurrency = os.cpus().length - 1
+  const abortController = new AbortController()
+  const maxRowErrors = Math.ceil(maxErrors / fields.length)
+
+  const collectRowErrors = async (check: any) => {
+    const rowCheckTable = table
+      .withRowCount()
+      .withColumn(col("row_nr").add(1))
+      .rename({ row_nr: "dpkit:number" })
+      .withColumn(
+        when(check.isErrorExpr)
+          .then(lit(JSON.stringify(check.errorTemplate)))
+          .otherwise(lit(null))
+          .alias("dpkit:error"),
+      )
+
+    const rowCheckFrame = await rowCheckTable
+      .filter(col("dpkit:error").isNotNull())
+      .head(maxRowErrors)
+      .collect()
+
+    for (const row of rowCheckFrame.toRecords() as any[]) {
+      const errorTemplate = JSON.parse(row["dpkit:error"]) as RowError
+      errors.push({
+        ...errorTemplate,
+        rowNumber: row["dpkit:number"],
+      })
+    }
+
+    if (errors.length > maxErrors) {
+      abortController.abort()
+    }
+  }
+
+  try {
+    await pAll(
+      [...createChecksRowUnique(mapping)].map(it => () => collectRowErrors(it)),
+      { concurrency },
+    )
+  } catch (error) {
+    const isAborted = error instanceof Error && error.name === "AbortError"
+    if (!isAborted) throw error
+  }
+
+  return errors
 }

@@ -20,6 +20,22 @@ describe("inferSchemaFromTable", () => {
     expect(await inferSchemaFromTable(table)).toEqual(schema)
   })
 
+  it("should infer integers from floats", async () => {
+    const table = DataFrame({
+      id: [1.0, 2.0, 3.0],
+      count: [10.0, 20.0, 30.0],
+    }).lazy()
+
+    const schema = {
+      fields: [
+        { name: "id", type: "integer" },
+        { name: "count", type: "integer" },
+      ],
+    }
+
+    expect(await inferSchemaFromTable(table)).toEqual(schema)
+  })
+
   it("should infer numeric", async () => {
     const table = DataFrame({
       name1: ["1", "2", "3"],

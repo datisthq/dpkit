@@ -94,7 +94,7 @@ describe("loadCsvTable", () => {
     ])
   })
 
-  it.skip("should handle custom line terminator", async () => {
+  it("should handle custom line terminator", async () => {
     const path = await writeTempFile("id,name|1,alice|2,bob")
     const table = await loadCsvTable({
       path,

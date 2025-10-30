@@ -1,5 +1,5 @@
 import type { Descriptor, Resource } from "@dpkit/core"
-import { loadResourceSchema } from "@dpkit/core"
+import { resolveSchema } from "@dpkit/core"
 import { loadDescriptor, validateResourceMetadata } from "@dpkit/core"
 import { validateFile } from "@dpkit/file"
 import { validateTable } from "@dpkit/table"
@@ -48,7 +48,7 @@ export async function validateResourceData(
 
   const table = await loadTable(resource, { denormalized: true })
   if (table) {
-    let schema = await loadResourceSchema(resource.schema)
+    let schema = await resolveSchema(resource.schema)
     if (!schema) schema = await inferSchema(resource, options)
     const tableReport = await validateTable(table, { schema })
 

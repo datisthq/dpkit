@@ -1,6 +1,6 @@
 import type { Resource } from "@dpkit/core"
-import { loadResourceDialect } from "@dpkit/core"
-import { loadResourceSchema } from "@dpkit/core"
+import { resolveDialect } from "@dpkit/core"
+import { resolveSchema } from "@dpkit/core"
 import { getRecordsFromRows } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
 import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
@@ -15,14 +15,14 @@ export async function loadInlineTable(
     throw new Error("Resource data is not defined or tabular")
   }
 
-  const dialect = await loadResourceDialect(resource.dialect)
+  const dialect = await resolveDialect(resource.dialect)
   const isRows = data.every(row => Array.isArray(row))
 
   const records = isRows ? getRecordsFromRows(data, dialect) : data
   let table = DataFrame(records).lazy()
 
   if (!options?.denormalized) {
-    let schema = await loadResourceSchema(resource.schema)
+    let schema = await resolveSchema(resource.schema)
     if (!schema) schema = await inferSchemaFromTable(table, options)
     table = await normalizeTable(table, schema)
   }

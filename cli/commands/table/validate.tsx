@@ -1,6 +1,6 @@
 import { loadTable, validateTable } from "@dpkit/lib"
 import { loadSchema } from "@dpkit/lib"
-import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/lib"
+import { inferSchemaFromTable, resolveSchema } from "@dpkit/lib"
 import { loadDialect } from "@dpkit/lib"
 import type { Resource } from "@dpkit/lib"
 import { Command } from "commander"
@@ -107,7 +107,7 @@ export const validateTableCommand = new Command("validate")
     if (!schema && resource.schema) {
       schema = await session.task(
         "Loading schema",
-        loadResourceSchema(options.schema ?? resource.schema),
+        resolveSchema(options.schema ?? resource.schema),
       )
     }
 

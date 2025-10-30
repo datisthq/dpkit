@@ -1,7 +1,7 @@
 import { loadSchema } from "../schema/index.ts"
-import type { Resource } from "./Resource.ts"
+import type { Schema } from "./Schema.ts"
 
-export async function loadResourceSchema(schema: Resource["schema"]) {
+export async function resolveSchema(schema?: Schema | string) {
   if (!schema) {
     return undefined
   }

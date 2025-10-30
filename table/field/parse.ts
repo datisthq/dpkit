@@ -1,6 +1,6 @@
-import type { Field } from "@dpkit/core"
-import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
+import { DataType } from "nodejs-polars"
+import type { FieldMapping } from "./Mapping.ts"
 import { parseArrayField } from "./types/array.ts"
 import { parseBooleanField } from "./types/boolean.ts"
 import { parseDateField } from "./types/date.ts"
@@ -17,41 +17,42 @@ import { parseTimeField } from "./types/time.ts"
 import { parseYearField } from "./types/year.ts"
 import { parseYearmonthField } from "./types/yearmonth.ts"
 
-export function parseField(field: Field, expr?: Expr) {
-  expr = expr ?? col(field.name)
+export function parseField(mapping: FieldMapping, fieldExpr: Expr) {
+  if (!mapping.source.type.equals(DataType.String)) return fieldExpr
 
+  const field = mapping.target
   switch (field.type) {
     case "array":
-      return parseArrayField(field, expr)
+      return parseArrayField(field, fieldExpr)
     case "boolean":
-      return parseBooleanField(field, expr)
+      return parseBooleanField(field, fieldExpr)
     case "date":
-      return parseDateField(field, expr)
+      return parseDateField(field, fieldExpr)
     case "datetime":
-      return parseDatetimeField(field, expr)
+      return parseDatetimeField(field, fieldExpr)
     case "duration":
-      return parseDurationField(field, expr)
+      return parseDurationField(field, fieldExpr)
     case "geojson":
-      return parseGeojsonField(field, expr)
+      return parseGeojsonField(field, fieldExpr)
     case "geopoint":
-      return parseGeopointField(field, expr)
+      return parseGeopointField(field, fieldExpr)
     case "integer":
-      return parseIntegerField(field, expr)
+      return parseIntegerField(field, fieldExpr)
     case "list":
-      return parseListField(field, expr)
+      return parseListField(field, fieldExpr)
     case "number":
-      return parseNumberField(field, expr)
+      return parseNumberField(field, fieldExpr)
     case "object":
-      return parseObjectField(field, expr)
+      return parseObjectField(field, fieldExpr)
     case "string":
-      return parseStringField(field, expr)
+      return parseStringField(field, fieldExpr)
     case "time":
-      return parseTimeField(field, expr)
+      return parseTimeField(field, fieldExpr)
     case "year":
-      return parseYearField(field, expr)
+      return parseYearField(field, fieldExpr)
     case "yearmonth":
-      return parseYearmonthField(field, expr)
+      return parseYearmonthField(field, fieldExpr)
     default:
-      return expr
+      return fieldExpr
   }
 }

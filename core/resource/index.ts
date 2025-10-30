@@ -6,11 +6,6 @@ export { saveResourceDescriptor } from "./save.ts"
 export { validateResourceMetadata } from "./validate.ts"
 export { convertResourceFromDescriptor } from "./convert/fromDescriptor.ts"
 export { convertResourceToDescriptor } from "./convert/toDescriptor.ts"
+export { isRemoteResource } from "./helpers.ts"
 export type { Source } from "./Source.ts"
 export type { License } from "./License.ts"
-export { loadResourceDialect } from "./dialect.ts"
-export { loadResourceSchema } from "./schema.ts"
-export { isRemoteResource } from "./helpers.ts"
-
-// TODO: Remove in v2
-export { validateResourceMetadata as validateResourceDescriptor } from "./validate.ts"

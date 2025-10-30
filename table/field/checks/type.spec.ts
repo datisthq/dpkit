@@ -20,12 +20,14 @@ describe("validateTable", () => {
       type: "cell/type",
       cell: "bad",
       fieldName: "id",
+      fieldType: "integer",
       rowNumber: 2,
     })
     expect(errors).toContainEqual({
       type: "cell/type",
       cell: "4x",
       fieldName: "id",
+      fieldType: "integer",
       rowNumber: 4,
     })
   })
@@ -46,12 +48,14 @@ describe("validateTable", () => {
       type: "cell/type",
       cell: "twenty",
       fieldName: "price",
+      fieldType: "number",
       rowNumber: 2,
     })
     expect(errors).toContainEqual({
       type: "cell/type",
       cell: "$40",
       fieldName: "price",
+      fieldType: "number",
       rowNumber: 4,
     })
   })
@@ -72,6 +76,7 @@ describe("validateTable", () => {
       type: "cell/type",
       cell: "yes",
       fieldName: "active",
+      fieldType: "boolean",
       rowNumber: 2,
     })
   })
@@ -92,18 +97,21 @@ describe("validateTable", () => {
       type: "cell/type",
       cell: "Jan 15, 2023",
       fieldName: "created",
+      fieldType: "date",
       rowNumber: 2,
     })
     expect(errors).toContainEqual({
       type: "cell/type",
       cell: "20230115",
       fieldName: "created",
+      fieldType: "date",
       rowNumber: 3,
     })
     expect(errors).toContainEqual({
       type: "cell/type",
       cell: "not-a-date",
       fieldName: "created",
+      fieldType: "date",
       rowNumber: 4,
     })
   })
@@ -124,19 +132,46 @@ describe("validateTable", () => {
       type: "cell/type",
       cell: "2:30pm",
       fieldName: "time",
+      fieldType: "time",
       rowNumber: 2,
     })
     expect(errors).toContainEqual({
       type: "cell/type",
       cell: "invalid",
       fieldName: "time",
+      fieldType: "time",
       rowNumber: 3,
     })
     expect(errors).toContainEqual({
       type: "cell/type",
       cell: "14h30",
       fieldName: "time",
+      fieldType: "time",
       rowNumber: 4,
+    })
+  })
+
+  it("should validate string to time conversion errors with custom format", async () => {
+    const table = DataFrame({
+      time: ["14:30", "invalid"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [{ name: "time", type: "time", format: "%H:%M" }],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    console.log(errors)
+
+    expect(errors).toHaveLength(1)
+    expect(errors).toContainEqual({
+      type: "cell/type",
+      cell: "invalid",
+      fieldName: "time",
+      fieldType: "time",
+      fieldFormat: "%H:%M",
+      rowNumber: 2,
     })
   })
 
@@ -156,18 +191,21 @@ describe("validateTable", () => {
       type: "cell/type",
       cell: "23",
       fieldName: "year",
+      fieldType: "year",
       rowNumber: 2,
     })
     expect(errors).toContainEqual({
       type: "cell/type",
       cell: "MMXXIII",
       fieldName: "year",
+      fieldType: "year",
       rowNumber: 3,
     })
     expect(errors).toContainEqual({
       type: "cell/type",
       cell: "two-thousand-twenty-three",
       fieldName: "year",
+      fieldType: "year",
       rowNumber: 4,
     })
   })
@@ -183,7 +221,7 @@ describe("validateTable", () => {
     }).lazy()
 
     const schema: Schema = {
-      fields: [{ name: "timestamp", type: "datetime" }],
+      fields: [{ name: "datetime", type: "datetime" }],
     }
 
     const { errors } = await validateTable(table, { schema })
@@ -195,14 +233,16 @@ describe("validateTable", () => {
     expect(errors).toContainEqual({
       type: "cell/type",
       cell: "January 15, 2023 2:30 PM",
-      fieldName: "timestamp",
+      fieldName: "datetime",
+      fieldType: "datetime",
       rowNumber: 2,
     })
 
     expect(errors).toContainEqual({
       type: "cell/type",
       cell: "not-a-datetime",
-      fieldName: "timestamp",
+      fieldName: "datetime",
+      fieldType: "datetime",
       rowNumber: 4,
     })
   })

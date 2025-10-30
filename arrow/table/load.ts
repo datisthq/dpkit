@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import { loadResourceSchema } from "@dpkit/core"
+import { resolveSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "@dpkit/table"
 import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
@@ -21,7 +21,7 @@ export async function loadArrowTable(
   }
 
   if (!options?.denormalized) {
-    let schema = await loadResourceSchema(resource.schema)
+    let schema = await resolveSchema(resource.schema)
     if (!schema) schema = await inferSchemaFromTable(table, options)
     table = await normalizeTable(table, schema)
   }

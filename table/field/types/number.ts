@@ -1,11 +1,8 @@
 import type { NumberField } from "@dpkit/core"
 import { DataType } from "nodejs-polars"
-import { col } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
-export function parseNumberField(field: NumberField, expr?: Expr) {
-  expr = expr ?? col(field.name)
-
+export function parseNumberField(field: NumberField, fieldExpr: Expr) {
   // Extract the decimal and group characters
   const decimalChar = field.decimalChar ?? "."
   const groupChar = field.groupChar ?? ""
@@ -16,43 +13,44 @@ export function parseNumberField(field: NumberField, expr?: Expr) {
     // Remove leading non-digit characters (except minus sign and allowed decimal points)
     const allowedDecimalChars =
       decimalChar === "." ? "\\." : `\\.${decimalChar}`
-    expr = expr.str.replaceAll(`^[^\\d\\-${allowedDecimalChars}]+`, "")
+    fieldExpr = fieldExpr.str.replaceAll(
+      `^[^\\d\\-${allowedDecimalChars}]+`,
+      "",
+    )
     // Remove trailing non-digit characters
-    expr = expr.str.replaceAll(`[^\\d${allowedDecimalChars}]+$`, "")
+    fieldExpr = fieldExpr.str.replaceAll(`[^\\d${allowedDecimalChars}]+$`, "")
   }
 
   // Special case handling for European number format where "." is group and "," is decimal
   if (groupChar === "." && decimalChar === ",") {
     // First temporarily replace the decimal comma with a placeholder
-    expr = expr.str.replaceAll(",", "###DECIMAL###")
+    fieldExpr = fieldExpr.str.replaceAll(",", "###DECIMAL###")
     // Remove the group dots
-    expr = expr.str.replaceAll("\\.", "")
+    fieldExpr = fieldExpr.str.replaceAll("\\.", "")
     // Replace the placeholder with an actual decimal point
-    expr = expr.str.replaceAll("###DECIMAL###", ".")
+    fieldExpr = fieldExpr.str.replaceAll("###DECIMAL###", ".")
   } else {
     // Standard case: first remove group characters
     if (groupChar) {
       // Escape special characters for regex
       const escapedGroupChar = groupChar.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-      expr = expr.str.replaceAll(escapedGroupChar, "")
+      fieldExpr = fieldExpr.str.replaceAll(escapedGroupChar, "")
     }
 
     // Then handle decimal character
     if (decimalChar && decimalChar !== ".") {
-      expr = expr.str.replaceAll(decimalChar, ".")
+      fieldExpr = fieldExpr.str.replaceAll(decimalChar, ".")
     }
   }
 
   // Cast to float64
-  expr = expr.cast(DataType.Float64)
-  return expr
+  fieldExpr = fieldExpr.cast(DataType.Float64)
+  return fieldExpr
 }
 
-export function stringifyNumberField(field: NumberField, expr?: Expr) {
-  expr = expr ?? col(field.name)
-
+export function stringifyNumberField(_field: NumberField, fieldExpr: Expr) {
   // Convert to string
-  expr = expr.cast(DataType.String)
+  fieldExpr = fieldExpr.cast(DataType.String)
 
   //const decimalChar = field.decimalChar ?? "."
   //const groupChar = field.groupChar ?? ""
@@ -61,5 +59,5 @@ export function stringifyNumberField(field: NumberField, expr?: Expr) {
   // TODO: Add group character formatting (thousands separator) when needed
   // TODO: Add non-bare number formatting (currency symbols, etc.) when needed
 
-  return expr
+  return fieldExpr
 }

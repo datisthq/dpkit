@@ -1,5 +1,5 @@
 import { loadDescriptor, validateSchema } from "@dpkit/lib"
-import { loadResourceSchema } from "@dpkit/lib"
+import { resolveSchema } from "@dpkit/lib"
 import type { Resource } from "@dpkit/lib"
 import { Command } from "commander"
 import React from "react"
@@ -36,10 +36,7 @@ export const validateSchemaCommand = new Command("validate")
       : undefined
 
     const schema = resource?.schema
-      ? await session.task(
-          "Loading schema",
-          loadResourceSchema(resource.schema),
-        )
+      ? await session.task("Loading schema", resolveSchema(resource.schema))
       : undefined
 
     const { descriptor } = path

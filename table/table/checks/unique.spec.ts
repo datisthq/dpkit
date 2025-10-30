@@ -37,6 +37,7 @@ describe("validateTable (row/unique)", () => {
     }
 
     const { errors } = await validateTable(table, { schema })
+
     expect(errors.filter(e => e.type === "row/unique")).toHaveLength(1)
     expect(errors).toContainEqual({
       type: "row/unique",
@@ -178,6 +179,7 @@ describe("validateTable (row/unique)", () => {
     }
 
     const { errors } = await validateTable(table, { schema })
+    console.log(errors)
 
     expect(errors).toHaveLength(2)
     expect(errors).toContainEqual({

@@ -1,47 +1,78 @@
 import type { Field } from "@dpkit/core"
-import { col, lit } from "nodejs-polars"
-import type { Table } from "../../table/index.ts"
+import * as pl from "nodejs-polars"
+import type { Expr } from "nodejs-polars"
+import type { CellExclusiveMaximumError } from "../../error/index.ts"
+import type { CellMaximumError } from "../../error/index.ts"
+import { evaluateExpression } from "../../helpers.ts"
+import type { CellMapping } from "../Mapping.ts"
+import { parseDateField } from "../types/date.ts"
+import { parseDatetimeField } from "../types/datetime.ts"
+import { parseIntegerField } from "../types/integer.ts"
+import { parseNumberField } from "../types/number.ts"
+import { parseTimeField } from "../types/time.ts"
+import { parseYearField } from "../types/year.ts"
+import { parseYearmonthField } from "../types/yearmonth.ts"
 
-export function checkCellMaximum(
-  field: Field,
-  errorTable: Table,
-  options?: {
-    isExclusive?: boolean
-  },
-) {
-  if (field.type === "integer" || field.type === "number") {
+export function createCheckCellMaximum(options?: { isExclusive?: boolean }) {
+  return (field: Field, mapping: CellMapping) => {
+    if (
+      field.type !== "integer" &&
+      field.type !== "number" &&
+      field.type !== "date" &&
+      field.type !== "time" &&
+      field.type !== "datetime" &&
+      field.type !== "year" &&
+      field.type !== "yearmonth"
+    ) {
+      return undefined
+    }
+
     const maximum = options?.isExclusive
       ? field.constraints?.exclusiveMaximum
       : field.constraints?.maximum
+    if (maximum === undefined) return undefined
 
-    if (maximum !== undefined) {
-      const target = col(`target:${field.name}`)
-      const errorName = options?.isExclusive
-        ? `error:cell/exclusiveMaximum:${field.name}`
-        : `error:cell/maximum:${field.name}`
-
-      // TODO: Support numeric options (decimalChar, groupChar, etc)
-      const parser =
-        field.type === "integer" ? Number.parseInt : Number.parseFloat
-
-      try {
-        const parsedMaximum =
-          typeof maximum === "string" ? parser(maximum) : maximum
-
-        errorTable = errorTable
-          .withColumn(
-            options?.isExclusive
-              ? target.gtEq(parsedMaximum).alias(errorName)
-              : target.gt(parsedMaximum).alias(errorName),
-          )
-          .withColumn(col("error").or(col(errorName)).alias("error"))
-      } catch (error) {
-        errorTable = errorTable
-          .withColumn(lit(true).alias(errorName))
-          .withColumn(lit(true).alias("error"))
-      }
+    let isErrorExpr: Expr
+    try {
+      const parsedMaximum = parseConstraint(field, maximum)
+      isErrorExpr = options?.isExclusive
+        ? mapping.target.gtEq(parsedMaximum)
+        : mapping.target.gt(parsedMaximum)
+    } catch (error) {
+      isErrorExpr = pl.lit(true)
     }
+
+    const errorTemplate: CellMaximumError | CellExclusiveMaximumError = {
+      type: options?.isExclusive ? "cell/exclusiveMaximum" : "cell/maximum",
+      fieldName: field.name,
+      maximum: String(maximum),
+      rowNumber: 0,
+      cell: "",
+    }
+
+    return { isErrorExpr, errorTemplate }
+  }
+}
+
+function parseConstraint(field: Field, value: number | string) {
+  if (typeof value !== "string") return value
+
+  let expr = pl.lit(value)
+  if (field.type === "integer") {
+    expr = parseIntegerField(field, expr)
+  } else if (field.type === "number") {
+    expr = parseNumberField(field, expr)
+  } else if (field.type === "date") {
+    expr = parseDateField(field, expr)
+  } else if (field.type === "time") {
+    expr = parseTimeField(field, expr)
+  } else if (field.type === "datetime") {
+    expr = parseDatetimeField(field, expr)
+  } else if (field.type === "year") {
+    expr = parseYearField(field, expr)
+  } else if (field.type === "yearmonth") {
+    expr = parseYearmonthField(field, expr)
   }
 
-  return errorTable
+  return evaluateExpression(expr)
 }

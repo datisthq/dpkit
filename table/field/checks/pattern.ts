@@ -1,20 +1,22 @@
 import type { Field } from "@dpkit/core"
-import { col } from "nodejs-polars"
-import type { Table } from "../../table/index.ts"
+import type { CellPatternError } from "../../error/index.ts"
+import type { CellMapping } from "../Mapping.ts"
 
-export function checkCellPattern(field: Field, errorTable: Table) {
-  if (field.type === "string") {
-    const pattern = field.constraints?.pattern
+export function checkCellPattern(field: Field, mapping: CellMapping) {
+  if (field.type !== "string") return undefined
 
-    if (pattern) {
-      const target = col(`target:${field.name}`)
-      const errorName = `error:cell/pattern:${field.name}`
+  const pattern = field.constraints?.pattern
+  if (!pattern) return undefined
 
-      errorTable = errorTable
-        .withColumn(target.str.contains(pattern).not().alias(errorName))
-        .withColumn(col("error").or(col(errorName)).alias("error"))
-    }
+  const isErrorExpr = mapping.target.str.contains(pattern).not()
+
+  const errorTemplate: CellPatternError = {
+    type: "cell/pattern",
+    fieldName: field.name,
+    pattern: pattern,
+    rowNumber: 0,
+    cell: "",
   }
 
-  return errorTable
+  return { isErrorExpr, errorTemplate }
 }

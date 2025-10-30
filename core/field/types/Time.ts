@@ -33,6 +33,16 @@ export interface TimeConstraints extends BaseConstraints {
   maximum?: string
 
   /**
+   * Exclusive minimum time value
+   */
+  exclusiveMinimum?: string
+
+  /**
+   * Exclusive maximum time value
+   */
+  exclusiveMaximum?: string
+
+  /**
    * Restrict values to a specified set of times
    * Should be in string time format (e.g., "HH:MM:SS")
    */

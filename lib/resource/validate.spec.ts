@@ -19,10 +19,10 @@ describe("validateResource", () => {
       },
     }
 
-    const result = await validateResource(resource)
+    const report = await validateResource(resource)
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toEqual(2)
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toEqual(1)
   })
 
   it("should validate correct tabular data", async () => {
@@ -41,10 +41,10 @@ describe("validateResource", () => {
       },
     }
 
-    const result = await validateResource(resource)
+    const report = await validateResource(resource)
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("should catch multiple validation errors", async () => {
@@ -69,9 +69,9 @@ describe("validateResource", () => {
       },
     }
 
-    const result = await validateResource(resource)
+    const report = await validateResource(resource)
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toEqual(3)
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toEqual(3)
   })
 })

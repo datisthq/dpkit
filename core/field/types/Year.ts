@@ -17,12 +17,22 @@ export interface YearConstraints extends BaseConstraints {
   /**
    * Minimum allowed year
    */
-  minimum?: number
+  minimum?: number | string
 
   /**
    * Maximum allowed year
    */
-  maximum?: number
+  maximum?: number | string
+
+  /**
+   * Exclusive minimum year value
+   */
+  exclusiveMinimum?: number | string
+
+  /**
+   * Exclusive maximum year value
+   */
+  exclusiveMaximum?: number | string
 
   /**
    * Restrict values to a specified set of years

@@ -2,7 +2,7 @@ import repl from "node:repl"
 import * as dpkit from "@dpkit/lib"
 import { loadDialect } from "@dpkit/lib"
 import type { Resource } from "@dpkit/lib"
-import { loadResourceDialect } from "@dpkit/lib"
+import { resolveDialect } from "@dpkit/lib"
 import { Command } from "commander"
 import pc from "picocolors"
 import { helpConfiguration } from "../../helpers/help.ts"
@@ -34,7 +34,7 @@ export const scriptDialectCommand = new Command("script")
 
     const dialect = await session.task(
       "Loading dialect",
-      path ? loadDialect(path) : loadResourceDialect(resource?.dialect),
+      path ? loadDialect(path) : resolveDialect(resource?.dialect),
     )
 
     if (!dialect || isEmptyObject(dialect)) {

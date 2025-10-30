@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@dpkit/core": "workspace:*",
-    "nodejs-polars": "^0.22.1"
+    "nodejs-polars": "^0.22.1",
+    "p-all": "^5.0.1"
   }
 }

@@ -1,4 +1,4 @@
-import { inferSchemaFromTable, loadResourceSchema } from "@dpkit/lib"
+import { inferSchemaFromTable, resolveSchema } from "@dpkit/lib"
 import { queryTable } from "@dpkit/lib"
 import { loadSchema } from "@dpkit/lib"
 import { loadDialect, loadTable, normalizeTable } from "@dpkit/lib"
@@ -100,7 +100,7 @@ export const exploreTableCommand = new Command("explore")
     if (!schema && resource.schema) {
       schema = await session.task(
         "Loading schema",
-        loadResourceSchema(resource.schema),
+        resolveSchema(resource.schema),
       )
     }
 

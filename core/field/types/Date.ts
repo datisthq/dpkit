@@ -33,6 +33,16 @@ export interface DateConstraints extends BaseConstraints {
   maximum?: string
 
   /**
+   * Exclusive minimum date value
+   */
+  exclusiveMinimum?: string
+
+  /**
+   * Exclusive maximum date value
+   */
+  exclusiveMaximum?: string
+
+  /**
    * Restrict values to a specified set of dates
    * Should be in string date format (e.g., "YYYY-MM-DD")
    */

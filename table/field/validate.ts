@@ -1,102 +1,155 @@
 import type { Field } from "@dpkit/core"
-import type { TableError } from "../error/index.ts"
+import { col, lit, when } from "nodejs-polars"
+import type { CellError, FieldError, TableError } from "../error/index.ts"
 import type { Table } from "../table/index.ts"
-import type { PolarsField } from "./Field.ts"
+import type { FieldMapping } from "./Mapping.ts"
 import { checkCellEnum } from "./checks/enum.ts"
 import { checkCellMaxLength } from "./checks/maxLength.ts"
-import { checkCellMaximum } from "./checks/maximum.ts"
+import { createCheckCellMaximum } from "./checks/maximum.ts"
 import { checkCellMinLength } from "./checks/minLength.ts"
-import { checkCellMinimum } from "./checks/minimum.ts"
+import { createCheckCellMinimum } from "./checks/minimum.ts"
 import { checkCellPattern } from "./checks/pattern.ts"
 import { checkCellRequired } from "./checks/required.ts"
 import { checkCellType } from "./checks/type.ts"
 import { checkCellUnique } from "./checks/unique.ts"
+import { normalizeField } from "./normalize.ts"
 
-export function validateField(
-  field: Field,
+export async function validateField(
+  mapping: FieldMapping,
+  table: Table,
   options: {
-    errorTable: Table
-    polarsField: PolarsField
+    maxErrors: number
   },
 ) {
-  const { polarsField } = options
+  const { maxErrors } = options
   const errors: TableError[] = []
 
-  const nameErrors = validateName(field, polarsField)
+  const nameErrors = validateName(mapping)
   errors.push(...nameErrors)
 
-  const typeErrors = validateType(field, polarsField)
+  const typeErrors = validateType(mapping)
   errors.push(...typeErrors)
 
-  const errorTable = !typeErrors.length
-    ? validateCells(field, options.errorTable)
-    : options.errorTable
+  if (!typeErrors.length) {
+    const dataErorrs = await validateCells(mapping, table, { maxErrors })
+    errors.push(...dataErorrs)
+  }
 
-  return { valid: !errors.length, errors, errorTable }
+  return { errors, valid: !errors.length }
 }
 
-function validateName(field: Field, polarsField: PolarsField) {
-  const errors: TableError[] = []
+function validateName(mapping: FieldMapping) {
+  const errors: FieldError[] = []
 
-  if (field.name !== polarsField.name) {
+  if (mapping.source.name !== mapping.target.name) {
     errors.push({
       type: "field/name",
-      fieldName: field.name,
-      actualFieldName: polarsField.name,
+      fieldName: mapping.target.name,
+      actualFieldName: mapping.source.name,
     })
   }
 
   return errors
 }
 
-function validateType(field: Field, polarsField: PolarsField) {
-  const errors: TableError[] = []
+function validateType(mapping: FieldMapping) {
+  const errors: FieldError[] = []
 
-  const mapping: Record<string, Field["type"]> = {
-    Bool: "boolean",
-    Date: "date",
-    Datetime: "datetime",
-    Float32: "number",
-    Float64: "number",
-    Int16: "integer",
-    Int32: "integer",
-    Int64: "integer",
-    Int8: "integer",
-    List: "list",
-    String: "string",
-    Time: "time",
-    UInt16: "integer",
-    UInt32: "integer",
-    UInt64: "integer",
-    UInt8: "integer",
-    Utf8: "string",
+  const compatMapping: Record<string, Field["type"][]> = {
+    Bool: ["boolean"],
+    Date: ["date"],
+    Datetime: ["datetime"],
+    Float32: ["number", "integer"],
+    Float64: ["number", "integer"],
+    Int16: ["integer"],
+    Int32: ["integer"],
+    Int64: ["integer"],
+    Int8: ["integer"],
+    List: ["list"],
+    Time: ["time"],
+    UInt16: ["integer"],
+    UInt32: ["integer"],
+    UInt64: ["integer"],
+    UInt8: ["integer"],
+    Utf8: ["string"],
   }
 
-  const actualFieldType = mapping[polarsField.type.variant] ?? "any"
+  const compatTypes = compatMapping[mapping.source.type.variant]
+  if (!compatTypes) return errors
 
-  if (actualFieldType !== field.type && actualFieldType !== "string") {
+  if (!compatTypes.includes(mapping.target.type)) {
     errors.push({
       type: "field/type",
-      fieldName: field.name,
-      fieldType: field.type ?? "any",
-      actualFieldType,
+      fieldName: mapping.target.name,
+      fieldType: mapping.target.type ?? "any",
+      actualFieldType: compatTypes[0] ?? "any",
     })
   }
 
   return errors
 }
 
-function validateCells(field: Field, errorTable: Table) {
-  errorTable = checkCellType(field, errorTable)
-  errorTable = checkCellRequired(field, errorTable)
-  errorTable = checkCellPattern(field, errorTable)
-  errorTable = checkCellEnum(field, errorTable)
-  errorTable = checkCellMinimum(field, errorTable)
-  errorTable = checkCellMaximum(field, errorTable)
-  errorTable = checkCellMinimum(field, errorTable, { isExclusive: true })
-  errorTable = checkCellMaximum(field, errorTable, { isExclusive: true })
-  errorTable = checkCellMinLength(field, errorTable)
-  errorTable = checkCellMaxLength(field, errorTable)
-  errorTable = checkCellUnique(field, errorTable)
-  return errorTable
+async function validateCells(
+  mapping: FieldMapping,
+  table: Table,
+  options: {
+    maxErrors: number
+  },
+) {
+  const { maxErrors } = options
+  const errors: CellError[] = []
+
+  let fieldCheckTable = table
+    .withRowCount()
+    .select(
+      col("row_nr").add(1).alias("number"),
+      normalizeField(mapping).alias("target"),
+      normalizeField(mapping, { keepType: true }).alias("source"),
+      lit(null).alias("error"),
+    )
+
+  for (const checkCell of [
+    checkCellType,
+    checkCellRequired,
+    checkCellPattern,
+    checkCellEnum,
+    createCheckCellMinimum(),
+    createCheckCellMaximum(),
+    createCheckCellMinimum({ isExclusive: true }),
+    createCheckCellMaximum({ isExclusive: true }),
+    checkCellMinLength,
+    checkCellMaxLength,
+    checkCellUnique,
+  ]) {
+    const cellMapping = { source: col("source"), target: col("target") }
+
+    const check = checkCell(mapping.target, cellMapping)
+    if (!check) continue
+
+    fieldCheckTable = fieldCheckTable.withColumn(
+      when(col("error").isNotNull())
+        .then(col("error"))
+        .when(check.isErrorExpr)
+        .then(lit(JSON.stringify(check.errorTemplate)))
+        .otherwise(lit(null))
+        .alias("error"),
+    )
+  }
+
+  const fieldCheckFrame = await fieldCheckTable
+    .filter(col("error").isNotNull())
+    .drop(["target"])
+    .head(maxErrors)
+    .collect()
+
+  for (const row of fieldCheckFrame.toRecords() as any[]) {
+    const errorTemplate = JSON.parse(row.error) as CellError
+    errors.push({
+      ...errorTemplate,
+      rowNumber: row.number,
+      cell: String(row.source ?? ""),
+    })
+  }
+
+  return errors
 }

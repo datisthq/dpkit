@@ -1,5 +1,5 @@
 import type { GeopointField } from "@dpkit/core"
-import { DataType, col, concatList, concatString, lit } from "nodejs-polars"
+import { DataType, concatList, concatString, lit } from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
 // TODO:
@@ -8,50 +8,46 @@ import type { Expr } from "nodejs-polars"
 // - Check the values are within -180..180 and -90..90
 // - Return null instead of list if any of the values are out of range
 
-export function parseGeopointField(field: GeopointField, expr?: Expr) {
-  expr = expr ?? col(field.name)
-
+export function parseGeopointField(field: GeopointField, fieldExpr: Expr) {
   // Default format is "lon,lat" string
   const format = field.format ?? "default"
 
   if (format === "default") {
-    expr = expr.str.split(",").cast(DataType.List(DataType.Float64))
+    fieldExpr = fieldExpr.str.split(",").cast(DataType.List(DataType.Float64))
   }
 
   if (format === "array") {
-    expr = expr.str
+    fieldExpr = fieldExpr.str
       .replaceAll("[\\[\\]\\s]", "")
       .str.split(",")
       .cast(DataType.List(DataType.Float64))
   }
 
   if (format === "object") {
-    expr = concatList([
-      expr.str.jsonPathMatch("$.lon").cast(DataType.Float64),
-      expr.str.jsonPathMatch("$.lat").cast(DataType.Float64),
+    fieldExpr = concatList([
+      fieldExpr.str.jsonPathMatch("$.lon").cast(DataType.Float64),
+      fieldExpr.str.jsonPathMatch("$.lat").cast(DataType.Float64),
     ]).alias(field.name)
   }
 
-  return expr
+  return fieldExpr
 }
 
-export function stringifyGeopointField(field: GeopointField, expr?: Expr) {
-  expr = expr ?? col(field.name)
-
+export function stringifyGeopointField(field: GeopointField, fieldExpr: Expr) {
   // Default format is "lon,lat" string
   const format = field.format ?? "default"
 
   if (format === "default") {
-    return expr.cast(DataType.List(DataType.String)).lst.join(",")
+    return fieldExpr.cast(DataType.List(DataType.String)).lst.join(",")
   }
 
   if (format === "array") {
     return concatString(
       [
         lit("["),
-        expr.lst.get(0).cast(DataType.String),
+        fieldExpr.lst.get(0).cast(DataType.String),
         lit(","),
-        expr.lst.get(1).cast(DataType.String),
+        fieldExpr.lst.get(1).cast(DataType.String),
         lit("]"),
       ],
       "",
@@ -62,14 +58,14 @@ export function stringifyGeopointField(field: GeopointField, expr?: Expr) {
     return concatString(
       [
         lit('{"lon":'),
-        expr.lst.get(0).cast(DataType.String),
+        fieldExpr.lst.get(0).cast(DataType.String),
         lit(',"lat":'),
-        expr.lst.get(1).cast(DataType.String),
+        fieldExpr.lst.get(1).cast(DataType.String),
         lit("}"),
       ],
       "",
     ).alias(field.name) as Expr
   }
 
-  return expr
+  return fieldExpr
 }

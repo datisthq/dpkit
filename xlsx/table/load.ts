@@ -1,6 +1,6 @@
-import { loadResourceDialect } from "@dpkit/core"
+import { resolveDialect } from "@dpkit/core"
 import type { Resource } from "@dpkit/core"
-import { loadResourceSchema } from "@dpkit/core"
+import { resolveSchema } from "@dpkit/core"
 import { loadFile, prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "@dpkit/table"
 import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
@@ -21,7 +21,7 @@ export async function loadXlsxTable(
     throw new Error("Resource path is not defined")
   }
 
-  const dialect = await loadResourceDialect(resource.dialect)
+  const dialect = await resolveDialect(resource.dialect)
 
   const tables: Table[] = []
   for (const path of paths) {
@@ -48,7 +48,7 @@ export async function loadXlsxTable(
   let table = concat(tables)
 
   if (!options?.denormalized) {
-    let schema = await loadResourceSchema(resource.schema)
+    let schema = await resolveSchema(resource.schema)
     if (!schema) schema = await inferSchemaFromTable(table, options)
     table = await normalizeTable(table, schema)
   }

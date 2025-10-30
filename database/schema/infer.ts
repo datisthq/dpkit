@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import { loadResourceDialect } from "@dpkit/core"
+import { resolveDialect } from "@dpkit/core"
 import { createAdapter } from "../adapters/create.ts"
 
 export async function inferDatabaseSchema(
@@ -10,7 +10,7 @@ export async function inferDatabaseSchema(
     throw new Error("Supported database format is not defined")
   }
 
-  const dialect = await loadResourceDialect(resource.dialect)
+  const dialect = await resolveDialect(resource.dialect)
   if (!dialect?.table) {
     throw new Error("Table name is not defined in dialect")
   }

@@ -1,7 +1,7 @@
 import { loadDialect } from "../dialect/index.ts"
-import type { Resource } from "./Resource.ts"
+import type { Dialect } from "./Dialect.ts"
 
-export async function loadResourceDialect(dialect: Resource["dialect"]) {
+export async function resolveDialect(dialect?: Dialect | string) {
   if (!dialect) {
     return undefined
   }
