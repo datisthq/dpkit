@@ -33,6 +33,16 @@ export interface DatetimeConstraints extends BaseConstraints {
   maximum?: string
 
   /**
+   * Exclusive minimum datetime value
+   */
+  exclusiveMinimum?: string
+
+  /**
+   * Exclusive maximum datetime value
+   */
+  exclusiveMaximum?: string
+
+  /**
    * Restrict values to a specified set of datetimes
    * Should be in string datetime format (e.g., ISO8601)
    */

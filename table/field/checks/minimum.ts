@@ -5,12 +5,23 @@ import type { CellExclusiveMinimumError } from "../../error/index.ts"
 import type { CellMinimumError } from "../../error/index.ts"
 import { evaluateExpression } from "../../helpers.ts"
 import type { CellMapping } from "../Mapping.ts"
+import { parseDateField } from "../types/date.ts"
+import { parseDatetimeField } from "../types/datetime.ts"
 import { parseIntegerField } from "../types/integer.ts"
 import { parseNumberField } from "../types/number.ts"
+import { parseTimeField } from "../types/time.ts"
 
 export function createCheckCellMinimum(options?: { isExclusive?: boolean }) {
   return (field: Field, mapping: CellMapping) => {
-    if (field.type !== "integer" && field.type !== "number") return undefined
+    if (
+      field.type !== "integer" &&
+      field.type !== "number" &&
+      field.type !== "date" &&
+      field.type !== "time" &&
+      field.type !== "datetime"
+    ) {
+      return undefined
+    }
 
     const minimum = options?.isExclusive
       ? field.constraints?.exclusiveMinimum
@@ -46,6 +57,12 @@ function parseConstraint(field: Field, constraint: number | string) {
     expr = parseIntegerField(field, expr)
   } else if (field.type === "number") {
     expr = parseNumberField(field, expr)
+  } else if (field.type === "date") {
+    expr = parseDateField(field, expr)
+  } else if (field.type === "time") {
+    expr = parseTimeField(field, expr)
+  } else if (field.type === "datetime") {
+    expr = parseDatetimeField(field, expr)
   }
 
   return evaluateExpression(expr)

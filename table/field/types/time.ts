@@ -1,6 +1,6 @@
 import type { TimeField } from "@dpkit/core"
 import { DataType } from "nodejs-polars"
-import { concatString, lit } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import type { Expr } from "nodejs-polars"
 
 const DEFAULT_FORMAT = "%H:%M:%S"
@@ -11,7 +11,8 @@ export function parseTimeField(field: TimeField, fieldExpr: Expr) {
     format = field.format
   }
 
-  return concatString([lit("1970-01-01T"), fieldExpr], "")
+  return pl
+    .concatString([pl.lit("1970-01-01T"), fieldExpr], "")
     .str.strptime(DataType.Datetime, `%Y-%m-%dT${format}`)
     .cast(DataType.Time)
     .alias(field.name)

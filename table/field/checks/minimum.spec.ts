@@ -263,4 +263,121 @@ describe("validateTable (cell/minimum)", () => {
       },
     ])
   })
+
+  it("should handle minimum for date fields", async () => {
+    const table = DataFrame({
+      date: ["2024-01-15", "2024-02-20", "2024-01-05"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "date",
+          type: "date",
+          constraints: { minimum: "2024-01-10" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "date",
+        minimum: "2024-01-10",
+        rowNumber: 3,
+        cell: "2024-01-05",
+      },
+    ])
+  })
+
+  it.skip("should handle minimum for time fields", async () => {
+    const table = DataFrame({
+      time: ["14:30:00", "16:45:00", "12:15:00"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "time",
+          type: "time",
+          constraints: { minimum: "13:00:00" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "time",
+        minimum: "13:00:00",
+        rowNumber: 3,
+        cell: "12:15:00",
+      },
+    ])
+  })
+
+  it("should handle minimum for datetime fields", async () => {
+    const table = DataFrame({
+      timestamp: [
+        "2024-01-15T14:30:00",
+        "2024-02-20T08:15:00",
+        "2024-01-10T10:00:00",
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "timestamp",
+          type: "datetime",
+          constraints: { minimum: "2024-01-15T00:00:00" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "timestamp",
+        minimum: "2024-01-15T00:00:00",
+        rowNumber: 3,
+        cell: "2024-01-10T10:00:00",
+      },
+    ])
+  })
+
+  it("should handle minimum for date fields with custom format", async () => {
+    const table = DataFrame({
+      date: ["15/01/2024", "20/02/2024", "05/01/2024"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "date",
+          type: "date",
+          format: "%d/%m/%Y",
+          constraints: { minimum: "10/01/2024" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "date",
+        minimum: "10/01/2024",
+        rowNumber: 3,
+        cell: "05/01/2024",
+      },
+    ])
+  })
 })

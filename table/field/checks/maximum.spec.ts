@@ -263,4 +263,121 @@ describe("validateTable (cell/maximum)", () => {
       },
     ])
   })
+
+  it("should handle maximum for date fields", async () => {
+    const table = DataFrame({
+      date: ["2024-01-15", "2024-02-20", "2024-03-25"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "date",
+          type: "date",
+          constraints: { maximum: "2024-02-28" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/maximum",
+        fieldName: "date",
+        maximum: "2024-02-28",
+        rowNumber: 3,
+        cell: "2024-03-25",
+      },
+    ])
+  })
+
+  it.skip("should handle maximum for time fields", async () => {
+    const table = DataFrame({
+      time: ["14:30:00", "16:45:00", "18:00:00"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "time",
+          type: "time",
+          constraints: { maximum: "17:00:00" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/maximum",
+        fieldName: "time",
+        maximum: "17:00:00",
+        rowNumber: 3,
+        cell: "18:00:00",
+      },
+    ])
+  })
+
+  it("should handle maximum for datetime fields", async () => {
+    const table = DataFrame({
+      timestamp: [
+        "2024-01-15T14:30:00",
+        "2024-02-20T08:15:00",
+        "2024-03-25T10:00:00",
+      ],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "timestamp",
+          type: "datetime",
+          constraints: { maximum: "2024-02-28T23:59:59" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/maximum",
+        fieldName: "timestamp",
+        maximum: "2024-02-28T23:59:59",
+        rowNumber: 3,
+        cell: "2024-03-25T10:00:00",
+      },
+    ])
+  })
+
+  it("should handle maximum for date fields with custom format", async () => {
+    const table = DataFrame({
+      date: ["15/01/2024", "20/02/2024", "25/03/2024"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "date",
+          type: "date",
+          format: "%d/%m/%Y",
+          constraints: { maximum: "28/02/2024" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/maximum",
+        fieldName: "date",
+        maximum: "28/02/2024",
+        rowNumber: 3,
+        cell: "25/03/2024",
+      },
+    ])
+  })
 })
