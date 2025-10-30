@@ -443,4 +443,67 @@ describe("validateTable (cell/minimum)", () => {
       },
     ])
   })
+
+  it.skip("should handle minimum for yearmonth fields", async () => {
+    const table = DataFrame({
+      yearmonth: ["2024-03", "2024-05", "2024-01"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "yearmonth",
+          type: "yearmonth",
+          constraints: { minimum: "2024-02" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/minimum",
+        fieldName: "yearmonth",
+        minimum: "2024-02",
+        rowNumber: 3,
+        cell: "2024-01",
+      },
+    ])
+  })
+
+  it.skip("should handle exclusiveMinimum for yearmonth fields", async () => {
+    const table = DataFrame({
+      yearmonth: ["2024-03", "2024-05", "2024-02", "2024-01"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "yearmonth",
+          type: "yearmonth",
+          constraints: { exclusiveMinimum: "2024-02" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/exclusiveMinimum",
+        fieldName: "yearmonth",
+        minimum: "2024-02",
+        rowNumber: 3,
+        cell: "2024-02",
+      },
+      {
+        type: "cell/exclusiveMinimum",
+        fieldName: "yearmonth",
+        minimum: "2024-02",
+        rowNumber: 4,
+        cell: "2024-01",
+      },
+    ])
+  })
 })

@@ -11,6 +11,7 @@ import { parseIntegerField } from "../types/integer.ts"
 import { parseNumberField } from "../types/number.ts"
 import { parseTimeField } from "../types/time.ts"
 import { parseYearField } from "../types/year.ts"
+import { parseYearmonthField } from "../types/yearmonth.ts"
 
 export function createCheckCellMinimum(options?: { isExclusive?: boolean }) {
   return (field: Field, mapping: CellMapping) => {
@@ -20,7 +21,8 @@ export function createCheckCellMinimum(options?: { isExclusive?: boolean }) {
       field.type !== "date" &&
       field.type !== "time" &&
       field.type !== "datetime" &&
-      field.type !== "year"
+      field.type !== "year" &&
+      field.type !== "yearmonth"
     ) {
       return undefined
     }
@@ -67,6 +69,8 @@ function parseConstraint(field: Field, constraint: number | string) {
     expr = parseDatetimeField(field, expr)
   } else if (field.type === "year") {
     expr = parseYearField(field, expr)
+  } else if (field.type === "yearmonth") {
+    expr = parseYearmonthField(field, expr)
   }
 
   return evaluateExpression(expr)

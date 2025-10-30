@@ -25,6 +25,16 @@ export interface YearmonthConstraints extends BaseConstraints {
   maximum?: string
 
   /**
+   * Exclusive minimum yearmonth value
+   */
+  exclusiveMinimum?: string
+
+  /**
+   * Exclusive maximum yearmonth value
+   */
+  exclusiveMaximum?: string
+
+  /**
    * Restrict values to a specified set of yearmonths
    * Should be in string format (e.g., "YYYY-MM")
    */

@@ -443,4 +443,67 @@ describe("validateTable (cell/maximum)", () => {
       },
     ])
   })
+
+  it.skip("should handle maximum for yearmonth fields", async () => {
+    const table = DataFrame({
+      yearmonth: ["2024-01", "2024-03", "2024-06"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "yearmonth",
+          type: "yearmonth",
+          constraints: { maximum: "2024-05" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/maximum",
+        fieldName: "yearmonth",
+        maximum: "2024-05",
+        rowNumber: 3,
+        cell: "2024-06",
+      },
+    ])
+  })
+
+  it.skip("should handle exclusiveMaximum for yearmonth fields", async () => {
+    const table = DataFrame({
+      yearmonth: ["2024-01", "2024-03", "2024-05", "2024-06"],
+    }).lazy()
+
+    const schema: Schema = {
+      fields: [
+        {
+          name: "yearmonth",
+          type: "yearmonth",
+          constraints: { exclusiveMaximum: "2024-05" },
+        },
+      ],
+    }
+
+    const { errors } = await validateTable(table, { schema })
+
+    expect(errors).toEqual([
+      {
+        type: "cell/exclusiveMaximum",
+        fieldName: "yearmonth",
+        maximum: "2024-05",
+        rowNumber: 3,
+        cell: "2024-05",
+      },
+      {
+        type: "cell/exclusiveMaximum",
+        fieldName: "yearmonth",
+        maximum: "2024-05",
+        rowNumber: 4,
+        cell: "2024-06",
+      },
+    ])
+  })
 })
