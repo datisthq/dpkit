@@ -10,40 +10,47 @@ export async function validateFile(
   const localPaths = await prefetchFiles(path)
 
   if (options?.bytes) {
-    const bytes = await inferFileBytes(localPaths)
-    if (bytes !== options.bytes) {
+    const bytes = options.bytes
+    const actualBytes = await inferFileBytes(localPaths)
+
+    if (bytes !== actualBytes) {
       errors.push({
         type: "file/bytes",
-        bytes: options.bytes,
-        actualBytes: bytes,
+        bytes,
+        actualBytes,
       })
     }
   }
 
   if (options?.hash) {
-    const [_hashValue, hashType = "md5"] = options.hash.split(":").toReversed()
-    const hash = await inferFileHash(localPaths, {
+    const [hashValue, hashType = "md5"] = options.hash.split(":").toReversed()
+
+    const hash = `${hashType}:${hashValue}`
+    const actualHash = await inferFileHash(localPaths, {
       hashType: hashType as any,
     })
 
-    if (hash !== options.hash) {
+    if (hash !== actualHash) {
       errors.push({
         type: "file/hash",
-        hash: options.hash,
-        actualHash: hash,
+        hash,
+        actualHash,
       })
     }
   }
 
   if (options?.encoding) {
-    const encoding = await inferFileEncoding(localPaths)
+    const encoding = options.encoding
+    const actualEncoding = await inferFileEncoding(localPaths)
 
-    if (encoding && encoding !== options.encoding) {
-      errors.push({
-        type: "file/encoding",
-        encoding: options.encoding,
-        actualEncoding: encoding,
-      })
+    if (actualEncoding) {
+      if (encoding !== actualEncoding) {
+        errors.push({
+          type: "file/encoding",
+          encoding,
+          actualEncoding,
+        })
+      }
     }
   }
 
