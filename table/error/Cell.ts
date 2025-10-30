@@ -52,12 +52,12 @@ export interface CellExclusiveMaximumError extends BaseCellError {
 
 export interface CellMinLengthError extends BaseCellError {
   type: "cell/minLength"
-  minLength: string
+  minLength: number
 }
 
 export interface CellMaxLengthError extends BaseCellError {
   type: "cell/maxLength"
-  maxLength: string
+  maxLength: number
 }
 
 export interface CellPatternError extends BaseCellError {

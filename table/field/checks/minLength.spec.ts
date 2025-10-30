@@ -43,14 +43,14 @@ describe("validateTable (cell/minLength)", () => {
     expect(errors).toContainEqual({
       type: "cell/minLength",
       fieldName: "username",
-      minLength: "3",
+      minLength: 3,
       rowNumber: 2,
       cell: "a",
     })
     expect(errors).toContainEqual({
       type: "cell/minLength",
       fieldName: "username",
-      minLength: "3",
+      minLength: 3,
       rowNumber: 4,
       cell: "ab",
     })

@@ -43,7 +43,7 @@ describe("validateTable (cell/maxLength)", () => {
     expect(errors).toContainEqual({
       type: "cell/maxLength",
       fieldName: "username",
-      maxLength: "8",
+      maxLength: 8,
       rowNumber: 3,
       cell: "christopher",
     })
