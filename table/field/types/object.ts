@@ -1,6 +1,7 @@
 import type { ObjectField } from "@dpkit/core"
+import { validateDescriptor } from "@dpkit/core"
 import * as pl from "nodejs-polars"
-import type { CellTypeError } from "../../error/index.ts"
+import type { CellError } from "../../error/index.ts"
 import { isObject } from "../../helpers.ts"
 import type { Table } from "../../table/index.ts"
 
@@ -8,7 +9,8 @@ import type { Table } from "../../table/index.ts"
 // Make unblocking / handle large data / process in parallel / move processing to Rust?
 
 export async function validateObjectField(field: ObjectField, table: Table) {
-  const errors: CellTypeError[] = []
+  const errors: CellError[] = []
+  const jsonSchema = field.constraints?.jsonSchema
 
   const frame = await table
     .withRowCount()
@@ -34,6 +36,22 @@ export async function validateObjectField(field: ObjectField, table: Table) {
         fieldType: "object",
         rowNumber: row.number,
       })
+
+      continue
+    }
+
+    if (jsonSchema) {
+      const report = await validateDescriptor(target, { profile: jsonSchema })
+
+      if (!report.valid) {
+        errors.push({
+          type: "cell/jsonSchema",
+          cell: String(row.source),
+          fieldName: field.name,
+          rowNumber: row.number,
+          jsonSchema,
+        })
+      }
     }
   }
 

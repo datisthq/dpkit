@@ -13,6 +13,7 @@ export type CellError =
   | CellPatternError
   | CellUniqueError
   | CellEnumError
+  | CellJsonSchemaError
 
 export interface BaseCellError extends BaseTableError {
   fieldName: string
@@ -72,4 +73,9 @@ export interface CellUniqueError extends BaseCellError {
 export interface CellEnumError extends BaseCellError {
   type: "cell/enum"
   enum: string[]
+}
+
+export interface CellJsonSchemaError extends BaseCellError {
+  type: "cell/jsonSchema"
+  jsonSchema: Record<string, any>
 }
