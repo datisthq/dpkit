@@ -46,15 +46,18 @@ export async function validateResourceData(
     return fileReport
   }
 
+  let schema = await resolveSchema(resource.schema)
   const table = await loadTable(resource, { denormalized: true })
+
   if (table) {
-    let schema = await resolveSchema(resource.schema)
     if (!schema) schema = await inferSchema(resource, options)
     const tableReport = await validateTable(table, { schema })
 
     if (!tableReport.valid) {
       return tableReport
     }
+  } else if (schema) {
+    const error = {}
   }
 
   return { valid: true, errors: [] }
