@@ -14,6 +14,7 @@ import { checkCellType } from "./checks/type.ts"
 import { checkCellUnique } from "./checks/unique.ts"
 import { normalizeField } from "./normalize.ts"
 import { validateArrayField } from "./types/array.ts"
+import { validateGeojsonField } from "./types/geojson.ts"
 import { validateObjectField } from "./types/object.ts"
 
 export async function validateField(
@@ -112,6 +113,8 @@ async function validateCells(
   switch (mapping.target.type) {
     case "array":
       return await validateArrayField(mapping.target, table)
+    case "geojson":
+      return await validateGeojsonField(mapping.target, table)
     case "object":
       return await validateObjectField(mapping.target, table)
   }
