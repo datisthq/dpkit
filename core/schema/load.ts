@@ -1,4 +1,4 @@
-import { loadDescriptor } from "../general/index.ts"
+import { loadDescriptor } from "../descriptor/index.ts"
 import { assertSchema } from "./assert.ts"
 
 /**

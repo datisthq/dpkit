@@ -1,6 +1,6 @@
 import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
-import { loadDescriptor } from "../general/index.ts"
+import { loadDescriptor } from "../descriptor/index.ts"
 import { validatePackageMetadata } from "./validate.ts"
 
 useRecording()

@@ -1,4 +1,4 @@
-import type { Metadata } from "../general/index.ts"
+import type { Metadata } from "../metadata/index.ts"
 
 /**
  * Descriptor that describes the structure of tabular data, such as delimiters,

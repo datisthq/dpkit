@@ -1,5 +1,5 @@
-import type { Descriptor } from "../../general/index.ts"
-import { isRemotePath } from "../../general/index.ts"
+import type { Descriptor } from "../../descriptor/index.ts"
+import { isRemotePath } from "../../path/index.ts"
 import { convertResourceFromDescriptor } from "../../resource/index.ts"
 
 export function convertPackageFromDescriptor(

@@ -1,10 +1,9 @@
-import type { Descriptor } from "../descriptor/Descriptor.ts"
-import type { Profile } from "./Profile.ts"
+import type { Descriptor } from "../descriptor/index.ts"
 import type { ProfileType } from "./Profile.ts"
 import { ajv } from "./ajv.ts"
 import { profileRegistry } from "./registry.ts"
 
-export async function validateProfile(
+export async function inspectProfile(
   descriptor: Descriptor,
   options?: {
     path?: string
@@ -24,11 +23,7 @@ export async function validateProfile(
     })
   }
 
-  return {
-    errors,
-    valid: !errors.length,
-    profile: !errors.length ? (descriptor as Profile) : undefined,
-  }
+  return errors
 }
 
 function checkProfileType(

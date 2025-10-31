@@ -1,4 +1,4 @@
-import { saveDescriptor } from "../general/index.ts"
+import { saveDescriptor } from "../descriptor/index.ts"
 import type { Schema } from "./Schema.ts"
 import { convertSchemaToDescriptor } from "./convert/toDescriptor.ts"
 

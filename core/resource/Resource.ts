@@ -1,5 +1,5 @@
 import type { Dialect } from "../dialect/Dialect.ts"
-import type { Metadata } from "../general/index.ts"
+import type { Metadata } from "../metadata/index.ts"
 import type { Schema } from "../schema/Schema.ts"
 import type { License } from "./License.ts"
 import type { Source } from "./Source.ts"

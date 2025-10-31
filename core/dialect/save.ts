@@ -1,4 +1,4 @@
-import { saveDescriptor } from "../general/index.ts"
+import { saveDescriptor } from "../descriptor/index.ts"
 import type { Dialect } from "./Dialect.ts"
 import { convertDialectToDescriptor } from "./convert/toDescriptor.ts"
 

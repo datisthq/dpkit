@@ -3,7 +3,7 @@ import {
   getFormat,
   getName,
   getProtocol,
-} from "../general/index.ts"
+} from "../path/index.ts"
 import type { Resource } from "./Resource.ts"
 
 export function inferResourceName(resource: Partial<Resource>) {

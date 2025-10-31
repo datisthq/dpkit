@@ -1,6 +1,5 @@
-import { node } from "../node.ts"
-import { getProtocol } from "../path.ts"
-import { isRemotePath } from "../path.ts"
+import { node } from "../node/index.ts"
+import { getProtocol, isRemotePath } from "../path/index.ts"
 import { parseDescriptor } from "./process/parse.ts"
 
 /**

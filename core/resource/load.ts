@@ -1,5 +1,5 @@
-import { loadDescriptor } from "../general/index.ts"
-import { resolveBasepath } from "../general/index.ts"
+import { loadDescriptor } from "../descriptor/index.ts"
+import { resolveBasepath } from "../path/index.ts"
 import { assertResource } from "./assert.ts"
 
 /**

@@ -1,5 +1,5 @@
+import type { Descriptor } from "../descriptor/index.ts"
 import { AssertionError } from "../error/index.ts"
-import type { Descriptor } from "../general/index.ts"
 import type { Resource } from "./Resource.ts"
 import { validateResourceMetadata } from "./validate.ts"
 

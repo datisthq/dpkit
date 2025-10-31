@@ -1,5 +1,6 @@
-import type { Descriptor } from "../descriptor/Descriptor.ts"
+import type { Descriptor } from "../descriptor/index.ts"
 
+// TODO: Narrow to valid JSON Schema
 export type Profile = Descriptor
 export type ProfileType = "dialect" | "package" | "resource" | "schema"
 export type ProfileRegistry = {

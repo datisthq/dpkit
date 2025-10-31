@@ -1,6 +1,6 @@
-import type { MetadataError } from "../../error/index.ts"
+import type { Descriptor } from "../descriptor/index.ts"
+import type { MetadataError } from "../error/index.ts"
 import { ajv } from "../profile/ajv.ts"
-import type { Descriptor } from "./Descriptor.ts"
 
 /**
  * Validate a descriptor (JSON Object) against a JSON Schema

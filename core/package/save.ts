@@ -1,4 +1,5 @@
-import { getBasepath, saveDescriptor } from "../general/index.ts"
+import { saveDescriptor } from "../descriptor/index.ts"
+import { getBasepath } from "../path/index.ts"
 import type { Package } from "./Package.ts"
 import { convertPackageToDescriptor } from "./convert/toDescriptor.ts"
 

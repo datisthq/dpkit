@@ -1,5 +1,6 @@
-import { type Descriptor, validateDescriptor } from "../general/index.ts"
-import { loadProfile } from "../general/index.ts"
+import type { Descriptor } from "../descriptor/index.ts"
+import { validateDescriptor } from "../profile/index.ts"
+import { loadProfile } from "../profile/index.ts"
 import type { Dialect } from "./Dialect.ts"
 import { convertDialectFromDescriptor } from "./convert/fromDescriptor.ts"
 

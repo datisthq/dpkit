@@ -1,4 +1,4 @@
-import type { Metadata } from "../general/index.ts"
+import type { Metadata } from "../metadata/index.ts"
 import type { License, Resource, Source } from "../resource/index.ts"
 import type { Contributor } from "./Contributor.ts"
 

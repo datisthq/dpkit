@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant"
+import type { Descriptor } from "../../descriptor/index.ts"
 import { convertFieldFromDescriptor } from "../../field/index.ts"
-import type { Descriptor } from "../../general/index.ts"
 
 export function convertSchemaFromDescriptor(descriptor: Descriptor) {
   descriptor = globalThis.structuredClone(descriptor)
