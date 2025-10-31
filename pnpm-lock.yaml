@@ -460,9 +460,6 @@ importers:
       kysely-generic-sqlite:
         specifier: ^1.2.1
         version: 1.2.1(kysely@0.28.7)
-      libsql:
-        specifier: ^0.6.0-pre.20
-        version: 0.6.0-pre.20
       lru-cache:
         specifier: ^11.2.1
         version: 11.2.2
@@ -4355,42 +4352,6 @@ packages:
   kysely@0.28.7:
     resolution: {integrity: sha512-u/cAuTL4DRIiO2/g4vNGRgklEKNIj5Q3CG7RoUB5DV5SfEC2hMvPxKi0GWPmnzwL2ryIeud2VTcEEmqzTzEPNw==}
     engines: {node: '>=20.0.0'}
-
-  libsql-darwin-arm64@0.6.0-pre.20:
-    resolution: {integrity: sha512-ZRq6AL39vcvuSlriRVvte+ureH+AljDLN/KZb05YNfK3S/75rSawUFZ4Ek7c6jI1O+qsRyxIQ23TQnAOkkHEHQ==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [darwin]
-
-  libsql-darwin-x64@0.6.0-pre.20:
-    resolution: {integrity: sha512-z8hvmnmII/yvMz1rDsidfaz4q7e22idGqsrIBQHyCQFWNJxZax0w0ONnqKDLPSSgXzY2LXTxHITXV61p/ptWrA==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [darwin]
-
-  libsql-linux-arm64-gnu@0.6.0-pre.20:
-    resolution: {integrity: sha512-w6CfqGuPTSVEfWbpKfoOvJ0v2HaRYpywGvBZOVh+fiGcZZ123YAMalSm2ZLVv0NnmqTe6ga1BsA86gehCeZ7BQ==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-
-  libsql-linux-x64-gnu@0.6.0-pre.20:
-    resolution: {integrity: sha512-wm7Gba8sJpdLb4mQkHuHLSHaMWsWiVU8OwEVW8DDrXdY+/dbvYjmqJvhZOtbc7IA9m8a7OJO0acW2Y3N4raQCw==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-
-  libsql-linux-x64-musl@0.6.0-pre.20:
-    resolution: {integrity: sha512-Gk5u0a8qayKZU12TbxzBrnuit94dK3JeA5mACoIt8tmCnkacT5CQmQr8cZaGVAw1LTWLsWDNYiSJjO+hmTda2A==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-
-  libsql@0.6.0-pre.20:
-    resolution: {integrity: sha512-5bWY19aojvO8O9MBOP6xs9Sy8Kjatpf3tJ+akWwKBfop5JVMTByDl5PNURTb27s8BRVi/CGM4D+EGanytF5ikA==}
-    engines: {node: '>= 10'}
-    cpu: [x64, arm64, wasm32, arm]
-    os: [darwin, linux, win32]
 
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
@@ -10571,29 +10532,6 @@ snapshots:
       kysely: 0.28.7
 
   kysely@0.28.7: {}
-
-  libsql-darwin-arm64@0.6.0-pre.20:
-    optional: true
-
-  libsql-darwin-x64@0.6.0-pre.20:
-    optional: true
-
-  libsql-linux-arm64-gnu@0.6.0-pre.20:
-    optional: true
-
-  libsql-linux-x64-gnu@0.6.0-pre.20:
-    optional: true
-
-  libsql-linux-x64-musl@0.6.0-pre.20:
-    optional: true
-
-  libsql@0.6.0-pre.20:
-    optionalDependencies:
-      libsql-darwin-arm64: 0.6.0-pre.20
-      libsql-darwin-x64: 0.6.0-pre.20
-      libsql-linux-arm64-gnu: 0.6.0-pre.20
-      libsql-linux-x64-gnu: 0.6.0-pre.20
-      libsql-linux-x64-musl: 0.6.0-pre.20
 
   lines-and-columns@1.2.4: {}
 
