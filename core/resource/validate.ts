@@ -2,7 +2,6 @@ import type { Descriptor } from "../descriptor/index.ts"
 import { loadDialect } from "../dialect/index.ts"
 import { AssertionError } from "../error/index.ts"
 import { validateDescriptor } from "../profile/index.ts"
-import { loadProfile } from "../profile/index.ts"
 import { loadSchema } from "../schema/index.ts"
 import type { Resource } from "./Resource.ts"
 import { convertResourceFromDescriptor } from "./convert/fromDescriptor.ts"
@@ -20,12 +19,11 @@ export async function validateResourceMetadata(
 ) {
   const descriptor = source as Descriptor
 
-  const $schema =
+  const profile =
     typeof descriptor.$schema === "string"
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const profile = await loadProfile($schema)
   let { valid, errors } = await validateDescriptor(descriptor, { profile })
 
   let resource: Resource | undefined = undefined

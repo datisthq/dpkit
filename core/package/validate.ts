@@ -1,6 +1,5 @@
 import type { Descriptor } from "../descriptor/index.ts"
 import { validateDescriptor } from "../profile/index.ts"
-import { loadProfile } from "../profile/index.ts"
 import type { Package } from "./Package.ts"
 import { convertPackageFromDescriptor } from "./convert/fromDescriptor.ts"
 
@@ -17,12 +16,11 @@ export async function validatePackageMetadata(
 ) {
   const descriptor = source as Descriptor
 
-  const $schema =
+  const profile =
     typeof descriptor.$schema === "string"
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const profile = await loadProfile($schema)
   const { valid, errors } = await validateDescriptor(descriptor, { profile })
 
   let dataPackage: Package | undefined = undefined

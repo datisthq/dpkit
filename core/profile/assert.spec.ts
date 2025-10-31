@@ -1,23 +1,23 @@
 import { beforeAll, describe, expect, it, vi } from "vitest"
 import { ajv } from "./ajv.ts"
-import { inspectProfile } from "./inspect.ts"
+import { assertProfile } from "./assert.ts"
 
-describe("inspectProfile", () => {
+describe("assertProfile", () => {
   beforeAll(() => {
     vi.spyOn(ajv, "validateSchema")
   })
 
-  it("returns empty array for valid descriptor without options", async () => {
+  it("returns profile for valid descriptor without options", async () => {
     const descriptor = {
       name: "test",
     }
 
-    const errors = await inspectProfile(descriptor)
+    const profile = await assertProfile(descriptor)
 
-    expect(errors).toEqual([])
+    expect(profile).toEqual(descriptor)
   })
 
-  it("returns validation errors for invalid schema", async () => {
+  it("throws error for invalid schema", async () => {
     const descriptor = {
       name: "test",
     }
@@ -34,13 +34,12 @@ describe("inspectProfile", () => {
       ]
     })
 
-    const errors = await inspectProfile(descriptor)
-
-    expect(errors.length).toBe(1)
-    expect(errors[0]?.message).toBe("must be string")
+    await expect(assertProfile(descriptor)).rejects.toThrow(
+      "Profile at path undefined is invalid",
+    )
   })
 
-  it("uses keyword when error message is not available", async () => {
+  it("throws error when error message is not available", async () => {
     const descriptor = {
       name: "test",
     }
@@ -57,79 +56,75 @@ describe("inspectProfile", () => {
       ]
     })
 
-    const errors = await inspectProfile(descriptor)
-
-    expect(errors.length).toBe(1)
-    expect(errors[0]?.message).toBe("required")
+    await expect(assertProfile(descriptor)).rejects.toThrow(
+      "Profile at path undefined is invalid",
+    )
   })
 
-  it("returns empty array for official profile path", async () => {
+  it("returns profile for official profile path", async () => {
     const descriptor = {
       name: "test",
     }
 
-    const errors = await inspectProfile(descriptor, {
+    const profile = await assertProfile(descriptor, {
       path: "https://datapackage.org/profiles/1.0/datapackage.json",
       type: "package",
     })
 
-    expect(errors).toEqual([])
+    expect(profile).toEqual(descriptor)
   })
 
-  it("returns empty array when path matches alternate official profile", async () => {
+  it("returns profile when path matches alternate official profile", async () => {
     const descriptor = {
       name: "test",
     }
 
-    const errors = await inspectProfile(descriptor, {
+    const profile = await assertProfile(descriptor, {
       path: "https://specs.frictionlessdata.io/schemas/data-package.json",
       type: "package",
     })
 
-    expect(errors).toEqual([])
+    expect(profile).toEqual(descriptor)
   })
 
-  it("returns error for profile type mismatch", async () => {
+  it("throws error for profile type mismatch", async () => {
     const descriptor = {
       name: "test",
     }
 
-    const errors = await inspectProfile(descriptor, {
-      path: "custom-profile.json",
-      type: "package",
-    })
-
-    expect(errors.length).toBe(1)
-    expect(errors[0]?.message).toBe(
-      "Profile at custom-profile.json is not a valid package profile",
-    )
+    await expect(
+      assertProfile(descriptor, {
+        path: "custom-profile.json",
+        type: "package",
+      }),
+    ).rejects.toThrow("Profile at path custom-profile.json is invalid")
   })
 
-  it("returns empty array when only path is provided", async () => {
+  it("returns profile when only path is provided", async () => {
     const descriptor = {
       name: "test",
     }
 
-    const errors = await inspectProfile(descriptor, {
+    const profile = await assertProfile(descriptor, {
       path: "custom-profile.json",
     })
 
-    expect(errors).toEqual([])
+    expect(profile).toEqual(descriptor)
   })
 
-  it("returns empty array when only type is provided", async () => {
+  it("returns profile when only type is provided", async () => {
     const descriptor = {
       name: "test",
     }
 
-    const errors = await inspectProfile(descriptor, {
+    const profile = await assertProfile(descriptor, {
       type: "package",
     })
 
-    expect(errors).toEqual([])
+    expect(profile).toEqual(descriptor)
   })
 
-  it("returns multiple errors when both schema and type validation fail", async () => {
+  it("throws error when both schema and type validation fail", async () => {
     const descriptor = {
       name: "test",
     }
@@ -146,16 +141,12 @@ describe("inspectProfile", () => {
       ]
     })
 
-    const errors = await inspectProfile(descriptor, {
-      path: "custom-profile.json",
-      type: "package",
-    })
-
-    expect(errors.length).toBe(2)
-    expect(errors[0]?.message).toBe("must be string")
-    expect(errors[1]?.message).toBe(
-      "Profile at custom-profile.json is not a valid package profile",
-    )
+    await expect(
+      assertProfile(descriptor, {
+        path: "custom-profile.json",
+        type: "package",
+      }),
+    ).rejects.toThrow("Profile at path custom-profile.json is invalid")
   })
 
   it("validates different profile types correctly", async () => {
@@ -163,33 +154,33 @@ describe("inspectProfile", () => {
       delimiter: ",",
     }
 
-    const errorsDialect = await inspectProfile(descriptorDialect, {
+    const profileDialect = await assertProfile(descriptorDialect, {
       path: "https://datapackage.org/profiles/1.0/tabledialect.json",
       type: "dialect",
     })
 
-    expect(errorsDialect).toEqual([])
+    expect(profileDialect).toEqual(descriptorDialect)
 
     const descriptorResource = {
       name: "test-resource",
     }
 
-    const errorsResource = await inspectProfile(descriptorResource, {
+    const profileResource = await assertProfile(descriptorResource, {
       path: "https://datapackage.org/profiles/1.0/dataresource.json",
       type: "resource",
     })
 
-    expect(errorsResource).toEqual([])
+    expect(profileResource).toEqual(descriptorResource)
 
     const descriptorSchema = {
       fields: [],
     }
 
-    const errorsSchema = await inspectProfile(descriptorSchema, {
+    const profileSchema = await assertProfile(descriptorSchema, {
       path: "https://datapackage.org/profiles/1.0/tableschema.json",
       type: "schema",
     })
 
-    expect(errorsSchema).toEqual([])
+    expect(profileSchema).toEqual(descriptorSchema)
   })
 })

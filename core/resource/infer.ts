@@ -1,9 +1,4 @@
-import {
-  getFilename,
-  getFormat,
-  getName,
-  getProtocol,
-} from "../path/index.ts"
+import { getFilename, getFormat, getName, getProtocol } from "../path/index.ts"
 import type { Resource } from "./Resource.ts"
 
 export function inferResourceName(resource: Partial<Resource>) {

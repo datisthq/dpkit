@@ -1,7 +1,7 @@
 import { loadDescriptor } from "../descriptor/index.ts"
 import { cache } from "./cache.ts"
 import type { ProfileType } from "./Profile.ts"
-import { inspectProfile } from "./inspect.ts"
+import { assertProfile } from "./assert.ts"
 
 export async function loadProfile(
   path: string,
@@ -11,14 +11,8 @@ export async function loadProfile(
 
   if (!profile) {
     const descriptor = await loadDescriptor(path, { onlyRemote: true })
-    const errors = await inspectProfile(descriptor, { path, type: options?.type })
-
-    if (errors.length) {
-      throw new Error(`Profile at path ${path} is invalid`)
-    }
-
-    profile = descriptor
-    cache.set(path, descriptor)
+    profile = await assertProfile(descriptor, { path, type: options?.type })
+    cache.set(path, profile)
   }
 
   return profile
