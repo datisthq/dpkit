@@ -39,7 +39,7 @@ export const validateDialectCommand = new Command("validate")
       ? await session.task("Loading dialect", resolveDialect(resource.dialect))
       : undefined
 
-    const { descriptor } = path
+    const descriptor = path
       ? await session.task("Loading descriptor", loadDescriptor(path))
       : dialect
         ? { descriptor: dialect }

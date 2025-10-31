@@ -57,6 +57,19 @@ export function getFilename(path: string) {
   return filename?.includes(".") ? filename : undefined
 }
 
+export async function resolveBasepath(path: string) {
+  const isRemote = isRemotePath(path)
+
+  // Resolves redirects
+  if (isRemote) {
+    const url = new URL(path)
+    const response = await fetch(url.toString(), { method: "HEAD" })
+    path = response.url
+  }
+
+  return getBasepath(path)
+}
+
 export function getBasepath(path: string) {
   const isRemote = isRemotePath(path)
 

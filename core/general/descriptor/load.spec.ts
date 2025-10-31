@@ -29,11 +29,8 @@ describe("loadDescriptor", () => {
   })
 
   it("loads a local descriptor from a file path", async () => {
-    const { basepath, descriptor } = await loadDescriptor(
-      getFixturePath("schema.json"),
-    )
+    const descriptor = await loadDescriptor(getFixturePath("schema.json"))
 
-    expect(basepath).toEqual(getFixturePath())
     expect(descriptor).toEqual(expectedDescriptor)
   })
 
@@ -44,9 +41,8 @@ describe("loadDescriptor", () => {
       json: () => Promise.resolve(expectedDescriptor),
     })
 
-    const { basepath, descriptor } = await loadDescriptor(testUrl)
+    const descriptor = await loadDescriptor(testUrl)
 
-    expect(basepath).toEqual("https://example.com")
     expect(descriptor).toEqual(expectedDescriptor)
     expect(fetch).toHaveBeenCalledWith(testUrl)
   })

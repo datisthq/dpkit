@@ -1,4 +1,5 @@
 import { loadDescriptor } from "../general/index.ts"
+import { resolveBasepath } from "../general/index.ts"
 import { assertPackage } from "./assert.ts"
 
 /**
@@ -6,7 +7,8 @@ import { assertPackage } from "./assert.ts"
  * Ensures the descriptor is valid against its profile
  */
 export async function loadPackageDescriptor(path: string) {
-  const { basepath, descriptor } = await loadDescriptor(path)
+  const basepath = await resolveBasepath(path)
+  const descriptor = await loadDescriptor(path)
   const dataPackage = await assertPackage(descriptor, { basepath })
   return dataPackage
 }

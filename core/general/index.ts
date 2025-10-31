@@ -17,4 +17,5 @@ export {
   denormalizePath,
   getFilename,
   getProtocol,
+  resolveBasepath,
 } from "./path.ts"

@@ -1,6 +1,7 @@
 import type { DataError, Descriptor, Resource } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
 import { loadDescriptor, validateResourceMetadata } from "@dpkit/core"
+import { resolveBasepath } from "@dpkit/core"
 import { validateFile } from "@dpkit/file"
 import { validateTable } from "@dpkit/table"
 import type { InferSchemaOptions } from "@dpkit/table"
@@ -15,9 +16,8 @@ export async function validateResource(
   let basepath = options?.basepath
 
   if (typeof descriptor === "string") {
-    const result = await loadDescriptor(descriptor)
-    descriptor = result.descriptor
-    basepath = result.basepath
+    basepath = await resolveBasepath(descriptor)
+    descriptor = await loadDescriptor(descriptor)
   }
 
   const { valid, errors, resource } = await validateResourceMetadata(

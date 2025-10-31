@@ -71,8 +71,7 @@ export const convertSchemaCommand = new Command("convert")
       converter = convertSchemaFromJsonSchema
     }
 
-    const loaded = await session.task("Loading schema", loadDescriptor(path))
-    const source = loaded.descriptor
+    const source = await session.task("Loading schema", loadDescriptor(path))
     const target = await session.task("Converting schema", converter(source))
 
     if (!options.toPath) {

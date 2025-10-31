@@ -1,5 +1,6 @@
 import type { Descriptor, Package } from "@dpkit/core"
 import { loadDescriptor, validatePackageDescriptor } from "@dpkit/core"
+import { resolveBasepath } from "@dpkit/core"
 import { dpkit } from "../plugin.ts"
 import { validateResourceData } from "../resource/index.ts"
 
@@ -22,9 +23,8 @@ export async function validatePackage(
     }
 
     if (!descriptor) {
-      const result = await loadDescriptor(source)
-      descriptor = result.descriptor
-      basepath = result.basepath
+      basepath = await resolveBasepath(source)
+      descriptor = await loadDescriptor(source)
     }
   }
 

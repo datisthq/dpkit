@@ -42,7 +42,7 @@ describe("validatePackageMetadata", () => {
   })
 
   it("should validate camtrap dp (#144)", async () => {
-    const { descriptor } = await loadDescriptor(
+    const descriptor = await loadDescriptor(
       "https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.2/example/datapackage.json",
     )
 

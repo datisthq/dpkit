@@ -6,7 +6,7 @@ import { assertDialect } from "./assert.ts"
  * Ensures the descriptor is valid against its profile
  */
 export async function loadDialect(path: string) {
-  const { descriptor } = await loadDescriptor(path)
+  const descriptor = await loadDescriptor(path)
   const dialect = await assertDialect(descriptor)
   return dialect
 }
