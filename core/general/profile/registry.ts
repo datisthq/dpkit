@@ -1,3 +1,4 @@
+import type { ProfileRegistry } from "./Profile.ts"
 import dialect_1_0 from "./registry/dialect-1.0.json" with { type: "json" }
 import dialect_2_0 from "./registry/dialect-2.0.json" with { type: "json" }
 import package_1_0 from "./registry/package-1.0.json" with { type: "json" }
@@ -7,9 +8,7 @@ import resource_2_0 from "./registry/resource-2.0.json" with { type: "json" }
 import schema_1_0 from "./registry/schema-1.0.json" with { type: "json" }
 import schema_2_0 from "./registry/schema-2.0.json" with { type: "json" }
 
-export type ProfileType = (typeof profileRegistry)[number]["type"]
-
-export const profileRegistry = [
+export const profileRegistry: ProfileRegistry = [
   {
     type: "dialect",
     path: "https://specs.frictionlessdata.io/schemas/csv-dialect.json",

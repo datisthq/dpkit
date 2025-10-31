@@ -1,6 +1,6 @@
 import { loadDescriptor } from "../descriptor/load.ts"
 import { cache } from "./cache.ts"
-import type { ProfileType } from "./registry.ts"
+import type { ProfileType } from "./Profile.ts"
 import { validateProfile } from "./validate.ts"
 
 // TODO: Narrow return type to valid JSON Schema
@@ -13,11 +13,7 @@ export async function loadProfile(
 
   if (!profile) {
     const descriptor = await loadDescriptor(path, { onlyRemote: true })
-    const result = await validateProfile({
-      descriptor,
-      path,
-      type: options?.type,
-    })
+    const result = await validateProfile(descriptor, { path, type: options?.type })
 
     if (!result.profile) {
       throw new Error(`Profile at path ${path} is invalid`)

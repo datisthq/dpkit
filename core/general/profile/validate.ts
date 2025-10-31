@@ -1,7 +1,7 @@
 import type { Descriptor } from "../descriptor/Descriptor.ts"
 import type { Profile } from "./Profile.ts"
+import type { ProfileType } from "./Profile.ts"
 import { ajv } from "./ajv.ts"
-import type { ProfileType } from "./registry.ts"
 import { profileRegistry } from "./registry.ts"
 
 export async function validateProfile(
