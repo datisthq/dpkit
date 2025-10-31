@@ -11,7 +11,7 @@ export async function validatePackageForeignKeys(
   dataPackage: Package,
   options: {
     maxErrors?: number
-    loadTable: (resource: Resource) => Promise<Table>
+    loadTable: (resource: Resource) => Promise<Table | undefined>
   },
 ) {
   const { loadTable, maxErrors = 1000 } = options
