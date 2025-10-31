@@ -38,6 +38,7 @@ export async function validateResourceData(
 ) {
   const errors: DataError[] = []
 
+  // TODO: validateFileFromResource?
   const fileReport = await validateFile(resource.path, {
     bytes: resource.bytes,
     hash: resource.hash,
@@ -48,6 +49,7 @@ export async function validateResourceData(
     return fileReport
   }
 
+  // TODO: validateTableFromResource?
   const table = await loadTable(resource, { denormalized: true })
   if (table) {
     let schema = await resolveSchema(resource.schema)
