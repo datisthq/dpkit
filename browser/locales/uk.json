@@ -70,6 +70,7 @@
   "at": "в",
   "The cell values of the fields": "Значення комірок полів",
   "are not unique": "не унікальні",
+  "Foreign key violation in field(s)": "Порушення зовнішнього ключа в полі(ях)",
   "Under Construction": "В розробці",
   "This tool is currently under construction and not yet available": "Цей інструмент наразі перебуває в розробці і ще недоступний",
   "Brought to you by": "Представлено",

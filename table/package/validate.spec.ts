@@ -1,6 +1,6 @@
+import type { Package, Resource } from "@dpkit/core"
 import { DataFrame } from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import type { Package, Resource } from "@dpkit/core"
 import type { Table } from "../table/Table.ts"
 import { validatePackageForeignKeys } from "./validate.ts"
 
@@ -242,9 +242,7 @@ describe("validatePackageForeignKeys", () => {
           name: "users",
           type: "table" as const,
           schema: {
-            fields: [
-              { name: "id", type: "integer" as const },
-            ],
+            fields: [{ name: "id", type: "integer" as const }],
           },
         },
         {
@@ -334,18 +332,14 @@ describe("validatePackageForeignKeys", () => {
           name: "users",
           type: "table" as const,
           schema: {
-            fields: [
-              { name: "id", type: "integer" as const },
-            ],
+            fields: [{ name: "id", type: "integer" as const }],
           },
         },
         {
           name: "categories",
           type: "table" as const,
           schema: {
-            fields: [
-              { name: "id", type: "integer" as const },
-            ],
+            fields: [{ name: "id", type: "integer" as const }],
           },
         },
         {
@@ -410,18 +404,14 @@ describe("validatePackageForeignKeys", () => {
           name: "users",
           type: "table" as const,
           schema: {
-            fields: [
-              { name: "id", type: "integer" as const },
-            ],
+            fields: [{ name: "id", type: "integer" as const }],
           },
         },
         {
           name: "categories",
           type: "table" as const,
           schema: {
-            fields: [
-              { name: "id", type: "integer" as const },
-            ],
+            fields: [{ name: "id", type: "integer" as const }],
           },
         },
         {
@@ -513,9 +503,7 @@ describe("validatePackageForeignKeys", () => {
           name: "users",
           type: "table" as const,
           schema: {
-            fields: [
-              { name: "id", type: "integer" as const },
-            ],
+            fields: [{ name: "id", type: "integer" as const }],
           },
         },
       ],

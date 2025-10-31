@@ -70,6 +70,7 @@
   "at": "at",
   "The cell values of the fields": "The cell values of the fields",
   "are not unique": "are not unique",
+  "Foreign key violation in field(s)": "Foreign key violation in field(s)",
   "Under Construction": "Under Construction",
   "This tool is currently under construction and not yet available": "This tool is currently under construction and not yet available",
   "Brought to you by": "Brought to you by",

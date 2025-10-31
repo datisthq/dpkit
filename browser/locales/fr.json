@@ -70,6 +70,7 @@
   "at": "à",
   "The cell values of the fields": "Les valeurs de cellule des champs",
   "are not unique": "ne sont pas uniques",
+  "Foreign key violation in field(s)": "Violation de clé étrangère dans le(s) champ(s)",
   "Under Construction": "En construction",
   "This tool is currently under construction and not yet available": "Cet outil est actuellement en construction et n'est pas encore disponible",
   "Brought to you by": "Proposé par",

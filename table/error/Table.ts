@@ -5,8 +5,8 @@ import type { ForeignKeyError } from "./ForeignKey.ts"
 import type { RowError } from "./Row.ts"
 
 export type TableError =
-  | ForeignKeyError
   | FieldsError
   | FieldError
   | RowError
   | CellError
+  | ForeignKeyError
