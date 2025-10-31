@@ -1,9 +1,12 @@
 import type { FieldType } from "@dpkit/core"
 import { isLocalPathExist } from "@dpkit/file"
-import { SqliteDialect } from "kysely"
-import { Database } from "libsql/promise"
 import type { DatabaseType } from "../field/index.ts"
 import { BaseAdapter } from "./base.ts"
+
+// TODO: Currently, the solution is not optimal / hacky
+// We need to rebase on proper sqlite dialect when it will be available
+// - https://github.com/kysely-org/kysely/issues/1292
+// - https://github.com/oven-sh/bun/issues/20412
 
 export class SqliteAdapter extends BaseAdapter {
   nativeTypes = ["integer", "number", "string", "year"] satisfies FieldType[]
@@ -18,10 +21,14 @@ export class SqliteAdapter extends BaseAdapter {
       }
     }
 
-    return new SqliteDialect({
-      // @ts-ignore
-      database: new Database(path),
-    })
+    // @ts-ignore
+    if (typeof Bun !== "undefined") {
+      const { createBunSqliteDialect } = await import("./sqlite.bun.ts")
+      return await createBunSqliteDialect(path)
+    }
+
+    const { createNodeSqliteDialect } = await import("./sqlite.node.ts")
+    return await createNodeSqliteDialect(path)
   }
 
   normalizeType(databaseType: DatabaseType): FieldType {
