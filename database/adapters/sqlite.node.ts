@@ -1,9 +1,11 @@
-import { DatabaseSync } from "node:sqlite"
+// @ts-nocheck
 import { buildQueryFn, parseBigInt } from "kysely-generic-sqlite"
 import { GenericSqliteDialect } from "kysely-generic-sqlite"
 import type { IGenericSqlite } from "kysely-generic-sqlite"
 
-export function createNodeSqliteDialect(path: string) {
+export async function createNodeSqliteDialect(path: string) {
+  const { DatabaseSync } = await import("node:sqlite")
+
   return new GenericSqliteDialect(() =>
     createSqliteExecutor(new DatabaseSync(path)),
   )
