@@ -1,4 +1,4 @@
-import type { Descriptor } from "../../general/index.ts"
+import type { Descriptor } from "../../descriptor/index.ts"
 import type { Field } from "../Field.ts"
 
 export function convertFieldToDescriptor(field: Field) {

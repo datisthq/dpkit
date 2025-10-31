@@ -1,4 +1,4 @@
-import type { Descriptor } from "../../general/index.ts"
+import type { Descriptor } from "../../descriptor/index.ts"
 import type { Schema } from "../Schema.ts"
 
 export function convertSchemaToDescriptor(schema: Schema) {

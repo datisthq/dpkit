@@ -1,6 +1,6 @@
+import type { Descriptor } from "../../descriptor/index.ts"
 import { convertDialectToDescriptor } from "../../dialect/index.ts"
-import { denormalizePath } from "../../general/index.ts"
-import type { Descriptor } from "../../general/index.ts"
+import { denormalizePath } from "../../path/index.ts"
 import { convertSchemaToDescriptor } from "../../schema/index.ts"
 import type { Resource } from "../Resource.ts"
 

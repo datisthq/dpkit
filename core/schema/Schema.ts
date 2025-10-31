@@ -1,5 +1,5 @@
 import type { Field } from "../field/index.ts"
-import type { Metadata } from "../general/index.ts"
+import type { Metadata } from "../metadata/index.ts"
 import type { ForeignKey } from "./ForeignKey.ts"
 
 /**

@@ -70,6 +70,7 @@
   "at": "в",
   "The cell values of the fields": "Значения ячеек полей",
   "are not unique": "не уникальны",
+  "Foreign key violation in field(s)": "Нарушение внешнего ключа в поле(ях)",
   "Under Construction": "В разработке",
   "This tool is currently under construction and not yet available": "Этот инструмент в настоящее время находится в разработке и пока недоступен",
   "Brought to you by": "Представлено",

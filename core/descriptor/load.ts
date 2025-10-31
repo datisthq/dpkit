@@ -1,6 +1,5 @@
-import { node } from "../node.ts"
-import { getProtocol } from "../path.ts"
-import { getBasepath, isRemotePath } from "../path.ts"
+import { node } from "../node/index.ts"
+import { getProtocol, isRemotePath } from "../path/index.ts"
 import { parseDescriptor } from "./process/parse.ts"
 
 /**
@@ -19,26 +18,9 @@ export async function loadDescriptor(
     throw new Error("Cannot load descriptor for security reasons")
   }
 
-  return isRemote
-    ? await loadRemoteDescriptor(path)
-    : await loadLocalDescriptor(path)
-}
-
-const ALLOWED_REMOTE_PROTOCOLS = ["http", "https", "ftp", "ftps"]
-
-async function loadRemoteDescriptor(path: string) {
-  const url = new URL(path)
-
-  const protocol = getProtocol(path)
-  if (!ALLOWED_REMOTE_PROTOCOLS.includes(protocol)) {
-    throw new Error(`Unsupported remote protocol: ${protocol}`)
-  }
-
-  const response = await fetch(url.toString())
-  const descriptor = (await response.json()) as Record<string, any>
-  const basepath = getBasepath(response.url ?? path) // supports redirects
-
-  return { descriptor, basepath }
+  return !isRemote
+    ? await loadLocalDescriptor(path)
+    : await loadRemoteDescriptor(path)
 }
 
 async function loadLocalDescriptor(path: string) {
@@ -48,7 +30,20 @@ async function loadLocalDescriptor(path: string) {
 
   const text = await node.fs.readFile(path, "utf-8")
   const descriptor = parseDescriptor(text)
-  const basepath = getBasepath(path)
 
-  return { descriptor, basepath }
+  return descriptor
+}
+
+async function loadRemoteDescriptor(path: string) {
+  const url = new URL(path)
+
+  const protocol = getProtocol(path)
+  if (!["http", "https", "ftp", "ftps"].includes(protocol)) {
+    throw new Error(`Unsupported remote protocol: ${protocol}`)
+  }
+
+  const response = await fetch(url.toString())
+  const descriptor = (await response.json()) as Record<string, any>
+
+  return descriptor
 }

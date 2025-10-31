@@ -1,5 +1,5 @@
-import { type Descriptor, validateDescriptor } from "../general/index.ts"
-import { loadProfile } from "../general/index.ts"
+import type { Descriptor } from "../descriptor/index.ts"
+import { validateDescriptor } from "../profile/index.ts"
 import type { Dialect } from "./Dialect.ts"
 import { convertDialectFromDescriptor } from "./convert/fromDescriptor.ts"
 
@@ -11,12 +11,11 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tabledialect.json"
 export async function validateDialect(source: Descriptor | Dialect) {
   const descriptor = source as Descriptor
 
-  const $schema =
+  const profile =
     typeof descriptor.$schema === "string"
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const profile = await loadProfile($schema)
   const { valid, errors } = await validateDescriptor(descriptor, { profile })
 
   let dialect: Dialect | undefined = undefined

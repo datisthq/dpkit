@@ -1,10 +1,10 @@
-import type { Descriptor } from "../descriptor/Descriptor.ts"
+import type { Descriptor } from "../descriptor/index.ts"
 import type { Profile } from "./Profile.ts"
+import type { ProfileType } from "./Profile.ts"
 import { ajv } from "./ajv.ts"
-import type { ProfileType } from "./registry.ts"
 import { profileRegistry } from "./registry.ts"
 
-export async function validateProfile(
+export async function assertProfile(
   descriptor: Descriptor,
   options?: {
     path?: string
@@ -24,11 +24,12 @@ export async function validateProfile(
     })
   }
 
-  return {
-    errors,
-    valid: !errors.length,
-    profile: !errors.length ? (descriptor as Profile) : undefined,
+  // TODO: Improve consolidated error message
+  if (errors.length) {
+    throw new Error(`Profile at path ${options?.path} is invalid`)
   }
+
+  return descriptor as Profile
 }
 
 function checkProfileType(

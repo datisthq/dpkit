@@ -1,10 +1,17 @@
-import type { FileError, MetadataError, TableError } from "@dpkit/lib"
+import type {
+  DataError,
+  FileError,
+  MetadataError,
+  TableError,
+} from "@dpkit/lib"
 import { countBy } from "es-toolkit"
 import type { Session } from "./session.ts"
 
 export async function selectErrorResource(
   session: Session,
-  errors: ((TableError | MetadataError | FileError) & { resource: string })[],
+  errors: ((TableError | MetadataError | DataError | FileError) & {
+    resource: string
+  })[],
 ) {
   const groups = countBy(errors, error => error.resource)
 
@@ -25,7 +32,7 @@ export async function selectErrorResource(
 
 export async function selectErrorType(
   session: Session,
-  errors: (TableError | MetadataError | FileError)[],
+  errors: (TableError | MetadataError | DataError | FileError)[],
 ) {
   const groups = countBy(errors, error => error.type)
 

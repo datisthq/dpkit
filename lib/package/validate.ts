@@ -1,7 +1,10 @@
 import type { Descriptor, Package } from "@dpkit/core"
-import { loadDescriptor, validatePackageDescriptor } from "@dpkit/core"
+import { loadDescriptor, validatePackageMetadata } from "@dpkit/core"
+import { resolveBasepath } from "@dpkit/core"
+import { validatePackageForeignKeys } from "@dpkit/table"
 import { dpkit } from "../plugin.ts"
 import { validateResourceData } from "../resource/index.ts"
+import { loadTable } from "../table/index.ts"
 
 export async function validatePackage(
   source: string | Descriptor | Partial<Package>,
@@ -22,25 +25,33 @@ export async function validatePackage(
     }
 
     if (!descriptor) {
-      const result = await loadDescriptor(source)
-      descriptor = result.descriptor
-      basepath = result.basepath
+      basepath = await resolveBasepath(source)
+      descriptor = await loadDescriptor(source)
     }
   }
 
-  const { valid, errors, dataPackage } = await validatePackageDescriptor(
-    descriptor,
-    { basepath },
+  const metadataReport = await validatePackageMetadata(descriptor, {
+    basepath,
+  })
+
+  if (!metadataReport.dataPackage) {
+    return {
+      valid: metadataReport.valid,
+      errors: metadataReport.errors.map(error => ({
+        ...error,
+        resource: undefined,
+      })),
+    }
+  }
+
+  const dataReport = await validatePackageData(metadataReport.dataPackage)
+  const fkReport = await validatePackageForeignKeys(
+    metadataReport.dataPackage,
+    { loadTable },
   )
 
-  if (!dataPackage) {
-    return {
-      valid,
-      errors: errors.map(error => ({ ...error, resource: undefined })),
-    }
-  }
-
-  return await validatePackageData(dataPackage)
+  const errors = [...dataReport.errors, ...fkReport.errors]
+  return { valid: errors.length === 0, errors }
 }
 
 export async function validatePackageData(dataPackage: Package) {

@@ -1,5 +1,5 @@
-import { type Descriptor, validateDescriptor } from "../general/index.ts"
-import { loadProfile } from "../general/index.ts"
+import type { Descriptor } from "../descriptor/index.ts"
+import { validateDescriptor } from "../profile/index.ts"
 import type { Schema } from "./Schema.ts"
 import { convertSchemaFromDescriptor } from "./convert/fromDescriptor.ts"
 
@@ -11,12 +11,11 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/tableschema.json"
 export async function validateSchema(source: Descriptor | Schema) {
   const descriptor = source as Descriptor
 
-  const $schema =
+  const profile =
     typeof descriptor.$schema === "string"
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const profile = await loadProfile($schema)
   const { valid, errors } = await validateDescriptor(descriptor, { profile })
 
   let schema: Schema | undefined = undefined

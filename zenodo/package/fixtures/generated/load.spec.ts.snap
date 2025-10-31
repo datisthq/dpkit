@@ -41,7 +41,7 @@ exports[`loadPackageFromZenodo > should load a package 1`] = `
 
 exports[`loadPackageFromZenodo > shoule merge datapackage.json if present 1`] = `
 {
-  "$schema": "tabular-data-package",
+  "$schema": undefined,
   "contributors": [
     {
       "path": "Vogelwerkgroep Assen",

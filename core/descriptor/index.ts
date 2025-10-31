@@ -1,0 +1,6 @@
+export { parseDescriptor } from "./process/parse.ts"
+export { stringifyDescriptor } from "./process/stringify.ts"
+export { loadDescriptor } from "./load.ts"
+export { saveDescriptor } from "./save.ts"
+export type { Descriptor } from "./Descriptor.ts"
+export { isDescriptor } from "./Descriptor.ts"

@@ -1,4 +1,4 @@
-import { isRemotePath } from "../general/index.ts"
+import { isRemotePath } from "../path/index.ts"
 import type { Resource } from "./Resource.ts"
 
 export function isRemoteResource(resource: Resource) {

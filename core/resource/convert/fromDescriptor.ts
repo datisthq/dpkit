@@ -1,7 +1,7 @@
+import { isDescriptor } from "../../descriptor/index.ts"
+import type { Descriptor } from "../../descriptor/index.ts"
 import { convertDialectFromDescriptor } from "../../dialect/index.ts"
-import { isDescriptor, normalizePath } from "../../general/index.ts"
-import type { Descriptor } from "../../general/index.ts"
-import { isRemotePath } from "../../general/index.ts"
+import { isRemotePath, normalizePath } from "../../path/index.ts"
 import { convertSchemaFromDescriptor } from "../../schema/index.ts"
 
 export function convertResourceFromDescriptor(

@@ -1,6 +1,7 @@
-import type { Descriptor, Resource } from "@dpkit/core"
+import type { DataError, Descriptor, Resource } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
 import { loadDescriptor, validateResourceMetadata } from "@dpkit/core"
+import { resolveBasepath } from "@dpkit/core"
 import { validateFile } from "@dpkit/file"
 import { validateTable } from "@dpkit/table"
 import type { InferSchemaOptions } from "@dpkit/table"
@@ -15,9 +16,8 @@ export async function validateResource(
   let basepath = options?.basepath
 
   if (typeof descriptor === "string") {
-    const result = await loadDescriptor(descriptor)
-    descriptor = result.descriptor
-    basepath = result.basepath
+    basepath = await resolveBasepath(descriptor)
+    descriptor = await loadDescriptor(descriptor)
   }
 
   const { valid, errors, resource } = await validateResourceMetadata(
@@ -36,6 +36,9 @@ export async function validateResourceData(
   resource: Partial<Resource>,
   options?: InferSchemaOptions,
 ) {
+  const errors: DataError[] = []
+
+  // TODO: validateFileFromResource?
   const fileReport = await validateFile(resource.path, {
     bytes: resource.bytes,
     hash: resource.hash,
@@ -46,6 +49,7 @@ export async function validateResourceData(
     return fileReport
   }
 
+  // TODO: validateTableFromResource?
   const table = await loadTable(resource, { denormalized: true })
   if (table) {
     let schema = await resolveSchema(resource.schema)
@@ -57,5 +61,14 @@ export async function validateResourceData(
     }
   }
 
-  return { valid: true, errors: [] }
+  // TODO: Add document validation here
+
+  if (!table && resource.schema) {
+    errors.push({
+      type: "data",
+      message: "missing table",
+    })
+  }
+
+  return { valid: errors.length === 0, errors }
 }

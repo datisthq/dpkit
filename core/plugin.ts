@@ -6,8 +6,10 @@ export type SavePackageOptions = {
 }
 
 export interface Plugin {
+  // TODO: move to @dpkit/dataset?
   loadPackage?(source: string): Promise<Package | undefined>
 
+  // TODO: move to @dpkit/dataset?
   savePackage?(
     dataPackage: Package,
     options: SavePackageOptions,

@@ -1,6 +1,6 @@
 import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
-import { loadDescriptor } from "../general/index.ts"
+import { loadDescriptor } from "../descriptor/index.ts"
 import { validatePackageMetadata } from "./validate.ts"
 
 useRecording()
@@ -42,7 +42,7 @@ describe("validatePackageMetadata", () => {
   })
 
   it("should validate camtrap dp (#144)", async () => {
-    const { descriptor } = await loadDescriptor(
+    const descriptor = await loadDescriptor(
       "https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.2/example/datapackage.json",
     )
 

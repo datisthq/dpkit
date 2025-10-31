@@ -13,21 +13,29 @@ import {
   CellTypeError,
   CellUniqueError,
 } from "./Cell.tsx"
+import { DataError } from "./Data.tsx"
 import { FieldNameError, FieldTypeError } from "./Field.tsx"
 import { FieldsExtraError, FieldsMissingError } from "./Fields.tsx"
 import { BytesError, EncodingError, HashError } from "./File.tsx"
+import { ForeignKeyError } from "./ForeignKey.tsx"
 import { MetadataError } from "./Metadata.tsx"
 import { RowUniqueError } from "./Row.tsx"
 
 export function Error(props: {
   // TODO: should be lib.Error
-  error: errorTypes.MetadataError | errorTypes.FileError | errorTypes.TableError
+  error:
+    | errorTypes.MetadataError
+    | errorTypes.DataError
+    | errorTypes.FileError
+    | errorTypes.TableError
 }) {
   const { error } = props
 
   switch (error.type) {
     case "metadata":
       return <MetadataError error={error} />
+    case "data":
+      return <DataError error={error} />
     case "file/bytes":
       return <BytesError error={error} />
     case "file/hash":
@@ -68,5 +76,9 @@ export function Error(props: {
       return <CellEnumError error={error} />
     case "cell/jsonSchema":
       return <CellJsonSchemaError error={error} />
+    case "foreignKey":
+      return <ForeignKeyError error={error} />
+    default:
+      return null
   }
 }

@@ -1,4 +1,4 @@
-import type { Descriptor } from "../../general/index.ts"
+import type { Descriptor } from "../../descriptor/index.ts"
 import { convertResourceToDescriptor } from "../../resource/index.ts"
 import type { Package } from "../Package.ts"
 

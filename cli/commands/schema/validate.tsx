@@ -39,7 +39,7 @@ export const validateSchemaCommand = new Command("validate")
       ? await session.task("Loading schema", resolveSchema(resource.schema))
       : undefined
 
-    const { descriptor } = path
+    const descriptor = path
       ? await session.task("Loading descriptor", loadDescriptor(path))
       : schema
         ? { descriptor: schema }
