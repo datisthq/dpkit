@@ -27,6 +27,8 @@
     "@dpkit/core": "workspace:*",
     "@dpkit/table": "workspace:*",
     "kysely": "^0.28.5",
+    "kysely-bun-sqlite": "^0.4.0",
+    "kysely-generic-sqlite": "^1.2.1",
     "libsql": "^0.6.0-pre.20",
     "lru-cache": "^11.2.1",
     "mysql2": "^3.14.4",

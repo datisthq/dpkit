@@ -16,7 +16,7 @@ const record1 = { id: 1, name: "english" }
 const record2 = { id: 2, name: "中文" }
 
 // TODO: Enable when libsql@0.6 is fixed
-describe.skip("SqliteAdapter", () => {
+describe("SqliteAdapter", () => {
   it("should infer schema", async () => {
     const path = getTempFilePath()
 
