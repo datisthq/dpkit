@@ -20,10 +20,10 @@ export default defineConfig({
       reporter: ["html", "json"],
       exclude: [
         ...coverageConfigDefaults.exclude,
+        "**/@*",
         "**/build/**",
         "**/compile/**",
         "**/coverage/**",
-        "**/scripts/**",
         "**/examples/**",
         "**/entrypoints/**",
         "browser/**",

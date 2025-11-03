@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises"
 import fs from "node:fs/promises"
 import { join } from "node:path"
 
-const registryDir = join(import.meta.dirname, "..", "registry")
+const registryDir = join(import.meta.dirname, "profile", "registry")
 const files = (await fs.readdir(registryDir)).filter(file =>
   file.endsWith(".json"),
 )
