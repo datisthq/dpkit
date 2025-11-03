@@ -1,4 +1,3 @@
-export * from "./error/index.ts"
 export * from "./file/index.ts"
 export * from "./package/index.ts"
 export * from "./resource/index.ts"

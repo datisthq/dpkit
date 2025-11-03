@@ -1,4 +1,5 @@
-import type { FileError } from "../error/index.ts"
+import type { FileError } from "@dpkit/core"
+import { createReport } from "@dpkit/core"
 import { prefetchFiles } from "./fetch.ts"
 import { inferFileBytes, inferFileEncoding, inferFileHash } from "./infer.ts"
 
@@ -54,6 +55,5 @@ export async function validateFile(
     }
   }
 
-  const valid = errors.length === 0
-  return { valid, errors }
+  return createReport(errors)
 }

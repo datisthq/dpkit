@@ -1,6 +1,0 @@
-export type * from "./Table.ts"
-export type * from "./Cell.ts"
-export type * from "./Field.ts"
-export type * from "./Fields.ts"
-export type * from "./ForeignKey.ts"
-export type * from "./Row.ts"
