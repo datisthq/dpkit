@@ -11,6 +11,7 @@ export default defineConfig({
   test: {
     include: ["**/*.spec.(ts|tsx)"],
     exclude: [...configDefaults.exclude, "**/build/**", "**/compile/**"],
+    env: { NODE_OPTIONS: "--no-warnings" },
     testTimeout: 60 * 1000,
     passWithNoTests: true,
     silent: "passed-only",
