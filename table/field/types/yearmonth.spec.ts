@@ -9,7 +9,7 @@ describe("parseYearmonthField", () => {
     ["0-0", [0, 0]],
   ])("%s -> %s", async (cell, value) => {
     const table = pl
-      .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+      .DataFrame([pl.Series("name", [cell], pl.String)])
       .lazy()
 
     const schema = {
@@ -31,7 +31,7 @@ describe("stringifyYearmonthField", () => {
   ])("%s -> %s", async (value, expected) => {
     const table = pl
       .DataFrame([
-        pl.Series("name", [value], pl.DataType.List(pl.DataType.Int16)),
+        pl.Series("name", [value], pl.List(pl.Int16)),
       ])
       .lazy()
 

@@ -8,15 +8,15 @@ export function parseListField(field: ListField, fieldExpr: pl.Expr) {
   const delimiter = field.delimiter ?? ","
   const itemType = field.itemType
 
-  let dtype: any = pl.DataType.String
-  if (itemType === "integer") dtype = pl.DataType.Int64
-  if (itemType === "number") dtype = pl.DataType.Float64
-  if (itemType === "boolean") dtype = pl.DataType.Bool
-  if (itemType === "datetime") dtype = pl.DataType.Datetime
-  if (itemType === "date") dtype = pl.DataType.Date
-  if (itemType === "time") dtype = pl.DataType.Time
+  let dtype: any = pl.String
+  if (itemType === "integer") dtype = pl.Int64
+  if (itemType === "number") dtype = pl.Float64
+  if (itemType === "boolean") dtype = pl.Bool
+  if (itemType === "datetime") dtype = pl.Datetime
+  if (itemType === "date") dtype = pl.Date
+  if (itemType === "time") dtype = pl.Time
 
-  fieldExpr = fieldExpr.str.split(delimiter).cast(pl.DataType.List(dtype))
+  fieldExpr = fieldExpr.str.split(delimiter).cast(pl.List(dtype))
 
   return fieldExpr
 }
@@ -25,6 +25,6 @@ export function stringifyListField(field: ListField, fieldExpr: pl.Expr) {
   const delimiter = field.delimiter ?? ","
 
   return fieldExpr
-    .cast(pl.DataType.List(pl.DataType.String))
+    .cast(pl.List(pl.String))
     .lst.join({ separator: delimiter, ignoreNulls: true })
 }

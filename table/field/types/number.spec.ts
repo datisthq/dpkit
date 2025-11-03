@@ -64,7 +64,7 @@ describe("parseNumberField", () => {
     ],
   ])("$0 -> $1 $2", async (cell, value, options) => {
     const table = pl
-      .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+      .DataFrame([pl.Series("name", [cell], pl.String)])
       .lazy()
 
     const schema = {
@@ -106,7 +106,7 @@ describe("stringifyNumberField", () => {
     [null, ""],
   ])("%s -> %s", async (value, expected) => {
     const table = pl
-      .DataFrame([pl.Series("name", [value], pl.DataType.Float64)])
+      .DataFrame([pl.Series("name", [value], pl.Float64)])
       .lazy()
 
     const schema = {

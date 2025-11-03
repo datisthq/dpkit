@@ -6,7 +6,7 @@ describe("inferSchemaFromTable", () => {
   it("should infer from native types", async () => {
     const table = pl
       .DataFrame({
-        integer: pl.Series("integer", [1, 2], pl.DataType.Int32),
+        integer: pl.Series("integer", [1, 2], pl.Int32),
         number: [1.1, 2.2],
       })
       .lazy()

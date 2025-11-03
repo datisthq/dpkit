@@ -4,7 +4,7 @@ import type { FieldMapping } from "./Mapping.ts"
 const DEFAULT_MISSING_VALUES = [""]
 
 export function substituteField(mapping: FieldMapping, fieldExpr: pl.Expr) {
-  if (!mapping.source.type.equals(pl.DataType.String)) return fieldExpr
+  if (!mapping.source.type.equals(pl.String)) return fieldExpr
 
   const flattenMissingValues =
     mapping.target.missingValues?.map(it =>

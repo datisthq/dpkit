@@ -14,7 +14,7 @@ import { parseYearField } from "./types/year.ts"
 import { parseYearmonthField } from "./types/yearmonth.ts"
 
 export function parseField(mapping: FieldMapping, fieldExpr: pl.Expr) {
-  if (!mapping.source.type.equals(pl.DataType.String)) return fieldExpr
+  if (!mapping.source.type.equals(pl.String)) return fieldExpr
 
   const field = mapping.target
   switch (field.type) {

@@ -21,9 +21,9 @@ describe.skipIf(!path)("PostgresqlAdapter", () => {
   it("should infer schema", async () => {
     const source = pl
       .DataFrame([
-        pl.Series("string", ["string"], pl.DataType.Utf8),
-        pl.Series("integer", [1], pl.DataType.Int32),
-        pl.Series("number", [1.1], pl.DataType.Float64),
+        pl.Series("string", ["string"], pl.Utf8),
+        pl.Series("integer", [1], pl.Int32),
+        pl.Series("number", [1.1], pl.Float64),
       ])
       .lazy()
 
@@ -71,36 +71,36 @@ describe.skipIf(!path)("PostgresqlAdapter", () => {
   it("should save/load table with various data types", async () => {
     const source = pl
       .DataFrame([
-        pl.Series("array", ["[1, 2, 3]"], pl.DataType.String),
-        pl.Series("boolean", [true], pl.DataType.Bool),
-        pl.Series("date", [new Date(Date.UTC(2025, 0, 1))], pl.DataType.Date),
+        pl.Series("array", ["[1, 2, 3]"], pl.String),
+        pl.Series("boolean", [true], pl.Bool),
+        pl.Series("date", [new Date(Date.UTC(2025, 0, 1))], pl.Date),
         pl.Series(
           "datetime",
           [new Date(Date.UTC(2025, 0, 1))],
-          pl.DataType.Datetime,
+          pl.Datetime,
         ),
-        pl.Series("duration", ["P23DT23H"], pl.DataType.String),
-        pl.Series("geojson", ['{"value": 1}'], pl.DataType.String),
+        pl.Series("duration", ["P23DT23H"], pl.String),
+        pl.Series("geojson", ['{"value": 1}'], pl.String),
         pl.Series(
           "geopoint",
           [[40.0, 50.0]],
-          pl.DataType.List(pl.DataType.Float32),
+          pl.List(pl.Float32),
         ),
-        pl.Series("integer", [1], pl.DataType.Int32),
+        pl.Series("integer", [1], pl.Int32),
         pl.Series(
           "list",
           [[1.0, 2.0, 3.0]],
-          pl.DataType.List(pl.DataType.Float32),
+          pl.List(pl.Float32),
         ),
-        pl.Series("number", [1.1], pl.DataType.Float64),
+        pl.Series("number", [1.1], pl.Float64),
         pl.Series("object", ['{"value": 1}']),
-        pl.Series("string", ["string"], pl.DataType.String),
-        pl.Series("time", [new Date(Date.UTC(2025, 0, 1))], pl.DataType.Time),
-        pl.Series("year", [2025], pl.DataType.Int32),
+        pl.Series("string", ["string"], pl.String),
+        pl.Series("time", [new Date(Date.UTC(2025, 0, 1))], pl.Time),
+        pl.Series("year", [2025], pl.Int32),
         pl.Series(
           "yearmonth",
           [[2025, 1]],
-          pl.DataType.List(pl.DataType.Int16),
+          pl.List(pl.Int16),
         ),
       ])
       .lazy()

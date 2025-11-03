@@ -25,7 +25,7 @@ export function parseIntegerField(field: IntegerField, fieldExpr: pl.Expr) {
   }
 
   // Cast to int64 (will handle values up to 2^63-1)
-  fieldExpr = fieldExpr.cast(pl.DataType.Int64)
+  fieldExpr = fieldExpr.cast(pl.Int64)
 
   // Currently, only string categories are supported
   if (flattenCategories) {
@@ -44,7 +44,7 @@ export function stringifyIntegerField(
   fieldExpr: pl.Expr,
 ) {
   // Convert to string
-  fieldExpr = fieldExpr.cast(pl.DataType.String)
+  fieldExpr = fieldExpr.cast(pl.String)
 
   //const groupChar = field.groupChar
   //const bareNumber = field.bareNumber

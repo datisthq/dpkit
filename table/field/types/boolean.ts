@@ -11,7 +11,7 @@ export function parseBooleanField(field: BooleanField, fieldExpr: pl.Expr) {
   for (const value of trueValues) fieldExpr = fieldExpr.replace(value, "1")
   for (const value of falseValues) fieldExpr = fieldExpr.replace(value, "0")
 
-  fieldExpr = fieldExpr.cast(pl.DataType.Int8)
+  fieldExpr = fieldExpr.cast(pl.Int8)
 
   return pl
     .when(fieldExpr.eq(1))

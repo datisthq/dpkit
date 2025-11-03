@@ -19,7 +19,7 @@ export function parseStringField(field: StringField, fieldExpr: pl.Expr) {
   if (flattenCategories) {
     return pl
       .when(fieldExpr.isIn(flattenCategories))
-      .then(fieldExpr.cast(pl.DataType.Categorical))
+      .then(fieldExpr.cast(pl.Categorical))
       .otherwise(pl.lit(null))
       .alias(field.name)
   }

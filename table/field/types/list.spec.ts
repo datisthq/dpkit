@@ -29,7 +29,7 @@ describe("parseListField", () => {
       //[null, null],
     ])("%s -> %s", async (cell, value) => {
       const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+        .DataFrame([pl.Series("name", [cell], pl.String)])
         .lazy()
 
       const schema = {
@@ -69,7 +69,7 @@ describe("parseListField", () => {
       ["1.5,2,3", [null, 2, 3]],
     ])("%s -> %s", async (cell, value) => {
       const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+        .DataFrame([pl.Series("name", [cell], pl.String)])
         .lazy()
 
       const schema = {
@@ -110,7 +110,7 @@ describe("parseListField", () => {
       ["1.1,a,3.3", [1.1, null, 3.3]],
     ])("%s -> %s", async (cell, value) => {
       const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+        .DataFrame([pl.Series("name", [cell], pl.String)])
         .lazy()
 
       const schema = {
@@ -145,7 +145,7 @@ describe("parseListField", () => {
       ["a;;c", ["a", "", "c"]],
     ])("%s -> %s", async (cell, value) => {
       const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+        .DataFrame([pl.Series("name", [cell], pl.String)])
         .lazy()
 
       const schema = {
@@ -185,7 +185,7 @@ describe("stringifyListField", () => {
     ])("%s -> %s", async (value, expected) => {
       const table = pl
         .DataFrame([
-          pl.Series("name", [value], pl.DataType.List(pl.DataType.String)),
+          pl.Series("name", [value], pl.List(pl.String)),
         ])
         .lazy()
 
@@ -219,7 +219,7 @@ describe("stringifyListField", () => {
     ])("%s -> %s", async (value, expected) => {
       const table = pl
         .DataFrame([
-          pl.Series("name", [value], pl.DataType.List(pl.DataType.Int16)),
+          pl.Series("name", [value], pl.List(pl.Int16)),
         ])
         .lazy()
 
@@ -255,7 +255,7 @@ describe("stringifyListField", () => {
     ])("%s -> %s", async (value, expected) => {
       const table = pl
         .DataFrame([
-          pl.Series("name", [value], pl.DataType.List(pl.DataType.Float64)),
+          pl.Series("name", [value], pl.List(pl.Float64)),
         ])
         .lazy()
 
@@ -293,7 +293,7 @@ describe("stringifyListField", () => {
     ])("%s -> %s", async (value, expected) => {
       const table = pl
         .DataFrame([
-          pl.Series("name", [value], pl.DataType.List(pl.DataType.String)),
+          pl.Series("name", [value], pl.List(pl.String)),
         ])
         .lazy()
 

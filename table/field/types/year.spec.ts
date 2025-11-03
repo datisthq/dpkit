@@ -21,7 +21,7 @@ describe("parseYearField", () => {
     ["123", null],
   ])("%s -> %s", async (cell, value) => {
     const table = pl
-      .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+      .DataFrame([pl.Series("name", [cell], pl.String)])
       .lazy()
 
     const schema = {
@@ -48,7 +48,7 @@ describe("stringifyYearField", () => {
     [null, ""],
   ])("%s -> %s", async (value, expected) => {
     const table = pl
-      .DataFrame([pl.Series("name", [value], pl.DataType.Int16)])
+      .DataFrame([pl.Series("name", [value], pl.Int16)])
       .lazy()
 
     const schema = {

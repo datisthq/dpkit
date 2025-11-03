@@ -26,7 +26,7 @@ describe("parseDateField", () => {
     ["21/11/06", null, { format: "invalid" }],
   ])("%s -> %s %o", async (cell, expected, options) => {
     const table = pl
-      .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+      .DataFrame([pl.Series("name", [cell], pl.String)])
       .lazy()
 
     const schema = {
@@ -51,7 +51,7 @@ describe("stringifyDateField", () => {
     [new Date(Date.UTC(2006, 10, 21)), "2006/11/21", { format: "%Y/%m/%d" }],
   ])("%s -> %s %o", async (value, expected, options) => {
     const table = pl
-      .DataFrame([pl.Series("name", [value], pl.DataType.Date)])
+      .DataFrame([pl.Series("name", [value], pl.Date)])
       .lazy()
 
     const schema = {

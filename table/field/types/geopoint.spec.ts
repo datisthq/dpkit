@@ -24,7 +24,7 @@ describe("parseGeopointField", () => {
       //["90.50,45.50,0", null],
     ])("%s -> %s", async (cell, value) => {
       const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+        .DataFrame([pl.Series("name", [cell], pl.String)])
         .lazy()
 
       const schema = {
@@ -59,7 +59,7 @@ describe("parseGeopointField", () => {
       //["['lon', 'lat']", null],
     ])("%s -> %s", async (cell, value) => {
       const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+        .DataFrame([pl.Series("name", [cell], pl.String)])
         .lazy()
 
       const schema = {
@@ -96,7 +96,7 @@ describe("parseGeopointField", () => {
       //['{"lat": 45.50}', null],
     ])("%s -> %s", async (cell, value) => {
       const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+        .DataFrame([pl.Series("name", [cell], pl.String)])
         .lazy()
 
       const schema = {
@@ -135,7 +135,7 @@ describe("stringifyGeopointField", () => {
     ])("%s -> %s", async (value, expected) => {
       const table = pl
         .DataFrame([
-          pl.Series("name", [value], pl.DataType.List(pl.DataType.Float64)),
+          pl.Series("name", [value], pl.List(pl.Float64)),
         ])
         .lazy()
 
@@ -164,7 +164,7 @@ describe("stringifyGeopointField", () => {
     ])("%s -> %s", async (value, expected) => {
       const table = pl
         .DataFrame([
-          pl.Series("name", [value], pl.DataType.List(pl.DataType.Float64)),
+          pl.Series("name", [value], pl.List(pl.Float64)),
         ])
         .lazy()
 
@@ -195,7 +195,7 @@ describe("stringifyGeopointField", () => {
     ])("%s -> %s", async (value, expected) => {
       const table = pl
         .DataFrame([
-          pl.Series("name", [value], pl.DataType.List(pl.DataType.Float64)),
+          pl.Series("name", [value], pl.List(pl.Float64)),
         ])
         .lazy()
 

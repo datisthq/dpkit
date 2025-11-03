@@ -14,21 +14,21 @@ export function parseGeopointField(field: GeopointField, fieldExpr: pl.Expr) {
   if (format === "default") {
     fieldExpr = fieldExpr.str
       .split(",")
-      .cast(pl.DataType.List(pl.DataType.Float64))
+      .cast(pl.List(pl.Float64))
   }
 
   if (format === "array") {
     fieldExpr = fieldExpr.str
       .replaceAll("[\\[\\]\\s]", "")
       .str.split(",")
-      .cast(pl.DataType.List(pl.DataType.Float64))
+      .cast(pl.List(pl.Float64))
   }
 
   if (format === "object") {
     fieldExpr = pl
       .concatList([
-        fieldExpr.str.jsonPathMatch("$.lon").cast(pl.DataType.Float64),
-        fieldExpr.str.jsonPathMatch("$.lat").cast(pl.DataType.Float64),
+        fieldExpr.str.jsonPathMatch("$.lon").cast(pl.Float64),
+        fieldExpr.str.jsonPathMatch("$.lat").cast(pl.Float64),
       ])
       .alias(field.name)
   }
@@ -44,7 +44,7 @@ export function stringifyGeopointField(
   const format = field.format ?? "default"
 
   if (format === "default") {
-    return fieldExpr.cast(pl.DataType.List(pl.DataType.String)).lst.join(",")
+    return fieldExpr.cast(pl.List(pl.String)).lst.join(",")
   }
 
   if (format === "array") {
@@ -52,9 +52,9 @@ export function stringifyGeopointField(
       .concatString(
         [
           pl.lit("["),
-          fieldExpr.lst.get(0).cast(pl.DataType.String),
+          fieldExpr.lst.get(0).cast(pl.String),
           pl.lit(","),
-          fieldExpr.lst.get(1).cast(pl.DataType.String),
+          fieldExpr.lst.get(1).cast(pl.String),
           pl.lit("]"),
         ],
         "",
@@ -67,9 +67,9 @@ export function stringifyGeopointField(
       .concatString(
         [
           pl.lit('{"lon":'),
-          fieldExpr.lst.get(0).cast(pl.DataType.String),
+          fieldExpr.lst.get(0).cast(pl.String),
           pl.lit(',"lat":'),
-          fieldExpr.lst.get(1).cast(pl.DataType.String),
+          fieldExpr.lst.get(1).cast(pl.String),
           pl.lit("}"),
         ],
         "",

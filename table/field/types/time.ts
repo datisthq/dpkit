@@ -11,8 +11,8 @@ export function parseTimeField(field: TimeField, fieldExpr: pl.Expr) {
 
   return pl.pl
     .concatString([pl.pl.lit("1970-01-01T"), fieldExpr], "")
-    .str.strptime(pl.DataType.Datetime, `%Y-%m-%dT${format}`)
-    .cast(pl.DataType.Time)
+    .str.strptime(pl.Datetime, `%Y-%m-%dT${format}`)
+    .cast(pl.Time)
     .alias(field.name)
 }
 

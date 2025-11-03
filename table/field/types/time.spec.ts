@@ -27,7 +27,7 @@ describe("parseTimeField", () => {
     //["06:00", null, { format: "invalid" }],
   ])("$0 -> $1 $2", async (cell, expected, options) => {
     const table = pl
-      .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+      .DataFrame([pl.Series("name", [cell], pl.String)])
       .lazy()
 
     const schema = {
@@ -52,7 +52,7 @@ describe("stringifyTimeField", () => {
     [new Date(Date.UTC(2014, 0, 1, 16, 30, 0)), "16:30", { format: "%H:%M" }],
   ])("%s -> %s %o", async (value, expected, options) => {
     const table = pl
-      .DataFrame([pl.Series("name", [value], pl.DataType.Time)])
+      .DataFrame([pl.Series("name", [value], pl.Time)])
       .lazy()
 
     const schema = {

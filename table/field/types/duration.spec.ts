@@ -7,7 +7,7 @@ describe("parseDurationField", () => {
     "$0 -> $1 $2",
     async (cell, value, options) => {
       const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+        .DataFrame([pl.Series("name", [cell], pl.String)])
         .lazy()
       const schema = {
         fields: [{ name: "name", type: "duration" as const, ...options }],
@@ -36,7 +36,7 @@ describe("stringifyDurationField", () => {
     [null, ""],
   ])("%s -> %s", async (value, expected) => {
     const table = pl
-      .DataFrame([pl.Series("name", [value], pl.DataType.String)])
+      .DataFrame([pl.Series("name", [value], pl.String)])
       .lazy()
 
     const schema = {

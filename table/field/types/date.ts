@@ -9,7 +9,7 @@ export function parseDateField(field: DateField, fieldExpr: pl.Expr) {
     format = field.format
   }
 
-  return fieldExpr.str.strptime(pl.DataType.Date, format)
+  return fieldExpr.str.strptime(pl.Date, format)
 }
 
 export function stringifyDateField(field: DateField, fieldExpr: pl.Expr) {

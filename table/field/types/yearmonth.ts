@@ -5,7 +5,7 @@ export function parseYearmonthField(
   _field: YearmonthField,
   fieldExpr: pl.Expr,
 ) {
-  fieldExpr = fieldExpr.str.split("-").cast(pl.DataType.List(pl.DataType.Int16))
+  fieldExpr = fieldExpr.str.split("-").cast(pl.List(pl.Int16))
 
   return fieldExpr
 }
@@ -17,8 +17,8 @@ export function stringifyYearmonthField(
   return pl
     .concatString(
       [
-        fieldExpr.lst.get(0).cast(pl.DataType.String).str.zFill(4),
-        fieldExpr.lst.get(1).cast(pl.DataType.String).str.zFill(2),
+        fieldExpr.lst.get(0).cast(pl.String).str.zFill(4),
+        fieldExpr.lst.get(1).cast(pl.String).str.zFill(2),
       ],
       "-",
     )

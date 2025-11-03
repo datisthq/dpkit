@@ -8,7 +8,7 @@ export function narrowField(mapping: FieldMapping, fieldExpr: pl.Expr) {
     if (["Float32", "Float64"].includes(variant)) {
       fieldExpr = pl
         .when(fieldExpr.eq(fieldExpr.round(0)))
-        .then(fieldExpr.cast(pl.DataType.Int64))
+        .then(fieldExpr.cast(pl.Int64))
         .otherwise(pl.lit(null))
     }
   }
