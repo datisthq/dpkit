@@ -1,13 +1,15 @@
 import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { validateTable } from "../../table/index.ts"
 
 describe("validateArrayField", () => {
   it("should not report errors for valid JSON arrays", async () => {
-    const table = DataFrame({
-      tags: ['["tag1","tag2"]', "[1,2,3]", '["a","b","c"]'],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        tags: ['["tag1","tag2"]', "[1,2,3]", '["a","b","c"]'],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -23,9 +25,11 @@ describe("validateArrayField", () => {
   })
 
   it("should not report errors for empty arrays", async () => {
-    const table = DataFrame({
-      items: ["[]", "[]", "[]"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        items: ["[]", "[]", "[]"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -41,9 +45,11 @@ describe("validateArrayField", () => {
   })
 
   it("should not report errors for null values", async () => {
-    const table = DataFrame({
-      data: ['["value"]', null, "[1,2,3]"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        data: ['["value"]', null, "[1,2,3]"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -59,9 +65,11 @@ describe("validateArrayField", () => {
   })
 
   it("should report errors for JSON objects", async () => {
-    const table = DataFrame({
-      data: ["[1,2,3]", '{"key":"value"}', '["a","b"]'],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        data: ["[1,2,3]", '{"key":"value"}', '["a","b"]'],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -85,9 +93,11 @@ describe("validateArrayField", () => {
   })
 
   it("should report errors for invalid JSON", async () => {
-    const table = DataFrame({
-      data: ['["valid"]', "invalid json", "[1,2,3]", "[broken"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        data: ['["valid"]', "invalid json", "[1,2,3]", "[broken"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -117,9 +127,11 @@ describe("validateArrayField", () => {
   })
 
   it("should handle nested arrays", async () => {
-    const table = DataFrame({
-      matrix: ["[[1,2],[3,4]]", "[[5,6],[7,8]]", '[["a","b"],["c","d"]]'],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        matrix: ["[[1,2],[3,4]]", "[[5,6],[7,8]]", '[["a","b"],["c","d"]]'],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -135,9 +147,11 @@ describe("validateArrayField", () => {
   })
 
   it("should report errors for empty strings", async () => {
-    const table = DataFrame({
-      data: ['["valid"]', "", "[1,2,3]"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        data: ['["valid"]', "", "[1,2,3]"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -161,9 +175,11 @@ describe("validateArrayField", () => {
   })
 
   it("should report errors for JSON primitives", async () => {
-    const table = DataFrame({
-      data: ['"string"', "123", "true", "false", "null"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        data: ['"string"', "123", "true", "false", "null"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -215,9 +231,11 @@ describe("validateArrayField", () => {
   })
 
   it("should not report errors for arrays matching jsonSchema", async () => {
-    const table = DataFrame({
-      scores: ["[80,90,100]", "[75,85,95]", "[90,95,100]"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        scores: ["[80,90,100]", "[75,85,95]", "[90,95,100]"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -247,9 +265,11 @@ describe("validateArrayField", () => {
       minItems: 2,
     }
 
-    const table = DataFrame({
-      numbers: ["[1,2,3]", '["not","numbers"]', "[1]", "[4,5,6]"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        numbers: ["[1,2,3]", '["not","numbers"]', "[1]", "[4,5,6]"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -282,12 +302,14 @@ describe("validateArrayField", () => {
   })
 
   it("should validate complex jsonSchema with array of objects", async () => {
-    const table = DataFrame({
-      users: [
-        '[{"name":"John","age":30},{"name":"Jane","age":25}]',
-        '[{"name":"Bob","age":"invalid"}]',
-      ],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        users: [
+          '[{"name":"John","age":30},{"name":"Jane","age":25}]',
+          '[{"name":"Bob","age":"invalid"}]',
+        ],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -325,9 +347,11 @@ describe("validateArrayField", () => {
   })
 
   it("should validate jsonSchema with unique items constraint", async () => {
-    const table = DataFrame({
-      tags: ['["unique","values"]', '["duplicate","duplicate"]'],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        tags: ['["unique","values"]', '["duplicate","duplicate"]'],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [

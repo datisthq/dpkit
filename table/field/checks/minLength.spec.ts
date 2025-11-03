@@ -1,13 +1,15 @@
 import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { validateTable } from "../../table/index.ts"
 
 describe("validateTable (cell/minLength)", () => {
   it("should not report errors for string values that meet the minLength constraint", async () => {
-    const table = DataFrame({
-      code: ["A123", "B456", "C789"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        code: ["A123", "B456", "C789"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -24,9 +26,11 @@ describe("validateTable (cell/minLength)", () => {
   })
 
   it("should report an error for strings that are too short", async () => {
-    const table = DataFrame({
-      username: ["bob", "a", "christopher", "ab"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        username: ["bob", "a", "christopher", "ab"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [

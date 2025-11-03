@@ -1,18 +1,19 @@
 import type { YearField } from "@dpkit/core"
-import { DataType, lit, when } from "nodejs-polars"
-import type { Expr } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 
-export function parseYearField(_field: YearField, fieldExpr: Expr) {
-  fieldExpr = when(fieldExpr.str.lengths().eq(4))
+export function parseYearField(_field: YearField, fieldExpr: pl.Expr) {
+  fieldExpr = pl
+    .when(fieldExpr.str.lengths().eq(4))
     .then(fieldExpr)
-    .otherwise(lit(null))
-    .cast(DataType.Int16)
+    .otherwise(pl.lit(null))
+    .cast(pl.DataType.Int16)
 
-  return when(fieldExpr.gtEq(0).and(fieldExpr.ltEq(9999)))
+  return pl
+    .when(fieldExpr.gtEq(0).and(fieldExpr.ltEq(9999)))
     .then(fieldExpr)
-    .otherwise(lit(null))
+    .otherwise(pl.lit(null))
 }
 
-export function stringifyYearField(_field: YearField, fieldExpr: Expr) {
-  return fieldExpr.cast(DataType.String).str.zFill(4)
+export function stringifyYearField(_field: YearField, fieldExpr: pl.Expr) {
+  return fieldExpr.cast(pl.DataType.String).str.zFill(4)
 }

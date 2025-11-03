@@ -1,8 +1,7 @@
 import type { NumberField } from "@dpkit/core"
-import { DataType } from "nodejs-polars"
-import type { Expr } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 
-export function parseNumberField(field: NumberField, fieldExpr: Expr) {
+export function parseNumberField(field: NumberField, fieldExpr: pl.Expr) {
   // Extract the decimal and group characters
   const decimalChar = field.decimalChar ?? "."
   const groupChar = field.groupChar ?? ""
@@ -44,13 +43,13 @@ export function parseNumberField(field: NumberField, fieldExpr: Expr) {
   }
 
   // Cast to float64
-  fieldExpr = fieldExpr.cast(DataType.Float64)
+  fieldExpr = fieldExpr.cast(pl.DataType.Float64)
   return fieldExpr
 }
 
-export function stringifyNumberField(_field: NumberField, fieldExpr: Expr) {
+export function stringifyNumberField(_field: NumberField, fieldExpr: pl.Expr) {
   // Convert to string
-  fieldExpr = fieldExpr.cast(DataType.String)
+  fieldExpr = fieldExpr.cast(pl.DataType.String)
 
   //const decimalChar = field.decimalChar ?? "."
   //const groupChar = field.groupChar ?? ""

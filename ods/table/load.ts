@@ -6,7 +6,7 @@ import type { LoadTableOptions } from "@dpkit/table"
 import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
 import type { DataRow, Table } from "@dpkit/table"
 import { getRecordsFromRows } from "@dpkit/table"
-import { DataFrame, concat } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { read, utils } from "xlsx"
 
 export async function loadOdsTable(
@@ -36,13 +36,13 @@ export async function loadOdsTable(
       }) as DataRow[]
 
       const records = getRecordsFromRows(rows, dialect)
-      const table = DataFrame(records).lazy()
+      const table = pl.DataFrame(records).lazy()
 
       tables.push(table)
     }
   }
 
-  let table = concat(tables)
+  let table = pl.concat(tables)
 
   if (!options?.denormalized) {
     let schema = await resolveSchema(resource.schema)

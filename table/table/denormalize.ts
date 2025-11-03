@@ -1,5 +1,5 @@
 import type { Schema } from "@dpkit/core"
-import type { Expr } from "nodejs-polars"
+import type * as pl from "nodejs-polars"
 import { denormalizeField } from "../field/index.ts"
 import type { DenormalizeFieldOptions } from "../field/index.ts"
 import type { Table } from "./Table.ts"
@@ -16,7 +16,7 @@ export function denormalizeFields(
   schema: Schema,
   options?: DenormalizeFieldOptions,
 ) {
-  const exprs: Record<string, Expr> = {}
+  const exprs: Record<string, pl.Expr> = {}
 
   for (const field of schema.fields) {
     const missingValues = field.missingValues ?? schema.missingValues

@@ -7,9 +7,7 @@ import { stripInitialSpace } from "@dpkit/table"
 import { joinHeaderRows } from "@dpkit/table"
 import { skipCommentRows } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
-import { scanCSV } from "nodejs-polars"
-import type { ScanCsvOptions } from "nodejs-polars"
-import { concat } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { inferCsvDialect } from "../dialect/index.ts"
 
 // TODO: Condier using sample to extract header first
@@ -33,13 +31,13 @@ export async function loadCsvTable(
   const scanOptions = getScanOptions(resource, dialect)
   const tables: Table[] = []
   for (const path of paths) {
-    const table = scanCSV(path, scanOptions)
+    const table = pl.scanCSV(path, scanOptions)
     tables.push(table)
   }
 
   // There is no way to specify column names in nodejs-polars by default
   // so we have to rename `column_*` to `field*` is table doesn't have header
-  let table = concat(tables)
+  let table = pl.concat(tables)
   if (!scanOptions.hasHeader) {
     table = table.rename(
       Object.fromEntries(
@@ -64,7 +62,7 @@ export async function loadCsvTable(
 }
 
 function getScanOptions(resource: Partial<Resource>, dialect?: Dialect) {
-  const options: Partial<ScanCsvOptions> = {
+  const options: Partial<pl.ScanCsvOptions> = {
     inferSchemaLength: 0,
     truncateRaggedLines: true,
   }

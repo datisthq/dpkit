@@ -1,13 +1,15 @@
 import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { validateTable } from "../../table/index.ts"
 
 describe("validateTable (cell/enum)", () => {
   it("should not report errors for string values that are in the enum", async () => {
-    const table = DataFrame({
-      status: ["pending", "approved", "rejected", "pending"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        status: ["pending", "approved", "rejected", "pending"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -28,9 +30,11 @@ describe("validateTable (cell/enum)", () => {
   it("should report errors for values not in the enum", async () => {
     const allowedValues = ["pending", "approved", "rejected"]
 
-    const table = DataFrame({
-      status: ["pending", "approved", "unknown", "cancelled", "rejected"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        status: ["pending", "approved", "unknown", "cancelled", "rejected"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -63,9 +67,11 @@ describe("validateTable (cell/enum)", () => {
   })
 
   it("should handle null values correctly", async () => {
-    const table = DataFrame({
-      status: ["pending", null, "approved", null],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        status: ["pending", null, "approved", null],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -86,9 +92,11 @@ describe("validateTable (cell/enum)", () => {
   it("should handle case sensitivity correctly", async () => {
     const allowedValues = ["pending", "approved", "rejected"]
 
-    const table = DataFrame({
-      status: ["Pending", "APPROVED", "rejected"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        status: ["Pending", "APPROVED", "rejected"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -123,9 +131,11 @@ describe("validateTable (cell/enum)", () => {
   it("should handle integer enum with string values", async () => {
     const allowedValues = ["1", "2", "3"]
 
-    const table = DataFrame({
-      priority: ["1", "2", "5"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        priority: ["1", "2", "5"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -155,9 +165,11 @@ describe("validateTable (cell/enum)", () => {
   it("should handle number enum with string values", async () => {
     const allowedValues = ["1.5", "2.5", "3.5"]
 
-    const table = DataFrame({
-      rating: ["1.5", "2.5", "4.5"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        rating: ["1.5", "2.5", "4.5"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -187,9 +199,11 @@ describe("validateTable (cell/enum)", () => {
   it.skip("should handle date enum with string values", async () => {
     const allowedValues = ["2024-01-01", "2024-02-01", "2024-03-01"]
 
-    const table = DataFrame({
-      date: ["2024-01-01", "2024-02-01", "2024-05-01"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        date: ["2024-01-01", "2024-02-01", "2024-05-01"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -223,13 +237,15 @@ describe("validateTable (cell/enum)", () => {
       "2024-01-01T18:00:00",
     ]
 
-    const table = DataFrame({
-      timestamp: [
-        "2024-01-01T10:00:00",
-        "2024-01-01T14:00:00",
-        "2024-01-01T20:00:00",
-      ],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        timestamp: [
+          "2024-01-01T10:00:00",
+          "2024-01-01T14:00:00",
+          "2024-01-01T20:00:00",
+        ],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -259,9 +275,11 @@ describe("validateTable (cell/enum)", () => {
   it("should handle year enum with string values", async () => {
     const allowedValues = ["2020", "2021", "2022"]
 
-    const table = DataFrame({
-      year: ["2020", "2021", "2023"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        year: ["2020", "2021", "2023"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -291,9 +309,11 @@ describe("validateTable (cell/enum)", () => {
   it.skip("should handle time enum with string values", async () => {
     const allowedValues = ["10:00:00", "14:00:00", "18:00:00"]
 
-    const table = DataFrame({
-      time: ["10:00:00", "14:00:00", "20:00:00"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        time: ["10:00:00", "14:00:00", "20:00:00"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -323,9 +343,11 @@ describe("validateTable (cell/enum)", () => {
   it.skip("should handle yearmonth enum with string values", async () => {
     const allowedValues = ["2024-01", "2024-02", "2024-03"]
 
-    const table = DataFrame({
-      yearmonth: ["2024-01", "2024-02", "2024-05"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        yearmonth: ["2024-01", "2024-02", "2024-05"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [

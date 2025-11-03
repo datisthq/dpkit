@@ -3,8 +3,7 @@ import { resolveSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "@dpkit/table"
 import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
-import { concat } from "nodejs-polars"
-import { scanParquet } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 
 export async function loadParquetTable(
   resource: Partial<Resource>,
@@ -15,9 +14,9 @@ export async function loadParquetTable(
     throw new Error("Resource path is not defined")
   }
 
-  let table = scanParquet(firstPath)
+  let table = pl.scanParquet(firstPath)
   if (restPaths.length) {
-    table = concat([table, ...restPaths.map(path => scanParquet(path))])
+    table = pl.concat([table, ...restPaths.map(path => pl.scanParquet(path))])
   }
 
   if (!options?.denormalized) {

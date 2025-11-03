@@ -1,14 +1,16 @@
 import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { validateTable } from "../../table/index.ts"
 
 // TODO: recover
 describe("validateTable (cell/unique)", () => {
   it("should not report errors when all values are unique", async () => {
-    const table = DataFrame({
-      id: [1, 2, 3, 4, 5],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2, 3, 4, 5],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -25,9 +27,11 @@ describe("validateTable (cell/unique)", () => {
   })
 
   it("should report errors for duplicate values", async () => {
-    const table = DataFrame({
-      id: [1, 2, 3, 2, 5],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2, 3, 2, 5],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -51,9 +55,11 @@ describe("validateTable (cell/unique)", () => {
   })
 
   it("should report multiple errors for string duplicates", async () => {
-    const table = DataFrame({
-      code: ["A001", "B002", "A001", "C003", "B002"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        code: ["A001", "B002", "A001", "C003", "B002"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -82,9 +88,11 @@ describe("validateTable (cell/unique)", () => {
   })
 
   it("should handle null values correctly", async () => {
-    const table = DataFrame({
-      id: [1, null, 3, null, 5],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, null, 3, null, 5],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [

@@ -2,7 +2,7 @@ import { resolveDialect, resolveSchema } from "@dpkit/core"
 import type { Resource } from "@dpkit/core"
 import { normalizeTable } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { createAdapter } from "../adapters/create.ts"
 import { inferDatabaseSchema } from "../schema/index.ts"
 
@@ -27,7 +27,7 @@ export async function loadDatabaseTable(
   const database = await adapter.connectDatabase(path)
   const records = await database.selectFrom(dialect.table).selectAll().execute()
 
-  let table = DataFrame(records).lazy()
+  let table = pl.DataFrame(records).lazy()
 
   if (!options?.denormalized) {
     let schema = await resolveSchema(resource.schema)

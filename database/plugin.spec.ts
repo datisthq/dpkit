@@ -1,5 +1,5 @@
 import type { Package, Resource } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as packageModule from "./package/index.ts"
 import { DatabasePlugin } from "./plugin.ts"
@@ -196,7 +196,7 @@ describe("DatabasePlugin", () => {
       const resource: Partial<Resource> = {
         path: "postgresql://localhost/testdb",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadDatabaseTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -212,7 +212,7 @@ describe("DatabasePlugin", () => {
       const resource: Partial<Resource> = {
         path: "mysql://localhost/testdb",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadDatabaseTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -228,7 +228,7 @@ describe("DatabasePlugin", () => {
       const resource: Partial<Resource> = {
         path: "sqlite://test.db",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadDatabaseTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -256,7 +256,7 @@ describe("DatabasePlugin", () => {
         path: "test.txt",
         format: "sqlite",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadDatabaseTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -271,7 +271,7 @@ describe("DatabasePlugin", () => {
 
   describe("saveTable", () => {
     it("should save table to postgresql database", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "postgresql://localhost/testdb" }
       mockSaveDatabaseTable.mockResolvedValue("postgresql://localhost/testdb")
 
@@ -285,7 +285,7 @@ describe("DatabasePlugin", () => {
     })
 
     it("should save table to mysql database", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "mysql://localhost/testdb" }
       mockSaveDatabaseTable.mockResolvedValue("mysql://localhost/testdb")
 
@@ -299,7 +299,7 @@ describe("DatabasePlugin", () => {
     })
 
     it("should save table to sqlite database", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "sqlite://test.db" }
       mockSaveDatabaseTable.mockResolvedValue("sqlite://test.db")
 
@@ -313,7 +313,7 @@ describe("DatabasePlugin", () => {
     })
 
     it("should return undefined for non-database paths", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.csv" }
 
       const result = await plugin.saveTable(table, options)
@@ -323,7 +323,7 @@ describe("DatabasePlugin", () => {
     })
 
     it("should handle explicit format specification", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "test.txt", format: "sqlite" as const }
       mockSaveDatabaseTable.mockResolvedValue("test.txt")
 

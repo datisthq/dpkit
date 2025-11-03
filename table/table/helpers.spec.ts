@@ -1,4 +1,4 @@
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import {
   joinHeaderRows,
@@ -8,17 +8,19 @@ import {
 
 describe("joinHeaderRows", () => {
   it("should join two header rows with default space separator", async () => {
-    const table = DataFrame({
-      col1: ["first", "name", "header3", "Alice", "Bob"],
-      col2: ["last", "name", "header3", "Smith", "Jones"],
-      col3: [
-        "contact",
-        "email",
-        "header3",
-        "alice@example.com",
-        "bob@example.com",
-      ],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        col1: ["first", "name", "header3", "Alice", "Bob"],
+        col2: ["last", "name", "header3", "Smith", "Jones"],
+        col3: [
+          "contact",
+          "email",
+          "header3",
+          "alice@example.com",
+          "bob@example.com",
+        ],
+      })
+      .lazy()
 
     const result = await joinHeaderRows(table, {
       dialect: { headerRows: [2, 3] },
@@ -38,11 +40,13 @@ describe("joinHeaderRows", () => {
   })
 
   it("should join two header rows with custom separator", async () => {
-    const table = DataFrame({
-      col1: ["user", "first", "header3", "Alice", "Bob"],
-      col2: ["user", "last", "header3", "Smith", "Jones"],
-      col3: ["meta", "created", "header3", "2023-01-01", "2023-01-02"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        col1: ["user", "first", "header3", "Alice", "Bob"],
+        col2: ["user", "last", "header3", "Smith", "Jones"],
+        col3: ["meta", "created", "header3", "2023-01-01", "2023-01-02"],
+      })
+      .lazy()
 
     const result = await joinHeaderRows(table, {
       dialect: { headerRows: [2, 3], headerJoin: "_" },
@@ -58,11 +62,13 @@ describe("joinHeaderRows", () => {
   })
 
   it("should return table unchanged when only one header row", async () => {
-    const table = DataFrame({
-      name: ["Alice", "Bob"],
-      age: [30, 25],
-      city: ["NYC", "LA"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["Alice", "Bob"],
+        age: [30, 25],
+        city: ["NYC", "LA"],
+      })
+      .lazy()
 
     const result = await joinHeaderRows(table, {
       dialect: { headerRows: [1] },
@@ -74,11 +80,13 @@ describe("joinHeaderRows", () => {
   })
 
   it("should return table unchanged when no header rows", async () => {
-    const table = DataFrame({
-      field1: ["Alice", "Bob"],
-      field2: [30, 25],
-      field3: ["NYC", "LA"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        field1: ["Alice", "Bob"],
+        field2: [30, 25],
+        field3: ["NYC", "LA"],
+      })
+      .lazy()
 
     const result = await joinHeaderRows(table, {
       dialect: { header: false },
@@ -90,11 +98,13 @@ describe("joinHeaderRows", () => {
   })
 
   it("should join three header rows", async () => {
-    const table = DataFrame({
-      col1: ["person", "user", "first", "header4", "Alice", "Bob"],
-      col2: ["person", "user", "last", "header4", "Smith", "Jones"],
-      col3: ["location", "address", "city", "header4", "NYC", "LA"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        col1: ["person", "user", "first", "header4", "Alice", "Bob"],
+        col2: ["person", "user", "last", "header4", "Smith", "Jones"],
+        col3: ["location", "address", "city", "header4", "NYC", "LA"],
+      })
+      .lazy()
 
     const result = await joinHeaderRows(table, {
       dialect: { headerRows: [2, 3, 4] },
@@ -114,11 +124,13 @@ describe("joinHeaderRows", () => {
   })
 
   it("should handle empty strings in header rows", async () => {
-    const table = DataFrame({
-      col1: ["person", "", "header3", "Alice", "Bob"],
-      col2: ["", "name", "header3", "Smith", "Jones"],
-      col3: ["location", "city", "header3", "NYC", "LA"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        col1: ["person", "", "header3", "Alice", "Bob"],
+        col2: ["", "name", "header3", "Smith", "Jones"],
+        col3: ["location", "city", "header3", "NYC", "LA"],
+      })
+      .lazy()
 
     const result = await joinHeaderRows(table, {
       dialect: { headerRows: [2, 3] },
@@ -136,11 +148,13 @@ describe("joinHeaderRows", () => {
 
 describe("skipCommentRows", () => {
   it("should skip comment rows by row number", async () => {
-    const table = DataFrame({
-      name: ["Alice", "# Comment", "Bob", "Charlie"],
-      age: [30, 0, 25, 35],
-      city: ["NYC", "ignored", "LA", "SF"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["Alice", "# Comment", "Bob", "Charlie"],
+        age: [30, 0, 25, 35],
+        city: ["NYC", "ignored", "LA", "SF"],
+      })
+      .lazy()
 
     const result = skipCommentRows(table, {
       dialect: { commentRows: [2], header: false },
@@ -154,11 +168,13 @@ describe("skipCommentRows", () => {
   })
 
   it("should skip multiple comment rows", async () => {
-    const table = DataFrame({
-      name: ["Alice", "# Comment 1", "Bob", "# Comment 2", "Charlie"],
-      age: [30, 0, 25, 0, 35],
-      city: ["NYC", "ignored", "LA", "ignored", "SF"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["Alice", "# Comment 1", "Bob", "# Comment 2", "Charlie"],
+        age: [30, 0, 25, 0, 35],
+        city: ["NYC", "ignored", "LA", "ignored", "SF"],
+      })
+      .lazy()
 
     const result = skipCommentRows(table, {
       dialect: { commentRows: [2, 4], header: false },
@@ -172,11 +188,13 @@ describe("skipCommentRows", () => {
   })
 
   it("should return table unchanged when no commentRows specified", async () => {
-    const table = DataFrame({
-      name: ["Alice", "Bob", "Charlie"],
-      age: [30, 25, 35],
-      city: ["NYC", "LA", "SF"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["Alice", "Bob", "Charlie"],
+        age: [30, 25, 35],
+        city: ["NYC", "LA", "SF"],
+      })
+      .lazy()
 
     const result = skipCommentRows(table, {
       dialect: {},
@@ -188,11 +206,13 @@ describe("skipCommentRows", () => {
   })
 
   it("should skip rows after header when headerRows specified", async () => {
-    const table = DataFrame({
-      col1: ["name", "Alice", "# Comment", "Bob"],
-      col2: ["age", "30", "-1", "25"],
-      col3: ["city", "NYC", "ignored", "LA"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        col1: ["name", "Alice", "# Comment", "Bob"],
+        col2: ["age", "30", "-1", "25"],
+        col3: ["city", "NYC", "ignored", "LA"],
+      })
+      .lazy()
 
     const result = skipCommentRows(table, {
       dialect: { headerRows: [2], commentRows: [5] },
@@ -206,11 +226,13 @@ describe("skipCommentRows", () => {
   })
 
   it("should handle commentRows at the beginning", async () => {
-    const table = DataFrame({
-      name: ["# Skip this", "Alice", "Bob"],
-      age: [0, 30, 25],
-      city: ["ignored", "NYC", "LA"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["# Skip this", "Alice", "Bob"],
+        age: [0, 30, 25],
+        city: ["ignored", "NYC", "LA"],
+      })
+      .lazy()
 
     const result = skipCommentRows(table, {
       dialect: { commentRows: [1], header: false },
@@ -223,11 +245,13 @@ describe("skipCommentRows", () => {
   })
 
   it("should handle commentRows at the end", async () => {
-    const table = DataFrame({
-      name: ["Alice", "Bob", "# Footer comment"],
-      age: [30, 25, 0],
-      city: ["NYC", "LA", "ignored"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["Alice", "Bob", "# Footer comment"],
+        age: [30, 25, 0],
+        city: ["NYC", "LA", "ignored"],
+      })
+      .lazy()
 
     const result = skipCommentRows(table, {
       dialect: { commentRows: [3], header: false },
@@ -240,11 +264,13 @@ describe("skipCommentRows", () => {
   })
 
   it("should handle multiple header rows with commentRows", async () => {
-    const table = DataFrame({
-      col1: ["person", "first", "Alice", "# Comment", "Bob"],
-      col2: ["person", "last", "Smith", "ignored", "Jones"],
-      col3: ["location", "city", "NYC", "ignored", "LA"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        col1: ["person", "first", "Alice", "# Comment", "Bob"],
+        col2: ["person", "last", "Smith", "ignored", "Jones"],
+        col3: ["location", "city", "NYC", "ignored", "LA"],
+      })
+      .lazy()
 
     const result = skipCommentRows(table, {
       dialect: { headerRows: [2, 3], commentRows: [7] },
@@ -261,11 +287,13 @@ describe("skipCommentRows", () => {
 
 describe("stripInitialSpace", () => {
   it("should strip leading and trailing spaces from all columns", async () => {
-    const table = DataFrame({
-      name: [" Alice ", " Bob", "Charlie "],
-      age: ["30", " 25 ", "35"],
-      city: [" NYC", "LA ", " SF "],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: [" Alice ", " Bob", "Charlie "],
+        age: ["30", " 25 ", "35"],
+        city: [" NYC", "LA ", " SF "],
+      })
+      .lazy()
 
     const result = stripInitialSpace(table, {
       dialect: { skipInitialSpace: true },
@@ -278,11 +306,13 @@ describe("stripInitialSpace", () => {
   })
 
   it("should return table unchanged when skipInitialSpace is false", async () => {
-    const table = DataFrame({
-      name: [" Alice ", " Bob"],
-      age: ["30", " 25 "],
-      city: [" NYC", "LA "],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: [" Alice ", " Bob"],
+        age: ["30", " 25 "],
+        city: [" NYC", "LA "],
+      })
+      .lazy()
 
     const result = stripInitialSpace(table, {
       dialect: { skipInitialSpace: false },
@@ -294,11 +324,13 @@ describe("stripInitialSpace", () => {
   })
 
   it("should return table unchanged when skipInitialSpace is not specified", async () => {
-    const table = DataFrame({
-      name: [" Alice ", " Bob"],
-      age: ["30", " 25 "],
-      city: [" NYC", "LA "],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: [" Alice ", " Bob"],
+        age: ["30", " 25 "],
+        city: [" NYC", "LA "],
+      })
+      .lazy()
 
     const result = stripInitialSpace(table, {
       dialect: {},
@@ -310,11 +342,13 @@ describe("stripInitialSpace", () => {
   })
 
   it("should handle strings with no spaces", async () => {
-    const table = DataFrame({
-      name: ["Alice", "Bob"],
-      age: ["30", "25"],
-      city: ["NYC", "LA"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["Alice", "Bob"],
+        age: ["30", "25"],
+        city: ["NYC", "LA"],
+      })
+      .lazy()
 
     const result = stripInitialSpace(table, {
       dialect: { skipInitialSpace: true },
@@ -326,11 +360,13 @@ describe("stripInitialSpace", () => {
   })
 
   it("should handle empty strings", async () => {
-    const table = DataFrame({
-      name: ["Alice", ""],
-      age: ["30", " "],
-      city: ["", "LA"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["Alice", ""],
+        age: ["30", " "],
+        city: ["", "LA"],
+      })
+      .lazy()
 
     const result = stripInitialSpace(table, {
       dialect: { skipInitialSpace: true },
@@ -342,11 +378,13 @@ describe("stripInitialSpace", () => {
   })
 
   it("should handle strings with multiple spaces", async () => {
-    const table = DataFrame({
-      name: ["  Alice  ", "   Bob"],
-      age: ["30   ", "  25  "],
-      city: ["  NYC  ", "   LA   "],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["  Alice  ", "   Bob"],
+        age: ["30   ", "  25  "],
+        city: ["  NYC  ", "   LA   "],
+      })
+      .lazy()
 
     const result = stripInitialSpace(table, {
       dialect: { skipInitialSpace: true },
@@ -358,11 +396,13 @@ describe("stripInitialSpace", () => {
   })
 
   it("should handle tabs and other whitespace", async () => {
-    const table = DataFrame({
-      name: ["\tAlice\t", "\nBob"],
-      age: ["30\n", "\t25\t"],
-      city: ["\tNYC", "LA\n"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["\tAlice\t", "\nBob"],
+        age: ["30\n", "\t25\t"],
+        city: ["\tNYC", "LA\n"],
+      })
+      .lazy()
 
     const result = stripInitialSpace(table, {
       dialect: { skipInitialSpace: true },

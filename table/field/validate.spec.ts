@@ -1,14 +1,16 @@
 import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { validateTable } from "../table/validate.ts"
 
 describe("validateField", () => {
   describe("field name validation", () => {
     it("should report an error when field names don't match", async () => {
-      const table = DataFrame({
-        actual_id: [1, 2, 3],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          actual_id: [1, 2, 3],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -29,9 +31,11 @@ describe("validateField", () => {
     })
 
     it("should not report errors when field names match", async () => {
-      const table = DataFrame({
-        id: [1, 2, 3],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          id: [1, 2, 3],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -47,9 +51,11 @@ describe("validateField", () => {
     })
 
     it("should be case-sensitive when comparing field names", async () => {
-      const table = DataFrame({
-        ID: [1, 2, 3],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          ID: [1, 2, 3],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -73,9 +79,11 @@ describe("validateField", () => {
 
   describe("field type validation", () => {
     it("should report an error when field types don't match", async () => {
-      const table = DataFrame({
-        id: [true, false, true],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          id: [true, false, true],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -98,9 +106,11 @@ describe("validateField", () => {
     })
 
     it("should not report errors when field types match", async () => {
-      const table = DataFrame({
-        id: [1, 2, 3],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          id: [1, 2, 3],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -118,9 +128,11 @@ describe("validateField", () => {
 
   describe("cell types validation", () => {
     it("should validate string to integer conversion errors", async () => {
-      const table = DataFrame({
-        id: ["1", "bad", "3", "4x"],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          id: ["1", "bad", "3", "4x"],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -151,9 +163,11 @@ describe("validateField", () => {
     })
 
     it("should validate string to number conversion errors", async () => {
-      const table = DataFrame({
-        price: ["10.5", "twenty", "30.75", "$40"],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          price: ["10.5", "twenty", "30.75", "$40"],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -184,9 +198,11 @@ describe("validateField", () => {
     })
 
     it("should validate string to boolean conversion errors", async () => {
-      const table = DataFrame({
-        active: ["true", "yes", "false", "0", "1"],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          active: ["true", "yes", "false", "0", "1"],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -210,9 +226,11 @@ describe("validateField", () => {
     })
 
     it("should validate string to date conversion errors", async () => {
-      const table = DataFrame({
-        created: ["2023-01-15", "Jan 15, 2023", "20230115", "not-a-date"],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          created: ["2023-01-15", "Jan 15, 2023", "20230115", "not-a-date"],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -250,9 +268,11 @@ describe("validateField", () => {
     })
 
     it("should validate string to time conversion errors", async () => {
-      const table = DataFrame({
-        time: ["14:30:00", "2:30pm", "invalid", "14h30"],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          time: ["14:30:00", "2:30pm", "invalid", "14h30"],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -290,9 +310,11 @@ describe("validateField", () => {
     })
 
     it("should validate string to year conversion errors", async () => {
-      const table = DataFrame({
-        year: ["2023", "23", "MMXXIII", "two-thousand-twenty-three"],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          year: ["2023", "23", "MMXXIII", "two-thousand-twenty-three"],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -330,14 +352,16 @@ describe("validateField", () => {
     })
 
     it("should validate string to datetime conversion errors", async () => {
-      const table = DataFrame({
-        timestamp: [
-          "2023-01-15T14:30:00",
-          "January 15, 2023 2:30 PM",
-          "2023-01-15 14:30",
-          "not-a-datetime",
-        ],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          timestamp: [
+            "2023-01-15T14:30:00",
+            "January 15, 2023 2:30 PM",
+            "2023-01-15 14:30",
+            "not-a-datetime",
+          ],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -372,9 +396,11 @@ describe("validateField", () => {
     })
 
     it("should pass validation when all cells are valid", async () => {
-      const table = DataFrame({
-        id: ["1", "2", "3", "4"],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          id: ["1", "2", "3", "4"],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [
@@ -391,9 +417,11 @@ describe("validateField", () => {
     })
 
     it("should validate with non-string source data", async () => {
-      const table = DataFrame({
-        is_active: [true, false, true, false],
-      }).lazy()
+      const table = pl
+        .DataFrame({
+          is_active: [true, false, true, false],
+        })
+        .lazy()
 
       const schema: Schema = {
         fields: [

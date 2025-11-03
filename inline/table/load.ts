@@ -4,7 +4,7 @@ import { resolveSchema } from "@dpkit/core"
 import { getRecordsFromRows } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
 import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 
 export async function loadInlineTable(
   resource: Partial<Resource>,
@@ -19,7 +19,7 @@ export async function loadInlineTable(
   const isRows = data.every(row => Array.isArray(row))
 
   const records = isRows ? getRecordsFromRows(data, dialect) : data
-  let table = DataFrame(records).lazy()
+  let table = pl.DataFrame(records).lazy()
 
   if (!options?.denormalized) {
     let schema = await resolveSchema(resource.schema)

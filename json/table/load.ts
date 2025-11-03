@@ -5,8 +5,7 @@ import { loadFile, prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "@dpkit/table"
 import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
 import type { Table } from "@dpkit/table"
-import { concat } from "nodejs-polars"
-import { DataFrame, scanJson } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { decodeJsonBuffer } from "../buffer/index.ts"
 
 export async function loadJsonTable(
@@ -25,7 +24,7 @@ export async function loadJsonTable(
   const tables: Table[] = []
   for (const path of paths) {
     if (isLines && !dialect) {
-      const table = scanJson(path)
+      const table = pl.scanJson(path)
       tables.push(table)
       continue
     }
@@ -36,11 +35,11 @@ export async function loadJsonTable(
       data = processData(data, dialect)
     }
 
-    const table = DataFrame(data).lazy()
+    const table = pl.DataFrame(data).lazy()
     tables.push(table)
   }
 
-  let table = concat(tables)
+  let table = pl.concat(tables)
 
   if (!options?.denormalized) {
     let schema = await resolveSchema(resource.schema)

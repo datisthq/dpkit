@@ -1,14 +1,16 @@
 import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "./normalize.ts"
 
 describe("normalizeTable", () => {
   it("should work with schema", async () => {
-    const table = DataFrame({
-      id: [1, 2],
-      name: ["english", "中文"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        name: ["english", "中文"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -28,10 +30,12 @@ describe("normalizeTable", () => {
   })
 
   it("should work with less fields in data", async () => {
-    const table = DataFrame({
-      id: [1, 2],
-      name: ["english", "中文"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        name: ["english", "中文"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -52,11 +56,13 @@ describe("normalizeTable", () => {
   })
 
   it("should work with more fields in data", async () => {
-    const table = DataFrame({
-      id: [1, 2],
-      name: ["english", "中文"],
-      other: [true, false],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        name: ["english", "中文"],
+        other: [true, false],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -76,10 +82,12 @@ describe("normalizeTable", () => {
   })
 
   it("should work based on fields order", async () => {
-    const table = DataFrame({
-      field1: [1, 2],
-      field2: ["english", "中文"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        field1: [1, 2],
+        field2: ["english", "中文"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -99,10 +107,12 @@ describe("normalizeTable", () => {
   })
 
   it("should work based on field names (equal)", async () => {
-    const table = DataFrame({
-      name: ["english", "中文"],
-      id: [1, 2],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["english", "中文"],
+        id: [1, 2],
+      })
+      .lazy()
 
     const schema: Schema = {
       fieldsMatch: "equal",
@@ -123,10 +133,12 @@ describe("normalizeTable", () => {
   })
 
   it("should work based on field names (subset)", async () => {
-    const table = DataFrame({
-      name: ["english", "中文"],
-      id: [1, 2],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["english", "中文"],
+        id: [1, 2],
+      })
+      .lazy()
 
     const schema: Schema = {
       fieldsMatch: "subset",
@@ -147,10 +159,12 @@ describe("normalizeTable", () => {
   })
 
   it("should work based on field names (superset)", async () => {
-    const table = DataFrame({
-      name: ["english", "中文"],
-      id: [1, 2],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["english", "中文"],
+        id: [1, 2],
+      })
+      .lazy()
 
     const schema: Schema = {
       fieldsMatch: "superset",
@@ -171,10 +185,12 @@ describe("normalizeTable", () => {
   })
 
   it("should work based on field names (partial)", async () => {
-    const table = DataFrame({
-      name: ["english", "中文"],
-      id: [1, 2],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["english", "中文"],
+        id: [1, 2],
+      })
+      .lazy()
 
     const schema: Schema = {
       fieldsMatch: "partial",
@@ -195,10 +211,12 @@ describe("normalizeTable", () => {
   })
 
   it("should parse string columns", async () => {
-    const table = DataFrame({
-      id: ["1", "2"],
-      name: ["english", "中文"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: ["1", "2"],
+        name: ["english", "中文"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -218,10 +236,12 @@ describe("normalizeTable", () => {
   })
 
   it("should read type errors as nulls", async () => {
-    const table = DataFrame({
-      id: [1, 2],
-      name: ["english", "中文"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        name: ["english", "中文"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [

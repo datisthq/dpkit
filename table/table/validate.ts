@@ -1,6 +1,6 @@
 import os from "node:os"
 import type { Field, Schema } from "@dpkit/core"
-import { col, lit, when } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import pAll from "p-all"
 import type { RowError } from "../error/index.ts"
 import type { TableError } from "../error/index.ts"
@@ -183,17 +183,17 @@ async function validateRows(
   const collectRowErrors = async (check: any) => {
     const rowCheckTable = table
       .withRowCount()
-      .withColumn(col("row_nr").add(1))
+      .withColumn(pl.col("row_nr").add(1))
       .rename({ row_nr: "dpkit:number" })
       .withColumn(
-        when(check.isErrorExpr)
-          .then(lit(JSON.stringify(check.errorTemplate)))
-          .otherwise(lit(null))
+        pl.when(check.isErrorExpr)
+          .then(pl.lit(JSON.stringify(check.errorTemplate)))
+          .otherwise(pl.lit(null))
           .alias("dpkit:error"),
       )
 
     const rowCheckFrame = await rowCheckTable
-      .filter(col("dpkit:error").isNotNull())
+      .filter(pl.col("dpkit:error").isNotNull())
       .head(maxRowErrors)
       .collect()
 

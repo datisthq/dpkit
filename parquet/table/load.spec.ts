@@ -1,6 +1,6 @@
 import { getTempFilePath } from "@dpkit/file"
 import { useRecording } from "@dpkit/test"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { loadParquetTable } from "./load.ts"
 

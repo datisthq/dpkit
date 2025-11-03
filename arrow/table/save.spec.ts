@@ -1,5 +1,5 @@
 import { getTempFilePath } from "@dpkit/file"
-import { DataFrame, DataType, Series } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { loadArrowTable } from "./load.ts"
 import { saveArrowTable } from "./save.ts"
@@ -7,10 +7,12 @@ import { saveArrowTable } from "./save.ts"
 describe("saveArrowTable", () => {
   it("should save table to Arrow file", async () => {
     const path = getTempFilePath()
-    const source = DataFrame({
-      id: [1.0, 2.0, 3.0],
-      name: ["Alice", "Bob", "Charlie"],
-    }).lazy()
+    const source = pl
+      .DataFrame({
+        id: [1.0, 2.0, 3.0],
+        name: ["Alice", "Bob", "Charlie"],
+      })
+      .lazy()
 
     await saveArrowTable(source, { path })
 
@@ -25,23 +27,41 @@ describe("saveArrowTable", () => {
   it("should save and load various data types", async () => {
     const path = getTempFilePath()
 
-    const source = DataFrame([
-      Series("array", ["[1, 2, 3]"], DataType.String),
-      Series("boolean", [true], DataType.Bool),
-      Series("date", [new Date(Date.UTC(2025, 0, 1))], DataType.Date),
-      Series("datetime", [new Date(Date.UTC(2025, 0, 1))], DataType.Datetime),
-      Series("duration", ["P23DT23H"], DataType.String),
-      Series("geojson", ['{"value": 1}'], DataType.String),
-      Series("geopoint", [[40.0, 50.0]], DataType.List(DataType.Float32)),
-      Series("integer", [1], DataType.Int32),
-      Series("list", [[1.0, 2.0, 3.0]], DataType.List(DataType.Float32)),
-      Series("number", [1.1], DataType.Float64),
-      Series("object", ['{"value": 1}']),
-      Series("string", ["string"], DataType.String),
-      Series("time", [new Date(Date.UTC(2025, 0, 1))], DataType.Time),
-      Series("year", [2025], DataType.Int32),
-      Series("yearmonth", [[2025, 1]], DataType.List(DataType.Int16)),
-    ]).lazy()
+    const source = pl
+      .DataFrame([
+        pl.Series("array", ["[1, 2, 3]"], pl.DataType.String),
+        pl.Series("boolean", [true], pl.DataType.Bool),
+        pl.Series("date", [new Date(Date.UTC(2025, 0, 1))], pl.DataType.Date),
+        pl.Series(
+          "datetime",
+          [new Date(Date.UTC(2025, 0, 1))],
+          pl.DataType.Datetime,
+        ),
+        pl.Series("duration", ["P23DT23H"], pl.DataType.String),
+        pl.Series("geojson", ['{"value": 1}'], pl.DataType.String),
+        pl.Series(
+          "geopoint",
+          [[40.0, 50.0]],
+          pl.DataType.List(pl.DataType.Float32),
+        ),
+        pl.Series("integer", [1], pl.DataType.Int32),
+        pl.Series(
+          "list",
+          [[1.0, 2.0, 3.0]],
+          pl.DataType.List(pl.DataType.Float32),
+        ),
+        pl.Series("number", [1.1], pl.DataType.Float64),
+        pl.Series("object", ['{"value": 1}']),
+        pl.Series("string", ["string"], pl.DataType.String),
+        pl.Series("time", [new Date(Date.UTC(2025, 0, 1))], pl.DataType.Time),
+        pl.Series("year", [2025], pl.DataType.Int32),
+        pl.Series(
+          "yearmonth",
+          [[2025, 1]],
+          pl.DataType.List(pl.DataType.Int16),
+        ),
+      ])
+      .lazy()
 
     await saveArrowTable(source, {
       path,

@@ -23,8 +23,8 @@ export async function validateJsonField(
   const frame = await table
     .withRowCount()
     .select(
-      pl.col("row_nr").add(1).alias("number"),
-      pl.col(field.name).alias("source"),
+      pl.pl.col("row_nr").add(1).alias("number"),
+      pl.pl.col(field.name).alias("source"),
     )
     .collect()
 

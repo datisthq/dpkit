@@ -1,6 +1,5 @@
 import type { GeopointField } from "@dpkit/core"
-import { DataType, concatList, concatString, lit } from "nodejs-polars"
-import type { Expr } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 
 // TODO:
 // Add more validation:
@@ -8,63 +7,74 @@ import type { Expr } from "nodejs-polars"
 // - Check the values are within -180..180 and -90..90
 // - Return null instead of list if any of the values are out of range
 
-export function parseGeopointField(field: GeopointField, fieldExpr: Expr) {
+export function parseGeopointField(field: GeopointField, fieldExpr: pl.Expr) {
   // Default format is "lon,lat" string
   const format = field.format ?? "default"
 
   if (format === "default") {
-    fieldExpr = fieldExpr.str.split(",").cast(DataType.List(DataType.Float64))
+    fieldExpr = fieldExpr.str
+      .split(",")
+      .cast(pl.DataType.List(pl.DataType.Float64))
   }
 
   if (format === "array") {
     fieldExpr = fieldExpr.str
       .replaceAll("[\\[\\]\\s]", "")
       .str.split(",")
-      .cast(DataType.List(DataType.Float64))
+      .cast(pl.DataType.List(pl.DataType.Float64))
   }
 
   if (format === "object") {
-    fieldExpr = concatList([
-      fieldExpr.str.jsonPathMatch("$.lon").cast(DataType.Float64),
-      fieldExpr.str.jsonPathMatch("$.lat").cast(DataType.Float64),
-    ]).alias(field.name)
+    fieldExpr = pl
+      .concatList([
+        fieldExpr.str.jsonPathMatch("$.lon").cast(pl.DataType.Float64),
+        fieldExpr.str.jsonPathMatch("$.lat").cast(pl.DataType.Float64),
+      ])
+      .alias(field.name)
   }
 
   return fieldExpr
 }
 
-export function stringifyGeopointField(field: GeopointField, fieldExpr: Expr) {
+export function stringifyGeopointField(
+  field: GeopointField,
+  fieldExpr: pl.Expr,
+) {
   // Default format is "lon,lat" string
   const format = field.format ?? "default"
 
   if (format === "default") {
-    return fieldExpr.cast(DataType.List(DataType.String)).lst.join(",")
+    return fieldExpr.cast(pl.DataType.List(pl.DataType.String)).lst.join(",")
   }
 
   if (format === "array") {
-    return concatString(
-      [
-        lit("["),
-        fieldExpr.lst.get(0).cast(DataType.String),
-        lit(","),
-        fieldExpr.lst.get(1).cast(DataType.String),
-        lit("]"),
-      ],
-      "",
-    ).alias(field.name) as Expr
+    return pl
+      .concatString(
+        [
+          pl.lit("["),
+          fieldExpr.lst.get(0).cast(pl.DataType.String),
+          pl.lit(","),
+          fieldExpr.lst.get(1).cast(pl.DataType.String),
+          pl.lit("]"),
+        ],
+        "",
+      )
+      .alias(field.name) as pl.Expr
   }
 
   if (format === "object") {
-    return concatString(
-      [
-        lit('{"lon":'),
-        fieldExpr.lst.get(0).cast(DataType.String),
-        lit(',"lat":'),
-        fieldExpr.lst.get(1).cast(DataType.String),
-        lit("}"),
-      ],
-      "",
-    ).alias(field.name) as Expr
+    return pl
+      .concatString(
+        [
+          pl.lit('{"lon":'),
+          fieldExpr.lst.get(0).cast(pl.DataType.String),
+          pl.lit(',"lat":'),
+          fieldExpr.lst.get(1).cast(pl.DataType.String),
+          pl.lit("}"),
+        ],
+        "",
+      )
+      .alias(field.name) as pl.Expr
   }
 
   return fieldExpr

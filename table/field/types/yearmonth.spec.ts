@@ -1,4 +1,4 @@
-import { DataFrame, DataType, Series } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../../table/index.ts"
 import { denormalizeTable } from "../../table/index.ts"
@@ -8,7 +8,9 @@ describe("parseYearmonthField", () => {
     ["2000-01", [2000, 1]],
     ["0-0", [0, 0]],
   ])("%s -> %s", async (cell, value) => {
-    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+    const table = pl
+      .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+      .lazy()
 
     const schema = {
       fields: [{ name: "name", type: "yearmonth" as const }],
@@ -27,9 +29,11 @@ describe("stringifyYearmonthField", () => {
     [[2023, 12], "2023-12"],
     [[0, 0], "0000-00"],
   ])("%s -> %s", async (value, expected) => {
-    const table = DataFrame([
-      Series("name", [value], DataType.List(DataType.Int16)),
-    ]).lazy()
+    const table = pl
+      .DataFrame([
+        pl.Series("name", [value], pl.DataType.List(pl.DataType.Int16)),
+      ])
+      .lazy()
 
     const schema = {
       fields: [{ name: "name", type: "yearmonth" as const }],

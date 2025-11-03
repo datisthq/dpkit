@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { JsonPlugin } from "./plugin.ts"
 import * as tableModule from "./table/index.ts"

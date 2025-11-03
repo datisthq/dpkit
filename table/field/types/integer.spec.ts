@@ -1,4 +1,4 @@
-import { DataFrame, DataType, Series } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
@@ -51,7 +51,9 @@ describe("parseIntegerField", () => {
     //[" -1,000 ", -1000, { groupChar: "," }],
     ["000,001", 1, { groupChar: "," }],
   ])("$0 -> $1 $2", async (cell, value, options) => {
-    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+    const table = pl
+      .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+      .lazy()
 
     const schema = {
       fields: [{ name: "name", type: "integer" as const, ...options }],
@@ -75,7 +77,9 @@ describe("parseIntegerField", () => {
       ["1", 1, { categories: [{ value: 1, label: "One" }] }],
       ["2", null, { categories: [{ value: 1, label: "One" }] }],
     ])("$0 -> $1 $2", async (cell, value, options) => {
-      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+      const table = pl
+        .DataFrame([pl.Series("name", [cell], pl.DataType.String)])
+        .lazy()
 
       const schema = {
         fields: [{ name: "name", type: "integer" as const, ...options }],
@@ -107,7 +111,9 @@ describe("stringifyIntegerField", () => {
     // Null handling
     [null, ""],
   ])("%s -> %s", async (value, expected) => {
-    const table = DataFrame([Series("name", [value], DataType.Int64)]).lazy()
+    const table = pl
+      .DataFrame([pl.Series("name", [value], pl.DataType.Int64)])
+      .lazy()
 
     const schema = {
       fields: [{ name: "name", type: "integer" as const }],

@@ -1,5 +1,5 @@
 import type { Field } from "@dpkit/core"
-import { col, lit, when } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import type { CellError, FieldError, TableError } from "../error/index.ts"
 import type { Table } from "../table/index.ts"
 import type { FieldMapping } from "./Mapping.ts"
@@ -122,10 +122,10 @@ async function validateCells(
   let fieldCheckTable = table
     .withRowCount()
     .select(
-      col("row_nr").add(1).alias("number"),
+      pl.col("row_nr").add(1).alias("number"),
       normalizeField(mapping).alias("target"),
       normalizeField(mapping, { keepType: true }).alias("source"),
-      lit(null).alias("error"),
+      pl.lit(null).alias("error"),
     )
 
   for (const checkCell of [
@@ -141,23 +141,24 @@ async function validateCells(
     checkCellMaxLength,
     checkCellUnique,
   ]) {
-    const cellMapping = { source: col("source"), target: col("target") }
+    const cellMapping = { source: pl.col("source"), target: pl.col("target") }
 
     const check = checkCell(mapping.target, cellMapping)
     if (!check) continue
 
     fieldCheckTable = fieldCheckTable.withColumn(
-      when(col("error").isNotNull())
-        .then(col("error"))
+      pl
+        .when(pl.col("error").isNotNull())
+        .then(pl.col("error"))
         .when(check.isErrorExpr)
-        .then(lit(JSON.stringify(check.errorTemplate)))
-        .otherwise(lit(null))
+        .then(pl.lit(JSON.stringify(check.errorTemplate)))
+        .otherwise(pl.lit(null))
         .alias("error"),
     )
   }
 
   const fieldCheckFrame = await fieldCheckTable
-    .filter(col("error").isNotNull())
+    .filter(pl.col("error").isNotNull())
     .drop(["target"])
     .head(maxErrors)
     .collect()

@@ -1,5 +1,5 @@
 import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../table/index.ts"
 
@@ -23,7 +23,7 @@ describe("parseField", () => {
       ["-", "-", { schemaLevel: ["-"], fieldLevel: ["x"] }],
       // @ts-ignore
     ])("$0 -> $1 $2", async (cell, value, { fieldLevel, schemaLevel }) => {
-      const table = DataFrame({ name: [cell] }).lazy()
+      const table = pl.DataFrame({ name: [cell] }).lazy()
       const schema: Schema = {
         missingValues: schemaLevel,
         fields: [{ name: "name", type: "string", missingValues: fieldLevel }],

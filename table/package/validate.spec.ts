@@ -1,5 +1,5 @@
 import type { Package, Resource } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import type { Table } from "../table/Table.ts"
 import { validatePackageForeignKeys } from "./validate.ts"
@@ -43,11 +43,11 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: DataFrame({
+      users: pl.DataFrame({
         id: [1, 2, 3],
         name: ["Alice", "Bob", "Charlie"],
       }).lazy(),
-      posts: DataFrame({
+      posts: pl.DataFrame({
         id: [1, 2, 3],
         user_id: [1, 2, 3],
         title: ["Post 1", "Post 2", "Post 3"],
@@ -102,11 +102,11 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: DataFrame({
+      users: pl.DataFrame({
         id: [1, 2],
         name: ["Alice", "Bob"],
       }).lazy(),
-      posts: DataFrame({
+      posts: pl.DataFrame({
         id: [1, 2, 3],
         user_id: [1, 2, 999],
         title: ["Post 1", "Post 2", "Post 3"],
@@ -162,7 +162,7 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      categories: DataFrame({
+      categories: pl.DataFrame({
         id: [1, 2, 3],
         parent_id: [1, 1, 2],
         name: ["Root", "Child 1", "Child 2"],
@@ -206,7 +206,7 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      categories: DataFrame({
+      categories: pl.DataFrame({
         id: [1, 2, 3],
         parent_id: [1, 1, 999],
         name: ["Root", "Child 1", "Child 2"],
@@ -268,10 +268,10 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: DataFrame({
+      users: pl.DataFrame({
         id: [1],
       }).lazy(),
-      posts: DataFrame({
+      posts: pl.DataFrame({
         id: [1, 2, 3, 4, 5],
         user_id: [999, 998, 997, 996, 995],
       }).lazy(),
@@ -373,13 +373,13 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: DataFrame({
+      users: pl.DataFrame({
         id: [1, 2],
       }).lazy(),
-      categories: DataFrame({
+      categories: pl.DataFrame({
         id: [10, 20],
       }).lazy(),
-      posts: DataFrame({
+      posts: pl.DataFrame({
         id: [1, 2],
         user_id: [1, 2],
         category_id: [10, 20],
@@ -445,13 +445,13 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: DataFrame({
+      users: pl.DataFrame({
         id: [1],
       }).lazy(),
-      categories: DataFrame({
+      categories: pl.DataFrame({
         id: [10],
       }).lazy(),
-      posts: DataFrame({
+      posts: pl.DataFrame({
         id: [1, 2],
         user_id: [999, 1],
         category_id: [10, 888],
@@ -510,7 +510,7 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: DataFrame({
+      users: pl.DataFrame({
         id: [1],
       }).lazy(),
     }
@@ -543,7 +543,7 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: DataFrame({
+      users: pl.DataFrame({
         id: [1, 2],
         name: ["Alice", "Bob"],
       }).lazy(),
@@ -597,11 +597,11 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: DataFrame({
+      users: pl.DataFrame({
         first_name: ["Alice", "Bob"],
         last_name: ["Smith", "Jones"],
       }).lazy(),
-      posts: DataFrame({
+      posts: pl.DataFrame({
         id: [1, 2],
         author_first: ["Alice", "Bob"],
         author_last: ["Smith", "Jones"],
@@ -656,11 +656,11 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: DataFrame({
+      users: pl.DataFrame({
         first_name: ["Alice", "Bob"],
         last_name: ["Smith", "Jones"],
       }).lazy(),
-      posts: DataFrame({
+      posts: pl.DataFrame({
         id: [1, 2],
         author_first: ["Alice", "Charlie"],
         author_last: ["Smith", "Brown"],

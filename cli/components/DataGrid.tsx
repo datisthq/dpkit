@@ -1,7 +1,7 @@
 import type { DataRecord, Schema } from "@dpkit/lib"
 import { inferSchemaFromSample } from "@dpkit/lib"
 import { Box, Text } from "ink"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import React from "react"
 
 // TODO: Autocalculate geometry (e.g. row height etc)
@@ -22,7 +22,7 @@ export function DataGrid(props: {
 }) {
   const { records, col, row, order, rowHeight, borderColor = "green" } = props
 
-  const schema = props.schema ?? inferSchemaFromSample(DataFrame(records))
+  const schema = props.schema ?? inferSchemaFromSample(pl.DataFrame(records))
   const startCol = col ? Math.floor((col - 1) / MAX_COLUMNS) * MAX_COLUMNS : 0
   const fields = schema.fields.slice(startCol, startCol + MAX_COLUMNS)
 

@@ -4,7 +4,7 @@ import type {
   MetadataError,
   TableError,
 } from "@dpkit/lib"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import React from "react"
 import { TableGrid } from "./TableGrid.tsx"
 
@@ -19,7 +19,7 @@ export function ErrorGrid(props: {
     params: error.params ? error.params.toString() : undefined,
   }))
 
-  const table = DataFrame(errors).lazy()
+  const table = pl.DataFrame(errors).lazy()
 
   return <TableGrid borderColor="red" table={table} quit={props.quit} />
 }

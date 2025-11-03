@@ -12,7 +12,7 @@ The `@dpkit/table` package provides high-performance data validation and process
 ### Basic Table Validation
 
 ```typescript
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { validateTable } from "@dpkit/table"
 import type { Schema } from "@dpkit/core"
 

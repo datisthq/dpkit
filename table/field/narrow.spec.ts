@@ -1,15 +1,17 @@
 import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../table/normalize.ts"
 import { validateTable } from "../table/validate.ts"
 
 describe("narrowField", () => {
   it("should narrow float to integer", async () => {
-    const table = DataFrame({
-      id: [1.0, 2.0, 3.0],
-      name: ["a", "b", "c"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1.0, 2.0, 3.0],
+        name: ["a", "b", "c"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -29,10 +31,12 @@ describe("narrowField", () => {
   })
 
   it("should detect error when float cannot be narrowed to integer", async () => {
-    const table = DataFrame({
-      id: [1.0, 2.0, 3.5],
-      name: ["a", "b", "c"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1.0, 2.0, 3.5],
+        name: ["a", "b", "c"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
