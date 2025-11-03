@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { validateResource, validateResourceData } from "./validate.ts"
+import { validateResource } from "./validate.ts"
 
 describe("validateResource", () => {
   it("should catch validation errors for invalid tabular data", async () => {
@@ -78,7 +78,7 @@ describe("validateResource", () => {
   it("should catch missing table error when schema is defined but table cannot be loaded", async () => {
     const resource = {
       name: "test",
-      path: "https://example.com/table.bad",
+      path: "table.bad",
       schema: {
         fields: [
           { name: "id", type: "integer" as const },
