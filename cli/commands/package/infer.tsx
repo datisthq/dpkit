@@ -3,7 +3,7 @@ import { Command } from "commander"
 import React from "react"
 import { PackageGrid } from "../../components/PackageGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
-import { Session } from "../../helpers/session.ts"
+import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
 
 export const inferPackageCommand = new Command("infer")

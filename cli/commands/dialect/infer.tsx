@@ -6,7 +6,7 @@ import { DialectGrid } from "../../components/DialectGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { isEmptyObject } from "../../helpers/object.ts"
 import { selectResource } from "../../helpers/resource.ts"
-import { Session } from "../../helpers/session.ts"
+import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
 
 export const inferDialectCommand = new Command("infer")

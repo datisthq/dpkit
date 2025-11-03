@@ -5,7 +5,7 @@ import type {
   TableError,
 } from "@dpkit/lib"
 import { countBy } from "es-toolkit"
-import type { Session } from "./session.ts"
+import type { Session } from "../session.ts"
 
 export async function selectErrorResource(
   session: Session,

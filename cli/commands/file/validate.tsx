@@ -4,7 +4,7 @@ import React from "react"
 import { ErrorGrid } from "../../components/ErrorGrid.tsx"
 import { selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
-import { Session } from "../../helpers/session.ts"
+import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
 
 export const validateFileCommand = new Command("validate")

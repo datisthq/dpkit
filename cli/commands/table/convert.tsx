@@ -10,7 +10,7 @@ import { createToDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import { createSchemaOptionsFromToSchemaOptions } from "../../helpers/schema.ts"
-import { Session } from "../../helpers/session.ts"
+import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
 
 export const convertTableCommand = new Command("convert")

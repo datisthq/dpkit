@@ -10,7 +10,7 @@ import pc from "picocolors"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
-import { Session } from "../../helpers/session.ts"
+import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
 
 export const scriptTableCommand = new Command("script")

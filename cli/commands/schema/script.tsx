@@ -7,7 +7,7 @@ import { Command } from "commander"
 import pc from "picocolors"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
-import { Session } from "../../helpers/session.ts"
+import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
 
 export const scriptSchemaCommand = new Command("script")
