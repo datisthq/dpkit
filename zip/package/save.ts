@@ -1,15 +1,11 @@
 import { Buffer } from "node:buffer"
-import { createWriteStream } from "node:fs"
-import { pipeline } from "node:stream/promises"
+import { writeFile } from "node:fs/promises"
+import type { Readable } from "node:stream"
 import type { Descriptor, Package } from "@dpkit/core"
 import { convertPackageToDescriptor, stringifyDescriptor } from "@dpkit/core"
-import {
-  assertLocalPathVacant,
-  getPackageBasepath,
-  loadFileStream,
-  saveResourceFiles,
-} from "@dpkit/file"
-import { ZipFile } from "yazl"
+import { loadFileStream, saveResourceFiles } from "@dpkit/file"
+import { assertLocalPathVacant, getPackageBasepath } from "@dpkit/file"
+import { zip } from "fflate"
 
 export async function savePackageToZip(
   dataPackage: Package,
@@ -22,7 +18,7 @@ export async function savePackageToZip(
   const basepath = getPackageBasepath(dataPackage)
 
   await assertLocalPathVacant(archivePath)
-  const zipfile = new ZipFile()
+  const files: Record<string, Uint8Array> = {}
 
   const resourceDescriptors: Descriptor[] = []
   for (const resource of dataPackage.resources) {
@@ -31,10 +27,9 @@ export async function savePackageToZip(
         basepath,
         withRemote,
         saveFile: async options => {
-          zipfile.addReadStream(
-            await loadFileStream(options.normalizedPath),
-            options.denormalizedPath,
-          )
+          const stream = await loadFileStream(options.normalizedPath)
+          const buffer = await streamToBuffer(stream)
+          files[options.denormalizedPath] = buffer
 
           return options.denormalizedPath
         },
@@ -47,11 +42,22 @@ export async function savePackageToZip(
     resources: resourceDescriptors,
   }
 
-  zipfile.addBuffer(
-    Buffer.from(stringifyDescriptor(descriptor)),
-    "datapackage.json",
-  )
+  files["datapackage.json"] = Buffer.from(stringifyDescriptor(descriptor))
 
-  zipfile.end()
-  await pipeline(zipfile.outputStream, createWriteStream(archivePath))
+  const zipData = await new Promise<Uint8Array>((resolve, reject) => {
+    zip(files, (err, data) => {
+      if (err) reject(err)
+      else resolve(data)
+    })
+  })
+
+  await writeFile(archivePath, zipData)
+}
+
+async function streamToBuffer(stream: Readable) {
+  const chunks: Uint8Array[] = []
+  for await (const chunk of stream) {
+    chunks.push(chunk)
+  }
+  return Buffer.concat(chunks)
 }
