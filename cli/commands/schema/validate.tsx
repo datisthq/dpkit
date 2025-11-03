@@ -7,8 +7,8 @@ import { ErrorGrid } from "../../components/ErrorGrid.tsx"
 import { selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
-import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
+import { Session } from "../../session.ts"
 
 export const validateSchemaCommand = new Command("validate")
   .configureHelp(helpConfiguration)

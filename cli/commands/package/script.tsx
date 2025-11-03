@@ -4,8 +4,8 @@ import * as dpkit from "@dpkit/lib"
 import { Command } from "commander"
 import pc from "picocolors"
 import { helpConfiguration } from "../../helpers/help.ts"
-import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
+import { Session } from "../../session.ts"
 
 export const scriptPackageCommand = new Command("script")
   .configureHelp(helpConfiguration)

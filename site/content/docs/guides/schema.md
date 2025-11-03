@@ -8,12 +8,12 @@ Table Schema commands help you work with table schemas - metadata that describes
 
 ## Available Commands
 
-### `dp schema infer`
+### `dpkit schema infer`
 
 Infer a table schema from a table by analyzing its data and generating field definitions including types, constraints, and formats.
 
 ```bash
-dp schema infer <table-path>
+dpkit schema infer <table-path>
 ```
 
 **Options:**
@@ -69,27 +69,27 @@ dp schema infer <table-path>
 **Examples:**
 ```bash
 # Infer schema from CSV file
-dp schema infer data.csv
+dpkit schema infer data.csv
 
 # Infer with custom delimiter and date format
-dp schema infer data.csv --delimiter ";" --date-format "%d/%m/%Y"
+dpkit schema infer data.csv --delimiter ";" --date-format "%d/%m/%Y"
 
 # Infer from remote file
-dp schema infer https://example.com/data.csv
+dpkit schema infer https://example.com/data.csv
 
 # Infer from resource in package
-dp schema infer --from-package datapackage.json --from-resource "users"
+dpkit schema infer --from-package datapackage.json --from-resource "users"
 
 # Export schema as JSON
-dp schema infer data.csv --json > schema.json
+dpkit schema infer data.csv --json > schema.json
 ```
 
-### `dp schema convert`
+### `dpkit schema convert`
 
 Convert table schemas between different formats, supporting bidirectional conversion between Table Schema and JSONSchema formats.
 
 ```bash
-dp schema convert <descriptor-path>
+dpkit schema convert <descriptor-path>
 ```
 
 **Options:**
@@ -107,24 +107,24 @@ dp schema convert <descriptor-path>
 **Examples:**
 ```bash
 # Convert Table Schema to JSONSchema
-dp schema convert schema.json --to-format jsonschema
+dpkit schema convert schema.json --to-format jsonschema
 
 # Convert JSONSchema to Table Schema
-dp schema convert schema.jsonschema.json --format jsonschema
+dpkit schema convert schema.jsonschema.json --format jsonschema
 
 # Save converted schema to file
-dp schema convert schema.json --to-format jsonschema --to-path converted.jsonschema.json
+dpkit schema convert schema.json --to-format jsonschema --to-path converted.jsonschema.json
 
 # Convert from JSONSchema and save as Table Schema
-dp schema convert input.jsonschema.json --format jsonschema --to-path output.schema.json
+dpkit schema convert input.jsonschema.json --format jsonschema --to-path output.schema.json
 ```
 
-### `dp schema explore`
+### `dpkit schema explore`
 
 Explore a table schema from a local or remote path to view its field definitions and constraints in an interactive format.
 
 ```bash
-dp schema explore <descriptor-path>
+dpkit schema explore <descriptor-path>
 ```
 
 **Options:**
@@ -136,24 +136,24 @@ dp schema explore <descriptor-path>
 **Examples:**
 ```bash
 # Explore schema descriptor
-dp schema explore schema.json
+dpkit schema explore schema.json
 
 # Explore remote schema
-dp schema explore https://example.com/schema.json
+dpkit schema explore https://example.com/schema.json
 
 # Explore schema from package resource
-dp schema explore --from-package datapackage.json --from-resource "users"
+dpkit schema explore --from-package datapackage.json --from-resource "users"
 
 # Export schema structure as JSON
-dp schema explore schema.json --json
+dpkit schema explore schema.json --json
 ```
 
-### `dp schema validate`
+### `dpkit schema validate`
 
 Validate a table schema from a local or remote path against the Table Schema specification.
 
 ```bash
-dp schema validate <descriptor-path>
+dpkit schema validate <descriptor-path>
 ```
 
 **Options:**
@@ -167,27 +167,27 @@ dp schema validate <descriptor-path>
 **Examples:**
 ```bash
 # Validate schema descriptor
-dp schema validate schema.json
+dpkit schema validate schema.json
 
 # Validate remote schema
-dp schema validate https://example.com/schema.json
+dpkit schema validate https://example.com/schema.json
 
 # Validate schema from package resource
-dp schema validate --from-package datapackage.json --from-resource "users"
+dpkit schema validate --from-package datapackage.json --from-resource "users"
 
 # Get validation results as JSON
-dp schema validate schema.json --json
+dpkit schema validate schema.json --json
 
 # Interactive selection when no path provided
-dp schema validate --from-package datapackage.json
+dpkit schema validate --from-package datapackage.json
 ```
 
-### `dp schema script`
+### `dpkit schema script`
 
 Open an interactive scripting session with a loaded table schema. This provides a REPL environment where you can programmatically interact with the schema definition.
 
 ```bash
-dp schema script <descriptor-path>
+dpkit schema script <descriptor-path>
 ```
 
 **Options:**
@@ -203,16 +203,16 @@ dp schema script <descriptor-path>
 **Examples:**
 ```bash
 # Start scripting session with schema
-dp schema script schema.json
+dpkit schema script schema.json
 
 # Script schema from package resource
-dp schema script --from-package datapackage.json --from-resource "users"
+dpkit schema script --from-package datapackage.json --from-resource "users"
 
 # In the REPL session:
-dp> schema.fields.length
-dp> schema.fields[0].name
-dp> schema.fields.filter(f => f.type === 'integer')
-dp> schema.primaryKey
+dpkit> schema.fields.length
+dpkit> schema.fields[0].name
+dpkit> schema.fields.filter(f => f.type === 'integer')
+dpkit> schema.primaryKey
 ```
 
 ## Common Workflows
@@ -221,65 +221,65 @@ dp> schema.primaryKey
 
 1. **Infer from data file:**
    ```bash
-   dp schema infer data.csv --json > schema.json
+   dpkit schema infer data.csv --json > schema.json
    ```
 
 2. **Validate the generated schema:**
    ```bash
-   dp schema validate schema.json
+   dpkit schema validate schema.json
    ```
 
 3. **Explore the schema structure:**
    ```bash
-   dp schema explore schema.json
+   dpkit schema explore schema.json
    ```
 
 ### Schema Format Conversion
 
 ```bash
 # Convert Table Schema to JSONSchema for JSON Schema validation tools
-dp schema infer data.csv --json > table.schema.json
-dp schema convert table.schema.json --to-format jsonschema --to-path api.jsonschema.json
+dpkit schema infer data.csv --json > table.schema.json
+dpkit schema convert table.schema.json --to-format jsonschema --to-path api.jsonschema.json
 
 # Convert JSONSchema back to Table Schema for dpkit tools
-dp schema convert api.jsonschema.json --format jsonschema --to-path converted.schema.json
+dpkit schema convert api.jsonschema.json --format jsonschema --to-path converted.schema.json
 
 # Validate the round-trip conversion
-dp schema validate converted.schema.json
+dpkit schema validate converted.schema.json
 ```
 
 ### Schema Analysis and Refinement
 
 ```bash
 # Infer schema with high confidence threshold
-dp schema infer data.csv --confidence 0.8 --sample-rows 10000
+dpkit schema infer data.csv --confidence 0.8 --sample-rows 10000
 
 # Validate and explore for refinement
-dp schema validate schema.json
-dp schema explore schema.json
+dpkit schema validate schema.json
+dpkit schema explore schema.json
 
 # Script for custom analysis
-dp schema script schema.json
+dpkit schema script schema.json
 ```
 
 ### Working with Package Schemas
 
 ```bash
 # Validate all schemas in a package interactively
-dp schema validate --from-package datapackage.json
+dpkit schema validate --from-package datapackage.json
 
 # Infer improved schema for specific resource
-dp schema infer --from-package datapackage.json --from-resource "transactions"
+dpkit schema infer --from-package datapackage.json --from-resource "transactions"
 
 # Compare schemas using scripting
-dp schema script --from-package datapackage.json --from-resource "users"
+dpkit schema script --from-package datapackage.json --from-resource "users"
 ```
 
 ### Custom Type Inference
 
 ```bash
 # Configure specific data types and formats
-dp schema infer data.csv \
+dpkit schema infer data.csv \
   --datetime-format "%Y-%m-%d %H:%M:%S" \
   --true-values "Yes,True,1" \
   --false-values "No,False,0" \
@@ -291,9 +291,9 @@ dp schema infer data.csv \
 
 ```bash
 # Work with remote schemas
-dp schema explore https://example.com/schema.json
-dp schema validate https://example.com/schema.json
-dp schema infer https://example.com/data.csv
+dpkit schema explore https://example.com/schema.json
+dpkit schema validate https://example.com/schema.json
+dpkit schema infer https://example.com/data.csv
 ```
 
 ## Schema Field Types
@@ -310,28 +310,28 @@ The schema inference supports various field types:
 ### Confidence Tuning
 ```bash
 # High confidence for clean data
-dp schema infer data.csv --confidence 0.9
+dpkit schema infer data.csv --confidence 0.9
 
 # Lower confidence for messy data
-dp schema infer data.csv --confidence 0.6
+dpkit schema infer data.csv --confidence 0.6
 ```
 
 ### Sample Size Control
 ```bash
 # Large sample for better inference
-dp schema infer large_data.csv --sample-rows 50000
+dpkit schema infer large_data.csv --sample-rows 50000
 
 # Quick inference with small sample
-dp schema infer data.csv --sample-rows 100
+dpkit schema infer data.csv --sample-rows 100
 ```
 
 ### Format Specifications
 ```bash
 # European date format
-dp schema infer data.csv --date-format "%d.%m.%Y"
+dpkit schema infer data.csv --date-format "%d.%m.%Y"
 
 # Custom boolean values
-dp schema infer data.csv --true-values "Ja,Oui,Sí" --false-values "Nein,Non,No"
+dpkit schema infer data.csv --true-values "Ja,Oui,Sí" --false-values "Nein,Non,No"
 ```
 
 ## Output Formats
@@ -348,15 +348,15 @@ The `convert` command enables seamless integration with other schema ecosystems:
 
 ```bash
 # Use with JSON Schema validation libraries
-dp schema infer data.csv --json > table.schema.json
-dp schema convert table.schema.json --to-format jsonschema --to-path validation.jsonschema.json
+dpkit schema infer data.csv --json > table.schema.json
+dpkit schema convert table.schema.json --to-format jsonschema --to-path validation.jsonschema.json
 
 # Import existing JSONSchema into dpkit workflow
-dp schema convert external.jsonschema.json --format jsonschema --to-path dpkit.schema.json
-dp table validate data.csv --schema dpkit.schema.json
+dpkit schema convert external.jsonschema.json --format jsonschema --to-path dpkit.schema.json
+dpkit table validate data.csv --schema dpkit.schema.json
 
 # Cross-platform schema sharing
-dp schema convert schema.json --to-format jsonschema --to-path api-spec.jsonschema.json
+dpkit schema convert schema.json --to-format jsonschema --to-path api-spec.jsonschema.json
 ```
 
 ## Integration with Other Commands
@@ -365,10 +365,10 @@ Schema commands work seamlessly with other dpkit commands:
 
 ```bash
 # Create schema, then use it for validation
-dp schema infer data.csv --json > schema.json
-dp table validate data.csv --schema schema.json
+dpkit schema infer data.csv --json > schema.json
+dpkit table validate data.csv --schema schema.json
 
 # Work within package context
-dp package infer *.csv --json > datapackage.json
-dp schema validate --from-package datapackage.json --from-resource "data"
+dpkit package infer *.csv --json > datapackage.json
+dpkit schema validate --from-package datapackage.json --from-resource "data"
 ```

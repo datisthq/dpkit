@@ -4,8 +4,8 @@ import React from "react"
 import { DataGrid } from "../../components/DataGrid.tsx"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
-import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
+import { Session } from "../../session.ts"
 
 export const describeFileCommand = new Command("describe")
   .configureHelp(helpConfiguration)

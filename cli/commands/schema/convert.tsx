@@ -8,8 +8,8 @@ import {
 import { loadDescriptor, saveDescriptor } from "@dpkit/lib"
 import { Command, Option } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
-import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
+import { Session } from "../../session.ts"
 
 const format = new Option("--format <format>", "source schema format").choices([
   "jsonschema",

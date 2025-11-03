@@ -4,8 +4,8 @@ import React from "react"
 import { ErrorGrid } from "../../components/ErrorGrid.tsx"
 import { selectErrorResource, selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
-import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
+import { Session } from "../../session.ts"
 
 export const validatePackageCommand = new Command("validate")
   .configureHelp(helpConfiguration)

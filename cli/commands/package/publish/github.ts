@@ -1,8 +1,8 @@
 import { loadPackage, savePackageToGithub } from "@dpkit/lib"
 import { Command } from "commander"
 import { helpConfiguration } from "../../../helpers/help.ts"
-import { Session } from "../../../session.ts"
 import * as params from "../../../params/index.ts"
+import { Session } from "../../../session.ts"
 
 export const githubPublishPackageCommand = new Command("github")
   .configureHelp(helpConfiguration)

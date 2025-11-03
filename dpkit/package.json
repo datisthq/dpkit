@@ -5,7 +5,7 @@
   "exports": "./build/index.js",
   "sideEffects": false,
   "bin": {
-    "dp": "./build/entrypoints/run.js"
+    "dpkit": "./build/entrypoints/run.js"
   },
   "license": "MIT",
   "author": "Evgeny Karev",

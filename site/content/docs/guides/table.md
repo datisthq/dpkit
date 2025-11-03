@@ -8,12 +8,12 @@ Table commands help you work directly with tabular data files. These commands al
 
 ## Available Commands
 
-### `dp table convert`
+### `dpkit table convert`
 
 Convert a table from one format to another with support for various input and output formats.
 
 ```bash
-dp table convert <source-path> <target-path>
+dpkit table convert <source-path> <target-path>
 ```
 
 **Options:**
@@ -29,24 +29,24 @@ dp table convert <source-path> <target-path>
 **Examples:**
 ```bash
 # Convert CSV to Excel
-dp table convert data.csv data.xlsx
+dpkit table convert data.csv data.xlsx
 
 # Convert Excel to JSON
-dp table convert data.xlsx data.json
+dpkit table convert data.xlsx data.json
 
 # Convert from package resource
-dp table convert --from-package datapackage.json --from-resource "users" users.xlsx
+dpkit table convert --from-package datapackage.json --from-resource "users" users.xlsx
 
 # Convert Parquet to CSV
-dp table convert data.parquet data.csv
+dpkit table convert data.parquet data.csv
 ```
 
-### `dp table describe`
+### `dpkit table describe`
 
 Generate statistical descriptions and summaries of table data including column statistics, data types, and quality metrics.
 
 ```bash
-dp table describe <table-path>
+dpkit table describe <table-path>
 ```
 
 **Options:**
@@ -58,24 +58,24 @@ dp table describe <table-path>
 **Examples:**
 ```bash
 # Describe CSV file
-dp table describe data.csv
+dpkit table describe data.csv
 
 # Describe with JSON output
-dp table describe data.csv --json
+dpkit table describe data.csv --json
 
 # Describe resource from package
-dp table describe --from-package datapackage.json --from-resource "sales"
+dpkit table describe --from-package datapackage.json --from-resource "sales"
 
 # Describe remote table
-dp table describe https://example.com/data.csv
+dpkit table describe https://example.com/data.csv
 ```
 
-### `dp table explore`
+### `dpkit table explore`
 
 Explore a table interactively, viewing data samples, column information, and basic statistics in a rich terminal interface.
 
 ```bash
-dp table explore <table-path>
+dpkit table explore <table-path>
 ```
 
 **Options:**
@@ -89,27 +89,27 @@ dp table explore <table-path>
 **Examples:**
 ```bash
 # Explore CSV file
-dp table explore data.csv
+dpkit table explore data.csv
 
 # Explore with schema validation
-dp table explore data.csv --schema schema.json
+dpkit table explore data.csv --schema schema.json
 
 # Explore with custom dialect
-dp table explore data.csv --dialect dialect.json
+dpkit table explore data.csv --dialect dialect.json
 
 # Explore resource from package
-dp table explore --from-package datapackage.json --from-resource "users"
+dpkit table explore --from-package datapackage.json --from-resource "users"
 
 # Explore remote table
-dp table explore https://example.com/data.csv
+dpkit table explore https://example.com/data.csv
 ```
 
-### `dp table validate`
+### `dpkit table validate`
 
 Validate table data against a schema, checking data types, constraints, and data quality issues.
 
 ```bash
-dp table validate <table-path>
+dpkit table validate <table-path>
 ```
 
 **Options:**
@@ -125,27 +125,27 @@ dp table validate <table-path>
 **Examples:**
 ```bash
 # Validate with schema
-dp table validate data.csv --schema schema.json
+dpkit table validate data.csv --schema schema.json
 
 # Validate with custom dialect and schema
-dp table validate data.csv --dialect dialect.json --schema schema.json
+dpkit table validate data.csv --dialect dialect.json --schema schema.json
 
 # Validate resource from package
-dp table validate --from-package datapackage.json --from-resource "users"
+dpkit table validate --from-package datapackage.json --from-resource "users"
 
 # Get validation results as JSON
-dp table validate data.csv --schema schema.json --json
+dpkit table validate data.csv --schema schema.json --json
 
 # Validate remote table
-dp table validate https://example.com/data.csv --schema https://example.com/schema.json
+dpkit table validate https://example.com/data.csv --schema https://example.com/schema.json
 ```
 
-### `dp table script`
+### `dpkit table script`
 
 Open an interactive scripting session with a loaded table. This provides a REPL environment where you can programmatically analyze and manipulate table data.
 
 ```bash
-dp table script <table-path>
+dpkit table script <table-path>
 ```
 
 **Options:**
@@ -163,19 +163,19 @@ dp table script <table-path>
 **Examples:**
 ```bash
 # Start scripting session with table
-dp table script data.csv
+dpkit table script data.csv
 
 # Script with schema and dialect
-dp table script data.csv --schema schema.json --dialect dialect.json
+dpkit table script data.csv --schema schema.json --dialect dialect.json
 
 # Script resource from package
-dp table script --from-package datapackage.json --from-resource "sales"
+dpkit table script --from-package datapackage.json --from-resource "sales"
 
 # In the REPL session:
-dp> table.rows.length
-dp> table.columns
-dp> table.rows[0]
-dp> table.schema.fields.map(f => f.name)
+dpkit> table.rows.length
+dpkit> table.columns
+dpkit> table.rows[0]
+dpkit> table.schema.fields.map(f => f.name)
 ```
 
 ## Common Workflows
@@ -184,69 +184,69 @@ dp> table.schema.fields.map(f => f.name)
 
 1. **Quick exploration:**
    ```bash
-   dp table explore data.csv
+   dpkit table explore data.csv
    ```
 
 2. **Generate statistical summary:**
    ```bash
-   dp table describe data.csv
+   dpkit table describe data.csv
    ```
 
 3. **Interactive analysis:**
    ```bash
-   dp table script data.csv
+   dpkit table script data.csv
    ```
 
 ### Data Validation Workflow
 
 ```bash
 # Infer schema from table
-dp schema infer data.csv --json > schema.json
+dpkit schema infer data.csv --json > schema.json
 
 # Validate table against schema
-dp table validate data.csv --schema schema.json
+dpkit table validate data.csv --schema schema.json
 
 # Explore validation issues
-dp table explore data.csv --schema schema.json
+dpkit table explore data.csv --schema schema.json
 ```
 
 ### Format Conversion Pipeline
 
 ```bash
 # Convert Excel to CSV for processing
-dp table convert input.xlsx temp.csv
+dpkit table convert input.xlsx temp.csv
 
 # Process and validate
-dp table validate temp.csv --schema schema.json
+dpkit table validate temp.csv --schema schema.json
 
 # Convert to final format
-dp table convert temp.csv output.json
+dpkit table convert temp.csv output.json
 ```
 
 ### Package Integration Workflow
 
 ```bash
 # Create package with tables
-dp package infer *.csv --json > datapackage.json
+dpkit package infer *.csv --json > datapackage.json
 
 # Validate individual tables
-dp table validate --from-package datapackage.json --from-resource "users"
+dpkit table validate --from-package datapackage.json --from-resource "users"
 
 # Describe tables for documentation
-dp table describe --from-package datapackage.json --from-resource "sales" --json
+dpkit table describe --from-package datapackage.json --from-resource "sales" --json
 ```
 
 ### Remote Table Processing
 
 ```bash
 # Explore remote table
-dp table explore https://example.com/data.csv
+dpkit table explore https://example.com/data.csv
 
 # Convert remote to local format
-dp table convert https://example.com/data.csv local_data.xlsx
+dpkit table convert https://example.com/data.csv local_data.xlsx
 
 # Validate remote table with local schema
-dp table validate https://example.com/data.csv --schema local_schema.json
+dpkit table validate https://example.com/data.csv --schema local_schema.json
 ```
 
 ## Supported File Formats
@@ -272,28 +272,28 @@ dp table validate https://example.com/data.csv --schema local_schema.json
 ### Schema-Aware Operations
 ```bash
 # Validate with type checking
-dp table validate data.csv --schema schema.json
+dpkit table validate data.csv --schema schema.json
 
 # Explore with schema hints
-dp table explore data.csv --schema schema.json
+dpkit table explore data.csv --schema schema.json
 ```
 
 ### Custom Parsing
 ```bash
 # Use custom dialect for parsing
-dp table explore data.csv --dialect custom_dialect.json
+dpkit table explore data.csv --dialect custom_dialect.json
 
 # Convert with parsing options
-dp table convert complex_data.csv output.xlsx --dialect dialect.json
+dpkit table convert complex_data.csv output.xlsx --dialect dialect.json
 ```
 
 ### Statistical Analysis
 ```bash
 # Generate comprehensive statistics
-dp table describe large_dataset.csv --json > stats.json
+dpkit table describe large_dataset.csv --json > stats.json
 
 # Interactive statistical exploration
-dp table script data.csv
+dpkit table script data.csv
 # In REPL: analyze column distributions, correlations, etc.
 ```
 
@@ -302,29 +302,29 @@ dp table script data.csv
 ### Validation Issues
 ```bash
 # Get detailed validation report
-dp table validate data.csv --schema schema.json --json
+dpkit table validate data.csv --schema schema.json --json
 
 # Interactive error exploration (don't quit on errors)
-dp table validate data.csv --schema schema.json
+dpkit table validate data.csv --schema schema.json
 ```
 
 ### Parsing Problems
 ```bash
 # Debug parsing issues
-dp table explore problematic.csv --debug
+dpkit table explore problematic.csv --debug
 
 # Infer and test dialect
-dp dialect infer problematic.csv --json > dialect.json
-dp table explore problematic.csv --dialect dialect.json
+dpkit dialect infer problematic.csv --json > dialect.json
+dpkit table explore problematic.csv --dialect dialect.json
 ```
 
 ### Performance Optimization
 ```bash
 # For large files, use sampling
-dp table describe huge_file.csv --sample-rows 10000
+dpkit table describe huge_file.csv --sample-rows 10000
 
 # Convert to efficient formats for repeated analysis
-dp table convert large_data.csv data.parquet
+dpkit table convert large_data.csv data.parquet
 ```
 
 ## Output Formats
@@ -341,20 +341,20 @@ Table commands support multiple output formats:
 ### With Package Commands
 ```bash
 # Create and validate package
-dp package infer *.csv --json > datapackage.json
-dp table validate --from-package datapackage.json --from-resource "main"
+dpkit package infer *.csv --json > datapackage.json
+dpkit table validate --from-package datapackage.json --from-resource "main"
 ```
 
 ### With Schema Commands
 ```bash
 # Infer schema and validate table
-dp schema infer data.csv --json > schema.json
-dp table validate data.csv --schema schema.json
+dpkit schema infer data.csv --json > schema.json
+dpkit table validate data.csv --schema schema.json
 ```
 
 ### With Dialect Commands
 ```bash
 # Infer dialect and use for table operations
-dp dialect infer data.csv --json > dialect.json
-dp table explore data.csv --dialect dialect.json
+dpkit dialect infer data.csv --json > dialect.json
+dpkit table explore data.csv --dialect dialect.json
 ```

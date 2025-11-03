@@ -2,8 +2,8 @@ import { copyFile } from "@dpkit/lib"
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
-import { Session } from "../../session.ts"
 import * as params from "../../params/index.ts"
+import { Session } from "../../session.ts"
 
 export const copyFileCommand = new Command("copy")
   .configureHelp(helpConfiguration)

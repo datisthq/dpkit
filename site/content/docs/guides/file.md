@@ -8,12 +8,12 @@ File commands help you work with individual files, providing utilities for copyi
 
 ## Available Commands
 
-### `dp file copy`
+### `dpkit file copy`
 
 Copy a file from one location to another with support for local and remote sources and destinations.
 
 ```bash
-dp file copy <source-path> <target-path>
+dpkit file copy <source-path> <target-path>
 ```
 
 **Options:**
@@ -22,21 +22,21 @@ dp file copy <source-path> <target-path>
 **Examples:**
 ```bash
 # Copy local file
-dp file copy data.csv backup.csv
+dpkit file copy data.csv backup.csv
 
 # Copy remote file to local
-dp file copy https://example.com/data.csv local_data.csv
+dpkit file copy https://example.com/data.csv local_data.csv
 
 # Copy to different directory
-dp file copy data.csv ./backup/data_backup.csv
+dpkit file copy data.csv ./backup/data_backup.csv
 ```
 
-### `dp file describe`
+### `dpkit file describe`
 
 Describe a file's properties including size, format, encoding, and basic metadata information.
 
 ```bash
-dp file describe <file-path>
+dpkit file describe <file-path>
 ```
 
 **Options:**
@@ -46,26 +46,26 @@ dp file describe <file-path>
 **Examples:**
 ```bash
 # Describe local file
-dp file describe data.csv
+dpkit file describe data.csv
 
 # Describe remote file
-dp file describe https://example.com/data.csv
+dpkit file describe https://example.com/data.csv
 
 # Get description as JSON
-dp file describe data.csv --json
+dpkit file describe data.csv --json
 
 # Describe various file types
-dp file describe document.pdf
-dp file describe image.png
-dp file describe archive.zip
+dpkit file describe document.pdf
+dpkit file describe image.png
+dpkit file describe archive.zip
 ```
 
-### `dp file validate`
+### `dpkit file validate`
 
 Validate a file's integrity, format compliance, and accessibility.
 
 ```bash
-dp file validate <file-path>
+dpkit file validate <file-path>
 ```
 
 **Options:**
@@ -77,18 +77,18 @@ dp file validate <file-path>
 **Examples:**
 ```bash
 # Validate local file
-dp file validate data.csv
+dpkit file validate data.csv
 
 # Validate remote file
-dp file validate https://example.com/data.csv
+dpkit file validate https://example.com/data.csv
 
 # Get validation results as JSON
-dp file validate data.csv --json
+dpkit file validate data.csv --json
 
 # Validate multiple file types
-dp file validate document.json
-dp file validate image.jpg
-dp file validate data.parquet
+dpkit file validate document.json
+dpkit file validate image.jpg
+dpkit file validate data.parquet
 ```
 
 ## Common Workflows
@@ -97,38 +97,38 @@ dp file validate data.parquet
 
 ```bash
 # Create backup copy
-dp file copy important_data.csv backup/important_data_$(date +%Y%m%d).csv
+dpkit file copy important_data.csv backup/important_data_$(date +%Y%m%d).csv
 
 # Validate backup integrity
-dp file validate backup/important_data_20240101.csv
+dpkit file validate backup/important_data_20240101.csv
 
 # Describe backup properties
-dp file describe backup/important_data_20240101.csv
+dpkit file describe backup/important_data_20240101.csv
 ```
 
 ### Remote File Handling
 
 ```bash
 # Download and validate remote file
-dp file copy https://example.com/dataset.csv local_dataset.csv
-dp file validate local_dataset.csv
+dpkit file copy https://example.com/dataset.csv local_dataset.csv
+dpkit file validate local_dataset.csv
 
 # Describe remote file without downloading
-dp file describe https://example.com/dataset.csv
+dpkit file describe https://example.com/dataset.csv
 ```
 
 ### File Diagnostics
 
 ```bash
 # Check file properties
-dp file describe suspicious_file.csv
+dpkit file describe suspicious_file.csv
 
 # Validate file integrity
-dp file validate suspicious_file.csv
+dpkit file validate suspicious_file.csv
 
 # Get detailed diagnostics as JSON
-dp file describe problematic_file.csv --json
-dp file validate problematic_file.csv --json
+dpkit file describe problematic_file.csv --json
+dpkit file validate problematic_file.csv --json
 ```
 
 ### Batch File Operations
@@ -137,13 +137,13 @@ dp file validate problematic_file.csv --json
 # Describe multiple files
 for file in *.csv; do
   echo "Describing $file:"
-  dp file describe "$file"
+  dpkit file describe "$file"
   echo "---"
 done
 
 # Validate all files in directory
 for file in data/*.json; do
-  dp file validate "$file" --json >> validation_report.json
+  dpkit file validate "$file" --json >> validation_report.json
 done
 ```
 
@@ -198,28 +198,28 @@ File commands work with various file formats:
 
 #### File Not Found
 ```bash
-dp file describe missing_file.csv
+dpkit file describe missing_file.csv
 # Error: File not found
 # Solution: Check file path and permissions
 ```
 
 #### Network Issues (Remote Files)
 ```bash
-dp file copy https://unreachable.com/data.csv local.csv
+dpkit file copy https://unreachable.com/data.csv local.csv
 # Error: Network timeout
 # Solution: Check URL and network connectivity
 ```
 
 #### Format Recognition
 ```bash
-dp file describe unknown_format.dat
+dpkit file describe unknown_format.dat
 # May show limited information for unknown formats
 # Solution: Use --debug for more details
 ```
 
 #### Permission Issues
 ```bash
-dp file copy protected_file.csv backup.csv
+dpkit file copy protected_file.csv backup.csv
 # Error: Permission denied
 # Solution: Check file permissions
 ```
@@ -236,14 +236,14 @@ for file in $FILES; do
   echo "Processing $file"
 
   # Validate file
-  if dp file validate "$file" --json | jq -r '.valid' | grep -q "true"; then
+  if dpkit file validate "$file" --json | jq -r '.valid' | grep -q "true"; then
     echo "✓ $file is valid"
 
     # Create backup
-    dp file copy "$file" "backup/${file%.csv}_$(date +%Y%m%d).csv"
+    dpkit file copy "$file" "backup/${file%.csv}_$(date +%Y%m%d).csv"
 
     # Get file info
-    dp file describe "$file" --json > "info/${file%.csv}_info.json"
+    dpkit file describe "$file" --json > "info/${file%.csv}_info.json"
   else
     echo "✗ $file is invalid"
   fi
@@ -253,25 +253,25 @@ done
 ### Integration with Other Commands
 ```bash
 # Validate file before processing with table commands
-dp file validate data.csv && dp table explore data.csv
+dpkit file validate data.csv && dpkit table explore data.csv
 
 # Describe file and then infer schema
-dp file describe data.csv
-dp schema infer data.csv --json > schema.json
+dpkit file describe data.csv
+dpkit schema infer data.csv --json > schema.json
 
 # Copy and then create package
-dp file copy remote_data.csv local_data.csv
-dp package infer local_data.csv --json > datapackage.json
+dpkit file copy remote_data.csv local_data.csv
+dpkit package infer local_data.csv --json > datapackage.json
 ```
 
 ### Monitoring and Logging
 ```bash
 # Create validation log
-dp file validate data.csv --json | jq '{file: "data.csv", valid: .valid, timestamp: now}' >> validation.log
+dpkit file validate data.csv --json | jq '{file: "data.csv", valid: .valid, timestamp: now}' >> validation.log
 
 # Monitor file changes
 while true; do
-  dp file describe changing_file.csv --json > current_state.json
+  dpkit file describe changing_file.csv --json > current_state.json
   if ! cmp -s current_state.json previous_state.json; then
     echo "File changed at $(date)"
     cp current_state.json previous_state.json

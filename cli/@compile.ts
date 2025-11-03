@@ -72,7 +72,7 @@ const targets = [
 ]
 
 for (const target of targets) {
-  const folder = `dp-${metadata.version}-${target.dpkit}`
+  const folder = `dpkit-terminal-${metadata.version}-${target.dpkit}`
 
   for (const packageName of [target.polars]) {
     const pack = await $compile`npm pack ${packageName}`
@@ -84,13 +84,13 @@ for (const target of targets) {
   await $compile`
   bun build main.ts
   --compile
-  --outfile binaries/${folder}/dp
+  --outfile binaries/${folder}/dpkit
   --target ${target.name}
   `
 
   // For some reason bun creates it with no permissions
   if (target.name.startsWith("bun-windows")) {
-    await $binaries`chmod +r ${folder}/dp.exe`
+    await $binaries`chmod +r ${folder}/dpkit.exe`
   }
 
   await $binaries`zip -r ${folder}.zip ${folder}`

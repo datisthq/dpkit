@@ -8,12 +8,12 @@ Data Resource commands help you work with individual data resources - the buildi
 
 ## Available Commands
 
-### `dp resource infer`
+### `dpkit resource infer`
 
 Infer a data resource from a table by analyzing its structure and generating metadata including schema information.
 
 ```bash
-dp resource infer <table-path>
+dpkit resource infer <table-path>
 ```
 
 **Options:**
@@ -69,27 +69,27 @@ dp resource infer <table-path>
 **Examples:**
 ```bash
 # Infer resource from CSV file
-dp resource infer data.csv
+dpkit resource infer data.csv
 
 # Infer with custom delimiter
-dp resource infer data.csv --delimiter ";"
+dpkit resource infer data.csv --delimiter ";"
 
 # Infer from remote file
-dp resource infer https://example.com/data.csv
+dpkit resource infer https://example.com/data.csv
 
 # Infer from resource in package
-dp resource infer --from-package datapackage.json --from-resource "users"
+dpkit resource infer --from-package datapackage.json --from-resource "users"
 
 # Export as JSON
-dp resource infer data.csv --json
+dpkit resource infer data.csv --json
 ```
 
-### `dp resource explore`
+### `dpkit resource explore`
 
 Explore a data resource from a local or remote path to view its structure and metadata in an interactive format.
 
 ```bash
-dp resource explore <descriptor-path>
+dpkit resource explore <descriptor-path>
 ```
 
 **Options:**
@@ -101,24 +101,24 @@ dp resource explore <descriptor-path>
 **Examples:**
 ```bash
 # Explore resource descriptor
-dp resource explore resource.json
+dpkit resource explore resource.json
 
 # Explore remote resource
-dp resource explore https://example.com/resource.json
+dpkit resource explore https://example.com/resource.json
 
 # Explore resource from package
-dp resource explore --from-package datapackage.json --from-resource "users"
+dpkit resource explore --from-package datapackage.json --from-resource "users"
 
 # Export structure as JSON
-dp resource explore resource.json --json
+dpkit resource explore resource.json --json
 ```
 
-### `dp resource validate`
+### `dpkit resource validate`
 
 Validate a data resource from a local or remote path against the Data Resource specification.
 
 ```bash
-dp resource validate [descriptor-path]
+dpkit resource validate [descriptor-path]
 ```
 
 **Options:**
@@ -132,27 +132,27 @@ dp resource validate [descriptor-path]
 **Examples:**
 ```bash
 # Validate resource descriptor
-dp resource validate resource.json
+dpkit resource validate resource.json
 
 # Validate remote resource
-dp resource validate https://example.com/resource.json
+dpkit resource validate https://example.com/resource.json
 
 # Validate resource from package
-dp resource validate --from-package datapackage.json --from-resource "users"
+dpkit resource validate --from-package datapackage.json --from-resource "users"
 
 # Get validation results as JSON
-dp resource validate resource.json --json
+dpkit resource validate resource.json --json
 
 # Interactive selection when no path provided
-dp resource validate --from-package datapackage.json
+dpkit resource validate --from-package datapackage.json
 ```
 
-### `dp resource script`
+### `dpkit resource script`
 
 Open an interactive scripting session with a loaded data resource. This provides a REPL environment where you can programmatically interact with the resource metadata.
 
 ```bash
-dp resource script <descriptor-path>
+dpkit resource script <descriptor-path>
 ```
 
 **Options:**
@@ -168,15 +168,15 @@ dp resource script <descriptor-path>
 **Examples:**
 ```bash
 # Start scripting session with resource
-dp resource script resource.json
+dpkit resource script resource.json
 
 # Script resource from package
-dp resource script --from-package datapackage.json --from-resource "users"
+dpkit resource script --from-package datapackage.json --from-resource "users"
 
 # In the REPL session:
-dp> resource.schema.fields.length
-dp> resource.schema.fields[0].type
-dp> resource.path
+dpkit> resource.schema.fields.length
+dpkit> resource.schema.fields[0].type
+dpkit> resource.path
 ```
 
 ## Common Workflows
@@ -185,55 +185,55 @@ dp> resource.path
 
 1. **Infer from data file:**
    ```bash
-   dp resource infer data.csv --json > resource.json
+   dpkit resource infer data.csv --json > resource.json
    ```
 
 2. **Validate the generated resource:**
    ```bash
-   dp resource validate resource.json
+   dpkit resource validate resource.json
    ```
 
 3. **Explore the resource structure:**
    ```bash
-   dp resource explore resource.json
+   dpkit resource explore resource.json
    ```
 
 ### Working with Package Resources
 
 ```bash
 # Explore all resources in a package interactively
-dp resource validate --from-package datapackage.json
+dpkit resource validate --from-package datapackage.json
 
 # Infer metadata for specific resource
-dp resource infer --from-package datapackage.json --from-resource "users"
+dpkit resource infer --from-package datapackage.json --from-resource "users"
 
 # Script specific resource from package
-dp resource script --from-package datapackage.json --from-resource "transactions"
+dpkit resource script --from-package datapackage.json --from-resource "transactions"
 ```
 
 ### Resource Analysis Workflow
 
 ```bash
 # Infer resource with custom options
-dp resource infer data.csv \
+dpkit resource infer data.csv \
   --delimiter ";" \
   --header-rows 2 \
   --sample-rows 1000
 
 # Validate the inferred resource
-dp resource validate resource.json
+dpkit resource validate resource.json
 
 # Explore interactively to verify structure
-dp resource explore resource.json
+dpkit resource explore resource.json
 ```
 
 ### Remote Resource Handling
 
 ```bash
 # Work with remote resources
-dp resource explore https://example.com/resource.json
-dp resource validate https://example.com/resource.json
-dp resource infer https://example.com/data.csv
+dpkit resource explore https://example.com/resource.json
+dpkit resource validate https://example.com/resource.json
+dpkit resource infer https://example.com/data.csv
 ```
 
 ## Resource Selection
@@ -242,12 +242,12 @@ When working with resources from packages, you can either:
 
 1. **Specify explicitly:**
    ```bash
-   dp resource explore --from-package datapackage.json --from-resource "users"
+   dpkit resource explore --from-package datapackage.json --from-resource "users"
    ```
 
 2. **Interactive selection:**
    ```bash
-   dp resource validate --from-package datapackage.json
+   dpkit resource validate --from-package datapackage.json
    # Will prompt to select from available resources
    ```
 
@@ -265,7 +265,7 @@ Resource commands work seamlessly with package commands:
 
 ```bash
 # Create package, then work with individual resources
-dp package infer *.csv --json > datapackage.json
-dp resource validate --from-package datapackage.json --from-resource "data"
-dp resource explore --from-package datapackage.json --from-resource "users"
+dpkit package infer *.csv --json > datapackage.json
+dpkit resource validate --from-package datapackage.json --from-resource "data"
+dpkit resource explore --from-package datapackage.json --from-resource "users"
 ```

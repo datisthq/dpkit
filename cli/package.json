@@ -4,7 +4,7 @@
   "version": "0.0.0-dev",
   "sideEffects": false,
   "bin": {
-    "dp": "./build/entrypoints/run.js"
+    "dpkit": "./build/entrypoints/run.js"
   },
   "license": "MIT",
   "author": "Evgeny Karev",

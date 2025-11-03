@@ -8,12 +8,12 @@ Data Package commands help you work with Data Packages - collections of data fil
 
 ## Available Commands
 
-### `dp package copy`
+### `dpkit package copy`
 
 Copy a local or remote Data Package to a local folder, a ZIP archive or a database.
 
 ```bash
-dp package copy <descriptor-path> --to-path <target>
+dpkit package copy <descriptor-path> --to-path <target>
 ```
 
 **Options:**
@@ -24,21 +24,21 @@ dp package copy <descriptor-path> --to-path <target>
 **Examples:**
 ```bash
 # Copy package to local directory
-dp package copy datapackage.json --to-path ./output
+dpkit package copy datapackage.json --to-path ./output
 
 # Copy package to ZIP archive
-dp package copy datapackage.json --to-path package.zip
+dpkit package copy datapackage.json --to-path package.zip
 
 # Copy remote package including remote resources
-dp package copy https://example.com/datapackage.json --to-path ./local --with-remote
+dpkit package copy https://example.com/datapackage.json --to-path ./local --with-remote
 ```
 
-### `dp package infer`
+### `dpkit package infer`
 
 Infer a data package from local or remote file paths. This command analyzes data files and automatically generates metadata including schema information.
 
 ```bash
-dp package infer <file-paths...>
+dpkit package infer <file-paths...>
 ```
 
 **Table Dialect Options:**
@@ -88,21 +88,21 @@ dp package infer <file-paths...>
 **Examples:**
 ```bash
 # Infer package from CSV files
-dp package infer data1.csv data2.csv
+dpkit package infer data1.csv data2.csv
 
 # Infer with custom delimiter
-dp package infer data.csv --delimiter ";"
+dpkit package infer data.csv --delimiter ";"
 
 # Infer from remote files
-dp package infer https://example.com/data.csv
+dpkit package infer https://example.com/data.csv
 ```
 
-### `dp package explore`
+### `dpkit package explore`
 
 Explore a Data Package descriptor to view its structure and metadata in an interactive format.
 
 ```bash
-dp package explore <descriptor-path>
+dpkit package explore <descriptor-path>
 ```
 
 **Options:**
@@ -112,21 +112,21 @@ dp package explore <descriptor-path>
 **Examples:**
 ```bash
 # Explore local package
-dp package explore datapackage.json
+dpkit package explore datapackage.json
 
 # Explore remote package
-dp package explore https://example.com/datapackage.json
+dpkit package explore https://example.com/datapackage.json
 
 # Export structure as JSON
-dp package explore datapackage.json --json
+dpkit package explore datapackage.json --json
 ```
 
-### `dp package validate`
+### `dpkit package validate`
 
 Validate a data package from a local or remote path against the Data Package specification.
 
 ```bash
-dp package validate <descriptor-path>
+dpkit package validate <descriptor-path>
 ```
 
 **Options:**
@@ -138,21 +138,21 @@ dp package validate <descriptor-path>
 **Examples:**
 ```bash
 # Validate local package
-dp package validate datapackage.json
+dpkit package validate datapackage.json
 
 # Validate remote package
-dp package validate https://example.com/datapackage.json
+dpkit package validate https://example.com/datapackage.json
 
 # Get validation results as JSON
-dp package validate datapackage.json --json
+dpkit package validate datapackage.json --json
 ```
 
-### `dp package script`
+### `dpkit package script`
 
 Open an interactive scripting session with a loaded Data Package. This provides a REPL environment where you can programmatically interact with the package data.
 
 ```bash
-dp package script <descriptor-path>
+dpkit package script <descriptor-path>
 ```
 
 **Available Variables:**
@@ -162,23 +162,23 @@ dp package script <descriptor-path>
 **Examples:**
 ```bash
 # Start scripting session
-dp package script datapackage.json
+dpkit package script datapackage.json
 
 # In the REPL session:
-dp> dataPackage.resources.length
-dp> dataPackage.resources[0].schema.fields
+dpkit> dataPackage.resources.length
+dpkit> dataPackage.resources[0].schema.fields
 ```
 
-### `dp package publish`
+### `dpkit package publish`
 
 Publish data packages to various platforms. This is a parent command with platform-specific subcommands.
 
-#### `dp package publish ckan`
+#### `dpkit package publish ckan`
 
 Publish a data package to a CKAN instance.
 
 ```bash
-dp package publish ckan <descriptor-path>
+dpkit package publish ckan <descriptor-path>
 ```
 
 **CKAN Options:**
@@ -190,26 +190,26 @@ dp package publish ckan <descriptor-path>
 **Examples:**
 ```bash
 # Publish to CKAN
-dp package publish ckan datapackage.json \
+dpkit package publish ckan datapackage.json \
   --to-ckan-url https://demo.ckan.org \
   --to-ckan-api-key your-api-key \
   --to-ckan-owner-org your-org
 ```
 
-#### `dp package publish github`
+#### `dpkit package publish github`
 
 Publish a data package to GitHub as releases or repository files.
 
 ```bash
-dp package publish github <descriptor-path>
+dpkit package publish github <descriptor-path>
 ```
 
-#### `dp package publish zenodo`
+#### `dpkit package publish zenodo`
 
 Publish a data package to Zenodo for academic archiving.
 
 ```bash
-dp package publish zenodo <descriptor-path>
+dpkit package publish zenodo <descriptor-path>
 ```
 
 ## Common Workflows
@@ -218,40 +218,40 @@ dp package publish zenodo <descriptor-path>
 
 1. **Infer from data files:**
    ```bash
-   dp package infer *.csv --json > datapackage.json
+   dpkit package infer *.csv --json > datapackage.json
    ```
 
 2. **Validate the generated package:**
    ```bash
-   dp package validate datapackage.json
+   dpkit package validate datapackage.json
    ```
 
 3. **Explore the package structure:**
    ```bash
-   dp package explore datapackage.json
+   dpkit package explore datapackage.json
    ```
 
 ### Working with Remote Packages
 
 ```bash
 # Explore remote package
-dp package explore https://example.com/datapackage.json
+dpkit package explore https://example.com/datapackage.json
 
 # Copy remote package locally
-dp package copy https://example.com/datapackage.json --to-path ./local-copy
+dpkit package copy https://example.com/datapackage.json --to-path ./local-copy
 
 # Validate remote package
-dp package validate https://example.com/datapackage.json
+dpkit package validate https://example.com/datapackage.json
 ```
 
 ### Publishing Workflow
 
 ```bash
 # Validate before publishing
-dp package validate datapackage.json
+dpkit package validate datapackage.json
 
 # Publish to CKAN
-dp package publish ckan datapackage.json \
+dpkit package publish ckan datapackage.json \
   --to-ckan-url https://your-ckan-instance.org \
   --to-ckan-api-key $CKAN_API_KEY
 ```
