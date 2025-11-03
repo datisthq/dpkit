@@ -20,10 +20,10 @@ describe("narrowField", () => {
       ],
     }
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.toRecords()).toEqual([
+    expect(frame.toRecords()).toEqual([
       { id: 1, name: "a" },
       { id: 2, name: "b" },
       { id: 3, name: "c" },

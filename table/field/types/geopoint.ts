@@ -12,9 +12,7 @@ export function parseGeopointField(field: GeopointField, fieldExpr: pl.Expr) {
   const format = field.format ?? "default"
 
   if (format === "default") {
-    fieldExpr = fieldExpr.str
-      .split(",")
-      .cast(pl.List(pl.Float64))
+    fieldExpr = fieldExpr.str.split(",").cast(pl.List(pl.Float64))
   }
 
   if (format === "array") {

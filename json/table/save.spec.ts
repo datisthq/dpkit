@@ -70,34 +70,18 @@ describe("saveJsonTable", () => {
         pl.Series("array", ["[1, 2, 3]"], pl.String),
         pl.Series("boolean", [true], pl.Bool),
         pl.Series("date", [new Date(Date.UTC(2025, 0, 1))], pl.Date),
-        pl.Series(
-          "datetime",
-          [new Date(Date.UTC(2025, 0, 1))],
-          pl.Datetime,
-        ),
+        pl.Series("datetime", [new Date(Date.UTC(2025, 0, 1))], pl.Datetime),
         pl.Series("duration", ["P23DT23H"], pl.String),
         pl.Series("geojson", ['{"value": 1}'], pl.String),
-        pl.Series(
-          "geopoint",
-          [[40.0, 50.0]],
-          pl.List(pl.Float32),
-        ),
+        pl.Series("geopoint", [[40.0, 50.0]], pl.List(pl.Float32)),
         pl.Series("integer", [1], pl.Int32),
-        pl.Series(
-          "list",
-          [[1.0, 2.0, 3.0]],
-          pl.List(pl.Float32),
-        ),
+        pl.Series("list", [[1.0, 2.0, 3.0]], pl.List(pl.Float32)),
         pl.Series("number", [1.1], pl.Float64),
         pl.Series("object", ['{"value": 1}']),
         pl.Series("string", ["string"], pl.String),
         pl.Series("time", [new Date(Date.UTC(2025, 0, 1))], pl.Time),
         pl.Series("year", [2025], pl.Int32),
-        pl.Series(
-          "yearmonth",
-          [[2025, 1]],
-          pl.List(pl.Int16),
-        ),
+        pl.Series("yearmonth", [[2025, 1]], pl.List(pl.Int16)),
       ])
       .lazy()
 

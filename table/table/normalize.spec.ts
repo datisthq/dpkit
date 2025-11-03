@@ -24,9 +24,9 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work with less fields in data", async () => {
@@ -50,9 +50,9 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文", other: null },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work with more fields in data", async () => {
@@ -76,9 +76,9 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work based on fields order", async () => {
@@ -101,9 +101,9 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work based on field names (equal)", async () => {
@@ -127,9 +127,9 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work based on field names (subset)", async () => {
@@ -153,9 +153,9 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work based on field names (superset)", async () => {
@@ -179,9 +179,9 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work based on field names (partial)", async () => {
@@ -205,9 +205,9 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should parse string columns", async () => {
@@ -230,9 +230,9 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should read type errors as nulls", async () => {
@@ -255,8 +255,8 @@ describe("normalizeTable", () => {
       { id: 2, name: null },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 })

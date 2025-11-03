@@ -30,12 +30,12 @@ describe("loadInlineTable", () => {
     }
 
     const table = await loadInlineTable(resource)
-    const df = await table.collect()
+    const frame = await table.collect()
 
     expect([
       { id: 1, name: "english" },
       { id: 2, name: "中文" },
-    ]).toEqual(df.toRecords())
+    ]).toEqual(frame.toRecords())
   })
 
   it("should read objects", async () => {
@@ -51,12 +51,12 @@ describe("loadInlineTable", () => {
 
     // @ts-ignore
     const table = await loadInlineTable(resource)
-    const df = await table.collect()
+    const frame = await table.collect()
 
     expect([
       { id: 1, name: "english" },
       { id: 2, name: "中文" },
-    ]).toEqual(df.toRecords())
+    ]).toEqual(frame.toRecords())
   })
 
   it("should handle longer rows", async () => {
@@ -78,12 +78,12 @@ describe("loadInlineTable", () => {
 
     // @ts-ignore
     const table = await loadInlineTable(resource)
-    const df = await table.collect()
+    const frame = await table.collect()
 
     expect([
       { id: 1, name: "english" },
       { id: 2, name: "中文" },
-    ]).toEqual(df.toRecords())
+    ]).toEqual(frame.toRecords())
   })
 
   it("should handle shorter rows", async () => {
@@ -105,12 +105,12 @@ describe("loadInlineTable", () => {
 
     // @ts-ignore
     const table = await loadInlineTable(resource)
-    const df = await table.collect()
+    const frame = await table.collect()
 
     expect([
       { id: 1, name: "english" },
       { id: 2, name: null },
-    ]).toEqual(df.toRecords())
+    ]).toEqual(frame.toRecords())
   })
 
   it("should handle various data types", async () => {
@@ -132,7 +132,7 @@ describe("loadInlineTable", () => {
 
     // @ts-ignore
     const table = await loadInlineTable(resource)
-    const df = await table.collect()
+    const frame = await table.collect()
 
     expect([
       {
@@ -143,7 +143,7 @@ describe("loadInlineTable", () => {
         time: new Date("2025-01-01"),
         datetime: new Date("2025-01-01"),
       },
-    ]).toEqual(df.toRecords())
+    ]).toEqual(frame.toRecords())
   })
 
   it("should handle objects with shorter rows", async () => {
@@ -155,13 +155,13 @@ describe("loadInlineTable", () => {
 
     // @ts-ignore
     const table = await loadInlineTable(resource)
-    const df = await table.collect()
+    const frame = await table.collect()
 
     expect([
       { id: 1, name: "english" },
       { id: 2, name: "中文" },
       { id: 3, name: null },
-    ]).toEqual(df.toRecords())
+    ]).toEqual(frame.toRecords())
   })
 
   it("should handle objects with longer rows", async () => {
@@ -177,12 +177,12 @@ describe("loadInlineTable", () => {
 
     // @ts-ignore
     const table = await loadInlineTable(resource)
-    const df = await table.collect()
+    const frame = await table.collect()
 
     expect([
       { id: 1, name: "english", extra: null },
       { id: 2, name: "中文", extra: null },
       { id: 3, name: "german", extra: "extra" },
-    ]).toEqual(df.toRecords())
+    ]).toEqual(frame.toRecords())
   })
 })

@@ -28,18 +28,16 @@ describe("parseListField", () => {
       // Null handling
       //[null, null],
     ])("%s -> %s", async (cell, value) => {
-      const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.String)])
-        .lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [{ name: "name", type: "list" as const }],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 
@@ -68,9 +66,7 @@ describe("parseListField", () => {
       ["1,a,3", [1, null, 3]],
       ["1.5,2,3", [null, 2, 3]],
     ])("%s -> %s", async (cell, value) => {
-      const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.String)])
-        .lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [
@@ -78,10 +74,10 @@ describe("parseListField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 
@@ -109,9 +105,7 @@ describe("parseListField", () => {
       // Invalid numbers become null
       ["1.1,a,3.3", [1.1, null, 3.3]],
     ])("%s -> %s", async (cell, value) => {
-      const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.String)])
-        .lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [
@@ -119,10 +113,10 @@ describe("parseListField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 
@@ -144,18 +138,16 @@ describe("parseListField", () => {
       // Empty items in list
       ["a;;c", ["a", "", "c"]],
     ])("%s -> %s", async (cell, value) => {
-      const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.String)])
-        .lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [{ name: "name", type: "list" as const, delimiter: ";" }],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 })
@@ -184,19 +176,17 @@ describe("stringifyListField", () => {
       [[], ""],
     ])("%s -> %s", async (value, expected) => {
       const table = pl
-        .DataFrame([
-          pl.Series("name", [value], pl.List(pl.String)),
-        ])
+        .DataFrame([pl.Series("name", [value], pl.List(pl.String))])
         .lazy()
 
       const schema = {
         fields: [{ name: "name", type: "list" as const }],
       }
 
-      const ldf = await denormalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await denormalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(expected)
+      expect(frame.toRecords()[0]?.name).toEqual(expected)
     })
   })
 
@@ -218,9 +208,7 @@ describe("stringifyListField", () => {
       [[], ""],
     ])("%s -> %s", async (value, expected) => {
       const table = pl
-        .DataFrame([
-          pl.Series("name", [value], pl.List(pl.Int16)),
-        ])
+        .DataFrame([pl.Series("name", [value], pl.List(pl.Int16))])
         .lazy()
 
       const schema = {
@@ -229,10 +217,10 @@ describe("stringifyListField", () => {
         ],
       }
 
-      const ldf = await denormalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await denormalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(expected)
+      expect(frame.toRecords()[0]?.name).toEqual(expected)
     })
   })
 
@@ -254,9 +242,7 @@ describe("stringifyListField", () => {
       [[], ""],
     ])("%s -> %s", async (value, expected) => {
       const table = pl
-        .DataFrame([
-          pl.Series("name", [value], pl.List(pl.Float64)),
-        ])
+        .DataFrame([pl.Series("name", [value], pl.List(pl.Float64))])
         .lazy()
 
       const schema = {
@@ -265,10 +251,10 @@ describe("stringifyListField", () => {
         ],
       }
 
-      const ldf = await denormalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await denormalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(expected)
+      expect(frame.toRecords()[0]?.name).toEqual(expected)
     })
   })
 
@@ -292,19 +278,17 @@ describe("stringifyListField", () => {
       [[], ""],
     ])("%s -> %s", async (value, expected) => {
       const table = pl
-        .DataFrame([
-          pl.Series("name", [value], pl.List(pl.String)),
-        ])
+        .DataFrame([pl.Series("name", [value], pl.List(pl.String))])
         .lazy()
 
       const schema = {
         fields: [{ name: "name", type: "list" as const, delimiter: ";" }],
       }
 
-      const ldf = await denormalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await denormalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(expected)
+      expect(frame.toRecords()[0]?.name).toEqual(expected)
     })
   })
 })

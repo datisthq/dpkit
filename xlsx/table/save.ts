@@ -21,11 +21,11 @@ export async function saveXlsxTable(table: Table, options: SaveTableOptions) {
     nativeTypes: ["boolean", "integer", "number", "string", "year"],
   })
 
-  const df = await table.collect()
+  const frame = await table.collect()
   const dialect = await resolveDialect(options.dialect)
   const sheetName = dialect?.sheetName ?? "Sheet1"
 
-  const sheet = utils.json_to_sheet(df.toRecords())
+  const sheet = utils.json_to_sheet(frame.toRecords())
   const book = utils.book_new()
   utils.book_append_sheet(book, sheet, sheetName)
 

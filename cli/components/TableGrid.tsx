@@ -59,17 +59,17 @@ export function TableGrid(props: {
     const thisOrder = newOrder ?? order
     if (page === 0) return
 
-    let ldf = table
+    let result = table
     if (thisOrder) {
       const name = table.columns[thisOrder.col - 1]
       if (name) {
-        ldf = ldf.sort(name, thisOrder.dir === "desc")
+        result = result.sort(name, thisOrder.dir === "desc")
       }
     }
 
     const offset = (page - 1) * PAGE_SIZE
-    const df = await ldf.slice(offset, PAGE_SIZE).collect()
-    const records = df.toRecords()
+    const frame = await result.slice(offset, PAGE_SIZE).collect()
+    const records = frame.toRecords()
 
     if (records.length) {
       setPage(page)

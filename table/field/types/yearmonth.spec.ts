@@ -8,18 +8,16 @@ describe("parseYearmonthField", () => {
     ["2000-01", [2000, 1]],
     ["0-0", [0, 0]],
   ])("%s -> %s", async (cell, value) => {
-    const table = pl
-      .DataFrame([pl.Series("name", [cell], pl.String)])
-      .lazy()
+    const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "yearmonth" as const }],
     }
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.toRecords()[0]?.name).toEqual(value)
+    expect(frame.toRecords()[0]?.name).toEqual(value)
   })
 })
 
@@ -30,18 +28,16 @@ describe("stringifyYearmonthField", () => {
     [[0, 0], "0000-00"],
   ])("%s -> %s", async (value, expected) => {
     const table = pl
-      .DataFrame([
-        pl.Series("name", [value], pl.List(pl.Int16)),
-      ])
+      .DataFrame([pl.Series("name", [value], pl.List(pl.Int16))])
       .lazy()
 
     const schema = {
       fields: [{ name: "name", type: "yearmonth" as const }],
     }
 
-    const ldf = await denormalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await denormalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.toRecords()[0]?.name).toEqual(expected)
+    expect(frame.toRecords()[0]?.name).toEqual(expected)
   })
 })

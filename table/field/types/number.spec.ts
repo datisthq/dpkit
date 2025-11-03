@@ -63,18 +63,16 @@ describe("parseNumberField", () => {
       { bareNumber: false, groupChar: ".", decimalChar: "," },
     ],
   ])("$0 -> $1 $2", async (cell, value, options) => {
-    const table = pl
-      .DataFrame([pl.Series("name", [cell], pl.String)])
-      .lazy()
+    const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "number" as const, ...options }],
     }
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.getColumn("name").get(0)).toEqual(value)
+    expect(frame.getColumn("name").get(0)).toEqual(value)
   })
 })
 
@@ -105,17 +103,15 @@ describe("stringifyNumberField", () => {
     // Null handling
     [null, ""],
   ])("%s -> %s", async (value, expected) => {
-    const table = pl
-      .DataFrame([pl.Series("name", [value], pl.Float64)])
-      .lazy()
+    const table = pl.DataFrame([pl.Series("name", [value], pl.Float64)]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "number" as const }],
     }
 
-    const ldf = await denormalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await denormalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.toRecords()[0]?.name).toEqual(expected)
+    expect(frame.toRecords()[0]?.name).toEqual(expected)
   })
 })

@@ -27,8 +27,8 @@ export async function saveJsonTable(
 
   // We use polars to serialize the data
   // But encode it manually to support dialects/formatting
-  const df = await table.collect()
-  let buffer = df.writeJSON({ format: isLines ? "lines" : "json" })
+  const frame = await table.collect()
+  let buffer = frame.writeJSON({ format: isLines ? "lines" : "json" })
   let data = decodeJsonBuffer(buffer, { isLines })
 
   if (dialect) {

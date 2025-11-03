@@ -25,18 +25,16 @@ describe("parseDateField", () => {
     // Invalid format
     ["21/11/06", null, { format: "invalid" }],
   ])("%s -> %s %o", async (cell, expected, options) => {
-    const table = pl
-      .DataFrame([pl.Series("name", [cell], pl.String)])
-      .lazy()
+    const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "date" as const, ...options }],
     }
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.toRecords()[0]?.name).toEqual(expected)
+    expect(frame.toRecords()[0]?.name).toEqual(expected)
   })
 })
 
@@ -50,17 +48,15 @@ describe("stringifyDateField", () => {
     [new Date(Date.UTC(2006, 10, 21)), "21/11/2006", { format: "%d/%m/%Y" }],
     [new Date(Date.UTC(2006, 10, 21)), "2006/11/21", { format: "%Y/%m/%d" }],
   ])("%s -> %s %o", async (value, expected, options) => {
-    const table = pl
-      .DataFrame([pl.Series("name", [value], pl.Date)])
-      .lazy()
+    const table = pl.DataFrame([pl.Series("name", [value], pl.Date)]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "date" as const, ...options }],
     }
 
-    const ldf = await denormalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await denormalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.toRecords()[0]?.name).toEqual(expected)
+    expect(frame.toRecords()[0]?.name).toEqual(expected)
   })
 })

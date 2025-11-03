@@ -31,8 +31,8 @@ export async function saveArrowTable(table: Table, options: SaveTableOptions) {
     ],
   })
 
-  const df = await table.collect()
-  df.writeIPC(path)
+  const frame = await table.collect()
+  frame.writeIPC(path)
 
   return path
 }

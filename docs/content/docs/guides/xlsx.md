@@ -56,8 +56,8 @@ const table = await loadXlsxTable({
 })
 
 // Table is a Polars LazyDataFrame
-const df = table.collect()
-df.describe()
+const frame = table.collect()
+frame.describe()
 ```
 
 ### Saving XLSX Files

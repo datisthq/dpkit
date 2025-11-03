@@ -41,10 +41,10 @@ describe("stringifyField", () => {
         fields: [{ name: "name", type: "string", missingValues: fieldLevel }],
       }
 
-      const ldf = await denormalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await denormalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(expected)
+      expect(frame.toRecords()[0]?.name).toEqual(expected)
     })
   })
 })

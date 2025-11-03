@@ -75,9 +75,9 @@ async function populateTable(
   table: Table,
 ) {
   let offset = 0
-  const df = await table.collect({ streaming: true })
+  const frame = await table.collect({ streaming: true })
   while (true) {
-    const buffer = df.slice(offset, offset + BUFFER_SIZE)
+    const buffer = frame.slice(offset, offset + BUFFER_SIZE)
     offset += BUFFER_SIZE
 
     const records = buffer.toRecords()

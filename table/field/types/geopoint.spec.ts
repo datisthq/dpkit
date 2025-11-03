@@ -23,18 +23,16 @@ describe("parseGeopointField", () => {
       //["lon,45.50", null],
       //["90.50,45.50,0", null],
     ])("%s -> %s", async (cell, value) => {
-      const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.String)])
-        .lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [{ name: "name", type: "geopoint" as const }],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 
@@ -58,9 +56,7 @@ describe("parseGeopointField", () => {
       //["[90.50, 45.50, 0]", null],
       //["['lon', 'lat']", null],
     ])("%s -> %s", async (cell, value) => {
-      const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.String)])
-        .lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [
@@ -68,10 +64,10 @@ describe("parseGeopointField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 
@@ -95,9 +91,7 @@ describe("parseGeopointField", () => {
       //['{"lon": 90.50}', null],
       //['{"lat": 45.50}', null],
     ])("%s -> %s", async (cell, value) => {
-      const table = pl
-        .DataFrame([pl.Series("name", [cell], pl.String)])
-        .lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [
@@ -109,10 +103,10 @@ describe("parseGeopointField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 })
@@ -134,19 +128,17 @@ describe("stringifyGeopointField", () => {
       //[null, null],
     ])("%s -> %s", async (value, expected) => {
       const table = pl
-        .DataFrame([
-          pl.Series("name", [value], pl.List(pl.Float64)),
-        ])
+        .DataFrame([pl.Series("name", [value], pl.List(pl.Float64))])
         .lazy()
 
       const schema = {
         fields: [{ name: "name", type: "geopoint" as const }],
       }
 
-      const ldf = await denormalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await denormalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(expected)
+      expect(frame.toRecords()[0]?.name).toEqual(expected)
     })
   })
 
@@ -163,9 +155,7 @@ describe("stringifyGeopointField", () => {
       //[null, null],
     ])("%s -> %s", async (value, expected) => {
       const table = pl
-        .DataFrame([
-          pl.Series("name", [value], pl.List(pl.Float64)),
-        ])
+        .DataFrame([pl.Series("name", [value], pl.List(pl.Float64))])
         .lazy()
 
       const schema = {
@@ -174,10 +164,10 @@ describe("stringifyGeopointField", () => {
         ],
       }
 
-      const ldf = await denormalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await denormalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(expected)
+      expect(frame.toRecords()[0]?.name).toEqual(expected)
     })
   })
 
@@ -194,9 +184,7 @@ describe("stringifyGeopointField", () => {
       //[null, null],
     ])("%s -> %s", async (value, expected) => {
       const table = pl
-        .DataFrame([
-          pl.Series("name", [value], pl.List(pl.Float64)),
-        ])
+        .DataFrame([pl.Series("name", [value], pl.List(pl.Float64))])
         .lazy()
 
       const schema = {
@@ -209,10 +197,10 @@ describe("stringifyGeopointField", () => {
         ],
       }
 
-      const ldf = await denormalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await denormalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(expected)
+      expect(frame.toRecords()[0]?.name).toEqual(expected)
     })
   })
 })

@@ -102,9 +102,9 @@ export const describeTableCommand = new Command("describe")
       table = queryTable(table, options.query)
     }
 
-    const df = await session.task("Calculating stats", table.collect())
+    const frame = await session.task("Calculating stats", table.collect())
 
-    const stats = df.describe().rename({ describe: "#" })
+    const stats = frame.describe().rename({ describe: "#" })
     const records = stats.toRecords()
 
     session.render(records, <DataGrid records={records} />)
