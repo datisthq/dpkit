@@ -72,7 +72,8 @@ jobs:
           name: binaries
           path: cli/compile/binaries
       - name: Test Binaries
-        run: unzip -j cli/compile/binaries/*linux-x64.zip && ./dpkit --version
+        working-directory: cli/compile/binaries
+        run: unzip -j *linux-x64.zip && ./dpkit --version
 
     services:
       postgres:
@@ -121,7 +122,8 @@ jobs:
           name: binaries
           path: cli/compile/binaries
       - name: Test Binaries
-        run: unzip -j cli/compile/binaries/*macos-arm64.zip && ./dpkit --version
+        working-directory: cli/compile/binaries
+        run: unzip -j *macos-arm64.zip && ./dpkit --version
 
   test-windows:
     needs: [test-compile]
@@ -152,7 +154,8 @@ jobs:
           path: cli/compile/binaries
       - name: Test Binaries
         shell: bash
-        run: unzip -j cli/compile/binaries/*windows-x64.zip && ./dpkit.exe --version
+        working-directory: cli/compile/binaries
+        run: unzip -j *windows-x64.zip && ./dpkit.exe --version
 
   # We have to split the release step because for some reason
   # using semantic-release before compilation inflates the binary sizes

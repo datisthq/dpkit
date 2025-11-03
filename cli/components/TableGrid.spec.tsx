@@ -6,10 +6,12 @@ import { TableGrid } from "./TableGrid.tsx"
 
 describe("TableGrid", () => {
   it("should render basic table", async () => {
-    const table = pl.DataFrame({
-      id: [1, 2, 3],
-      name: ["alice", "bob", "charlie"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2, 3],
+        name: ["alice", "bob", "charlie"],
+      })
+      .lazy()
 
     const { lastFrame } = render(<TableGrid table={table} />)
 
@@ -22,10 +24,12 @@ describe("TableGrid", () => {
   })
 
   it("should render with custom schema", async () => {
-    const table = pl.DataFrame({
-      id: [1, 2],
-      value: [100, 200],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        value: [100, 200],
+      })
+      .lazy()
 
     const schema = {
       fields: [
@@ -44,10 +48,12 @@ describe("TableGrid", () => {
   })
 
   it("should render with green border by default", async () => {
-    const table = pl.DataFrame({
-      id: [1],
-      name: ["alice"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1],
+        name: ["alice"],
+      })
+      .lazy()
 
     const { lastFrame } = render(<TableGrid table={table} />)
 
@@ -57,10 +63,12 @@ describe("TableGrid", () => {
   })
 
   it("should render with red border when specified", async () => {
-    const table = pl.DataFrame({
-      id: [1],
-      name: ["alice"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1],
+        name: ["alice"],
+      })
+      .lazy()
 
     const { lastFrame } = render(<TableGrid table={table} borderColor="red" />)
 
@@ -70,10 +78,12 @@ describe("TableGrid", () => {
   })
 
   it("should render with types when withTypes is true", async () => {
-    const table = pl.DataFrame({
-      id: [1],
-      name: ["alice"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1],
+        name: ["alice"],
+      })
+      .lazy()
 
     const { lastFrame } = render(<TableGrid table={table} withTypes />)
 
@@ -83,10 +93,12 @@ describe("TableGrid", () => {
   })
 
   it("should display help text by default", async () => {
-    const table = pl.DataFrame({
-      id: [1],
-      name: ["alice"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1],
+        name: ["alice"],
+      })
+      .lazy()
 
     const { lastFrame } = render(<TableGrid table={table} />)
 
@@ -99,10 +111,12 @@ describe("TableGrid", () => {
   })
 
   it("should display page number", async () => {
-    const table = pl.DataFrame({
-      id: [1, 2, 3],
-      name: ["alice", "bob", "charlie"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2, 3],
+        name: ["alice", "bob", "charlie"],
+      })
+      .lazy()
 
     const { lastFrame } = render(<TableGrid table={table} />)
 
@@ -114,10 +128,12 @@ describe("TableGrid", () => {
   })
 
   it("should render multiple rows", async () => {
-    const table = pl.DataFrame({
-      id: [1, 2, 3, 4],
-      name: ["alice", "bob", "charlie", "dave"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2, 3, 4],
+        name: ["alice", "bob", "charlie", "dave"],
+      })
+      .lazy()
 
     const { lastFrame } = render(<TableGrid table={table} />)
 
@@ -130,10 +146,12 @@ describe("TableGrid", () => {
   })
 
   it("should render with numeric values", async () => {
-    const table = pl.DataFrame({
-      id: [1, 2],
-      value: [100.5, 200.75],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        value: [100.5, 200.75],
+      })
+      .lazy()
 
     const { lastFrame } = render(<TableGrid table={table} />)
 
@@ -145,10 +163,12 @@ describe("TableGrid", () => {
   })
 
   it("should render with boolean values", async () => {
-    const table = pl.DataFrame({
-      id: [1, 2],
-      active: [true, false],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        active: [true, false],
+      })
+      .lazy()
 
     const { lastFrame } = render(<TableGrid table={table} />)
 
@@ -160,10 +180,12 @@ describe("TableGrid", () => {
   })
 
   it("should handle empty table", async () => {
-    const table = pl.DataFrame({
-      id: [],
-      name: [],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [],
+        name: [],
+      })
+      .lazy()
 
     const { lastFrame } = render(<TableGrid table={table} />)
 
