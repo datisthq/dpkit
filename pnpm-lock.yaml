@@ -798,6 +798,9 @@ importers:
       '@dpkit/folder':
         specifier: workspace:*
         version: link:../folder
+      fflate:
+        specifier: ^0.8.2
+        version: 0.8.2
       yauzl-promise:
         specifier: ^4.0.0
         version: 4.0.0
