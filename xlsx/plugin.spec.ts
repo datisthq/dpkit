@@ -26,7 +26,7 @@ describe("XlsxPlugin", () => {
       const resource: Partial<Resource> = {
         path: "test.xlsx",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadXlsxTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -51,7 +51,7 @@ describe("XlsxPlugin", () => {
         path: "test.txt",
         format: "xlsx",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadXlsxTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -65,7 +65,7 @@ describe("XlsxPlugin", () => {
         path: "test.xlsx",
       }
       const options = { denormalized: true }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadXlsxTable.mockResolvedValue(mockTable)
 
       await plugin.loadTable(resource, options)
@@ -77,7 +77,7 @@ describe("XlsxPlugin", () => {
       const resource: Partial<Resource> = {
         path: "/path/to/data.xlsx",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadXlsxTable.mockResolvedValue(mockTable)
 
       await plugin.loadTable(resource)
@@ -110,7 +110,7 @@ describe("XlsxPlugin", () => {
 
   describe("saveTable", () => {
     it("should save table to xlsx file", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.xlsx" }
       mockSaveXlsxTable.mockResolvedValue("output.xlsx")
 
@@ -121,7 +121,7 @@ describe("XlsxPlugin", () => {
     })
 
     it("should return undefined for non-xlsx files", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.csv" }
 
       const result = await plugin.saveTable(table, options)
@@ -131,7 +131,7 @@ describe("XlsxPlugin", () => {
     })
 
     it("should handle explicit format specification", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.txt", format: "xlsx" as const }
       mockSaveXlsxTable.mockResolvedValue("output.txt")
 
@@ -142,7 +142,7 @@ describe("XlsxPlugin", () => {
     })
 
     it("should handle paths with directories", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "/path/to/output.xlsx" }
       mockSaveXlsxTable.mockResolvedValue("/path/to/output.xlsx")
 
@@ -152,7 +152,7 @@ describe("XlsxPlugin", () => {
     })
 
     it("should return undefined for files without extension", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output" }
 
       const result = await plugin.saveTable(table, options)
@@ -162,7 +162,7 @@ describe("XlsxPlugin", () => {
     })
 
     it("should return undefined for ods files", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.ods" }
 
       const result = await plugin.saveTable(table, options)
@@ -172,7 +172,7 @@ describe("XlsxPlugin", () => {
     })
 
     it("should return undefined for json files", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.json" }
 
       const result = await plugin.saveTable(table, options)

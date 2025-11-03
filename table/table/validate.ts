@@ -186,7 +186,8 @@ async function validateRows(
       .withColumn(pl.col("row_nr").add(1))
       .rename({ row_nr: "dpkit:number" })
       .withColumn(
-        pl.when(check.isErrorExpr)
+        pl
+          .when(check.isErrorExpr)
           .then(pl.lit(JSON.stringify(check.errorTemplate)))
           .otherwise(pl.lit(null))
           .alias("dpkit:error"),

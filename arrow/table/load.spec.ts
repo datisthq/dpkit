@@ -10,7 +10,7 @@ describe("loadArrowTable", () => {
   describe("file variations", () => {
     it("should load local file", async () => {
       const path = getTempFilePath()
-      DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeIPC(path)
+      pl.DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeIPC(path)
 
       const table = await loadArrowTable({ path })
       expect((await table.collect()).toRecords()).toEqual([
@@ -22,8 +22,8 @@ describe("loadArrowTable", () => {
     it("should load local file (multipart)", async () => {
       const path1 = getTempFilePath()
       const path2 = getTempFilePath()
-      DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeIPC(path1)
-      DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeIPC(path2)
+      pl.DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeIPC(path1)
+      pl.DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeIPC(path2)
 
       const table = await loadArrowTable({ path: [path1, path2] })
       expect((await table.collect()).toRecords()).toEqual([

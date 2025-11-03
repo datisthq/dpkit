@@ -26,7 +26,7 @@ describe("CsvPlugin", () => {
       const resource: Partial<Resource> = {
         path: "test.csv",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadCsvTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -42,7 +42,7 @@ describe("CsvPlugin", () => {
       const resource: Partial<Resource> = {
         path: "test.tsv",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadCsvTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -70,7 +70,7 @@ describe("CsvPlugin", () => {
         path: "test.txt",
         format: "csv",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadCsvTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -87,7 +87,7 @@ describe("CsvPlugin", () => {
         path: "test.csv",
       }
       const options = { denormalized: true }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadCsvTable.mockResolvedValue(mockTable)
 
       await plugin.loadTable(resource, options)
@@ -102,7 +102,7 @@ describe("CsvPlugin", () => {
       const resource: Partial<Resource> = {
         path: "/path/to/data.csv",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadCsvTable.mockResolvedValue(mockTable)
 
       await plugin.loadTable(resource)
@@ -118,7 +118,7 @@ describe("CsvPlugin", () => {
         path: "test.txt",
         format: "tsv",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadCsvTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -133,7 +133,7 @@ describe("CsvPlugin", () => {
 
   describe("saveTable", () => {
     it("should save table to csv file", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.csv" }
       mockSaveCsvTable.mockResolvedValue("output.csv")
 
@@ -147,7 +147,7 @@ describe("CsvPlugin", () => {
     })
 
     it("should save table to tsv file", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.tsv" }
       mockSaveCsvTable.mockResolvedValue("output.tsv")
 
@@ -161,7 +161,7 @@ describe("CsvPlugin", () => {
     })
 
     it("should return undefined for non-csv files", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.json" }
 
       const result = await plugin.saveTable(table, options)
@@ -171,7 +171,7 @@ describe("CsvPlugin", () => {
     })
 
     it("should handle explicit format specification", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.txt", format: "csv" as const }
       mockSaveCsvTable.mockResolvedValue("output.txt")
 
@@ -185,7 +185,7 @@ describe("CsvPlugin", () => {
     })
 
     it("should handle paths with directories", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "/path/to/output.csv" }
       mockSaveCsvTable.mockResolvedValue("/path/to/output.csv")
 
@@ -198,7 +198,7 @@ describe("CsvPlugin", () => {
     })
 
     it("should return undefined for files without extension", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output" }
 
       const result = await plugin.saveTable(table, options)
@@ -208,7 +208,7 @@ describe("CsvPlugin", () => {
     })
 
     it("should handle explicit tsv format specification", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.txt", format: "tsv" as const }
       mockSaveCsvTable.mockResolvedValue("output.txt")
 

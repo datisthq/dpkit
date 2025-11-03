@@ -1,5 +1,5 @@
 import type { Field } from "@dpkit/core"
-import * as pl from "nodejs-polars"
+import type * as pl from "nodejs-polars"
 import { stringifyBooleanField } from "./types/boolean.ts"
 import { stringifyDateField } from "./types/date.ts"
 import { stringifyDatetimeField } from "./types/datetime.ts"

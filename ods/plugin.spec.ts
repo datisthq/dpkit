@@ -26,7 +26,7 @@ describe("OdsPlugin", () => {
       const resource: Partial<Resource> = {
         path: "test.ods",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadOdsTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -51,7 +51,7 @@ describe("OdsPlugin", () => {
         path: "test.txt",
         format: "ods",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadOdsTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -65,7 +65,7 @@ describe("OdsPlugin", () => {
         path: "test.ods",
       }
       const options = { denormalized: true }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadOdsTable.mockResolvedValue(mockTable)
 
       await plugin.loadTable(resource, options)
@@ -77,7 +77,7 @@ describe("OdsPlugin", () => {
       const resource: Partial<Resource> = {
         path: "/path/to/data.ods",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadOdsTable.mockResolvedValue(mockTable)
 
       await plugin.loadTable(resource)
@@ -110,7 +110,7 @@ describe("OdsPlugin", () => {
 
   describe("saveTable", () => {
     it("should save table to ods file", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.ods" }
       mockSaveOdsTable.mockResolvedValue("output.ods")
 
@@ -121,7 +121,7 @@ describe("OdsPlugin", () => {
     })
 
     it("should return undefined for non-ods files", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.csv" }
 
       const result = await plugin.saveTable(table, options)
@@ -131,7 +131,7 @@ describe("OdsPlugin", () => {
     })
 
     it("should handle explicit format specification", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.txt", format: "ods" as const }
       mockSaveOdsTable.mockResolvedValue("output.txt")
 
@@ -142,7 +142,7 @@ describe("OdsPlugin", () => {
     })
 
     it("should handle paths with directories", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "/path/to/output.ods" }
       mockSaveOdsTable.mockResolvedValue("/path/to/output.ods")
 
@@ -152,7 +152,7 @@ describe("OdsPlugin", () => {
     })
 
     it("should return undefined for files without extension", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output" }
 
       const result = await plugin.saveTable(table, options)
@@ -162,7 +162,7 @@ describe("OdsPlugin", () => {
     })
 
     it("should return undefined for xlsx files", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.xlsx" }
 
       const result = await plugin.saveTable(table, options)
@@ -172,7 +172,7 @@ describe("OdsPlugin", () => {
     })
 
     it("should return undefined for json files", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.json" }
 
       const result = await plugin.saveTable(table, options)

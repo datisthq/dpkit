@@ -10,7 +10,7 @@ describe("loadParquetTable", () => {
   describe("file variations", () => {
     it("should load local file", async () => {
       const path = getTempFilePath()
-      DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeParquet(path)
+      pl.DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeParquet(path)
 
       const table = await loadParquetTable({ path })
       expect((await table.collect()).toRecords()).toEqual([
@@ -22,8 +22,12 @@ describe("loadParquetTable", () => {
     it("should load local file (multipart)", async () => {
       const path1 = getTempFilePath()
       const path2 = getTempFilePath()
-      DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeParquet(path1)
-      DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeParquet(path2)
+      pl.DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeParquet(
+        path1,
+      )
+      pl.DataFrame({ id: [1, 2], name: ["english", "中文"] }).writeParquet(
+        path2,
+      )
 
       const table = await loadParquetTable({ path: [path1, path2] })
       expect((await table.collect()).toRecords()).toEqual([

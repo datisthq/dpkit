@@ -43,15 +43,19 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: pl.DataFrame({
-        id: [1, 2, 3],
-        name: ["Alice", "Bob", "Charlie"],
-      }).lazy(),
-      posts: pl.DataFrame({
-        id: [1, 2, 3],
-        user_id: [1, 2, 3],
-        title: ["Post 1", "Post 2", "Post 3"],
-      }).lazy(),
+      users: pl
+        .DataFrame({
+          id: [1, 2, 3],
+          name: ["Alice", "Bob", "Charlie"],
+        })
+        .lazy(),
+      posts: pl
+        .DataFrame({
+          id: [1, 2, 3],
+          user_id: [1, 2, 3],
+          title: ["Post 1", "Post 2", "Post 3"],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {
@@ -102,15 +106,19 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: pl.DataFrame({
-        id: [1, 2],
-        name: ["Alice", "Bob"],
-      }).lazy(),
-      posts: pl.DataFrame({
-        id: [1, 2, 3],
-        user_id: [1, 2, 999],
-        title: ["Post 1", "Post 2", "Post 3"],
-      }).lazy(),
+      users: pl
+        .DataFrame({
+          id: [1, 2],
+          name: ["Alice", "Bob"],
+        })
+        .lazy(),
+      posts: pl
+        .DataFrame({
+          id: [1, 2, 3],
+          user_id: [1, 2, 999],
+          title: ["Post 1", "Post 2", "Post 3"],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {
@@ -162,11 +170,13 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      categories: pl.DataFrame({
-        id: [1, 2, 3],
-        parent_id: [1, 1, 2],
-        name: ["Root", "Child 1", "Child 2"],
-      }).lazy(),
+      categories: pl
+        .DataFrame({
+          id: [1, 2, 3],
+          parent_id: [1, 1, 2],
+          name: ["Root", "Child 1", "Child 2"],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {
@@ -206,11 +216,13 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      categories: pl.DataFrame({
-        id: [1, 2, 3],
-        parent_id: [1, 1, 999],
-        name: ["Root", "Child 1", "Child 2"],
-      }).lazy(),
+      categories: pl
+        .DataFrame({
+          id: [1, 2, 3],
+          parent_id: [1, 1, 999],
+          name: ["Root", "Child 1", "Child 2"],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {
@@ -268,13 +280,17 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: pl.DataFrame({
-        id: [1],
-      }).lazy(),
-      posts: pl.DataFrame({
-        id: [1, 2, 3, 4, 5],
-        user_id: [999, 998, 997, 996, 995],
-      }).lazy(),
+      users: pl
+        .DataFrame({
+          id: [1],
+        })
+        .lazy(),
+      posts: pl
+        .DataFrame({
+          id: [1, 2, 3, 4, 5],
+          user_id: [999, 998, 997, 996, 995],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {
@@ -373,17 +389,23 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: pl.DataFrame({
-        id: [1, 2],
-      }).lazy(),
-      categories: pl.DataFrame({
-        id: [10, 20],
-      }).lazy(),
-      posts: pl.DataFrame({
-        id: [1, 2],
-        user_id: [1, 2],
-        category_id: [10, 20],
-      }).lazy(),
+      users: pl
+        .DataFrame({
+          id: [1, 2],
+        })
+        .lazy(),
+      categories: pl
+        .DataFrame({
+          id: [10, 20],
+        })
+        .lazy(),
+      posts: pl
+        .DataFrame({
+          id: [1, 2],
+          user_id: [1, 2],
+          category_id: [10, 20],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {
@@ -445,17 +467,23 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: pl.DataFrame({
-        id: [1],
-      }).lazy(),
-      categories: pl.DataFrame({
-        id: [10],
-      }).lazy(),
-      posts: pl.DataFrame({
-        id: [1, 2],
-        user_id: [999, 1],
-        category_id: [10, 888],
-      }).lazy(),
+      users: pl
+        .DataFrame({
+          id: [1],
+        })
+        .lazy(),
+      categories: pl
+        .DataFrame({
+          id: [10],
+        })
+        .lazy(),
+      posts: pl
+        .DataFrame({
+          id: [1, 2],
+          user_id: [999, 1],
+          category_id: [10, 888],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {
@@ -510,9 +538,11 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: pl.DataFrame({
-        id: [1],
-      }).lazy(),
+      users: pl
+        .DataFrame({
+          id: [1],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {
@@ -543,10 +573,12 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: pl.DataFrame({
-        id: [1, 2],
-        name: ["Alice", "Bob"],
-      }).lazy(),
+      users: pl
+        .DataFrame({
+          id: [1, 2],
+          name: ["Alice", "Bob"],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {
@@ -597,15 +629,19 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: pl.DataFrame({
-        first_name: ["Alice", "Bob"],
-        last_name: ["Smith", "Jones"],
-      }).lazy(),
-      posts: pl.DataFrame({
-        id: [1, 2],
-        author_first: ["Alice", "Bob"],
-        author_last: ["Smith", "Jones"],
-      }).lazy(),
+      users: pl
+        .DataFrame({
+          first_name: ["Alice", "Bob"],
+          last_name: ["Smith", "Jones"],
+        })
+        .lazy(),
+      posts: pl
+        .DataFrame({
+          id: [1, 2],
+          author_first: ["Alice", "Bob"],
+          author_last: ["Smith", "Jones"],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {
@@ -656,15 +692,19 @@ describe("validatePackageForeignKeys", () => {
     }
 
     const tables: Record<string, Table> = {
-      users: pl.DataFrame({
-        first_name: ["Alice", "Bob"],
-        last_name: ["Smith", "Jones"],
-      }).lazy(),
-      posts: pl.DataFrame({
-        id: [1, 2],
-        author_first: ["Alice", "Charlie"],
-        author_last: ["Smith", "Brown"],
-      }).lazy(),
+      users: pl
+        .DataFrame({
+          first_name: ["Alice", "Bob"],
+          last_name: ["Smith", "Jones"],
+        })
+        .lazy(),
+      posts: pl
+        .DataFrame({
+          id: [1, 2],
+          author_first: ["Alice", "Charlie"],
+          author_last: ["Smith", "Brown"],
+        })
+        .lazy(),
     }
 
     const loadTable = async (resource: Resource): Promise<Table> => {

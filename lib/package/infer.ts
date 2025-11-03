@@ -18,7 +18,9 @@ export async function inferPackage(
   const concurrency = os.cpus().length
 
   const resources = await pAll(
-    dataPackage.resources.map(resource => () => inferResource(resource, options)),
+    dataPackage.resources.map(
+      resource => () => inferResource(resource, options),
+    ),
     { concurrency },
   )
 

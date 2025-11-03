@@ -9,7 +9,8 @@ export function desubstituteField(field: Field, fieldExpr: pl.Expr) {
   )
 
   const missingValue = flattenMissingValues?.[0] ?? DEFAULT_MISSING_VALUE
-  fieldExpr = pl.when(fieldExpr.isNull())
+  fieldExpr = pl
+    .when(fieldExpr.isNull())
     .then(pl.lit(missingValue))
     .otherwise(fieldExpr)
     .alias(field.name)

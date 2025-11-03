@@ -13,7 +13,8 @@ export function createChecksRowUnique(mapping: SchemaMapping) {
 }
 
 function createCheckRowUnique(uniqueKey: string[]) {
-  const isErrorExpr = pl.concatList(uniqueKey)
+  const isErrorExpr = pl
+    .concatList(uniqueKey)
     .isFirstDistinct()
     .not()
     // Fold is not available so we use a tricky way to eliminate nulls

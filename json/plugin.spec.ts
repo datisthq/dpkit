@@ -26,7 +26,7 @@ describe("JsonPlugin", () => {
       const resource: Partial<Resource> = {
         path: "test.json",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadJsonTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -42,7 +42,7 @@ describe("JsonPlugin", () => {
       const resource: Partial<Resource> = {
         path: "test.jsonl",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadJsonTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -58,7 +58,7 @@ describe("JsonPlugin", () => {
       const resource: Partial<Resource> = {
         path: "test.ndjson",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadJsonTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -86,7 +86,7 @@ describe("JsonPlugin", () => {
         path: "test.txt",
         format: "json",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadJsonTable.mockResolvedValue(mockTable)
 
       const result = await plugin.loadTable(resource)
@@ -103,7 +103,7 @@ describe("JsonPlugin", () => {
         path: "test.json",
       }
       const options = { denormalized: true }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadJsonTable.mockResolvedValue(mockTable)
 
       await plugin.loadTable(resource, options)
@@ -118,7 +118,7 @@ describe("JsonPlugin", () => {
       const resource: Partial<Resource> = {
         path: "/path/to/data.json",
       }
-      const mockTable = DataFrame().lazy()
+      const mockTable = pl.DataFrame().lazy()
       mockLoadJsonTable.mockResolvedValue(mockTable)
 
       await plugin.loadTable(resource)
@@ -132,7 +132,7 @@ describe("JsonPlugin", () => {
 
   describe("saveTable", () => {
     it("should save table to json file", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.json" }
       mockSaveJsonTable.mockResolvedValue({ path: "output.json" })
 
@@ -146,7 +146,7 @@ describe("JsonPlugin", () => {
     })
 
     it("should save table to jsonl file", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.jsonl" }
       mockSaveJsonTable.mockResolvedValue({ path: "output.jsonl" })
 
@@ -160,7 +160,7 @@ describe("JsonPlugin", () => {
     })
 
     it("should save table to ndjson file", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.ndjson" }
       mockSaveJsonTable.mockResolvedValue({ path: "output.ndjson" })
 
@@ -174,7 +174,7 @@ describe("JsonPlugin", () => {
     })
 
     it("should return undefined for non-json files", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.csv" }
 
       const result = await plugin.saveTable(table, options)
@@ -184,7 +184,7 @@ describe("JsonPlugin", () => {
     })
 
     it("should handle explicit format specification", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output.txt", format: "json" as const }
       mockSaveJsonTable.mockResolvedValue({ path: "output.txt" })
 
@@ -198,7 +198,7 @@ describe("JsonPlugin", () => {
     })
 
     it("should handle paths with directories", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "/path/to/output.json" }
       mockSaveJsonTable.mockResolvedValue({ path: "/path/to/output.json" })
 
@@ -211,7 +211,7 @@ describe("JsonPlugin", () => {
     })
 
     it("should return undefined for files without extension", async () => {
-      const table = DataFrame().lazy()
+      const table = pl.DataFrame().lazy()
       const options = { path: "output" }
 
       const result = await plugin.saveTable(table, options)
