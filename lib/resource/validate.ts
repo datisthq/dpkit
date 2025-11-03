@@ -1,4 +1,5 @@
 import type { DataError, Descriptor, Resource } from "@dpkit/core"
+import { createReport } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
 import { loadDescriptor, validateResourceMetadata } from "@dpkit/core"
 import { resolveBasepath } from "@dpkit/core"
@@ -20,16 +21,13 @@ export async function validateResource(
     descriptor = await loadDescriptor(descriptor)
   }
 
-  const { valid, errors, resource } = await validateResourceMetadata(
-    descriptor,
-    { basepath },
-  )
+  const report = await validateResourceMetadata(descriptor, { basepath })
 
-  if (!resource) {
-    return { valid, errors }
+  if (!report.resource) {
+    return report
   }
 
-  return await validateResourceData(resource, options)
+  return await validateResourceData(report.resource, options)
 }
 
 export async function validateResourceData(
@@ -70,5 +68,5 @@ export async function validateResourceData(
     })
   }
 
-  return { valid: errors.length === 0, errors }
+  return createReport(errors)
 }

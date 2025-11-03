@@ -1,4 +1,5 @@
 import os from "node:os"
+import { createReport } from "@dpkit/core"
 import type { Descriptor, Package } from "@dpkit/core"
 import { loadDescriptor, validatePackageMetadata } from "@dpkit/core"
 import { resolveBasepath } from "@dpkit/core"
@@ -53,9 +54,10 @@ export async function validatePackage(
   )
 
   const errors = [...dataReport.errors, ...fkReport.errors]
-  return { valid: errors.length === 0, errors }
+  return createReport(errors)
 }
 
+// TODO: make private inspect?
 export async function validatePackageData(dataPackage: Package) {
   const concurrency = os.cpus().length
 
@@ -74,6 +76,5 @@ export async function validatePackageData(dataPackage: Package) {
     )
   ).flat()
 
-  const valid = !errors.length
-  return { valid, errors: errors }
+  return createReport(errors)
 }
