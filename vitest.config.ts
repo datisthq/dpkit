@@ -26,7 +26,6 @@ export default defineConfig({
         "**/examples/**",
         "**/entrypoints/**",
         "browser/**",
-        "cloud/**",
         "docs/**",
         "service/**",
         "site/**",

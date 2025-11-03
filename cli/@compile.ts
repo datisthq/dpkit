@@ -2,8 +2,6 @@ import { join } from "node:path"
 import { execa } from "execa"
 import metadata from "./package.json" with { type: "json" }
 
-// TODO: Enable SQLite support
-
 function makeShell(...paths: string[]) {
   return execa({
     cwd: join(import.meta.dirname, ...paths),
@@ -35,13 +33,12 @@ pnpm deploy compile
 // Remove binaries
 
 const binaries = [
-  { polars: "nodejs-polars-linux-x64-gnu", libsql: "libsql-linux-x64-gnu" },
-  { polars: "nodejs-polars-linux-x64-musl", libsql: "libsql-linux-x64-musl" },
+  { polars: "nodejs-polars-linux-x64-gnu" },
+  { polars: "nodejs-polars-linux-x64-musl" },
 ]
 
 for (const binary of binaries) {
   await $compile`rm -rf node_modules/${binary.polars}`
-  //await $compile`rm -rf node_modules/${binary.libsql}`
 }
 
 // Compile executable
@@ -51,31 +48,26 @@ const targets = [
     name: "bun-linux-x64",
     dpkit: "linux-x64",
     polars: "nodejs-polars-linux-x64-gnu",
-    libsql: "libsql-linux-x64-gnu",
   },
   {
     name: "bun-linux-arm64",
     dpkit: "linux-arm64",
     polars: "nodejs-polars-linux-arm64-gnu",
-    libsql: "libsql-linux-arm64-gnu",
   },
   {
     name: "bun-darwin-x64",
     dpkit: "macos-x64",
     polars: "nodejs-polars-darwin-x64",
-    libsql: "libsql-darwin-x64",
   },
   {
     name: "bun-darwin-arm64",
     dpkit: "macos-arm64",
     polars: "nodejs-polars-darwin-arm64",
-    libsql: "libsql-darwin-arm64",
   },
   {
     name: "bun-windows-x64",
     dpkit: "windows-x64",
     polars: "nodejs-polars-win32-x64-msvc",
-    libsql: "libsql-win32-x64-msvc",
   },
 ]
 
@@ -83,7 +75,6 @@ for (const target of targets) {
   const folder = `dp-${metadata.version}-${target.dpkit}`
 
   for (const packageName of [target.polars]) {
-    //for (const packageName of [target.polars, target.libsql]) {
     const pack = await $compile`npm pack ${packageName}`
     await $compile`mkdir -p node_modules/${packageName}`
     await $compile`tar -xzf ${pack.stdout} -C node_modules/${packageName} --strip-components=1`
@@ -106,7 +97,6 @@ for (const target of targets) {
   await $binaries`rm -rf ${folder}`
 
   await $compile`rm -rf node_modules/${target.polars}`
-  //await $compile`rm -rf node_modules/${target.libsql}`
 }
 
 // Clean artifacts (pnpm creates an unwanted dpkit folder)

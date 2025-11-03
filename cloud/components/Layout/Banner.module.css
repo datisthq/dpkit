@@ -1,8 +1,0 @@
-.banner {
-  background-color: light-dark(
-    var(--mantine-color-blue-6),
-    var(--mantine-color-blue-7)
-  );
-  color: var(--mantine-color-white);
-  text-align: center;
-}

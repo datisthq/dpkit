@@ -12,9 +12,7 @@ import { ParquetPlugin } from "@dpkit/parquet"
 import type { TablePlugin } from "@dpkit/table"
 import { XlsxPlugin } from "@dpkit/xlsx"
 import { ZenodoPlugin } from "@dpkit/zenodo"
-
-// TODO: Enable after migrated away from yauzl-promise (uses native crc32)
-//import { ZipPlugin } from "@dpkit/zip"
+import { ZipPlugin } from "@dpkit/zip"
 
 export class Dpkit {
   plugins: TablePlugin[] = []
@@ -32,7 +30,7 @@ dpkit.register(DatahubPlugin)
 dpkit.register(GithubPlugin)
 dpkit.register(ZenodoPlugin)
 dpkit.register(FolderPlugin)
-//dpkit.register(ZipPlugin)
+dpkit.register(ZipPlugin)
 
 // Table functions
 dpkit.register(ArrowPlugin)

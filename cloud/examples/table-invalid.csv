@@ -1,5 +1,0 @@
-id,name,email,age,score,status
-1,John Doe,john@example.com,25,75.5,active
-2,AB,invalid-email,30,50.0,pending
-3,Jane Smith,jane@example.com,150,80.5,active
-bad,Jane Smith Very Long,jane@example.com,150,80.5,active

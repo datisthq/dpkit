@@ -16,8 +16,7 @@ export * from "@dpkit/parquet"
 export * from "@dpkit/table"
 export * from "@dpkit/xlsx"
 export * from "@dpkit/zenodo"
-// TODO: Enable after migrated away from yauzl-promise (uses native crc32)
-//export * from "@dpkit/zip"
+export * from "@dpkit/zip"
 
 export * from "./dialect/index.ts"
 export * from "./package/index.ts"
