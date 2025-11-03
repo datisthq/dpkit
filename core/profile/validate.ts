@@ -1,6 +1,7 @@
 import type { Descriptor } from "../descriptor/index.ts"
 import type { MetadataError } from "../error/index.ts"
 import { ajv } from "../profile/ajv.ts"
+import { createReport } from "../report/index.ts"
 import type { Profile } from "./Profile.ts"
 import { loadProfile } from "./load.ts"
 
@@ -21,11 +22,11 @@ export async function validateDescriptor(
       : options.profile
 
   const validate = await ajv.compileAsync(profile)
-  const valid = validate(descriptor)
+  validate(descriptor)
 
   const errors: MetadataError[] = validate.errors
     ? validate.errors?.map(error => ({ ...error, type: "metadata" }))
     : []
 
-  return { valid, errors }
+  return createReport(errors)
 }

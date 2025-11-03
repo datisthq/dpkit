@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import { validateResourceMetadata } from "./validate.ts"
 
 describe("validateResourceMetadata", () => {
-  it("returns valid result for valid resource", async () => {
+  it("returns valid report for valid resource", async () => {
     const descriptor = {
       name: "example-resource",
       path: "data.csv",
@@ -10,10 +10,10 @@ describe("validateResourceMetadata", () => {
       encoding: "utf-8",
     }
 
-    const result = await validateResourceMetadata(descriptor)
+    const report = await validateResourceMetadata(descriptor)
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("returns validation errors for invalid resource", async () => {
@@ -22,12 +22,12 @@ describe("validateResourceMetadata", () => {
       path: true, // Should be a string or array of strings
     }
 
-    const result = await validateResourceMetadata(invalidResource)
+    const report = await validateResourceMetadata(invalidResource)
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(0)
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toBeGreaterThan(0)
 
-    const error = result.errors[0]
+    const error = report.errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("type")

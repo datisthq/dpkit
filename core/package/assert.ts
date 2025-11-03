@@ -1,5 +1,5 @@
 import type { Descriptor } from "../descriptor/index.ts"
-import { AssertionError } from "../error/index.ts"
+import { AssertException } from "../exception/index.ts"
 import type { Package } from "./Package.ts"
 import { validatePackageMetadata } from "./validate.ts"
 
@@ -12,8 +12,8 @@ export async function assertPackage(
     basepath?: string
   },
 ) {
-  const { errors, dataPackage } = await validatePackageMetadata(source, options)
+  const report = await validatePackageMetadata(source, options)
 
-  if (!dataPackage) throw new AssertionError(errors)
-  return dataPackage
+  if (!report.dataPackage) throw new AssertException(report.errors)
+  return report.dataPackage
 }

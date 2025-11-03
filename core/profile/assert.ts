@@ -4,6 +4,8 @@ import type { ProfileType } from "./Profile.ts"
 import { ajv } from "./ajv.ts"
 import { profileRegistry } from "./registry.ts"
 
+// TODO: It should narrow to JSON Schema
+
 export async function assertProfile(
   descriptor: Descriptor,
   options?: {

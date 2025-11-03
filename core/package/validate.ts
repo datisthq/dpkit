@@ -21,15 +21,15 @@ export async function validatePackageMetadata(
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const { valid, errors } = await validateDescriptor(descriptor, { profile })
+  const report = await validateDescriptor(descriptor, { profile })
 
   let dataPackage: Package | undefined = undefined
-  if (valid) {
+  if (report.valid) {
     // Validation + normalization = we can cast it
     dataPackage = convertPackageFromDescriptor(descriptor, {
       basepath: options?.basepath,
     }) as unknown as Package
   }
 
-  return { valid, errors, dataPackage }
+  return { ...report, dataPackage }
 }

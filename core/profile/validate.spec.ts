@@ -19,10 +19,10 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const result = await validateDescriptor(descriptor, { profile })
+    const report = await validateDescriptor(descriptor, { profile })
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("returns validation errors for invalid descriptor", async () => {
@@ -42,12 +42,12 @@ describe("validateDescriptor", () => {
       description: "A test package with wrong version type",
     }
 
-    const result = await validateDescriptor(descriptor, { profile })
+    const report = await validateDescriptor(descriptor, { profile })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(0)
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toBeGreaterThan(0)
 
-    const error = result.errors[0]
+    const error = report.errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("type")
@@ -71,12 +71,12 @@ describe("validateDescriptor", () => {
       version: "1.0.0",
     }
 
-    const result = await validateDescriptor(descriptor, { profile })
+    const report = await validateDescriptor(descriptor, { profile })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(0)
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toBeGreaterThan(0)
 
-    const error = result.errors[0]
+    const error = report.errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("required")
@@ -118,12 +118,12 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const result = await validateDescriptor(descriptor, { profile })
+    const report = await validateDescriptor(descriptor, { profile })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(0)
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toBeGreaterThan(0)
 
-    const hasEmailPatternError = result.errors.some(
+    const hasEmailPatternError = report.errors.some(
       error =>
         error &&
         error.instancePath === "/author/email" &&
@@ -158,12 +158,12 @@ describe("validateDescriptor", () => {
       extra_field: "should not be here",
     }
 
-    const result = await validateDescriptor(descriptor, { profile })
+    const report = await validateDescriptor(descriptor, { profile })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(3)
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toBeGreaterThan(3)
 
-    const errorKeywords = result.errors.map(err => err?.keyword)
+    const errorKeywords = report.errors.map(err => err?.keyword)
     expect(errorKeywords).toContain("required")
     expect(errorKeywords).toContain("minLength")
     expect(errorKeywords).toContain("pattern")

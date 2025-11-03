@@ -16,13 +16,13 @@ export async function validateSchema(source: Descriptor | Schema) {
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const { valid, errors } = await validateDescriptor(descriptor, { profile })
+  const report = await validateDescriptor(descriptor, { profile })
 
   let schema: Schema | undefined = undefined
-  if (valid) {
+  if (report.valid) {
     // Validation + normalization = we can cast it
     schema = convertSchemaFromDescriptor(descriptor) as unknown as Schema
   }
 
-  return { valid, errors, schema }
+  return { ...report, schema }
 }

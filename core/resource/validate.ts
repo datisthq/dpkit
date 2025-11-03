@@ -1,6 +1,6 @@
 import type { Descriptor } from "../descriptor/index.ts"
 import { loadDialect } from "../dialect/index.ts"
-import { AssertionError } from "../error/index.ts"
+import { AssertException } from "../exception/index.ts"
 import { validateDescriptor } from "../profile/index.ts"
 import { loadSchema } from "../schema/index.ts"
 import type { Resource } from "./Resource.ts"
@@ -24,10 +24,10 @@ export async function validateResourceMetadata(
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  let { valid, errors } = await validateDescriptor(descriptor, { profile })
+  const report = await validateDescriptor(descriptor, { profile })
 
   let resource: Resource | undefined = undefined
-  if (valid) {
+  if (report.valid) {
     // Validation + normalization = we can cast it
     resource = convertResourceFromDescriptor(descriptor, {
       basepath: options?.basepath,
@@ -36,18 +36,18 @@ export async function validateResourceMetadata(
 
   if (resource) {
     const dialectErorrs = await validateDialectIfExternal(resource)
-    if (dialectErorrs) errors.push(...dialectErorrs)
+    if (dialectErorrs) report.errors.push(...dialectErorrs)
 
     const schemaErorrs = await validateSchemaIfExternal(resource)
-    if (schemaErorrs) errors.push(...schemaErorrs)
+    if (schemaErorrs) report.errors.push(...schemaErorrs)
 
-    if (errors.length) {
+    if (report.errors.length) {
       resource = undefined
-      valid = false
+      report.valid = false
     }
   }
 
-  return { valid, errors, resource }
+  return { ...report, resource }
 }
 
 async function validateDialectIfExternal(resource: Resource) {
@@ -55,7 +55,7 @@ async function validateDialectIfExternal(resource: Resource) {
     try {
       await loadDialect(resource.dialect)
     } catch (error) {
-      if (error instanceof AssertionError) {
+      if (error instanceof AssertException) {
         return error.errors
       }
     }
@@ -69,7 +69,7 @@ async function validateSchemaIfExternal(resource: Resource) {
     try {
       await loadSchema(resource.schema)
     } catch (error) {
-      if (error instanceof AssertionError) {
+      if (error instanceof AssertException) {
         return error.errors
       }
     }

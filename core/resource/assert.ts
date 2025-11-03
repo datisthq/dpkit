@@ -1,5 +1,5 @@
 import type { Descriptor } from "../descriptor/index.ts"
-import { AssertionError } from "../error/index.ts"
+import { AssertException } from "../exception/index.ts"
 import type { Resource } from "./Resource.ts"
 import { validateResourceMetadata } from "./validate.ts"
 
@@ -12,8 +12,8 @@ export async function assertResource(
     basepath?: string
   },
 ) {
-  const { errors, resource } = await validateResourceMetadata(source, options)
+  const report = await validateResourceMetadata(source, options)
 
-  if (!resource) throw new AssertionError(errors)
-  return resource
+  if (!report.resource) throw new AssertException(report.errors)
+  return report.resource
 }

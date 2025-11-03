@@ -17,10 +17,10 @@ describe("validatePackageMetadata", () => {
       ],
     }
 
-    const { valid, errors } = await validatePackageMetadata(descriptor)
+    const report = await validatePackageMetadata(descriptor)
 
-    expect(valid).toBe(true)
-    expect(errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("returns validation errors for invalid package", async () => {
@@ -29,12 +29,12 @@ describe("validatePackageMetadata", () => {
       resources: "not-an-array", // Should be an array
     }
 
-    const { valid, errors } = await validatePackageMetadata(descriptor)
+    const report = await validatePackageMetadata(descriptor)
 
-    expect(valid).toBe(false)
-    expect(errors.length).toBeGreaterThan(0)
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toBeGreaterThan(0)
 
-    const error = errors[0]
+    const error = report.errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("type")
@@ -46,7 +46,7 @@ describe("validatePackageMetadata", () => {
       "https://raw.githubusercontent.com/tdwg/camtrap-dp/refs/tags/1.0.2/example/datapackage.json",
     )
 
-    const { valid } = await validatePackageMetadata(descriptor)
-    expect(valid).toBe(true)
+    const report = await validatePackageMetadata(descriptor)
+    expect(report.valid).toBe(true)
   })
 })

@@ -16,13 +16,13 @@ export async function validateDialect(source: Descriptor | Dialect) {
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const { valid, errors } = await validateDescriptor(descriptor, { profile })
+  const report = await validateDescriptor(descriptor, { profile })
 
   let dialect: Dialect | undefined = undefined
-  if (valid) {
+  if (report.valid) {
     // Validation + normalization = we can cast it
     dialect = convertDialectFromDescriptor(descriptor) as Dialect
   }
 
-  return { valid, errors, dialect }
+  return { ...report, dialect }
 }

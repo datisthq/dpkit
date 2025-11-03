@@ -2,17 +2,17 @@ import { describe, expect, it } from "vitest"
 import { validateDialect } from "./validate.ts"
 
 describe("validateDialect", () => {
-  it("returns valid result for valid dialect", async () => {
+  it("returns valid report for valid dialect", async () => {
     const descriptor = {
       delimiter: ";",
     }
 
-    const result = await validateDialect({
+    const report = await validateDialect({
       descriptor,
     })
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("returns validation errors for invalid dialect", async () => {
@@ -20,12 +20,12 @@ describe("validateDialect", () => {
       delimiter: 1, // Should be a string
     }
 
-    const result = await validateDialect(invalidDialect)
+    const report = await validateDialect(invalidDialect)
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(0)
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toBeGreaterThan(0)
 
-    const error = result.errors[0]
+    const error = report.errors[0]
     expect(error).toBeDefined()
     if (error) {
       expect(error.keyword).toBe("type")
