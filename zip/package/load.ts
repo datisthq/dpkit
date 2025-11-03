@@ -1,31 +1,33 @@
-import { createWriteStream } from "node:fs"
+import { readFile, writeFile } from "node:fs/promises"
 import { mkdir } from "node:fs/promises"
-import { join } from "node:path"
-import { pipeline } from "node:stream/promises"
+import { dirname, join } from "node:path"
 import { loadPackageDescriptor } from "@dpkit/core"
 import { getTempFolderPath } from "@dpkit/folder"
-import yauzl from "yauzl-promise"
+import { unzip } from "fflate"
 
 export async function loadPackageFromZip(archivePath: string) {
   const basepath = getTempFolderPath()
-  const zipfile = await yauzl.open(archivePath)
+  const zipData = await readFile(archivePath)
 
-  try {
-    for await (const entry of zipfile) {
-      const path = join(basepath, entry.filename)
+  const entries = await new Promise<Record<string, Uint8Array>>(
+    (resolve, reject) => {
+      unzip(zipData, (err, unzipped) => {
+        if (err) reject(err)
+        else resolve(unzipped)
+      })
+    },
+  )
 
-      if (entry.filename.endsWith("/")) {
-        await mkdir(path, { recursive: true })
-        continue
-      }
+  for (const [filename, data] of Object.entries(entries)) {
+    const path = join(basepath, filename)
 
-      const readStream = await entry.openReadStream()
-      const writeStream = createWriteStream(path)
-
-      await pipeline(readStream, writeStream)
+    if (filename.endsWith("/")) {
+      await mkdir(path, { recursive: true })
+      continue
     }
-  } finally {
-    await zipfile.close()
+
+    await mkdir(dirname(path), { recursive: true })
+    await writeFile(path, data)
   }
 
   const dataPackage = await loadPackageDescriptor(
