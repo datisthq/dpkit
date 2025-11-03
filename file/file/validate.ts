@@ -1,17 +1,15 @@
 import type { FileError } from "@dpkit/core"
 import { createReport } from "@dpkit/core"
+import type { Resource } from "@dpkit/core"
 import { prefetchFiles } from "./fetch.ts"
 import { inferFileBytes, inferFileEncoding, inferFileHash } from "./infer.ts"
 
-export async function validateFile(
-  path?: string | string[],
-  options?: { bytes?: number; hash?: string; encoding?: string },
-) {
+export async function validateFile(resource: Partial<Resource>) {
   const errors: FileError[] = []
-  const localPaths = await prefetchFiles(path)
+  const localPaths = await prefetchFiles(resource.path)
 
-  if (options?.bytes) {
-    const bytes = options.bytes
+  if (resource.bytes) {
+    const bytes = resource.bytes
     const actualBytes = await inferFileBytes(localPaths)
 
     if (bytes !== actualBytes) {
@@ -23,8 +21,8 @@ export async function validateFile(
     }
   }
 
-  if (options?.hash) {
-    const [hashValue, hashType = "md5"] = options.hash.split(":").toReversed()
+  if (resource.hash) {
+    const [hashValue, hashType = "md5"] = resource.hash.split(":").toReversed()
 
     const hash = `${hashType}:${hashValue}`
     const actualHash = await inferFileHash(localPaths, {
@@ -40,8 +38,8 @@ export async function validateFile(
     }
   }
 
-  if (options?.encoding) {
-    const encoding = options.encoding
+  if (resource.encoding) {
+    const encoding = resource.encoding
     const actualEncoding = await inferFileEncoding(localPaths)
 
     if (actualEncoding) {

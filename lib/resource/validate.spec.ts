@@ -93,7 +93,7 @@ describe("validateResource", () => {
     expect(report.errors).toEqual([
       {
         type: "data",
-        message: "missing table",
+        message: "missing test table",
       },
     ])
   })

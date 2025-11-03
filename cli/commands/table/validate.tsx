@@ -1,4 +1,5 @@
-import { loadTable, validateTable } from "@dpkit/lib"
+import { inspectTable, loadTable } from "@dpkit/lib"
+import { createReport } from "@dpkit/lib"
 import { loadSchema } from "@dpkit/lib"
 import { inferSchemaFromTable, resolveSchema } from "@dpkit/lib"
 import { loadDialect } from "@dpkit/lib"
@@ -118,23 +119,23 @@ export const validateTableCommand = new Command("validate")
       )
     }
 
-    const report = await session.task(
-      "Validating table",
-      validateTable(table, { schema }),
+    let errors = await session.task(
+      "Inspecting table",
+      inspectTable(table, { schema }),
     )
 
-    if (report.errors.length) {
-      const type = await selectErrorType(session, report.errors)
-      if (type) report.errors = report.errors.filter(e => e.type === type)
+    if (errors.length) {
+      const type = await selectErrorType(session, errors)
+      if (type) errors = errors.filter(e => e.type === type)
     }
 
-    if (report.valid) {
+    if (!errors.length) {
       session.success("Table is valid")
       return
     }
 
     session.render(
-      report,
-      <ErrorGrid errors={report.errors} quit={options.quit} />,
+      createReport(errors),
+      <ErrorGrid errors={errors} quit={options.quit} />,
     )
   })

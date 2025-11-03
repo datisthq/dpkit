@@ -50,7 +50,9 @@ export async function validatePackage(
   const dataReport = await validatePackageData(metadataReport.dataPackage)
   const fkReport = await validatePackageForeignKeys(
     metadataReport.dataPackage,
-    { loadTable },
+    {
+      loadTable,
+    },
   )
 
   const errors = [...dataReport.errors, ...fkReport.errors]
@@ -65,8 +67,11 @@ export async function validatePackageData(dataPackage: Package) {
     await pAll(
       dataPackage.resources.map(resource => async () => {
         try {
-          const { errors } = await validateResourceData(resource)
-          return errors.map(error => ({ ...error, resource: resource.name }))
+          const report = await validateResourceData(resource)
+          return report.errors.map(error => ({
+            ...error,
+            resource: resource.name,
+          }))
         } catch (error) {
           const message = error instanceof Error ? error.message : String(error)
           throw new Error(`[${resource.name}] ${message}`)

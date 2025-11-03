@@ -20,7 +20,7 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const report = await validateFile("https://example.com/file.txt")
+    const report = await validateFile({ path: "https://example.com/file.txt" })
 
     expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.txt",
@@ -32,7 +32,8 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       bytes: 13,
     })
 
@@ -43,7 +44,8 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       bytes: 1024,
     })
 
@@ -62,7 +64,8 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       hash: actualHash,
     })
 
@@ -75,7 +78,8 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       hash: "md5:wronghash",
     })
 
@@ -94,7 +98,8 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "sha256" })
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       hash: actualHash,
     })
 
@@ -107,7 +112,8 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "sha1" })
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       hash: actualHash,
     })
 
@@ -120,7 +126,8 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "sha512" })
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       hash: actualHash,
     })
 
@@ -133,7 +140,8 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       bytes: 13,
       hash: actualHash,
     })
@@ -147,7 +155,8 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       bytes: 1024,
       hash: "md5:wronghash",
     })
@@ -172,7 +181,8 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       bytes: 1024,
       hash: actualHash,
     })
@@ -186,7 +196,8 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const report = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile({
+      path: "https://example.com/file.txt",
       bytes: 13,
       hash: "md5:wronghash",
     })
@@ -200,7 +211,10 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("x".repeat(2048))
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const report = await validateFile("/local/path/file.txt", { bytes: 2048 })
+    const report = await validateFile({
+      path: "/local/path/file.txt",
+      bytes: 2048,
+    })
 
     expect(mockPrefetchFiles).toHaveBeenCalledWith("/local/path/file.txt")
     expect(report).toEqual({ valid: true, errors: [] })
@@ -210,7 +224,8 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const report = await validateFile("https://example.com/empty.txt", {
+    const report = await validateFile({
+      path: "https://example.com/empty.txt",
       bytes: 0,
     })
 

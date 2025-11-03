@@ -22,6 +22,7 @@ export class Dpkit {
   }
 }
 
+// TODO: rename to stop using dpkit name?
 export const dpkit = new Dpkit()
 
 // Core functions
