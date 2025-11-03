@@ -1,9 +1,10 @@
 import os from "node:os"
 import type { Field, Schema } from "@dpkit/core"
+import type { RowError } from "@dpkit/core"
+import type { TableError } from "@dpkit/core"
+import { createReport } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import pAll from "p-all"
-import type { RowError } from "../error/index.ts"
-import type { TableError } from "../error/index.ts"
 import { validateField } from "../field/index.ts"
 import { arrayDiff } from "../helpers.ts"
 import { matchSchemaField } from "../schema/index.ts"
@@ -38,10 +39,7 @@ export async function validateTable(
     errors.push(...rowErrors)
   }
 
-  return {
-    errors: errors.slice(0, maxErrors),
-    valid: !errors.length,
-  }
+  return createReport(errors, { maxErrors })
 }
 
 function validateFieldsMatch(mapping: SchemaMapping) {

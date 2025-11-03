@@ -15,10 +15,10 @@ describe("validateTable (cell/required)", () => {
       fields: [{ name: "id", type: "number", constraints: { required: true } }],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toHaveLength(1)
-    expect(errors).toContainEqual({
+    expect(report.errors).toHaveLength(1)
+    expect(report.errors).toContainEqual({
       type: "cell/required",
       fieldName: "id",
       rowNumber: 2,

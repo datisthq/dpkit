@@ -24,8 +24,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should not report errors for valid GeoJSON geometries", async () => {
@@ -48,8 +48,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should not report errors for valid GeoJSON Feature", async () => {
@@ -72,8 +72,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should not report errors for valid GeoJSON FeatureCollection", async () => {
@@ -95,8 +95,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should not report errors for null values", async () => {
@@ -119,8 +119,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report errors for JSON arrays", async () => {
@@ -143,8 +143,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toEqual([
       {
         type: "cell/type",
         fieldName: "data",
@@ -175,16 +175,16 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/type")).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors.filter(e => e.type === "cell/type")).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "data",
       fieldType: "geojson",
       rowNumber: 2,
       cell: "invalid json",
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "data",
       fieldType: "geojson",
@@ -213,8 +213,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toEqual([
       {
         type: "cell/type",
         fieldName: "data",
@@ -241,8 +241,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toEqual([
       {
         type: "cell/type",
         fieldName: "data",
@@ -301,16 +301,16 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "location",
       fieldType: "geojson",
       rowNumber: 2,
       cell: '{"type":"Point","coordinates":[0]}',
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "location",
       fieldType: "geojson",
@@ -339,16 +339,16 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "line",
       fieldType: "geojson",
       rowNumber: 2,
       cell: '{"type":"LineString","coordinates":[[0,0]]}',
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "line",
       fieldType: "geojson",
@@ -377,16 +377,16 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "feature",
       fieldType: "geojson",
       rowNumber: 2,
       cell: '{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]}}',
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "feature",
       fieldType: "geojson",
@@ -414,8 +414,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toEqual([
       {
         type: "cell/type",
         fieldName: "collection",
@@ -456,8 +456,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should not report errors for valid TopoJSON", async () => {
@@ -480,8 +480,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report errors for invalid TopoJSON structure", async () => {
@@ -505,16 +505,16 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "topology",
       fieldType: "geojson",
       rowNumber: 2,
       cell: '{"type":"Topology","objects":{}}',
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "topology",
       fieldType: "geojson",
@@ -544,8 +544,8 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should handle null values for topojson format", async () => {
@@ -568,7 +568,7 @@ describe("validateGeojsonField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 })

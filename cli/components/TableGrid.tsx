@@ -7,6 +7,8 @@ import React from "react"
 import type { Order } from "./DataGrid.tsx"
 import { DataGrid } from "./DataGrid.tsx"
 
+// TODO: Move components to their own folders
+
 const PAGE_SIZE = 10
 
 export function TableGrid(props: {

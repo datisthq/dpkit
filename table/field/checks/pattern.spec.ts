@@ -23,8 +23,8 @@ describe("validateTable (cell/pattern)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report an error for strings that don't match the pattern", async () => {
@@ -53,16 +53,16 @@ describe("validateTable (cell/pattern)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/pattern")).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors.filter(e => e.type === "cell/pattern")).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "cell/pattern",
       fieldName: "email",
       pattern,
       rowNumber: 2,
       cell: "alice@domain",
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "cell/pattern",
       fieldName: "email",
       pattern,

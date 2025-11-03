@@ -20,8 +20,8 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should not report errors for empty arrays", async () => {
@@ -40,8 +40,8 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should not report errors for null values", async () => {
@@ -60,8 +60,8 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report errors for JSON objects", async () => {
@@ -80,8 +80,8 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toEqual([
       {
         type: "cell/type",
         fieldName: "data",
@@ -108,16 +108,16 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/type")).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors.filter(e => e.type === "cell/type")).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "data",
       fieldType: "array",
       rowNumber: 2,
       cell: "invalid json",
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "cell/type",
       fieldName: "data",
       fieldType: "array",
@@ -142,8 +142,8 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report errors for empty strings", async () => {
@@ -162,8 +162,8 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toEqual([
       {
         type: "cell/type",
         fieldName: "data",
@@ -190,8 +190,8 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toEqual([
       {
         type: "cell/type",
         fieldName: "data",
@@ -254,8 +254,8 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report errors for arrays not matching jsonSchema", async () => {
@@ -283,16 +283,18 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/jsonSchema")).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(
+      report.errors.filter(e => e.type === "cell/jsonSchema"),
+    ).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "cell/jsonSchema",
       fieldName: "numbers",
       jsonSchema,
       rowNumber: 2,
       cell: '["not","numbers"]',
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "cell/jsonSchema",
       fieldName: "numbers",
       jsonSchema,
@@ -333,8 +335,8 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toEqual([
       {
         type: "cell/jsonSchema",
         fieldName: "users",
@@ -369,8 +371,8 @@ describe("validateArrayField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toEqual([
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toEqual([
       {
         type: "cell/jsonSchema",
         fieldName: "tags",

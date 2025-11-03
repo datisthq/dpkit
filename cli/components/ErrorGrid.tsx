@@ -1,15 +1,10 @@
-import type {
-  DataError,
-  FileError,
-  MetadataError,
-  TableError,
-} from "@dpkit/lib"
+import type { DpkitError } from "@dpkit/lib"
 import * as pl from "nodejs-polars"
 import React from "react"
 import { TableGrid } from "./TableGrid.tsx"
 
 export function ErrorGrid(props: {
-  errors: (TableError | DataError | MetadataError | FileError)[]
+  errors: DpkitError[]
   quit?: boolean
 }) {
   // TODO: Property process errors

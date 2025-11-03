@@ -1,5 +1,5 @@
 import type { Field } from "@dpkit/core"
-import type { CellMinLengthError } from "../../error/index.ts"
+import type { CellMinLengthError } from "@dpkit/core"
 import type { CellMapping } from "../Mapping.ts"
 
 export function checkCellMinLength(field: Field, mapping: CellMapping) {

@@ -62,10 +62,10 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("should detect foreign key violations", async () => {
@@ -125,10 +125,10 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toEqual([
+    expect(report.valid).toBe(false)
+    expect(report.errors).toEqual([
       {
         type: "foreignKey",
         foreignKey: {
@@ -183,10 +183,10 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("should detect violations in self-referencing foreign keys", async () => {
@@ -229,10 +229,10 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toEqual([
+    expect(report.valid).toBe(false)
+    expect(report.errors).toEqual([
       {
         type: "foreignKey",
         foreignKey: {
@@ -297,13 +297,13 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, {
+    const report = await validatePackageForeignKeys(dataPackage, {
       loadTable,
       maxErrors: 3,
     })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toEqual([
+    expect(report.valid).toBe(false)
+    expect(report.errors).toEqual([
       {
         type: "foreignKey",
         foreignKey: {
@@ -412,10 +412,10 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("should detect violations in multiple foreign keys", async () => {
@@ -490,10 +490,10 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toEqual([
+    expect(report.valid).toBe(false)
+    expect(report.errors).toEqual([
       {
         type: "foreignKey",
         foreignKey: {
@@ -549,10 +549,10 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("should skip resources without foreign keys", async () => {
@@ -585,10 +585,10 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("should handle composite foreign keys", async () => {
@@ -648,10 +648,10 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("should detect violations in composite foreign keys", async () => {
@@ -711,10 +711,10 @@ describe("validatePackageForeignKeys", () => {
       return tables[resource.name]
     }
 
-    const result = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toEqual([
+    expect(report.valid).toBe(false)
+    expect(report.errors).toEqual([
       {
         type: "foreignKey",
         foreignKey: {

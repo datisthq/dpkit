@@ -20,8 +20,8 @@ describe("validateTable (row/unique)", () => {
       primaryKey: ["id"],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report errors for duplicate primary key rows", async () => {
@@ -40,10 +40,10 @@ describe("validateTable (row/unique)", () => {
       primaryKey: ["id"],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors.filter(e => e.type === "row/unique")).toHaveLength(1)
-    expect(errors).toContainEqual({
+    expect(report.errors.filter(e => e.type === "row/unique")).toHaveLength(1)
+    expect(report.errors).toContainEqual({
       type: "row/unique",
       rowNumber: 4,
       fieldNames: ["id"],
@@ -72,8 +72,8 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["email"]],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report errors for duplicate unique key rows", async () => {
@@ -98,14 +98,14 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["email"]],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "row/unique")).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors.filter(e => e.type === "row/unique")).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "row/unique",
       rowNumber: 3,
       fieldNames: ["email"],
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "row/unique",
       rowNumber: 5,
       fieldNames: ["email"],
@@ -130,9 +130,9 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["category", "subcategory"]],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "row/unique")).toHaveLength(1)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors.filter(e => e.type === "row/unique")).toHaveLength(1)
+    expect(report.errors).toContainEqual({
       type: "row/unique",
       rowNumber: 4,
       fieldNames: ["category", "subcategory"],
@@ -162,14 +162,14 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["email"]],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "row/unique")).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors.filter(e => e.type === "row/unique")).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "row/unique",
       rowNumber: 4,
       fieldNames: ["id"],
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "row/unique",
       rowNumber: 5,
       fieldNames: ["email"],
@@ -192,16 +192,16 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["id"], ["id", "name"]],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    console.log(errors)
+    const report = await validateTable(table, { schema })
+    console.log(report.errors)
 
-    expect(errors).toHaveLength(2)
-    expect(errors).toContainEqual({
+    expect(report.errors).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "row/unique",
       rowNumber: 6,
       fieldNames: ["id"],
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "row/unique",
       rowNumber: 6,
       fieldNames: ["id", "name"],

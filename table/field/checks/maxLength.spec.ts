@@ -21,8 +21,8 @@ describe("validateTable (cell/maxLength)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report an error for strings that are too long", async () => {
@@ -42,9 +42,11 @@ describe("validateTable (cell/maxLength)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/maxLength")).toHaveLength(1)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors.filter(e => e.type === "cell/maxLength")).toHaveLength(
+      1,
+    )
+    expect(report.errors).toContainEqual({
       type: "cell/maxLength",
       fieldName: "username",
       maxLength: 8,

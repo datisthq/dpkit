@@ -1,5 +1,5 @@
 import type { Field } from "@dpkit/core"
-import type { CellPatternError } from "../../error/index.ts"
+import type { CellPatternError } from "@dpkit/core"
 import type { CellMapping } from "../Mapping.ts"
 
 export function checkCellPattern(field: Field, mapping: CellMapping) {

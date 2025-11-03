@@ -21,8 +21,8 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report an error for invalid values", async () => {
@@ -42,9 +42,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/minimum")).toHaveLength(1)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors.filter(e => e.type === "cell/minimum")).toHaveLength(1)
+    expect(report.errors).toContainEqual({
       type: "cell/minimum",
       fieldName: "temperature",
       minimum: "10",
@@ -70,18 +70,18 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/exclusiveMinimum")).toHaveLength(
-      2,
-    )
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(
+      report.errors.filter(e => e.type === "cell/exclusiveMinimum"),
+    ).toHaveLength(2)
+    expect(report.errors).toContainEqual({
       type: "cell/exclusiveMinimum",
       fieldName: "temperature",
       minimum: "10",
       rowNumber: 3,
       cell: "10",
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "cell/exclusiveMinimum",
       fieldName: "temperature",
       minimum: "10",
@@ -107,9 +107,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "price",
@@ -137,9 +137,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/exclusiveMinimum",
         fieldName: "temperature",
@@ -175,9 +175,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "price",
@@ -206,9 +206,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "price",
@@ -238,9 +238,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "price",
@@ -269,9 +269,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "price",
@@ -299,9 +299,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "date",
@@ -329,9 +329,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "time",
@@ -363,9 +363,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "timestamp",
@@ -394,9 +394,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "date",
@@ -424,9 +424,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "year",
@@ -454,9 +454,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/exclusiveMinimum",
         fieldName: "year",
@@ -491,9 +491,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/minimum",
         fieldName: "yearmonth",
@@ -521,9 +521,9 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const report = await validateTable(table, { schema })
 
-    expect(errors).toEqual([
+    expect(report.errors).toEqual([
       {
         type: "cell/exclusiveMinimum",
         fieldName: "yearmonth",

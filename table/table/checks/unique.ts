@@ -1,5 +1,5 @@
+import type { RowUniqueError } from "@dpkit/core"
 import * as pl from "nodejs-polars"
-import type { RowUniqueError } from "../../error/index.ts"
 import type { SchemaMapping } from "../../schema/index.ts"
 
 export function createChecksRowUnique(mapping: SchemaMapping) {

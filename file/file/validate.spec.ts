@@ -16,40 +16,40 @@ describe("validateFile", () => {
     vi.clearAllMocks()
   })
 
-  it("should return valid result when no validation options provided", async () => {
+  it("should return valid report when no validation options provided", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await validateFile("https://example.com/file.txt")
+    const report = await validateFile("https://example.com/file.txt")
 
     expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.txt",
     )
-    expect(result).toEqual({ valid: true, errors: [] })
+    expect(report).toEqual({ valid: true, errors: [] })
   })
 
   it("should validate bytes successfully when they match", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       bytes: 13,
     })
 
-    expect(result).toEqual({ valid: true, errors: [] })
+    expect(report).toEqual({ valid: true, errors: [] })
   })
 
   it("should return error when bytes do not match", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       bytes: 1024,
     })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toHaveLength(1)
-    expect(result.errors[0]).toEqual({
+    expect(report.valid).toBe(false)
+    expect(report.errors).toHaveLength(1)
+    expect(report.errors[0]).toEqual({
       type: "file/bytes",
       bytes: 1024,
       actualBytes: 13,
@@ -62,11 +62,11 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       hash: actualHash,
     })
 
-    expect(result).toEqual({ valid: true, errors: [] })
+    expect(report).toEqual({ valid: true, errors: [] })
   })
 
   it("should return error when hash does not match", async () => {
@@ -75,13 +75,13 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       hash: "md5:wronghash",
     })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toHaveLength(1)
-    expect(result.errors[0]).toEqual({
+    expect(report.valid).toBe(false)
+    expect(report.errors).toHaveLength(1)
+    expect(report.errors[0]).toEqual({
       type: "file/hash",
       hash: "md5:wronghash",
       actualHash,
@@ -94,11 +94,11 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "sha256" })
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       hash: actualHash,
     })
 
-    expect(result).toEqual({ valid: true, errors: [] })
+    expect(report).toEqual({ valid: true, errors: [] })
   })
 
   it("should validate sha1 hash", async () => {
@@ -107,11 +107,11 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "sha1" })
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       hash: actualHash,
     })
 
-    expect(result).toEqual({ valid: true, errors: [] })
+    expect(report).toEqual({ valid: true, errors: [] })
   })
 
   it("should validate sha512 hash", async () => {
@@ -120,11 +120,11 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "sha512" })
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       hash: actualHash,
     })
 
-    expect(result).toEqual({ valid: true, errors: [] })
+    expect(report).toEqual({ valid: true, errors: [] })
   })
 
   it("should validate both bytes and hash when both match", async () => {
@@ -133,12 +133,12 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       bytes: 13,
       hash: actualHash,
     })
 
-    expect(result).toEqual({ valid: true, errors: [] })
+    expect(report).toEqual({ valid: true, errors: [] })
   })
 
   it("should return multiple errors when both bytes and hash do not match", async () => {
@@ -147,19 +147,19 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       bytes: 1024,
       hash: "md5:wronghash",
     })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toHaveLength(2)
-    expect(result.errors[0]).toEqual({
+    expect(report.valid).toBe(false)
+    expect(report.errors).toHaveLength(2)
+    expect(report.errors[0]).toEqual({
       type: "file/bytes",
       bytes: 1024,
       actualBytes: 13,
     })
-    expect(result.errors[1]).toEqual({
+    expect(report.errors[1]).toEqual({
       type: "file/hash",
       hash: "md5:wronghash",
       actualHash,
@@ -172,48 +172,48 @@ describe("validateFile", () => {
 
     const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       bytes: 1024,
       hash: actualHash,
     })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toHaveLength(1)
-    expect(result.errors[0]?.type).toBe("file/bytes")
+    expect(report.valid).toBe(false)
+    expect(report.errors).toHaveLength(1)
+    expect(report.errors[0]?.type).toBe("file/bytes")
   })
 
   it("should return error when only hash mismatch", async () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await validateFile("https://example.com/file.txt", {
+    const report = await validateFile("https://example.com/file.txt", {
       bytes: 13,
       hash: "md5:wronghash",
     })
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toHaveLength(1)
-    expect(result.errors[0]?.type).toBe("file/hash")
+    expect(report.valid).toBe(false)
+    expect(report.errors).toHaveLength(1)
+    expect(report.errors[0]?.type).toBe("file/hash")
   })
 
   it("should handle local file paths", async () => {
     const tempFilePath = await writeTempFile("x".repeat(2048))
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await validateFile("/local/path/file.txt", { bytes: 2048 })
+    const report = await validateFile("/local/path/file.txt", { bytes: 2048 })
 
     expect(mockPrefetchFiles).toHaveBeenCalledWith("/local/path/file.txt")
-    expect(result).toEqual({ valid: true, errors: [] })
+    expect(report).toEqual({ valid: true, errors: [] })
   })
 
   it("should handle empty file validation", async () => {
     const tempFilePath = await writeTempFile("")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await validateFile("https://example.com/empty.txt", {
+    const report = await validateFile("https://example.com/empty.txt", {
       bytes: 0,
     })
 
-    expect(result).toEqual({ valid: true, errors: [] })
+    expect(report).toEqual({ valid: true, errors: [] })
   })
 })

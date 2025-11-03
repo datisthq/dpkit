@@ -1,6 +1,7 @@
 import type { Field } from "@dpkit/core"
+import type { CellError, FieldError, TableError } from "@dpkit/core"
+import { createReport } from "@dpkit/core"
 import * as pl from "nodejs-polars"
-import type { CellError, FieldError, TableError } from "../error/index.ts"
 import type { Table } from "../table/index.ts"
 import type { FieldMapping } from "./Mapping.ts"
 import { checkCellEnum } from "./checks/enum.ts"
@@ -38,7 +39,7 @@ export async function validateField(
     errors.push(...dataErorrs)
   }
 
-  return { errors, valid: !errors.length }
+  return createReport(errors)
 }
 
 function validateName(mapping: FieldMapping) {

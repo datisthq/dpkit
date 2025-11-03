@@ -1,7 +1,7 @@
 import type { ArrayField, GeojsonField, ObjectField } from "@dpkit/core"
 import { validateDescriptor } from "@dpkit/core"
+import type { CellError } from "@dpkit/core"
 import * as pl from "nodejs-polars"
-import type { CellError } from "../../error/index.ts"
 import { isObject } from "../../helpers.ts"
 import type { Table } from "../../table/index.ts"
 

@@ -1,7 +1,8 @@
 import type { Package, Resource } from "@dpkit/core"
+import { createReport } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
 import type { DataError } from "@dpkit/core"
-import type { ForeignKeyError } from "../error/index.ts"
+import type { ForeignKeyError } from "@dpkit/core"
 import type { Table } from "../table/Table.ts"
 
 // TODO: foreign key fields definition should be validated as well (metadata/here?)
@@ -87,8 +88,5 @@ export async function validatePackageForeignKeys(
     }
   }
 
-  return {
-    errors: errors.slice(0, maxErrors),
-    valid: errors.length === 0,
-  }
+  return createReport(errors, { maxErrors })
 }

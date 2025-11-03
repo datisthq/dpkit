@@ -1,6 +1,6 @@
 import type { Field } from "@dpkit/core"
+import type { CellEnumError } from "@dpkit/core"
 import * as pl from "nodejs-polars"
-import type { CellEnumError } from "../../error/index.ts"
 import { evaluateExpression } from "../../helpers.ts"
 import type { CellMapping } from "../Mapping.ts"
 import { parseDateField } from "../types/date.ts"

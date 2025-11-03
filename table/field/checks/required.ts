@@ -1,5 +1,5 @@
 import type { Field } from "@dpkit/core"
-import type { CellRequiredError } from "../../error/index.ts"
+import type { CellRequiredError } from "@dpkit/core"
 import type { CellMapping } from "../Mapping.ts"
 
 export function checkCellRequired(field: Field, mapping: CellMapping) {

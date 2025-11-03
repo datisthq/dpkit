@@ -21,8 +21,8 @@ describe("validateTable (cell/minLength)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors).toHaveLength(0)
+    const report = await validateTable(table, { schema })
+    expect(report.errors).toHaveLength(0)
   })
 
   it("should report an error for strings that are too short", async () => {
@@ -42,16 +42,18 @@ describe("validateTable (cell/minLength)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/minLength")).toHaveLength(2)
-    expect(errors).toContainEqual({
+    const report = await validateTable(table, { schema })
+    expect(report.errors.filter(e => e.type === "cell/minLength")).toHaveLength(
+      2,
+    )
+    expect(report.errors).toContainEqual({
       type: "cell/minLength",
       fieldName: "username",
       minLength: 3,
       rowNumber: 2,
       cell: "a",
     })
-    expect(errors).toContainEqual({
+    expect(report.errors).toContainEqual({
       type: "cell/minLength",
       fieldName: "username",
       minLength: 3,
