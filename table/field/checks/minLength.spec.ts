@@ -1,10 +1,10 @@
 import type { Schema } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
-describe("validateTable (cell/minLength)", () => {
-  it("should not report errors for string values that meet the minLength constraint", async () => {
+describe("inspectTable (cell/minLength)", () => {
+  it("should not errors for string values that meet the minLength constraint", async () => {
     const table = pl
       .DataFrame({
         code: ["A123", "B456", "C789"],
@@ -21,8 +21,8 @@ describe("validateTable (cell/minLength)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toHaveLength(0)
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toHaveLength(0)
   })
 
   it("should report an error for strings that are too short", async () => {
@@ -42,18 +42,16 @@ describe("validateTable (cell/minLength)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors.filter(e => e.type === "cell/minLength")).toHaveLength(
-      2,
-    )
-    expect(report.errors).toContainEqual({
+    const errors = await inspectTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/minLength")).toHaveLength(2)
+    expect(errors).toContainEqual({
       type: "cell/minLength",
       fieldName: "username",
       minLength: 3,
       rowNumber: 2,
       cell: "a",
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/minLength",
       fieldName: "username",
       minLength: 3,

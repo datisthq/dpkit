@@ -1,6 +1,5 @@
 import type { Field } from "@dpkit/core"
 import type { CellError, FieldError, TableError } from "@dpkit/core"
-import { createReport } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import type { Table } from "../table/index.ts"
 import type { FieldMapping } from "./Mapping.ts"
@@ -14,11 +13,11 @@ import { checkCellRequired } from "./checks/required.ts"
 import { checkCellType } from "./checks/type.ts"
 import { checkCellUnique } from "./checks/unique.ts"
 import { normalizeField } from "./normalize.ts"
-import { validateArrayField } from "./types/array.ts"
-import { validateGeojsonField } from "./types/geojson.ts"
-import { validateObjectField } from "./types/object.ts"
+import { inspectArrayField } from "./types/array.ts"
+import { inspectGeojsonField } from "./types/geojson.ts"
+import { inspectObjectField } from "./types/object.ts"
 
-export async function validateField(
+export async function inspectField(
   mapping: FieldMapping,
   table: Table,
   options: {
@@ -28,21 +27,21 @@ export async function validateField(
   const { maxErrors } = options
   const errors: TableError[] = []
 
-  const nameErrors = validateName(mapping)
+  const nameErrors = inspectName(mapping)
   errors.push(...nameErrors)
 
-  const typeErrors = validateType(mapping)
+  const typeErrors = inspectType(mapping)
   errors.push(...typeErrors)
 
   if (!typeErrors.length) {
-    const dataErorrs = await validateCells(mapping, table, { maxErrors })
+    const dataErorrs = await inspectCells(mapping, table, { maxErrors })
     errors.push(...dataErorrs)
   }
 
-  return createReport(errors)
+  return errors
 }
 
-function validateName(mapping: FieldMapping) {
+function inspectName(mapping: FieldMapping) {
   const errors: FieldError[] = []
 
   if (mapping.source.name !== mapping.target.name) {
@@ -56,7 +55,7 @@ function validateName(mapping: FieldMapping) {
   return errors
 }
 
-function validateType(mapping: FieldMapping) {
+function inspectType(mapping: FieldMapping) {
   const errors: FieldError[] = []
   const variant = mapping.source.type.variant
 
@@ -100,7 +99,7 @@ function validateType(mapping: FieldMapping) {
   return errors
 }
 
-async function validateCells(
+async function inspectCells(
   mapping: FieldMapping,
   table: Table,
   options: {
@@ -113,11 +112,11 @@ async function validateCells(
   // Types that require non-polars validation
   switch (mapping.target.type) {
     case "array":
-      return await validateArrayField(mapping.target, table)
+      return await inspectArrayField(mapping.target, table)
     case "geojson":
-      return await validateGeojsonField(mapping.target, table)
+      return await inspectGeojsonField(mapping.target, table)
     case "object":
-      return await validateObjectField(mapping.target, table)
+      return await inspectObjectField(mapping.target, table)
   }
 
   let fieldCheckTable = table

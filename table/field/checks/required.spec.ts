@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
-describe("validateTable (cell/required)", () => {
+describe("inspectTable (cell/required)", () => {
   it("should report a cell/required error", async () => {
     const table = pl
       .DataFrame({
@@ -15,10 +15,10 @@ describe("validateTable (cell/required)", () => {
       fields: [{ name: "id", type: "number", constraints: { required: true } }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toHaveLength(1)
-    expect(report.errors).toContainEqual({
+    expect(errors).toHaveLength(1)
+    expect(errors).toContainEqual({
       type: "cell/required",
       fieldName: "id",
       rowNumber: 2,

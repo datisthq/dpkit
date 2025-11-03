@@ -1,9 +1,9 @@
 import type { Schema } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
-describe("validateTable", () => {
+describe("inspectTable", () => {
   it("should validate string to integer convertions errors", async () => {
     const table = pl
       .DataFrame({
@@ -15,17 +15,17 @@ describe("validateTable", () => {
       fields: [{ name: "id", type: "integer" }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toHaveLength(2)
-    expect(report.errors).toContainEqual({
+    expect(errors).toHaveLength(2)
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "bad",
       fieldName: "id",
       fieldType: "integer",
       rowNumber: 2,
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "4x",
       fieldName: "id",
@@ -45,17 +45,17 @@ describe("validateTable", () => {
       fields: [{ name: "price", type: "number" }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toHaveLength(2)
-    expect(report.errors).toContainEqual({
+    expect(errors).toHaveLength(2)
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "twenty",
       fieldName: "price",
       fieldType: "number",
       rowNumber: 2,
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "$40",
       fieldName: "price",
@@ -75,10 +75,10 @@ describe("validateTable", () => {
       fields: [{ name: "active", type: "boolean" }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toHaveLength(1)
-    expect(report.errors).toContainEqual({
+    expect(errors).toHaveLength(1)
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "yes",
       fieldName: "active",
@@ -98,24 +98,24 @@ describe("validateTable", () => {
       fields: [{ name: "created", type: "date" }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toHaveLength(3)
-    expect(report.errors).toContainEqual({
+    expect(errors).toHaveLength(3)
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "Jan 15, 2023",
       fieldName: "created",
       fieldType: "date",
       rowNumber: 2,
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "20230115",
       fieldName: "created",
       fieldType: "date",
       rowNumber: 3,
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "not-a-date",
       fieldName: "created",
@@ -135,24 +135,24 @@ describe("validateTable", () => {
       fields: [{ name: "time", type: "time" }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toHaveLength(3)
-    expect(report.errors).toContainEqual({
+    expect(errors).toHaveLength(3)
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "2:30pm",
       fieldName: "time",
       fieldType: "time",
       rowNumber: 2,
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "invalid",
       fieldName: "time",
       fieldType: "time",
       rowNumber: 3,
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "14h30",
       fieldName: "time",
@@ -172,12 +172,12 @@ describe("validateTable", () => {
       fields: [{ name: "time", type: "time", format: "%H:%M" }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    console.log(report.errors)
+    console.log(errors)
 
-    expect(report.errors).toHaveLength(1)
-    expect(report.errors).toContainEqual({
+    expect(errors).toHaveLength(1)
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "invalid",
       fieldName: "time",
@@ -198,24 +198,24 @@ describe("validateTable", () => {
       fields: [{ name: "year", type: "year" }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toHaveLength(3)
-    expect(report.errors).toContainEqual({
+    expect(errors).toHaveLength(3)
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "23",
       fieldName: "year",
       fieldType: "year",
       rowNumber: 2,
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "MMXXIII",
       fieldName: "year",
       fieldType: "year",
       rowNumber: 3,
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "two-thousand-twenty-three",
       fieldName: "year",
@@ -240,13 +240,13 @@ describe("validateTable", () => {
       fields: [{ name: "datetime", type: "datetime" }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     // Adjust the expectations to match actual behavior
-    expect(report.errors.length).toBeGreaterThan(0)
+    expect(errors.length).toBeGreaterThan(0)
 
     // Check for specific invalid values we expect to fail
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "January 15, 2023 2:30 PM",
       fieldName: "datetime",
@@ -254,7 +254,7 @@ describe("validateTable", () => {
       rowNumber: 2,
     })
 
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       cell: "not-a-datetime",
       fieldName: "datetime",
@@ -274,9 +274,9 @@ describe("validateTable", () => {
       fields: [{ name: "id", type: "integer" }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toHaveLength(0)
+    expect(errors).toHaveLength(0)
   })
 
   it("should validate with non-string source data", async () => {
@@ -290,9 +290,9 @@ describe("validateTable", () => {
       fields: [{ name: "is_active", type: "boolean" }],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     // Since the column isn't string type, validateField will not normalize it
-    expect(report.errors).toHaveLength(0)
+    expect(errors).toHaveLength(0)
   })
 })

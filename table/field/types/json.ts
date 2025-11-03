@@ -8,7 +8,7 @@ import type { Table } from "../../table/index.ts"
 // TODO: Improve the implementation
 // Make unblocking / handle large data / process in parallel / move processing to Rust?
 
-export async function validateJsonField(
+export async function inspectJsonField(
   field: ArrayField | GeojsonField | ObjectField,
   table: Table,
   options?: {

@@ -1,5 +1,6 @@
 import type { Descriptor } from "../descriptor/index.ts"
 import { loadDialect } from "../dialect/index.ts"
+import type { MetadataError } from "../error/index.ts"
 import { AssertException } from "../exception/index.ts"
 import { validateDescriptor } from "../profile/index.ts"
 import { loadSchema } from "../schema/index.ts"
@@ -35,11 +36,11 @@ export async function validateResourceMetadata(
   }
 
   if (resource) {
-    const dialectErorrs = await validateDialectIfExternal(resource)
-    if (dialectErorrs) report.errors.push(...dialectErorrs)
+    const dialectErorrs = await inspectDialectIfExternal(resource)
+    report.errors.push(...dialectErorrs)
 
-    const schemaErorrs = await validateSchemaIfExternal(resource)
-    if (schemaErorrs) report.errors.push(...schemaErorrs)
+    const schemaErorrs = await inspectSchemaIfExternal(resource)
+    report.errors.push(...schemaErorrs)
 
     if (report.errors.length) {
       resource = undefined
@@ -50,30 +51,34 @@ export async function validateResourceMetadata(
   return { ...report, resource }
 }
 
-async function validateDialectIfExternal(resource: Resource) {
+async function inspectDialectIfExternal(resource: Resource) {
+  const errors: MetadataError[] = []
+
   if (typeof resource.dialect === "string") {
     try {
       await loadDialect(resource.dialect)
-    } catch (error) {
-      if (error instanceof AssertException) {
-        return error.errors
+    } catch (exception) {
+      if (exception instanceof AssertException) {
+        return exception.errors
       }
     }
   }
 
-  return undefined
+  return errors
 }
 
-async function validateSchemaIfExternal(resource: Resource) {
+async function inspectSchemaIfExternal(resource: Resource) {
+  const errors: MetadataError[] = []
+
   if (typeof resource.schema === "string") {
     try {
       await loadSchema(resource.schema)
-    } catch (error) {
-      if (error instanceof AssertException) {
-        return error.errors
+    } catch (exception) {
+      if (exception instanceof AssertException) {
+        return exception.errors
       }
     }
   }
 
-  return undefined
+  return errors
 }

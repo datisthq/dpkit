@@ -1,10 +1,10 @@
 import type { Schema } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
 describe("validateObjectField", () => {
-  it("should not report errors for valid JSON objects", async () => {
+  it("should not errors for valid JSON objects", async () => {
     const table = pl
       .DataFrame({
         metadata: ['{"key":"value"}', '{"num":123}', '{"arr":[1,2,3]}'],
@@ -20,11 +20,11 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toHaveLength(0)
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toHaveLength(0)
   })
 
-  it("should report errors for JSON arrays", async () => {
+  it("should errors for JSON arrays", async () => {
     const table = pl
       .DataFrame({
         data: ["[1,2,3]", '{"key":"value"}', '["a","b","c"]'],
@@ -40,8 +40,8 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toEqual([
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toEqual([
       {
         type: "cell/type",
         fieldName: "data",
@@ -59,7 +59,7 @@ describe("validateObjectField", () => {
     ])
   })
 
-  it("should not report errors for null values", async () => {
+  it("should not errors for null values", async () => {
     const table = pl
       .DataFrame({
         config: ['{"key":"value"}', null, '{"num":123}'],
@@ -75,11 +75,11 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toHaveLength(0)
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toHaveLength(0)
   })
 
-  it("should report errors for invalid JSON", async () => {
+  it("should errors for invalid JSON", async () => {
     const table = pl
       .DataFrame({
         data: ['{"valid":true}', "invalid json", '{"key":"value"}', "{broken}"],
@@ -95,16 +95,16 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors.filter(e => e.type === "cell/type")).toHaveLength(2)
-    expect(report.errors).toContainEqual({
+    const errors = await inspectTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/type")).toHaveLength(2)
+    expect(errors).toContainEqual({
       type: "cell/type",
       fieldName: "data",
       fieldType: "object",
       rowNumber: 2,
       cell: "invalid json",
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/type",
       fieldName: "data",
       fieldType: "object",
@@ -133,11 +133,11 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toHaveLength(0)
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toHaveLength(0)
   })
 
-  it("should report errors for empty strings", async () => {
+  it("should errors for empty strings", async () => {
     const table = pl
       .DataFrame({
         data: ['{"valid":true}', "", '{"key":"value"}'],
@@ -153,8 +153,8 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toEqual([
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toEqual([
       {
         type: "cell/type",
         fieldName: "data",
@@ -165,7 +165,7 @@ describe("validateObjectField", () => {
     ])
   })
 
-  it("should report errors for JSON primitives", async () => {
+  it("should errors for JSON primitives", async () => {
     const table = pl
       .DataFrame({
         data: ['"string"', "123", "true", "false", "null"],
@@ -181,8 +181,8 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toEqual([
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toEqual([
       {
         type: "cell/type",
         fieldName: "data",
@@ -221,7 +221,7 @@ describe("validateObjectField", () => {
     ])
   })
 
-  it("should not report errors for objects matching jsonSchema", async () => {
+  it("should not errors for objects matching jsonSchema", async () => {
     const table = pl
       .DataFrame({
         user: [
@@ -251,11 +251,11 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toHaveLength(0)
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toHaveLength(0)
   })
 
-  it("should report errors for objects not matching jsonSchema", async () => {
+  it("should errors for objects not matching jsonSchema", async () => {
     const jsonSchema = {
       type: "object",
       properties: {
@@ -288,25 +288,23 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(
-      report.errors.filter(e => e.type === "cell/jsonSchema"),
-    ).toHaveLength(3)
-    expect(report.errors).toContainEqual({
+    const errors = await inspectTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/jsonSchema")).toHaveLength(3)
+    expect(errors).toContainEqual({
       type: "cell/jsonSchema",
       fieldName: "user",
       jsonSchema,
       rowNumber: 2,
       cell: '{"name":"Jane"}',
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/jsonSchema",
       fieldName: "user",
       jsonSchema,
       rowNumber: 3,
       cell: '{"age":25}',
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/jsonSchema",
       fieldName: "user",
       jsonSchema,
@@ -357,8 +355,8 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toEqual([
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toEqual([
       {
         type: "cell/jsonSchema",
         fieldName: "config",
@@ -401,8 +399,8 @@ describe("validateObjectField", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toEqual([
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toEqual([
       {
         type: "cell/jsonSchema",
         fieldName: "data",

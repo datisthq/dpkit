@@ -2,10 +2,9 @@ import os from "node:os"
 import type { Field, Schema } from "@dpkit/core"
 import type { RowError } from "@dpkit/core"
 import type { TableError } from "@dpkit/core"
-import { createReport } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import pAll from "p-all"
-import { validateField } from "../field/index.ts"
+import { inspectField } from "../field/index.ts"
 import { arrayDiff } from "../helpers.ts"
 import { matchSchemaField } from "../schema/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
@@ -13,7 +12,7 @@ import type { SchemaMapping } from "../schema/index.ts"
 import type { Table } from "./Table.ts"
 import { createChecksRowUnique } from "./checks/unique.ts"
 
-export async function validateTable(
+export async function inspectTable(
   table: Table,
   options?: {
     schema?: Schema
@@ -29,20 +28,20 @@ export async function validateTable(
     const polarsSchema = getPolarsSchema(sample.schema)
     const mapping = { source: polarsSchema, target: schema }
 
-    const matchErrors = validateFieldsMatch(mapping)
+    const matchErrors = inspectFieldsMatch(mapping)
     errors.push(...matchErrors)
 
-    const fieldErrors = await validateFields(mapping, table, { maxErrors })
+    const fieldErrors = await inspectFields(mapping, table, { maxErrors })
     errors.push(...fieldErrors)
 
-    const rowErrors = await validateRows(mapping, table, { maxErrors })
+    const rowErrors = await inspectRows(mapping, table, { maxErrors })
     errors.push(...rowErrors)
   }
 
-  return createReport(errors, { maxErrors })
+  return errors.slice(0, maxErrors)
 }
 
-function validateFieldsMatch(mapping: SchemaMapping) {
+function inspectFieldsMatch(mapping: SchemaMapping) {
   const errors: TableError[] = []
   const fieldsMatch = mapping.target.fieldsMatch ?? "exact"
 
@@ -125,7 +124,7 @@ function validateFieldsMatch(mapping: SchemaMapping) {
   return errors
 }
 
-async function validateFields(
+async function inspectFields(
   mapping: SchemaMapping,
   table: Table,
   options: {
@@ -143,11 +142,11 @@ async function validateFields(
     const fieldMapping = matchSchemaField(mapping, field, index)
     if (!fieldMapping) return
 
-    const report = await validateField(fieldMapping, table, {
+    const fieldErrors = await inspectField(fieldMapping, table, {
       maxErrors: maxFieldErrors,
     })
 
-    errors.push(...report.errors)
+    errors.push(...fieldErrors)
     if (errors.length > maxErrors) {
       abortController.abort()
     }
@@ -166,7 +165,7 @@ async function validateFields(
   return errors
 }
 
-async function validateRows(
+async function inspectRows(
   mapping: SchemaMapping,
   table: Table,
   options: { maxErrors: number },

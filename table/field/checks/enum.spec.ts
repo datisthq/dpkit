@@ -1,10 +1,10 @@
 import type { Schema } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
-describe("validateTable (cell/enum)", () => {
-  it("should not report errors for string values that are in the enum", async () => {
+describe("inspectTable (cell/enum)", () => {
+  it("should not errors for string values that are in the enum", async () => {
     const table = pl
       .DataFrame({
         status: ["pending", "approved", "rejected", "pending"],
@@ -23,11 +23,11 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toHaveLength(0)
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toHaveLength(0)
   })
 
-  it("should report errors for values not in the enum", async () => {
+  it("should errors for values not in the enum", async () => {
     const allowedValues = ["pending", "approved", "rejected"]
 
     const table = pl
@@ -48,16 +48,16 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors.filter(e => e.type === "cell/enum")).toHaveLength(2)
-    expect(report.errors).toContainEqual({
+    const errors = await inspectTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/enum")).toHaveLength(2)
+    expect(errors).toContainEqual({
       type: "cell/enum",
       fieldName: "status",
       enum: allowedValues,
       rowNumber: 3,
       cell: "unknown",
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/enum",
       fieldName: "status",
       enum: allowedValues,
@@ -85,8 +85,8 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors.filter(e => e.type === "cell/enum")).toHaveLength(0)
+    const errors = await inspectTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/enum")).toHaveLength(0)
   })
 
   it("should handle case sensitivity correctly", async () => {
@@ -110,16 +110,16 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors.filter(e => e.type === "cell/enum")).toHaveLength(2)
-    expect(report.errors).toContainEqual({
+    const errors = await inspectTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/enum")).toHaveLength(2)
+    expect(errors).toContainEqual({
       type: "cell/enum",
       fieldName: "status",
       enum: allowedValues,
       rowNumber: 1,
       cell: "Pending",
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/enum",
       fieldName: "status",
       enum: allowedValues,
@@ -149,9 +149,9 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/enum",
         fieldName: "priority",
@@ -183,9 +183,9 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/enum",
         fieldName: "rating",
@@ -217,9 +217,9 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/enum",
         fieldName: "date",
@@ -259,9 +259,9 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/enum",
         fieldName: "timestamp",
@@ -293,9 +293,9 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/enum",
         fieldName: "year",
@@ -327,9 +327,9 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/enum",
         fieldName: "time",
@@ -361,9 +361,9 @@ describe("validateTable (cell/enum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/enum",
         fieldName: "yearmonth",

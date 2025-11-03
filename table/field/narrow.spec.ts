@@ -1,8 +1,8 @@
 import type { Schema } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
+import { inspectTable } from "../table/inspect.ts"
 import { normalizeTable } from "../table/normalize.ts"
-import { validateTable } from "../table/validate.ts"
 
 describe("narrowField", () => {
   it("should narrow float to integer", async () => {
@@ -45,7 +45,7 @@ describe("narrowField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {

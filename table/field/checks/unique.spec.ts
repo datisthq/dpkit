@@ -1,11 +1,11 @@
 import type { Schema } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
 // TODO: recover
-describe("validateTable (cell/unique)", () => {
-  it("should not report errors when all values are unique", async () => {
+describe("inspectTable (cell/unique)", () => {
+  it("should not errors when all values are unique", async () => {
     const table = pl
       .DataFrame({
         id: [1, 2, 3, 4, 5],
@@ -22,11 +22,11 @@ describe("validateTable (cell/unique)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toHaveLength(0)
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toHaveLength(0)
   })
 
-  it("should report errors for duplicate values", async () => {
+  it("should errors for duplicate values", async () => {
     const table = pl
       .DataFrame({
         id: [1, 2, 3, 2, 5],
@@ -43,10 +43,10 @@ describe("validateTable (cell/unique)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors.filter(e => e.type === "cell/unique")).toHaveLength(1)
-    expect(report.errors).toContainEqual({
+    expect(errors.filter(e => e.type === "cell/unique")).toHaveLength(1)
+    expect(errors).toContainEqual({
       type: "cell/unique",
       fieldName: "id",
       rowNumber: 4,
@@ -71,15 +71,15 @@ describe("validateTable (cell/unique)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors.filter(e => e.type === "cell/unique")).toHaveLength(2)
-    expect(report.errors).toContainEqual({
+    const errors = await inspectTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/unique")).toHaveLength(2)
+    expect(errors).toContainEqual({
       type: "cell/unique",
       fieldName: "code",
       rowNumber: 3,
       cell: "A001",
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/unique",
       fieldName: "code",
       rowNumber: 5,
@@ -104,7 +104,7 @@ describe("validateTable (cell/unique)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toHaveLength(0)
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toHaveLength(0)
   })
 })

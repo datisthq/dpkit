@@ -1,10 +1,10 @@
 import type { Schema } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
-describe("validateTable (cell/maximum)", () => {
-  it("should not report errors for valid values", async () => {
+describe("inspectTable (cell/maximum)", () => {
+  it("should not errors for valid values", async () => {
     const table = pl
       .DataFrame({
         price: [10.5, 20.75, 30.0],
@@ -21,8 +21,8 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors).toHaveLength(0)
+    const errors = await inspectTable(table, { schema })
+    expect(errors).toHaveLength(0)
   })
 
   it("should report an error for invalid values", async () => {
@@ -42,9 +42,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(report.errors.filter(e => e.type === "cell/maximum")).toHaveLength(1)
-    expect(report.errors).toContainEqual({
+    const errors = await inspectTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/maximum")).toHaveLength(1)
+    expect(errors).toContainEqual({
       type: "cell/maximum",
       fieldName: "temperature",
       maximum: "40",
@@ -70,18 +70,18 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
-    expect(
-      report.errors.filter(e => e.type === "cell/exclusiveMaximum"),
-    ).toHaveLength(2)
-    expect(report.errors).toContainEqual({
+    const errors = await inspectTable(table, { schema })
+    expect(errors.filter(e => e.type === "cell/exclusiveMaximum")).toHaveLength(
+      2,
+    )
+    expect(errors).toContainEqual({
       type: "cell/exclusiveMaximum",
       fieldName: "temperature",
       maximum: "40",
       rowNumber: 3,
       cell: "40",
     })
-    expect(report.errors).toContainEqual({
+    expect(errors).toContainEqual({
       type: "cell/exclusiveMaximum",
       fieldName: "temperature",
       maximum: "40",
@@ -107,9 +107,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "price",
@@ -137,9 +137,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/exclusiveMaximum",
         fieldName: "temperature",
@@ -175,9 +175,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "price",
@@ -206,9 +206,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "price",
@@ -238,9 +238,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "price",
@@ -269,9 +269,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "price",
@@ -299,9 +299,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "date",
@@ -329,9 +329,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "time",
@@ -363,9 +363,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "timestamp",
@@ -394,9 +394,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "date",
@@ -424,9 +424,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "year",
@@ -454,9 +454,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/exclusiveMaximum",
         fieldName: "year",
@@ -491,9 +491,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/maximum",
         fieldName: "yearmonth",
@@ -521,9 +521,9 @@ describe("validateTable (cell/maximum)", () => {
       ],
     }
 
-    const report = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
-    expect(report.errors).toEqual([
+    expect(errors).toEqual([
       {
         type: "cell/exclusiveMaximum",
         fieldName: "yearmonth",
