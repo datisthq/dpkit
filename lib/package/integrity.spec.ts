@@ -1,10 +1,8 @@
-import type { Package, Resource } from "@dpkit/core"
-import * as pl from "nodejs-polars"
+import type { Package } from "@dpkit/core"
 import { describe, expect, it } from "vitest"
-import type { Table } from "../table/Table.ts"
-import { validatePackageForeignKeys } from "./validate.ts"
+import { validatePackageIntegrity } from "./integrity.ts"
 
-describe("validatePackageForeignKeys", () => {
+describe("validatePackageIntegrity", () => {
   it("should validate package with valid foreign keys", async () => {
     const dataPackage: Package = {
       name: "test-package",
@@ -12,6 +10,11 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "users",
           type: "table" as const,
+          data: [
+            { id: 1, name: "Alice" },
+            { id: 2, name: "Bob" },
+            { id: 3, name: "Charlie" },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -22,6 +25,11 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "posts",
           type: "table" as const,
+          data: [
+            { id: 1, user_id: 1, title: "Post 1" },
+            { id: 2, user_id: 2, title: "Post 2" },
+            { id: 3, user_id: 3, title: "Post 3" },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -42,27 +50,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      users: pl
-        .DataFrame({
-          id: [1, 2, 3],
-          name: ["Alice", "Bob", "Charlie"],
-        })
-        .lazy(),
-      posts: pl
-        .DataFrame({
-          id: [1, 2, 3],
-          user_id: [1, 2, 3],
-          title: ["Post 1", "Post 2", "Post 3"],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageIntegrity(dataPackage)
 
     expect(report.valid).toBe(true)
     expect(report.errors).toEqual([])
@@ -75,6 +63,10 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "users",
           type: "table" as const,
+          data: [
+            { id: 1, name: "Alice" },
+            { id: 2, name: "Bob" },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -85,6 +77,11 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "posts",
           type: "table" as const,
+          data: [
+            { id: 1, user_id: 1, title: "Post 1" },
+            { id: 2, user_id: 2, title: "Post 2" },
+            { id: 3, user_id: 999, title: "Post 3" },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -105,27 +102,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      users: pl
-        .DataFrame({
-          id: [1, 2],
-          name: ["Alice", "Bob"],
-        })
-        .lazy(),
-      posts: pl
-        .DataFrame({
-          id: [1, 2, 3],
-          user_id: [1, 2, 999],
-          title: ["Post 1", "Post 2", "Post 3"],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageIntegrity(dataPackage)
 
     expect(report.valid).toBe(false)
     expect(report.errors).toEqual([
@@ -150,6 +127,11 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "categories",
           type: "table" as const,
+          data: [
+            { id: 1, parent_id: 1, name: "Root" },
+            { id: 2, parent_id: 1, name: "Child 1" },
+            { id: 3, parent_id: 2, name: "Child 2" },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -169,21 +151,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      categories: pl
-        .DataFrame({
-          id: [1, 2, 3],
-          parent_id: [1, 1, 2],
-          name: ["Root", "Child 1", "Child 2"],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageIntegrity(dataPackage)
 
     expect(report.valid).toBe(true)
     expect(report.errors).toEqual([])
@@ -196,6 +164,11 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "categories",
           type: "table" as const,
+          data: [
+            { id: 1, parent_id: 1, name: "Root" },
+            { id: 2, parent_id: 1, name: "Child 1" },
+            { id: 3, parent_id: 999, name: "Child 2" },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -215,21 +188,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      categories: pl
-        .DataFrame({
-          id: [1, 2, 3],
-          parent_id: [1, 1, 999],
-          name: ["Root", "Child 1", "Child 2"],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageIntegrity(dataPackage)
 
     expect(report.valid).toBe(false)
     expect(report.errors).toEqual([
@@ -253,6 +212,7 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "users",
           type: "table" as const,
+          data: [{ id: 1 }],
           schema: {
             fields: [{ name: "id", type: "integer" as const }],
           },
@@ -260,6 +220,13 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "posts",
           type: "table" as const,
+          data: [
+            { id: 1, user_id: 999 },
+            { id: 2, user_id: 998 },
+            { id: 3, user_id: 997 },
+            { id: 4, user_id: 996 },
+            { id: 5, user_id: 995 },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -279,26 +246,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      users: pl
-        .DataFrame({
-          id: [1],
-        })
-        .lazy(),
-      posts: pl
-        .DataFrame({
-          id: [1, 2, 3, 4, 5],
-          user_id: [999, 998, 997, 996, 995],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, {
-      loadTable,
+    const report = await validatePackageIntegrity(dataPackage, {
       maxErrors: 3,
     })
 
@@ -347,6 +295,7 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "users",
           type: "table" as const,
+          data: [{ id: 1 }, { id: 2 }],
           schema: {
             fields: [{ name: "id", type: "integer" as const }],
           },
@@ -354,6 +303,7 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "categories",
           type: "table" as const,
+          data: [{ id: 10 }, { id: 20 }],
           schema: {
             fields: [{ name: "id", type: "integer" as const }],
           },
@@ -361,6 +311,10 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "posts",
           type: "table" as const,
+          data: [
+            { id: 1, user_id: 1, category_id: 10 },
+            { id: 2, user_id: 2, category_id: 20 },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -388,31 +342,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      users: pl
-        .DataFrame({
-          id: [1, 2],
-        })
-        .lazy(),
-      categories: pl
-        .DataFrame({
-          id: [10, 20],
-        })
-        .lazy(),
-      posts: pl
-        .DataFrame({
-          id: [1, 2],
-          user_id: [1, 2],
-          category_id: [10, 20],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageIntegrity(dataPackage)
 
     expect(report.valid).toBe(true)
     expect(report.errors).toEqual([])
@@ -425,6 +355,7 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "users",
           type: "table" as const,
+          data: [{ id: 1 }],
           schema: {
             fields: [{ name: "id", type: "integer" as const }],
           },
@@ -432,6 +363,7 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "categories",
           type: "table" as const,
+          data: [{ id: 10 }],
           schema: {
             fields: [{ name: "id", type: "integer" as const }],
           },
@@ -439,6 +371,10 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "posts",
           type: "table" as const,
+          data: [
+            { id: 1, user_id: 999, category_id: 10 },
+            { id: 2, user_id: 1, category_id: 888 },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -466,31 +402,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      users: pl
-        .DataFrame({
-          id: [1],
-        })
-        .lazy(),
-      categories: pl
-        .DataFrame({
-          id: [10],
-        })
-        .lazy(),
-      posts: pl
-        .DataFrame({
-          id: [1, 2],
-          user_id: [999, 1],
-          category_id: [10, 888],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageIntegrity(dataPackage)
 
     expect(report.valid).toBe(false)
     expect(report.errors).toEqual([
@@ -526,10 +438,12 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "no-schema",
           type: "table" as const,
+          data: [{ value: 1 }],
         },
         {
           name: "users",
           type: "table" as const,
+          data: [{ id: 1 }],
           schema: {
             fields: [{ name: "id", type: "integer" as const }],
           },
@@ -537,19 +451,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      users: pl
-        .DataFrame({
-          id: [1],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageIntegrity(dataPackage)
 
     expect(report.valid).toBe(true)
     expect(report.errors).toEqual([])
@@ -562,6 +464,10 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "users",
           type: "table" as const,
+          data: [
+            { id: 1, name: "Alice" },
+            { id: 2, name: "Bob" },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -572,20 +478,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      users: pl
-        .DataFrame({
-          id: [1, 2],
-          name: ["Alice", "Bob"],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageIntegrity(dataPackage)
 
     expect(report.valid).toBe(true)
     expect(report.errors).toEqual([])
@@ -598,6 +491,10 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "users",
           type: "table" as const,
+          data: [
+            { first_name: "Alice", last_name: "Smith" },
+            { first_name: "Bob", last_name: "Jones" },
+          ],
           schema: {
             fields: [
               { name: "first_name", type: "string" as const },
@@ -608,6 +505,10 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "posts",
           type: "table" as const,
+          data: [
+            { id: 1, author_first: "Alice", author_last: "Smith" },
+            { id: 2, author_first: "Bob", author_last: "Jones" },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -628,27 +529,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      users: pl
-        .DataFrame({
-          first_name: ["Alice", "Bob"],
-          last_name: ["Smith", "Jones"],
-        })
-        .lazy(),
-      posts: pl
-        .DataFrame({
-          id: [1, 2],
-          author_first: ["Alice", "Bob"],
-          author_last: ["Smith", "Jones"],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageIntegrity(dataPackage)
 
     expect(report.valid).toBe(true)
     expect(report.errors).toEqual([])
@@ -661,6 +542,10 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "users",
           type: "table" as const,
+          data: [
+            { first_name: "Alice", last_name: "Smith" },
+            { first_name: "Bob", last_name: "Jones" },
+          ],
           schema: {
             fields: [
               { name: "first_name", type: "string" as const },
@@ -671,6 +556,10 @@ describe("validatePackageForeignKeys", () => {
         {
           name: "posts",
           type: "table" as const,
+          data: [
+            { id: 1, author_first: "Alice", author_last: "Smith" },
+            { id: 2, author_first: "Charlie", author_last: "Brown" },
+          ],
           schema: {
             fields: [
               { name: "id", type: "integer" as const },
@@ -691,27 +580,7 @@ describe("validatePackageForeignKeys", () => {
       ],
     }
 
-    const tables: Record<string, Table> = {
-      users: pl
-        .DataFrame({
-          first_name: ["Alice", "Bob"],
-          last_name: ["Smith", "Jones"],
-        })
-        .lazy(),
-      posts: pl
-        .DataFrame({
-          id: [1, 2],
-          author_first: ["Alice", "Charlie"],
-          author_last: ["Smith", "Brown"],
-        })
-        .lazy(),
-    }
-
-    const loadTable = async (resource: Resource): Promise<Table> => {
-      return tables[resource.name]
-    }
-
-    const report = await validatePackageForeignKeys(dataPackage, { loadTable })
+    const report = await validatePackageIntegrity(dataPackage)
 
     expect(report.valid).toBe(false)
     expect(report.errors).toEqual([

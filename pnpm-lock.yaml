@@ -598,6 +598,9 @@ importers:
       '@dpkit/zip':
         specifier: workspace:*
         version: link:../zip
+      nodejs-polars:
+        specifier: ^0.22.1
+        version: 0.22.1
       p-all:
         specifier: ^5.0.1
         version: 5.0.1

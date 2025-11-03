@@ -1,23 +1,20 @@
-import type { Package, Resource } from "@dpkit/core"
+import type { Package } from "@dpkit/core"
 import { createReport } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
-import type { DataError } from "@dpkit/core"
-import type { ForeignKeyError } from "@dpkit/core"
-import type { Table } from "../table/Table.ts"
+import type { DpkitError } from "@dpkit/core"
+import type { Table } from "@dpkit/table"
+import { loadTable } from "../table/index.ts"
 
 // TODO: foreign key fields definition should be validated as well (metadata/here?)
 // TODO: review temporary files creation from validatePackage call
 
-export async function validatePackageForeignKeys(
+export async function validatePackageIntegrity(
   dataPackage: Package,
-  options: {
-    maxErrors?: number
-    loadTable: (resource: Resource) => Promise<Table | undefined>
-  },
+  options?: { maxErrors?: number },
 ) {
-  const { loadTable, maxErrors = 1000 } = options
+  const { maxErrors = 1000 } = options ?? {}
 
-  const errors: (DataError | ForeignKeyError)[] = []
+  const errors: DpkitError[] = []
   const tables: Record<string, Table> = {}
 
   for (const resource of dataPackage.resources) {

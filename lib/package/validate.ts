@@ -3,11 +3,10 @@ import { createReport } from "@dpkit/core"
 import type { Descriptor, Package } from "@dpkit/core"
 import { loadDescriptor, validatePackageMetadata } from "@dpkit/core"
 import { resolveBasepath } from "@dpkit/core"
-import { validatePackageForeignKeys } from "@dpkit/table"
 import pAll from "p-all"
 import { dpkit } from "../plugin.ts"
 import { validateResourceData } from "../resource/index.ts"
-import { loadTable } from "../table/index.ts"
+import { validatePackageIntegrity } from "./integrity.ts"
 
 export async function validatePackage(
   source: string | Descriptor | Partial<Package>,
@@ -48,14 +47,11 @@ export async function validatePackage(
   }
 
   const dataReport = await validatePackageData(metadataReport.dataPackage)
-  const fkReport = await validatePackageForeignKeys(
+  const integrityReport = await validatePackageIntegrity(
     metadataReport.dataPackage,
-    {
-      loadTable,
-    },
   )
 
-  const errors = [...dataReport.errors, ...fkReport.errors]
+  const errors = [...dataReport.errors, ...integrityReport.errors]
   return createReport(errors)
 }
 

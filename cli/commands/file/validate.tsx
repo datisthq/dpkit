@@ -35,7 +35,8 @@ export const validateFileCommand = new Command("validate")
 
     const report = await session.task(
       "Validating file",
-      validateFile(path, {
+      validateFile({
+        path,
         bytes: options.bytes ? Number.parseInt(options.bytes) : undefined,
         hash: options.hash,
       }),
