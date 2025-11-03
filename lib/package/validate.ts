@@ -1,7 +1,9 @@
+import os from "node:os"
 import type { Descriptor, Package } from "@dpkit/core"
 import { loadDescriptor, validatePackageMetadata } from "@dpkit/core"
 import { resolveBasepath } from "@dpkit/core"
 import { validatePackageForeignKeys } from "@dpkit/table"
+import pAll from "p-all"
 import { dpkit } from "../plugin.ts"
 import { validateResourceData } from "../resource/index.ts"
 import { loadTable } from "../table/index.ts"
@@ -55,9 +57,11 @@ export async function validatePackage(
 }
 
 export async function validatePackageData(dataPackage: Package) {
+  const concurrency = os.cpus().length
+
   const errors = (
-    await Promise.all(
-      dataPackage.resources.map(async resource => {
+    await pAll(
+      dataPackage.resources.map(resource => async () => {
         try {
           const { errors } = await validateResourceData(resource)
           return errors.map(error => ({ ...error, resource: resource.name }))
@@ -66,6 +70,7 @@ export async function validatePackageData(dataPackage: Package) {
           throw new Error(`[${resource.name}] ${message}`)
         }
       }),
+      { concurrency },
     )
   ).flat()
 

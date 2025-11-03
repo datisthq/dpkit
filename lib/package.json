@@ -39,7 +39,8 @@
     "@dpkit/table": "workspace:*",
     "@dpkit/xlsx": "workspace:*",
     "@dpkit/zenodo": "workspace:*",
-    "@dpkit/zip": "workspace:*"
+    "@dpkit/zip": "workspace:*",
+    "p-all": "^5.0.1"
   },
   "scripts": {
     "build": "tsc"

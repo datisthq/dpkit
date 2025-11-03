@@ -438,6 +438,9 @@ importers:
       multistream:
         specifier: ^4.1.0
         version: 4.1.0
+      p-all:
+        specifier: ^5.0.1
+        version: 5.0.1
       p-map:
         specifier: ^7.0.3
         version: 7.0.3
@@ -595,6 +598,9 @@ importers:
       '@dpkit/zip':
         specifier: workspace:*
         version: link:../zip
+      p-all:
+        specifier: ^5.0.1
+        version: 5.0.1
 
   markdown:
     dependencies:

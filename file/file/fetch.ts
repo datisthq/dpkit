@@ -1,11 +1,20 @@
+import os from "node:os"
 import { isRemotePath } from "@dpkit/core"
+import pAll from "p-all"
 import { copyFile } from "./copy.ts"
 import { getTempFilePath } from "./temp.ts"
 
 export async function prefetchFiles(path?: string | string[]) {
   if (!path) return []
+
   const paths = Array.isArray(path) ? path : [path]
-  const newPaths = await Promise.all(paths.map(prefetchFile))
+  const concurrency = os.cpus().length
+
+  const newPaths = await pAll(
+    paths.map(path => () => prefetchFile(path)),
+    { concurrency },
+  )
+
   return newPaths
 }
 
