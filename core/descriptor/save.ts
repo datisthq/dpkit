@@ -1,4 +1,4 @@
-import { node } from "../node/index.ts"
+import { node } from "../system/index.ts"
 import type { Descriptor } from "./Descriptor.ts"
 import { stringifyDescriptor } from "./process/stringify.ts"
 
