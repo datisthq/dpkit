@@ -1,4 +1,7 @@
 export type { DpkitError } from "./Error.ts"
+export type { BoundError } from "./Bound.ts"
+export type { UnboundError } from "./Unbound.ts"
+
 export type * from "./types/Bytes.ts"
 export type * from "./types/Cell.ts"
 export type * from "./types/Data.ts"

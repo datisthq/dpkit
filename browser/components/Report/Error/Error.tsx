@@ -1,4 +1,4 @@
-import type { DpkitError } from "@dpkit/lib"
+import type { UnboundError } from "@dpkit/lib"
 import {
   CellEnumError,
   CellExclusiveMaximumError,
@@ -22,7 +22,7 @@ import { MetadataError } from "./Metadata.tsx"
 import { RowUniqueError } from "./Row.tsx"
 
 export function Error(props: {
-  error: DpkitError
+  error: UnboundError
 }) {
   const { error } = props
 

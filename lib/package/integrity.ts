@@ -1,7 +1,7 @@
 import type { Package } from "@dpkit/core"
 import { createReport } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
-import type { DpkitError } from "@dpkit/core"
+import type { BoundError } from "@dpkit/core"
 import type { Table } from "@dpkit/table"
 import { loadTable } from "../table/index.ts"
 
@@ -14,7 +14,7 @@ export async function validatePackageIntegrity(
 ) {
   const { maxErrors = 1000 } = options ?? {}
 
-  const errors: (DpkitError & { resource: string })[] = []
+  const errors: BoundError[] = []
   const tables: Record<string, Table> = {}
 
   for (const resource of dataPackage.resources) {

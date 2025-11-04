@@ -1,4 +1,5 @@
 import os from "node:os"
+import type { BoundError } from "@dpkit/core"
 import { createReport } from "@dpkit/core"
 import type { Descriptor, Package } from "@dpkit/core"
 import { loadDescriptor, validatePackageMetadata } from "@dpkit/core"
@@ -58,7 +59,7 @@ export async function validatePackage(
 export async function validatePackageData(dataPackage: Package) {
   const concurrency = os.cpus().length
 
-  const errors = (
+  const errors: BoundError[] = (
     await pAll(
       dataPackage.resources.map(resource => async () => {
         try {

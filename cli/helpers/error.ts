@@ -1,10 +1,10 @@
-import type { DpkitError } from "@dpkit/lib"
+import type { BoundError, UnboundError } from "@dpkit/lib"
 import { countBy } from "es-toolkit"
 import type { Session } from "../session.ts"
 
 export async function selectErrorResource(
   session: Session,
-  errors: (DpkitError & { resource: string })[],
+  errors: BoundError[],
 ) {
   const groups = countBy(errors, error => error.resource)
 
@@ -23,7 +23,10 @@ export async function selectErrorResource(
   return name
 }
 
-export async function selectErrorType(session: Session, errors: DpkitError[]) {
+export async function selectErrorType(
+  session: Session,
+  errors: UnboundError[],
+) {
   const groups = countBy(errors, error => error.type)
 
   if (Object.keys(groups).length <= 1) {

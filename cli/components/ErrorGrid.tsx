@@ -1,10 +1,10 @@
-import type { DpkitError } from "@dpkit/lib"
+import type { UnboundError } from "@dpkit/lib"
 import * as pl from "nodejs-polars"
 import React from "react"
 import { TableGrid } from "./TableGrid.tsx"
 
 export function ErrorGrid(props: {
-  errors: DpkitError[]
+  errors: UnboundError[]
   quit?: boolean
 }) {
   // TODO: Property process errors

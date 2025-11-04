@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/core"
-import type { DpkitError } from "@dpkit/core"
+import type { UnboundError } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
 import { createReport } from "@dpkit/core"
 import { inspectTable } from "@dpkit/table"
@@ -13,7 +13,7 @@ export async function validateTable(
 ) {
   const { maxErrors } = options ?? {}
 
-  const errors: DpkitError[] = []
+  const errors: UnboundError[] = []
   const table = await loadTable(resource, { denormalized: true })
 
   if (table) {
