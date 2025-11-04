@@ -1,14 +1,9 @@
 import type { Descriptor } from "../descriptor/index.ts"
 import type { JsonSchema } from "./JsonSchema.ts"
-import { ajv } from "./ajv.ts"
+import { inspectJsonSchema } from "./inspect/schema.ts"
 
 export async function assertJsonSchema(descriptor: Descriptor) {
-  const errors: { message: string }[] = []
-  await ajv.validateSchema(descriptor)
-
-  for (const error of ajv.errors ?? []) {
-    errors.push({ message: error.message ?? error.keyword })
-  }
+  const errors = await inspectJsonSchema(descriptor)
 
   // TODO: Improve consolidated error message
   if (errors.length) {

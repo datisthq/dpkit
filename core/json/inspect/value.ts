@@ -1,12 +1,12 @@
-import type { JsonSchema } from "./JsonSchema.ts"
-import { ajv } from "./ajv.ts"
-import { loadJsonSchema } from "./load.ts"
+import type { JsonSchema } from "../JsonSchema.ts"
+import { ajv } from "../ajv.ts"
+import { loadJsonSchema } from "../load.ts"
 
 /**
  * Validate a value against a JSON Schema
  * It uses Ajv for JSON Schema validation under the hood
  */
-export async function inspectValue(
+export async function inspectJsonValue(
   value: unknown,
   options: {
     jsonSchema: JsonSchema | string

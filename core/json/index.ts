@@ -1,4 +1,5 @@
-export { inspectValue } from "./inspect.ts"
+export { inspectJsonValue } from "./inspect/value.ts"
 export type { JsonSchema } from "./JsonSchema.ts"
+export type { JsonValue } from "./Value.ts"
 export { resolveJsonSchema } from "./resolve.ts"
 export { loadJsonSchema } from "./load.ts"
