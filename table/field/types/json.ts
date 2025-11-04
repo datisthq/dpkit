@@ -1,5 +1,5 @@
 import type { ArrayField, GeojsonField, ObjectField } from "@dpkit/core"
-import { validateDescriptor } from "@dpkit/core"
+import { inspectJsonValue } from "@dpkit/core"
 import type { CellError } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { isObject } from "../../helpers.ts"
@@ -12,13 +12,13 @@ export async function inspectJsonField(
   field: ArrayField | GeojsonField | ObjectField,
   table: Table,
   options?: {
-    formatProfile?: Record<string, any>
+    formatJsonSchema?: Record<string, any>
   },
 ) {
   const errors: CellError[] = []
 
-  const formatProfile = options?.formatProfile
-  const constraintProfile = field.constraints?.jsonSchema
+  const formatJsonSchema = options?.formatJsonSchema
+  const constraintJsonSchema = field.constraints?.jsonSchema
 
   const frame = await table
     .withRowCount()
@@ -44,24 +44,25 @@ export async function inspectJsonField(
         cell: String(row.source),
         fieldName: field.name,
         fieldType: field.type,
+        fieldFormat: field.format,
         rowNumber: row.number,
       })
 
       continue
     }
 
-    if (formatProfile) {
-      // TODO: Extract more generic function validateJson?
-      const report = await validateDescriptor(target as any, {
-        profile: formatProfile,
+    if (formatJsonSchema) {
+      const formatErrors = await inspectJsonValue(target, {
+        jsonSchema: formatJsonSchema,
       })
 
-      if (!report.valid) {
+      if (formatErrors.length) {
         errors.push({
           type: "cell/type",
           cell: String(row.source),
           fieldName: field.name,
           fieldType: field.type,
+          fieldFormat: field.format,
           rowNumber: row.number,
         })
       }
@@ -69,13 +70,12 @@ export async function inspectJsonField(
       continue
     }
 
-    if (constraintProfile) {
-      // TODO: Extract more generic function validateJson?
-      const report = await validateDescriptor(target as any, {
-        profile: constraintProfile,
+    if (constraintJsonSchema) {
+      const constraintErrors = await inspectJsonValue(target, {
+        jsonSchema: constraintJsonSchema,
       })
 
-      for (const error of report.errors) {
+      for (const error of constraintErrors) {
         errors.push({
           type: "cell/jsonSchema",
           cell: String(row.source),

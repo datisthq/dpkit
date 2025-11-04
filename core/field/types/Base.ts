@@ -10,6 +10,11 @@ export interface BaseField<T = BaseConstraints> extends Metadata {
   name: string
 
   /**
+   * Field format -- optional addition to the type
+   */
+  format?: string
+
+  /**
    * Human-readable title
    */
   title?: string

@@ -1,12 +1,11 @@
 import type { GeojsonField } from "@dpkit/core"
-import geojsonProfile from "../../assets/geojson.json" with { type: "json" }
-import topojsonProfile from "../../assets/topojson.json" with { type: "json" }
+import geojson from "../../assets/geojson.json" with { type: "json" }
+import topojson from "../../assets/topojson.json" with { type: "json" }
 import type { Table } from "../../table/index.ts"
 import { inspectJsonField } from "./json.ts"
 
 export async function inspectGeojsonField(field: GeojsonField, table: Table) {
   return inspectJsonField(field, table, {
-    formatProfile:
-      field.format === "topojson" ? topojsonProfile : geojsonProfile,
+    formatJsonSchema: field.format === "topojson" ? topojson : geojson,
   })
 }
