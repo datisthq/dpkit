@@ -23,10 +23,10 @@ describe("validatePackage", () => {
       ],
     }
 
-    const result = await validatePackage(dataPackage)
+    const report = await validatePackage(dataPackage)
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("should detect invalid resource data", async () => {
@@ -50,11 +50,11 @@ describe("validatePackage", () => {
       ],
     }
 
-    const result = await validatePackage(dataPackage)
+    const report = await validatePackage(dataPackage)
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(0)
-    expect(result.errors?.[0]?.resource).toBe("test-resource")
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toBeGreaterThan(0)
+    expect(report.errors?.[0]?.resource).toBe("test-resource")
   })
 
   it("should validate multiple resources", async () => {
@@ -86,10 +86,10 @@ describe("validatePackage", () => {
       ],
     }
 
-    const result = await validatePackage(dataPackage)
+    const report = await validatePackage(dataPackage)
 
-    expect(result.valid).toBe(true)
-    expect(result.errors).toEqual([])
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
   })
 
   it("should detect errors in multiple resources", async () => {
@@ -121,12 +121,12 @@ describe("validatePackage", () => {
       ],
     }
 
-    const result = await validatePackage(dataPackage)
+    const report = await validatePackage(dataPackage)
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(1)
-    expect(result.errors.some(e => e.resource === "resource-1")).toBe(true)
-    expect(result.errors.some(e => e.resource === "resource-2")).toBe(true)
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toBeGreaterThan(1)
+    expect(report.errors.some(e => e.resource === "resource-1")).toBe(true)
+    expect(report.errors.some(e => e.resource === "resource-2")).toBe(true)
   })
 
   it("should reject package with no resources", async () => {
@@ -135,11 +135,11 @@ describe("validatePackage", () => {
       resources: [],
     }
 
-    const result = await validatePackage(dataPackage)
+    const report = await validatePackage(dataPackage)
 
-    expect(result.valid).toBe(false)
-    expect(result.errors.length).toBeGreaterThan(0)
-    const firstError = result.errors?.[0]
+    expect(report.valid).toBe(false)
+    expect(report.errors.length).toBeGreaterThan(0)
+    const firstError = report.errors?.[0]
     if (firstError && "message" in firstError) {
       expect(firstError.message).toContain("must NOT have fewer than 1 items")
     }
@@ -163,10 +163,10 @@ describe("validatePackage", () => {
       ],
     }
 
-    const result = await validatePackage(dataPackage)
+    const report = await validatePackage(dataPackage)
 
-    expect(result.valid).toBe(false)
-    result.errors.forEach(error => {
+    expect(report.valid).toBe(false)
+    report.errors.forEach(error => {
       expect(error.resource).toBe("error-resource")
     })
   })
@@ -174,10 +174,10 @@ describe("validatePackage", () => {
   it("should detect bad cell type (issue-153)", async () => {
     const dataPackage = "lib/package/fixtures/issue-153/datapackage.json"
 
-    const result = await validatePackage(dataPackage)
+    const report = await validatePackage(dataPackage)
 
-    expect(result.valid).toBe(false)
-    expect(result.errors).toEqual([
+    expect(report.valid).toBe(false)
+    expect(report.errors).toEqual([
       {
         rowNumber: 3,
         type: "cell/type",
