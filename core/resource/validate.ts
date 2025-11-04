@@ -1,9 +1,9 @@
 import type { Descriptor } from "../descriptor/index.ts"
-import { loadDialect } from "../dialect/index.ts"
+import { loadDescriptor } from "../descriptor/index.ts"
+import { validateDialect } from "../dialect/index.ts"
 import type { MetadataError } from "../error/index.ts"
-import { AssertException } from "../exception/index.ts"
 import { validateDescriptor } from "../profile/index.ts"
-import { loadSchema } from "../schema/index.ts"
+import { validateSchema } from "../schema/index.ts"
 import type { Resource } from "./Resource.ts"
 import { convertResourceFromDescriptor } from "./convert/fromDescriptor.ts"
 
@@ -13,12 +13,15 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/dataresource.json"
  * Validate a Resource descriptor (JSON Object) against its profile
  */
 export async function validateResourceMetadata(
-  source: Descriptor | Resource,
+  source: Resource | Descriptor | string,
   options?: {
     basepath?: string
   },
 ) {
-  const descriptor = source as Descriptor
+  const descriptor =
+    typeof source === "string"
+      ? await loadDescriptor(source)
+      : (source as Descriptor)
 
   const profile =
     typeof descriptor.$schema === "string"
@@ -60,13 +63,8 @@ async function inspectDialectIfExternal(resource: Resource) {
   const errors: MetadataError[] = []
 
   if (typeof resource.dialect === "string") {
-    try {
-      await loadDialect(resource.dialect)
-    } catch (exception) {
-      if (exception instanceof AssertException) {
-        return exception.errors
-      }
-    }
+    const report = await validateDialect(resource.dialect)
+    errors.push(...report.errors)
   }
 
   return errors
@@ -76,13 +74,8 @@ async function inspectSchemaIfExternal(resource: Resource) {
   const errors: MetadataError[] = []
 
   if (typeof resource.schema === "string") {
-    try {
-      await loadSchema(resource.schema)
-    } catch (exception) {
-      if (exception instanceof AssertException) {
-        return exception.errors
-      }
-    }
+    const report = await validateSchema(resource.schema)
+    errors.push(...report.errors)
   }
 
   return errors

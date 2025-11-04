@@ -1,5 +1,4 @@
 import type { Descriptor } from "../descriptor/index.ts"
-import { AssertException } from "../exception/index.ts"
 import type { Resource } from "./Resource.ts"
 import { validateResourceMetadata } from "./validate.ts"
 
@@ -14,6 +13,11 @@ export async function assertResource(
 ) {
   const report = await validateResourceMetadata(source, options)
 
-  if (!report.resource) throw new AssertException(report.errors)
+  if (!report.resource) {
+    throw new Error(
+      `Resource "${JSON.stringify(source).slice(0, 100)}" is not valid`,
+    )
+  }
+
   return report.resource
 }

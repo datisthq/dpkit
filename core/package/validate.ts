@@ -1,4 +1,5 @@
 import type { Descriptor } from "../descriptor/index.ts"
+import { loadDescriptor } from "../descriptor/index.ts"
 import { validateDescriptor } from "../profile/index.ts"
 import type { Package } from "./Package.ts"
 import { convertPackageFromDescriptor } from "./convert/fromDescriptor.ts"
@@ -9,12 +10,15 @@ const DEFAULT_PROFILE = "https://datapackage.org/profiles/1.0/datapackage.json"
  * Validate a Package descriptor (JSON Object) against its profile
  */
 export async function validatePackageMetadata(
-  source: Descriptor | Package,
+  source: Package | Descriptor | string,
   options?: {
     basepath?: string
   },
 ) {
-  const descriptor = source as Descriptor
+  const descriptor =
+    typeof source === "string"
+      ? await loadDescriptor(source)
+      : (source as Descriptor)
 
   const profile =
     typeof descriptor.$schema === "string"
