@@ -1,8 +1,8 @@
 import { basename } from "node:path"
 import { writeTempFile } from "@dpkit/file"
-import { useRecording } from "@dpkit/test"
 import { Command } from "commander"
 import { describe, expect, it, vi } from "vitest"
+import { useRecording } from "vitest-polly"
 import { validateResourceCommand } from "./validate.tsx"
 
 useRecording()

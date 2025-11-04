@@ -1,6 +1,6 @@
-import { useRecording } from "@dpkit/test"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
+import { useRecording } from "vitest-polly"
 import { loadPackageFromDatabase } from "../package/index.ts"
 import { inferDatabaseSchema } from "../schema/index.ts"
 import { loadDatabaseTable, saveDatabaseTable } from "../table/index.ts"

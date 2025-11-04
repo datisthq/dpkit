@@ -36,7 +36,6 @@
   },
   "devDependencies": {
     "@dpkit/file": "workspace:*",
-    "@dpkit/test": "workspace:*",
     "@types/pg": "^8.15.5"
   }
 }

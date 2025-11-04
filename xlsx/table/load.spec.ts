@@ -1,6 +1,6 @@
 import { getTempFilePath } from "@dpkit/file"
-import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
+import { useRecording } from "vitest-polly"
 import { loadXlsxTable } from "./load.ts"
 import { writeTestData } from "./test.ts"
 

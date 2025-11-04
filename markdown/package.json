@@ -28,8 +28,5 @@
     "@types/mdast": "^4.0.0",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.0"
-  },
-  "devDependencies": {
-    "@dpkit/test": "workspace:*"
   }
 }

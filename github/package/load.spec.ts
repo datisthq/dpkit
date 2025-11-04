@@ -1,5 +1,5 @@
-import { useRecording } from "@dpkit/test"
 import { describe, expect, it } from "vitest"
+import { useRecording } from "vitest-polly"
 import { loadPackageFromGithub } from "./load.ts"
 
 useRecording()

@@ -24,7 +24,6 @@ packages:
   - service
   - site
   - table
-  - test
   - xlsx
   - zenodo
   - zip
