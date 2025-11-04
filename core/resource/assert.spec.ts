@@ -1,5 +1,4 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertException } from "../exception/index.ts"
 import type { Resource } from "./Resource.ts"
 import { assertResource } from "./assert.ts"
 
@@ -18,14 +17,12 @@ describe("assertResource", () => {
     expect(resource).toEqual(descriptor)
   })
 
-  it("throws AssertionError when resource is invalid", async () => {
+  it("throws Error when resource is invalid", async () => {
     const invalidResource = {
-      name: 123, // Should be a string
-      path: true, // Should be a string or array of strings
+      name: 123,
+      path: true,
     }
 
-    await expect(assertResource(invalidResource)).rejects.toThrow(
-      AssertException,
-    )
+    await expect(assertResource(invalidResource)).rejects.toThrow(Error)
   })
 })

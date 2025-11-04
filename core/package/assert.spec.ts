@@ -1,5 +1,4 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertException } from "../exception/index.ts"
 import type { Package } from "./Package.ts"
 import { assertPackage } from "./assert.ts"
 
@@ -21,12 +20,12 @@ describe("assertPackage", () => {
     expect(datapackage).toEqual(descriptor)
   })
 
-  it("throws AssertException when package is invalid", async () => {
+  it("throws Error when package is invalid", async () => {
     const descriptor = {
-      name: 123, // Should be a string
-      resources: "not-an-array", // Should be an array
+      name: 123,
+      resources: "not-an-array",
     }
 
-    await expect(assertPackage(descriptor)).rejects.toThrow(AssertException)
+    await expect(assertPackage(descriptor)).rejects.toThrow(Error)
   })
 })

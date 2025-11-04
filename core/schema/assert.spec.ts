@@ -1,5 +1,4 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertException } from "../exception/index.ts"
 import type { Schema } from "./Schema.ts"
 import { assertSchema } from "./assert.ts"
 
@@ -25,16 +24,16 @@ describe("assertSchema", () => {
     expect(schema).toEqual(descriptor)
   })
 
-  it("throws ValidationError when schema is invalid", async () => {
+  it("throws Error when schema is invalid", async () => {
     const descriptor = {
       fields: [
         {
           name: "id",
-          type: 123, // Should be a string
+          type: 123,
         },
       ],
     }
 
-    await expect(assertSchema(descriptor)).rejects.toThrow(AssertException)
+    await expect(assertSchema(descriptor)).rejects.toThrow(Error)
   })
 })

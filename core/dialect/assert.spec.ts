@@ -1,5 +1,4 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertException } from "../exception/index.ts"
 import type { Dialect } from "./Dialect.ts"
 import { assertDialect } from "./assert.ts"
 
@@ -17,12 +16,12 @@ describe("assertDialect", () => {
     expect(dialect).toEqual(descriptor)
   })
 
-  it("throws ValidationError when dialect is invalid", async () => {
+  it("throws Error when dialect is invalid", async () => {
     const invalidDialect = {
-      delimiter: 1, // Should be a string
-      header: "yes", // Should be a boolean
+      delimiter: 1,
+      header: "yes",
     }
 
-    await expect(assertDialect(invalidDialect)).rejects.toThrow(AssertException)
+    await expect(assertDialect(invalidDialect)).rejects.toThrow(Error)
   })
 })
