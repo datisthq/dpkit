@@ -116,6 +116,7 @@ describe("validatePackageIntegrity", () => {
           },
         },
         cells: ["999"],
+        resource: "posts",
       },
     ])
   })
@@ -201,6 +202,7 @@ describe("validatePackageIntegrity", () => {
           },
         },
         cells: ["999"],
+        resource: "categories",
       },
     ])
   })
@@ -262,6 +264,7 @@ describe("validatePackageIntegrity", () => {
           },
         },
         cells: ["999"],
+        resource: "posts",
       },
       {
         type: "foreignKey",
@@ -273,6 +276,7 @@ describe("validatePackageIntegrity", () => {
           },
         },
         cells: ["998"],
+        resource: "posts",
       },
       {
         type: "foreignKey",
@@ -284,6 +288,7 @@ describe("validatePackageIntegrity", () => {
           },
         },
         cells: ["997"],
+        resource: "posts",
       },
     ])
   })
@@ -416,6 +421,7 @@ describe("validatePackageIntegrity", () => {
           },
         },
         cells: ["999"],
+        resource: "posts",
       },
       {
         type: "foreignKey",
@@ -427,6 +433,7 @@ describe("validatePackageIntegrity", () => {
           },
         },
         cells: ["888"],
+        resource: "posts",
       },
     ])
   })
@@ -594,6 +601,7 @@ describe("validatePackageIntegrity", () => {
           },
         },
         cells: ["Charlie", "Brown"],
+        resource: "posts",
       },
     ])
   })

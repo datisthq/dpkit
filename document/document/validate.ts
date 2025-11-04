@@ -1,4 +1,5 @@
 import type { Resource } from "@dpkit/core"
+import type { DataError } from "@dpkit/core"
 import { createReport } from "@dpkit/core"
 import { resolveProfile } from "@dpkit/core"
 import { validateDescriptor } from "@dpkit/core"
@@ -8,12 +9,12 @@ export async function validateDocument(resource: Partial<Resource>) {
     const profile = await resolveProfile(resource.jsonSchema)
 
     if (!resource.data) {
-      return createReport([
-        {
-          type: "data",
-          message: `missing ${resource.name} data`,
-        },
-      ])
+      const error: DataError = {
+        type: "data",
+        message: `missing ${resource.name} data`,
+      }
+
+      return createReport([error])
     }
 
     if (profile) {

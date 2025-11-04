@@ -55,7 +55,6 @@ export async function validatePackage(
   return createReport(errors)
 }
 
-// TODO: make private inspect?
 export async function validatePackageData(dataPackage: Package) {
   const concurrency = os.cpus().length
 

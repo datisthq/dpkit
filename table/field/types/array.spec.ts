@@ -388,7 +388,8 @@ describe("validateArrayField", () => {
         rowNumber: 2,
         cell: '["duplicate","duplicate"]',
         pointer: "",
-        message: "must NOT have duplicate items (items ## 1 and 0 are identical)",
+        message:
+          "must NOT have duplicate items (items ## 1 and 0 are identical)",
       },
     ])
   })

@@ -14,7 +14,7 @@ export async function validatePackageIntegrity(
 ) {
   const { maxErrors = 1000 } = options ?? {}
 
-  const errors: DpkitError[] = []
+  const errors: (DpkitError & { resource: string })[] = []
   const tables: Record<string, Table> = {}
 
   for (const resource of dataPackage.resources) {
@@ -36,6 +36,7 @@ export async function validatePackageIntegrity(
         errors.push({
           type: "data",
           message: `missing ${name} resource`,
+          resource: name,
         })
 
         continue
@@ -48,6 +49,7 @@ export async function validatePackageIntegrity(
           errors.push({
             type: "data",
             message: `missing ${resource.name} table`,
+            resource: name,
           })
 
           continue
@@ -80,6 +82,7 @@ export async function validatePackageIntegrity(
           type: "foreignKey",
           foreignKey,
           cells: Object.values(row).map(String),
+          resource: resource.name,
         })
       }
     }
