@@ -511,6 +511,7 @@ describe("validateGeojsonField", () => {
       type: "cell/type",
       fieldName: "topology",
       fieldType: "geojson",
+      fieldFormat: "topojson",
       rowNumber: 2,
       cell: '{"type":"Topology","objects":{}}',
     })
@@ -518,6 +519,7 @@ describe("validateGeojsonField", () => {
       type: "cell/type",
       fieldName: "topology",
       fieldType: "geojson",
+      fieldFormat: "topojson",
       rowNumber: 3,
       cell: '{"type":"Topology"}',
     })

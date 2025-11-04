@@ -155,7 +155,7 @@ describe("validateResource", () => {
     expect(report.valid).toBe(false)
     expect(report.errors).toEqual([
       {
-        type: "metadata",
+        type: "document/json",
         pointer: "/version",
         message: "must be string",
       },
