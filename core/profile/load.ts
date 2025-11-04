@@ -1,4 +1,4 @@
-import { loadJsonSchema } from "../jsonSchema/index.ts"
+import { loadJsonSchema } from "../json/index.ts"
 import type { ProfileType } from "./Profile.ts"
 import { assertProfile } from "./assert.ts"
 import { profileRegistry } from "./registry.ts"

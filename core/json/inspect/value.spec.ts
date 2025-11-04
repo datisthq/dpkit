@@ -27,30 +27,22 @@ describe("inspectJsonValue", () => {
   it("returns validation errors for invalid value", async () => {
     const jsonSchema = {
       type: "object",
-      required: ["name", "version"],
       properties: {
         name: { type: "string" },
         version: { type: "string" },
-        description: { type: "string" },
       },
     }
 
     const value = {
       name: "test-package",
       version: 123,
-      description: "A test package with wrong version type",
     }
 
     const errors = await inspectJsonValue(value, { jsonSchema })
 
     expect(errors.length).toBeGreaterThan(0)
-
-    const error = errors[0]
-    expect(error).toBeDefined()
-    if (error) {
-      expect(error.pointer).toBe("/version")
-      expect(error.message).toContain("string")
-    }
+    expect(errors[0].pointer).toBe("/version")
+    expect(errors[0].message).toContain("string")
   })
 
   it("returns errors when required fields are missing", async () => {
@@ -72,25 +64,18 @@ describe("inspectJsonValue", () => {
     const errors = await inspectJsonValue(value, { jsonSchema })
 
     expect(errors.length).toBeGreaterThan(0)
-
-    const error = errors[0]
-    expect(error).toBeDefined()
-    if (error) {
-      expect(error.pointer).toBe("")
-      expect(error.message).toContain("required_field")
-    }
+    expect(errors[0]?.pointer).toBe("")
+    expect(errors[0]?.message).toContain("required_field")
   })
 
   it("validates nested objects in the value", async () => {
     const jsonSchema = {
       type: "object",
-      required: ["name", "version", "author"],
       properties: {
         name: { type: "string" },
         version: { type: "string" },
         author: {
           type: "object",
-          required: ["name", "email"],
           properties: {
             name: { type: "string" },
             email: {
@@ -114,21 +99,19 @@ describe("inspectJsonValue", () => {
     const errors = await inspectJsonValue(value, { jsonSchema })
 
     expect(errors.length).toBeGreaterThan(0)
-
-    const hasEmailPatternError = errors.some(
-      error =>
-        error &&
-        error.pointer === "/author/email" &&
-        error.message.includes("pattern"),
-    )
-
-    expect(hasEmailPatternError).toBe(true)
+    expect(
+      errors.some(
+        error =>
+          error.pointer === "/author/email" &&
+          error.message.includes("pattern"),
+      ),
+    ).toBe(true)
   })
 
   it("returns multiple errors for value with multiple issues", async () => {
     const jsonSchema = {
       type: "object",
-      required: ["name", "version", "license"],
+      required: ["license"],
       additionalProperties: false,
       properties: {
         name: { type: "string", minLength: 3 },
@@ -154,7 +137,7 @@ describe("inspectJsonValue", () => {
 
     expect(errors.length).toBeGreaterThan(3)
 
-    const errorPointers = errors.map(err => err?.pointer)
+    const errorPointers = errors.map(err => err.pointer)
     expect(errorPointers).toContain("")
     expect(errorPointers).toContain("/name")
     expect(errorPointers).toContain("/version")
