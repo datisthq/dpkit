@@ -13,5 +13,6 @@ export class InlinePlugin implements TablePlugin {
 }
 
 function getIsInline(resource: Resource) {
-  return !!resource.data
+  const isTable = resource.type === "table" || !!resource.schema
+  return isTable && !!resource.data
 }

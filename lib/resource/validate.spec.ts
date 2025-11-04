@@ -97,4 +97,68 @@ describe("validateResource", () => {
       },
     ])
   })
+
+  it("should validate document with jsonSchema", async () => {
+    const resource = {
+      name: "test-document",
+      data: {
+        name: "test-package",
+        version: "1.0.0",
+        author: {
+          name: "John Doe",
+          email: "john@example.com",
+        },
+      },
+      jsonSchema: {
+        type: "object",
+        required: ["name", "version", "author"],
+        properties: {
+          name: { type: "string" },
+          version: { type: "string" },
+          author: {
+            type: "object",
+            required: ["name", "email"],
+            properties: {
+              name: { type: "string" },
+              email: { type: "string" },
+            },
+          },
+        },
+      },
+    }
+
+    const report = await validateResource(resource)
+
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
+  })
+
+  it("should catch validation errors for document with invalid jsonSchema data", async () => {
+    const resource = {
+      name: "test-document",
+      data: {
+        name: "test-package",
+        version: 123,
+      },
+      jsonSchema: {
+        type: "object",
+        required: ["name", "version"],
+        properties: {
+          name: { type: "string" },
+          version: { type: "string" },
+        },
+      },
+    }
+
+    const report = await validateResource(resource)
+
+    expect(report.valid).toBe(false)
+    expect(report.errors).toEqual([
+      {
+        type: "metadata",
+        pointer: "/version",
+        message: "must be string",
+      },
+    ])
+  })
 })

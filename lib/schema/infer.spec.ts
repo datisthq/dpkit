@@ -33,6 +33,7 @@ describe("inferSchema", () => {
   it("should infer schema from inline data", async () => {
     const resource = {
       name: "test-resource",
+      type: "table" as const,
       data: [
         { id: 1, name: "alice" },
         { id: 2, name: "bob" },
@@ -146,6 +147,7 @@ describe("inferSchema", () => {
   it("should infer schema from complex inline data", async () => {
     const resource = {
       name: "test-resource",
+      type: "table" as const,
       data: [
         {
           id: 1,

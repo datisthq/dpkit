@@ -16,6 +16,7 @@ describe("loadTable", () => {
   it("should load table from inline data", async () => {
     const resource = {
       name: "test-resource",
+      type: "table" as const,
       data: [
         { id: 1, name: "alice" },
         { id: 2, name: "bob" },

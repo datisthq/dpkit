@@ -2,6 +2,7 @@ import type { Descriptor, Resource } from "@dpkit/core"
 import { createReport } from "@dpkit/core"
 import { loadDescriptor, validateResourceMetadata } from "@dpkit/core"
 import { resolveBasepath } from "@dpkit/core"
+import { validateDocument } from "@dpkit/document"
 import { validateFile } from "@dpkit/file"
 import type { InferSchemaOptions } from "@dpkit/table"
 import { validateTable } from "../table/index.ts"
@@ -39,6 +40,11 @@ export async function validateResourceData(
   const tableReport = await validateTable(resource, options)
   if (!tableReport.valid) {
     return tableReport
+  }
+
+  const documentReport = await validateDocument(resource)
+  if (!documentReport.valid) {
+    return documentReport
   }
 
   return createReport()
