@@ -1,5 +1,5 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertionError } from "../error/index.ts"
+import { AssertException } from "../exception/index.ts"
 import type { Schema } from "./Schema.ts"
 import { assertSchema } from "./assert.ts"
 
@@ -35,6 +35,6 @@ describe("assertSchema", () => {
       ],
     }
 
-    await expect(assertSchema(descriptor)).rejects.toThrow(AssertionError)
+    await expect(assertSchema(descriptor)).rejects.toThrow(AssertException)
   })
 })

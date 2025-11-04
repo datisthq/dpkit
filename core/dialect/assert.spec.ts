@@ -1,5 +1,5 @@
 import { describe, expect, expectTypeOf, it } from "vitest"
-import { AssertionError } from "../error/index.ts"
+import { AssertException } from "../exception/index.ts"
 import type { Dialect } from "./Dialect.ts"
 import { assertDialect } from "./assert.ts"
 
@@ -23,6 +23,6 @@ describe("assertDialect", () => {
       header: "yes", // Should be a boolean
     }
 
-    await expect(assertDialect(invalidDialect)).rejects.toThrow(AssertionError)
+    await expect(assertDialect(invalidDialect)).rejects.toThrow(AssertException)
   })
 })
