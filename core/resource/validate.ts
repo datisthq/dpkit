@@ -25,7 +25,9 @@ export async function validateResourceMetadata(
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const report = await validateDescriptor(descriptor, { profile })
+  const report = await validateDescriptor(descriptor, {
+    profile,
+  })
 
   let resource: Resource | undefined = undefined
   if (report.valid) {

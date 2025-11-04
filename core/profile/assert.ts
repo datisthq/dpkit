@@ -1,4 +1,4 @@
-import type { JsonSchema } from "../jsonSchema/index.ts"
+import type { JsonSchema } from "../json/index.ts"
 import type { Profile } from "./Profile.ts"
 import type { ProfileType } from "./Profile.ts"
 import { profileRegistry } from "./registry.ts"

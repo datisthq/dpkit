@@ -16,7 +16,9 @@ export async function validateDialect(source: Descriptor | Dialect) {
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const report = await validateDescriptor(descriptor, { profile })
+  const report = await validateDescriptor(descriptor, {
+    profile,
+  })
 
   let dialect: Dialect | undefined = undefined
   if (report.valid) {

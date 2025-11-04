@@ -41,8 +41,8 @@ describe("inspectJsonValue", () => {
     const errors = await inspectJsonValue(value, { jsonSchema })
 
     expect(errors.length).toBeGreaterThan(0)
-    expect(errors[0].pointer).toBe("/version")
-    expect(errors[0].message).toContain("string")
+    expect(errors[0]?.pointer).toBe("/version")
+    expect(errors[0]?.message).toContain("string")
   })
 
   it("returns errors when required fields are missing", async () => {

@@ -21,7 +21,9 @@ export async function validatePackageMetadata(
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const report = await validateDescriptor(descriptor, { profile })
+  const report = await validateDescriptor(descriptor, {
+    profile,
+  })
 
   let dataPackage: Package | undefined = undefined
   if (report.valid) {

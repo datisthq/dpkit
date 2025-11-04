@@ -1,4 +1,4 @@
-import type { JsonSchema } from "./JsonSchema.ts"
+import type { JsonSchema } from "./Schema.ts"
 import { loadJsonSchema } from "./load.ts"
 
 export async function resolveJsonSchema(jsonSchema?: JsonSchema | string) {

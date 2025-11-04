@@ -1,12 +1,7 @@
-import { beforeAll, describe, expect, it, vi } from "vitest"
-import { ajv } from "./ajv.ts"
+import { describe, expect, it } from "vitest"
 import { assertProfile } from "./assert.ts"
 
 describe("assertProfile", () => {
-  beforeAll(() => {
-    vi.spyOn(ajv, "validateSchema")
-  })
-
   it("returns profile for valid descriptor without options", async () => {
     const descriptor = {
       name: "test",
@@ -17,48 +12,17 @@ describe("assertProfile", () => {
     expect(profile).toEqual(descriptor)
   })
 
-  it("throws error for invalid schema", async () => {
+  it("throws error for custom profile path with mismatched type", async () => {
     const descriptor = {
       name: "test",
     }
 
-    vi.mocked(ajv.validateSchema).mockImplementationOnce(async () => {
-      ajv.errors = [
-        {
-          keyword: "type",
-          instancePath: "/name",
-          schemaPath: "#/properties/name/type",
-          params: {},
-          message: "must be string",
-        },
-      ]
-    })
-
-    await expect(assertProfile(descriptor)).rejects.toThrow(
-      "Profile at path undefined is invalid",
-    )
-  })
-
-  it("throws error when error message is not available", async () => {
-    const descriptor = {
-      name: "test",
-    }
-
-    vi.mocked(ajv.validateSchema).mockImplementationOnce(async () => {
-      ajv.errors = [
-        {
-          keyword: "required",
-          instancePath: "",
-          schemaPath: "#/required",
-          params: {},
-          message: undefined,
-        },
-      ]
-    })
-
-    await expect(assertProfile(descriptor)).rejects.toThrow(
-      "Profile at path undefined is invalid",
-    )
+    await expect(
+      assertProfile(descriptor, {
+        path: "custom-profile.json",
+        type: "package",
+      }),
+    ).rejects.toThrow("Profile at path custom-profile.json is invalid")
   })
 
   it("returns profile for official profile path", async () => {
@@ -87,17 +51,19 @@ describe("assertProfile", () => {
     expect(profile).toEqual(descriptor)
   })
 
-  it("throws error for profile type mismatch", async () => {
+  it("throws error when profile path does not match the specified type", async () => {
     const descriptor = {
       name: "test",
     }
 
     await expect(
       assertProfile(descriptor, {
-        path: "custom-profile.json",
+        path: "https://datapackage.org/profiles/1.0/tableschema.json",
         type: "package",
       }),
-    ).rejects.toThrow("Profile at path custom-profile.json is invalid")
+    ).rejects.toThrow(
+      "Profile at path https://datapackage.org/profiles/1.0/tableschema.json is invalid",
+    )
   })
 
   it("returns profile when only path is provided", async () => {
@@ -124,22 +90,25 @@ describe("assertProfile", () => {
     expect(profile).toEqual(descriptor)
   })
 
-  it("throws error when both schema and type validation fail", async () => {
+  it("returns profile when descriptor extends official profile via allOf", async () => {
     const descriptor = {
       name: "test",
+      allOf: ["https://datapackage.org/profiles/1.0/datapackage.json"],
     }
 
-    vi.mocked(ajv.validateSchema).mockImplementationOnce(async () => {
-      ajv.errors = [
-        {
-          keyword: "type",
-          instancePath: "/name",
-          schemaPath: "#/properties/name/type",
-          params: {},
-          message: "must be string",
-        },
-      ]
+    const profile = await assertProfile(descriptor, {
+      path: "custom-profile.json",
+      type: "package",
     })
+
+    expect(profile).toEqual(descriptor)
+  })
+
+  it("throws error when custom profile does not extend matching official profile", async () => {
+    const descriptor = {
+      name: "test",
+      allOf: ["https://datapackage.org/profiles/1.0/tableschema.json"],
+    }
 
     await expect(
       assertProfile(descriptor, {

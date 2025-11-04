@@ -16,7 +16,9 @@ export async function validateSchema(source: Descriptor | Schema) {
       ? descriptor.$schema
       : DEFAULT_PROFILE
 
-  const report = await validateDescriptor(descriptor, { profile })
+  const report = await validateDescriptor(descriptor, {
+    profile,
+  })
 
   let schema: Schema | undefined = undefined
   if (report.valid) {
