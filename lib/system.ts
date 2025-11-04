@@ -14,7 +14,7 @@ import { XlsxPlugin } from "@dpkit/xlsx"
 import { ZenodoPlugin } from "@dpkit/zenodo"
 import { ZipPlugin } from "@dpkit/zip"
 
-export class Dpkit {
+export class System {
   plugins: TablePlugin[] = []
 
   register(PluginClass: new () => TablePlugin) {
@@ -22,25 +22,24 @@ export class Dpkit {
   }
 }
 
-// TODO: rename to stop using dpkit name?
-export const dpkit = new Dpkit()
+export const system = new System()
 
 // Core functions
-dpkit.register(CkanPlugin)
-dpkit.register(DatahubPlugin)
-dpkit.register(GithubPlugin)
-dpkit.register(ZenodoPlugin)
-dpkit.register(FolderPlugin)
-dpkit.register(ZipPlugin)
+system.register(CkanPlugin)
+system.register(DatahubPlugin)
+system.register(GithubPlugin)
+system.register(ZenodoPlugin)
+system.register(FolderPlugin)
+system.register(ZipPlugin)
 
 // Table functions
-dpkit.register(ArrowPlugin)
-dpkit.register(CsvPlugin)
-dpkit.register(InlinePlugin)
-dpkit.register(JsonPlugin)
-dpkit.register(OdsPlugin)
-dpkit.register(ParquetPlugin)
-dpkit.register(XlsxPlugin)
+system.register(ArrowPlugin)
+system.register(CsvPlugin)
+system.register(InlinePlugin)
+system.register(JsonPlugin)
+system.register(OdsPlugin)
+system.register(ParquetPlugin)
+system.register(XlsxPlugin)
 
 // Mixed functions
-dpkit.register(DatabasePlugin)
+system.register(DatabasePlugin)

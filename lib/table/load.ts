@@ -1,12 +1,12 @@
 import type { Resource } from "@dpkit/core"
 import type { LoadTableOptions } from "@dpkit/table"
-import { dpkit } from "../plugin.ts"
+import { system } from "../system.ts"
 
 export async function loadTable(
   resource: Partial<Resource>,
   options?: LoadTableOptions,
 ) {
-  for (const plugin of dpkit.plugins) {
+  for (const plugin of system.plugins) {
     const table = await plugin.loadTable?.(resource, options)
     if (table) {
       return table

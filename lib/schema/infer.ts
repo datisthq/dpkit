@@ -1,14 +1,14 @@
 import type { Resource } from "@dpkit/core"
 import type { InferSchemaOptions } from "@dpkit/table"
 import { inferSchemaFromTable } from "@dpkit/table"
-import { dpkit } from "../plugin.ts"
+import { system } from "../system.ts"
 import { loadTable } from "../table/index.ts"
 
 export async function inferSchema(
   resource: Partial<Resource>,
   options?: InferSchemaOptions,
 ) {
-  for (const plugin of dpkit.plugins) {
+  for (const plugin of system.plugins) {
     const schema = await plugin.inferSchema?.(resource, options)
     if (schema) {
       return schema

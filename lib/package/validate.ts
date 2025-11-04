@@ -4,8 +4,8 @@ import type { Descriptor, Package } from "@dpkit/core"
 import { loadDescriptor, validatePackageMetadata } from "@dpkit/core"
 import { resolveBasepath } from "@dpkit/core"
 import pAll from "p-all"
-import { dpkit } from "../plugin.ts"
 import { validateResourceData } from "../resource/index.ts"
+import { system } from "../system.ts"
 import { validatePackageIntegrity } from "./integrity.ts"
 
 export async function validatePackage(
@@ -18,7 +18,7 @@ export async function validatePackage(
   if (typeof source !== "string") {
     descriptor = source
   } else {
-    for (const plugin of dpkit.plugins) {
+    for (const plugin of system.plugins) {
       const result = await plugin.loadPackage?.(source)
       if (result) {
         descriptor = result as unknown as Descriptor

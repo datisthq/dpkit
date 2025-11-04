@@ -1,14 +1,14 @@
 import type { Package, SavePackageOptions } from "@dpkit/core"
 import { savePackageDescriptor } from "@dpkit/core"
-import { dpkit } from "../plugin.ts"
+import { system } from "../system.ts"
 
 export async function savePackage(
   dataPackage: Package,
   options: SavePackageOptions,
 ) {
-  for (const plugin of dpkit.plugins) {
+  for (const plugin of system.plugins) {
     const result = await plugin.savePackage?.(dataPackage, {
-      plugins: dpkit.plugins,
+      plugins: system.plugins,
       ...options,
     })
 
