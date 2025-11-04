@@ -1,4 +1,4 @@
-import { node } from "../system/index.ts"
+import { node } from "../platform/index.ts"
 import { getProtocol, isRemotePath } from "../path/index.ts"
 import { parseDescriptor } from "./process/parse.ts"
 

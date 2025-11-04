@@ -1,5 +1,5 @@
 import slugify from "@sindresorhus/slugify"
-import { node } from "../system/index.ts"
+import { node } from "../platform/index.ts"
 
 export function isRemotePath(path: string) {
   const protocol = getProtocol(path)

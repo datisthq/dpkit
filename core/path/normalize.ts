@@ -1,4 +1,4 @@
-import { node } from "../system/index.ts"
+import { node } from "../platform/index.ts"
 import { isRemotePath } from "./path.ts"
 
 export function normalizePath(path: string, options: { basepath?: string }) {
