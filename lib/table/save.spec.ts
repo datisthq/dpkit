@@ -1,6 +1,7 @@
 import { access, unlink } from "node:fs/promises"
 import { writeTempFile } from "@dpkit/file"
 import { describe, expect, it } from "vitest"
+import { assert } from "vitest"
 import { loadTable } from "./load.ts"
 import { saveTable } from "./save.ts"
 
@@ -12,6 +13,7 @@ describe("saveTable", () => {
     const outputPath = await writeTempFile("")
     await unlink(outputPath)
 
+    assert(table, "table is not defined")
     const savedPath = await saveTable(table, {
       path: outputPath,
       format: "csv" as const,
@@ -34,6 +36,7 @@ describe("saveTable", () => {
     const outputPath = await writeTempFile("")
     await unlink(outputPath)
 
+    assert(table, "table is not defined")
     const savedPath = await saveTable(table, {
       path: outputPath,
       format: "csv" as const,
@@ -55,6 +58,7 @@ describe("saveTable", () => {
     const outputPath = await writeTempFile("")
     await unlink(outputPath)
 
+    assert(originalTable, "table is not defined")
     await saveTable(originalTable, {
       path: outputPath,
       format: "csv" as const,
@@ -78,6 +82,7 @@ describe("saveTable", () => {
     const outputPath = await writeTempFile("")
     await unlink(outputPath)
 
+    assert(table, "table is not defined")
     const savedPath = await saveTable(table, {
       path: outputPath,
       format: "csv" as const,
@@ -99,6 +104,7 @@ describe("saveTable", () => {
     const outputPath = await writeTempFile("")
     await unlink(outputPath)
 
+    assert(table, "table is not defined")
     const savedPath = await saveTable(table, {
       path: outputPath,
       format: "csv" as const,
@@ -127,6 +133,7 @@ describe("saveTable", () => {
     const outputPath = await writeTempFile("")
     await unlink(outputPath)
 
+    assert(table, "table is not defined")
     const savedPath = await saveTable(table, {
       path: outputPath,
       format: "csv" as const,
@@ -150,6 +157,7 @@ describe("saveTable", () => {
     const outputPath = await writeTempFile("")
     await unlink(outputPath)
 
+    assert(table, "table is not defined")
     const savedPath = await saveTable(table, {
       path: outputPath,
       format: "csv" as const,
@@ -171,6 +179,7 @@ describe("saveTable", () => {
     const outputPath = await writeTempFile("")
     await unlink(outputPath)
 
+    assert(table, "table is not defined")
     const savedPath = await saveTable(table, {
       path: outputPath,
       format: "csv" as const,
@@ -192,6 +201,7 @@ describe("saveTable", () => {
     const outputPath = await writeTempFile("")
     await unlink(outputPath)
 
+    assert(table, "table is not defined")
     const savedPath = await saveTable(table, {
       path: outputPath,
       format: "csv" as const,
@@ -215,6 +225,7 @@ describe("saveTable", () => {
     const outputPath = await writeTempFile("")
     await unlink(outputPath)
 
+    assert(table, "table is not defined")
     const savedPath = await saveTable(table, {
       path: outputPath,
       format: "csv" as const,
