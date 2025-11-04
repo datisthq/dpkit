@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest"
-import { validateDescriptor } from "./validate.ts"
+import { inspectValue } from "./inspect.ts"
 
-describe("validateDescriptor", () => {
-  it("returns empty array for valid descriptor", async () => {
-    const descriptor = {
+describe("inspectValue", () => {
+  it("returns empty array for valid value", async () => {
+    const value = {
       name: "test-package",
       version: "1.0.0",
       description: "A test package",
     }
 
-    const profile = {
+    const jsonSchema = {
       type: "object",
       required: ["name", "version"],
       properties: {
@@ -19,14 +19,13 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const report = await validateDescriptor(descriptor, { profile })
+    const errors = await inspectValue(value, { jsonSchema })
 
-    expect(report.valid).toBe(true)
-    expect(report.errors).toEqual([])
+    expect(errors).toEqual([])
   })
 
-  it("returns validation errors for invalid descriptor", async () => {
-    const profile = {
+  it("returns validation errors for invalid value", async () => {
+    const jsonSchema = {
       type: "object",
       required: ["name", "version"],
       properties: {
@@ -36,28 +35,26 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const descriptor = {
+    const value = {
       name: "test-package",
       version: 123,
       description: "A test package with wrong version type",
     }
 
-    const report = await validateDescriptor(descriptor, { profile })
+    const errors = await inspectValue(value, { jsonSchema })
 
-    expect(report.valid).toBe(false)
-    expect(report.errors.length).toBeGreaterThan(0)
+    expect(errors.length).toBeGreaterThan(0)
 
-    const error = report.errors[0]
+    const error = errors[0]
     expect(error).toBeDefined()
     if (error) {
-      expect(error.type).toBe("metadata")
       expect(error.pointer).toBe("/version")
       expect(error.message).toContain("string")
     }
   })
 
   it("returns errors when required fields are missing", async () => {
-    const profile = {
+    const jsonSchema = {
       type: "object",
       required: ["name", "version", "required_field"],
       properties: {
@@ -67,27 +64,25 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const descriptor = {
+    const value = {
       name: "test-package",
       version: "1.0.0",
     }
 
-    const report = await validateDescriptor(descriptor, { profile })
+    const errors = await inspectValue(value, { jsonSchema })
 
-    expect(report.valid).toBe(false)
-    expect(report.errors.length).toBeGreaterThan(0)
+    expect(errors.length).toBeGreaterThan(0)
 
-    const error = report.errors[0]
+    const error = errors[0]
     expect(error).toBeDefined()
     if (error) {
-      expect(error.type).toBe("metadata")
       expect(error.pointer).toBe("")
       expect(error.message).toContain("required_field")
     }
   })
 
-  it("validates nested objects in the descriptor", async () => {
-    const profile = {
+  it("validates nested objects in the value", async () => {
+    const jsonSchema = {
       type: "object",
       required: ["name", "version", "author"],
       properties: {
@@ -107,7 +102,7 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const descriptor = {
+    const value = {
       name: "test-package",
       version: "1.0.0",
       author: {
@@ -116,12 +111,11 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const report = await validateDescriptor(descriptor, { profile })
+    const errors = await inspectValue(value, { jsonSchema })
 
-    expect(report.valid).toBe(false)
-    expect(report.errors.length).toBeGreaterThan(0)
+    expect(errors.length).toBeGreaterThan(0)
 
-    const hasEmailPatternError = report.errors.some(
+    const hasEmailPatternError = errors.some(
       error =>
         error &&
         error.pointer === "/author/email" &&
@@ -131,8 +125,8 @@ describe("validateDescriptor", () => {
     expect(hasEmailPatternError).toBe(true)
   })
 
-  it("returns multiple errors for descriptor with multiple issues", async () => {
-    const profile = {
+  it("returns multiple errors for value with multiple issues", async () => {
+    const jsonSchema = {
       type: "object",
       required: ["name", "version", "license"],
       additionalProperties: false,
@@ -148,7 +142,7 @@ describe("validateDescriptor", () => {
       },
     }
 
-    const descriptor = {
+    const value = {
       name: "ab",
       version: "not-a-version",
       description: 123,
@@ -156,13 +150,9 @@ describe("validateDescriptor", () => {
       extra_field: "should not be here",
     }
 
-    const report = await validateDescriptor(descriptor, { profile })
+    const errors = await inspectValue(value, { jsonSchema })
 
-    expect(report.valid).toBe(false)
-    expect(report.errors.length).toBeGreaterThan(3)
-
-    const errors = report.errors
-    expect(errors.every(err => err?.type === "metadata")).toBe(true)
+    expect(errors.length).toBeGreaterThan(3)
 
     const errorPointers = errors.map(err => err?.pointer)
     expect(errorPointers).toContain("")

@@ -1,12 +1,12 @@
+import dialect_1_0 from "../assets/dialect-1.0.json" with { type: "json" }
+import dialect_2_0 from "../assets/dialect-2.0.json" with { type: "json" }
+import package_1_0 from "../assets/package-1.0.json" with { type: "json" }
+import package_2_0 from "../assets/package-2.0.json" with { type: "json" }
+import resource_1_0 from "../assets/resource-1.0.json" with { type: "json" }
+import resource_2_0 from "../assets/resource-2.0.json" with { type: "json" }
+import schema_1_0 from "../assets/schema-1.0.json" with { type: "json" }
+import schema_2_0 from "../assets/schema-2.0.json" with { type: "json" }
 import type { ProfileRegistry } from "./Profile.ts"
-import dialect_1_0 from "./registry/dialect-1.0.json" with { type: "json" }
-import dialect_2_0 from "./registry/dialect-2.0.json" with { type: "json" }
-import package_1_0 from "./registry/package-1.0.json" with { type: "json" }
-import package_2_0 from "./registry/package-2.0.json" with { type: "json" }
-import resource_1_0 from "./registry/resource-1.0.json" with { type: "json" }
-import resource_2_0 from "./registry/resource-2.0.json" with { type: "json" }
-import schema_1_0 from "./registry/schema-1.0.json" with { type: "json" }
-import schema_2_0 from "./registry/schema-2.0.json" with { type: "json" }
 
 export const profileRegistry: ProfileRegistry = [
   {

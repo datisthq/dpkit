@@ -1,19 +1,17 @@
-import { loadDescriptor } from "../descriptor/index.ts"
-import { cache } from "./cache.ts"
+import { loadJsonSchema } from "../jsonSchema/index.ts"
 import type { ProfileType } from "./Profile.ts"
 import { assertProfile } from "./assert.ts"
+import { profileRegistry } from "./registry.ts"
 
 export async function loadProfile(
   path: string,
   options?: { type?: ProfileType },
 ) {
-  let profile = cache.get(path)
-
-  if (!profile) {
-    const descriptor = await loadDescriptor(path, { onlyRemote: true })
-    profile = await assertProfile(descriptor, { path, type: options?.type })
-    cache.set(path, profile)
+  const profile = profileRegistry.find(profile => profile.path === path)?.profile
+  if (profile) {
+    return profile
   }
 
-  return profile
+  const jsonSchema = await loadJsonSchema(path, { onlyRemote: true })
+  return await assertProfile(jsonSchema, { path, type: options?.type })
 }

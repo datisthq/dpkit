@@ -1,13 +1,12 @@
-import type { Descriptor } from "../descriptor/index.ts"
+import type { JsonSchema } from "../jsonSchema/index.ts"
 import type { Profile } from "./Profile.ts"
 import type { ProfileType } from "./Profile.ts"
-import { ajv } from "./ajv.ts"
 import { profileRegistry } from "./registry.ts"
 
 // TODO: It should narrow to JSON Schema
 
 export async function assertProfile(
-  descriptor: Descriptor,
+  jsonSchema: JsonSchema,
   options?: {
     path?: string
     type?: ProfileType
@@ -15,12 +14,7 @@ export async function assertProfile(
 ) {
   const errors: { message: string }[] = []
 
-  await ajv.validateSchema(descriptor)
-  for (const error of ajv.errors ?? []) {
-    errors.push({ message: error.message ?? error.keyword })
-  }
-
-  if (!checkProfileType(descriptor, options)) {
+  if (!checkProfileType(jsonSchema, options)) {
     errors.push({
       message: `Profile at ${options?.path} is not a valid ${options?.type} profile`,
     })
@@ -31,11 +25,11 @@ export async function assertProfile(
     throw new Error(`Profile at path ${options?.path} is invalid`)
   }
 
-  return descriptor as Profile
+  return jsonSchema as Profile
 }
 
 function checkProfileType(
-  descriptor: Descriptor,
+  jsonSchema: JsonSchema,
   options?: {
     path?: string
     type?: ProfileType
@@ -55,8 +49,8 @@ function checkProfileType(
     if (options.path === typeProfile.path) return true
 
     // The profile extends one of the official profiles
-    if (Array.isArray(descriptor.allOf)) {
-      for (const ref of Object.values(descriptor.allOf)) {
+    if (Array.isArray(jsonSchema.allOf)) {
+      for (const ref of Object.values(jsonSchema.allOf)) {
         if (ref === typeProfile.path) return true
       }
     }
