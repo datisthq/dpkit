@@ -75,13 +75,14 @@ export async function inspectJsonField(
         profile: constraintProfile,
       })
 
-      if (!report.valid) {
+      for (const error of report.errors) {
         errors.push({
           type: "cell/jsonSchema",
           cell: String(row.source),
           fieldName: field.name,
           rowNumber: row.number,
-          jsonSchema: constraintProfile,
+          pointer: error.pointer,
+          message: error.message,
         })
       }
     }

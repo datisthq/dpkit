@@ -289,28 +289,32 @@ describe("validateObjectField", () => {
     }
 
     const errors = await inspectTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/jsonSchema")).toHaveLength(3)
-    expect(errors).toContainEqual({
-      type: "cell/jsonSchema",
-      fieldName: "user",
-      jsonSchema,
-      rowNumber: 2,
-      cell: '{"name":"Jane"}',
-    })
-    expect(errors).toContainEqual({
-      type: "cell/jsonSchema",
-      fieldName: "user",
-      jsonSchema,
-      rowNumber: 3,
-      cell: '{"age":25}',
-    })
-    expect(errors).toContainEqual({
-      type: "cell/jsonSchema",
-      fieldName: "user",
-      jsonSchema,
-      rowNumber: 4,
-      cell: '{"name":"Bob","age":"invalid"}',
-    })
+    expect(errors.filter(e => e.type === "cell/jsonSchema")).toEqual([
+      {
+        type: "cell/jsonSchema",
+        fieldName: "user",
+        rowNumber: 2,
+        cell: '{"name":"Jane"}',
+        pointer: "",
+        message: "must have required property 'age'",
+      },
+      {
+        type: "cell/jsonSchema",
+        fieldName: "user",
+        rowNumber: 3,
+        cell: '{"age":25}',
+        pointer: "",
+        message: "must have required property 'name'",
+      },
+      {
+        type: "cell/jsonSchema",
+        fieldName: "user",
+        rowNumber: 4,
+        cell: '{"name":"Bob","age":"invalid"}',
+        pointer: "/age",
+        message: "must be number",
+      },
+    ])
   })
 
   it("should validate complex jsonSchema with nested objects", async () => {
@@ -360,9 +364,10 @@ describe("validateObjectField", () => {
       {
         type: "cell/jsonSchema",
         fieldName: "config",
-        jsonSchema: schema.fields[0].constraints?.jsonSchema,
         rowNumber: 2,
         cell: '{"database":{"host":"localhost","port":"invalid"},"cache":{"enabled":true}}',
+        pointer: "/database/port",
+        message: "must be number",
       },
     ])
   })
@@ -400,14 +405,22 @@ describe("validateObjectField", () => {
     }
 
     const errors = await inspectTable(table, { schema })
-    expect(errors).toEqual([
+    expect(errors.filter(e => e.type === "cell/jsonSchema")).toEqual([
       {
         type: "cell/jsonSchema",
         fieldName: "data",
-        // @ts-ignore
-        jsonSchema: schema.fields[0].constraints?.jsonSchema,
         rowNumber: 2,
         cell: '{"items":["not","numbers"],"name":"test"}',
+        pointer: "/items/0",
+        message: "must be number",
+      },
+      {
+        type: "cell/jsonSchema",
+        fieldName: "data",
+        rowNumber: 2,
+        cell: '{"items":["not","numbers"],"name":"test"}',
+        pointer: "/items/1",
+        message: "must be number",
       },
     ])
   })

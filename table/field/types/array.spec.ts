@@ -284,21 +284,32 @@ describe("validateArrayField", () => {
     }
 
     const errors = await inspectTable(table, { schema })
-    expect(errors.filter(e => e.type === "cell/jsonSchema")).toHaveLength(2)
-    expect(errors).toContainEqual({
-      type: "cell/jsonSchema",
-      fieldName: "numbers",
-      jsonSchema,
-      rowNumber: 2,
-      cell: '["not","numbers"]',
-    })
-    expect(errors).toContainEqual({
-      type: "cell/jsonSchema",
-      fieldName: "numbers",
-      jsonSchema,
-      rowNumber: 3,
-      cell: "[1]",
-    })
+    expect(errors.filter(e => e.type === "cell/jsonSchema")).toEqual([
+      {
+        type: "cell/jsonSchema",
+        fieldName: "numbers",
+        rowNumber: 2,
+        cell: '["not","numbers"]',
+        pointer: "/0",
+        message: "must be number",
+      },
+      {
+        type: "cell/jsonSchema",
+        fieldName: "numbers",
+        rowNumber: 2,
+        cell: '["not","numbers"]',
+        pointer: "/1",
+        message: "must be number",
+      },
+      {
+        type: "cell/jsonSchema",
+        fieldName: "numbers",
+        rowNumber: 3,
+        cell: "[1]",
+        pointer: "",
+        message: "must NOT have fewer than 2 items",
+      },
+    ])
   })
 
   it("should validate complex jsonSchema with array of objects", async () => {
@@ -338,10 +349,10 @@ describe("validateArrayField", () => {
       {
         type: "cell/jsonSchema",
         fieldName: "users",
-        // @ts-ignore
-        jsonSchema: schema.fields[0].constraints?.jsonSchema,
         rowNumber: 2,
         cell: '[{"name":"Bob","age":"invalid"}]',
+        pointer: "/0/age",
+        message: "must be number",
       },
     ])
   })
@@ -374,10 +385,10 @@ describe("validateArrayField", () => {
       {
         type: "cell/jsonSchema",
         fieldName: "tags",
-        // @ts-ignore
-        jsonSchema: schema.fields[0].constraints?.jsonSchema,
         rowNumber: 2,
         cell: '["duplicate","duplicate"]',
+        pointer: "",
+        message: "must NOT have duplicate items (items ## 1 and 0 are identical)",
       },
     ])
   })

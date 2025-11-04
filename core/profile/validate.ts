@@ -27,7 +27,7 @@ export async function validateDescriptor(
   const errors: MetadataError[] = validate.errors
     ? validate.errors?.map(error => ({
         type: "metadata",
-        pointer: error.instancePath,
+        pointer: error.instancePath ?? "/",
         message: error.message ?? "error",
       }))
     : []
