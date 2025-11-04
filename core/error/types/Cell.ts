@@ -77,5 +77,6 @@ export interface CellEnumError extends BaseCellError {
 
 export interface CellJsonSchemaError extends BaseCellError {
   type: "cell/jsonSchema"
-  jsonSchema: Record<string, any>
+  pointer: string
+  message: string
 }
