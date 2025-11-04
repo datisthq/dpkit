@@ -42,6 +42,9 @@ export async function validateResourceMetadata(
     const schemaErorrs = await inspectSchemaIfExternal(resource)
     report.errors.push(...schemaErorrs)
 
+    // TODO: Support external JSON Schema validation as well
+    // https://github.com/frictionlessdata/datapackage/issues/937
+
     if (report.errors.length) {
       resource = undefined
       report.valid = false

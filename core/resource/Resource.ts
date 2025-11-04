@@ -106,5 +106,5 @@ export interface Resource extends Metadata {
    * Describes fields in the json, constraints, etc.
    * @see https://json-schema.org/
    */
-  jsonSchema?: Profile
+  jsonSchema?: string | Profile
 }
