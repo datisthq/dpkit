@@ -50,8 +50,9 @@ describe("validateDescriptor", () => {
     const error = report.errors[0]
     expect(error).toBeDefined()
     if (error) {
-      expect(error.keyword).toBe("type")
-      expect(error.instancePath).toBe("/version")
+      expect(error.type).toBe("metadata")
+      expect(error.pointer).toBe("/version")
+      expect(error.message).toContain("string")
     }
   })
 
@@ -79,12 +80,9 @@ describe("validateDescriptor", () => {
     const error = report.errors[0]
     expect(error).toBeDefined()
     if (error) {
-      expect(error.keyword).toBe("required")
-      expect(error.params).toBeDefined()
-      if (error.params) {
-        // @ts-ignore
-        expect(error.params.missingProperty).toBe("required_field")
-      }
+      expect(error.type).toBe("metadata")
+      expect(error.pointer).toBe("")
+      expect(error.message).toContain("required_field")
     }
   })
 
@@ -126,8 +124,8 @@ describe("validateDescriptor", () => {
     const hasEmailPatternError = report.errors.some(
       error =>
         error &&
-        error.instancePath === "/author/email" &&
-        error.keyword === "pattern",
+        error.pointer === "/author/email" &&
+        error.message.includes("pattern"),
     )
 
     expect(hasEmailPatternError).toBe(true)
@@ -163,11 +161,13 @@ describe("validateDescriptor", () => {
     expect(report.valid).toBe(false)
     expect(report.errors.length).toBeGreaterThan(3)
 
-    const errorKeywords = report.errors.map(err => err?.keyword)
-    expect(errorKeywords).toContain("required")
-    expect(errorKeywords).toContain("minLength")
-    expect(errorKeywords).toContain("pattern")
-    expect(errorKeywords).toContain("type")
-    expect(errorKeywords).toContain("additionalProperties")
+    const errors = report.errors
+    expect(errors.every(err => err?.type === "metadata")).toBe(true)
+
+    const errorPointers = errors.map(err => err?.pointer)
+    expect(errorPointers).toContain("")
+    expect(errorPointers).toContain("/name")
+    expect(errorPointers).toContain("/version")
+    expect(errorPointers).toContain("/description")
   })
 })

@@ -41,8 +41,7 @@ describe("validateSchema", () => {
     expect(error).toBeDefined()
     if (error) {
       // The error could be either type or enum depending on schema validation
-      expect(["type", "enum"]).toContain(error.keyword)
-      expect(error.instancePath).toContain("/fields/0/type")
+      expect(error.pointer).toContain("/fields/0/type")
     }
   })
 })

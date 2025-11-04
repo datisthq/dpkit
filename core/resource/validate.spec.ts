@@ -30,7 +30,7 @@ describe("validateResourceMetadata", () => {
     const error = report.errors[0]
     expect(error).toBeDefined()
     if (error) {
-      expect(error.keyword).toBe("type")
+      expect(error.pointer).toBe("/name")
     }
   })
 })

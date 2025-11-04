@@ -28,8 +28,7 @@ describe("validateDialect", () => {
     const error = report.errors[0]
     expect(error).toBeDefined()
     if (error) {
-      expect(error.keyword).toBe("type")
-      expect(error.instancePath).toBe("/delimiter")
+      expect(error.pointer).toBe("/delimiter")
     }
   })
 })

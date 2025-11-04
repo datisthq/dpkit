@@ -25,7 +25,11 @@ export async function validateDescriptor(
   validate(descriptor)
 
   const errors: MetadataError[] = validate.errors
-    ? validate.errors?.map(error => ({ ...error, type: "metadata" }))
+    ? validate.errors?.map(error => ({
+        type: "metadata",
+        pointer: error.instancePath,
+        message: error.message ?? "error",
+      }))
     : []
 
   return createReport(errors)

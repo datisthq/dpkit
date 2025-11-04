@@ -5,13 +5,6 @@ import type { BaseError } from "./Base.ts"
  */
 export interface MetadataError extends BaseError {
   type: "metadata"
-  keyword: string
-  instancePath: string
-  schemaPath: string
-  params: object
-  propertyName?: string
-  message?: string
-  schema?: any
-  parentSchema?: object
-  data?: any
+  pointer: string
+  message: string
 }
