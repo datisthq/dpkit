@@ -27,6 +27,7 @@
     "@dpkit/csv": "workspace:*",
     "@dpkit/database": "workspace:*",
     "@dpkit/datahub": "workspace:*",
+    "@dpkit/document": "workspace:*",
     "@dpkit/file": "workspace:*",
     "@dpkit/folder": "workspace:*",
     "@dpkit/github": "workspace:*",

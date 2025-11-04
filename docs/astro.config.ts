@@ -16,6 +16,7 @@ const PACKAGES = {
   "@dpkit/csv": "../csv",
   "@dpkit/database": "../database",
   "@dpkit/datahub": "../datahub",
+  "@dpkit/document": "../document",
   "@dpkit/file": "../file",
   "@dpkit/github": "../github",
   "@dpkit/html": "../html",

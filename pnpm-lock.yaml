@@ -409,6 +409,16 @@ importers:
         specifier: 4.43.0
         version: 4.43.0
 
+  document:
+    dependencies:
+      '@dpkit/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      '@dpkit/test':
+        specifier: workspace:*
+        version: link:../test
+
   dpkit:
     dependencies:
       '@dpkit/cli':
@@ -559,6 +569,9 @@ importers:
       '@dpkit/datahub':
         specifier: workspace:*
         version: link:../datahub
+      '@dpkit/document':
+        specifier: workspace:*
+        version: link:../document
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file

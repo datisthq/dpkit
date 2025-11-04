@@ -9,6 +9,7 @@ packages:
   - datahub
   - database
   - docs
+  - document
   - dpkit
   - file
   - folder
