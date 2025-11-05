@@ -16,7 +16,6 @@ packages:
   - github
   - html
   - inline
-  - json
   - lib
   - markdown
   - service

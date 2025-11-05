@@ -5,6 +5,7 @@ export * from "./schema/index.ts"
 export * from "./table/index.ts"
 export * from "./plugin.ts"
 
+export * from "./plugins/json/index.ts"
 export * from "./plugins/ods/index.ts"
 export * from "./plugins/parquet/index.ts"
 export * from "./plugins/xlxs/index.ts"

@@ -2,11 +2,12 @@ import type { Dialect, Resource } from "@dpkit/core"
 import { resolveDialect } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
 import { loadFile, prefetchFiles } from "@dpkit/file"
-import type { LoadTableOptions } from "@dpkit/table"
-import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
-import type { Table } from "@dpkit/table"
+import type { LoadTableOptions } from "../../plugin.ts"
+import { inferSchemaFromTable } from "../../schema/index.ts"
+import { normalizeTable } from "../../table/index.ts"
+import type { Table } from "../../table/index.ts"
 import * as pl from "nodejs-polars"
-import { decodeJsonBuffer } from "../buffer/index.ts"
+import { decodeJsonBuffer } from "./buffer/index.ts"
 
 export async function loadJsonTable(
   resource: Partial<Resource> & { format?: "json" | "jsonl" | "ndjson" },

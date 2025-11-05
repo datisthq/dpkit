@@ -33,7 +33,6 @@
     "@dpkit/github": "workspace:*",
     "@dpkit/html": "workspace:*",
     "@dpkit/inline": "workspace:*",
-    "@dpkit/json": "workspace:*",
     "@dpkit/markdown": "workspace:*",
     "@dpkit/table": "workspace:*",
     "@dpkit/zenodo": "workspace:*",

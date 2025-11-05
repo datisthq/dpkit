@@ -1,10 +1,13 @@
 import type { Resource } from "@dpkit/core"
 import { inferResourceFormat } from "@dpkit/core"
-import type { LoadTableOptions } from "@dpkit/table"
-import type { TablePlugin } from "@dpkit/table"
-import type { SaveTableOptions, Table } from "@dpkit/table"
-import { loadJsonTable } from "./table/index.ts"
-import { saveJsonTable } from "./table/index.ts"
+import type {
+  LoadTableOptions,
+  SaveTableOptions,
+  TablePlugin,
+} from "../../plugin.ts"
+import type { Table } from "../../table/index.ts"
+import { loadJsonTable } from "./load.ts"
+import { saveJsonTable } from "./save.ts"
 
 export class JsonPlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>, options?: LoadTableOptions) {
