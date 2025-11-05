@@ -21,11 +21,10 @@
     "lib"
   ],
   "dependencies": {
-    "@dpkit/metadata": "workspace:*",
     "@dpkit/database": "workspace:*",
-    "@dpkit/document": "workspace:*",
     "@dpkit/dataset": "workspace:*",
-    "@dpkit/markdown": "workspace:*",
+    "@dpkit/document": "workspace:*",
+    "@dpkit/metadata": "workspace:*",
     "@dpkit/table": "workspace:*",
     "nodejs-polars": "^0.22.1",
     "p-all": "^5.0.1"

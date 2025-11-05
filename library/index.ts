@@ -1,8 +1,7 @@
-export * from "@dpkit/metadata"
 export * from "@dpkit/database"
-export * from "@dpkit/document"
 export * from "@dpkit/dataset"
-export * from "@dpkit/markdown"
+export * from "@dpkit/document"
+export * from "@dpkit/metadata"
 export * from "@dpkit/table"
 
 export * from "./dialect/index.ts"

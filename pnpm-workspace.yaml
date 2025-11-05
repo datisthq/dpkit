@@ -9,7 +9,6 @@ packages:
   - dpkit
   - image
   - library
-  - markdown
   - metadata
   - service
   - site

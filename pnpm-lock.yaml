@@ -318,7 +318,16 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+      remark:
+        specifier: ^15.0.1
+        version: 15.0.1
+      remark-gfm:
+        specifier: ^4.0.0
+        version: 4.0.1
     devDependencies:
+      '@types/mdast':
+        specifier: ^4.0.0
+        version: 4.0.4
       '@types/react':
         specifier: ^19.2.0
         version: 19.2.2
@@ -348,9 +357,6 @@ importers:
       '@dpkit/document':
         specifier: workspace:*
         version: link:../document
-      '@dpkit/markdown':
-        specifier: workspace:*
-        version: link:../markdown
       '@dpkit/metadata':
         specifier: workspace:*
         version: link:../metadata
@@ -363,21 +369,6 @@ importers:
       p-all:
         specifier: ^5.0.1
         version: 5.0.1
-
-  markdown:
-    dependencies:
-      '@dpkit/metadata':
-        specifier: workspace:*
-        version: link:../metadata
-      '@types/mdast':
-        specifier: ^4.0.0
-        version: 4.0.4
-      remark:
-        specifier: ^15.0.1
-        version: 15.0.1
-      remark-gfm:
-        specifier: ^4.0.0
-        version: 4.0.1
 
   metadata:
     dependencies:
