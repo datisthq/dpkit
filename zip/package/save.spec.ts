@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises"
-import { getTempFilePath, writeTempFile } from "@dpkit/file"
+import { getTempFilePath, writeTempFile } from "@dpkit/dataset"
 import type { Package } from "@dpkit/metadata"
 import { beforeEach, describe, expect, it } from "vitest"
 import { loadPackageFromZip } from "./load.ts"

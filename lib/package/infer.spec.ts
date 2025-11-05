@@ -1,4 +1,4 @@
-import { writeTempFile } from "@dpkit/file"
+import { writeTempFile } from "@dpkit/dataset"
 import { describe, expect, it } from "vitest"
 import { inferPackage } from "./infer.ts"
 

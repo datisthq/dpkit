@@ -1,4 +1,4 @@
-import { saveFile } from "@dpkit/file"
+import { saveFile } from "@dpkit/dataset"
 import type { Dialect } from "@dpkit/metadata"
 import type { SaveTableOptions } from "../../../plugin.ts"
 import { inferSchemaFromTable } from "../../../schema/index.ts"

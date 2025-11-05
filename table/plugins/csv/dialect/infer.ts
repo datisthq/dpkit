@@ -1,5 +1,5 @@
 import { text } from "node:stream/consumers"
-import { loadFileStream } from "@dpkit/file"
+import { loadFileStream } from "@dpkit/dataset"
 import type { Dialect, Resource } from "@dpkit/metadata"
 import { default as CsvSnifferFactory } from "csv-sniffer"
 

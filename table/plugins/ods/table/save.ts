@@ -1,4 +1,4 @@
-import { saveFile } from "@dpkit/file"
+import { saveFile } from "@dpkit/dataset"
 import { resolveDialect } from "@dpkit/metadata"
 import { utils, write } from "xlsx"
 import type { SaveTableOptions } from "../../../plugin.ts"

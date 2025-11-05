@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@dpkit/metadata": "workspace:*",
-    "@dpkit/file": "workspace:*",
+    "@dpkit/dataset": "workspace:*",
     "csv-sniffer": "^0.1.1",
     "nodejs-polars": "^0.22.1",
     "p-all": "^5.0.1",

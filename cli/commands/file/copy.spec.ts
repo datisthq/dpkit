@@ -1,5 +1,5 @@
 import { existsSync } from "node:fs"
-import { getTempFilePath, writeTempFile } from "@dpkit/file"
+import { getTempFilePath, writeTempFile } from "@dpkit/dataset"
 import { Command } from "commander"
 import { describe, expect, it } from "vitest"
 import { useRecording } from "vitest-polly"

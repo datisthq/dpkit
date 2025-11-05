@@ -25,6 +25,6 @@
   },
   "dependencies": {
     "@dpkit/metadata": "workspace:*",
-    "@dpkit/file": "workspace:*"
+    "@dpkit/dataset": "workspace:*"
   }
 }

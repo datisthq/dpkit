@@ -26,7 +26,7 @@
     "@dpkit/database": "workspace:*",
     "@dpkit/datahub": "workspace:*",
     "@dpkit/document": "workspace:*",
-    "@dpkit/file": "workspace:*",
+    "@dpkit/dataset": "workspace:*",
     "@dpkit/folder": "workspace:*",
     "@dpkit/github": "workspace:*",
     "@dpkit/html": "workspace:*",

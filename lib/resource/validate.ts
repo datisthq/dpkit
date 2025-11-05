@@ -1,5 +1,5 @@
+import { validateFile } from "@dpkit/dataset"
 import { validateDocument } from "@dpkit/document"
-import { validateFile } from "@dpkit/file"
 import type { Descriptor, Resource } from "@dpkit/metadata"
 import { createReport } from "@dpkit/metadata"
 import { loadDescriptor, validateResourceMetadata } from "@dpkit/metadata"

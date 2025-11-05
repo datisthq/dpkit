@@ -1,6 +1,6 @@
 import type { Dialect, Resource } from "@dpkit/metadata"
 import { resolveDialect, resolveSchema } from "@dpkit/metadata"
-import { prefetchFiles } from "@dpkit/file"
+import { prefetchFiles } from "@dpkit/dataset"
 import type { LoadTableOptions } from "../../../plugin.ts"
 import { inferSchemaFromTable } from "../../../schema/index.ts"
 import { joinHeaderRows } from "../../../table/index.ts"

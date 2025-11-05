@@ -4,7 +4,7 @@ import {
   copyFile,
   getPackageBasepath,
   saveResourceFiles,
-} from "@dpkit/file"
+} from "@dpkit/dataset"
 import { convertPackageToDescriptor, saveDescriptor } from "@dpkit/metadata"
 import type { Descriptor, Package } from "@dpkit/metadata"
 import { createFolder } from "../folder/index.ts"

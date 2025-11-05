@@ -1,7 +1,7 @@
 import { Buffer } from "node:buffer"
 import { buffer } from "node:stream/consumers"
-import { getPackageBasepath, loadFileStream } from "@dpkit/file"
-import { saveResourceFiles } from "@dpkit/file"
+import { getPackageBasepath, loadFileStream } from "@dpkit/dataset"
+import { saveResourceFiles } from "@dpkit/dataset"
 import type { Descriptor, Package } from "@dpkit/metadata"
 import {
   convertPackageToDescriptor,

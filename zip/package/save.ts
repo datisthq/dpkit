@@ -1,8 +1,8 @@
 import { Buffer } from "node:buffer"
 import { writeFile } from "node:fs/promises"
 import type { Readable } from "node:stream"
-import { loadFileStream, saveResourceFiles } from "@dpkit/file"
-import { assertLocalPathVacant, getPackageBasepath } from "@dpkit/file"
+import { loadFileStream, saveResourceFiles } from "@dpkit/dataset"
+import { assertLocalPathVacant, getPackageBasepath } from "@dpkit/dataset"
 import type { Descriptor, Package } from "@dpkit/metadata"
 import {
   convertPackageToDescriptor,

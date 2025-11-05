@@ -1,6 +1,6 @@
 import { access } from "node:fs/promises"
 import { join } from "node:path"
-import { writeTempFile } from "@dpkit/file"
+import { writeTempFile } from "@dpkit/dataset"
 import { getTempFolderPath } from "@dpkit/folder"
 import { describe, expect, it } from "vitest"
 import { loadPackage } from "./load.ts"

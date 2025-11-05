@@ -1,4 +1,4 @@
-import { getTempFilePath } from "@dpkit/file"
+import { getTempFilePath } from "@dpkit/dataset"
 import type { Package } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"

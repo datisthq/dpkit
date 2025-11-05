@@ -1,5 +1,9 @@
-import { prefetchFile } from "@dpkit/file"
-import { inferFileBytes, inferFileEncoding, inferFileHash } from "@dpkit/file"
+import { prefetchFile } from "@dpkit/dataset"
+import {
+  inferFileBytes,
+  inferFileEncoding,
+  inferFileHash,
+} from "@dpkit/dataset"
 import type { Resource } from "@dpkit/metadata"
 import { inferResourceFormat, inferResourceName } from "@dpkit/metadata"
 import type { InferDialectOptions } from "@dpkit/table"

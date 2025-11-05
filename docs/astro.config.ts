@@ -17,7 +17,7 @@ const PACKAGES = {
   "@dpkit/database": "../database",
   "@dpkit/datahub": "../datahub",
   "@dpkit/document": "../document",
-  "@dpkit/file": "../file",
+  "@dpkit/dataset": "../file",
   "@dpkit/github": "../github",
   "@dpkit/html": "../html",
   "@dpkit/inline": "../inline",

@@ -1,6 +1,6 @@
 import { blob } from "node:stream/consumers"
-import { loadFileStream, saveResourceFiles } from "@dpkit/file"
-import { getPackageBasepath } from "@dpkit/file"
+import { loadFileStream, saveResourceFiles } from "@dpkit/dataset"
+import { getPackageBasepath } from "@dpkit/dataset"
 import type { Descriptor, Package } from "@dpkit/metadata"
 import {
   convertPackageToDescriptor,

@@ -1,5 +1,5 @@
 import { basename } from "node:path"
-import { writeTempFile } from "@dpkit/file"
+import { writeTempFile } from "@dpkit/dataset"
 import { describe, expect, it } from "vitest"
 import { loadPackage } from "./load.ts"
 

@@ -1,7 +1,7 @@
 import { resolveDialect } from "@dpkit/metadata"
 import type { Resource } from "@dpkit/metadata"
 import { resolveSchema } from "@dpkit/metadata"
-import { loadFile, prefetchFiles } from "@dpkit/file"
+import { loadFile, prefetchFiles } from "@dpkit/dataset"
 import type { DataRow } from "../../../data/index.ts"
 import { getRecordsFromRows } from "../../../data/index.ts"
 import type { LoadTableOptions } from "../../../plugin.ts"

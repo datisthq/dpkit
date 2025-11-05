@@ -3,7 +3,7 @@ import {
   getPackageBasepath,
   loadFileStream,
   saveResourceFiles,
-} from "@dpkit/file"
+} from "@dpkit/dataset"
 import type { Descriptor, Package } from "@dpkit/metadata"
 import {
   convertPackageToDescriptor,

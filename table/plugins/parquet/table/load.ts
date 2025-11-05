@@ -1,6 +1,6 @@
 import type { Resource } from "@dpkit/metadata"
 import { resolveSchema } from "@dpkit/metadata"
-import { prefetchFiles } from "@dpkit/file"
+import { prefetchFiles } from "@dpkit/dataset"
 import type { LoadTableOptions } from "../../../plugin.ts"
 import { inferSchemaFromTable } from "../../../schema/index.ts"
 import { normalizeTable } from "../../../table/index.ts"

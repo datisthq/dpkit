@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises"
-import { getTempFilePath } from "@dpkit/file"
+import { getTempFilePath } from "@dpkit/dataset"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { loadJsonTable } from "./load.ts"
