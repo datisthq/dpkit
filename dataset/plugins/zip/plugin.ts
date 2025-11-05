@@ -1,8 +1,7 @@
-import type { Package } from "@dpkit/metadata"
-import type { DatasetPlugin } from "../../plugin.ts"
+import type { Package, Plugin } from "@dpkit/metadata"
 import { loadPackageFromZip, savePackageToZip } from "./package/index.ts"
 
-export class ZipPlugin implements DatasetPlugin {
+export class ZipPlugin implements Plugin {
   async loadPackage(source: string) {
     const isZip = getIsZip(source)
     if (!isZip) return undefined

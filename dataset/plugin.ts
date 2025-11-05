@@ -1,3 +1,4 @@
+import type { Plugin } from "@dpkit/metadata"
 import type { Package } from "@dpkit/metadata"
 
 export type SavePackageOptions = {
@@ -5,7 +6,7 @@ export type SavePackageOptions = {
   withRemote?: boolean
 }
 
-export interface DatasetPlugin {
+export interface DatasetPlugin extends Plugin {
   loadPackage?(source: string): Promise<Package | undefined>
 
   savePackage?(
