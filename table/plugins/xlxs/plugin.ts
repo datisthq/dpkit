@@ -1,9 +1,13 @@
 import type { Resource } from "@dpkit/core"
 import { inferResourceFormat } from "@dpkit/core"
-import type { LoadTableOptions } from "@dpkit/table"
-import type { TablePlugin } from "@dpkit/table"
-import type { SaveTableOptions, Table } from "@dpkit/table"
-import { loadXlsxTable, saveXlsxTable } from "./table/index.ts"
+import type {
+  LoadTableOptions,
+  SaveTableOptions,
+  TablePlugin,
+} from "../../plugin.ts"
+import type { Table } from "../../table/index.ts"
+import { loadXlsxTable } from "./load.ts"
+import { saveXlsxTable } from "./save.ts"
 
 export class XlsxPlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>, options?: LoadTableOptions) {

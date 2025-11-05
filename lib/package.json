@@ -38,7 +38,6 @@
     "@dpkit/ods": "workspace:*",
     "@dpkit/parquet": "workspace:*",
     "@dpkit/table": "workspace:*",
-    "@dpkit/xlsx": "workspace:*",
     "@dpkit/zenodo": "workspace:*",
     "@dpkit/zip": "workspace:*",
     "nodejs-polars": "^0.22.1",

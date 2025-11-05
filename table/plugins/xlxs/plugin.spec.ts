@@ -1,11 +1,15 @@
 import type { Resource } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { beforeEach, describe, expect, it, vi } from "vitest"
+import * as loadModule from "./load.ts"
 import { XlsxPlugin } from "./plugin.ts"
-import * as tableModule from "./table/index.ts"
+import * as saveModule from "./save.ts"
 
-vi.mock("./table/index.ts", () => ({
+vi.mock("./load.ts", () => ({
   loadXlsxTable: vi.fn(),
+}))
+
+vi.mock("./save.ts", () => ({
   saveXlsxTable: vi.fn(),
 }))
 
@@ -16,8 +20,8 @@ describe("XlsxPlugin", () => {
 
   beforeEach(() => {
     plugin = new XlsxPlugin()
-    mockLoadXlsxTable = vi.mocked(tableModule.loadXlsxTable)
-    mockSaveXlsxTable = vi.mocked(tableModule.saveXlsxTable)
+    mockLoadXlsxTable = vi.mocked(loadModule.loadXlsxTable)
+    mockSaveXlsxTable = vi.mocked(saveModule.saveXlsxTable)
     vi.clearAllMocks()
   })
 

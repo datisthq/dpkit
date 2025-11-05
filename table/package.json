@@ -18,14 +18,17 @@
     "validation",
     "quality",
     "fair",
-    "table"
+    "table",
+    "xlsx"
   ],
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
     "@dpkit/core": "workspace:*",
+    "@dpkit/file": "workspace:*",
     "nodejs-polars": "^0.22.1",
-    "p-all": "^5.0.1"
+    "p-all": "^5.0.1",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   }
 }

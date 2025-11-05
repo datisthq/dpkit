@@ -15,7 +15,6 @@ export * from "@dpkit/markdown"
 export * from "@dpkit/ods"
 export * from "@dpkit/parquet"
 export * from "@dpkit/table"
-export * from "@dpkit/xlsx"
 export * from "@dpkit/zenodo"
 export * from "@dpkit/zip"
 

@@ -10,7 +10,7 @@ import { JsonPlugin } from "@dpkit/json"
 import { OdsPlugin } from "@dpkit/ods"
 import { ParquetPlugin } from "@dpkit/parquet"
 import type { TablePlugin } from "@dpkit/table"
-import { XlsxPlugin } from "@dpkit/xlsx"
+import { XlsxPlugin } from "@dpkit/table"
 import { ZenodoPlugin } from "@dpkit/zenodo"
 import { ZipPlugin } from "@dpkit/zip"
 
