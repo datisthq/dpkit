@@ -1,12 +1,11 @@
 import { Buffer } from "node:buffer"
 import { buffer } from "node:stream/consumers"
-import { getPackageBasepath, loadFileStream } from "@dpkit/dataset"
-import { saveResourceFiles } from "@dpkit/dataset"
 import type { Descriptor, Package } from "@dpkit/metadata"
-import {
-  convertPackageToDescriptor,
-  stringifyDescriptor,
-} from "@dpkit/metadata"
+import { stringifyDescriptor } from "@dpkit/metadata"
+import { convertPackageToDescriptor } from "@dpkit/metadata"
+import { getPackageBasepath } from "../../../package/index.ts"
+import { saveResourceFiles } from "../../../resource/index.ts"
+import { loadFileStream } from "../../../stream/index.ts"
 import { makeGithubApiRequest } from "../github/index.ts"
 import type { GithubPackage } from "./Package.ts"
 

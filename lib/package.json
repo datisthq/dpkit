@@ -25,7 +25,6 @@
     "@dpkit/database": "workspace:*",
     "@dpkit/document": "workspace:*",
     "@dpkit/dataset": "workspace:*",
-    "@dpkit/github": "workspace:*",
     "@dpkit/html": "workspace:*",
     "@dpkit/markdown": "workspace:*",
     "@dpkit/table": "workspace:*",

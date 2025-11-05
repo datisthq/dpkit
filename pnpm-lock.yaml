@@ -369,15 +369,6 @@ importers:
         specifier: workspace:*
         version: link:../lib
 
-  github:
-    dependencies:
-      '@dpkit/dataset':
-        specifier: workspace:*
-        version: link:../dataset
-      '@dpkit/metadata':
-        specifier: workspace:*
-        version: link:../metadata
-
   html:
     dependencies:
       '@dpkit/metadata':
@@ -414,9 +405,6 @@ importers:
       '@dpkit/document':
         specifier: workspace:*
         version: link:../document
-      '@dpkit/github':
-        specifier: workspace:*
-        version: link:../github
       '@dpkit/html':
         specifier: workspace:*
         version: link:../html
