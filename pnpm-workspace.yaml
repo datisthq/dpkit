@@ -3,7 +3,6 @@ packages:
   - browser
   - ckan
   - cli
-  - core
   - datahub
   - database
   - docs
@@ -15,6 +14,7 @@ packages:
   - html
   - lib
   - markdown
+  - metadata
   - service
   - site
   - table

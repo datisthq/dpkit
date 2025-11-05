@@ -24,7 +24,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@dpkit/core": "workspace:*",
+    "@dpkit/metadata": "workspace:*",
     "chardet": "^2.1.0",
     "exit-hook": "^4.0.0",
     "hasha": "^6.0.0",

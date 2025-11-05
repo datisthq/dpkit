@@ -1,5 +1,5 @@
-import type { Package, SavePackageOptions } from "@dpkit/core"
-import { savePackageDescriptor } from "@dpkit/core"
+import type { Package, SavePackageOptions } from "@dpkit/metadata"
+import { savePackageDescriptor } from "@dpkit/metadata"
 import { system } from "../system.ts"
 
 export async function savePackage(

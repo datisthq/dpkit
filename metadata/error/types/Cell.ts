@@ -1,4 +1,4 @@
-import type { FieldType } from "@dpkit/core"
+import type { FieldType } from "@dpkit/metadata"
 import type { BaseError } from "./Base.ts"
 
 export type CellError =

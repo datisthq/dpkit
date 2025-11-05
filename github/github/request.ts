@@ -1,4 +1,4 @@
-import type { Descriptor } from "@dpkit/core"
+import type { Descriptor } from "@dpkit/metadata"
 
 /**
  * Makes a request to the Github API

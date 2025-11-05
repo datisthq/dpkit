@@ -1,5 +1,5 @@
-import type { Resource } from "@dpkit/core"
-import { inferResourceFormat } from "@dpkit/core"
+import type { Resource } from "@dpkit/metadata"
+import { inferResourceFormat } from "@dpkit/metadata"
 import type {
   LoadTableOptions,
   SaveTableOptions,

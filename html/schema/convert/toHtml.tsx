@@ -1,4 +1,4 @@
-import type { Field, Schema } from "@dpkit/core"
+import type { Field, Schema } from "@dpkit/metadata"
 import { prettify } from "htmlfy"
 import React from "react"
 import { renderToStaticMarkup } from "react-dom/server"

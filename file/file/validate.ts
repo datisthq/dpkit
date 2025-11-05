@@ -1,6 +1,6 @@
-import type { FileError } from "@dpkit/core"
-import { createReport } from "@dpkit/core"
-import type { Resource } from "@dpkit/core"
+import type { FileError } from "@dpkit/metadata"
+import { createReport } from "@dpkit/metadata"
+import type { Resource } from "@dpkit/metadata"
 import { prefetchFiles } from "./fetch.ts"
 import { inferFileBytes, inferFileEncoding, inferFileHash } from "./infer.ts"
 

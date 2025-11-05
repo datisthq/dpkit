@@ -1,4 +1,4 @@
-import type { Package } from "@dpkit/core"
+import type { Package } from "@dpkit/metadata"
 import type { GithubPackage } from "../Package.ts"
 
 export function convertPackageToGithub(dataPackage: Package) {

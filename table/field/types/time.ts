@@ -1,4 +1,4 @@
-import type { TimeField } from "@dpkit/core"
+import type { TimeField } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 
 const DEFAULT_FORMAT = "%H:%M:%S"

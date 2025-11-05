@@ -1,4 +1,4 @@
-import type { Package } from "@dpkit/core"
+import type { Package } from "@dpkit/metadata"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as packageModule from "./package/load.ts"
 import { CkanPlugin } from "./plugin.ts"

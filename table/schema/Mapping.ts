@@ -1,4 +1,4 @@
-import type { Schema } from "@dpkit/core"
+import type { Schema } from "@dpkit/metadata"
 import type { PolarsSchema } from "./Schema.ts"
 
 export interface SchemaMapping {

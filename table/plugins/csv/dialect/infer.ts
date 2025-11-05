@@ -1,6 +1,6 @@
 import { text } from "node:stream/consumers"
-import type { Dialect, Resource } from "@dpkit/core"
 import { loadFileStream } from "@dpkit/file"
+import type { Dialect, Resource } from "@dpkit/metadata"
 import { default as CsvSnifferFactory } from "csv-sniffer"
 
 const CSV_DELIMITERS = [",", ";", ":", "|", "\t", "^", "*", "&"]

@@ -1,4 +1,4 @@
-import type { Field } from "@dpkit/core"
+import type { Field } from "@dpkit/metadata"
 import type * as pl from "nodejs-polars"
 import type { PolarsField } from "./Field.ts"
 

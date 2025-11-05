@@ -1,5 +1,5 @@
-import type { Resource } from "@dpkit/core"
-import { resolveSchema } from "@dpkit/core"
+import type { Resource } from "@dpkit/metadata"
+import { resolveSchema } from "@dpkit/metadata"
 import { prefetchFiles } from "@dpkit/file"
 import type { LoadTableOptions } from "../../../plugin.ts"
 import { inferSchemaFromTable } from "../../../schema/index.ts"

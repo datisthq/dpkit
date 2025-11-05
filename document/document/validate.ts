@@ -1,9 +1,9 @@
-import type { Resource } from "@dpkit/core"
-import type { DataError } from "@dpkit/core"
-import type { JsonDocumentError } from "@dpkit/core"
-import { createReport } from "@dpkit/core"
-import { resolveJsonSchema } from "@dpkit/core"
-import { inspectJsonValue } from "@dpkit/core"
+import type { Resource } from "@dpkit/metadata"
+import type { DataError } from "@dpkit/metadata"
+import type { JsonDocumentError } from "@dpkit/metadata"
+import { createReport } from "@dpkit/metadata"
+import { resolveJsonSchema } from "@dpkit/metadata"
+import { inspectJsonValue } from "@dpkit/metadata"
 
 export async function validateDocument(resource: Partial<Resource>) {
   if (resource.jsonSchema) {

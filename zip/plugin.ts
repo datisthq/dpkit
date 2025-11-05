@@ -1,4 +1,4 @@
-import type { Package, Plugin } from "@dpkit/core"
+import type { Package, Plugin } from "@dpkit/metadata"
 import { loadPackageFromZip, savePackageToZip } from "./package/index.ts"
 
 export class ZipPlugin implements Plugin {

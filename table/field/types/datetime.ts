@@ -1,4 +1,4 @@
-import type { DatetimeField } from "@dpkit/core"
+import type { DatetimeField } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 
 const DEFAULT_FORMAT = "%Y-%m-%dT%H:%M:%S"

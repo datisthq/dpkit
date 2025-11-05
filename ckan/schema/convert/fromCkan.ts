@@ -1,4 +1,4 @@
-import type { Field, Schema } from "@dpkit/core"
+import type { Field, Schema } from "@dpkit/metadata"
 import type {
   ArrayField,
   BooleanField,
@@ -9,7 +9,7 @@ import type {
   ObjectField,
   StringField,
   TimeField,
-} from "@dpkit/core"
+} from "@dpkit/metadata"
 import type { CkanField } from "../Field.ts"
 import type { CkanSchema } from "../Schema.ts"
 

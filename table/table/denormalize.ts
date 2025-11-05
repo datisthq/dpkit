@@ -1,4 +1,4 @@
-import type { Schema } from "@dpkit/core"
+import type { Schema } from "@dpkit/metadata"
 import type * as pl from "nodejs-polars"
 import { denormalizeField } from "../field/index.ts"
 import type { DenormalizeFieldOptions } from "../field/index.ts"

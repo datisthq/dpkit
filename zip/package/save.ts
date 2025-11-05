@@ -1,10 +1,13 @@
 import { Buffer } from "node:buffer"
 import { writeFile } from "node:fs/promises"
 import type { Readable } from "node:stream"
-import type { Descriptor, Package } from "@dpkit/core"
-import { convertPackageToDescriptor, stringifyDescriptor } from "@dpkit/core"
 import { loadFileStream, saveResourceFiles } from "@dpkit/file"
 import { assertLocalPathVacant, getPackageBasepath } from "@dpkit/file"
+import type { Descriptor, Package } from "@dpkit/metadata"
+import {
+  convertPackageToDescriptor,
+  stringifyDescriptor,
+} from "@dpkit/metadata"
 import { zip } from "fflate"
 
 export async function savePackageToZip(

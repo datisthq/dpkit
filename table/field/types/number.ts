@@ -1,4 +1,4 @@
-import type { NumberField } from "@dpkit/core"
+import type { NumberField } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 
 export function parseNumberField(field: NumberField, fieldExpr: pl.Expr) {

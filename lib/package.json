@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "@dpkit/ckan": "workspace:*",
-    "@dpkit/core": "workspace:*",
+    "@dpkit/metadata": "workspace:*",
     "@dpkit/database": "workspace:*",
     "@dpkit/datahub": "workspace:*",
     "@dpkit/document": "workspace:*",

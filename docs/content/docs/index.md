@@ -18,7 +18,7 @@ dpkit and all its packages support all the prominent TypeScript runtimes:
 - **Deno v2+**
 - **Bun v1+**
 
-The core package `@dpkit/core` additionally supports browser environments:
+The core package `@dpkit/metadata` additionally supports browser environments:
 
 - **Edge v92+**
 - **Chrome v92+**
@@ -45,13 +45,13 @@ npm install @dpkit/lib
 You car cherry-pick from individual packages:
 
 ```bash
-npm install @dpkit/core @dpkit/zenodo
+npm install @dpkit/metadata @dpkit/zenodo
 ```
 
 In the browser, the core package can be just imported using NPM CDNs:
 
 ```js
-import { loadPackageDescriptor } from "https://esm.sh/@dpkit/core"
+import { loadPackageDescriptor } from "https://esm.sh/@dpkit/metadata"
 ```
 
 ## TypeScript

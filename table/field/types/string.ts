@@ -1,4 +1,4 @@
-import type { StringField } from "@dpkit/core"
+import type { StringField } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 
 const FORMAT_REGEX = {

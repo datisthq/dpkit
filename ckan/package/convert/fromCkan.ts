@@ -1,5 +1,5 @@
-import type { Contributor, Package } from "@dpkit/core"
-import type { License } from "@dpkit/core"
+import type { Contributor, Package } from "@dpkit/metadata"
+import type { License } from "@dpkit/metadata"
 import { convertResourceFromCkan } from "../../resource/index.ts"
 import type { CkanPackage } from "../Package.ts"
 

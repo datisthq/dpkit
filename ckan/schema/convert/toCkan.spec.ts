@@ -1,4 +1,4 @@
-import type { Schema } from "@dpkit/core"
+import type { Schema } from "@dpkit/metadata"
 import { describe, expect, it } from "vitest"
 import type { CkanSchema } from "../Schema.ts"
 import ckanSchemaFixture from "./fixtures/ckan-schema.json" with {

@@ -1,4 +1,4 @@
-import type { RowUniqueError } from "@dpkit/core"
+import type { RowUniqueError } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 import type { SchemaMapping } from "../../schema/index.ts"
 

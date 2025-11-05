@@ -1,4 +1,4 @@
-import type { Field } from "@dpkit/core"
+import type { Field } from "@dpkit/metadata"
 import type { SchemaMapping } from "./Mapping.ts"
 
 export function matchSchemaField(

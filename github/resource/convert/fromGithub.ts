@@ -1,5 +1,5 @@
-import type { Resource } from "@dpkit/core"
-import { getFilename, getFormat, getName } from "@dpkit/core"
+import type { Resource } from "@dpkit/metadata"
+import { getFilename, getFormat, getName } from "@dpkit/metadata"
 import type { GithubResource } from "../Resource.ts"
 
 export function convertResourceFromGithub(

@@ -12,7 +12,7 @@ const PACKAGES = {
   "@dpkit/lib": "../lib",
   "@dpkit/arrow": "../arrow",
   "@dpkit/ckan": "../ckan",
-  "@dpkit/core": "../core",
+  "@dpkit/metadata": "../core",
   "@dpkit/csv": "../csv",
   "@dpkit/database": "../database",
   "@dpkit/datahub": "../datahub",

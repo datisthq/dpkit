@@ -1,4 +1,4 @@
-import { loadPackageDescriptor } from "@dpkit/core"
+import { loadPackageDescriptor } from "@dpkit/metadata"
 
 export async function loadPackageFromDatahub(datasetUrl: string) {
   const url = new URL(datasetUrl)

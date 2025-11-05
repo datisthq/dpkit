@@ -1,4 +1,4 @@
-import type { Field, Schema } from "@dpkit/core"
+import type { Field, Schema } from "@dpkit/metadata"
 import type { CkanField, CkanFieldInfo } from "../Field.ts"
 import type { CkanSchema } from "../Schema.ts"
 

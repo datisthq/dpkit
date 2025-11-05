@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises"
 import { mkdir } from "node:fs/promises"
 import { dirname, join } from "node:path"
-import { loadPackageDescriptor } from "@dpkit/core"
+import { loadPackageDescriptor } from "@dpkit/metadata"
 import { getTempFolderPath } from "@dpkit/folder"
 import { unzip } from "fflate"
 

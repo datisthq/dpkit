@@ -1,6 +1,6 @@
 import { stat } from "node:fs/promises"
-import type { Plugin } from "@dpkit/core"
-import { isRemotePath } from "@dpkit/core"
+import type { Plugin } from "@dpkit/metadata"
+import { isRemotePath } from "@dpkit/metadata"
 import { loadPackageFromFolder } from "./package/index.ts"
 
 export class FolderPlugin implements Plugin {

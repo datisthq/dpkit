@@ -1,4 +1,4 @@
-import type { YearmonthField } from "@dpkit/core"
+import type { YearmonthField } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 
 export function parseYearmonthField(

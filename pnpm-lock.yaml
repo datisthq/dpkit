@@ -185,12 +185,12 @@ importers:
 
   ckan:
     dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      '@dpkit/metadata':
+        specifier: workspace:*
+        version: link:../metadata
 
   cli:
     dependencies:
@@ -247,29 +247,11 @@ importers:
         specifier: 4.0.0
         version: 4.0.0(@types/react@19.1.9)
 
-  core:
-    dependencies:
-      '@sindresorhus/slugify':
-        specifier: ^0.9.0
-        version: 0.9.1
-      '@types/json-schema':
-        specifier: ^7.0.15
-        version: 7.0.15
-      ajv:
-        specifier: ^8.17.1
-        version: 8.17.1
-      quick-lru:
-        specifier: ^7.0.1
-        version: 7.2.0
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
-
   database:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../core
+        version: link:../metadata
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
@@ -304,9 +286,9 @@ importers:
 
   datahub:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../core
+        version: link:../metadata
 
   docs:
     devDependencies:
@@ -352,9 +334,9 @@ importers:
 
   document:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../core
+        version: link:../metadata
 
   dpkit:
     dependencies:
@@ -367,9 +349,9 @@ importers:
 
   file:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../core
+        version: link:../metadata
       chardet:
         specifier: ^2.1.0
         version: 2.1.0
@@ -404,30 +386,30 @@ importers:
 
   folder:
     dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      '@dpkit/metadata':
+        specifier: workspace:*
+        version: link:../metadata
       exit-hook:
         specifier: ^4.0.0
         version: 4.0.0
 
   github:
     dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      '@dpkit/metadata':
+        specifier: workspace:*
+        version: link:../metadata
 
   html:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../core
+        version: link:../metadata
       htmlfy:
         specifier: ^1.0.0
         version: 1.0.0
@@ -453,9 +435,6 @@ importers:
       '@dpkit/ckan':
         specifier: workspace:*
         version: link:../ckan
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
       '@dpkit/database':
         specifier: workspace:*
         version: link:../database
@@ -480,6 +459,9 @@ importers:
       '@dpkit/markdown':
         specifier: workspace:*
         version: link:../markdown
+      '@dpkit/metadata':
+        specifier: workspace:*
+        version: link:../metadata
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
@@ -498,9 +480,9 @@ importers:
 
   markdown:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../core
+        version: link:../metadata
       '@types/mdast':
         specifier: ^4.0.0
         version: 4.0.4
@@ -510,6 +492,24 @@ importers:
       remark-gfm:
         specifier: ^4.0.0
         version: 4.0.1
+
+  metadata:
+    dependencies:
+      '@sindresorhus/slugify':
+        specifier: ^0.9.0
+        version: 0.9.1
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
+      ajv:
+        specifier: ^8.17.1
+        version: 8.17.1
+      quick-lru:
+        specifier: ^7.0.1
+        version: 7.2.0
+      tiny-invariant:
+        specifier: ^1.3.3
+        version: 1.3.3
 
   service:
     dependencies:
@@ -582,12 +582,12 @@ importers:
 
   table:
     dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      '@dpkit/metadata':
+        specifier: workspace:*
+        version: link:../metadata
       csv-sniffer:
         specifier: ^0.1.1
         version: 0.1.1
@@ -603,24 +603,24 @@ importers:
 
   zenodo:
     dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
+      '@dpkit/metadata':
+        specifier: workspace:*
+        version: link:../metadata
 
   zip:
     dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
       '@dpkit/file':
         specifier: workspace:*
         version: link:../file
       '@dpkit/folder':
         specifier: workspace:*
         version: link:../folder
+      '@dpkit/metadata':
+        specifier: workspace:*
+        version: link:../metadata
       fflate:
         specifier: ^0.8.2
         version: 0.8.2

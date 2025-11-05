@@ -1,4 +1,4 @@
-import { getFormat, getName } from "@dpkit/core"
+import { getFormat, getName } from "@dpkit/metadata"
 import type { ZenodoResource } from "../Resource.ts"
 
 export function convertResourceFromZenodo(zenodoResource: ZenodoResource) {

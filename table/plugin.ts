@@ -1,5 +1,11 @@
-import type { Dialect, Package, Plugin, Resource, Schema } from "@dpkit/core"
-import type { SavePackageOptions } from "@dpkit/core"
+import type {
+  Dialect,
+  Package,
+  Plugin,
+  Resource,
+  Schema,
+} from "@dpkit/metadata"
+import type { SavePackageOptions } from "@dpkit/metadata"
 import type { DialectOptions, InferDialectOptions } from "./dialect/index.ts"
 import type { InferSchemaOptions, SchemaOptions } from "./schema/index.ts"
 import type { Table } from "./table/index.ts"

@@ -1,4 +1,4 @@
-import type { Package } from "@dpkit/core"
+import type { Package } from "@dpkit/metadata"
 import { describe, expect, it } from "vitest"
 import type { CkanPackage } from "../Package.ts"
 import ckanPackageFixture from "../fixtures/ckan-package.json" with {

@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/core",
+  "name": "@dpkit/metadata",
   "type": "module",
   "version": "0.0.0-dev",
   "exports": "./build/index.js",
@@ -18,7 +18,7 @@
     "validation",
     "quality",
     "fair",
-    "core"
+    "metadata"
   ],
   "scripts": {
     "build": "tsc"

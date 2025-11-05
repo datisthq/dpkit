@@ -1,4 +1,4 @@
-import type { Dialect } from "@dpkit/core"
+import type { Dialect } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 import type { Table } from "../table/index.ts"
 

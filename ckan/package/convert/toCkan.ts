@@ -1,4 +1,4 @@
-import type { Package } from "@dpkit/core"
+import type { Package } from "@dpkit/metadata"
 import type { SetRequired } from "type-fest"
 import type { CkanResource } from "../../resource/Resource.ts"
 import { convertResourceToCkan } from "../../resource/index.ts"

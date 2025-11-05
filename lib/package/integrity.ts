@@ -1,7 +1,7 @@
-import type { Package } from "@dpkit/core"
-import { createReport } from "@dpkit/core"
-import { resolveSchema } from "@dpkit/core"
-import type { BoundError } from "@dpkit/core"
+import type { Package } from "@dpkit/metadata"
+import { createReport } from "@dpkit/metadata"
+import { resolveSchema } from "@dpkit/metadata"
+import type { BoundError } from "@dpkit/metadata"
 import type { Table } from "@dpkit/table"
 import { loadTable } from "../table/index.ts"
 

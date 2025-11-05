@@ -1,4 +1,4 @@
-import { mergePackages } from "@dpkit/core"
+import { mergePackages } from "@dpkit/metadata"
 import { makeZenodoApiRequest } from "../zenodo/index.ts"
 import type { ZenodoPackage } from "./Package.ts"
 import { convertPackageFromZenodo } from "./convert/fromZenodo.ts"

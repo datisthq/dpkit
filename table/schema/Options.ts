@@ -1,6 +1,6 @@
-import type { GeojsonField, GeopointField, ListField } from "@dpkit/core"
-import type { StringField } from "@dpkit/core"
-import type { FieldType } from "@dpkit/core"
+import type { GeojsonField, GeopointField, ListField } from "@dpkit/metadata"
+import type { StringField } from "@dpkit/metadata"
+import type { FieldType } from "@dpkit/metadata"
 
 export interface SchemaOptions {
   fieldNames?: string[]

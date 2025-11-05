@@ -1,5 +1,5 @@
-import type { Package } from "@dpkit/core"
 import { getTempFilePath, writeTempFile } from "@dpkit/file"
+import type { Package } from "@dpkit/metadata"
 import { beforeEach, describe, expect, it } from "vitest"
 import { loadPackageFromFolder } from "./load.ts"
 import { savePackageToFolder } from "./save.ts"

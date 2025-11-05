@@ -1,5 +1,5 @@
 export * from "@dpkit/ckan"
-export * from "@dpkit/core"
+export * from "@dpkit/metadata"
 export * from "@dpkit/database"
 export * from "@dpkit/datahub"
 export * from "@dpkit/document"

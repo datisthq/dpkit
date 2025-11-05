@@ -1,4 +1,4 @@
-import type { DurationField } from "@dpkit/core"
+import type { DurationField } from "@dpkit/metadata"
 import type * as pl from "nodejs-polars"
 
 // TODO: raise an issue on nodejs-polars repo as this is not supported yet

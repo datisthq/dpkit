@@ -1,10 +1,10 @@
-import type { Resource } from "@dpkit/core"
+import type { Resource } from "@dpkit/metadata"
 import {
   convertResourceToDescriptor,
   denormalizePath,
   getFilename,
   isRemotePath,
-} from "@dpkit/core"
+} from "@dpkit/metadata"
 import invariant from "tiny-invariant"
 
 export type SaveFile = (options: {

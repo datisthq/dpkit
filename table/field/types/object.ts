@@ -1,4 +1,4 @@
-import type { ObjectField } from "@dpkit/core"
+import type { ObjectField } from "@dpkit/metadata"
 import type { Table } from "../../table/index.ts"
 import { inspectJsonField } from "./json.ts"
 

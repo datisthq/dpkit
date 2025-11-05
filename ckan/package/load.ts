@@ -1,4 +1,4 @@
-import { mergePackages } from "@dpkit/core"
+import { mergePackages } from "@dpkit/metadata"
 import { makeCkanApiRequest } from "../ckan/index.ts"
 import type { CkanPackage } from "./Package.ts"
 import { convertPackageFromCkan } from "./convert/fromCkan.ts"

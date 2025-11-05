@@ -1,4 +1,4 @@
-import type { Descriptor } from "@dpkit/core"
+import type { Descriptor } from "@dpkit/metadata"
 
 export async function makeCkanApiRequest<T = Descriptor>(options: {
   ckanUrl: string

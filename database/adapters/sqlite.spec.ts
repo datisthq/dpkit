@@ -1,5 +1,5 @@
-import type { Package } from "@dpkit/core"
 import { getTempFilePath } from "@dpkit/file"
+import type { Package } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { useRecording } from "vitest-polly"

@@ -1,4 +1,4 @@
-import type { Resource } from "@dpkit/core"
+import type { Resource } from "@dpkit/metadata"
 import type { ZenodoResource } from "../Resource.ts"
 
 export function convertResourceToZenodo(resource: Resource) {

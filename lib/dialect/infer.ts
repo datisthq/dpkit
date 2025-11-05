@@ -1,4 +1,4 @@
-import type { Dialect, Resource } from "@dpkit/core"
+import type { Dialect, Resource } from "@dpkit/metadata"
 import type { InferDialectOptions } from "@dpkit/table"
 import { system } from "../system.ts"
 

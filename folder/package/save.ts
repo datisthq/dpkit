@@ -1,12 +1,12 @@
 import { join } from "node:path"
-import { convertPackageToDescriptor, saveDescriptor } from "@dpkit/core"
-import type { Descriptor, Package } from "@dpkit/core"
 import {
   assertLocalPathVacant,
   copyFile,
   getPackageBasepath,
   saveResourceFiles,
 } from "@dpkit/file"
+import { convertPackageToDescriptor, saveDescriptor } from "@dpkit/metadata"
+import type { Descriptor, Package } from "@dpkit/metadata"
 import { createFolder } from "../folder/index.ts"
 
 export async function savePackageToFolder(

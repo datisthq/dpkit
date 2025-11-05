@@ -1,5 +1,5 @@
-import type { Plugin } from "@dpkit/core"
-import { isRemotePath } from "@dpkit/core"
+import type { Plugin } from "@dpkit/metadata"
+import { isRemotePath } from "@dpkit/metadata"
 import { loadPackageFromZenodo } from "./package/load.ts"
 
 export class ZenodoPlugin implements Plugin {

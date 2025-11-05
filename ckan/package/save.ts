@@ -1,16 +1,16 @@
 import { blob } from "node:stream/consumers"
-import type { Descriptor, Package } from "@dpkit/core"
-import {
-  convertPackageToDescriptor,
-  getFilename,
-  getFormat,
-  stringifyDescriptor,
-} from "@dpkit/core"
 import {
   getPackageBasepath,
   loadFileStream,
   saveResourceFiles,
 } from "@dpkit/file"
+import type { Descriptor, Package } from "@dpkit/metadata"
+import {
+  convertPackageToDescriptor,
+  getFilename,
+  getFormat,
+  stringifyDescriptor,
+} from "@dpkit/metadata"
 import { makeCkanApiRequest } from "../ckan/index.ts"
 import type { CkanResource } from "../resource/index.ts"
 import { convertResourceToCkan } from "../resource/index.ts"

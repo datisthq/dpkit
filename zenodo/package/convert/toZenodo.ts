@@ -1,4 +1,4 @@
-import type { Package } from "@dpkit/core"
+import type { Package } from "@dpkit/metadata"
 import type { ZenodoCreator } from "../Creator.ts"
 import type { ZenodoPackage } from "../Package.ts"
 

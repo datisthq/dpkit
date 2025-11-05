@@ -1,4 +1,4 @@
-import type { GeojsonField } from "@dpkit/core"
+import type { GeojsonField } from "@dpkit/metadata"
 import geojson from "../../assets/geojson.json" with { type: "json" }
 import topojson from "../../assets/topojson.json" with { type: "json" }
 import type { Table } from "../../table/index.ts"

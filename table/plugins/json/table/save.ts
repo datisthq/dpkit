@@ -1,5 +1,5 @@
-import type { Dialect } from "@dpkit/core"
 import { saveFile } from "@dpkit/file"
+import type { Dialect } from "@dpkit/metadata"
 import type { SaveTableOptions } from "../../../plugin.ts"
 import { inferSchemaFromTable } from "../../../schema/index.ts"
 import { denormalizeTable } from "../../../table/index.ts"

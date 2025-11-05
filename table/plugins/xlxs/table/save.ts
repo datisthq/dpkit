@@ -1,5 +1,5 @@
-import { resolveDialect } from "@dpkit/core"
 import { saveFile } from "@dpkit/file"
+import { resolveDialect } from "@dpkit/metadata"
 import { utils, write } from "xlsx"
 import type { SaveTableOptions } from "../../../plugin.ts"
 import { inferSchemaFromTable } from "../../../schema/index.ts"

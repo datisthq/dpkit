@@ -1,4 +1,4 @@
-import type { FieldType } from "@dpkit/core"
+import type { FieldType } from "@dpkit/metadata"
 import { MysqlDialect } from "kysely"
 import { createPool } from "mysql2"
 import type { DatabaseType } from "../field/index.ts"

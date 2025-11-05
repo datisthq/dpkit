@@ -1,5 +1,5 @@
 import os from "node:os"
-import { isRemotePath } from "@dpkit/core"
+import { isRemotePath } from "@dpkit/metadata"
 import pAll from "p-all"
 import { copyFile } from "./copy.ts"
 import { getTempFilePath } from "./temp.ts"

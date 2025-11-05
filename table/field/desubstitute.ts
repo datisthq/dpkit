@@ -1,4 +1,4 @@
-import type { Field } from "@dpkit/core"
+import type { Field } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 
 const DEFAULT_MISSING_VALUE = ""

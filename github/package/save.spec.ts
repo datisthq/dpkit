@@ -1,6 +1,6 @@
 import { relative } from "node:path"
-import type { Package } from "@dpkit/core"
-import { loadPackageDescriptor } from "@dpkit/core"
+import type { Package } from "@dpkit/metadata"
+import { loadPackageDescriptor } from "@dpkit/metadata"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { savePackageToGithub } from "./save.ts"
 

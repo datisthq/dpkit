@@ -1,4 +1,4 @@
-import type { ListField } from "@dpkit/core"
+import type { ListField } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 
 // TODO:

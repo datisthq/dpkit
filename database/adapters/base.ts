@@ -1,4 +1,4 @@
-import type { Field, FieldType, Schema } from "@dpkit/core"
+import type { Field, FieldType, Schema } from "@dpkit/metadata"
 import type { Dialect } from "kysely"
 import { Kysely } from "kysely"
 import { LRUCache } from "lru-cache"

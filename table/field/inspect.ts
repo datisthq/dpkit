@@ -1,5 +1,5 @@
-import type { Field } from "@dpkit/core"
-import type { CellError, FieldError, TableError } from "@dpkit/core"
+import type { Field } from "@dpkit/metadata"
+import type { CellError, FieldError, TableError } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 import type { Table } from "../table/index.ts"
 import type { FieldMapping } from "./Mapping.ts"

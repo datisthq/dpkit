@@ -1,5 +1,5 @@
-import { resolveDialect, resolveSchema } from "@dpkit/core"
-import type { Resource } from "@dpkit/core"
+import { resolveDialect, resolveSchema } from "@dpkit/metadata"
+import type { Resource } from "@dpkit/metadata"
 import { normalizeTable } from "@dpkit/table"
 import type { LoadTableOptions } from "@dpkit/table"
 import * as pl from "nodejs-polars"

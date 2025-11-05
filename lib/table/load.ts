@@ -1,4 +1,4 @@
-import type { Resource } from "@dpkit/core"
+import type { Resource } from "@dpkit/metadata"
 import type { LoadTableOptions } from "@dpkit/table"
 import { system } from "../system.ts"
 

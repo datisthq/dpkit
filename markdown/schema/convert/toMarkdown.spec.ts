@@ -1,4 +1,4 @@
-import type { Schema } from "@dpkit/core"
+import type { Schema } from "@dpkit/metadata"
 import { describe, expect, it } from "vitest"
 import { convertSchemaToMarkdown } from "./toMarkdown.ts"
 

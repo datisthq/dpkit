@@ -1,4 +1,4 @@
-import { loadPackageDescriptor } from "@dpkit/core"
+import { loadPackageDescriptor } from "@dpkit/metadata"
 import { system } from "../system.ts"
 
 export async function loadPackage(source: string) {

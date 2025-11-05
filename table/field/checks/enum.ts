@@ -1,5 +1,5 @@
-import type { Field } from "@dpkit/core"
-import type { CellEnumError } from "@dpkit/core"
+import type { Field } from "@dpkit/metadata"
+import type { CellEnumError } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 import { evaluateExpression } from "../../helpers.ts"
 import type { CellMapping } from "../Mapping.ts"

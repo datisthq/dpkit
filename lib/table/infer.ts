@@ -1,5 +1,5 @@
-import type { Resource } from "@dpkit/core"
-import { resolveDialect, resolveSchema } from "@dpkit/core"
+import type { Resource } from "@dpkit/metadata"
+import { resolveDialect, resolveSchema } from "@dpkit/metadata"
 import { inferSchemaFromTable } from "@dpkit/table"
 import { inferDialect } from "../dialect/index.ts"
 import { loadTable } from "./load.ts"

@@ -1,4 +1,4 @@
-import type { GeopointField } from "@dpkit/core"
+import type { GeopointField } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 
 // TODO:

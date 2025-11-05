@@ -1,9 +1,12 @@
 import { Buffer } from "node:buffer"
 import { buffer } from "node:stream/consumers"
-import type { Descriptor, Package } from "@dpkit/core"
-import { convertPackageToDescriptor, stringifyDescriptor } from "@dpkit/core"
 import { getPackageBasepath, loadFileStream } from "@dpkit/file"
 import { saveResourceFiles } from "@dpkit/file"
+import type { Descriptor, Package } from "@dpkit/metadata"
+import {
+  convertPackageToDescriptor,
+  stringifyDescriptor,
+} from "@dpkit/metadata"
 import { makeGithubApiRequest } from "../github/index.ts"
 import type { GithubPackage } from "./Package.ts"
 

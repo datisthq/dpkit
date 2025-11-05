@@ -1,5 +1,5 @@
-import type { Plugin } from "@dpkit/core"
-import { isRemotePath } from "@dpkit/core"
+import type { Plugin } from "@dpkit/metadata"
+import { isRemotePath } from "@dpkit/metadata"
 import { loadPackageFromCkan } from "./package/load.ts"
 
 export class CkanPlugin implements Plugin {

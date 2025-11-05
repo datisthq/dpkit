@@ -1,4 +1,4 @@
-import type { Package, Resource } from "@dpkit/core"
+import type { Package, Resource } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as packageModule from "./package/index.ts"

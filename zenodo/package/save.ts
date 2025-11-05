@@ -1,8 +1,11 @@
 import { blob } from "node:stream/consumers"
-import type { Descriptor, Package } from "@dpkit/core"
-import { convertPackageToDescriptor, stringifyDescriptor } from "@dpkit/core"
 import { loadFileStream, saveResourceFiles } from "@dpkit/file"
 import { getPackageBasepath } from "@dpkit/file"
+import type { Descriptor, Package } from "@dpkit/metadata"
+import {
+  convertPackageToDescriptor,
+  stringifyDescriptor,
+} from "@dpkit/metadata"
 import { makeZenodoApiRequest } from "../zenodo/index.ts"
 import type { ZenodoPackage } from "./Package.ts"
 import { convertPackageToZenodo } from "./convert/toZenodo.ts"

@@ -1,5 +1,5 @@
-import type { Resource } from "@dpkit/core"
-import { getFilename } from "@dpkit/core"
+import type { Resource } from "@dpkit/metadata"
+import { getFilename } from "@dpkit/metadata"
 import { convertSchemaFromCkan } from "../../schema/index.ts"
 import type { CkanResource } from "../Resource.ts"
 
