@@ -1,8 +1,8 @@
-import type { Plugin } from "@dpkit/metadata"
 import { isRemotePath } from "@dpkit/metadata"
+import type { DatasetPlugin } from "../../plugin.ts"
 import { loadPackageFromZenodo } from "./package/load.ts"
 
-export class ZenodoPlugin implements Plugin {
+export class ZenodoPlugin implements DatasetPlugin {
   async loadPackage(source: string) {
     const isZenodo = getIsZenodo(source)
     if (!isZenodo) return undefined

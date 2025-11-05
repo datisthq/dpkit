@@ -18,12 +18,20 @@
     "validation",
     "quality",
     "fair",
-    "document"
+    "document",
+    "html"
   ],
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
-    "@dpkit/metadata": "workspace:*"
+    "@dpkit/metadata": "workspace:*",
+    "htmlfy": "^1.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0"
   }
 }

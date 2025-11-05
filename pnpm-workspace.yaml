@@ -7,7 +7,6 @@ packages:
   - docs
   - document
   - dpkit
-  - html
   - image
   - library
   - markdown
