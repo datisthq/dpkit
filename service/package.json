@@ -2,6 +2,7 @@
   "name": "@dpkit/service",
   "type": "module",
   "version": "0.0.0-dev",
+  "private": true,
   "exports": {
     "./browser": "./build/runtimes/browser.js",
     "./node": "./build/runtimes/node.js"

@@ -4,6 +4,7 @@
   "version": "0.0.0-dev",
   "exports": "./build/index.js",
   "sideEffects": false,
+  "files": ["build"],
   "bin": {
     "dpkit": "./build/entrypoints/run.js"
   },
