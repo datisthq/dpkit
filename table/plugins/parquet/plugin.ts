@@ -6,8 +6,8 @@ import type {
   TablePlugin,
 } from "../../plugin.ts"
 import type { Table } from "../../table/index.ts"
-import { loadParquetTable } from "./load.ts"
-import { saveParquetTable } from "./save.ts"
+import { loadParquetTable } from "./table/index.ts"
+import { saveParquetTable } from "./table/index.ts"
 
 export class ParquetPlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>, options?: LoadTableOptions) {

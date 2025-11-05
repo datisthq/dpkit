@@ -1,3 +1,2 @@
-export { loadParquetTable } from "./load.ts"
-export { saveParquetTable } from "./save.ts"
-export { ParquetPlugin } from "./plugin.ts"
+export * from "./table/index.ts"
+export * from "./plugin.ts"
