@@ -11,7 +11,7 @@
     "build": "pnpm -F !browser -F !docs -F !site build",
     "bump": "ncu -ws -u",
     "clean": "rm -rf **/node_modules",
-    "compile": "pnpm -F cli compile",
+    "compile": "pnpm -F terminal compile",
     "coverage": "sensible-browser coverage/index.html",
     "format": "biome check --write",
     "lint": "biome check",
