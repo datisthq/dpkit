@@ -7,6 +7,7 @@ export async function loadPackage(source: string) {
     if (result) return result
   }
 
+  // TODO: move to dataset/plugins/descriptor?
   const dataPackage = await loadPackageDescriptor(source)
   return dataPackage
 }

@@ -1,8 +1,8 @@
 import { access, readFile } from "node:fs/promises"
 import { join } from "node:path"
-import { getTempFilePath, writeTempFile } from "@dpkit/dataset"
 import type { Package } from "@dpkit/metadata"
 import { beforeEach, describe, expect, it } from "vitest"
+import { getTempFilePath, writeTempFile } from "../../../file/index.ts"
 import { loadPackageFromFolder } from "./load.ts"
 import { savePackageToFolder } from "./save.ts"
 

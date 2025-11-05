@@ -1,4 +1,5 @@
 export * from "./file/index.ts"
+export * from "./folder/index.ts"
 export * from "./package/index.ts"
 export * from "./resource/index.ts"
 export * from "./stream/index.ts"
@@ -6,3 +7,4 @@ export * from "./plugin.ts"
 
 export * from "./plugins/ckan/index.ts"
 export * from "./plugins/datahub/index.ts"
+export * from "./plugins/folder/index.ts"

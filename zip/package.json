@@ -26,7 +26,6 @@
   "dependencies": {
     "@dpkit/metadata": "workspace:*",
     "@dpkit/dataset": "workspace:*",
-    "@dpkit/folder": "workspace:*",
     "fflate": "^0.8.2"
   }
 }

@@ -7,7 +7,6 @@ packages:
   - docs
   - document
   - dpkit
-  - folder
   - github
   - html
   - lib

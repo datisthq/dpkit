@@ -1,13 +1,10 @@
 import { join } from "node:path"
-import {
-  assertLocalPathVacant,
-  copyFile,
-  getPackageBasepath,
-  saveResourceFiles,
-} from "@dpkit/dataset"
 import { convertPackageToDescriptor, saveDescriptor } from "@dpkit/metadata"
 import type { Descriptor, Package } from "@dpkit/metadata"
-import { createFolder } from "../folder/index.ts"
+import { assertLocalPathVacant, copyFile } from "../../../file/index.ts"
+import { createFolder } from "../../../folder/index.ts"
+import { getPackageBasepath } from "../../../package/index.ts"
+import { saveResourceFiles } from "../../../resource/index.ts"
 
 export async function savePackageToFolder(
   dataPackage: Package,

@@ -369,18 +369,6 @@ importers:
         specifier: workspace:*
         version: link:../lib
 
-  folder:
-    dependencies:
-      '@dpkit/dataset':
-        specifier: workspace:*
-        version: link:../dataset
-      '@dpkit/metadata':
-        specifier: workspace:*
-        version: link:../metadata
-      exit-hook:
-        specifier: ^4.0.0
-        version: 4.0.0
-
   github:
     dependencies:
       '@dpkit/dataset':
@@ -426,9 +414,6 @@ importers:
       '@dpkit/document':
         specifier: workspace:*
         version: link:../document
-      '@dpkit/folder':
-        specifier: workspace:*
-        version: link:../folder
       '@dpkit/github':
         specifier: workspace:*
         version: link:../github
@@ -594,9 +579,6 @@ importers:
       '@dpkit/dataset':
         specifier: workspace:*
         version: link:../dataset
-      '@dpkit/folder':
-        specifier: workspace:*
-        version: link:../folder
       '@dpkit/metadata':
         specifier: workspace:*
         version: link:../metadata
