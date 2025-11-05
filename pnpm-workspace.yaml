@@ -1,7 +1,6 @@
 dangerouslyAllowAllBuilds: true
 packages:
   - browser
-  - ckan
   - cli
   - database
   - dataset

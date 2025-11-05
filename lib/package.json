@@ -21,7 +21,6 @@
     "lib"
   ],
   "dependencies": {
-    "@dpkit/ckan": "workspace:*",
     "@dpkit/metadata": "workspace:*",
     "@dpkit/database": "workspace:*",
     "@dpkit/document": "workspace:*",

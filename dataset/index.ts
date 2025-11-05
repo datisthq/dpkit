@@ -4,4 +4,5 @@ export * from "./resource/index.ts"
 export * from "./stream/index.ts"
 export * from "./plugin.ts"
 
+export * from "./plugins/ckan/index.ts"
 export * from "./plugins/datahub/index.ts"

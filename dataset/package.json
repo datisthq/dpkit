@@ -18,7 +18,9 @@
     "validation",
     "quality",
     "fair",
-    "dataset"
+    "dataset",
+    "ckan",
+    "datahub"
   ],
   "scripts": {
     "build": "tsc"

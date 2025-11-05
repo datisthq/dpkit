@@ -183,15 +183,6 @@ importers:
         specifier: 5.0.8
         version: 5.0.8(@types/react@19.2.2)(immer@10.1.3)(react@19.2.0)
 
-  ckan:
-    dependencies:
-      '@dpkit/dataset':
-        specifier: workspace:*
-        version: link:../dataset
-      '@dpkit/metadata':
-        specifier: workspace:*
-        version: link:../metadata
-
   cli:
     dependencies:
       '@clack/prompts':
@@ -283,12 +274,6 @@ importers:
       '@types/pg':
         specifier: ^8.15.5
         version: 8.15.5
-
-  datahub:
-    dependencies:
-      '@dpkit/metadata':
-        specifier: workspace:*
-        version: link:../metadata
 
   dataset:
     dependencies:
@@ -432,15 +417,9 @@ importers:
 
   lib:
     dependencies:
-      '@dpkit/ckan':
-        specifier: workspace:*
-        version: link:../ckan
       '@dpkit/database':
         specifier: workspace:*
         version: link:../database
-      '@dpkit/datahub':
-        specifier: workspace:*
-        version: link:../datahub
       '@dpkit/dataset':
         specifier: workspace:*
         version: link:../dataset

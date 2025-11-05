@@ -1,8 +1,8 @@
-import type { Plugin } from "@dpkit/metadata"
 import { isRemotePath } from "@dpkit/metadata"
+import type { DatasetPlugin } from "../../plugin.ts"
 import { loadPackageFromCkan } from "./package/load.ts"
 
-export class CkanPlugin implements Plugin {
+export class CkanPlugin implements DatasetPlugin {
   async loadPackage(source: string) {
     const isCkan = getIsCkan(source)
     if (!isCkan) return undefined
