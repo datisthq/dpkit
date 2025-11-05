@@ -20,7 +20,6 @@ packages:
   - lib
   - markdown
   - ods
-  - parquet
   - service
   - site
   - table

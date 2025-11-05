@@ -8,7 +8,7 @@ import { GithubPlugin } from "@dpkit/github"
 import { InlinePlugin } from "@dpkit/inline"
 import { JsonPlugin } from "@dpkit/json"
 import { OdsPlugin } from "@dpkit/ods"
-import { ParquetPlugin } from "@dpkit/parquet"
+import { ParquetPlugin } from "@dpkit/table"
 import type { TablePlugin } from "@dpkit/table"
 import { XlsxPlugin } from "@dpkit/table"
 import { ZenodoPlugin } from "@dpkit/zenodo"
@@ -24,7 +24,7 @@ export class System {
 
 export const system = new System()
 
-// Core functions
+// Dataset functions
 system.register(CkanPlugin)
 system.register(DatahubPlugin)
 system.register(GithubPlugin)
