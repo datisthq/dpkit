@@ -1,11 +1,10 @@
 import { blob } from "node:stream/consumers"
-import { loadFileStream, saveResourceFiles } from "@dpkit/dataset"
-import { getPackageBasepath } from "@dpkit/dataset"
 import type { Descriptor, Package } from "@dpkit/metadata"
-import {
-  convertPackageToDescriptor,
-  stringifyDescriptor,
-} from "@dpkit/metadata"
+import { stringifyDescriptor } from "@dpkit/metadata"
+import { convertPackageToDescriptor } from "@dpkit/metadata"
+import { getPackageBasepath } from "../../../package/index.ts"
+import { saveResourceFiles } from "../../../resource/index.ts"
+import { loadFileStream } from "../../../stream/index.ts"
 import { makeZenodoApiRequest } from "../zenodo/index.ts"
 import type { ZenodoPackage } from "./Package.ts"
 import { convertPackageToZenodo } from "./convert/toZenodo.ts"

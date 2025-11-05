@@ -28,7 +28,6 @@
     "@dpkit/html": "workspace:*",
     "@dpkit/markdown": "workspace:*",
     "@dpkit/table": "workspace:*",
-    "@dpkit/zenodo": "workspace:*",
     "@dpkit/zip": "workspace:*",
     "nodejs-polars": "^0.22.1",
     "p-all": "^5.0.1"

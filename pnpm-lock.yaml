@@ -417,9 +417,6 @@ importers:
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
-      '@dpkit/zenodo':
-        specifier: workspace:*
-        version: link:../zenodo
       '@dpkit/zip':
         specifier: workspace:*
         version: link:../zip
@@ -552,15 +549,6 @@ importers:
       xlsx:
         specifier: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
         version: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
-
-  zenodo:
-    dependencies:
-      '@dpkit/dataset':
-        specifier: workspace:*
-        version: link:../dataset
-      '@dpkit/metadata':
-        specifier: workspace:*
-        version: link:../metadata
 
   zip:
     dependencies:

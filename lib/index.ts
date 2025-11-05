@@ -5,7 +5,6 @@ export * from "@dpkit/dataset"
 export * from "@dpkit/html"
 export * from "@dpkit/markdown"
 export * from "@dpkit/table"
-export * from "@dpkit/zenodo"
 export * from "@dpkit/zip"
 
 export * from "./dialect/index.ts"
