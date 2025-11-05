@@ -1,2 +1,2 @@
-export { loadInlineTable } from "./load.ts"
-export { InlinePlugin } from "./plugin.ts"
+export * from "./table/index.ts"
+export * from "./plugin.ts"
