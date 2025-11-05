@@ -1,7 +1,6 @@
 dangerouslyAllowAllBuilds: true
 packages:
   - browser
-  - cli
   - database
   - dataset
   - docs
@@ -14,3 +13,4 @@ packages:
   - service
   - site
   - table
+  - terminal

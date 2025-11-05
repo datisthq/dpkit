@@ -21,8 +21,8 @@
     "validation",
     "quality",
     "fair",
-    "lib",
-    "cli"
+    "library",
+    "terminal"
   ],
   "scripts": {
     "build": "tsc && pnpm build:copy && pnpm build:mode",
@@ -30,7 +30,7 @@
     "build:mode": "chmod +x ./build/entrypoints/*.js"
   },
   "dependencies": {
-    "@dpkit/cli": "workspace:*",
-    "@dpkit/lib": "workspace:*"
+    "@dpkit/lib": "workspace:*",
+    "@dpkit/terminal": "workspace:*"
   }
 }

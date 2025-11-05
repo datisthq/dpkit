@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 
-await import("@dpkit/cli/build/entrypoints/run.js")
+await import("@dpkit/terminal/build/entrypoints/run.js")

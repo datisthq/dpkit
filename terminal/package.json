@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/cli",
+  "name": "@dpkit/terminal",
   "type": "module",
   "version": "0.0.0-dev",
   "sideEffects": false,
@@ -20,7 +20,7 @@
     "validation",
     "quality",
     "fair",
-    "cli"
+    "terminal"
   ],
   "scripts": {
     "build": "tsc && pnpm build:copy && pnpm build:mode",

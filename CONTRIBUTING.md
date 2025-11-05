@@ -12,10 +12,11 @@ Project is a monorepo with the following packages:
 - `@dpkit/metadata`: Core metadata functionality
 - `@dpkit/dataset`: File-related functionality
 - `@dpkit/table`: Table-related functionality
-- `@dpkit/cli`: Command-line interface for running tasks
 - `@dpkit/<name>`: Domain-specific functionality
-- `@dpkit/lib`: All-in-one package that re-exports all functionality
-- `dpkit`: Meta-package that re-exports `lib` and `cli`
+- `@dpkit/library`: All-in-one package that re-exports all functionality
+- `@dpkit/terminal`: Terminal interface for running tasks
+- `@dpkit/browser`: Browser-related functionality
+- `dpkit`: Meta-package that re-exports the underlying functionality
 
 ## Development Environment
 

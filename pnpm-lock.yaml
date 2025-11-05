@@ -183,61 +183,6 @@ importers:
         specifier: 5.0.8
         version: 5.0.8(@types/react@19.2.2)(immer@10.1.3)(react@19.2.0)
 
-  cli:
-    dependencies:
-      '@clack/prompts':
-        specifier: ^0.11.0
-        version: 0.11.0
-      '@commander-js/extra-typings':
-        specifier: ^14.0.0
-        version: 14.0.0(commander@14.0.1)
-      '@dpkit/lib':
-        specifier: workspace:*
-        version: link:../lib
-      commander:
-        specifier: ^14.0.0
-        version: 14.0.1
-      es-toolkit:
-        specifier: ^1.39.10
-        version: 1.39.10
-      exit-hook:
-        specifier: ^4.0.0
-        version: 4.0.0
-      ink:
-        specifier: ^6.3.1
-        version: 6.3.1(@types/react@19.1.9)(react-devtools-core@6.1.5)(react@19.2.0)
-      nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
-      picocolors:
-        specifier: ^1.1.1
-        version: 1.1.1
-      react:
-        specifier: ^19.1.1
-        version: 19.2.0
-      react-devtools-core:
-        specifier: ^6.1.2
-        version: 6.1.5
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
-      ts-extras:
-        specifier: ^0.14.0
-        version: 0.14.0
-    devDependencies:
-      '@dpkit/dataset':
-        specifier: workspace:*
-        version: link:../dataset
-      '@types/node':
-        specifier: 24.2.0
-        version: 24.2.0
-      '@types/react':
-        specifier: 19.1.9
-        version: 19.1.9
-      ink-testing-library:
-        specifier: 4.0.0
-        version: 4.0.0(@types/react@19.1.9)
-
   database:
     dependencies:
       '@dpkit/metadata':
@@ -365,12 +310,12 @@ importers:
 
   dpkit:
     dependencies:
-      '@dpkit/cli':
-        specifier: workspace:*
-        version: link:../cli
       '@dpkit/lib':
         specifier: workspace:*
         version: link:../lib
+      '@dpkit/terminal':
+        specifier: workspace:*
+        version: link:../terminal
 
   html:
     dependencies:
@@ -549,6 +494,61 @@ importers:
       xlsx:
         specifier: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
         version: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
+
+  terminal:
+    dependencies:
+      '@clack/prompts':
+        specifier: ^0.11.0
+        version: 0.11.0
+      '@commander-js/extra-typings':
+        specifier: ^14.0.0
+        version: 14.0.0(commander@14.0.1)
+      '@dpkit/lib':
+        specifier: workspace:*
+        version: link:../lib
+      commander:
+        specifier: ^14.0.0
+        version: 14.0.1
+      es-toolkit:
+        specifier: ^1.39.10
+        version: 1.39.10
+      exit-hook:
+        specifier: ^4.0.0
+        version: 4.0.0
+      ink:
+        specifier: ^6.3.1
+        version: 6.3.1(@types/react@19.1.9)(react-devtools-core@6.1.5)(react@19.2.0)
+      nodejs-polars:
+        specifier: ^0.22.1
+        version: 0.22.1
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
+      react:
+        specifier: ^19.1.1
+        version: 19.2.0
+      react-devtools-core:
+        specifier: ^6.1.2
+        version: 6.1.5
+      tiny-invariant:
+        specifier: ^1.3.3
+        version: 1.3.3
+      ts-extras:
+        specifier: ^0.14.0
+        version: 0.14.0
+    devDependencies:
+      '@dpkit/dataset':
+        specifier: workspace:*
+        version: link:../dataset
+      '@types/node':
+        specifier: 24.2.0
+        version: 24.2.0
+      '@types/react':
+        specifier: 19.1.9
+        version: 19.1.9
+      ink-testing-library:
+        specifier: 4.0.0
+        version: 4.0.0(@types/react@19.1.9)
 
 packages:
 
