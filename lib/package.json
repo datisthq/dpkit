@@ -35,7 +35,6 @@
     "@dpkit/inline": "workspace:*",
     "@dpkit/json": "workspace:*",
     "@dpkit/markdown": "workspace:*",
-    "@dpkit/ods": "workspace:*",
     "@dpkit/table": "workspace:*",
     "@dpkit/zenodo": "workspace:*",
     "@dpkit/zip": "workspace:*",

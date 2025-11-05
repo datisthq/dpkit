@@ -1,9 +1,13 @@
 import type { Resource } from "@dpkit/core"
 import { inferResourceFormat } from "@dpkit/core"
-import type { LoadTableOptions } from "@dpkit/table"
-import type { TablePlugin } from "@dpkit/table"
-import type { SaveTableOptions, Table } from "@dpkit/table"
-import { loadOdsTable, saveOdsTable } from "./table/index.ts"
+import type {
+  LoadTableOptions,
+  SaveTableOptions,
+  TablePlugin,
+} from "../../plugin.ts"
+import type { Table } from "../../table/index.ts"
+import { loadOdsTable } from "./load.ts"
+import { saveOdsTable } from "./save.ts"
 
 export class OdsPlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>, options?: LoadTableOptions) {

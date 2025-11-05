@@ -1,8 +1,10 @@
 import { resolveDialect } from "@dpkit/core"
 import { saveFile } from "@dpkit/file"
-import { denormalizeTable, inferSchemaFromTable } from "@dpkit/table"
-import type { SaveTableOptions, Table } from "@dpkit/table"
 import { utils, write } from "xlsx"
+import type { SaveTableOptions } from "../../plugin.ts"
+import { inferSchemaFromTable } from "../../schema/index.ts"
+import { denormalizeTable } from "../../table/index.ts"
+import type { Table } from "../../table/index.ts"
 
 export async function saveOdsTable(table: Table, options: SaveTableOptions) {
   const { path, overwrite } = options

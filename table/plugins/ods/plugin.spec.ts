@@ -1,11 +1,15 @@
 import type { Resource } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { beforeEach, describe, expect, it, vi } from "vitest"
+import * as loadModule from "./load.ts"
 import { OdsPlugin } from "./plugin.ts"
-import * as tableModule from "./table/index.ts"
+import * as saveModule from "./save.ts"
 
-vi.mock("./table/index.ts", () => ({
+vi.mock("./load.ts", () => ({
   loadOdsTable: vi.fn(),
+}))
+
+vi.mock("./save.ts", () => ({
   saveOdsTable: vi.fn(),
 }))
 
@@ -16,8 +20,8 @@ describe("OdsPlugin", () => {
 
   beforeEach(() => {
     plugin = new OdsPlugin()
-    mockLoadOdsTable = vi.mocked(tableModule.loadOdsTable)
-    mockSaveOdsTable = vi.mocked(tableModule.saveOdsTable)
+    mockLoadOdsTable = vi.mocked(loadModule.loadOdsTable)
+    mockSaveOdsTable = vi.mocked(saveModule.saveOdsTable)
     vi.clearAllMocks()
   })
 
