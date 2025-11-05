@@ -1,5 +1,4 @@
 import type { SavePackageOptions } from "@dpkit/dataset"
-import type { DatasetPlugin } from "@dpkit/dataset"
 import type { Dialect, Package, Resource, Schema } from "@dpkit/metadata"
 import type { DialectOptions, InferDialectOptions } from "./dialect/index.ts"
 import type { InferSchemaOptions, SchemaOptions } from "./schema/index.ts"
@@ -19,7 +18,7 @@ export type SaveTableOptions = DialectOptions &
     overwrite?: boolean
   }
 
-export interface TablePlugin extends DatasetPlugin {
+export interface TablePlugin {
   savePackage?(
     dataPackage: Package,
     options: SavePackageOptions & { plugins?: TablePlugin[] },

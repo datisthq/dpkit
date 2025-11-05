@@ -11,13 +11,13 @@ import { InlinePlugin } from "@dpkit/table"
 import { JsonPlugin } from "@dpkit/table"
 import { OdsPlugin } from "@dpkit/table"
 import { ParquetPlugin } from "@dpkit/table"
-import type { TablePlugin } from "@dpkit/table"
 import { XlsxPlugin } from "@dpkit/table"
+import type { Plugin } from "./plugin.ts"
 
 export class System {
-  plugins: TablePlugin[] = []
+  plugins: Plugin[] = []
 
-  register(PluginClass: new () => TablePlugin) {
+  register(PluginClass: new () => Plugin) {
     this.plugins.unshift(new PluginClass())
   }
 }
