@@ -6,8 +6,8 @@ import type {
   TablePlugin,
 } from "../../plugin.ts"
 import type { Table } from "../../table/index.ts"
-import { loadXlsxTable } from "./load.ts"
-import { saveXlsxTable } from "./save.ts"
+import { loadXlsxTable } from "./table/index.ts"
+import { saveXlsxTable } from "./table/index.ts"
 
 export class XlsxPlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>, options?: LoadTableOptions) {

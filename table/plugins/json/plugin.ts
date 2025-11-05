@@ -6,8 +6,8 @@ import type {
   TablePlugin,
 } from "../../plugin.ts"
 import type { Table } from "../../table/index.ts"
-import { loadJsonTable } from "./load.ts"
-import { saveJsonTable } from "./save.ts"
+import { loadJsonTable } from "./table/index.ts"
+import { saveJsonTable } from "./table/index.ts"
 
 export class JsonPlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>, options?: LoadTableOptions) {

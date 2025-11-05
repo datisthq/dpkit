@@ -1,3 +1,2 @@
-export { loadXlsxTable } from "./load.ts"
-export { saveXlsxTable } from "./save.ts"
-export { XlsxPlugin } from "./plugin.ts"
+export * from "./table/index.ts"
+export * from "./plugin.ts"
