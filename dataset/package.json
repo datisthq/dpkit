@@ -29,6 +29,7 @@
     "@dpkit/metadata": "workspace:*",
     "chardet": "^2.1.0",
     "exit-hook": "^4.0.0",
+    "fflate": "^0.8.2",
     "hasha": "^6.0.0",
     "isbinaryfile": "^5.0.4",
     "multistream": "^4.1.0",

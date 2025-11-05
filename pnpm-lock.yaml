@@ -286,6 +286,9 @@ importers:
       exit-hook:
         specifier: ^4.0.0
         version: 4.0.0
+      fflate:
+        specifier: ^0.8.2
+        version: 0.8.2
       hasha:
         specifier: ^6.0.0
         version: 6.0.0
@@ -417,9 +420,6 @@ importers:
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
-      '@dpkit/zip':
-        specifier: workspace:*
-        version: link:../zip
       nodejs-polars:
         specifier: ^0.22.1
         version: 0.22.1
@@ -549,18 +549,6 @@ importers:
       xlsx:
         specifier: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
         version: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
-
-  zip:
-    dependencies:
-      '@dpkit/dataset':
-        specifier: workspace:*
-        version: link:../dataset
-      '@dpkit/metadata':
-        specifier: workspace:*
-        version: link:../metadata
-      fflate:
-        specifier: ^0.8.2
-        version: 0.8.2
 
 packages:
 

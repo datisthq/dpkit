@@ -1,6 +1,6 @@
-import { getTempFilePath, writeTempFile } from "@dpkit/dataset"
 import type { Package } from "@dpkit/metadata"
 import { beforeEach, describe, expect, it } from "vitest"
+import { getTempFilePath, writeTempFile } from "../../../file/index.ts"
 import { loadPackageFromZip } from "./load.ts"
 import { savePackageToZip } from "./save.ts"
 

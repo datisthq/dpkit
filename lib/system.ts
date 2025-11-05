@@ -4,6 +4,7 @@ import { DatahubPlugin } from "@dpkit/dataset"
 import { FolderPlugin } from "@dpkit/dataset"
 import { GithubPlugin } from "@dpkit/dataset"
 import { ZenodoPlugin } from "@dpkit/dataset"
+import { ZipPlugin } from "@dpkit/dataset"
 import { CsvPlugin } from "@dpkit/table"
 import { ArrowPlugin } from "@dpkit/table"
 import { InlinePlugin } from "@dpkit/table"
@@ -12,7 +13,6 @@ import { OdsPlugin } from "@dpkit/table"
 import { ParquetPlugin } from "@dpkit/table"
 import type { TablePlugin } from "@dpkit/table"
 import { XlsxPlugin } from "@dpkit/table"
-import { ZipPlugin } from "@dpkit/zip"
 
 export class System {
   plugins: TablePlugin[] = []
@@ -24,7 +24,8 @@ export class System {
 
 export const system = new System()
 
-// Dataset functions
+// Dataset
+
 system.register(CkanPlugin)
 system.register(DatahubPlugin)
 system.register(GithubPlugin)
@@ -32,7 +33,8 @@ system.register(ZenodoPlugin)
 system.register(FolderPlugin)
 system.register(ZipPlugin)
 
-// Table functions
+// Table
+
 system.register(ArrowPlugin)
 system.register(CsvPlugin)
 system.register(InlinePlugin)
@@ -41,5 +43,6 @@ system.register(OdsPlugin)
 system.register(ParquetPlugin)
 system.register(XlsxPlugin)
 
-// Mixed functions
+// Mixed
+
 system.register(DatabasePlugin)

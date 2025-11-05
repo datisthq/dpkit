@@ -1,14 +1,14 @@
 import { Buffer } from "node:buffer"
 import { writeFile } from "node:fs/promises"
 import type { Readable } from "node:stream"
-import { loadFileStream, saveResourceFiles } from "@dpkit/dataset"
-import { assertLocalPathVacant, getPackageBasepath } from "@dpkit/dataset"
 import type { Descriptor, Package } from "@dpkit/metadata"
-import {
-  convertPackageToDescriptor,
-  stringifyDescriptor,
-} from "@dpkit/metadata"
+import { stringifyDescriptor } from "@dpkit/metadata"
+import { convertPackageToDescriptor } from "@dpkit/metadata"
 import { zip } from "fflate"
+import { assertLocalPathVacant } from "../../../file/index.ts"
+import { getPackageBasepath } from "../../../package/index.ts"
+import { saveResourceFiles } from "../../../resource/index.ts"
+import { loadFileStream } from "../../../stream/index.ts"
 
 export async function savePackageToZip(
   dataPackage: Package,
