@@ -23,7 +23,6 @@
   "dependencies": {
     "@dpkit/ckan": "workspace:*",
     "@dpkit/core": "workspace:*",
-    "@dpkit/csv": "workspace:*",
     "@dpkit/database": "workspace:*",
     "@dpkit/datahub": "workspace:*",
     "@dpkit/document": "workspace:*",

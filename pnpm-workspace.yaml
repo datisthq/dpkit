@@ -4,7 +4,6 @@ packages:
   - ckan
   - cli
   - core
-  - csv
   - datahub
   - database
   - docs

@@ -6,6 +6,7 @@ export * from "./table/index.ts"
 export * from "./plugin.ts"
 
 export * from "./plugins/arrow/index.ts"
+export * from "./plugins/csv/index.ts"
 export * from "./plugins/inline/index.ts"
 export * from "./plugins/json/index.ts"
 export * from "./plugins/ods/index.ts"

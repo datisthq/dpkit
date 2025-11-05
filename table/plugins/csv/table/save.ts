@@ -1,6 +1,8 @@
 import { assertLocalPathVacant } from "@dpkit/file"
-import type { SaveTableOptions, Table } from "@dpkit/table"
-import { denormalizeTable, inferSchemaFromTable } from "@dpkit/table"
+import type { SaveTableOptions } from "../../../plugin.ts"
+import { inferSchemaFromTable } from "../../../schema/index.ts"
+import { denormalizeTable } from "../../../table/index.ts"
+import type { Table } from "../../../table/index.ts"
 
 export async function saveCsvTable(
   table: Table,
