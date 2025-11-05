@@ -1,5 +1,5 @@
-import type { DataRecord, Schema } from "@dpkit/lib"
-import { inferSchemaFromSample } from "@dpkit/lib"
+import type { DataRecord, Schema } from "@dpkit/library"
+import { inferSchemaFromSample } from "@dpkit/library"
 import { Box, Text } from "ink"
 import * as pl from "nodejs-polars"
 import React from "react"

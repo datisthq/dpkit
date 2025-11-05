@@ -19,7 +19,7 @@
   "devDependencies": {
     "@cloudflare/containers": "0.0.28",
     "@cloudflare/vite-plugin": "1.13.13",
-    "@dpkit/lib": "workspace:*",
+    "@dpkit/library": "workspace:*",
     "@dpkit/service": "workspace:*",
     "@loglayer/transport-tslog": "3.0.4",
     "@mantine/core": "8.3.5",

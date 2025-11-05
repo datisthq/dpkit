@@ -9,7 +9,7 @@ import starlightTypeDoc from "starlight-typedoc"
 
 const PACKAGES = {
   dpkit: "../dpkit",
-  "@dpkit/lib": "../lib",
+  "@dpkit/library": "../lib",
   "@dpkit/arrow": "../arrow",
   "@dpkit/ckan": "../ckan",
   "@dpkit/metadata": "../core",

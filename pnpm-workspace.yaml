@@ -9,7 +9,7 @@ packages:
   - dpkit
   - html
   - image
-  - lib
+  - library
   - markdown
   - metadata
   - service

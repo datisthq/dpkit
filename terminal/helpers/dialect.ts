@@ -1,4 +1,4 @@
-import type { Dialect } from "@dpkit/lib"
+import type { Dialect } from "@dpkit/library"
 
 // TODO: Find a better way to construct dialects
 

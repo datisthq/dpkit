@@ -1,4 +1,4 @@
-import type { SchemaOptions } from "@dpkit/lib"
+import type { SchemaOptions } from "@dpkit/library"
 
 // TODO: Find a better way to construct schema options
 

@@ -1,4 +1,4 @@
-import type * as errorTypes from "@dpkit/lib"
+import type * as errorTypes from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 

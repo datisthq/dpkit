@@ -1,4 +1,4 @@
-import type { UnboundError } from "@dpkit/lib"
+import type { UnboundError } from "@dpkit/library"
 import {
   CellEnumError,
   CellExclusiveMaximumError,

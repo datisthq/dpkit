@@ -28,7 +28,7 @@
     "generate": "node @generate.ts"
   },
   "dependencies": {
-    "@dpkit/lib": "workspace:*",
+    "@dpkit/library": "workspace:*",
     "@loglayer/transport-tslog": "3.0.4",
     "@orpc/client": "^1.10.0",
     "@orpc/contract": "^1.10.0",

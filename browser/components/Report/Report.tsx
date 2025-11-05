@@ -1,4 +1,4 @@
-import type { UnboundError } from "@dpkit/lib"
+import type { UnboundError } from "@dpkit/library"
 import { Card, Divider, ScrollArea, Stack, Tabs } from "@mantine/core"
 import { groupBy } from "es-toolkit"
 import { useState } from "react"

@@ -1,4 +1,4 @@
-import * as dpkit from "@dpkit/lib"
+import * as dpkit from "@dpkit/library"
 import * as z from "zod"
 import { endpoint } from "../../endpoint.ts"
 

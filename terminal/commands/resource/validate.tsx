@@ -1,4 +1,4 @@
-import { validateResource } from "@dpkit/lib"
+import { validateResource } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
 import { ErrorGrid } from "../../components/ErrorGrid.tsx"

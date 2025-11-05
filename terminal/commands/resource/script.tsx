@@ -1,6 +1,6 @@
 import repl from "node:repl"
-import { loadResourceDescriptor } from "@dpkit/lib"
-import * as dpkit from "@dpkit/lib"
+import { loadResourceDescriptor } from "@dpkit/library"
+import * as dpkit from "@dpkit/library"
 import { Command } from "commander"
 import pc from "picocolors"
 import { helpConfiguration } from "../../helpers/help.ts"

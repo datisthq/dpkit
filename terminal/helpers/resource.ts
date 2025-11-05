@@ -1,4 +1,4 @@
-import { loadPackage } from "@dpkit/lib"
+import { loadPackage } from "@dpkit/library"
 import type { Session } from "../session.ts"
 
 export async function selectResource(

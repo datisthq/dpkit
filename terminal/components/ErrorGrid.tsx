@@ -1,4 +1,4 @@
-import type { UnboundError } from "@dpkit/lib"
+import type { UnboundError } from "@dpkit/library"
 import * as pl from "nodejs-polars"
 import React from "react"
 import { TableGrid } from "./TableGrid.tsx"

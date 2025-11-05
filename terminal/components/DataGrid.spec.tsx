@@ -1,4 +1,4 @@
-import type { DataRecord } from "@dpkit/lib"
+import type { DataRecord } from "@dpkit/library"
 import { render } from "ink-testing-library"
 import React from "react"
 import { describe, expect, it } from "vitest"

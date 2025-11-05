@@ -1,4 +1,4 @@
-import { inferResource } from "@dpkit/lib"
+import { inferResource } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
 import { ResourceGrid } from "../../components/ResourceGrid.tsx"

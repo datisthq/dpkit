@@ -67,9 +67,9 @@ importers:
       '@cloudflare/vite-plugin':
         specifier: 1.13.13
         version: 1.13.13(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251008.0)(wrangler@4.43.0)
-      '@dpkit/lib':
+      '@dpkit/library':
         specifier: workspace:*
-        version: link:../lib
+        version: link:../library
       '@dpkit/service':
         specifier: workspace:*
         version: link:../service
@@ -312,9 +312,9 @@ importers:
 
   dpkit:
     dependencies:
-      '@dpkit/lib':
+      '@dpkit/library':
         specifier: workspace:*
-        version: link:../lib
+        version: link:../library
       '@dpkit/terminal':
         specifier: workspace:*
         version: link:../terminal
@@ -344,7 +344,9 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(vitest@3.2.4)
 
-  lib:
+  image: {}
+
+  library:
     dependencies:
       '@dpkit/database':
         specifier: workspace:*
@@ -409,9 +411,9 @@ importers:
 
   service:
     dependencies:
-      '@dpkit/lib':
+      '@dpkit/library':
         specifier: workspace:*
-        version: link:../lib
+        version: link:../library
       '@loglayer/transport-tslog':
         specifier: 3.0.4
         version: 3.0.4(tslog@4.10.2)
@@ -505,9 +507,9 @@ importers:
       '@commander-js/extra-typings':
         specifier: ^14.0.0
         version: 14.0.0(commander@14.0.1)
-      '@dpkit/lib':
+      '@dpkit/library':
         specifier: workspace:*
-        version: link:../lib
+        version: link:../library
       commander:
         specifier: ^14.0.0
         version: 14.0.1

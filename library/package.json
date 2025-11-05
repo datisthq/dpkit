@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/lib",
+  "name": "@dpkit/library",
   "type": "module",
   "version": "0.0.0-dev",
   "exports": "./build/index.js",

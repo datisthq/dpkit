@@ -30,7 +30,7 @@
     "build:mode": "chmod +x ./build/entrypoints/*.js"
   },
   "dependencies": {
-    "@dpkit/lib": "workspace:*",
+    "@dpkit/library": "workspace:*",
     "@dpkit/terminal": "workspace:*"
   }
 }

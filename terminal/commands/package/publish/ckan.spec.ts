@@ -1,5 +1,5 @@
 import { writeTempFile } from "@dpkit/dataset"
-import * as lib from "@dpkit/lib"
+import * as lib from "@dpkit/library"
 import { Command } from "commander"
 import { describe, expect, it, vi } from "vitest"
 import { useRecording } from "vitest-polly"

@@ -1,3 +1,4 @@
+import { join } from "node:path"
 import { describe, expect, it } from "vitest"
 import { validatePackage } from "./validate.ts"
 
@@ -172,7 +173,10 @@ describe("validatePackage", () => {
   })
 
   it("should detect bad cell type (issue-153)", async () => {
-    const dataPackage = "lib/package/fixtures/issue-153/datapackage.json"
+    const dataPackage = join(
+      import.meta.dirname,
+      "fixtures/issue-153/datapackage.json",
+    )
 
     const report = await validatePackage(dataPackage)
 

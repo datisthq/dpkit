@@ -1,5 +1,5 @@
-import type { Dialect } from "@dpkit/lib"
-import type { DataRecord } from "@dpkit/lib"
+import type { Dialect } from "@dpkit/library"
+import type { DataRecord } from "@dpkit/library"
 import React from "react"
 import { DataGrid } from "./DataGrid.tsx"
 

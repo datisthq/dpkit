@@ -1,4 +1,4 @@
-import { loadPackage, savePackage } from "@dpkit/lib"
+import { loadPackage, savePackage } from "@dpkit/library"
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"

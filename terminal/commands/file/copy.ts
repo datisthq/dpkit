@@ -1,4 +1,4 @@
-import { copyFile } from "@dpkit/lib"
+import { copyFile } from "@dpkit/library"
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"

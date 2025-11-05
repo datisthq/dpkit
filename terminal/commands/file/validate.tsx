@@ -1,4 +1,4 @@
-import { validateFile } from "@dpkit/lib"
+import { validateFile } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
 import { ErrorGrid } from "../../components/ErrorGrid.tsx"
