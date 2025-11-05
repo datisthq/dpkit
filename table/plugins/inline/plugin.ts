@@ -1,7 +1,6 @@
 import type { Resource } from "@dpkit/core"
-import type { LoadTableOptions } from "@dpkit/table"
-import type { TablePlugin } from "@dpkit/table"
-import { loadInlineTable } from "./table/index.ts"
+import type { LoadTableOptions, TablePlugin } from "../../plugin.ts"
+import { loadInlineTable } from "./load.ts"
 
 export class InlinePlugin implements TablePlugin {
   async loadTable(resource: Resource, options?: LoadTableOptions) {
