@@ -24,7 +24,6 @@
     "@dpkit/ckan": "workspace:*",
     "@dpkit/metadata": "workspace:*",
     "@dpkit/database": "workspace:*",
-    "@dpkit/datahub": "workspace:*",
     "@dpkit/document": "workspace:*",
     "@dpkit/dataset": "workspace:*",
     "@dpkit/folder": "workspace:*",

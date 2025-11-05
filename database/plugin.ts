@@ -1,6 +1,6 @@
+import type { SavePackageOptions } from "@dpkit/dataset"
 import type { Package, Resource } from "@dpkit/metadata"
 import { inferResourceFormat } from "@dpkit/metadata"
-import type { SavePackageOptions } from "@dpkit/metadata"
 import type { TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { loadPackageFromDatabase } from "./package/index.ts"

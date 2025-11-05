@@ -1,7 +1,6 @@
 export * from "@dpkit/ckan"
 export * from "@dpkit/metadata"
 export * from "@dpkit/database"
-export * from "@dpkit/datahub"
 export * from "@dpkit/document"
 export * from "@dpkit/dataset"
 export * from "@dpkit/folder"

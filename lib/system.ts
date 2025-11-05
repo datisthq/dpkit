@@ -1,6 +1,6 @@
 import { CkanPlugin } from "@dpkit/ckan"
 import { DatabasePlugin } from "@dpkit/database"
-import { DatahubPlugin } from "@dpkit/datahub"
+import { DatahubPlugin } from "@dpkit/dataset"
 import { FolderPlugin } from "@dpkit/folder"
 import { GithubPlugin } from "@dpkit/github"
 import { CsvPlugin } from "@dpkit/table"

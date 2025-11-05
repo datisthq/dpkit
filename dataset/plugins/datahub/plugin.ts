@@ -1,8 +1,8 @@
-import type { Plugin } from "@dpkit/metadata"
 import { isRemotePath } from "@dpkit/metadata"
+import type { DatasetPlugin } from "../../plugin.ts"
 import { loadPackageFromDatahub } from "./package/index.ts"
 
-export class DatahubPlugin implements Plugin {
+export class DatahubPlugin implements DatasetPlugin {
   async loadPackage(source: string) {
     const isDatahub = getIsDatahub(source)
     if (!isDatahub) return undefined

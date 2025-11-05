@@ -19,6 +19,12 @@
     "quality",
     "fair",
     "table",
+    "arrow",
+    "csv",
+    "inline",
+    "json",
+    "ods",
+    "parquet",
     "xlsx"
   ],
   "scripts": {

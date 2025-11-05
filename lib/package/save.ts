@@ -1,4 +1,5 @@
-import type { Package, SavePackageOptions } from "@dpkit/metadata"
+import type { SavePackageOptions } from "@dpkit/dataset"
+import type { Package } from "@dpkit/metadata"
 import { savePackageDescriptor } from "@dpkit/metadata"
 import { system } from "../system.ts"
 
