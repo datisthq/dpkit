@@ -6,8 +6,8 @@ import type {
   TablePlugin,
 } from "../../plugin.ts"
 import type { Table } from "../../table/index.ts"
-import { loadOdsTable } from "./load.ts"
-import { saveOdsTable } from "./save.ts"
+import { loadOdsTable } from "./table/index.ts"
+import { saveOdsTable } from "./table/index.ts"
 
 export class OdsPlugin implements TablePlugin {
   async loadTable(resource: Partial<Resource>, options?: LoadTableOptions) {

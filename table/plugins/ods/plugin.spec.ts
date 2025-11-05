@@ -1,15 +1,15 @@
 import type { Resource } from "@dpkit/core"
 import * as pl from "nodejs-polars"
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import * as loadModule from "./load.ts"
 import { OdsPlugin } from "./plugin.ts"
-import * as saveModule from "./save.ts"
+import * as loadModule from "./table/load.ts"
+import * as saveModule from "./table/save.ts"
 
-vi.mock("./load.ts", () => ({
+vi.mock("./table/load.ts", () => ({
   loadOdsTable: vi.fn(),
 }))
 
-vi.mock("./save.ts", () => ({
+vi.mock("./table/save.ts", () => ({
   saveOdsTable: vi.fn(),
 }))
 
