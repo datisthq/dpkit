@@ -1,10 +1,10 @@
 import type { Dialect } from "@dpkit/core"
 import { saveFile } from "@dpkit/file"
-import type { SaveTableOptions } from "../../plugin.ts"
-import { inferSchemaFromTable } from "../../schema/index.ts"
-import { denormalizeTable } from "../../table/index.ts"
-import type { Table } from "../../table/index.ts"
-import { decodeJsonBuffer, encodeJsonBuffer } from "./buffer/index.ts"
+import type { SaveTableOptions } from "../../../plugin.ts"
+import { inferSchemaFromTable } from "../../../schema/index.ts"
+import { denormalizeTable } from "../../../table/index.ts"
+import type { Table } from "../../../table/index.ts"
+import { decodeJsonBuffer, encodeJsonBuffer } from "../buffer/index.ts"
 
 // TODO: rebase on sinkJSON when it is available
 // https://github.com/pola-rs/nodejs-polars/issues/353
