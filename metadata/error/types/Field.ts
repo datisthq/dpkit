@@ -1,4 +1,4 @@
-import type { FieldType } from "@dpkit/metadata"
+import type { FieldType } from "../../field/index.ts"
 import type { BaseError } from "./Base.ts"
 
 export type FieldError = FieldNameError | FieldTypeError

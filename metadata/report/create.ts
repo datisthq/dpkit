@@ -1,4 +1,4 @@
-import type { DpkitError } from "@dpkit/metadata"
+import type { DpkitError } from "../error/index.ts"
 
 export function createReport<T = DpkitError>(
   errors?: T[],
