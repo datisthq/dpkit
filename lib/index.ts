@@ -1,4 +1,3 @@
-export * from "@dpkit/arrow"
 export * from "@dpkit/ckan"
 export * from "@dpkit/core"
 export * from "@dpkit/csv"

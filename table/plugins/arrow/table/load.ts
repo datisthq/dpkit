@@ -1,8 +1,9 @@
 import type { Resource } from "@dpkit/core"
 import { resolveSchema } from "@dpkit/core"
 import { prefetchFiles } from "@dpkit/file"
-import type { LoadTableOptions } from "@dpkit/table"
-import { inferSchemaFromTable, normalizeTable } from "@dpkit/table"
+import type { LoadTableOptions } from "../../../plugin.ts"
+import { inferSchemaFromTable } from "../../../schema/index.ts"
+import { normalizeTable } from "../../../table/index.ts"
 import * as pl from "nodejs-polars"
 
 export async function loadArrowTable(

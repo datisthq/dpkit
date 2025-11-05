@@ -1,6 +1,8 @@
 import { assertLocalPathVacant } from "@dpkit/file"
-import { denormalizeTable, inferSchemaFromTable } from "@dpkit/table"
-import type { SaveTableOptions, Table } from "@dpkit/table"
+import type { SaveTableOptions } from "../../../plugin.ts"
+import { inferSchemaFromTable } from "../../../schema/index.ts"
+import { denormalizeTable } from "../../../table/index.ts"
+import type { Table } from "../../../table/index.ts"
 
 // TODO: rebase on sinkIPC when it is available
 // https://github.com/pola-rs/nodejs-polars/issues/353

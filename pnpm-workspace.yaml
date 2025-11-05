@@ -1,6 +1,5 @@
 dangerouslyAllowAllBuilds: true
 packages:
-  - arrow
   - browser
   - ckan
   - cli

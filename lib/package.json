@@ -21,7 +21,6 @@
     "lib"
   ],
   "dependencies": {
-    "@dpkit/arrow": "workspace:*",
     "@dpkit/ckan": "workspace:*",
     "@dpkit/core": "workspace:*",
     "@dpkit/csv": "workspace:*",
