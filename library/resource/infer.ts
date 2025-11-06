@@ -1,17 +1,11 @@
 import { prefetchFile } from "@dpkit/dataset"
-import {
-  inferBytes,
-  inferEncoding,
-  inferHash,
-} from "@dpkit/dataset"
+import { inferBytes, inferEncoding, inferHash } from "@dpkit/dataset"
 import type { Resource } from "@dpkit/metadata"
 import { inferFormat, inferName } from "@dpkit/metadata"
 import type { InferDialectOptions } from "@dpkit/table"
 import type { InferSchemaOptions } from "@dpkit/table"
 import { inferDialect } from "../dialect/index.ts"
 import { inferSchema } from "../schema/index.ts"
-
-// TODO: Support multipart resources? (clarify on the specs level)
 
 export async function inferResource(
   resource: Partial<Resource>,
@@ -31,18 +25,18 @@ export async function inferResource(
     const localResource = { ...resource, path: localPath }
 
     if (!result.encoding) {
-      const encoding = await inferEncoding(localPath)
+      const encoding = await inferEncoding(localResource)
       if (encoding) {
         result.encoding = encoding
       }
     }
 
     if (!result.bytes) {
-      result.bytes = await inferBytes(localPath)
+      result.bytes = await inferBytes(localResource)
     }
 
     if (!result.hash) {
-      result.hash = await inferHash(localPath)
+      result.hash = await inferHash(localResource)
     }
 
     if (!result.dialect) {

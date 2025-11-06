@@ -10,7 +10,7 @@ export async function validateFile(resource: Partial<Resource>) {
 
   if (resource.bytes) {
     const bytes = resource.bytes
-    const actualBytes = await inferBytes(localPaths)
+    const actualBytes = await inferBytes({ path: localPaths })
 
     if (bytes !== actualBytes) {
       errors.push({
@@ -25,9 +25,12 @@ export async function validateFile(resource: Partial<Resource>) {
     const [hashValue, hashType = "md5"] = resource.hash.split(":").toReversed()
 
     const hash = `${hashType}:${hashValue}`
-    const actualHash = await inferHash(localPaths, {
-      hashType: hashType as any,
-    })
+    const actualHash = await inferHash(
+      { path: localPaths },
+      {
+        hashType: hashType as any,
+      },
+    )
 
     if (hash !== actualHash) {
       errors.push({
@@ -40,7 +43,7 @@ export async function validateFile(resource: Partial<Resource>) {
 
   if (resource.encoding) {
     const encoding = resource.encoding
-    const actualEncoding = await inferEncoding(localPaths)
+    const actualEncoding = await inferEncoding({ path: localPaths })
 
     if (actualEncoding) {
       if (encoding !== actualEncoding) {
