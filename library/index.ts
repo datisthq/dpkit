@@ -10,3 +10,5 @@ export * from "./resource/index.ts"
 export * from "./schema/index.ts"
 export * from "./table/index.ts"
 export * from "./system.ts"
+
+export type { Plugin } from "./plugin.ts"
