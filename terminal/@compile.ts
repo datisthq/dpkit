@@ -82,7 +82,7 @@ for (const target of targets) {
   }
 
   await $compile`
-  bun build main.ts
+  bun build build/main.js
   --compile
   --outfile binaries/${folder}/dpkit
   --target ${target.name}

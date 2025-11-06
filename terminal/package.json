@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.0-dev",
   "sideEffects": false,
+  "exports": "./build/index.js",
   "files": ["build"],
   "bin": {
     "dpkit": "./build/entrypoints/run.js"
