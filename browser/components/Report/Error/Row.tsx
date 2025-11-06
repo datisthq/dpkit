@@ -1,8 +1,8 @@
-import type * as errorTypes from "@dpkit/library"
+import type * as library from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 
-export function RowUniqueError(props: { error: errorTypes.RowUniqueError }) {
+export function RowUniqueError(props: { error: library.RowUniqueError }) {
   const { t } = useTranslation()
   return (
     <Text>

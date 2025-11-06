@@ -1,8 +1,8 @@
-import type * as errorTypes from "@dpkit/library"
+import type * as library from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 
-export function BytesError(props: { error: errorTypes.BytesError }) {
+export function BytesError(props: { error: library.BytesError }) {
   const { t } = useTranslation()
 
   return (
@@ -19,7 +19,7 @@ export function BytesError(props: { error: errorTypes.BytesError }) {
   )
 }
 
-export function HashError(props: { error: errorTypes.HashError }) {
+export function HashError(props: { error: library.HashError }) {
   const { t } = useTranslation()
 
   return (
@@ -36,7 +36,7 @@ export function HashError(props: { error: errorTypes.HashError }) {
   )
 }
 
-export function EncodingError(props: { error: errorTypes.EncodingError }) {
+export function EncodingError(props: { error: library.EncodingError }) {
   const { t } = useTranslation()
 
   return (

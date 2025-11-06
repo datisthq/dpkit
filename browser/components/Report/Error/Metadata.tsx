@@ -1,9 +1,9 @@
-import type * as errorTypes from "@dpkit/library"
+import type * as library from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
 import { capitalize } from "es-toolkit"
 import { useTranslation } from "react-i18next"
 
-export function MetadataError(props: { error: errorTypes.MetadataError }) {
+export function MetadataError(props: { error: library.MetadataError }) {
   const { t } = useTranslation()
 
   return (
