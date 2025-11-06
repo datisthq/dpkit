@@ -10,7 +10,7 @@ import { loadFile } from "./load.ts"
 
 export type HashType = "md5" | "sha1" | "sha256" | "sha512"
 
-export async function inferFileBytes(path: string | string[]) {
+export async function inferBytes(path: string | string[]) {
   const localPaths = await prefetchFiles(path)
 
   let bytes = 0
@@ -22,7 +22,7 @@ export async function inferFileBytes(path: string | string[]) {
   return bytes
 }
 
-export async function inferFileHash(
+export async function inferHash(
   path: string | string[],
   options?: { hashType?: HashType },
 ) {
@@ -36,7 +36,7 @@ export async function inferFileHash(
   return `${algorithm}:${hash}`
 }
 
-export async function inferFileEncoding(
+export async function inferEncoding(
   path: string | string[],
   options?: { sampleBytes?: number; confidencePercent?: number },
 ) {

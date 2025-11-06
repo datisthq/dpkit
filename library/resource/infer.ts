@@ -1,8 +1,8 @@
 import { prefetchFile } from "@dpkit/dataset"
 import {
-  inferFileBytes,
-  inferFileEncoding,
-  inferFileHash,
+  inferBytes,
+  inferEncoding,
+  inferHash,
 } from "@dpkit/dataset"
 import type { Resource } from "@dpkit/metadata"
 import { inferFormat, inferName } from "@dpkit/metadata"
@@ -31,18 +31,18 @@ export async function inferResource(
     const localResource = { ...resource, path: localPath }
 
     if (!result.encoding) {
-      const encoding = await inferFileEncoding(localPath)
+      const encoding = await inferEncoding(localPath)
       if (encoding) {
         result.encoding = encoding
       }
     }
 
     if (!result.bytes) {
-      result.bytes = await inferFileBytes(localPath)
+      result.bytes = await inferBytes(localPath)
     }
 
     if (!result.hash) {
-      result.hash = await inferFileHash(localPath)
+      result.hash = await inferHash(localPath)
     }
 
     if (!result.dialect) {

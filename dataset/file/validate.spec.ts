@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as fetchModule from "./fetch.ts"
-import { inferFileHash } from "./infer.ts"
+import { inferHash } from "./infer.ts"
 import { writeTempFile } from "./temp.ts"
 import { validateFile } from "./validate.ts"
 
@@ -62,7 +62,7 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
+    const actualHash = await inferHash(tempFilePath, { hashType: "md5" })
 
     const report = await validateFile({
       path: "https://example.com/file.txt",
@@ -76,7 +76,7 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
+    const actualHash = await inferHash(tempFilePath, { hashType: "md5" })
 
     const report = await validateFile({
       path: "https://example.com/file.txt",
@@ -96,7 +96,7 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const actualHash = await inferFileHash(tempFilePath, { hashType: "sha256" })
+    const actualHash = await inferHash(tempFilePath, { hashType: "sha256" })
 
     const report = await validateFile({
       path: "https://example.com/file.txt",
@@ -110,7 +110,7 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const actualHash = await inferFileHash(tempFilePath, { hashType: "sha1" })
+    const actualHash = await inferHash(tempFilePath, { hashType: "sha1" })
 
     const report = await validateFile({
       path: "https://example.com/file.txt",
@@ -124,7 +124,7 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const actualHash = await inferFileHash(tempFilePath, { hashType: "sha512" })
+    const actualHash = await inferHash(tempFilePath, { hashType: "sha512" })
 
     const report = await validateFile({
       path: "https://example.com/file.txt",
@@ -138,7 +138,7 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
+    const actualHash = await inferHash(tempFilePath, { hashType: "md5" })
 
     const report = await validateFile({
       path: "https://example.com/file.txt",
@@ -153,7 +153,7 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
+    const actualHash = await inferHash(tempFilePath, { hashType: "md5" })
 
     const report = await validateFile({
       path: "https://example.com/file.txt",
@@ -179,7 +179,7 @@ describe("validateFile", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const actualHash = await inferFileHash(tempFilePath, { hashType: "md5" })
+    const actualHash = await inferHash(tempFilePath, { hashType: "md5" })
 
     const report = await validateFile({
       path: "https://example.com/file.txt",

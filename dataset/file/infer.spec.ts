@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as fetchModule from "./fetch.ts"
-import { inferFileBytes, inferFileEncoding, inferFileHash } from "./infer.ts"
+import { inferBytes, inferEncoding, inferHash } from "./infer.ts"
 import { writeTempFile } from "./temp.ts"
 
 vi.mock("./fetch.ts", () => ({
   prefetchFiles: vi.fn(),
 }))
 
-describe("inferFileHash", () => {
+describe("inferHash", () => {
   let mockPrefetchFiles: ReturnType<typeof vi.fn>
   let tempFilePath: string
 
@@ -20,7 +20,7 @@ describe("inferFileHash", () => {
   it("should compute sha256 hash by default", async () => {
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await inferFileHash("https://example.com/file.txt")
+    const result = await inferHash("https://example.com/file.txt")
 
     expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.txt",
@@ -31,7 +31,7 @@ describe("inferFileHash", () => {
   it("should compute md5 hash when specified", async () => {
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await inferFileHash("https://example.com/file.txt", {
+    const result = await inferHash("https://example.com/file.txt", {
       hashType: "md5",
     })
 
@@ -44,7 +44,7 @@ describe("inferFileHash", () => {
   it("should compute sha1 hash when specified", async () => {
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await inferFileHash("https://example.com/file.txt", {
+    const result = await inferHash("https://example.com/file.txt", {
       hashType: "sha1",
     })
 
@@ -57,7 +57,7 @@ describe("inferFileHash", () => {
   it("should compute sha512 hash when specified", async () => {
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await inferFileHash("https://example.com/file.txt", {
+    const result = await inferHash("https://example.com/file.txt", {
       hashType: "sha512",
     })
 
@@ -70,14 +70,14 @@ describe("inferFileHash", () => {
   it("should compute consistent hashes for same content", async () => {
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result1 = await inferFileHash("https://example.com/file.txt")
-    const result2 = await inferFileHash("https://example.com/file.txt")
+    const result1 = await inferHash("https://example.com/file.txt")
+    const result2 = await inferHash("https://example.com/file.txt")
 
     expect(result1).toBe(result2)
   })
 })
 
-describe("inferFileBytes", () => {
+describe("inferBytes", () => {
   let mockPrefetchFiles: ReturnType<typeof vi.fn>
 
   beforeEach(() => {
@@ -89,7 +89,7 @@ describe("inferFileBytes", () => {
     const tempFilePath = await writeTempFile("Hello, World!")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await inferFileBytes("https://example.com/file.txt")
+    const result = await inferBytes("https://example.com/file.txt")
 
     expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.txt",
@@ -101,7 +101,7 @@ describe("inferFileBytes", () => {
     const tempFilePath = await writeTempFile("")
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await inferFileBytes("https://example.com/empty.txt")
+    const result = await inferBytes("https://example.com/empty.txt")
 
     expect(result).toBe(0)
   })
@@ -110,7 +110,7 @@ describe("inferFileBytes", () => {
     const tempFilePath = await writeTempFile("x".repeat(10000))
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await inferFileBytes("https://example.com/large.txt")
+    const result = await inferBytes("https://example.com/large.txt")
 
     expect(result).toBe(10000)
   })
@@ -121,7 +121,7 @@ describe("inferFileBytes", () => {
     )
     mockPrefetchFiles.mockResolvedValue([tempFilePath])
 
-    const result = await inferFileBytes("https://example.com/file.bin")
+    const result = await inferBytes("https://example.com/file.bin")
 
     expect(mockPrefetchFiles).toHaveBeenCalledWith(
       "https://example.com/file.bin",
@@ -130,13 +130,13 @@ describe("inferFileBytes", () => {
   })
 })
 
-describe("inferFileEncoding", () => {
+describe("inferEncoding", () => {
   it("should detect utf-8 encoding", async () => {
     const tempFilePath = await writeTempFile(
       "Hello, World! This is UTF-8 text.",
     )
 
-    const result = await inferFileEncoding(tempFilePath)
+    const result = await inferEncoding(tempFilePath)
 
     expect(result).toBeDefined()
     expect(["utf-8", "utf8", "ascii"]).toContain(result)
@@ -147,7 +147,7 @@ describe("inferFileEncoding", () => {
       Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00]),
     )
 
-    const result = await inferFileEncoding(tempFilePath)
+    const result = await inferEncoding(tempFilePath)
 
     expect(result).toBeUndefined()
   })
@@ -157,7 +157,7 @@ describe("inferFileEncoding", () => {
       "This is a test file with UTF-8 content.",
     )
 
-    const result = await inferFileEncoding(tempFilePath, { sampleBytes: 20 })
+    const result = await inferEncoding(tempFilePath, { sampleBytes: 20 })
 
     expect(result).toBeDefined()
   })
@@ -165,7 +165,7 @@ describe("inferFileEncoding", () => {
   it("should use custom confidence threshold", async () => {
     const tempFilePath = await writeTempFile("Sample text content")
 
-    const result = await inferFileEncoding(tempFilePath, {
+    const result = await inferEncoding(tempFilePath, {
       confidencePercent: 50,
     })
 
@@ -175,7 +175,7 @@ describe("inferFileEncoding", () => {
   it("should handle large text files", async () => {
     const tempFilePath = await writeTempFile("Hello World! ".repeat(1000))
 
-    const result = await inferFileEncoding(tempFilePath)
+    const result = await inferEncoding(tempFilePath)
 
     expect(result).toBeDefined()
     expect(["utf-8", "utf8", "ascii"]).toContain(result)
@@ -186,7 +186,7 @@ describe("inferFileEncoding", () => {
       "Test content for encoding detection",
     )
 
-    const result = await inferFileEncoding(tempFilePath)
+    const result = await inferEncoding(tempFilePath)
 
     if (result) {
       expect(result).toBe(result.toLowerCase())
@@ -196,7 +196,7 @@ describe("inferFileEncoding", () => {
   it("should handle empty files", async () => {
     const tempFilePath = await writeTempFile("")
 
-    const result = await inferFileEncoding(tempFilePath)
+    const result = await inferEncoding(tempFilePath)
 
     expect([undefined, "utf-8", "utf8", "ascii"]).toContain(result)
   })
@@ -204,7 +204,7 @@ describe("inferFileEncoding", () => {
   it("should handle files with special characters", async () => {
     const tempFilePath = await writeTempFile("Special: é, ñ, ü, ö, à")
 
-    const result = await inferFileEncoding(tempFilePath)
+    const result = await inferEncoding(tempFilePath)
 
     expect(result).toBeDefined()
   })
@@ -212,7 +212,7 @@ describe("inferFileEncoding", () => {
   it("should detect encoding with low confidence threshold", async () => {
     const tempFilePath = await writeTempFile("Simple text")
 
-    const result = await inferFileEncoding(tempFilePath, {
+    const result = await inferEncoding(tempFilePath, {
       confidencePercent: 30,
     })
 

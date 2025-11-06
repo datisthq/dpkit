@@ -2,7 +2,7 @@ import type { FileError } from "@dpkit/metadata"
 import { createReport } from "@dpkit/metadata"
 import type { Resource } from "@dpkit/metadata"
 import { prefetchFiles } from "./fetch.ts"
-import { inferFileBytes, inferFileEncoding, inferFileHash } from "./infer.ts"
+import { inferBytes, inferEncoding, inferHash } from "./infer.ts"
 
 export async function validateFile(resource: Partial<Resource>) {
   const errors: FileError[] = []
@@ -10,7 +10,7 @@ export async function validateFile(resource: Partial<Resource>) {
 
   if (resource.bytes) {
     const bytes = resource.bytes
-    const actualBytes = await inferFileBytes(localPaths)
+    const actualBytes = await inferBytes(localPaths)
 
     if (bytes !== actualBytes) {
       errors.push({
@@ -25,7 +25,7 @@ export async function validateFile(resource: Partial<Resource>) {
     const [hashValue, hashType = "md5"] = resource.hash.split(":").toReversed()
 
     const hash = `${hashType}:${hashValue}`
-    const actualHash = await inferFileHash(localPaths, {
+    const actualHash = await inferHash(localPaths, {
       hashType: hashType as any,
     })
 
@@ -40,7 +40,7 @@ export async function validateFile(resource: Partial<Resource>) {
 
   if (resource.encoding) {
     const encoding = resource.encoding
-    const actualEncoding = await inferFileEncoding(localPaths)
+    const actualEncoding = await inferEncoding(localPaths)
 
     if (actualEncoding) {
       if (encoding !== actualEncoding) {
