@@ -1,22 +1,21 @@
+import repl from "node:repl"
 import { writeTempFile } from "@dpkit/dataset"
 import { Command } from "commander"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { useRecording } from "vitest-polly"
 import * as sessionModule from "../../session.ts"
-import { exploreTableCommand } from "./explore.tsx"
+import { scriptTableCommand } from "./script.tsx"
 
 useRecording()
 
-vi.mock("../../components/TableGrid.tsx", () => ({
-  TableGrid: vi.fn(() => null),
-}))
-
-describe("table explore", () => {
-  let mockRender: ReturnType<typeof vi.fn>
-
+describe("table script", () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockRender = vi.fn().mockResolvedValue(undefined)
+
+    vi.spyOn(repl, "start").mockReturnValue({
+      context: {},
+    } as any)
+
     vi.spyOn(sessionModule.Session, "create").mockImplementation(() => {
       const session = {
         task: vi.fn(async (_message: string, promise: Promise<any>) => {
@@ -27,7 +26,6 @@ describe("table explore", () => {
             return undefined
           }
         }),
-        render: mockRender,
         terminate: vi.fn((msg: string) => {
           throw new Error(msg)
         }),
@@ -36,20 +34,20 @@ describe("table explore", () => {
     })
   })
 
-  it("should call session methods when exploring a csv table", async () => {
+  it("should call session methods when starting a script session", async () => {
     const csvPath = await writeTempFile(
       "id,name,age\n1,alice,25\n2,bob,30\n3,charlie,35",
     )
 
     const command = new Command()
-      .addCommand(exploreTableCommand)
+      .addCommand(scriptTableCommand)
       .configureOutput({
         writeOut: () => {},
         writeErr: () => {},
       })
 
     try {
-      await command.parseAsync(["node", "test", "explore", csvPath, "--quit"])
+      await command.parseAsync(["node", "test", "script", csvPath])
     } catch (error) {}
 
     const mockSession = vi.mocked(sessionModule.Session.create).mock.results[0]
@@ -62,7 +60,7 @@ describe("table explore", () => {
     const csvPath = await writeTempFile("id|name|value\n1|test|100\n2|demo|200")
 
     const command = new Command()
-      .addCommand(exploreTableCommand)
+      .addCommand(scriptTableCommand)
       .configureOutput({
         writeOut: () => {},
         writeErr: () => {},
@@ -72,11 +70,10 @@ describe("table explore", () => {
       await command.parseAsync([
         "node",
         "test",
-        "explore",
+        "script",
         csvPath,
         "--delimiter",
         "|",
-        "--quit",
       ])
     } catch (error) {}
 
@@ -92,7 +89,7 @@ describe("table explore", () => {
     )
 
     const command = new Command()
-      .addCommand(exploreTableCommand)
+      .addCommand(scriptTableCommand)
       .configureOutput({
         writeOut: () => {},
         writeErr: () => {},
@@ -102,11 +99,10 @@ describe("table explore", () => {
       await command.parseAsync([
         "node",
         "test",
-        "explore",
+        "script",
         csvPath,
         "--query",
         "SELECT * FROM self WHERE age > 25",
-        "--quit",
       ])
     } catch (error) {}
 

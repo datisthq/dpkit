@@ -1,22 +1,21 @@
+import repl from "node:repl"
 import { writeTempFile } from "@dpkit/dataset"
 import { Command } from "commander"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { useRecording } from "vitest-polly"
 import * as sessionModule from "../../session.ts"
-import { exploreTableCommand } from "./explore.tsx"
+import { scriptDialectCommand } from "./script.tsx"
 
 useRecording()
 
-vi.mock("../../components/TableGrid.tsx", () => ({
-  TableGrid: vi.fn(() => null),
-}))
-
-describe("table explore", () => {
-  let mockRender: ReturnType<typeof vi.fn>
-
+describe("dialect script", () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    mockRender = vi.fn().mockResolvedValue(undefined)
+
+    vi.spyOn(repl, "start").mockReturnValue({
+      context: {},
+    } as any)
+
     vi.spyOn(sessionModule.Session, "create").mockImplementation(() => {
       const session = {
         task: vi.fn(async (_message: string, promise: Promise<any>) => {
@@ -27,7 +26,6 @@ describe("table explore", () => {
             return undefined
           }
         }),
-        render: mockRender,
         terminate: vi.fn((msg: string) => {
           throw new Error(msg)
         }),
@@ -36,20 +34,22 @@ describe("table explore", () => {
     })
   })
 
-  it("should call session methods when exploring a csv table", async () => {
-    const csvPath = await writeTempFile(
-      "id,name,age\n1,alice,25\n2,bob,30\n3,charlie,35",
-    )
+  it("should call session methods when starting a script session", async () => {
+    const dialectContent = JSON.stringify({
+      delimiter: ",",
+      header: true,
+    })
+    const dialectPath = await writeTempFile(dialectContent)
 
     const command = new Command()
-      .addCommand(exploreTableCommand)
+      .addCommand(scriptDialectCommand)
       .configureOutput({
         writeOut: () => {},
         writeErr: () => {},
       })
 
     try {
-      await command.parseAsync(["node", "test", "explore", csvPath, "--quit"])
+      await command.parseAsync(["node", "test", "script", dialectPath])
     } catch (error) {}
 
     const mockSession = vi.mocked(sessionModule.Session.create).mock.results[0]
@@ -58,11 +58,40 @@ describe("table explore", () => {
     expect(mockSession.task).toHaveBeenCalled()
   })
 
-  it("should handle custom delimiter option", async () => {
-    const csvPath = await writeTempFile("id|name|value\n1|test|100\n2|demo|200")
+  it("should handle dialect with custom delimiter", async () => {
+    const dialectContent = JSON.stringify({
+      delimiter: "|",
+      header: true,
+      quoteChar: '"',
+    })
+    const dialectPath = await writeTempFile(dialectContent)
 
     const command = new Command()
-      .addCommand(exploreTableCommand)
+      .addCommand(scriptDialectCommand)
+      .configureOutput({
+        writeOut: () => {},
+        writeErr: () => {},
+      })
+
+    try {
+      await command.parseAsync(["node", "test", "script", dialectPath])
+    } catch (error) {}
+
+    const mockSession = vi.mocked(sessionModule.Session.create).mock.results[0]
+      ?.value
+    expect(mockSession).toBeDefined()
+    expect(mockSession.task).toHaveBeenCalled()
+  })
+
+  it("should handle json output option", async () => {
+    const dialectContent = JSON.stringify({
+      delimiter: ",",
+      header: true,
+    })
+    const dialectPath = await writeTempFile(dialectContent)
+
+    const command = new Command()
+      .addCommand(scriptDialectCommand)
       .configureOutput({
         writeOut: () => {},
         writeErr: () => {},
@@ -72,41 +101,9 @@ describe("table explore", () => {
       await command.parseAsync([
         "node",
         "test",
-        "explore",
-        csvPath,
-        "--delimiter",
-        "|",
-        "--quit",
-      ])
-    } catch (error) {}
-
-    const mockSession = vi.mocked(sessionModule.Session.create).mock.results[0]
-      ?.value
-    expect(mockSession).toBeDefined()
-    expect(mockSession.task).toHaveBeenCalled()
-  })
-
-  it("should handle query option", async () => {
-    const csvPath = await writeTempFile(
-      "id,name,age\n1,alice,25\n2,bob,30\n3,charlie,35",
-    )
-
-    const command = new Command()
-      .addCommand(exploreTableCommand)
-      .configureOutput({
-        writeOut: () => {},
-        writeErr: () => {},
-      })
-
-    try {
-      await command.parseAsync([
-        "node",
-        "test",
-        "explore",
-        csvPath,
-        "--query",
-        "SELECT * FROM self WHERE age > 25",
-        "--quit",
+        "script",
+        dialectPath,
+        "--json",
       ])
     } catch (error) {}
 
