@@ -1,6 +1,6 @@
 import type { SavePackageOptions } from "@dpkit/dataset"
 import type { Package, Resource } from "@dpkit/metadata"
-import { inferResourceFormat } from "@dpkit/metadata"
+import { inferFormat } from "@dpkit/metadata"
 import type { TablePlugin } from "@dpkit/table"
 import type { SaveTableOptions, Table } from "@dpkit/table"
 import { loadPackageFromDatabase } from "./package/index.ts"
@@ -60,7 +60,7 @@ export class DatabasePlugin implements TablePlugin {
 }
 
 function getDatabaseFormat(resource: Partial<Resource>) {
-  const format = inferResourceFormat(resource)
+  const format = inferFormat(resource)
   return format === "postgresql" || format === "mysql" || format === "sqlite"
     ? format
     : undefined

@@ -19,7 +19,10 @@ describe("package publish zenodo", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
 
     const savePackageToZenodoSpy = vi
       .spyOn(lib, "savePackageToZenodo")

@@ -19,7 +19,10 @@ describe("package publish github", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
 
     const savePackageToGithubSpy = vi
       .spyOn(lib, "savePackageToGithub")

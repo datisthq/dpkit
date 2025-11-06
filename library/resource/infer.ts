@@ -5,7 +5,7 @@ import {
   inferFileHash,
 } from "@dpkit/dataset"
 import type { Resource } from "@dpkit/metadata"
-import { inferResourceFormat, inferResourceName } from "@dpkit/metadata"
+import { inferFormat, inferName } from "@dpkit/metadata"
 import type { InferDialectOptions } from "@dpkit/table"
 import type { InferSchemaOptions } from "@dpkit/table"
 import { inferDialect } from "../dialect/index.ts"
@@ -19,11 +19,11 @@ export async function inferResource(
 ) {
   const result = {
     ...resource,
-    name: resource.name ?? inferResourceName(resource),
+    name: resource.name ?? inferName(resource),
   }
 
   if (!result.format) {
-    result.format = inferResourceFormat(resource)
+    result.format = inferFormat(resource)
   }
 
   if (typeof resource.path === "string") {

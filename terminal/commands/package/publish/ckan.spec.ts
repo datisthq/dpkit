@@ -19,7 +19,10 @@ describe("package publish ckan", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
 
     const savePackageToCkanSpy = vi
       .spyOn(lib, "savePackageToCkan")

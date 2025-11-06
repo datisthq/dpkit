@@ -1,4 +1,4 @@
-import { inferResourceFormat } from "@dpkit/metadata"
+import { inferFormat } from "@dpkit/metadata"
 import type { Package } from "@dpkit/metadata"
 import { isRemotePath } from "@dpkit/metadata"
 import { loadPackageDescriptor } from "@dpkit/metadata"
@@ -33,6 +33,6 @@ export class DescriptorPlugin implements DatasetPlugin {
 
 async function getIsLocalJson(path: string) {
   const isRemote = isRemotePath(path)
-  const format = inferResourceFormat({ path })
+  const format = inferFormat({ path })
   return !isRemote && format === "json"
 }

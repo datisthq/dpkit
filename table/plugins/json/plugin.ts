@@ -1,5 +1,5 @@
 import type { Resource } from "@dpkit/metadata"
-import { inferResourceFormat } from "@dpkit/metadata"
+import { inferFormat } from "@dpkit/metadata"
 import type {
   LoadTableOptions,
   SaveTableOptions,
@@ -28,7 +28,7 @@ export class JsonPlugin implements TablePlugin {
 }
 
 function getJsonFormat(resource: Partial<Resource>) {
-  const format = inferResourceFormat(resource)
+  const format = inferFormat(resource)
   return format === "json" || format === "jsonl" || format === "ndjson"
     ? format
     : undefined

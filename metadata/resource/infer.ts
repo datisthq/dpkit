@@ -1,7 +1,7 @@
 import { getFilename, getFormat, getName, getProtocol } from "../path/index.ts"
 import type { Resource } from "./Resource.ts"
 
-export function inferResourceName(resource: Partial<Resource>) {
+export function inferName(resource: Partial<Resource>) {
   let name = resource.name
 
   if (!name) {
@@ -15,7 +15,7 @@ export function inferResourceName(resource: Partial<Resource>) {
   return name ?? "resource"
 }
 
-export function inferResourceFormat(resource: Partial<Resource>) {
+export function inferFormat(resource: Partial<Resource>) {
   let format = resource.format
 
   if (!format) {

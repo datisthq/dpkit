@@ -1,10 +1,7 @@
 import type { Resource } from "@dpkit/metadata"
-import { inferResourceFormat } from "@dpkit/metadata"
-import type {
-  LoadTableOptions,
-  SaveTableOptions,
-  TablePlugin,
-} from "../../plugin.ts"
+import { inferFormat } from "@dpkit/metadata"
+import type { LoadTableOptions, SaveTableOptions } from "../../plugin.ts"
+import type { TablePlugin } from "../../plugin.ts"
 import type { Table } from "../../table/index.ts"
 import { loadCsvTable, saveCsvTable } from "./table/index.ts"
 
@@ -27,6 +24,6 @@ export class CsvPlugin implements TablePlugin {
 }
 
 function getCsvFormat(resource: Partial<Resource>) {
-  const format = inferResourceFormat(resource)
+  const format = inferFormat(resource)
   return format === "csv" || format === "tsv" ? format : undefined
 }
