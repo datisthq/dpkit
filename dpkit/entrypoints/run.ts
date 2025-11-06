@@ -1,3 +1,11 @@
 #!/usr/bin/env node
 
-await import("@dpkit/terminal/build/entrypoints/run.js")
+process.removeAllListeners("warning")
+process.on("warning", warning => {
+  if (warning.name === "ExperimentalWarning") {
+    return
+  }
+  console.warn(warning)
+})
+
+await import("../main.ts")
