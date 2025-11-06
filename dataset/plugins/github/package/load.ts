@@ -1,4 +1,4 @@
-import { mergePackages } from "@dpkit/metadata"
+import { mergePackages } from "../../../package/index.ts"
 import { makeGithubApiRequest } from "../github/index.ts"
 import type { GithubResource } from "../resource/index.ts"
 import type { GithubPackage } from "./Package.ts"

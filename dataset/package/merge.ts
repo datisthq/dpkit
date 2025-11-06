@@ -1,7 +1,5 @@
-import type { Package } from "./Package.ts"
-import { loadPackageDescriptor } from "./load.ts"
-
-// TODO: Move to @dpkit/dataset?
+import type { Package } from "@dpkit/metadata"
+import { loadPackageDescriptor } from "@dpkit/metadata"
 
 /**
  * Merges a system data package into a user data package if provided
