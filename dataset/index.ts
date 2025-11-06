@@ -7,6 +7,7 @@ export * from "./plugin.ts"
 
 export * from "./plugins/ckan/index.ts"
 export * from "./plugins/datahub/index.ts"
+export * from "./plugins/descriptor/index.ts"
 export * from "./plugins/folder/index.ts"
 export * from "./plugins/github/index.ts"
 export * from "./plugins/zenodo/index.ts"

@@ -6,15 +6,23 @@ import { temporaryFile } from "tempy"
 
 export async function writeTempFile(
   content: string | Buffer,
-  options?: { persist?: boolean },
+  options?: { persist?: boolean; filename?: string; format?: string },
 ) {
   const path = getTempFilePath(options)
   await writeFile(path, content)
   return path
 }
 
-export function getTempFilePath(options?: { persist?: boolean }) {
-  const path = temporaryFile()
+export function getTempFilePath(options?: {
+  persist?: boolean
+  filename?: string
+  format?: string
+}) {
+  const { filename, format } = options ?? {}
+
+  const path = temporaryFile(
+    filename ? { name: filename } : { extension: format },
+  )
 
   if (!options?.persist) {
     exitHook(() => {

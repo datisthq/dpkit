@@ -1,6 +1,5 @@
 import type { SavePackageOptions } from "@dpkit/dataset"
 import type { Package } from "@dpkit/metadata"
-import { savePackageDescriptor } from "@dpkit/metadata"
 import { system } from "../system.ts"
 
 export async function savePackage(
@@ -14,10 +13,6 @@ export async function savePackage(
     })
 
     if (result) return result
-  }
-
-  if (options.target.endsWith("datapackage.json")) {
-    return await savePackageDescriptor(dataPackage, { path: options.target })
   }
 
   throw new Error(`No plugin can save the package: ${options.target}`)

@@ -11,6 +11,8 @@ export class FolderPlugin implements DatasetPlugin {
     const dataPackage = await loadPackageFromFolder(source)
     return dataPackage
   }
+
+  // TOOD: implement savePackage?
 }
 
 async function getIsFolder(path: string) {

@@ -14,7 +14,10 @@ describe("loadPackage", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
 
     const dataPackage = await loadPackage(packagePath)
 
@@ -40,7 +43,10 @@ describe("loadPackage", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
 
     const dataPackage = await loadPackage(packagePath)
 
@@ -62,7 +68,10 @@ describe("loadPackage", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
 
     const dataPackage = await loadPackage(packagePath)
 
@@ -85,7 +94,10 @@ describe("loadPackage", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
 
     const dataPackage = await loadPackage(packagePath)
 
@@ -109,7 +121,10 @@ describe("loadPackage", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
 
     const dataPackage = await loadPackage(packagePath)
 

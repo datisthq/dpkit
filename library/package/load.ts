@@ -1,4 +1,3 @@
-import { loadPackageDescriptor } from "@dpkit/metadata"
 import { system } from "../system.ts"
 
 export async function loadPackage(source: string) {
@@ -7,7 +6,5 @@ export async function loadPackage(source: string) {
     if (result) return result
   }
 
-  // TODO: move to dataset/plugins/descriptor?
-  const dataPackage = await loadPackageDescriptor(source)
-  return dataPackage
+  throw new Error(`No plugin can load the package: ${source}`)
 }

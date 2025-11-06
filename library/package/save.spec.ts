@@ -17,7 +17,11 @@ describe("savePackage", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
+
     const dataPackage = await loadPackage(packagePath)
     const tempDir = getTempFolderPath()
     const targetPath = join(tempDir, "datapackage.json")
@@ -47,7 +51,11 @@ describe("savePackage", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
+
     const dataPackage = await loadPackage(packagePath)
     const tempDir = getTempFolderPath()
     const targetPath = join(tempDir, "datapackage.json")
@@ -74,7 +82,11 @@ describe("savePackage", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
+
     const originalPackage = await loadPackage(packagePath)
     const tempDir = getTempFolderPath()
     const targetPath = join(tempDir, "datapackage.json")
@@ -100,7 +112,11 @@ describe("savePackage", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
+
     const dataPackage = await loadPackage(packagePath)
     const tempDir = getTempFolderPath()
     const targetPath = join(tempDir, "datapackage.json")
@@ -132,7 +148,11 @@ describe("savePackage", () => {
         },
       ],
     })
-    const packagePath = await writeTempFile(packageContent)
+
+    const packagePath = await writeTempFile(packageContent, {
+      filename: "datapackage.json",
+    })
+
     const dataPackage = await loadPackage(packagePath)
     const tempDir = getTempFolderPath()
     const targetPath = join(tempDir, "datapackage.json")

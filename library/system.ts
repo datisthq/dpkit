@@ -1,6 +1,7 @@
 import { DatabasePlugin } from "@dpkit/database"
 import { CkanPlugin } from "@dpkit/dataset"
 import { DatahubPlugin } from "@dpkit/dataset"
+import { DescriptorPlugin } from "@dpkit/dataset"
 import { FolderPlugin } from "@dpkit/dataset"
 import { GithubPlugin } from "@dpkit/dataset"
 import { ZenodoPlugin } from "@dpkit/dataset"
@@ -28,6 +29,7 @@ export const system = new System()
 
 system.register(CkanPlugin)
 system.register(DatahubPlugin)
+system.register(DescriptorPlugin)
 system.register(GithubPlugin)
 system.register(ZenodoPlugin)
 system.register(FolderPlugin)
