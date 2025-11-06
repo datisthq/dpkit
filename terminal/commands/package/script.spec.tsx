@@ -2,11 +2,8 @@ import repl from "node:repl"
 import { writeTempFile } from "@dpkit/dataset"
 import { Command } from "commander"
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { useRecording } from "vitest-polly"
 import * as sessionModule from "../../session.ts"
 import { scriptPackageCommand } from "./script.tsx"
-
-useRecording()
 
 describe("package script", () => {
   beforeEach(() => {

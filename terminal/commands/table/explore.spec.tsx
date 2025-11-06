@@ -1,11 +1,8 @@
 import { writeTempFile } from "@dpkit/dataset"
 import { Command } from "commander"
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { useRecording } from "vitest-polly"
 import * as sessionModule from "../../session.ts"
 import { exploreTableCommand } from "./explore.tsx"
-
-useRecording()
 
 vi.mock("../../components/TableGrid.tsx", () => ({
   TableGrid: vi.fn(() => null),
