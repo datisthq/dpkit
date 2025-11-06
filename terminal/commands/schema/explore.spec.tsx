@@ -138,6 +138,8 @@ describe("schema explore", () => {
     const mockSession = vi.mocked(sessionModule.Session.create).mock.results[0]
       ?.value
     expect(mockSession).toBeDefined()
-    expect(mockSession.terminate).toHaveBeenCalledWith("Schema is not available")
+    expect(mockSession.terminate).toHaveBeenCalledWith(
+      "Schema is not available",
+    )
   })
 })

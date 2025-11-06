@@ -1,18 +1,19 @@
-import repl from "node:repl"
 import { writeTempFile } from "@dpkit/dataset"
 import { Command } from "commander"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as sessionModule from "../../session.ts"
-import { scriptPackageCommand } from "./script.tsx"
+import { explorePackageCommand } from "./explore.tsx"
 
-describe("package script", () => {
+vi.mock("../../components/PackageGrid.tsx", () => ({
+  PackageGrid: vi.fn(() => null),
+}))
+
+describe("package explore", () => {
+  let mockRender: ReturnType<typeof vi.fn>
+
   beforeEach(() => {
     vi.clearAllMocks()
-
-    vi.spyOn(repl, "start").mockReturnValue({
-      context: {},
-    } as any)
-
+    mockRender = vi.fn().mockResolvedValue(undefined)
     vi.spyOn(sessionModule.Session, "create").mockImplementation(() => {
       const session = {
         task: vi.fn(async (_message: string, promise: Promise<any>) => {
@@ -23,6 +24,7 @@ describe("package script", () => {
             return undefined
           }
         }),
+        render: mockRender,
         terminate: vi.fn((msg: string) => {
           throw new Error(msg)
         }),
@@ -31,72 +33,69 @@ describe("package script", () => {
     })
   })
 
-  it("should call session methods when starting a script session", async () => {
+  it("should call session methods when exploring a package", async () => {
     const packageDescriptor = JSON.stringify({
       name: "test-package",
       resources: [
         {
-          name: "data",
+          name: "test-resource",
           path: "data.csv",
-          schema: {
-            fields: [
-              { name: "id", type: "integer" },
-              { name: "name", type: "string" },
-            ],
-          },
         },
       ],
     })
     const descriptorPath = await writeTempFile(packageDescriptor)
 
     const command = new Command()
-      .addCommand(scriptPackageCommand)
+      .addCommand(explorePackageCommand)
       .configureOutput({
         writeOut: () => {},
         writeErr: () => {},
       })
 
     try {
-      await command.parseAsync(["node", "test", "script", descriptorPath])
+      await command.parseAsync(["node", "test", "explore", descriptorPath])
     } catch (error) {}
 
     const mockSession = vi.mocked(sessionModule.Session.create).mock.results[0]
       ?.value
     expect(mockSession).toBeDefined()
     expect(mockSession.task).toHaveBeenCalled()
+    expect(mockRender).toHaveBeenCalled()
   })
 
   it("should handle package with multiple resources", async () => {
     const packageDescriptor = JSON.stringify({
-      name: "multi-resource-package",
+      name: "test-package",
       resources: [
         {
-          name: "users",
-          path: "users.csv",
+          name: "resource1",
+          path: "data1.csv",
         },
         {
-          name: "products",
-          path: "products.csv",
+          name: "resource2",
+          path: "data2.json",
+          format: "json",
         },
       ],
     })
     const descriptorPath = await writeTempFile(packageDescriptor)
 
     const command = new Command()
-      .addCommand(scriptPackageCommand)
+      .addCommand(explorePackageCommand)
       .configureOutput({
         writeOut: () => {},
         writeErr: () => {},
       })
 
     try {
-      await command.parseAsync(["node", "test", "script", descriptorPath])
+      await command.parseAsync(["node", "test", "explore", descriptorPath])
     } catch (error) {}
 
     const mockSession = vi.mocked(sessionModule.Session.create).mock.results[0]
       ?.value
     expect(mockSession).toBeDefined()
     expect(mockSession.task).toHaveBeenCalled()
+    expect(mockRender).toHaveBeenCalled()
   })
 
   it("should handle json output option", async () => {
@@ -107,7 +106,7 @@ describe("package script", () => {
     const descriptorPath = await writeTempFile(packageDescriptor)
 
     const command = new Command()
-      .addCommand(scriptPackageCommand)
+      .addCommand(explorePackageCommand)
       .configureOutput({
         writeOut: () => {},
         writeErr: () => {},
@@ -117,7 +116,7 @@ describe("package script", () => {
       await command.parseAsync([
         "node",
         "test",
-        "script",
+        "explore",
         descriptorPath,
         "--json",
       ])
@@ -127,5 +126,39 @@ describe("package script", () => {
       ?.value
     expect(mockSession).toBeDefined()
     expect(mockSession.task).toHaveBeenCalled()
+    expect(mockRender).toHaveBeenCalled()
+  })
+
+  it("should handle package with metadata", async () => {
+    const packageDescriptor = JSON.stringify({
+      name: "test-package",
+      title: "Test Package",
+      description: "A test package",
+      version: "1.0.0",
+      resources: [
+        {
+          name: "test-resource",
+          path: "data.csv",
+        },
+      ],
+    })
+    const descriptorPath = await writeTempFile(packageDescriptor)
+
+    const command = new Command()
+      .addCommand(explorePackageCommand)
+      .configureOutput({
+        writeOut: () => {},
+        writeErr: () => {},
+      })
+
+    try {
+      await command.parseAsync(["node", "test", "explore", descriptorPath])
+    } catch (error) {}
+
+    const mockSession = vi.mocked(sessionModule.Session.create).mock.results[0]
+      ?.value
+    expect(mockSession).toBeDefined()
+    expect(mockSession.task).toHaveBeenCalled()
+    expect(mockRender).toHaveBeenCalled()
   })
 })

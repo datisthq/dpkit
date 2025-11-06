@@ -101,7 +101,13 @@ describe("resource script", () => {
       })
 
     try {
-      await command.parseAsync(["node", "test", "script", descriptorPath, "--json"])
+      await command.parseAsync([
+        "node",
+        "test",
+        "script",
+        descriptorPath,
+        "--json",
+      ])
     } catch (error) {}
 
     const mockSession = vi.mocked(sessionModule.Session.create).mock.results[0]
