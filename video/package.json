@@ -25,6 +25,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@dpkit/metadata": "workspace:*"
+    "@dpkit/metadata": "workspace:*",
+    "@dpkit/dataset": "workspace:*"
   }
 }
