@@ -371,9 +371,6 @@ importers:
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
-      nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
       p-all:
         specifier: ^5.0.1
         version: 5.0.1
