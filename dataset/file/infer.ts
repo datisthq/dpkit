@@ -1,4 +1,5 @@
 import { stat } from "node:fs/promises"
+import type { Resource } from "@dpkit/metadata"
 import chardet from "chardet"
 import * as hasha from "hasha"
 import { isBinaryFile } from "isbinaryfile"
@@ -10,8 +11,8 @@ import { loadFile } from "./load.ts"
 
 export type HashType = "md5" | "sha1" | "sha256" | "sha512"
 
-export async function inferBytes(path: string | string[]) {
-  const localPaths = await prefetchFiles(path)
+export async function inferBytes(resource: Partial<Resource>) {
+  const localPaths = await prefetchFiles(resource.path)
 
   let bytes = 0
   for (const localPath of localPaths) {
@@ -23,11 +24,11 @@ export async function inferBytes(path: string | string[]) {
 }
 
 export async function inferHash(
-  path: string | string[],
+  resource: Partial<Resource>,
   options?: { hashType?: HashType },
 ) {
   const algorithm = options?.hashType ?? "sha256"
-  const localPaths = await prefetchFiles(path)
+  const localPaths = await prefetchFiles(resource.path)
 
   const streams = await pMap(localPaths, async path => loadFileStream(path))
   const stream = concatFileStreams(streams)
@@ -37,14 +38,19 @@ export async function inferHash(
 }
 
 export async function inferEncoding(
-  path: string | string[],
+  resource: Partial<Resource>,
   options?: { sampleBytes?: number; confidencePercent?: number },
 ) {
   const maxBytes = options?.sampleBytes ?? 10_000
   const confidencePercent = options?.confidencePercent ?? 80
 
-  const firstPath = Array.isArray(path) ? path[0] : path
-  if (!firstPath) return undefined
+  const firstPath = Array.isArray(resource.path)
+    ? resource.path[0]
+    : resource.path
+
+  if (!firstPath) {
+    return undefined
+  }
 
   const buffer = await loadFile(firstPath, { maxBytes })
   const isBinary = await isBinaryFile(buffer)
