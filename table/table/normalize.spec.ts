@@ -1,14 +1,16 @@
-import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import type { Schema } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "./normalize.ts"
 
 describe("normalizeTable", () => {
   it("should work with schema", async () => {
-    const table = DataFrame({
-      id: [1, 2],
-      name: ["english", "中文"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        name: ["english", "中文"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -22,16 +24,18 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work with less fields in data", async () => {
-    const table = DataFrame({
-      id: [1, 2],
-      name: ["english", "中文"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        name: ["english", "中文"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -46,17 +50,19 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文", other: null },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work with more fields in data", async () => {
-    const table = DataFrame({
-      id: [1, 2],
-      name: ["english", "中文"],
-      other: [true, false],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        name: ["english", "中文"],
+        other: [true, false],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -70,16 +76,18 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work based on fields order", async () => {
-    const table = DataFrame({
-      field1: [1, 2],
-      field2: ["english", "中文"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        field1: [1, 2],
+        field2: ["english", "中文"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -93,16 +101,18 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work based on field names (equal)", async () => {
-    const table = DataFrame({
-      name: ["english", "中文"],
-      id: [1, 2],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["english", "中文"],
+        id: [1, 2],
+      })
+      .lazy()
 
     const schema: Schema = {
       fieldsMatch: "equal",
@@ -117,16 +127,18 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work based on field names (subset)", async () => {
-    const table = DataFrame({
-      name: ["english", "中文"],
-      id: [1, 2],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["english", "中文"],
+        id: [1, 2],
+      })
+      .lazy()
 
     const schema: Schema = {
       fieldsMatch: "subset",
@@ -141,16 +153,18 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work based on field names (superset)", async () => {
-    const table = DataFrame({
-      name: ["english", "中文"],
-      id: [1, 2],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["english", "中文"],
+        id: [1, 2],
+      })
+      .lazy()
 
     const schema: Schema = {
       fieldsMatch: "superset",
@@ -165,16 +179,18 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should work based on field names (partial)", async () => {
-    const table = DataFrame({
-      name: ["english", "中文"],
-      id: [1, 2],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        name: ["english", "中文"],
+        id: [1, 2],
+      })
+      .lazy()
 
     const schema: Schema = {
       fieldsMatch: "partial",
@@ -189,16 +205,18 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should parse string columns", async () => {
-    const table = DataFrame({
-      id: ["1", "2"],
-      name: ["english", "中文"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: ["1", "2"],
+        name: ["english", "中文"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -212,16 +230,18 @@ describe("normalizeTable", () => {
       { id: 2, name: "中文" },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 
   it("should read type errors as nulls", async () => {
-    const table = DataFrame({
-      id: [1, 2],
-      name: ["english", "中文"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2],
+        name: ["english", "中文"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -235,8 +255,8 @@ describe("normalizeTable", () => {
       { id: 2, name: null },
     ]
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
-    expect(df.toRecords()).toEqual(records)
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
+    expect(frame.toRecords()).toEqual(records)
   })
 })

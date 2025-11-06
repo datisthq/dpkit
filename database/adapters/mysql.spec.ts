@@ -1,6 +1,6 @@
-import { useRecording } from "@dpkit/test"
-import { DataFrame, DataType, Series } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
+import { useRecording } from "vitest-polly"
 import { loadPackageFromDatabase } from "../package/index.ts"
 import { inferDatabaseSchema } from "../schema/index.ts"
 import { loadDatabaseTable, saveDatabaseTable } from "../table/index.ts"
@@ -19,11 +19,13 @@ describe.skipIf(!path)("MysqlAdapter", () => {
   if (!path) return
 
   it("should infer schema", async () => {
-    const source = DataFrame([
-      Series("string", ["string"], DataType.Utf8),
-      Series("integer", [1], DataType.Int32),
-      Series("number", [1.1], DataType.Float64),
-    ]).lazy()
+    const source = pl
+      .DataFrame([
+        pl.Series("string", ["string"], pl.Utf8),
+        pl.Series("integer", [1], pl.Int32),
+        pl.Series("number", [1.1], pl.Float64),
+      ])
+      .lazy()
 
     await saveDatabaseTable(source, {
       path,
@@ -48,7 +50,7 @@ describe.skipIf(!path)("MysqlAdapter", () => {
   })
 
   it("should save/load table", async () => {
-    const source = DataFrame([record1, record2]).lazy()
+    const source = pl.DataFrame([record1, record2]).lazy()
 
     await saveDatabaseTable(source, {
       path,
@@ -67,23 +69,25 @@ describe.skipIf(!path)("MysqlAdapter", () => {
   })
 
   it("should save/load table with various data types", async () => {
-    const source = DataFrame([
-      Series("array", ["[1, 2, 3]"], DataType.String),
-      Series("boolean", [true], DataType.Bool),
-      Series("date", [new Date(Date.UTC(2025, 0, 1))], DataType.Date),
-      Series("datetime", [new Date(Date.UTC(2025, 0, 1))], DataType.Datetime),
-      Series("duration", ["P23DT23H"], DataType.String),
-      Series("geojson", ['{"value": 1}'], DataType.String),
-      Series("geopoint", [[40.0, 50.0]], DataType.List(DataType.Float32)),
-      Series("integer", [1], DataType.Int32),
-      Series("list", [[1.0, 2.0, 3.0]], DataType.List(DataType.Float32)),
-      Series("number", [1.1], DataType.Float64),
-      Series("object", ['{"value": 1}']),
-      Series("string", ["string"], DataType.String),
-      Series("time", [new Date(Date.UTC(2025, 0, 1))], DataType.Time),
-      Series("year", [2025], DataType.Int32),
-      Series("yearmonth", [[2025, 1]], DataType.List(DataType.Int16)),
-    ]).lazy()
+    const source = pl
+      .DataFrame([
+        pl.Series("array", ["[1, 2, 3]"], pl.String),
+        pl.Series("boolean", [true], pl.Bool),
+        pl.Series("date", [new Date(Date.UTC(2025, 0, 1))], pl.Date),
+        pl.Series("datetime", [new Date(Date.UTC(2025, 0, 1))], pl.Datetime),
+        pl.Series("duration", ["P23DT23H"], pl.String),
+        pl.Series("geojson", ['{"value": 1}'], pl.String),
+        pl.Series("geopoint", [[40.0, 50.0]], pl.List(pl.Float32)),
+        pl.Series("integer", [1], pl.Int32),
+        pl.Series("list", [[1.0, 2.0, 3.0]], pl.List(pl.Float32)),
+        pl.Series("number", [1.1], pl.Float64),
+        pl.Series("object", ['{"value": 1}']),
+        pl.Series("string", ["string"], pl.String),
+        pl.Series("time", [new Date(Date.UTC(2025, 0, 1))], pl.Time),
+        pl.Series("year", [2025], pl.Int32),
+        pl.Series("yearmonth", [[2025, 1]], pl.List(pl.Int16)),
+      ])
+      .lazy()
 
     await saveDatabaseTable(source, {
       path,

@@ -1,5 +1,5 @@
-import type { FieldType } from "@dpkit/core"
-import { isLocalPathExist } from "@dpkit/file"
+import { isLocalPathExist } from "@dpkit/dataset"
+import type { FieldType } from "@dpkit/metadata"
 import type { DatabaseType } from "../field/index.ts"
 import { BaseAdapter } from "./base.ts"
 

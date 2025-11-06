@@ -1,8 +1,8 @@
-import type * as errorTypes from "@dpkit/lib"
+import type * as library from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 
-export function CellTypeError(props: { error: errorTypes.CellTypeError }) {
+export function CellTypeError(props: { error: library.CellTypeError }) {
   const { t } = useTranslation()
   const { error } = props
 
@@ -30,7 +30,7 @@ export function CellTypeError(props: { error: errorTypes.CellTypeError }) {
 }
 
 export function CellRequiredError(props: {
-  error: errorTypes.CellRequiredError
+  error: library.CellRequiredError
 }) {
   const { t } = useTranslation()
   const { error } = props
@@ -51,7 +51,7 @@ export function CellRequiredError(props: {
 }
 
 export function CellMinimumError(props: {
-  error: errorTypes.CellMinimumError
+  error: library.CellMinimumError
 }) {
   const { t } = useTranslation()
   const { error } = props
@@ -80,7 +80,7 @@ export function CellMinimumError(props: {
 }
 
 export function CellMaximumError(props: {
-  error: errorTypes.CellMaximumError
+  error: library.CellMaximumError
 }) {
   const { t } = useTranslation()
   const { error } = props
@@ -109,7 +109,7 @@ export function CellMaximumError(props: {
 }
 
 export function CellExclusiveMinimumError(props: {
-  error: errorTypes.CellExclusiveMinimumError
+  error: library.CellExclusiveMinimumError
 }) {
   const { t } = useTranslation()
   const { error } = props
@@ -138,7 +138,7 @@ export function CellExclusiveMinimumError(props: {
 }
 
 export function CellExclusiveMaximumError(props: {
-  error: errorTypes.CellExclusiveMaximumError
+  error: library.CellExclusiveMaximumError
 }) {
   const { t } = useTranslation()
   const { error } = props
@@ -167,7 +167,7 @@ export function CellExclusiveMaximumError(props: {
 }
 
 export function CellMinLengthError(props: {
-  error: errorTypes.CellMinLengthError
+  error: library.CellMinLengthError
 }) {
   const { t } = useTranslation()
   const { error } = props
@@ -196,7 +196,7 @@ export function CellMinLengthError(props: {
 }
 
 export function CellMaxLengthError(props: {
-  error: errorTypes.CellMaxLengthError
+  error: library.CellMaxLengthError
 }) {
   const { t } = useTranslation()
   const { error } = props
@@ -225,7 +225,7 @@ export function CellMaxLengthError(props: {
 }
 
 export function CellPatternError(props: {
-  error: errorTypes.CellPatternError
+  error: library.CellPatternError
 }) {
   const { t } = useTranslation()
   const { error } = props
@@ -253,7 +253,7 @@ export function CellPatternError(props: {
   )
 }
 
-export function CellUniqueError(props: { error: errorTypes.CellUniqueError }) {
+export function CellUniqueError(props: { error: library.CellUniqueError }) {
   const { t } = useTranslation()
   const { error } = props
 
@@ -276,7 +276,7 @@ export function CellUniqueError(props: { error: errorTypes.CellUniqueError }) {
   )
 }
 
-export function CellEnumError(props: { error: errorTypes.CellEnumError }) {
+export function CellEnumError(props: { error: library.CellEnumError }) {
   const { t } = useTranslation()
   const { error } = props
 
@@ -304,7 +304,7 @@ export function CellEnumError(props: { error: errorTypes.CellEnumError }) {
 }
 
 export function CellJsonSchemaError(props: {
-  error: errorTypes.CellJsonSchemaError
+  error: library.CellJsonSchemaError
 }) {
   const { t } = useTranslation()
   const { error } = props

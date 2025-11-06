@@ -1,8 +1,7 @@
-import type { Field } from "@dpkit/core"
+import type { Field } from "@dpkit/metadata"
+import type { CellExclusiveMinimumError } from "@dpkit/metadata"
+import type { CellMinimumError } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
-import type { Expr } from "nodejs-polars"
-import type { CellExclusiveMinimumError } from "../../error/index.ts"
-import type { CellMinimumError } from "../../error/index.ts"
 import { evaluateExpression } from "../../helpers.ts"
 import type { CellMapping } from "../Mapping.ts"
 import { parseDateField } from "../types/date.ts"
@@ -32,14 +31,14 @@ export function createCheckCellMinimum(options?: { isExclusive?: boolean }) {
       : field.constraints?.minimum
     if (minimum === undefined) return undefined
 
-    let isErrorExpr: Expr
+    let isErrorExpr: pl.Expr
     try {
       const parsedMinimum = parseConstraint(field, minimum)
       isErrorExpr = options?.isExclusive
         ? mapping.target.ltEq(parsedMinimum)
         : mapping.target.lt(parsedMinimum)
     } catch (error) {
-      isErrorExpr = pl.lit(true)
+      isErrorExpr = pl.pl.lit(true)
     }
 
     const errorTemplate: CellMinimumError | CellExclusiveMinimumError = {
@@ -57,7 +56,7 @@ export function createCheckCellMinimum(options?: { isExclusive?: boolean }) {
 function parseConstraint(field: Field, value: number | string) {
   if (typeof value !== "string") return value
 
-  let expr = pl.lit(value)
+  let expr = pl.pl.lit(value)
   if (field.type === "integer") {
     expr = parseIntegerField(field, expr)
   } else if (field.type === "number") {

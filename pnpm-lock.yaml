@@ -53,28 +53,18 @@ importers:
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+      vitest-polly:
+        specifier: 1.3.0
+        version: 1.3.0(vitest@3.2.4)
 
-  arrow:
+  audio:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/dataset':
         specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
+        version: link:../dataset
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../file
-      '@dpkit/table':
-        specifier: workspace:*
-        version: link:../table
-      csv-sniffer:
-        specifier: ^0.1.1
-        version: 0.1.1
-      nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
-    devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
+        version: link:../metadata
 
   browser:
     devDependencies:
@@ -84,9 +74,9 @@ importers:
       '@cloudflare/vite-plugin':
         specifier: 1.13.13
         version: 1.13.13(vite@7.1.10(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251008.0)(wrangler@4.43.0)
-      '@dpkit/lib':
+      '@dpkit/library':
         specifier: workspace:*
-        version: link:../lib
+        version: link:../library
       '@dpkit/service':
         specifier: workspace:*
         version: link:../service
@@ -202,126 +192,11 @@ importers:
         specifier: 5.0.8
         version: 5.0.8(@types/react@19.2.2)(immer@10.1.3)(react@19.2.0)
 
-  ckan:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-    devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
-
-  cli:
-    dependencies:
-      '@clack/prompts':
-        specifier: ^0.11.0
-        version: 0.11.0
-      '@commander-js/extra-typings':
-        specifier: ^14.0.0
-        version: 14.0.0(commander@14.0.1)
-      '@dpkit/lib':
-        specifier: workspace:*
-        version: link:../lib
-      commander:
-        specifier: ^14.0.0
-        version: 14.0.1
-      es-toolkit:
-        specifier: ^1.39.10
-        version: 1.39.10
-      exit-hook:
-        specifier: ^4.0.0
-        version: 4.0.0
-      ink:
-        specifier: ^6.3.1
-        version: 6.3.1(@types/react@19.1.9)(react-devtools-core@6.1.5)(react@19.2.0)
-      nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
-      picocolors:
-        specifier: ^1.1.1
-        version: 1.1.1
-      react:
-        specifier: ^19.1.1
-        version: 19.2.0
-      react-devtools-core:
-        specifier: ^6.1.2
-        version: 6.1.5
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
-      ts-extras:
-        specifier: ^0.14.0
-        version: 0.14.0
-    devDependencies:
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
-      '@types/node':
-        specifier: 24.2.0
-        version: 24.2.0
-      '@types/react':
-        specifier: 19.1.9
-        version: 19.1.9
-      ink-testing-library:
-        specifier: 4.0.0
-        version: 4.0.0(@types/react@19.1.9)
-
-  core:
-    dependencies:
-      '@sindresorhus/slugify':
-        specifier: ^0.9.0
-        version: 0.9.1
-      '@types/json-schema':
-        specifier: ^7.0.15
-        version: 7.0.15
-      ajv:
-        specifier: ^8.17.1
-        version: 8.17.1
-      quick-lru:
-        specifier: ^7.0.1
-        version: 7.2.0
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
-    devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
-
-  csv:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-      '@dpkit/table':
-        specifier: workspace:*
-        version: link:../table
-      csv-sniffer:
-        specifier: ^0.1.1
-        version: 0.1.1
-      nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
-    devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
-
   database:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../core
+        version: link:../metadata
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
@@ -341,31 +216,58 @@ importers:
         specifier: ^3.14.4
         version: 3.15.1
       nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
+        specifier: ^0.22.2
+        version: 0.22.2
       pg:
         specifier: ^8.16.3
         version: 8.16.3
     devDependencies:
-      '@dpkit/file':
+      '@dpkit/dataset':
         specifier: workspace:*
-        version: link:../file
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
+        version: link:../dataset
       '@types/pg':
         specifier: ^8.15.5
         version: 8.15.5
 
-  datahub:
+  dataset:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../core
+        version: link:../metadata
+      chardet:
+        specifier: ^2.1.0
+        version: 2.1.0
+      exit-hook:
+        specifier: ^4.0.0
+        version: 4.0.0
+      fflate:
+        specifier: ^0.8.2
+        version: 0.8.2
+      hasha:
+        specifier: ^6.0.0
+        version: 6.0.0
+      isbinaryfile:
+        specifier: ^5.0.4
+        version: 5.0.6
+      multistream:
+        specifier: ^4.1.0
+        version: 4.1.0
+      p-all:
+        specifier: ^5.0.1
+        version: 5.0.1
+      p-map:
+        specifier: ^7.0.3
+        version: 7.0.3
+      tempy:
+        specifier: 3.1.0
+        version: 3.1.0
+      tiny-invariant:
+        specifier: ^1.3.3
+        version: 1.3.3
     devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
+      '@types/multistream':
+        specifier: 4.1.3
+        version: 4.1.3
 
   docs:
     devDependencies:
@@ -379,8 +281,8 @@ importers:
         specifier: workspace:*
         version: link:../dpkit
       nodejs-polars:
-        specifier: 0.22.1
-        version: 0.22.1
+        specifier: 0.22.2
+        version: 0.22.2
       sharp:
         specifier: 0.34.2
         version: 0.34.2
@@ -409,79 +311,14 @@ importers:
         specifier: 4.43.0
         version: 4.43.0
 
-  dpkit:
+  document:
     dependencies:
-      '@dpkit/cli':
+      '@dpkit/dataset':
         specifier: workspace:*
-        version: link:../cli
-      '@dpkit/lib':
+        version: link:../dataset
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../lib
-
-  file:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      chardet:
-        specifier: ^2.1.0
-        version: 2.1.0
-      exit-hook:
-        specifier: ^4.0.0
-        version: 4.0.0
-      hasha:
-        specifier: ^6.0.0
-        version: 6.0.0
-      isbinaryfile:
-        specifier: ^5.0.4
-        version: 5.0.6
-      multistream:
-        specifier: ^4.1.0
-        version: 4.1.0
-      p-map:
-        specifier: ^7.0.3
-        version: 7.0.3
-      tempy:
-        specifier: 3.1.0
-        version: 3.1.0
-      tiny-invariant:
-        specifier: ^1.3.3
-        version: 1.3.3
-    devDependencies:
-      '@types/multistream':
-        specifier: 4.1.3
-        version: 4.1.3
-
-  folder:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-      exit-hook:
-        specifier: ^4.0.0
-        version: 4.0.0
-
-  github:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-    devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
-
-  html:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
+        version: link:../metadata
       htmlfy:
         specifier: ^1.0.0
         version: 1.0.0
@@ -491,119 +328,6 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
-    devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
-      '@types/react':
-        specifier: ^19.2.0
-        version: 19.2.2
-      '@types/react-dom':
-        specifier: ^19.2.0
-        version: 19.2.0(@types/react@19.2.2)
-
-  inline:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/table':
-        specifier: workspace:*
-        version: link:../table
-      nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
-
-  json:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-      '@dpkit/table':
-        specifier: workspace:*
-        version: link:../table
-      csv-sniffer:
-        specifier: ^0.1.1
-        version: 0.1.1
-      nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
-    devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
-
-  lib:
-    dependencies:
-      '@dpkit/arrow':
-        specifier: workspace:*
-        version: link:../arrow
-      '@dpkit/ckan':
-        specifier: workspace:*
-        version: link:../ckan
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/csv':
-        specifier: workspace:*
-        version: link:../csv
-      '@dpkit/database':
-        specifier: workspace:*
-        version: link:../database
-      '@dpkit/datahub':
-        specifier: workspace:*
-        version: link:../datahub
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-      '@dpkit/folder':
-        specifier: workspace:*
-        version: link:../folder
-      '@dpkit/github':
-        specifier: workspace:*
-        version: link:../github
-      '@dpkit/html':
-        specifier: workspace:*
-        version: link:../html
-      '@dpkit/inline':
-        specifier: workspace:*
-        version: link:../inline
-      '@dpkit/json':
-        specifier: workspace:*
-        version: link:../json
-      '@dpkit/markdown':
-        specifier: workspace:*
-        version: link:../markdown
-      '@dpkit/ods':
-        specifier: workspace:*
-        version: link:../ods
-      '@dpkit/parquet':
-        specifier: workspace:*
-        version: link:../parquet
-      '@dpkit/table':
-        specifier: workspace:*
-        version: link:../table
-      '@dpkit/xlsx':
-        specifier: workspace:*
-        version: link:../xlsx
-      '@dpkit/zenodo':
-        specifier: workspace:*
-        version: link:../zenodo
-      '@dpkit/zip':
-        specifier: workspace:*
-        version: link:../zip
-
-  markdown:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@types/mdast':
-        specifier: ^4.0.0
-        version: 4.0.4
       remark:
         specifier: ^15.0.1
         version: 15.0.1
@@ -611,59 +335,87 @@ importers:
         specifier: ^4.0.0
         version: 4.0.1
     devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
+      '@types/mdast':
+        specifier: ^4.0.0
+        version: 4.0.4
+      '@types/react':
+        specifier: ^19.2.0
+        version: 19.2.2
+      '@types/react-dom':
+        specifier: ^19.2.0
+        version: 19.2.0(@types/react@19.2.2)
 
-  ods:
+  dpkit:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/library':
         specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
+        version: link:../library
+      '@dpkit/terminal':
         specifier: workspace:*
-        version: link:../file
+        version: link:../terminal
+
+  image:
+    dependencies:
+      '@dpkit/dataset':
+        specifier: workspace:*
+        version: link:../dataset
+      '@dpkit/metadata':
+        specifier: workspace:*
+        version: link:../metadata
+
+  library:
+    dependencies:
+      '@dpkit/audio':
+        specifier: workspace:*
+        version: link:../audio
+      '@dpkit/database':
+        specifier: workspace:*
+        version: link:../database
+      '@dpkit/dataset':
+        specifier: workspace:*
+        version: link:../dataset
+      '@dpkit/document':
+        specifier: workspace:*
+        version: link:../document
+      '@dpkit/image':
+        specifier: workspace:*
+        version: link:../image
+      '@dpkit/metadata':
+        specifier: workspace:*
+        version: link:../metadata
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
-      nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
-      xlsx:
-        specifier: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
-        version: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
-    devDependencies:
-      '@dpkit/test':
+      '@dpkit/video':
         specifier: workspace:*
-        version: link:../test
+        version: link:../video
+      p-all:
+        specifier: ^5.0.1
+        version: 5.0.1
 
-  parquet:
+  metadata:
     dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-      '@dpkit/table':
-        specifier: workspace:*
-        version: link:../table
-      csv-sniffer:
-        specifier: ^0.1.1
-        version: 0.1.1
-      nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
-    devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
+      '@sindresorhus/slugify':
+        specifier: ^0.9.0
+        version: 0.9.1
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
+      ajv:
+        specifier: ^8.17.1
+        version: 8.17.1
+      quick-lru:
+        specifier: ^7.0.1
+        version: 7.2.0
+      tiny-invariant:
+        specifier: ^1.3.3
+        version: 1.3.3
 
   service:
     dependencies:
-      '@dpkit/lib':
+      '@dpkit/library':
         specifier: workspace:*
-        version: link:../lib
+        version: link:../library
       '@loglayer/transport-tslog':
         specifier: 3.0.4
         version: 3.0.4(tslog@4.10.2)
@@ -730,77 +482,88 @@ importers:
 
   table:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/dataset':
         specifier: workspace:*
-        version: link:../core
+        version: link:../dataset
+      '@dpkit/metadata':
+        specifier: workspace:*
+        version: link:../metadata
+      csv-sniffer:
+        specifier: ^0.1.1
+        version: 0.1.1
       nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
+        specifier: ^0.22.2
+        version: 0.22.2
       p-all:
         specifier: ^5.0.1
         version: 5.0.1
-
-  test:
-    dependencies:
-      '@pollyjs/adapter-fetch':
-        specifier: ^6.0.6
-        version: 6.0.7
-      '@pollyjs/core':
-        specifier: ^6.0.6
-        version: 6.0.6
-      '@pollyjs/persister-fs':
-        specifier: ^6.0.6
-        version: 6.0.6
-
-  xlsx:
-    dependencies:
-      '@dpkit/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
-      '@dpkit/table':
-        specifier: workspace:*
-        version: link:../table
-      nodejs-polars:
-        specifier: ^0.22.1
-        version: 0.22.1
       xlsx:
         specifier: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
         version: https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
-    devDependencies:
-      '@dpkit/test':
-        specifier: workspace:*
-        version: link:../test
 
-  zenodo:
+  terminal:
     dependencies:
-      '@dpkit/core':
+      '@clack/prompts':
+        specifier: ^0.11.0
+        version: 0.11.0
+      '@commander-js/extra-typings':
+        specifier: ^14.0.0
+        version: 14.0.0(commander@14.0.1)
+      '@dpkit/library':
         specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
-        specifier: workspace:*
-        version: link:../file
+        version: link:../library
+      commander:
+        specifier: ^14.0.0
+        version: 14.0.1
+      es-toolkit:
+        specifier: ^1.39.10
+        version: 1.39.10
+      exit-hook:
+        specifier: ^4.0.0
+        version: 4.0.0
+      ink:
+        specifier: ^6.3.1
+        version: 6.3.1(@types/react@19.1.9)(react-devtools-core@6.1.5)(react@19.2.0)
+      nodejs-polars:
+        specifier: ^0.22.2
+        version: 0.22.2
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
+      react:
+        specifier: ^19.1.1
+        version: 19.2.0
+      react-devtools-core:
+        specifier: ^6.1.2
+        version: 6.1.5
+      tiny-invariant:
+        specifier: ^1.3.3
+        version: 1.3.3
+      ts-extras:
+        specifier: ^0.14.0
+        version: 0.14.0
     devDependencies:
-      '@dpkit/test':
+      '@dpkit/dataset':
         specifier: workspace:*
-        version: link:../test
+        version: link:../dataset
+      '@types/node':
+        specifier: 24.2.0
+        version: 24.2.0
+      '@types/react':
+        specifier: 19.1.9
+        version: 19.1.9
+      ink-testing-library:
+        specifier: 4.0.0
+        version: 4.0.0(@types/react@19.1.9)
 
-  zip:
+  video:
     dependencies:
-      '@dpkit/core':
+      '@dpkit/dataset':
         specifier: workspace:*
-        version: link:../core
-      '@dpkit/file':
+        version: link:../dataset
+      '@dpkit/metadata':
         specifier: workspace:*
-        version: link:../file
-      '@dpkit/folder':
-        specifier: workspace:*
-        version: link:../folder
-      fflate:
-        specifier: ^0.8.2
-        version: 0.8.2
+        version: link:../metadata
 
 packages:
 
@@ -4535,56 +4298,56 @@ packages:
   node-releases@2.0.23:
     resolution: {integrity: sha512-cCmFDMSm26S6tQSDpBCg/NR8NENrVPhAJSf+XbxBG4rPFaaonlEoE9wHQmun+cls499TQGSb7ZyPBRlzgKfpeg==}
 
-  nodejs-polars-android-arm64@0.22.1:
-    resolution: {integrity: sha512-X/vAj0GIp6c6k/Y5NZvrt/ZfNLJZFLOjP1N1uMiMUNMaeNPjevfv7Yt6Exsc/1DBfNB455e+9wgw7kE8jbkDRw==}
+  nodejs-polars-android-arm64@0.22.2:
+    resolution: {integrity: sha512-9IbhQTYBV2z8RWziBgAundzuf11jJis3/FNaTo+MYrUARDgJECMu8f0fHpqu2caxVgW6u5len/47vPuyJ18s+Q==}
     engines: {node: '>= 16'}
     cpu: [arm64]
     os: [android]
 
-  nodejs-polars-darwin-arm64@0.22.1:
-    resolution: {integrity: sha512-6sHu3WrYo91aU1d7Ze+pIu9+QDctkrJyIhhZiSL0ApSwwfzTRqqXePi+3URwRvNNZIem9aOAkkoGpCmG0XKe/A==}
+  nodejs-polars-darwin-arm64@0.22.2:
+    resolution: {integrity: sha512-SOGZwoeT/j6bKUmW7EH93VPG9bWir0WYeLMAb/8+hK7+MjDpaUj/u9Xrp8fB6uZTUgDXwZrdJf/zBCHYY9iQMg==}
     engines: {node: '>= 16'}
     cpu: [arm64]
     os: [darwin]
 
-  nodejs-polars-darwin-x64@0.22.1:
-    resolution: {integrity: sha512-tyz6ZibPhCiLN40mwe7XhTniSKn/mcZMCURweZVjo8b1Mj3xyfS49Yy+s1JyHEZilCb6jylcS6bg4ibDEcu1OQ==}
+  nodejs-polars-darwin-x64@0.22.2:
+    resolution: {integrity: sha512-o8SVkiwlxdoAByXveeEVaNnW1UhdrkhFZlrZxamh2bfI/A/qc+XTDjBkAham6DZfDrZSMpKaAkVIYxFYus10lQ==}
     engines: {node: '>= 16'}
     cpu: [x64]
     os: [darwin]
 
-  nodejs-polars-linux-arm64-gnu@0.22.1:
-    resolution: {integrity: sha512-Fn6XDgsOr9/yojBj0olUCNArglHkl8817JpNyCUyFfWFKR1u24xIfn5Tj5uytToqcpTOkRO1/DSqGo5lWS/Rfg==}
+  nodejs-polars-linux-arm64-gnu@0.22.2:
+    resolution: {integrity: sha512-yeJKmmLTHPLGj3TwMrFOt6rjtUltlXj0UBw5Q0DrLKQibJzH5/6DzZ8RqcyhhCirws6MRCLDDYZbqVQHY6csWw==}
     engines: {node: '>= 16'}
     cpu: [arm64]
     os: [linux]
 
-  nodejs-polars-linux-arm64-musl@0.22.1:
-    resolution: {integrity: sha512-uJVkq5YT1LyBsV5C3O3qVgKPdmcfmhi6NYOwhI4Ku7Noo+EUTN+NyOrOjWtS0vHpgkmn+eBaU7+PpKkCSNG+Qg==}
+  nodejs-polars-linux-arm64-musl@0.22.2:
+    resolution: {integrity: sha512-IuaZaZPn7Wu6RG6SfqIilukk55wbjK9dsxBh1FHjhuorRDE3a3I/7Yn8yYZisM6ymmB0DHgcem3ynRxqF428hA==}
     engines: {node: '>= 16'}
     cpu: [arm64]
     os: [linux]
 
-  nodejs-polars-linux-x64-gnu@0.22.1:
-    resolution: {integrity: sha512-Uh294xCNkg4wNqPB5YIEyJNT76gHJWqwlF/G6VHRiObZUCBDZQEDVDcLqZsaOe9AXksMAlaXDx3dV/VIBgW+LA==}
+  nodejs-polars-linux-x64-gnu@0.22.2:
+    resolution: {integrity: sha512-Tyan9su/vJBAsdm+MyitAGVe4FWFf44Yqh/tKq7Fwq32ufed7MVg2a8wD/JragYD6gl1AK7ND0iGyKVeh2gI+A==}
     engines: {node: '>= 16'}
     cpu: [x64]
     os: [linux]
 
-  nodejs-polars-linux-x64-musl@0.22.1:
-    resolution: {integrity: sha512-dTLsidOoWHY7+GqCg97qOPlrbwXhStoMm8ZvR8/l4NhlYIfKkkG9iUQ5Eu1LolfqCK8zYfSlQl+voL4AqGiOkA==}
+  nodejs-polars-linux-x64-musl@0.22.2:
+    resolution: {integrity: sha512-XtIy76CE9uY/jtizXwpaxHE5tbV6lqSLeZcHmCjPBOI36moJ51zwyMmiN00qq1+JUaZhOgg1q+Vy/0J4WN3Yaw==}
     engines: {node: '>= 16'}
     cpu: [x64]
     os: [linux]
 
-  nodejs-polars-win32-x64-msvc@0.22.1:
-    resolution: {integrity: sha512-7pFP029b4rlIEJk5pdRHPcSLHPAZHbItR+ZFRKSfPQssjwrYnt31kFKrWeW57KkUVKA50m1QgLfNlCv9bkezmw==}
+  nodejs-polars-win32-x64-msvc@0.22.2:
+    resolution: {integrity: sha512-QJabH9l8hL791hNyH9QHZNGAE1Xy1qi66wt9/Zf3j+TkPkS1v14FaStd32o34ZQeB9qjQGfnMR3vjakrv7wKKw==}
     engines: {node: '>= 16'}
     cpu: [x64]
     os: [win32]
 
-  nodejs-polars@0.22.1:
-    resolution: {integrity: sha512-RP8mhb84u5zCc8/22SyS01UNzIk6z2NFtM1mqjK7LCrg8yyqTh+zQKpM0JAY9yBQ8d3wl2wyHCqduhRn+xRsKA==}
+  nodejs-polars@0.22.2:
+    resolution: {integrity: sha512-K/ZHlbsalU2uzvoaeP6Eu3aS6DqfH0Q83ug0WjM7UArKVedPn4ViGU/iLYmbFKq63qNXv5R6K3rigMhRtFJeCw==}
     engines: {node: '>= 20'}
 
   nodemon@3.1.10:
@@ -6294,6 +6057,12 @@ packages:
     peerDependenciesMeta:
       vite:
         optional: true
+
+  vitest-polly@1.3.0:
+    resolution: {integrity: sha512-Kb4mnuKZKnpgG2pkbGAIIyz48ani2nY6Rs3jcOZn6dthyDLJDXe4QowvcgmjDT3hnJHAqojsAond+RCnUURRyg==}
+    engines: {node: ^24.0.0, pnpm: ^10.0.0}
+    peerDependencies:
+      vitest: ^3.2.4
 
   vitest@3.2.4:
     resolution: {integrity: sha512-LUCP5ev3GURDysTWiP47wRRUpLKMOfPh+yKTx3kVIEiu5KOMeqzpnYNsKyOoVrULivR8tLcks4+lga33Whn90A==}
@@ -10858,40 +10627,40 @@ snapshots:
 
   node-releases@2.0.23: {}
 
-  nodejs-polars-android-arm64@0.22.1:
+  nodejs-polars-android-arm64@0.22.2:
     optional: true
 
-  nodejs-polars-darwin-arm64@0.22.1:
+  nodejs-polars-darwin-arm64@0.22.2:
     optional: true
 
-  nodejs-polars-darwin-x64@0.22.1:
+  nodejs-polars-darwin-x64@0.22.2:
     optional: true
 
-  nodejs-polars-linux-arm64-gnu@0.22.1:
+  nodejs-polars-linux-arm64-gnu@0.22.2:
     optional: true
 
-  nodejs-polars-linux-arm64-musl@0.22.1:
+  nodejs-polars-linux-arm64-musl@0.22.2:
     optional: true
 
-  nodejs-polars-linux-x64-gnu@0.22.1:
+  nodejs-polars-linux-x64-gnu@0.22.2:
     optional: true
 
-  nodejs-polars-linux-x64-musl@0.22.1:
+  nodejs-polars-linux-x64-musl@0.22.2:
     optional: true
 
-  nodejs-polars-win32-x64-msvc@0.22.1:
+  nodejs-polars-win32-x64-msvc@0.22.2:
     optional: true
 
-  nodejs-polars@0.22.1:
+  nodejs-polars@0.22.2:
     optionalDependencies:
-      nodejs-polars-android-arm64: 0.22.1
-      nodejs-polars-darwin-arm64: 0.22.1
-      nodejs-polars-darwin-x64: 0.22.1
-      nodejs-polars-linux-arm64-gnu: 0.22.1
-      nodejs-polars-linux-arm64-musl: 0.22.1
-      nodejs-polars-linux-x64-gnu: 0.22.1
-      nodejs-polars-linux-x64-musl: 0.22.1
-      nodejs-polars-win32-x64-msvc: 0.22.1
+      nodejs-polars-android-arm64: 0.22.2
+      nodejs-polars-darwin-arm64: 0.22.2
+      nodejs-polars-darwin-x64: 0.22.2
+      nodejs-polars-linux-arm64-gnu: 0.22.2
+      nodejs-polars-linux-arm64-musl: 0.22.2
+      nodejs-polars-linux-x64-gnu: 0.22.2
+      nodejs-polars-linux-x64-musl: 0.22.2
+      nodejs-polars-win32-x64-msvc: 0.22.2
 
   nodemon@3.1.10:
     dependencies:
@@ -12552,6 +12321,15 @@ snapshots:
   vitefu@1.1.1(vite@6.3.6(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)):
     optionalDependencies:
       vite: 6.3.6(@types/node@24.2.0)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+
+  vitest-polly@1.3.0(vitest@3.2.4):
+    dependencies:
+      '@pollyjs/adapter-fetch': 6.0.7
+      '@pollyjs/core': 6.0.6
+      '@pollyjs/persister-fs': 6.0.6
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
+    transitivePeerDependencies:
+      - supports-color
 
   vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(@vitest/ui@3.2.4)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1):
     dependencies:

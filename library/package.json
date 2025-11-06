@@ -1,0 +1,38 @@
+{
+  "name": "@dpkit/library",
+  "type": "module",
+  "version": "0.0.0-dev",
+  "exports": "./build/index.js",
+  "sideEffects": false,
+  "files": ["build"],
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/dpkit",
+  "description": "Fast TypeScript data management framework built on top of the Data Package standard and Polars DataFrames",
+  "keywords": [
+    "data",
+    "polars",
+    "dataframe",
+    "datapackage",
+    "tableschema",
+    "typescript",
+    "validation",
+    "quality",
+    "fair",
+    "lib"
+  ],
+  "dependencies": {
+    "@dpkit/audio": "workspace:*",
+    "@dpkit/dataset": "workspace:*",
+    "@dpkit/database": "workspace:*",
+    "@dpkit/document": "workspace:*",
+    "@dpkit/image": "workspace:*",
+    "@dpkit/metadata": "workspace:*",
+    "@dpkit/table": "workspace:*",
+    "@dpkit/video": "workspace:*",
+    "p-all": "^5.0.1"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}

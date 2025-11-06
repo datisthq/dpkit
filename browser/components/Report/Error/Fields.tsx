@@ -1,9 +1,9 @@
-import type * as errorTypes from "@dpkit/lib"
+import type * as library from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 
 export function FieldsMissingError(props: {
-  error: errorTypes.FieldsMissingError
+  error: library.FieldsMissingError
 }) {
   const { t } = useTranslation()
   return (
@@ -18,7 +18,7 @@ export function FieldsMissingError(props: {
 }
 
 export function FieldsExtraError(props: {
-  error: errorTypes.FieldsExtraError
+  error: library.FieldsExtraError
 }) {
   const { t } = useTranslation()
   return (

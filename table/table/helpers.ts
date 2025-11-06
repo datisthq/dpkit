@@ -1,5 +1,5 @@
-import type { Dialect } from "@dpkit/core"
-import { col } from "nodejs-polars"
+import type { Dialect } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import type { Table } from "../table/index.ts"
 
 export async function joinHeaderRows(
@@ -17,9 +17,9 @@ export async function joinHeaderRows(
 
   const extraLabelsFrame = await table
     .withRowCount()
-    .withColumn(col("row_nr").add(1))
-    .filter(col("row_nr").add(headerOffset).isIn(headerRows))
-    .select(...table.columns.map(name => col(name).str.concat(headerJoin)))
+    .withColumn(pl.col("row_nr").add(1))
+    .filter(pl.col("row_nr").add(headerOffset).isIn(headerRows))
+    .select(...table.columns.map(name => pl.col(name).str.concat(headerJoin)))
     .collect()
 
   const labels = table.columns
@@ -34,8 +34,8 @@ export async function joinHeaderRows(
 
   return table
     .withRowCount()
-    .withColumn(col("row_nr").add(1))
-    .filter(col("row_nr").add(headerOffset).isIn(headerRows).not())
+    .withColumn(pl.col("row_nr").add(1))
+    .filter(pl.col("row_nr").add(headerOffset).isIn(headerRows).not())
     .rename(mapping)
     .drop("row_nr")
 }
@@ -50,8 +50,8 @@ export function skipCommentRows(table: Table, options: { dialect: Dialect }) {
 
   return table
     .withRowCount()
-    .withColumn(col("row_nr").add(1))
-    .filter(col("row_nr").add(commentOffset).isIn(dialect.commentRows).not())
+    .withColumn(pl.col("row_nr").add(1))
+    .filter(pl.col("row_nr").add(commentOffset).isIn(dialect.commentRows).not())
     .drop("row_nr")
 }
 
@@ -65,7 +65,7 @@ export function stripInitialSpace(table: Table, options: { dialect: Dialect }) {
   return table.select(
     // TODO: rebase on stripCharsStart when it's fixed in polars
     // https://github.com/pola-rs/nodejs-polars/issues/336
-    table.columns.map(name => col(name).str.strip().as(name)),
+    table.columns.map(name => pl.col(name).str.strip().as(name)),
   )
 }
 

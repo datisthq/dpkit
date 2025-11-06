@@ -9,25 +9,15 @@ import starlightTypeDoc from "starlight-typedoc"
 
 const PACKAGES = {
   dpkit: "../dpkit",
-  "@dpkit/lib": "../lib",
-  "@dpkit/arrow": "../arrow",
-  "@dpkit/ckan": "../ckan",
-  "@dpkit/core": "../core",
-  "@dpkit/csv": "../csv",
+  "@dpkit/library": "../library",
+  "@dpkit/terminal": "../terminal",
   "@dpkit/database": "../database",
-  "@dpkit/datahub": "../datahub",
-  "@dpkit/file": "../file",
-  "@dpkit/github": "../github",
-  "@dpkit/html": "../html",
-  "@dpkit/inline": "../inline",
-  "@dpkit/json": "../json",
-  "@dpkit/markdown": "../markdown",
-  "@dpkit/ods": "../ods",
-  "@dpkit/parquet": "../parquet",
+  "@dpkit/audio": "../audio",
+  "@dpkit/video": "../video",
+  "@dpkit/image": "../image",
   "@dpkit/table": "../table",
-  "@dpkit/xlsx": "../xlsx",
-  "@dpkit/zenodo": "../zenodo",
-  "@dpkit/zip": "../zip",
+  "@dpkit/dataset": "../dataset",
+  "@dpkit/metadata": "../metadata",
 }
 
 export default defineConfig({

@@ -1,5 +1,5 @@
-import type { Field } from "@dpkit/core"
-import type { CellTypeError } from "../../error/index.ts"
+import type { Field } from "@dpkit/metadata"
+import type { CellTypeError } from "@dpkit/metadata"
 import type { CellMapping } from "../Mapping.ts"
 
 export function checkCellType(field: Field, mapping: CellMapping) {

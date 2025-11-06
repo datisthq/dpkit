@@ -1,14 +1,16 @@
-import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import type { Schema } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
-describe("validateTable (row/unique)", () => {
-  it("should not report errors when all rows are unique for primary key", async () => {
-    const table = DataFrame({
-      id: [1, 2, 3, 4, 5],
-      name: ["Alice", "Bob", "Charlie", "David", "Eve"],
-    }).lazy()
+describe("inspectTable (row/unique)", () => {
+  it("should not errors when all rows are unique for primary key", async () => {
+    const table = pl
+      .DataFrame({
+        id: [1, 2, 3, 4, 5],
+        name: ["Alice", "Bob", "Charlie", "David", "Eve"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -18,15 +20,17 @@ describe("validateTable (row/unique)", () => {
       primaryKey: ["id"],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
-  it("should report errors for duplicate primary key rows", async () => {
-    const table = DataFrame({
-      id: [1, 2, 3, 2, 5],
-      name: ["Alice", "Bob", "Charlie", "Bob2", "Eve"],
-    }).lazy()
+  it("should errors for duplicate primary key rows", async () => {
+    const table = pl
+      .DataFrame({
+        id: [1, 2, 3, 2, 5],
+        name: ["Alice", "Bob", "Charlie", "Bob2", "Eve"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -36,7 +40,7 @@ describe("validateTable (row/unique)", () => {
       primaryKey: ["id"],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors.filter(e => e.type === "row/unique")).toHaveLength(1)
     expect(errors).toContainEqual({
@@ -46,17 +50,19 @@ describe("validateTable (row/unique)", () => {
     })
   })
 
-  it("should not report errors when all rows are unique for unique key", async () => {
-    const table = DataFrame({
-      id: [1, 2, 3, 4, 5],
-      email: [
-        "a@test.com",
-        "b@test.com",
-        "c@test.com",
-        "d@test.com",
-        "e@test.com",
-      ],
-    }).lazy()
+  it("should not errors when all rows are unique for unique key", async () => {
+    const table = pl
+      .DataFrame({
+        id: [1, 2, 3, 4, 5],
+        email: [
+          "a@test.com",
+          "b@test.com",
+          "c@test.com",
+          "d@test.com",
+          "e@test.com",
+        ],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -66,21 +72,23 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["email"]],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
-  it("should report errors for duplicate unique key rows", async () => {
-    const table = DataFrame({
-      id: [1, 2, 3, 4, 5],
-      email: [
-        "a@test.com",
-        "b@test.com",
-        "a@test.com",
-        "d@test.com",
-        "b@test.com",
-      ],
-    }).lazy()
+  it("should errors for duplicate unique key rows", async () => {
+    const table = pl
+      .DataFrame({
+        id: [1, 2, 3, 4, 5],
+        email: [
+          "a@test.com",
+          "b@test.com",
+          "a@test.com",
+          "d@test.com",
+          "b@test.com",
+        ],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -90,7 +98,7 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["email"]],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "row/unique")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "row/unique",
@@ -105,11 +113,13 @@ describe("validateTable (row/unique)", () => {
   })
 
   it("should handle composite unique keys", async () => {
-    const table = DataFrame({
-      category: ["A", "A", "B", "A", "B"],
-      subcategory: ["X", "Y", "X", "X", "Y"],
-      value: [1, 2, 3, 4, 5],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        category: ["A", "A", "B", "A", "B"],
+        subcategory: ["X", "Y", "X", "X", "Y"],
+        value: [1, 2, 3, 4, 5],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -120,7 +130,7 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["category", "subcategory"]],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "row/unique")).toHaveLength(1)
     expect(errors).toContainEqual({
       type: "row/unique",
@@ -130,16 +140,18 @@ describe("validateTable (row/unique)", () => {
   })
 
   it("should handle both primary key and unique keys", async () => {
-    const table = DataFrame({
-      id: [1, 2, 3, 2, 5],
-      email: [
-        "a@test.com",
-        "b@test.com",
-        "c@test.com",
-        "d@test.com",
-        "a@test.com",
-      ],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2, 3, 2, 5],
+        email: [
+          "a@test.com",
+          "b@test.com",
+          "c@test.com",
+          "d@test.com",
+          "a@test.com",
+        ],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -150,7 +162,7 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["email"]],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "row/unique")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "row/unique",
@@ -165,10 +177,12 @@ describe("validateTable (row/unique)", () => {
   })
 
   it("should handle null values in unique keys correctly", async () => {
-    const table = DataFrame({
-      id: [1, 2, null, 4, null, 2],
-      name: ["Alice", "Bob", "Charlie", "David", "Eve", "Bob"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1, 2, null, 4, null, 2],
+        name: ["Alice", "Bob", "Charlie", "David", "Eve", "Bob"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -178,7 +192,7 @@ describe("validateTable (row/unique)", () => {
       uniqueKeys: [["id"], ["id", "name"]],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     console.log(errors)
 
     expect(errors).toHaveLength(2)

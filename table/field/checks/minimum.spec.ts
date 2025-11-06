@@ -1,13 +1,15 @@
-import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import type { Schema } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
-describe("validateTable (cell/minimum)", () => {
-  it("should not report errors for valid values", async () => {
-    const table = DataFrame({
-      price: [10.5, 20.75, 30.0],
-    }).lazy()
+describe("inspectTable (cell/minimum)", () => {
+  it("should not errors for valid values", async () => {
+    const table = pl
+      .DataFrame({
+        price: [10.5, 20.75, 30.0],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -19,14 +21,16 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
   it("should report an error for invalid values", async () => {
-    const table = DataFrame({
-      temperature: [20.5, 30.0, 40, 3.5],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        temperature: [20.5, 30.0, 40, 3.5],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -38,7 +42,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/minimum")).toHaveLength(1)
     expect(errors).toContainEqual({
       type: "cell/minimum",
@@ -50,9 +54,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should report an error for invalid values (exclusive)", async () => {
-    const table = DataFrame({
-      temperature: [20.5, 30.0, 10.0, 5.5],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        temperature: [20.5, 30.0, 10.0, 5.5],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -64,7 +70,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/exclusiveMinimum")).toHaveLength(
       2,
     )
@@ -85,9 +91,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle minimum as string", async () => {
-    const table = DataFrame({
-      price: [10.5, 20.75, 3.0],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        price: [10.5, 20.75, 3.0],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -99,7 +107,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -113,9 +121,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle exclusiveMinimum as string", async () => {
-    const table = DataFrame({
-      temperature: [20.5, 10.0, 5.5],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        temperature: [20.5, 10.0, 5.5],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -127,7 +137,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -148,9 +158,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle minimum as string with groupChar", async () => {
-    const table = DataFrame({
-      price: ["5,000", "10,500", "2,500"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        price: ["5,000", "10,500", "2,500"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -163,7 +175,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -177,9 +189,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle minimum as string with decimalChar", async () => {
-    const table = DataFrame({
-      price: ["5,5", "10,75", "2,3"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        price: ["5,5", "10,75", "2,3"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -192,7 +206,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -206,9 +220,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle minimum as string with groupChar and decimalChar", async () => {
-    const table = DataFrame({
-      price: ["5.000,50", "10.500,75", "2.500,30"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        price: ["5.000,50", "10.500,75", "2.500,30"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -222,7 +238,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -236,9 +252,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle minimum as string with bareNumber false", async () => {
-    const table = DataFrame({
-      price: ["$5.00", "$10.50", "$2.50"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        price: ["$5.00", "$10.50", "$2.50"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -251,7 +269,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -265,9 +283,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle minimum for date fields", async () => {
-    const table = DataFrame({
-      date: ["2024-01-15", "2024-02-20", "2024-01-05"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        date: ["2024-01-15", "2024-02-20", "2024-01-05"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -279,7 +299,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -293,9 +313,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it.skip("should handle minimum for time fields", async () => {
-    const table = DataFrame({
-      time: ["14:30:00", "16:45:00", "12:15:00"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        time: ["14:30:00", "16:45:00", "12:15:00"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -307,7 +329,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -321,13 +343,15 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle minimum for datetime fields", async () => {
-    const table = DataFrame({
-      timestamp: [
-        "2024-01-15T14:30:00",
-        "2024-02-20T08:15:00",
-        "2024-01-10T10:00:00",
-      ],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        timestamp: [
+          "2024-01-15T14:30:00",
+          "2024-02-20T08:15:00",
+          "2024-01-10T10:00:00",
+        ],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -339,7 +363,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -353,9 +377,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle minimum for date fields with custom format", async () => {
-    const table = DataFrame({
-      date: ["15/01/2024", "20/02/2024", "05/01/2024"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        date: ["15/01/2024", "20/02/2024", "05/01/2024"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -368,7 +394,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -382,9 +408,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle minimum for year fields", async () => {
-    const table = DataFrame({
-      year: ["2020", "2021", "2018"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        year: ["2020", "2021", "2018"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -396,7 +424,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -410,9 +438,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it("should handle exclusiveMinimum for year fields", async () => {
-    const table = DataFrame({
-      year: ["2020", "2021", "2019", "2018"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        year: ["2020", "2021", "2019", "2018"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -424,7 +454,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -445,9 +475,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it.skip("should handle minimum for yearmonth fields", async () => {
-    const table = DataFrame({
-      yearmonth: ["2024-03", "2024-05", "2024-01"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        yearmonth: ["2024-03", "2024-05", "2024-01"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -459,7 +491,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {
@@ -473,9 +505,11 @@ describe("validateTable (cell/minimum)", () => {
   })
 
   it.skip("should handle exclusiveMinimum for yearmonth fields", async () => {
-    const table = DataFrame({
-      yearmonth: ["2024-03", "2024-05", "2024-02", "2024-01"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        yearmonth: ["2024-03", "2024-05", "2024-02", "2024-01"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -487,7 +521,7 @@ describe("validateTable (cell/minimum)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {

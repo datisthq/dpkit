@@ -1,5 +1,5 @@
-import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import type { Schema } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { denormalizeTable } from "../table/index.ts"
 
@@ -35,16 +35,16 @@ describe("stringifyField", () => {
 
       // @ts-ignore
     ])("%s -> %s %s", async (value, expected, { fieldLevel, schemaLevel }) => {
-      const table = DataFrame({ name: [value] }).lazy()
+      const table = pl.DataFrame({ name: [value] }).lazy()
       const schema: Schema = {
         missingValues: schemaLevel,
         fields: [{ name: "name", type: "string", missingValues: fieldLevel }],
       }
 
-      const ldf = await denormalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await denormalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.toRecords()[0]?.name).toEqual(expected)
+      expect(frame.toRecords()[0]?.name).toEqual(expected)
     })
   })
 })

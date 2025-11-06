@@ -1,5 +1,5 @@
-import type { Field } from "@dpkit/core"
-import type { CellMaxLengthError } from "../../error/index.ts"
+import type { Field } from "@dpkit/metadata"
+import type { CellMaxLengthError } from "@dpkit/metadata"
 import type { CellMapping } from "../Mapping.ts"
 
 export function checkCellMaxLength(field: Field, mapping: CellMapping) {

@@ -1,6 +1,5 @@
-import type { Field, Schema } from "@dpkit/core"
-import type { DataFrame } from "nodejs-polars"
-import { col } from "nodejs-polars"
+import type { Field, Schema } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import { getPolarsSchema } from "../schema/index.ts"
 import type { Table } from "../table/index.ts"
 import type { SchemaOptions } from "./Options.ts"
@@ -27,7 +26,7 @@ export async function inferSchemaFromTable(
 }
 
 export function inferSchemaFromSample(
-  sample: DataFrame,
+  sample: pl.DataFrame,
   options?: Exclude<InferSchemaOptions, "sampleRows">,
 ) {
   const { confidence = 0.9, fieldTypes, keepStrings } = options ?? {}
@@ -72,7 +71,7 @@ export function inferSchemaFromSample(
         if (!keepStrings) {
           for (const [regex, patch] of Object.entries(regexMapping)) {
             const failures = sample
-              .filter(col(name).str.contains(regex).not())
+              .filter(pl.col(name).str.contains(regex).not())
               .head(failureThreshold).height
 
             if (failures < failureThreshold) {
@@ -85,7 +84,7 @@ export function inferSchemaFromSample(
 
       if (type === "number") {
         const failures = sample
-          .filter(col(name).eq(col(name).round(0)).not())
+          .filter(pl.col(name).eq(pl.col(name).round(0)).not())
           .head(failureThreshold).height
 
         if (failures < failureThreshold) {

@@ -1,5 +1,5 @@
-import { concatList } from "nodejs-polars"
-import type { RowUniqueError } from "../../error/index.ts"
+import type { RowUniqueError } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import type { SchemaMapping } from "../../schema/index.ts"
 
 export function createChecksRowUnique(mapping: SchemaMapping) {
@@ -13,11 +13,12 @@ export function createChecksRowUnique(mapping: SchemaMapping) {
 }
 
 function createCheckRowUnique(uniqueKey: string[]) {
-  const isErrorExpr = concatList(uniqueKey)
+  const isErrorExpr = pl
+    .concatList(uniqueKey)
     .isFirstDistinct()
     .not()
     // Fold is not available so we use a tricky way to eliminate nulls
-    .and(concatList(uniqueKey).lst.min().isNotNull())
+    .and(pl.concatList(uniqueKey).lst.min().isNotNull())
 
   const errorTemplate: RowUniqueError = {
     type: "row/unique",

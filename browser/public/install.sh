@@ -2,7 +2,7 @@
 
 # This script installs dpkit
 #
-# Quick install: `curl -fsSL https://dpkit.dev/install.sh | sh`
+# Quick install: `curl -fsSL https://dpkit.app/install.sh | sh`
 #
 # Acknowledgments:
 #   - eget (https://github.com/zyedidia/eget)
@@ -11,7 +11,7 @@ set -e -u
 
 # Program
 
-echo "Program: dp"
+echo "Program: dpkit"
 
 # Version
 
@@ -68,7 +68,7 @@ re-run this script.
 
 For example:
   $ export DPKIT_PLATFORM=linux-x64
-  $ curl -fsSL https://dpkit.dev/install.sh | sh
+  $ curl -fsSL https://dpkit.app/install.sh | sh
 EOM
   exit 1
 else
@@ -77,7 +77,7 @@ fi
 
 # Download
 
-archive="dp-$version-$platform.zip"
+archive="dpkit-terminal-$version-$platform.zip"
 source="https://github.com/datisthq/dpkit/releases/download/v$version/$archive"
 echo "Downloading: $source"
 
@@ -99,8 +99,8 @@ unlink $archive
 # Done
 
 case "$platform" in
-  windows*) command="./dp.exe" ;;
-  *) command="./dp" ;;
+  windows*) command="./dpkit.exe" ;;
+  *) command="./dpkit" ;;
 esac
 
 echo "Done: run it with \"$command\""

@@ -30,7 +30,7 @@ curl -fsSL https://dpkit.app/install.sh | sh
 After downloading, you can verify the binary using the following command:
 
 ```sh
-./dp --version
+./dpkit --version
 ```
 
 We recommend adding the binary to your PATH environment variable to make it easier to use.
@@ -46,5 +46,5 @@ npm install -g dpkit
 After that you can use the CLI binary:
 
 ```bash
-dp --version
+dpkit --version
 ```

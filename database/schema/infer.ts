@@ -1,5 +1,5 @@
-import type { Resource } from "@dpkit/core"
-import { resolveDialect } from "@dpkit/core"
+import type { Resource } from "@dpkit/metadata"
+import { resolveDialect } from "@dpkit/metadata"
 import { createAdapter } from "../adapters/create.ts"
 
 export async function inferDatabaseSchema(

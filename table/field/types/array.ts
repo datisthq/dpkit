@@ -1,7 +1,7 @@
-import type { ArrayField } from "@dpkit/core"
+import type { ArrayField } from "@dpkit/metadata"
 import type { Table } from "../../table/index.ts"
-import { validateJsonField } from "./json.ts"
+import { inspectJsonField } from "./json.ts"
 
-export async function validateArrayField(field: ArrayField, table: Table) {
-  return validateJsonField(field, table)
+export async function inspectArrayField(field: ArrayField, table: Table) {
+  return inspectJsonField(field, table)
 }

@@ -1,4 +1,4 @@
-import type { Dialect } from "@dpkit/core"
+import type { Dialect } from "@dpkit/metadata"
 
 export type DataRow = unknown[]
 export type DataRecord = Record<string, unknown>

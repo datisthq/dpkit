@@ -1,9 +1,9 @@
-import type * as errorTypes from "@dpkit/lib"
+import type * as library from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 
 // TODO: improve error message
-export function ForeignKeyError(props: { error: errorTypes.ForeignKeyError }) {
+export function ForeignKeyError(props: { error: library.ForeignKeyError }) {
   const { t } = useTranslation()
   return (
     <Text>

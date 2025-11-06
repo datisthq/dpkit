@@ -1,6 +1,5 @@
-import type { StringField } from "@dpkit/core"
-import { DataType, lit, when } from "nodejs-polars"
-import type { Expr } from "nodejs-polars"
+import type { StringField } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 
 const FORMAT_REGEX = {
   email:
@@ -11,30 +10,32 @@ const FORMAT_REGEX = {
 } as const
 
 // TODO: support categoriesOrder?
-export function parseStringField(field: StringField, fieldExpr: Expr) {
+export function parseStringField(field: StringField, fieldExpr: pl.Expr) {
   const format = field.format
   const flattenCategories = field.categories?.map(it =>
     typeof it === "string" ? it : it.value,
   )
 
   if (flattenCategories) {
-    return when(fieldExpr.isIn(flattenCategories))
-      .then(fieldExpr.cast(DataType.Categorical))
-      .otherwise(lit(null))
+    return pl
+      .when(fieldExpr.isIn(flattenCategories))
+      .then(fieldExpr.cast(pl.Categorical))
+      .otherwise(pl.lit(null))
       .alias(field.name)
   }
 
   if (format) {
     const regex = FORMAT_REGEX[format]
-    return when(fieldExpr.str.contains(regex))
+    return pl
+      .when(fieldExpr.str.contains(regex))
       .then(fieldExpr)
-      .otherwise(lit(null))
+      .otherwise(pl.lit(null))
       .alias(field.name)
   }
 
   return fieldExpr
 }
 
-export function stringifyStringField(_field: StringField, fieldExpr: Expr) {
+export function stringifyStringField(_field: StringField, fieldExpr: pl.Expr) {
   return fieldExpr
 }

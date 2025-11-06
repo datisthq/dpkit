@@ -1,4 +1,4 @@
-import type { Package } from "@dpkit/core"
+import type { Package } from "@dpkit/metadata"
 import { createAdapter } from "../adapters/create.ts"
 import type { DatabaseFormat } from "../resource/index.ts"
 

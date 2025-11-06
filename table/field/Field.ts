@@ -1,6 +1,6 @@
-import type { DataType } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 
 export type PolarsField = {
   name: string
-  type: DataType
+  type: pl.DataType
 }

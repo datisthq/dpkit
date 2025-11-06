@@ -1,9 +1,9 @@
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { saveDatabaseTable } from "./save.js"
 
 describe("saveDatabaseTable", () => {
-  const mockTable = DataFrame({ col1: [1, 2, 3] }).lazy()
+  const mockTable = pl.DataFrame({ col1: [1, 2, 3] }).lazy()
 
   it("throws error when table name is not defined in dialect", async () => {
     await expect(

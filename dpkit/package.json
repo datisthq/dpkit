@@ -4,8 +4,9 @@
   "version": "0.0.0-dev",
   "exports": "./build/index.js",
   "sideEffects": false,
+  "files": ["build"],
   "bin": {
-    "dp": "./build/entrypoints/run.js"
+    "dpkit": "./build/entrypoints/run.js"
   },
   "license": "MIT",
   "author": "Evgeny Karev",
@@ -21,8 +22,8 @@
     "validation",
     "quality",
     "fair",
-    "lib",
-    "cli"
+    "library",
+    "terminal"
   ],
   "scripts": {
     "build": "tsc && pnpm build:copy && pnpm build:mode",
@@ -30,7 +31,7 @@
     "build:mode": "chmod +x ./build/entrypoints/*.js"
   },
   "dependencies": {
-    "@dpkit/cli": "workspace:*",
-    "@dpkit/lib": "workspace:*"
+    "@dpkit/library": "workspace:*",
+    "@dpkit/terminal": "workspace:*"
   }
 }

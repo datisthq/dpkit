@@ -1,30 +1,30 @@
-import type { ArrayField, GeojsonField, ObjectField } from "@dpkit/core"
-import { validateDescriptor } from "@dpkit/core"
+import type { ArrayField, GeojsonField, ObjectField } from "@dpkit/metadata"
+import { inspectJsonValue } from "@dpkit/metadata"
+import type { CellError } from "@dpkit/metadata"
 import * as pl from "nodejs-polars"
-import type { CellError } from "../../error/index.ts"
 import { isObject } from "../../helpers.ts"
 import type { Table } from "../../table/index.ts"
 
 // TODO: Improve the implementation
 // Make unblocking / handle large data / process in parallel / move processing to Rust?
 
-export async function validateJsonField(
+export async function inspectJsonField(
   field: ArrayField | GeojsonField | ObjectField,
   table: Table,
   options?: {
-    formatProfile?: Record<string, any>
+    formatJsonSchema?: Record<string, any>
   },
 ) {
   const errors: CellError[] = []
 
-  const formatProfile = options?.formatProfile
-  const constraintProfile = field.constraints?.jsonSchema
+  const formatJsonSchema = options?.formatJsonSchema
+  const constraintJsonSchema = field.constraints?.jsonSchema
 
   const frame = await table
     .withRowCount()
     .select(
-      pl.col("row_nr").add(1).alias("number"),
-      pl.col(field.name).alias("source"),
+      pl.pl.col("row_nr").add(1).alias("number"),
+      pl.pl.col(field.name).alias("source"),
     )
     .collect()
 
@@ -44,24 +44,25 @@ export async function validateJsonField(
         cell: String(row.source),
         fieldName: field.name,
         fieldType: field.type,
+        fieldFormat: field.format,
         rowNumber: row.number,
       })
 
       continue
     }
 
-    if (formatProfile) {
-      // TODO: Extract more generic function validateJson?
-      const report = await validateDescriptor(target as any, {
-        profile: formatProfile,
+    if (formatJsonSchema) {
+      const formatErrors = await inspectJsonValue(target, {
+        jsonSchema: formatJsonSchema,
       })
 
-      if (!report.valid) {
+      if (formatErrors.length) {
         errors.push({
           type: "cell/type",
           cell: String(row.source),
           fieldName: field.name,
           fieldType: field.type,
+          fieldFormat: field.format,
           rowNumber: row.number,
         })
       }
@@ -69,19 +70,19 @@ export async function validateJsonField(
       continue
     }
 
-    if (constraintProfile) {
-      // TODO: Extract more generic function validateJson?
-      const report = await validateDescriptor(target as any, {
-        profile: constraintProfile,
+    if (constraintJsonSchema) {
+      const constraintErrors = await inspectJsonValue(target, {
+        jsonSchema: constraintJsonSchema,
       })
 
-      if (!report.valid) {
+      for (const error of constraintErrors) {
         errors.push({
           type: "cell/jsonSchema",
           cell: String(row.source),
           fieldName: field.name,
           rowNumber: row.number,
-          jsonSchema: constraintProfile,
+          pointer: error.pointer,
+          message: error.message,
         })
       }
     }

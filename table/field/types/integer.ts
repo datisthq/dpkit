@@ -1,10 +1,9 @@
-import type { IntegerField } from "@dpkit/core"
-import { DataType, lit, when } from "nodejs-polars"
-import type { Expr } from "nodejs-polars"
+import type { IntegerField } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 
 // TODO: support categories
 // TODO: support categoriesOrder
-export function parseIntegerField(field: IntegerField, fieldExpr: Expr) {
+export function parseIntegerField(field: IntegerField, fieldExpr: pl.Expr) {
   const groupChar = field.groupChar
   const bareNumber = field.bareNumber
   const flattenCategories = field.categories?.map(it =>
@@ -26,22 +25,26 @@ export function parseIntegerField(field: IntegerField, fieldExpr: Expr) {
   }
 
   // Cast to int64 (will handle values up to 2^63-1)
-  fieldExpr = fieldExpr.cast(DataType.Int64)
+  fieldExpr = fieldExpr.cast(pl.Int64)
 
   // Currently, only string categories are supported
   if (flattenCategories) {
-    return when(fieldExpr.isIn(flattenCategories))
+    return pl
+      .when(fieldExpr.isIn(flattenCategories))
       .then(fieldExpr)
-      .otherwise(lit(null))
+      .otherwise(pl.lit(null))
       .alias(field.name)
   }
 
   return fieldExpr
 }
 
-export function stringifyIntegerField(_field: IntegerField, fieldExpr: Expr) {
+export function stringifyIntegerField(
+  _field: IntegerField,
+  fieldExpr: pl.Expr,
+) {
   // Convert to string
-  fieldExpr = fieldExpr.cast(DataType.String)
+  fieldExpr = fieldExpr.cast(pl.String)
 
   //const groupChar = field.groupChar
   //const bareNumber = field.bareNumber

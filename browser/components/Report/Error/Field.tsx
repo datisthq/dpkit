@@ -1,8 +1,8 @@
-import type * as errorTypes from "@dpkit/lib"
+import type * as library from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 
-export function FieldNameError(props: { error: errorTypes.FieldNameError }) {
+export function FieldNameError(props: { error: library.FieldNameError }) {
   const { t } = useTranslation()
   return (
     <Text>
@@ -18,7 +18,7 @@ export function FieldNameError(props: { error: errorTypes.FieldNameError }) {
   )
 }
 
-export function FieldTypeError(props: { error: errorTypes.FieldTypeError }) {
+export function FieldTypeError(props: { error: library.FieldTypeError }) {
   const { t } = useTranslation()
   return (
     <Text>

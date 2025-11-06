@@ -1,4 +1,3 @@
-import type { Expr } from "nodejs-polars"
 import * as pl from "nodejs-polars"
 
 export function isObject(value: any): value is Record<string, any> {
@@ -9,7 +8,7 @@ export function arrayDiff(a: string[], b: string[]) {
   return a.filter(x => !b.includes(x))
 }
 
-export function evaluateExpression(expr: Expr) {
+export function evaluateExpression(expr: pl.Expr) {
   // @ts-ignore
   return pl.select(expr.alias("value")).toRecords()[0].value
 }

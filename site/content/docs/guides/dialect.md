@@ -8,12 +8,12 @@ Table Dialect commands help you work with CSV dialects - metadata that describes
 
 ## Available Commands
 
-### `dp dialect infer`
+### `dpkit dialect infer`
 
 Infer a table dialect from a table by analyzing its structure and determining the best parsing parameters such as delimiter, quote character, and header configuration.
 
 ```bash
-dp dialect infer <table-path>
+dpkit dialect infer <table-path>
 ```
 
 **Options:**
@@ -26,27 +26,27 @@ dp dialect infer <table-path>
 **Examples:**
 ```bash
 # Infer dialect from CSV file
-dp dialect infer data.csv
+dpkit dialect infer data.csv
 
 # Infer from remote file
-dp dialect infer https://example.com/data.csv
+dpkit dialect infer https://example.com/data.csv
 
 # Infer from resource in package
-dp dialect infer --from-package datapackage.json --from-resource "users"
+dpkit dialect infer --from-package datapackage.json --from-resource "users"
 
 # Export dialect as JSON
-dp dialect infer data.csv --json > dialect.json
+dpkit dialect infer data.csv --json > dialect.json
 
 # Use larger sample for complex files
-dp dialect infer complex_data.csv --sample-bytes 8192
+dpkit dialect infer complex_data.csv --sample-bytes 8192
 ```
 
-### `dp dialect explore`
+### `dpkit dialect explore`
 
 Explore a table dialect from a local or remote path to view its parsing configuration in an interactive format.
 
 ```bash
-dp dialect explore <descriptor-path>
+dpkit dialect explore <descriptor-path>
 ```
 
 **Options:**
@@ -58,24 +58,24 @@ dp dialect explore <descriptor-path>
 **Examples:**
 ```bash
 # Explore dialect descriptor
-dp dialect explore dialect.json
+dpkit dialect explore dialect.json
 
 # Explore remote dialect
-dp dialect explore https://example.com/dialect.json
+dpkit dialect explore https://example.com/dialect.json
 
 # Explore dialect from package resource
-dp dialect explore --from-package datapackage.json --from-resource "users"
+dpkit dialect explore --from-package datapackage.json --from-resource "users"
 
 # Export dialect structure as JSON
-dp dialect explore dialect.json --json
+dpkit dialect explore dialect.json --json
 ```
 
-### `dp dialect validate`
+### `dpkit dialect validate`
 
 Validate a table dialect from a local or remote path against the CSV Dialect specification.
 
 ```bash
-dp dialect validate <descriptor-path>
+dpkit dialect validate <descriptor-path>
 ```
 
 **Options:**
@@ -89,27 +89,27 @@ dp dialect validate <descriptor-path>
 **Examples:**
 ```bash
 # Validate dialect descriptor
-dp dialect validate dialect.json
+dpkit dialect validate dialect.json
 
 # Validate remote dialect
-dp dialect validate https://example.com/dialect.json
+dpkit dialect validate https://example.com/dialect.json
 
 # Validate dialect from package resource
-dp dialect validate --from-package datapackage.json --from-resource "users"
+dpkit dialect validate --from-package datapackage.json --from-resource "users"
 
 # Get validation results as JSON
-dp dialect validate dialect.json --json
+dpkit dialect validate dialect.json --json
 
 # Interactive selection when no path provided
-dp dialect validate --from-package datapackage.json
+dpkit dialect validate --from-package datapackage.json
 ```
 
-### `dp dialect script`
+### `dpkit dialect script`
 
 Open an interactive scripting session with a loaded table dialect. This provides a REPL environment where you can programmatically interact with the dialect definition.
 
 ```bash
-dp dialect script <descriptor-path>
+dpkit dialect script <descriptor-path>
 ```
 
 **Options:**
@@ -125,16 +125,16 @@ dp dialect script <descriptor-path>
 **Examples:**
 ```bash
 # Start scripting session with dialect
-dp dialect script dialect.json
+dpkit dialect script dialect.json
 
 # Script dialect from package resource
-dp dialect script --from-package datapackage.json --from-resource "users"
+dpkit dialect script --from-package datapackage.json --from-resource "users"
 
 # In the REPL session:
-dp> dialect.delimiter
-dp> dialect.quoteChar
-dp> dialect.header
-dp> dialect.skipInitialSpace
+dpkit> dialect.delimiter
+dpkit> dialect.quoteChar
+dpkit> dialect.header
+dpkit> dialect.skipInitialSpace
 ```
 
 ## Common Workflows
@@ -143,53 +143,53 @@ dp> dialect.skipInitialSpace
 
 1. **Infer from data file:**
    ```bash
-   dp dialect infer data.csv --json > dialect.json
+   dpkit dialect infer data.csv --json > dialect.json
    ```
 
 2. **Validate the generated dialect:**
    ```bash
-   dp dialect validate dialect.json
+   dpkit dialect validate dialect.json
    ```
 
 3. **Explore the dialect configuration:**
    ```bash
-   dp dialect explore dialect.json
+   dpkit dialect explore dialect.json
    ```
 
 ### Dialect Analysis for Complex Files
 
 ```bash
 # Infer dialect with larger sample for better accuracy
-dp dialect infer complex_file.csv --sample-bytes 16384
+dpkit dialect infer complex_file.csv --sample-bytes 16384
 
 # Validate and explore for verification
-dp dialect validate dialect.json
-dp dialect explore dialect.json
+dpkit dialect validate dialect.json
+dpkit dialect explore dialect.json
 
 # Script for custom dialect analysis
-dp dialect script dialect.json
+dpkit dialect script dialect.json
 ```
 
 ### Working with Package Dialects
 
 ```bash
 # Validate all dialects in a package interactively
-dp dialect validate --from-package datapackage.json
+dpkit dialect validate --from-package datapackage.json
 
 # Infer improved dialect for specific resource
-dp dialect infer --from-package datapackage.json --from-resource "transactions"
+dpkit dialect infer --from-package datapackage.json --from-resource "transactions"
 
 # Compare dialects using scripting
-dp dialect script --from-package datapackage.json --from-resource "users"
+dpkit dialect script --from-package datapackage.json --from-resource "users"
 ```
 
 ### Remote Dialect Handling
 
 ```bash
 # Work with remote dialects
-dp dialect explore https://example.com/dialect.json
-dp dialect validate https://example.com/dialect.json
-dp dialect infer https://example.com/data.csv
+dpkit dialect explore https://example.com/dialect.json
+dpkit dialect validate https://example.com/dialect.json
+dpkit dialect infer https://example.com/data.csv
 ```
 
 ## Dialect Properties
@@ -263,22 +263,22 @@ CSV Dialect specifications typically include:
 ### For files with unusual formatting:
 ```bash
 # Use larger sample size
-dp dialect infer unusual_file.csv --sample-bytes 32768
+dpkit dialect infer unusual_file.csv --sample-bytes 32768
 
 # Check inferred dialect
-dp dialect explore dialect.json
+dpkit dialect explore dialect.json
 
 # Manually verify with table commands
-dp table explore unusual_file.csv --dialect dialect.json
+dpkit table explore unusual_file.csv --dialect dialect.json
 ```
 
 ### For files with multiple header rows:
 ```bash
 # The dialect inference will detect headerRows automatically
-dp dialect infer multi_header.csv --json
+dpkit dialect infer multi_header.csv --json
 
 # Verify the header configuration
-dp dialect script dialect.json
+dpkit dialect script dialect.json
 # Then in REPL: dialect.headerRows
 ```
 
@@ -296,16 +296,16 @@ Dialect commands work seamlessly with other dpkit commands:
 
 ```bash
 # Create dialect, then use it for table operations
-dp dialect infer data.csv --json > dialect.json
-dp table validate data.csv --dialect dialect.json
+dpkit dialect infer data.csv --json > dialect.json
+dpkit table validate data.csv --dialect dialect.json
 
 # Work within package context
-dp package infer *.csv --json > datapackage.json
-dp dialect validate --from-package datapackage.json --from-resource "data"
+dpkit package infer *.csv --json > datapackage.json
+dpkit dialect validate --from-package datapackage.json --from-resource "data"
 
 # Use inferred dialect for schema inference
-dp dialect infer data.csv --json > dialect.json
-dp schema infer data.csv --delimiter ";" --header-rows 2
+dpkit dialect infer data.csv --json > dialect.json
+dpkit schema infer data.csv --delimiter ";" --header-rows 2
 ```
 
 ## Best Practices

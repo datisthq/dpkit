@@ -12,9 +12,9 @@ The `@dpkit/table` package provides high-performance data validation and process
 ### Basic Table Validation
 
 ```typescript
-import { DataFrame } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { validateTable } from "@dpkit/table"
-import type { Schema } from "@dpkit/core"
+import type { Schema } from "@dpkit/metadata"
 
 // Create a table from data
 const table = DataFrame({
@@ -139,7 +139,7 @@ result.errors.forEach(error => {
 The package uses `LazyDataFrame` from nodejs-polars as its core table representation, enabling lazy evaluation and efficient processing of large datasets through vectorized operations.
 
 ### Schema Integration
-Integrates seamlessly with `@dpkit/core` schemas, bridging Data Package field definitions with Polars data types for comprehensive validation workflows.
+Integrates seamlessly with `@dpkit/metadata` schemas, bridging Data Package field definitions with Polars data types for comprehensive validation workflows.
 
 ## Key Features
 

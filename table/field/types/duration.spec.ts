@@ -1,4 +1,4 @@
-import { DataFrame, DataType, Series } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { denormalizeTable, normalizeTable } from "../../table/index.ts"
 
@@ -6,15 +6,15 @@ describe("parseDurationField", () => {
   it.each([["P23DT23H", "P23DT23H", {}]])(
     "$0 -> $1 $2",
     async (cell, value, options) => {
-      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
       const schema = {
         fields: [{ name: "name", type: "duration" as const, ...options }],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.getColumn("name").get(0)).toEqual(value)
+      expect(frame.getColumn("name").get(0)).toEqual(value)
     },
   )
 })
@@ -33,15 +33,15 @@ describe("stringifyDurationField", () => {
     // Null handling
     [null, ""],
   ])("%s -> %s", async (value, expected) => {
-    const table = DataFrame([Series("name", [value], DataType.String)]).lazy()
+    const table = pl.DataFrame([pl.Series("name", [value], pl.String)]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "duration" as const }],
     }
 
-    const ldf = await denormalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await denormalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.toRecords()[0]?.name).toEqual(expected)
+    expect(frame.toRecords()[0]?.name).toEqual(expected)
   })
 })

@@ -1,4 +1,4 @@
-import { DataFrame, DataType, Series } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../../table/index.ts"
 import { denormalizeTable } from "../../table/index.ts"
@@ -27,16 +27,16 @@ describe.skip("parseDatetimeField", () => {
     // Invalid format
     ["21/11/06 16:30", null, { format: "invalid" }],
   ])("%s -> %s %o", async (cell, expected, options) => {
-    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+    const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "datetime" as const, ...options }],
     }
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.toRecords()[0]?.name).toEqual(expected)
+    expect(frame.toRecords()[0]?.name).toEqual(expected)
   })
 })
 
@@ -58,15 +58,15 @@ describe("stringifyDatetimeField", () => {
       { format: "%Y/%m/%dT%H:%M:%S" },
     ],
   ])("%s -> %s %o", async (value, expected, options) => {
-    const table = DataFrame([Series("name", [value], DataType.Datetime)]).lazy()
+    const table = pl.DataFrame([pl.Series("name", [value], pl.Datetime)]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "datetime" as const, ...options }],
     }
 
-    const ldf = await denormalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await denormalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.toRecords()[0]?.name).toEqual(expected)
+    expect(frame.toRecords()[0]?.name).toEqual(expected)
   })
 })

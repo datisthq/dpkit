@@ -1,4 +1,4 @@
-import type * as errorTypes from "@dpkit/lib"
+import type { UnboundError } from "@dpkit/library"
 import {
   CellEnumError,
   CellExclusiveMaximumError,
@@ -22,12 +22,7 @@ import { MetadataError } from "./Metadata.tsx"
 import { RowUniqueError } from "./Row.tsx"
 
 export function Error(props: {
-  // TODO: should be lib.Error
-  error:
-    | errorTypes.MetadataError
-    | errorTypes.DataError
-    | errorTypes.FileError
-    | errorTypes.TableError
+  error: UnboundError
 }) {
   const { error } = props
 

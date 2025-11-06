@@ -1,1 +1,1 @@
-export * from "@dpkit/lib"
+export * from "@dpkit/library"

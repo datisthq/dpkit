@@ -1,6 +1,5 @@
-import type { Schema } from "@dpkit/core"
-import type { Expr } from "nodejs-polars"
-import { lit } from "nodejs-polars"
+import type { Schema } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import { normalizeField } from "../field/index.ts"
 import { matchSchemaField } from "../schema/index.ts"
 import { getPolarsSchema } from "../schema/index.ts"
@@ -18,11 +17,11 @@ export async function normalizeTable(table: Table, schema: Schema) {
 }
 
 export function normalizeFields(mapping: SchemaMapping) {
-  const exprs: Record<string, Expr> = {}
+  const exprs: Record<string, pl.Expr> = {}
 
   for (const [index, field] of mapping.target.fields.entries()) {
     const fieldMapping = matchSchemaField(mapping, field, index)
-    let expr = lit(null).alias(field.name)
+    let expr = pl.lit(null).alias(field.name)
 
     if (fieldMapping) {
       const missingValues = field.missingValues ?? mapping.target.missingValues

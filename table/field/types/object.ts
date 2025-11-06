@@ -1,7 +1,7 @@
-import type { ObjectField } from "@dpkit/core"
+import type { ObjectField } from "@dpkit/metadata"
 import type { Table } from "../../table/index.ts"
-import { validateJsonField } from "./json.ts"
+import { inspectJsonField } from "./json.ts"
 
-export async function validateObjectField(field: ObjectField, table: Table) {
-  return validateJsonField(field, table)
+export async function inspectObjectField(field: ObjectField, table: Table) {
+  return inspectJsonField(field, table)
 }

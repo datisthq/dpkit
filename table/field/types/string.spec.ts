@@ -1,4 +1,4 @@
-import { DataFrame, DataType, Series } from "nodejs-polars"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
 import { normalizeTable } from "../../table/index.ts"
 
@@ -12,17 +12,17 @@ describe("parseStringField", () => {
     // Null handling
     ["", null],
   ])("$0 -> $1", async (cell, value) => {
-    const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+    const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
     const schema = {
       fields: [{ name: "name", type: "string" as const }],
     }
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.getColumn("name").dtype).toEqual(DataType.String)
-    expect(df.toRecords()[0]?.name).toEqual(value)
+    expect(frame.getColumn("name").dtype).toEqual(pl.String)
+    expect(frame.toRecords()[0]?.name).toEqual(value)
   })
 
   describe("email format", () => {
@@ -45,7 +45,7 @@ describe("parseStringField", () => {
       // Null handling
       ["", null],
     ])("$0 -> $1", async (cell, value) => {
-      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [
@@ -53,11 +53,11 @@ describe("parseStringField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.getColumn("name").dtype).toEqual(DataType.String)
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.getColumn("name").dtype).toEqual(pl.String)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 
@@ -84,7 +84,7 @@ describe("parseStringField", () => {
       // Null handling
       ["", null],
     ])("$0 -> $1", async (cell, value) => {
-      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [
@@ -92,11 +92,11 @@ describe("parseStringField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.getColumn("name").dtype).toEqual(DataType.String)
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.getColumn("name").dtype).toEqual(pl.String)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 
@@ -120,7 +120,7 @@ describe("parseStringField", () => {
       // Null handling
       ["", null],
     ])("$0 -> $1", async (cell, value) => {
-      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [
@@ -128,11 +128,11 @@ describe("parseStringField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.getColumn("name").dtype).toEqual(DataType.String)
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.getColumn("name").dtype).toEqual(pl.String)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 
@@ -152,7 +152,7 @@ describe("parseStringField", () => {
       // Null handling
       ["", null],
     ])("$0 -> $1 $2", async (cell, value) => {
-      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [
@@ -160,11 +160,11 @@ describe("parseStringField", () => {
         ],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.getColumn("name").dtype).toEqual(DataType.Categorical)
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.getColumn("name").dtype).toEqual(pl.Categorical)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 
@@ -179,17 +179,17 @@ describe("parseStringField", () => {
       ["apple", "apple", { categories: [{ value: "apple", label: "Apple" }] }],
       ["orange", null, { categories: [{ value: "apple", label: "Apple" }] }],
     ])("$0 -> $1 $2", async (cell, value, options) => {
-      const table = DataFrame([Series("name", [cell], DataType.String)]).lazy()
+      const table = pl.DataFrame([pl.Series("name", [cell], pl.String)]).lazy()
 
       const schema = {
         fields: [{ name: "name", type: "string" as const, ...options }],
       }
 
-      const ldf = await normalizeTable(table, schema)
-      const df = await ldf.collect()
+      const result = await normalizeTable(table, schema)
+      const frame = await result.collect()
 
-      expect(df.getColumn("name").dtype).toEqual(DataType.Categorical)
-      expect(df.toRecords()[0]?.name).toEqual(value)
+      expect(frame.getColumn("name").dtype).toEqual(pl.Categorical)
+      expect(frame.toRecords()[0]?.name).toEqual(value)
     })
   })
 })

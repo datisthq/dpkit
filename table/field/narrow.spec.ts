@@ -1,15 +1,17 @@
-import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import type { Schema } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
+import { inspectTable } from "../table/inspect.ts"
 import { normalizeTable } from "../table/normalize.ts"
-import { validateTable } from "../table/validate.ts"
 
 describe("narrowField", () => {
   it("should narrow float to integer", async () => {
-    const table = DataFrame({
-      id: [1.0, 2.0, 3.0],
-      name: ["a", "b", "c"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1.0, 2.0, 3.0],
+        name: ["a", "b", "c"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -18,10 +20,10 @@ describe("narrowField", () => {
       ],
     }
 
-    const ldf = await normalizeTable(table, schema)
-    const df = await ldf.collect()
+    const result = await normalizeTable(table, schema)
+    const frame = await result.collect()
 
-    expect(df.toRecords()).toEqual([
+    expect(frame.toRecords()).toEqual([
       { id: 1, name: "a" },
       { id: 2, name: "b" },
       { id: 3, name: "c" },
@@ -29,10 +31,12 @@ describe("narrowField", () => {
   })
 
   it("should detect error when float cannot be narrowed to integer", async () => {
-    const table = DataFrame({
-      id: [1.0, 2.0, 3.5],
-      name: ["a", "b", "c"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        id: [1.0, 2.0, 3.5],
+        name: ["a", "b", "c"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -41,7 +45,7 @@ describe("narrowField", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
 
     expect(errors).toEqual([
       {

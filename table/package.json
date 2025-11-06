@@ -4,6 +4,7 @@
   "version": "0.0.0-dev",
   "exports": "./build/index.js",
   "sideEffects": false,
+  "files": ["build"],
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/dpkit",
@@ -18,14 +19,24 @@
     "validation",
     "quality",
     "fair",
-    "table"
+    "table",
+    "arrow",
+    "csv",
+    "inline",
+    "json",
+    "ods",
+    "parquet",
+    "xlsx"
   ],
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
-    "@dpkit/core": "workspace:*",
-    "nodejs-polars": "^0.22.1",
-    "p-all": "^5.0.1"
+    "@dpkit/metadata": "workspace:*",
+    "@dpkit/dataset": "workspace:*",
+    "csv-sniffer": "^0.1.1",
+    "nodejs-polars": "^0.22.2",
+    "p-all": "^5.0.1",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   }
 }

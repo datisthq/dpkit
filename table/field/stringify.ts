@@ -1,5 +1,5 @@
-import type { Field } from "@dpkit/core"
-import type { Expr } from "nodejs-polars"
+import type { Field } from "@dpkit/metadata"
+import type * as pl from "nodejs-polars"
 import { stringifyBooleanField } from "./types/boolean.ts"
 import { stringifyDateField } from "./types/date.ts"
 import { stringifyDatetimeField } from "./types/datetime.ts"
@@ -13,7 +13,7 @@ import { stringifyTimeField } from "./types/time.ts"
 import { stringifyYearField } from "./types/year.ts"
 import { stringifyYearmonthField } from "./types/yearmonth.ts"
 
-export function stringifyField(field: Field, fieldExpr: Expr) {
+export function stringifyField(field: Field, fieldExpr: pl.Expr) {
   switch (field.type) {
     case "boolean":
       return stringifyBooleanField(field, fieldExpr)

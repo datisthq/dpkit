@@ -7,8 +7,7 @@
     "${configDir}/**/site/",
     "${configDir}/**/build/",
     "${configDir}/**/browser/",
-    "${configDir}/**/compile/",
-    "${configDir}/**/*.spec.*/"
+    "${configDir}/**/compile/"
   ],
 
   "compilerOptions": {

@@ -1,5 +1,5 @@
-import type { Field } from "@dpkit/core"
-import type { CellUniqueError } from "../../error/index.ts"
+import type { Field } from "@dpkit/metadata"
+import type { CellUniqueError } from "@dpkit/metadata"
 import type { CellMapping } from "../Mapping.ts"
 
 // TODO: Support schema.primaryKey and schema.uniqueKeys

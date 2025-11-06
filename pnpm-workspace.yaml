@@ -1,29 +1,17 @@
 dangerouslyAllowAllBuilds: true
 packages:
-  - arrow
+  - audio
   - browser
-  - ckan
-  - cli
-  - core
-  - csv
-  - datahub
   - database
+  - dataset
   - docs
+  - document
   - dpkit
-  - file
-  - folder
-  - github
-  - html
-  - inline
-  - json
-  - lib
-  - markdown
-  - ods
-  - parquet
+  - image
+  - library
+  - metadata
   - service
   - site
   - table
-  - test
-  - xlsx
-  - zenodo
-  - zip
+  - terminal
+  - video

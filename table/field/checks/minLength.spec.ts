@@ -1,13 +1,15 @@
-import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import type { Schema } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
-describe("validateTable (cell/minLength)", () => {
-  it("should not report errors for string values that meet the minLength constraint", async () => {
-    const table = DataFrame({
-      code: ["A123", "B456", "C789"],
-    }).lazy()
+describe("inspectTable (cell/minLength)", () => {
+  it("should not errors for string values that meet the minLength constraint", async () => {
+    const table = pl
+      .DataFrame({
+        code: ["A123", "B456", "C789"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -19,14 +21,16 @@ describe("validateTable (cell/minLength)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
   it("should report an error for strings that are too short", async () => {
-    const table = DataFrame({
-      username: ["bob", "a", "christopher", "ab"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        username: ["bob", "a", "christopher", "ab"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -38,7 +42,7 @@ describe("validateTable (cell/minLength)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/minLength")).toHaveLength(2)
     expect(errors).toContainEqual({
       type: "cell/minLength",

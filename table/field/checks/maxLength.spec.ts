@@ -1,13 +1,15 @@
-import type { Schema } from "@dpkit/core"
-import { DataFrame } from "nodejs-polars"
+import type { Schema } from "@dpkit/metadata"
+import * as pl from "nodejs-polars"
 import { describe, expect, it } from "vitest"
-import { validateTable } from "../../table/index.ts"
+import { inspectTable } from "../../table/index.ts"
 
-describe("validateTable (cell/maxLength)", () => {
-  it("should not report errors for string values that meet the maxLength constraint", async () => {
-    const table = DataFrame({
-      code: ["A123", "B456", "C789"],
-    }).lazy()
+describe("inspectTable (cell/maxLength)", () => {
+  it("should not errors for string values that meet the maxLength constraint", async () => {
+    const table = pl
+      .DataFrame({
+        code: ["A123", "B456", "C789"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -19,14 +21,16 @@ describe("validateTable (cell/maxLength)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors).toHaveLength(0)
   })
 
   it("should report an error for strings that are too long", async () => {
-    const table = DataFrame({
-      username: ["bob", "alice", "christopher", "david"],
-    }).lazy()
+    const table = pl
+      .DataFrame({
+        username: ["bob", "alice", "christopher", "david"],
+      })
+      .lazy()
 
     const schema: Schema = {
       fields: [
@@ -38,7 +42,7 @@ describe("validateTable (cell/maxLength)", () => {
       ],
     }
 
-    const { errors } = await validateTable(table, { schema })
+    const errors = await inspectTable(table, { schema })
     expect(errors.filter(e => e.type === "cell/maxLength")).toHaveLength(1)
     expect(errors).toContainEqual({
       type: "cell/maxLength",
