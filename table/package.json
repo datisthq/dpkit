@@ -35,7 +35,7 @@
     "@dpkit/metadata": "workspace:*",
     "@dpkit/dataset": "workspace:*",
     "csv-sniffer": "^0.1.1",
-    "nodejs-polars": "^0.22.1",
+    "nodejs-polars": "^0.22.2",
     "p-all": "^5.0.1",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   }

@@ -32,7 +32,7 @@
     "kysely-generic-sqlite": "^1.2.1",
     "lru-cache": "^11.2.1",
     "mysql2": "^3.14.4",
-    "nodejs-polars": "^0.22.1",
+    "nodejs-polars": "^0.22.2",
     "pg": "^8.16.3"
   },
   "devDependencies": {
