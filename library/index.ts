@@ -1,8 +1,11 @@
-export * from "@dpkit/database"
+export * from "@dpkit/audio"
 export * from "@dpkit/dataset"
+export * from "@dpkit/database"
 export * from "@dpkit/document"
+export * from "@dpkit/image"
 export * from "@dpkit/metadata"
 export * from "@dpkit/table"
+export * from "@dpkit/video"
 
 export type { Plugin } from "./plugin.ts"
 

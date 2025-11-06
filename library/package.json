@@ -22,11 +22,14 @@
     "lib"
   ],
   "dependencies": {
-    "@dpkit/database": "workspace:*",
+    "@dpkit/audio": "workspace:*",
     "@dpkit/dataset": "workspace:*",
+    "@dpkit/database": "workspace:*",
     "@dpkit/document": "workspace:*",
+    "@dpkit/image": "workspace:*",
     "@dpkit/metadata": "workspace:*",
     "@dpkit/table": "workspace:*",
+    "@dpkit/video": "workspace:*",
     "p-all": "^5.0.1"
   },
   "scripts": {

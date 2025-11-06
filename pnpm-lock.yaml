@@ -365,6 +365,9 @@ importers:
 
   library:
     dependencies:
+      '@dpkit/audio':
+        specifier: workspace:*
+        version: link:../audio
       '@dpkit/database':
         specifier: workspace:*
         version: link:../database
@@ -374,12 +377,18 @@ importers:
       '@dpkit/document':
         specifier: workspace:*
         version: link:../document
+      '@dpkit/image':
+        specifier: workspace:*
+        version: link:../image
       '@dpkit/metadata':
         specifier: workspace:*
         version: link:../metadata
       '@dpkit/table':
         specifier: workspace:*
         version: link:../table
+      '@dpkit/video':
+        specifier: workspace:*
+        version: link:../video
       p-all:
         specifier: ^5.0.1
         version: 5.0.1
