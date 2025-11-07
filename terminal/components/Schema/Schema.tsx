@@ -1,15 +1,15 @@
-import type { Schema } from "@dpkit/library"
+import type * as library from "@dpkit/library"
 import React from "react"
-import { DataGrid } from "./DataGrid.tsx"
+import { Datagrid } from "../Datagrid/index.ts"
 
 // TODO: Support showing other schema/field properties
 
-export function SchemaGrid(props: { schema: Schema }) {
+export function Schema(props: { schema: library.Schema }) {
   const records = [
     Object.fromEntries(
       props.schema.fields.map(field => [field.name, field.type]),
     ),
   ]
 
-  return <DataGrid records={records} />
+  return <Datagrid records={records} />
 }

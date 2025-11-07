@@ -4,8 +4,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as sessionModule from "../../session.ts"
 import { exploreDialectCommand } from "./explore.tsx"
 
-vi.mock("../../components/DialectGrid.tsx", () => ({
-  DialectGrid: vi.fn(() => null),
+vi.mock("../../components/Dialect/Dialect.tsx", () => ({
+  Dialect: vi.fn(() => null),
 }))
 
 describe("dialect explore", () => {

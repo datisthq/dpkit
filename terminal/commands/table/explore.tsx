@@ -5,7 +5,7 @@ import { loadDialect, loadTable, normalizeTable } from "@dpkit/library"
 import type { Resource } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { TableGrid } from "../../components/TableGrid.tsx"
+import { Table } from "../../components/Table/index.ts"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
@@ -123,6 +123,6 @@ export const exploreTableCommand = new Command("explore")
 
     await session.render(
       table,
-      <TableGrid table={table} schema={schema} withTypes quit={options.quit} />,
+      <Table table={table} schema={schema} withTypes quit={options.quit} />,
     )
   })

@@ -3,7 +3,7 @@ import { resolveSchema } from "@dpkit/library"
 import type { Resource } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { ErrorGrid } from "../../components/ErrorGrid.tsx"
+import { Report } from "../../components/Report/index.ts"
 import { selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
@@ -67,6 +67,6 @@ export const validateSchemaCommand = new Command("validate")
 
     session.render(
       report,
-      <ErrorGrid errors={report.errors} quit={options.quit} />,
+      <Report errors={report.errors} quit={options.quit} />,
     )
   })

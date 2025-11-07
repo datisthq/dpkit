@@ -1,7 +1,7 @@
 import { loadPackage } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { PackageGrid } from "../../components/PackageGrid.tsx"
+import { Package } from "../../components/Package/index.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
 import { Session } from "../../session.ts"
@@ -23,5 +23,5 @@ export const explorePackageCommand = new Command("explore")
 
     const dataPackage = await session.task("Loading package", loadPackage(path))
 
-    await session.render(dataPackage, <PackageGrid dataPackage={dataPackage} />)
+    await session.render(dataPackage, <Package dataPackage={dataPackage} />)
   })

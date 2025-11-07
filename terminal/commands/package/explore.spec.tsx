@@ -4,8 +4,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as sessionModule from "../../session.ts"
 import { explorePackageCommand } from "./explore.tsx"
 
-vi.mock("../../components/PackageGrid.tsx", () => ({
-  PackageGrid: vi.fn(() => null),
+vi.mock("../../components/Package/Package.tsx", () => ({
+  Package: vi.fn(() => null),
 }))
 
 describe("package explore", () => {

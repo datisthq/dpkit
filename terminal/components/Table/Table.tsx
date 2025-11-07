@@ -1,19 +1,19 @@
-import type { DataRecord, Schema, Table } from "@dpkit/library"
+import type * as library from "@dpkit/library"
 import { useApp, useInput } from "ink"
 import { Box, Text } from "ink"
 import pc from "picocolors"
 import { useEffect, useState } from "react"
 import React from "react"
-import type { Order } from "./DataGrid.tsx"
-import { DataGrid } from "./DataGrid.tsx"
+import type { Order } from "../Datagrid/index.ts"
+import { Datagrid } from "../Datagrid/index.ts"
 
 // TODO: Move components to their own folders
 
 const PAGE_SIZE = 10
 
-export function TableGrid(props: {
-  table: Table
-  schema?: Schema
+export function Table(props: {
+  table: library.Table
+  schema?: library.Schema
   borderColor?: "green" | "red"
   withTypes?: boolean
   quit?: boolean
@@ -25,7 +25,7 @@ export function TableGrid(props: {
   const [row, setRow] = useState(0)
   const [page, setPage] = useState(1)
   const [order, setOrder] = useState<Order>()
-  const [records, setRecords] = useState<DataRecord[]>()
+  const [records, setRecords] = useState<library.DataRecord[]>()
 
   const handleColChange = async (newCol: number) => {
     if (newCol <= 0) return
@@ -134,7 +134,7 @@ export function TableGrid(props: {
 
   return (
     <Box flexDirection="column">
-      <DataGrid
+      <Datagrid
         records={records}
         schema={schema}
         col={col}

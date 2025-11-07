@@ -6,7 +6,7 @@ import { loadDialect } from "@dpkit/library"
 import type { Resource } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { ErrorGrid } from "../../components/ErrorGrid.tsx"
+import { Report } from "../../components/Report/index.ts"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
@@ -136,6 +136,6 @@ export const validateTableCommand = new Command("validate")
 
     session.render(
       createReport(errors),
-      <ErrorGrid errors={errors} quit={options.quit} />,
+      <Report errors={errors} quit={options.quit} />,
     )
   })

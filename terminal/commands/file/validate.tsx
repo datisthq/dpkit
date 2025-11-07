@@ -1,7 +1,7 @@
 import { validateFile } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { ErrorGrid } from "../../components/ErrorGrid.tsx"
+import { Report } from "../../components/Report/index.ts"
 import { selectErrorType } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
@@ -54,6 +54,6 @@ export const validateFileCommand = new Command("validate")
 
     session.render(
       report,
-      <ErrorGrid errors={report.errors} quit={options.quit} />,
+      <Report errors={report.errors} quit={options.quit} />,
     )
   })

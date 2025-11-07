@@ -3,7 +3,7 @@ import type { Resource } from "@dpkit/library"
 import { resolveDialect } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { DialectGrid } from "../../components/DialectGrid.tsx"
+import { Dialect } from "../../components/Dialect/index.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { isEmptyObject } from "../../helpers/object.ts"
 import { selectResource } from "../../helpers/resource.ts"
@@ -41,5 +41,5 @@ export const exploreDialectCommand = new Command("explore")
       process.exit(1) // typescript ignore never return type above
     }
 
-    await session.render(dialect, <DialectGrid dialect={dialect} />)
+    await session.render(dialect, <Dialect dialect={dialect} />)
   })

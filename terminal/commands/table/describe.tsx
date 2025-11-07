@@ -5,7 +5,7 @@ import type { Resource } from "@dpkit/library"
 import { loadDialect } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { DataGrid } from "../../components/DataGrid.tsx"
+import { Datagrid } from "../../components/Datagrid/index.ts"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
@@ -107,5 +107,5 @@ export const describeTableCommand = new Command("describe")
     const stats = frame.describe().rename({ describe: "#" })
     const records = stats.toRecords()
 
-    session.render(records, <DataGrid records={records} />)
+    session.render(records, <Datagrid records={records} />)
   })

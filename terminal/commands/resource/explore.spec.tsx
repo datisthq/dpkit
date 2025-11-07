@@ -4,8 +4,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as sessionModule from "../../session.ts"
 import { exploreResourceCommand } from "./explore.tsx"
 
-vi.mock("../../components/ResourceGrid.tsx", () => ({
-  ResourceGrid: vi.fn(() => null),
+vi.mock("../../components/Resource/Resource.tsx", () => ({
+  Resource: vi.fn(() => null),
 }))
 
 describe("resource explore", () => {

@@ -1,7 +1,7 @@
 import { loadResourceDescriptor } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { ResourceGrid } from "../../components/ResourceGrid.tsx"
+import { Resource } from "../../components/Resource/index.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { isEmptyObject } from "../../helpers/object.ts"
 import { selectResource } from "../../helpers/resource.ts"
@@ -33,5 +33,5 @@ export const exploreResourceCommand = new Command("explore")
       process.exit(1) // typescript ignore never return type above
     }
 
-    await session.render(resource, <ResourceGrid resource={resource} />)
+    await session.render(resource, <Resource resource={resource} />)
   })

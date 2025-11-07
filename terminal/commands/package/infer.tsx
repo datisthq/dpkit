@@ -1,7 +1,7 @@
 import { inferPackage } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { PackageGrid } from "../../components/PackageGrid.tsx"
+import { Package } from "../../components/Package/index.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
 import { Session } from "../../session.ts"
@@ -74,8 +74,5 @@ export const inferPackageCommand = new Command("infer")
       inferPackage(sourcePackage, options),
     )
 
-    await session.render(
-      targetPackage,
-      <PackageGrid dataPackage={targetPackage} />,
-    )
+    await session.render(targetPackage, <Package dataPackage={targetPackage} />)
   })

@@ -10,7 +10,7 @@ const MAX_COLUMNS = 10
 const MIN_COLUMN_WIDTH = 15
 export type Order = { col: number; dir: "asc" | "desc" }
 
-export function DataGrid(props: {
+export function Datagrid(props: {
   records: DataRecord[]
   schema?: Schema
   col?: number
