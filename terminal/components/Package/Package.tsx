@@ -1,10 +1,10 @@
-import type { Package } from "@dpkit/library"
+import type * as library from "@dpkit/library"
 import React from "react"
-import { DataGrid } from "./DataGrid.tsx"
+import { Datagrid } from "../Datagrid/index.ts"
 
 // TODO: Support showing other package/resource properties
 
-export function PackageGrid(props: { dataPackage: Package }) {
+export function Package(props: { dataPackage: library.Package }) {
   const records = [
     Object.fromEntries(
       props.dataPackage.resources.map(resource => [
@@ -14,5 +14,5 @@ export function PackageGrid(props: { dataPackage: Package }) {
     ),
   ]
 
-  return <DataGrid records={records} />
+  return <Datagrid records={records} />
 }

@@ -4,8 +4,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as sessionModule from "../../session.ts"
 import { exploreTableCommand } from "./explore.tsx"
 
-vi.mock("../../components/TableGrid.tsx", () => ({
-  TableGrid: vi.fn(() => null),
+vi.mock("../../components/Table/Table.tsx", () => ({
+  Table: vi.fn(() => null),
 }))
 
 describe("table explore", () => {

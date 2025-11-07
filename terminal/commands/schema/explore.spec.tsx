@@ -4,8 +4,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as sessionModule from "../../session.ts"
 import { exploreSchemaCommand } from "./explore.tsx"
 
-vi.mock("../../components/SchemaGrid.tsx", () => ({
-  SchemaGrid: vi.fn(() => null),
+vi.mock("../../components/Schema/Schema.tsx", () => ({
+  Schema: vi.fn(() => null),
 }))
 
 describe("schema explore", () => {

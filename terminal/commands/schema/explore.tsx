@@ -3,7 +3,7 @@ import type { Resource } from "@dpkit/library"
 import { resolveSchema } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { SchemaGrid } from "../../components/SchemaGrid.tsx"
+import { Schema } from "../../components/Schema/index.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { isEmptyObject } from "../../helpers/object.ts"
 import { selectResource } from "../../helpers/resource.ts"
@@ -41,5 +41,5 @@ export const exploreSchemaCommand = new Command("explore")
       process.exit(1) // typescript ignore never return type above
     }
 
-    await session.render(schema, <SchemaGrid schema={schema} />)
+    await session.render(schema, <Schema schema={schema} />)
   })

@@ -2,12 +2,12 @@ import type { DataRecord } from "@dpkit/library"
 import { render } from "ink-testing-library"
 import React from "react"
 import { describe, expect, it } from "vitest"
-import { DataGrid } from "./DataGrid.tsx"
+import { Datagrid } from "./Datagrid.tsx"
 
-describe("DataGrid", () => {
+describe("Datagrid", () => {
   it("should render empty grid with no records", () => {
     const records: DataRecord[] = []
-    const { lastFrame } = render(<DataGrid records={records} />)
+    const { lastFrame } = render(<Datagrid records={records} />)
 
     expect(lastFrame()).toBeDefined()
   })
@@ -17,7 +17,7 @@ describe("DataGrid", () => {
       { id: 1, name: "alice" },
       { id: 2, name: "bob" },
     ]
-    const { lastFrame } = render(<DataGrid records={records} />)
+    const { lastFrame } = render(<Datagrid records={records} />)
 
     const output = lastFrame()
     expect(output).toContain("id")
@@ -37,7 +37,7 @@ describe("DataGrid", () => {
         { name: "value", type: "number" as const },
       ],
     }
-    const { lastFrame } = render(<DataGrid records={records} schema={schema} />)
+    const { lastFrame } = render(<Datagrid records={records} schema={schema} />)
 
     const output = lastFrame()
     expect(output).toContain("id")
@@ -46,7 +46,7 @@ describe("DataGrid", () => {
 
   it("should render with types when withTypes is true", () => {
     const records: DataRecord[] = [{ id: 1, name: "alice" }]
-    const { lastFrame } = render(<DataGrid records={records} withTypes />)
+    const { lastFrame } = render(<Datagrid records={records} withTypes />)
 
     const output = lastFrame()
     expect(output).toBeDefined()
@@ -59,7 +59,7 @@ describe("DataGrid", () => {
       { id: 1, name: "alice" },
       { id: 2, name: "bob" },
     ]
-    const { lastFrame } = render(<DataGrid records={records} col={1} />)
+    const { lastFrame } = render(<Datagrid records={records} col={1} />)
 
     const output = lastFrame()
     expect(output).toContain("id")
@@ -71,7 +71,7 @@ describe("DataGrid", () => {
       { id: 1, name: "alice" },
       { id: 2, name: "bob" },
     ]
-    const { lastFrame } = render(<DataGrid records={records} row={1} />)
+    const { lastFrame } = render(<Datagrid records={records} row={1} />)
 
     const output = lastFrame()
     expect(output).toContain("alice")
@@ -83,7 +83,7 @@ describe("DataGrid", () => {
       { id: 1, name: "alice" },
       { id: 2, name: "bob" },
     ]
-    const { lastFrame } = render(<DataGrid records={records} col={1} row={1} />)
+    const { lastFrame } = render(<Datagrid records={records} col={1} row={1} />)
 
     const output = lastFrame()
     expect(output).toContain("alice")
@@ -96,7 +96,7 @@ describe("DataGrid", () => {
       { id: 2, name: "bob" },
     ]
     const { lastFrame } = render(
-      <DataGrid records={records} order={{ col: 1, dir: "asc" }} />,
+      <Datagrid records={records} order={{ col: 1, dir: "asc" }} />,
     )
 
     const output = lastFrame()
@@ -109,7 +109,7 @@ describe("DataGrid", () => {
       { id: 2, name: "bob" },
     ]
     const { lastFrame } = render(
-      <DataGrid records={records} order={{ col: 1, dir: "desc" }} />,
+      <Datagrid records={records} order={{ col: 1, dir: "desc" }} />,
     )
 
     const output = lastFrame()
@@ -118,7 +118,7 @@ describe("DataGrid", () => {
 
   it("should render with green border by default", () => {
     const records: DataRecord[] = [{ id: 1, name: "alice" }]
-    const { lastFrame } = render(<DataGrid records={records} />)
+    const { lastFrame } = render(<Datagrid records={records} />)
 
     expect(lastFrame()).toBeDefined()
   })
@@ -126,7 +126,7 @@ describe("DataGrid", () => {
   it("should render with red border when specified", () => {
     const records: DataRecord[] = [{ id: 1, name: "alice" }]
     const { lastFrame } = render(
-      <DataGrid records={records} borderColor="red" />,
+      <Datagrid records={records} borderColor="red" />,
     )
 
     expect(lastFrame()).toBeDefined()
@@ -138,7 +138,7 @@ describe("DataGrid", () => {
       { id: 2, name: "bob", age: 25 },
       { id: 3, name: "charlie", age: 35 },
     ]
-    const { lastFrame } = render(<DataGrid records={records} />)
+    const { lastFrame } = render(<Datagrid records={records} />)
 
     const output = lastFrame()
     expect(output).toContain("alice")
@@ -154,7 +154,7 @@ describe("DataGrid", () => {
       { id: 1, value: 100.5 },
       { id: 2, value: 200.75 },
     ]
-    const { lastFrame } = render(<DataGrid records={records} />)
+    const { lastFrame } = render(<Datagrid records={records} />)
 
     const output = lastFrame()
     expect(output).toContain("100.5")
@@ -166,7 +166,7 @@ describe("DataGrid", () => {
       { id: 1, active: true },
       { id: 2, active: false },
     ]
-    const { lastFrame } = render(<DataGrid records={records} />)
+    const { lastFrame } = render(<Datagrid records={records} />)
 
     const output = lastFrame()
     expect(output).toContain("true")

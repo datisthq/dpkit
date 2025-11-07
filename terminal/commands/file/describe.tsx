@@ -1,7 +1,7 @@
 import { describeFile } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { DataGrid } from "../../components/DataGrid.tsx"
+import { Datagrid } from "../../components/Datagrid/index.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import * as params from "../../params/index.ts"
@@ -41,5 +41,5 @@ export const describeFileCommand = new Command("describe")
       describeFile(path, { hashType: options.hashType }),
     )
 
-    session.render(stats, <DataGrid records={[stats]} />)
+    session.render(stats, <Datagrid records={[stats]} />)
   })

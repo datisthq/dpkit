@@ -1,9 +1,9 @@
 import type { UnboundError } from "@dpkit/library"
 import * as pl from "nodejs-polars"
 import React from "react"
-import { TableGrid } from "./TableGrid.tsx"
+import { Table } from "../Table/index.ts"
 
-export function ErrorGrid(props: {
+export function Report(props: {
   errors: UnboundError[]
   quit?: boolean
 }) {
@@ -16,5 +16,5 @@ export function ErrorGrid(props: {
 
   const table = pl.DataFrame(errors).lazy()
 
-  return <TableGrid borderColor="red" table={table} quit={props.quit} />
+  return <Table borderColor="red" table={table} quit={props.quit} />
 }

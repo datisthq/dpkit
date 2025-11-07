@@ -2,9 +2,9 @@ import { render } from "ink-testing-library"
 import * as pl from "nodejs-polars"
 import React from "react"
 import { describe, expect, it } from "vitest"
-import { TableGrid } from "./TableGrid.tsx"
+import { Table } from "./Table.tsx"
 
-describe("TableGrid", () => {
+describe("Table", () => {
   it("should render basic table", async () => {
     const table = pl
       .DataFrame({
@@ -13,7 +13,7 @@ describe("TableGrid", () => {
       })
       .lazy()
 
-    const { lastFrame } = render(<TableGrid table={table} />)
+    const { lastFrame } = render(<Table table={table} />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -38,7 +38,7 @@ describe("TableGrid", () => {
       ],
     }
 
-    const { lastFrame } = render(<TableGrid table={table} schema={schema} />)
+    const { lastFrame } = render(<Table table={table} schema={schema} />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -55,7 +55,7 @@ describe("TableGrid", () => {
       })
       .lazy()
 
-    const { lastFrame } = render(<TableGrid table={table} />)
+    const { lastFrame } = render(<Table table={table} />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -70,7 +70,7 @@ describe("TableGrid", () => {
       })
       .lazy()
 
-    const { lastFrame } = render(<TableGrid table={table} borderColor="red" />)
+    const { lastFrame } = render(<Table table={table} borderColor="red" />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -85,7 +85,7 @@ describe("TableGrid", () => {
       })
       .lazy()
 
-    const { lastFrame } = render(<TableGrid table={table} withTypes />)
+    const { lastFrame } = render(<Table table={table} withTypes />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -100,7 +100,7 @@ describe("TableGrid", () => {
       })
       .lazy()
 
-    const { lastFrame } = render(<TableGrid table={table} />)
+    const { lastFrame } = render(<Table table={table} />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -118,7 +118,7 @@ describe("TableGrid", () => {
       })
       .lazy()
 
-    const { lastFrame } = render(<TableGrid table={table} />)
+    const { lastFrame } = render(<Table table={table} />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -135,7 +135,7 @@ describe("TableGrid", () => {
       })
       .lazy()
 
-    const { lastFrame } = render(<TableGrid table={table} />)
+    const { lastFrame } = render(<Table table={table} />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -153,7 +153,7 @@ describe("TableGrid", () => {
       })
       .lazy()
 
-    const { lastFrame } = render(<TableGrid table={table} />)
+    const { lastFrame } = render(<Table table={table} />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -170,7 +170,7 @@ describe("TableGrid", () => {
       })
       .lazy()
 
-    const { lastFrame } = render(<TableGrid table={table} />)
+    const { lastFrame } = render(<Table table={table} />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -187,7 +187,7 @@ describe("TableGrid", () => {
       })
       .lazy()
 
-    const { lastFrame } = render(<TableGrid table={table} />)
+    const { lastFrame } = render(<Table table={table} />)
 
     await new Promise(resolve => setTimeout(resolve, 100))
 

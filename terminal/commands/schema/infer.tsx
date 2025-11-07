@@ -1,7 +1,7 @@
 import { inferSchemaFromTable, loadTable } from "@dpkit/library"
 import { Command } from "commander"
 import React from "react"
-import { SchemaGrid } from "../../components/SchemaGrid.tsx"
+import { Schema } from "../../components/Schema/index.ts"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { isEmptyObject } from "../../helpers/object.ts"
@@ -94,5 +94,5 @@ export const inferSchemaCommand = new Command("infer")
       process.exit(1)
     }
 
-    await session.render(inferredSchema, <SchemaGrid schema={inferredSchema} />)
+    await session.render(inferredSchema, <Schema schema={inferredSchema} />)
   })
