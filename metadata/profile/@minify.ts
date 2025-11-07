@@ -2,15 +2,15 @@ import { readFile, writeFile } from "node:fs/promises"
 import fs from "node:fs/promises"
 import { join } from "node:path"
 
-const registryDir = join(import.meta.dirname, "profile", "registry")
-const files = (await fs.readdir(registryDir)).filter(file =>
+const assetsDir = join(import.meta.dirname, "..", "assets")
+const files = (await fs.readdir(assetsDir)).filter(file =>
   file.endsWith(".json"),
 )
 
-console.log(`Found ${files.length} JSON files in registry directory`)
+console.log(`Found ${files.length} JSON files in the assets directory`)
 
 for (const file of files) {
-  const filePath = join(registryDir, file)
+  const filePath = join(assetsDir, file)
   console.log(`Processing ${file}...`)
 
   const content = await readFile(filePath, "utf8")
