@@ -1,6 +1,6 @@
 import type { Package } from "@dpkit/metadata"
-import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as metadataModule from "@dpkit/metadata"
+import { beforeEach, describe, expect, it, vi } from "vitest"
 import { DescriptorPlugin } from "./plugin.ts"
 
 vi.mock("@dpkit/metadata", async () => {
