@@ -58,10 +58,7 @@
     }
   ],
   "primaryKey": "id",
-  "uniqueKeys": [
-    ["email"],
-    ["name", "department_id"]
-  ],
+  "uniqueKeys": [["email"], ["name", "department_id"]],
   "foreignKeys": [
     {
       "fields": "department_id",
