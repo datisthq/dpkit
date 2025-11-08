@@ -29,10 +29,11 @@ export default defineConfig({
         "**/program.ts",
         "**/index.ts",
         "**/main.ts",
+        "portal/**",
+        // TODO: Enalbe when ready
         "browser/**",
-        "docs/**",
+        // TODO: Enalbe when ready
         "service/**",
-        "site/**",
       ],
     },
     resolveSnapshotPath: (testPath, snapExtension) => {

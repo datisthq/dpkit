@@ -4,14 +4,13 @@ packages:
   - browser
   - database
   - dataset
-  - docs
   - document
   - dpkit
   - image
   - library
   - metadata
+  - portal
   - service
-  - site
   - table
   - terminal
   - video

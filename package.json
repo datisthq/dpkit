@@ -8,7 +8,7 @@
     "pnpm": "^10.0.0"
   },
   "scripts": {
-    "build": "pnpm -F !browser -F !docs -F !site build",
+    "build": "pnpm -F !browser -F !portal build",
     "bump": "ncu -ws -u",
     "clean": "rm -rf **/node_modules",
     "compile": "pnpm -F terminal compile",

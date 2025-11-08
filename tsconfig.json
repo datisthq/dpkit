@@ -3,11 +3,10 @@
 
   "include": ["${configDir}/**/*.ts", "${configDir}/**/*.tsx"],
   "exclude": [
-    "${configDir}/**/docs/",
-    "${configDir}/**/site/",
     "${configDir}/**/build/",
+    "${configDir}/**/compile/",
     "${configDir}/**/browser/",
-    "${configDir}/**/compile/"
+    "${configDir}/**/portal/"
   ],
 
   "compilerOptions": {
