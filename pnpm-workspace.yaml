@@ -9,7 +9,9 @@ packages:
   - image
   - library
   - metadata
+  - mobile
   - portal
+  - scanner
   - service
   - table
   - terminal
