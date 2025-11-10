@@ -32,6 +32,7 @@ async function translateLanguages() {
   }
 }
 
+// TODO: extract empty messages and translate using JSON/JSONSchema
 async function translateLanguage(languageId: types.LanguageId) {
   const path = `locales/${languageId}/messages.po`
   const content = await readFile(path)
@@ -51,6 +52,7 @@ async function translateLanguage(languageId: types.LanguageId) {
       - Keep all comments and metadata
 
       Return the complete PO file with translations filled in.
+      Do not wrap the PO file in a code block. It whould be a valid PO file.
 
       PO file:
       ${content}
