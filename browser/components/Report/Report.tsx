@@ -1,5 +1,5 @@
-import { Trans, useLingui } from "@lingui/react/macro"
 import type { UnboundError } from "@dpkit/library"
+import { Trans, useLingui } from "@lingui/react/macro"
 import { Card, Divider, ScrollArea, Stack, Tabs } from "@mantine/core"
 import { groupBy } from "es-toolkit"
 import { useState } from "react"

@@ -21,7 +21,8 @@ export default function Page(_props: Route.ComponentProps) {
         <Link to="https://github.com/datisthq/dpkit">
           <Trans>open source</Trans>
         </Link>{" "}
-        <Trans>allowing you to review the code or</Trans> <Trans>self-host</Trans>{" "}
+        <Trans>allowing you to review the code or</Trans>{" "}
+        <Trans>self-host</Trans>{" "}
         <Trans>the service. In 2025, the project was funded by</Trans>{" "}
         <Link to="https://nlnet.nl/project/DataPackage-TS/">
           <Trans>European Commission</Trans>

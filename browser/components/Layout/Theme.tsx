@@ -18,7 +18,11 @@ export function Theme(props: {
   }
 
   return (
-    <Tooltip openDelay={300} label={<Trans>Change Theme</Trans>} position="left">
+    <Tooltip
+      openDelay={300}
+      label={<Trans>Change Theme</Trans>}
+      position="left"
+    >
       <Button
         h={40}
         px={8}

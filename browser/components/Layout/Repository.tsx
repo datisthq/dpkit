@@ -8,9 +8,12 @@ import classes from "./Repository.module.css"
 export function Repository(props: {
   fullWidth?: boolean
 }) {
-
   return (
-    <Tooltip openDelay={300} label={<Trans>View Repository</Trans>} position="left">
+    <Tooltip
+      openDelay={300}
+      label={<Trans>View Repository</Trans>}
+      position="left"
+    >
       <Button
         component={Link}
         to="https://github.com/datisthq/dpkit"

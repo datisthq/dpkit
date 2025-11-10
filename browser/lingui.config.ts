@@ -7,8 +7,7 @@ export default defineConfig({
   catalogs: [
     {
       path: "<rootDir>/locales/{locale}/messages",
-      // TODO: Remove routes
-      include: ["<rootDir>/app", "<rootDir>/components", "<rootDir>/routes"],
+      include: ["<rootDir>/app", "<rootDir>/components"],
     },
   ],
 })

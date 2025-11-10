@@ -1,5 +1,5 @@
-import { Trans } from "@lingui/react/macro"
 import type * as library from "@dpkit/library"
+import { Trans } from "@lingui/react/macro"
 import { Code, Text } from "@mantine/core"
 
 export function ForeignKeyError(props: { error: library.ForeignKeyError }) {

@@ -61,7 +61,11 @@ export function Language(props: { fullWidth?: boolean }) {
       shadow="sm"
     >
       <Menu.Target>
-        <Tooltip openDelay={300} label={<Trans>Change Language</Trans>} position="left">
+        <Tooltip
+          openDelay={300}
+          label={<Trans>Change Language</Trans>}
+          position="left"
+        >
           <UnstyledButton
             w={props.fullWidth ? "100%" : undefined}
             className={classes.control}

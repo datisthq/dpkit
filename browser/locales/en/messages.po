@@ -15,9 +15,9 @@ msgstr ""
 
 #. placeholder {0}: error.message
 #. placeholder {0}: props.error.message
+#: app/package/validate/Dialog.tsx:26
 #: components/Report/Error/Data.tsx:8
 #: components/Report/Error/Metadata.tsx:11
-#: routes/package/validate/Dialog.tsx:26
 msgid "{0}"
 msgstr "{0}"
 
@@ -29,39 +29,39 @@ msgstr "{type}"
 msgid "A required cell in field"
 msgstr "A required cell in field"
 
-#: routes/about/route.tsx:20
+#: app/about/route.tsx:20
 msgid "about-description-intro"
 msgstr "about-description-intro"
 
-#: routes/about/route.tsx:18
+#: app/about/route.tsx:18
 msgid "about-dpkit-cloud-title"
 msgstr "about-dpkit-cloud-title"
 
-#: routes/about/route.tsx:44
+#: app/about/route.tsx:44
 msgid "about-get-in-touch"
 msgstr "about-get-in-touch"
 
-#: routes/about/route.tsx:33
+#: app/about/route.tsx:33
 msgid "about-privacy-first-description"
 msgstr "about-privacy-first-description"
 
-#: routes/about/route.tsx:32
+#: app/about/route.tsx:32
 msgid "about-privacy-first-title"
 msgstr "about-privacy-first-title"
 
-#: routes/about/route.tsx:40
+#: app/about/route.tsx:40
 msgid "about-self-hosting-docs"
 msgstr "about-self-hosting-docs"
 
-#: routes/about/route.tsx:38
+#: app/about/route.tsx:38
 msgid "about-self-hosting-intro"
 msgstr "about-self-hosting-intro"
 
-#: routes/about/route.tsx:42
+#: app/about/route.tsx:42
 msgid "about-self-hosting-middle"
 msgstr "about-self-hosting-middle"
 
-#: routes/about/route.tsx:36
+#: app/about/route.tsx:36
 msgid "about-self-hosting-title"
 msgstr "about-self-hosting-title"
 
@@ -69,12 +69,12 @@ msgstr "about-self-hosting-title"
 msgid "adding a star"
 msgstr "adding a star"
 
-#: routes/about/route.tsx:24
-#: routes/home/route.tsx:46
+#: app/about/route.tsx:24
+#: app/home/route.tsx:46
 msgid "allowing you to review the code or"
 msgstr "allowing you to review the code or"
 
-#: routes/home/route.tsx:42
+#: app/home/route.tsx:42
 msgid "and completely"
 msgstr "and completely"
 
@@ -126,7 +126,7 @@ msgstr "Close"
 msgid "Convert table format"
 msgstr "Convert table format"
 
-#: routes/home/route.tsx:36
+#: app/home/route.tsx:36
 msgid "converting and validating data"
 msgstr "converting and validating data"
 
@@ -159,11 +159,11 @@ msgstr "does not match the"
 msgid "Enter data package URL"
 msgstr "Enter data package URL"
 
-#: components/System/Error.tsx:18
+#: components/System/Error.tsx:16
 msgid "error404"
 msgstr "error404"
 
-#: components/System/Error.tsx:18
+#: components/System/Error.tsx:16
 msgid "error500"
 msgstr "error500"
 
@@ -171,8 +171,8 @@ msgstr "error500"
 msgid "Errors"
 msgstr "Errors"
 
-#: routes/about/route.tsx:27
-#: routes/home/route.tsx:52
+#: app/about/route.tsx:27
+#: app/home/route.tsx:52
 msgid "European Commission"
 msgstr "European Commission"
 
@@ -216,7 +216,7 @@ msgstr "File size"
 msgid "Foreign key violation in field(s)"
 msgstr "Foreign key violation in field(s)"
 
-#: routes/home/route.tsx:34
+#: app/home/route.tsx:34
 msgid "Free online tools for"
 msgstr "Free online tools for"
 
@@ -331,8 +331,8 @@ msgstr "of row"
 msgid "on GitHub!"
 msgstr "on GitHub!"
 
-#: routes/about/route.tsx:22
-#: routes/home/route.tsx:44
+#: app/about/route.tsx:22
+#: app/home/route.tsx:44
 msgid "open source"
 msgstr "open source"
 
@@ -340,7 +340,7 @@ msgstr "open source"
 msgid "or"
 msgstr "or"
 
-#: components/System/Error.tsx:17
+#: components/System/Error.tsx:15
 msgid "Page not found"
 msgstr "Page not found"
 
@@ -352,7 +352,7 @@ msgstr "Paste data package JSON"
 msgid "pattern"
 msgstr "pattern"
 
-#: routes/home/route.tsx:40
+#: app/home/route.tsx:40
 msgid "privacy-first"
 msgstr "privacy-first"
 
@@ -364,8 +364,8 @@ msgstr "Select a tool below"
 msgid "Select data package file"
 msgstr "Select data package file"
 
-#: routes/about/route.tsx:24
-#: routes/home/route.tsx:48
+#: app/about/route.tsx:24
+#: app/home/route.tsx:48
 msgid "self-host"
 msgstr "self-host"
 
@@ -377,7 +377,7 @@ msgstr "Share"
 msgid "Share Page"
 msgstr "Share Page"
 
-#: components/System/Error.tsx:17
+#: components/System/Error.tsx:15
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
@@ -385,7 +385,7 @@ msgstr "Something went wrong"
 msgid "Support the project by"
 msgstr "Support the project by"
 
-#: components/System/Error.tsx:34
+#: components/System/Error.tsx:32
 msgid "Take me back to home page"
 msgstr "Take me back to home page"
 
@@ -406,14 +406,13 @@ msgstr "The cell values of the fields"
 msgid "The fields"
 msgstr "The fields"
 
-#: routes/about/route.tsx:25
-#: routes/home/route.tsx:50
+#: app/about/route.tsx:25
+#: app/home/route.tsx:50
 msgid "the service. In 2025, the project was funded by"
 msgstr "the service. In 2025, the project was funded by"
 
-#: routes/schema/infer/route.tsx:17
-#: routes/table/convert/route.tsx:17
-#: routes/table/validate/route.tsx:17
+#: app/table/convert/route.tsx:17
+#: app/table/validate/route.tsx:17
 msgid "This tool is currently under construction and not yet available"
 msgstr "This tool is currently under construction and not yet available"
 
@@ -421,13 +420,12 @@ msgstr "This tool is currently under construction and not yet available"
 msgid "Tools"
 msgstr "Tools"
 
-#: routes/schema/infer/route.tsx:16
-#: routes/table/convert/route.tsx:16
-#: routes/table/validate/route.tsx:16
+#: app/table/convert/route.tsx:16
+#: app/table/validate/route.tsx:16
 msgid "Under Construction"
 msgstr "Under Construction"
 
-#: routes/home/route.tsx:38
+#: app/home/route.tsx:38
 msgid "Unlike others, dpkit Cloud is"
 msgstr "Unlike others, dpkit Cloud is"
 
@@ -439,7 +437,7 @@ msgstr "URL"
 msgid "URL is required"
 msgstr "URL is required"
 
-#: routes/package/validate/Dialog.tsx:39
+#: app/package/validate/Dialog.tsx:39
 msgid "Valid data package"
 msgstr "Valid data package"
 
@@ -451,7 +449,7 @@ msgstr "Validate data package"
 msgid "Validate Data Package"
 msgstr "Validate Data Package"
 
-#: routes/package/validate/Dialog.tsx:38
+#: app/package/validate/Dialog.tsx:38
 msgid "Validating data package..."
 msgstr "Validating data package..."
 

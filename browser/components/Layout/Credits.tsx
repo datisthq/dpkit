@@ -48,7 +48,8 @@ export function Credits() {
         </Box>
         <Text c="dimmed" ta="center" maw="50ch">
           <Trans>
-            We are bringing technological innovation and consultancy services to the open data field
+            We are bringing technological innovation and consultancy services to
+            the open data field
           </Trans>
         </Text>
       </Stack>
