@@ -62,6 +62,7 @@
     "ts-extras": "0.14.0",
     "tslog": "4.10.2",
     "vaul": "1.1.2",
+    "vite-plugin-babel-macros": "1.0.6",
     "vite-plugin-devtools-json": "1.0.0",
     "vite-plugin-svgr": "4.5.0",
     "wrangler": "4.43.0",
