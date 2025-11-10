@@ -26,6 +26,7 @@ export default defineConfig({
         "**/coverage/**",
         "**/entrypoints/**",
         "**/examples/**",
+        "**/messages.js",
         "**/program.ts",
         "**/index.ts",
         "**/main.ts",

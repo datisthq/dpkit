@@ -8,8 +8,8 @@ import { objectKeys } from "ts-extras"
 import { LanguageIdDefault, Languages } from "#constants/language.ts"
 import type * as types from "#types/index.ts"
 
-dotenv.config()
 process.chdir(import.meta.dirname)
+dotenv.config()
 
 const $ = execa({
   stdout: ["inherit", "pipe"],
@@ -36,7 +36,7 @@ async function translateLanguage(languageId: types.LanguageId) {
   const content = await readFile(path)
 
   const { text } = await generateText({
-    model: openai("gpt-5"),
+    model: openai("gpt-4.1"),
     prompt: `
       You are a professional translator. Here is a PO (gettext) file.
 

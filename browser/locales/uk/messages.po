@@ -15,4 +15,4 @@ msgstr ""
 
 #: components/Layout/Banner.tsx:15
 msgid "Support the project by"
-msgstr ""
+msgstr "Підтримайте проєкт через"
