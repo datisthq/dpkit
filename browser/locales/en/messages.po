@@ -33,6 +33,10 @@ msgstr "Change Language"
 msgid "Change Theme"
 msgstr "Change Theme"
 
+#: components/Dialog/Dialog.tsx:52
+msgid "Close"
+msgstr "Close"
+
 #: components/Layout/Breadcrumbs.tsx:29
 msgid "Convert table format"
 msgstr "Convert table format"
@@ -40,6 +44,10 @@ msgstr "Convert table format"
 #: components/Layout/Theme.tsx:47
 msgid "Dark"
 msgstr "Dark"
+
+#: components/Dialog/Dialog.tsx:37
+msgid "Dialog"
+msgstr "Dialog"
 
 #: components/Layout/Breadcrumbs.tsx:25
 msgid "Infer table dialect"

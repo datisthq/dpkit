@@ -1,7 +1,7 @@
+import { Trans } from "@lingui/react/macro"
 import { Box, Button, Container, Flex, ScrollArea } from "@mantine/core"
 import { useEffect, useState } from "react"
 import type { ReactNode } from "react"
-import { useTranslation } from "react-i18next"
 import { Drawer as VaulDrawer } from "vaul"
 import classes from "./Dialog.module.css"
 
@@ -11,8 +11,6 @@ export function Dialog(props: {
   fullScreen?: boolean
   onOpenChange: (open: boolean) => void
 }) {
-  const { t } = useTranslation()
-
   const snapPoints = [0.5, 1] as const
   const [snap, setSnap] = useState<number | string | null>(snapPoints[0])
 
@@ -36,7 +34,7 @@ export function Dialog(props: {
             <Flex gap={{ base: 20, md: 40 }} direction="column" h="100%">
               <Box className={classes.handle} />
               <VaulDrawer.Title className={classes.title}>
-                {t("Dialog")}
+                <Trans>Dialog</Trans>
               </VaulDrawer.Title>
               <ScrollArea
                 flex={props.fullScreen ? 1 : undefined}
@@ -51,7 +49,7 @@ export function Dialog(props: {
                 variant="outline"
                 size="lg"
               >
-                {t("Close")}
+                <Trans>Close</Trans>
               </Button>
             </Flex>
           </Container>
