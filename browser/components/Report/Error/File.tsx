@@ -1,17 +1,15 @@
+import { Trans } from "@lingui/react/macro"
 import type * as library from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
-import { useTranslation } from "react-i18next"
 
 export function BytesError(props: { error: library.BytesError }) {
-  const { t } = useTranslation()
-
   return (
     <Text>
-      {t("File size")} {t("is expected to be")}{" "}
+      <Trans>File size</Trans> <Trans>is expected to be</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.bytes} bytes
       </Code>{" "}
-      {t("but it is actually")}{" "}
+      <Trans>but it is actually</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.actualBytes} bytes
       </Code>
@@ -20,15 +18,13 @@ export function BytesError(props: { error: library.BytesError }) {
 }
 
 export function HashError(props: { error: library.HashError }) {
-  const { t } = useTranslation()
-
   return (
     <Text>
-      {t("File hash")} {t("is expected to be")}{" "}
+      <Trans>File hash</Trans> <Trans>is expected to be</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.hash}
       </Code>{" "}
-      {t("but it is actually")}{" "}
+      <Trans>but it is actually</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.actualHash}
       </Code>
@@ -37,15 +33,13 @@ export function HashError(props: { error: library.HashError }) {
 }
 
 export function EncodingError(props: { error: library.EncodingError }) {
-  const { t } = useTranslation()
-
   return (
     <Text>
-      {t("File encoding")} {t("is expected to be")}{" "}
+      <Trans>File encoding</Trans> <Trans>is expected to be</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.encoding}
       </Code>{" "}
-      {t("but it is actually")}{" "}
+      <Trans>but it is actually</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.actualEncoding}
       </Code>

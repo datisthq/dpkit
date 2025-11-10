@@ -13,9 +13,39 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: props.error.message
+#: components/Report/Error/Data.tsx:8
+#: components/Report/Error/Metadata.tsx:11
+msgid "{0}"
+msgstr "{0}"
+
+#: components/Report/Report.tsx:48
+msgid "{type}"
+msgstr "{type}"
+
+#: components/Report/Error/Cell.tsx:38
+msgid "A required cell in field"
+msgstr "Eine erforderliche Zelle im Feld"
+
 #: components/Layout/Banner.tsx:32
 msgid "adding a star"
 msgstr "einen Stern vergeben"
+
+#: components/Report/Error/Fields.tsx:14
+msgid "are missing"
+msgstr "fehlen"
+
+#: components/Report/Error/Fields.tsx:28
+msgid "are not expected"
+msgstr "werden nicht erwartet"
+
+#: components/Report/Error/Row.tsx:12
+msgid "are not unique"
+msgstr "sind nicht eindeutig"
+
+#: components/Report/Error/Metadata.tsx:11
+msgid "at"
+msgstr "bei"
 
 #: components/Layout/Banner.tsx:21
 msgid "becoming a sponsor"
@@ -24,6 +54,14 @@ msgstr "Sponsor werden"
 #: components/Layout/Credits.tsx:20
 msgid "Brought to you by"
 msgstr "Präsentiert von"
+
+#: components/Report/Error/Field.tsx:12
+#: components/Report/Error/Field.tsx:31
+#: components/Report/Error/File.tsx:12
+#: components/Report/Error/File.tsx:27
+#: components/Report/Error/File.tsx:42
+msgid "but it is actually"
+msgstr "aber tatsächlich ist es"
 
 #: components/Layout/Language.tsx:64
 msgid "Change Language"
@@ -61,17 +99,72 @@ msgstr "Datenpaket-URL"
 msgid "Dialog"
 msgstr "Dialog"
 
+#: components/Report/Error/Cell.tsx:238
+#: components/Report/Error/Cell.tsx:314
+msgid "does not match the"
+msgstr "entspricht nicht dem"
+
 #: components/Form/Form.tsx:97
 msgid "Enter data package URL"
 msgstr "Datenpaket-URL eingeben"
+
+#: components/Report/Report.tsx:37
+msgid "Errors"
+msgstr "Fehler"
+
+#: components/Report/Error/Cell.tsx:158
+msgid "exclusive maximum"
+msgstr "exklusives Maximum"
+
+#: components/Report/Error/Cell.tsx:130
+msgid "exclusive minimum"
+msgstr "exklusives Minimum"
+
+#: components/Report/Error/Field.tsx:23
+msgid "Field"
+msgstr "Feld"
+
+#: components/Report/Error/Field.tsx:8
+msgid "Field name"
+msgstr "Feldname"
 
 #: components/Form/Form.tsx:39
 msgid "File"
 msgstr "Datei"
 
+#: components/Report/Error/File.tsx:38
+msgid "File encoding"
+msgstr "Datei-Kodierung"
+
+#: components/Report/Error/File.tsx:23
+msgid "File hash"
+msgstr "Datei-Hash"
+
 #: components/Form/Form.tsx:121
 msgid "File is required"
 msgstr "Datei ist erforderlich"
+
+#: components/Report/Error/File.tsx:8
+msgid "File size"
+msgstr "Dateigröße"
+
+#: components/Report/Error/ForeignKey.tsx:8
+msgid "Foreign key violation in field(s)"
+msgstr "Fremdschlüsselverletzung in Feld(er/n)"
+
+#: components/Report/Error/Cell.tsx:14
+#: components/Report/Error/Cell.tsx:62
+#: components/Report/Error/Cell.tsx:90
+#: components/Report/Error/Cell.tsx:118
+#: components/Report/Error/Cell.tsx:146
+#: components/Report/Error/Cell.tsx:174
+#: components/Report/Error/Cell.tsx:202
+#: components/Report/Error/Cell.tsx:230
+#: components/Report/Error/Cell.tsx:256
+#: components/Report/Error/Cell.tsx:278
+#: components/Report/Error/Cell.tsx:306
+msgid "in field"
+msgstr "im Feld"
 
 #: components/Layout/Breadcrumbs.tsx:25
 msgid "Infer table dialect"
@@ -93,9 +186,78 @@ msgstr "Ungültiges JSON-Format"
 msgid "Invalid URL format"
 msgstr "Ungültiges URL-Format"
 
+#: components/Report/Error/Field.tsx:8
+#: components/Report/Error/Field.tsx:27
+#: components/Report/Error/File.tsx:8
+#: components/Report/Error/File.tsx:23
+#: components/Report/Error/File.tsx:38
+msgid "is expected to be"
+msgstr "sollte sein"
+
+#: components/Report/Error/Cell.tsx:126
+#: components/Report/Error/Cell.tsx:154
+msgid "is less or equal to"
+msgstr "ist kleiner oder gleich"
+
+#: components/Report/Error/Cell.tsx:70
+#: components/Report/Error/Cell.tsx:182
+msgid "is less than"
+msgstr "ist kleiner als"
+
+#: components/Report/Error/Cell.tsx:46
+msgid "is missing"
+msgstr "fehlt"
+
+#: components/Report/Error/Cell.tsx:98
+#: components/Report/Error/Cell.tsx:210
+msgid "is more than"
+msgstr "ist größer als"
+
+#: components/Report/Error/Cell.tsx:22
+msgid "is not"
+msgstr "ist nicht"
+
+#: components/Report/Error/Cell.tsx:286
+msgid "is not in the allowed"
+msgstr "ist nicht in den erlaubten"
+
+#: components/Report/Error/Cell.tsx:264
+msgid "is not unique"
+msgstr "ist nicht eindeutig"
+
+#: components/Report/Error/Cell.tsx:170
+#: components/Report/Error/Cell.tsx:198
+msgid "Length of the cell"
+msgstr "Länge der Zelle"
+
 #: components/Layout/Theme.tsx:38
 msgid "Light"
 msgstr "Hell"
+
+#: components/Report/Error/Cell.tsx:102
+#: components/Report/Error/Cell.tsx:214
+msgid "maximum"
+msgstr "Maximum"
+
+#: components/Report/Error/Cell.tsx:74
+#: components/Report/Error/Cell.tsx:186
+msgid "minimum"
+msgstr "Minimum"
+
+#: components/Report/Error/Cell.tsx:18
+#: components/Report/Error/Cell.tsx:42
+#: components/Report/Error/Cell.tsx:66
+#: components/Report/Error/Cell.tsx:94
+#: components/Report/Error/Cell.tsx:122
+#: components/Report/Error/Cell.tsx:150
+#: components/Report/Error/Cell.tsx:178
+#: components/Report/Error/Cell.tsx:206
+#: components/Report/Error/Cell.tsx:234
+#: components/Report/Error/Cell.tsx:260
+#: components/Report/Error/Cell.tsx:282
+#: components/Report/Error/Cell.tsx:310
+msgid "of row"
+msgstr "der Zeile"
 
 #: components/Layout/Banner.tsx:34
 msgid "on GitHub!"
@@ -108,6 +270,10 @@ msgstr "oder"
 #: components/Form/Form.tsx:183
 msgid "Paste data package JSON"
 msgstr "Datenpaket-JSON einfügen"
+
+#: components/Report/Error/Cell.tsx:242
+msgid "pattern"
+msgstr "Muster"
 
 #: components/Layout/Breadcrumbs.tsx:31
 msgid "Select a tool below"
@@ -137,6 +303,15 @@ msgstr "Text"
 msgid "Text is required"
 msgstr "Text ist erforderlich"
 
+#: components/Report/Error/Row.tsx:8
+msgid "The cell values of the fields"
+msgstr "Die Zellwerte der Felder"
+
+#: components/Report/Error/Fields.tsx:10
+#: components/Report/Error/Fields.tsx:24
+msgid "The fields"
+msgstr "Die Felder"
+
 #: components/Layout/Breadcrumbs.tsx:17
 msgid "Tools"
 msgstr "Werkzeuge"
@@ -156,6 +331,22 @@ msgstr "Datenpaket validieren"
 #: components/Form/Form.tsx:212
 msgid "Validate Data Package"
 msgstr "Datenpaket validieren"
+
+#: components/Report/Error/Cell.tsx:10
+#: components/Report/Error/Cell.tsx:58
+#: components/Report/Error/Cell.tsx:86
+#: components/Report/Error/Cell.tsx:114
+#: components/Report/Error/Cell.tsx:142
+#: components/Report/Error/Cell.tsx:226
+#: components/Report/Error/Cell.tsx:252
+#: components/Report/Error/Cell.tsx:274
+#: components/Report/Error/Cell.tsx:302
+msgid "Value of the cell"
+msgstr "Wert der Zelle"
+
+#: components/Report/Error/Cell.tsx:290
+msgid "values"
+msgstr "Werte"
 
 #: components/Layout/Repository.tsx:13
 msgid "View Repository"

@@ -1,16 +1,15 @@
+import { Trans } from "@lingui/react/macro"
 import type * as library from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
-import { useTranslation } from "react-i18next"
 
 export function RowUniqueError(props: { error: library.RowUniqueError }) {
-  const { t } = useTranslation()
   return (
     <Text>
-      {t("The cell values of the fields")}{" "}
+      <Trans>The cell values of the fields</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldNames.join(", ")}
       </Code>{" "}
-      {t("are not unique")}
+      <Trans>are not unique</Trans>
     </Text>
   )
 }

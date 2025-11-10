@@ -1,9 +1,9 @@
+import { useLingui } from "@lingui/react/macro"
 import type * as library from "@dpkit/library"
 import { Text } from "@mantine/core"
-import { useTranslation } from "react-i18next"
 
 export function DataError(props: { error: library.DataError }) {
-  const { t } = useTranslation()
+  const { t } = useLingui()
 
-  return <Text>{t(props.error.message as any)}</Text>
+  return <Text>{t`${props.error.message}`}</Text>
 }

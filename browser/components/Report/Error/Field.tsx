@@ -1,16 +1,15 @@
+import { Trans } from "@lingui/react/macro"
 import type * as library from "@dpkit/library"
 import { Code, Text } from "@mantine/core"
-import { useTranslation } from "react-i18next"
 
 export function FieldNameError(props: { error: library.FieldNameError }) {
-  const { t } = useTranslation()
   return (
     <Text>
-      {t("Field name")} {t("is expected to be")}{" "}
+      <Trans>Field name</Trans> <Trans>is expected to be</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
       </Code>{" "}
-      {t("but it is actually")}{" "}
+      <Trans>but it is actually</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.actualFieldName}
       </Code>
@@ -19,18 +18,17 @@ export function FieldNameError(props: { error: library.FieldNameError }) {
 }
 
 export function FieldTypeError(props: { error: library.FieldTypeError }) {
-  const { t } = useTranslation()
   return (
     <Text>
-      {t("Field")}{" "}
+      <Trans>Field</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldName}
       </Code>{" "}
-      {t("is expected to be")}{" "}
+      <Trans>is expected to be</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.fieldType}
       </Code>{" "}
-      {t("but it is actually")}{" "}
+      <Trans>but it is actually</Trans>{" "}
       <Code fz="lg" fw="bold">
         {props.error.actualFieldType}
       </Code>

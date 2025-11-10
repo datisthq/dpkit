@@ -13,9 +13,39 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: props.error.message
+#: components/Report/Error/Data.tsx:8
+#: components/Report/Error/Metadata.tsx:11
+msgid "{0}"
+msgstr "{0}"
+
+#: components/Report/Report.tsx:48
+msgid "{type}"
+msgstr "{type}"
+
+#: components/Report/Error/Cell.tsx:38
+msgid "A required cell in field"
+msgstr "Обов'язкова клітинка у полі"
+
 #: components/Layout/Banner.tsx:32
 msgid "adding a star"
 msgstr "додаванням зірки"
+
+#: components/Report/Error/Fields.tsx:14
+msgid "are missing"
+msgstr "відсутні"
+
+#: components/Report/Error/Fields.tsx:28
+msgid "are not expected"
+msgstr "не очікувані"
+
+#: components/Report/Error/Row.tsx:12
+msgid "are not unique"
+msgstr "не є унікальними"
+
+#: components/Report/Error/Metadata.tsx:11
+msgid "at"
+msgstr "на"
 
 #: components/Layout/Banner.tsx:21
 msgid "becoming a sponsor"
@@ -24,6 +54,14 @@ msgstr "ставши спонсором"
 #: components/Layout/Credits.tsx:20
 msgid "Brought to you by"
 msgstr "Від"
+
+#: components/Report/Error/Field.tsx:12
+#: components/Report/Error/Field.tsx:31
+#: components/Report/Error/File.tsx:12
+#: components/Report/Error/File.tsx:27
+#: components/Report/Error/File.tsx:42
+msgid "but it is actually"
+msgstr "але насправді"
 
 #: components/Layout/Language.tsx:64
 msgid "Change Language"
@@ -61,17 +99,72 @@ msgstr "URL пакету даних"
 msgid "Dialog"
 msgstr "Діалог"
 
+#: components/Report/Error/Cell.tsx:238
+#: components/Report/Error/Cell.tsx:314
+msgid "does not match the"
+msgstr "не відповідає"
+
 #: components/Form/Form.tsx:97
 msgid "Enter data package URL"
 msgstr "Введіть URL пакету даних"
+
+#: components/Report/Report.tsx:37
+msgid "Errors"
+msgstr "Помилки"
+
+#: components/Report/Error/Cell.tsx:158
+msgid "exclusive maximum"
+msgstr "виключне максимальне"
+
+#: components/Report/Error/Cell.tsx:130
+msgid "exclusive minimum"
+msgstr "виключне мінімальне"
+
+#: components/Report/Error/Field.tsx:23
+msgid "Field"
+msgstr "Поле"
+
+#: components/Report/Error/Field.tsx:8
+msgid "Field name"
+msgstr "Назва поля"
 
 #: components/Form/Form.tsx:39
 msgid "File"
 msgstr "Файл"
 
+#: components/Report/Error/File.tsx:38
+msgid "File encoding"
+msgstr "Кодування файлу"
+
+#: components/Report/Error/File.tsx:23
+msgid "File hash"
+msgstr "Хеш файлу"
+
 #: components/Form/Form.tsx:121
 msgid "File is required"
 msgstr "Файл є обов'язковим"
+
+#: components/Report/Error/File.tsx:8
+msgid "File size"
+msgstr "Розмір файлу"
+
+#: components/Report/Error/ForeignKey.tsx:8
+msgid "Foreign key violation in field(s)"
+msgstr "Порушення зовнішнього ключа у полі(ях)"
+
+#: components/Report/Error/Cell.tsx:14
+#: components/Report/Error/Cell.tsx:62
+#: components/Report/Error/Cell.tsx:90
+#: components/Report/Error/Cell.tsx:118
+#: components/Report/Error/Cell.tsx:146
+#: components/Report/Error/Cell.tsx:174
+#: components/Report/Error/Cell.tsx:202
+#: components/Report/Error/Cell.tsx:230
+#: components/Report/Error/Cell.tsx:256
+#: components/Report/Error/Cell.tsx:278
+#: components/Report/Error/Cell.tsx:306
+msgid "in field"
+msgstr "у полі"
 
 #: components/Layout/Breadcrumbs.tsx:25
 msgid "Infer table dialect"
@@ -93,9 +186,78 @@ msgstr "Некоректний формат JSON"
 msgid "Invalid URL format"
 msgstr "Некоректний формат URL"
 
+#: components/Report/Error/Field.tsx:8
+#: components/Report/Error/Field.tsx:27
+#: components/Report/Error/File.tsx:8
+#: components/Report/Error/File.tsx:23
+#: components/Report/Error/File.tsx:38
+msgid "is expected to be"
+msgstr "очікується як"
+
+#: components/Report/Error/Cell.tsx:126
+#: components/Report/Error/Cell.tsx:154
+msgid "is less or equal to"
+msgstr "менше або дорівнює"
+
+#: components/Report/Error/Cell.tsx:70
+#: components/Report/Error/Cell.tsx:182
+msgid "is less than"
+msgstr "менше ніж"
+
+#: components/Report/Error/Cell.tsx:46
+msgid "is missing"
+msgstr "відсутній"
+
+#: components/Report/Error/Cell.tsx:98
+#: components/Report/Error/Cell.tsx:210
+msgid "is more than"
+msgstr "більше ніж"
+
+#: components/Report/Error/Cell.tsx:22
+msgid "is not"
+msgstr "не є"
+
+#: components/Report/Error/Cell.tsx:286
+msgid "is not in the allowed"
+msgstr "не входить до дозволених"
+
+#: components/Report/Error/Cell.tsx:264
+msgid "is not unique"
+msgstr "не є унікальним"
+
+#: components/Report/Error/Cell.tsx:170
+#: components/Report/Error/Cell.tsx:198
+msgid "Length of the cell"
+msgstr "Довжина клітинки"
+
 #: components/Layout/Theme.tsx:38
 msgid "Light"
 msgstr "Світла"
+
+#: components/Report/Error/Cell.tsx:102
+#: components/Report/Error/Cell.tsx:214
+msgid "maximum"
+msgstr "максимум"
+
+#: components/Report/Error/Cell.tsx:74
+#: components/Report/Error/Cell.tsx:186
+msgid "minimum"
+msgstr "мінімум"
+
+#: components/Report/Error/Cell.tsx:18
+#: components/Report/Error/Cell.tsx:42
+#: components/Report/Error/Cell.tsx:66
+#: components/Report/Error/Cell.tsx:94
+#: components/Report/Error/Cell.tsx:122
+#: components/Report/Error/Cell.tsx:150
+#: components/Report/Error/Cell.tsx:178
+#: components/Report/Error/Cell.tsx:206
+#: components/Report/Error/Cell.tsx:234
+#: components/Report/Error/Cell.tsx:260
+#: components/Report/Error/Cell.tsx:282
+#: components/Report/Error/Cell.tsx:310
+msgid "of row"
+msgstr "рядка"
 
 #: components/Layout/Banner.tsx:34
 msgid "on GitHub!"
@@ -108,6 +270,10 @@ msgstr "або"
 #: components/Form/Form.tsx:183
 msgid "Paste data package JSON"
 msgstr "Вставте JSON пакету даних"
+
+#: components/Report/Error/Cell.tsx:242
+msgid "pattern"
+msgstr "шаблон"
 
 #: components/Layout/Breadcrumbs.tsx:31
 msgid "Select a tool below"
@@ -137,6 +303,15 @@ msgstr "Текст"
 msgid "Text is required"
 msgstr "Текст є обов'язковим"
 
+#: components/Report/Error/Row.tsx:8
+msgid "The cell values of the fields"
+msgstr "Значення клітинок полів"
+
+#: components/Report/Error/Fields.tsx:10
+#: components/Report/Error/Fields.tsx:24
+msgid "The fields"
+msgstr "Поля"
+
 #: components/Layout/Breadcrumbs.tsx:17
 msgid "Tools"
 msgstr "Інструменти"
@@ -156,6 +331,22 @@ msgstr "Валідувати пакет даних"
 #: components/Form/Form.tsx:212
 msgid "Validate Data Package"
 msgstr "Валідувати пакет даних"
+
+#: components/Report/Error/Cell.tsx:10
+#: components/Report/Error/Cell.tsx:58
+#: components/Report/Error/Cell.tsx:86
+#: components/Report/Error/Cell.tsx:114
+#: components/Report/Error/Cell.tsx:142
+#: components/Report/Error/Cell.tsx:226
+#: components/Report/Error/Cell.tsx:252
+#: components/Report/Error/Cell.tsx:274
+#: components/Report/Error/Cell.tsx:302
+msgid "Value of the cell"
+msgstr "Значення клітинки"
+
+#: components/Report/Error/Cell.tsx:290
+msgid "values"
+msgstr "значення"
 
 #: components/Layout/Repository.tsx:13
 msgid "View Repository"
