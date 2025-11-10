@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/react/macro"
 import { Anchor, Box, Text } from "@mantine/core"
 import { Container } from "@mantine/core"
 import { useTranslation } from "react-i18next"
@@ -11,7 +12,7 @@ export function Banner() {
     <Box className={classes.banner} py="xs">
       <Container size="lg">
         <Text>
-          {t("Support the project by")}{" "}
+          <Trans>Support the project by</Trans>
           <Anchor
             component={Link}
             to="https://github.com/sponsors/datisthq"
