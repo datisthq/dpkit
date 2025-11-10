@@ -20,7 +20,7 @@
     "@ai-sdk/openai": "2.0.64",
     "@clack/prompts": "^0.11.0",
     "@cloudflare/containers": "0.0.28",
-    "@cloudflare/vite-plugin": "1.13.13",
+    "@cloudflare/vite-plugin": "1.14.0",
     "@dpkit/library": "workspace:*",
     "@dpkit/service": "workspace:*",
     "@lingui/cli": "5.5.2",
