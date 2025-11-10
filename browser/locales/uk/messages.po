@@ -37,31 +37,31 @@ msgstr "dpkit Cloud — це сучасний онлайн-інструмент 
 msgid "about-dpkit-cloud-title"
 msgstr "Що таке dpkit Cloud?"
 
-#: app/about/route.tsx:44
+#: app/about/route.tsx:45
 msgid "about-get-in-touch"
 msgstr "Зв'яжіться з нами"
 
-#: app/about/route.tsx:33
+#: app/about/route.tsx:34
 msgid "about-privacy-first-description"
 msgstr "Ваша безпека та конфіденційність даних — наш головний пріоритет. Ми не зберігаємо, не аналізуємо і не передаємо ваші дані стороннім."
 
-#: app/about/route.tsx:32
+#: app/about/route.tsx:33
 msgid "about-privacy-first-title"
 msgstr "Конфіденційність понад усе"
 
-#: app/about/route.tsx:40
+#: app/about/route.tsx:41
 msgid "about-self-hosting-docs"
 msgstr "Документація з самостійного хостингу"
 
-#: app/about/route.tsx:38
+#: app/about/route.tsx:39
 msgid "about-self-hosting-intro"
 msgstr "Ви можете розгорнути власний dpkit Cloud у себе локально або в корпоративному середовищі."
 
-#: app/about/route.tsx:42
+#: app/about/route.tsx:43
 msgid "about-self-hosting-middle"
 msgstr "або дізнайтеся більше у документації."
 
-#: app/about/route.tsx:36
+#: app/about/route.tsx:37
 msgid "about-self-hosting-title"
 msgstr "Повний контроль завдяки самостійному хостингу"
 
@@ -110,11 +110,11 @@ msgstr "Від"
 msgid "but it is actually"
 msgstr "але насправді"
 
-#: components/Layout/Language.tsx:64
+#: components/Layout/Language.tsx:66
 msgid "Change Language"
 msgstr "Змінити мову"
 
-#: components/Layout/Theme.tsx:21
+#: components/Layout/Theme.tsx:23
 msgid "Change Theme"
 msgstr "Змінити тему"
 
@@ -130,7 +130,7 @@ msgstr "Конвертувати формат таблиці"
 msgid "converting and validating data"
 msgstr "конвертування та валідації даних"
 
-#: components/Layout/Theme.tsx:47
+#: components/Layout/Theme.tsx:51
 msgid "Dark"
 msgstr "Темна"
 
@@ -171,7 +171,7 @@ msgstr "Внутрішня помилка сервера"
 msgid "Errors"
 msgstr "Помилки"
 
-#: app/about/route.tsx:27
+#: app/about/route.tsx:28
 #: app/home/route.tsx:52
 msgid "European Commission"
 msgstr "Європейська Комісія"
@@ -298,7 +298,7 @@ msgstr "не є унікальним"
 msgid "Length of the cell"
 msgstr "Довжина клітинки"
 
-#: components/Layout/Theme.tsx:38
+#: components/Layout/Theme.tsx:42
 msgid "Light"
 msgstr "Світла"
 
@@ -364,16 +364,16 @@ msgstr "Виберіть інструмент нижче"
 msgid "Select data package file"
 msgstr "Виберіть файл пакету даних"
 
-#: app/about/route.tsx:24
+#: app/about/route.tsx:25
 #: app/home/route.tsx:48
 msgid "self-host"
 msgstr "самостійно розмістити"
 
-#: components/Layout/Share.tsx:41
+#: components/Layout/Share.tsx:45
 msgid "Share"
 msgstr "Поділитися"
 
-#: components/Layout/Share.tsx:32
+#: components/Layout/Share.tsx:34
 msgid "Share Page"
 msgstr "Поділитися сторінкою"
 
@@ -388,6 +388,10 @@ msgstr "Підтримайте проєкт через"
 #: components/System/Error.tsx:32
 msgid "Take me back to home page"
 msgstr "Повернутися на головну сторінку"
+
+#: components/Dialog/Dialog.tsx:52
+#~ msgid "Test"
+#~ msgstr "Тест"
 
 #: components/Form/Form.tsx:50
 msgid "Text"
@@ -406,11 +410,12 @@ msgstr "Значення клітинок полів"
 msgid "The fields"
 msgstr "Поля"
 
-#: app/about/route.tsx:25
+#: app/about/route.tsx:26
 #: app/home/route.tsx:50
 msgid "the service. In 2025, the project was funded by"
 msgstr "сервісу. У 2025 році проєкт був профінансований"
 
+#: app/schema/infer/route.tsx:17
 #: app/table/convert/route.tsx:17
 #: app/table/validate/route.tsx:17
 msgid "This tool is currently under construction and not yet available"
@@ -420,6 +425,7 @@ msgstr "Цей інструмент наразі в розробці й тимч
 msgid "Tools"
 msgstr "Інструменти"
 
+#: app/schema/infer/route.tsx:16
 #: app/table/convert/route.tsx:16
 #: app/table/validate/route.tsx:16
 msgid "Under Construction"
@@ -469,7 +475,7 @@ msgstr "Значення клітинки"
 msgid "values"
 msgstr "значення"
 
-#: components/Layout/Repository.tsx:13
+#: components/Layout/Repository.tsx:14
 msgid "View Repository"
 msgstr "Переглянути репозиторій"
 

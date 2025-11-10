@@ -37,31 +37,31 @@ msgstr "dpkit Cloud ist eine frei zugängliche Plattform für offene Datenverarb
 msgid "about-dpkit-cloud-title"
 msgstr "Über dpkit Cloud"
 
-#: app/about/route.tsx:44
+#: app/about/route.tsx:45
 msgid "about-get-in-touch"
 msgstr "Kontakt aufnehmen"
 
-#: app/about/route.tsx:33
+#: app/about/route.tsx:34
 msgid "about-privacy-first-description"
 msgstr "Wir behandeln Ihre Daten mit größter Sorgfalt und setzen auf Datenschutz als zentrales Prinzip."
 
-#: app/about/route.tsx:32
+#: app/about/route.tsx:33
 msgid "about-privacy-first-title"
 msgstr "Datenschutz an erster Stelle"
 
-#: app/about/route.tsx:40
+#: app/about/route.tsx:41
 msgid "about-self-hosting-docs"
 msgstr "Selbst-Hosting-Dokumentation"
 
-#: app/about/route.tsx:38
+#: app/about/route.tsx:39
 msgid "about-self-hosting-intro"
 msgstr "Betreiben Sie Ihre eigene Instanz durch einfaches Selbst-Hosting."
 
-#: app/about/route.tsx:42
+#: app/about/route.tsx:43
 msgid "about-self-hosting-middle"
 msgstr "Lesen Sie mehr darüber, wie Sie dpkit unabhängig betreiben können."
 
-#: app/about/route.tsx:36
+#: app/about/route.tsx:37
 msgid "about-self-hosting-title"
 msgstr "Eigene Instanz (Self-Hosting)"
 
@@ -110,11 +110,11 @@ msgstr "Präsentiert von"
 msgid "but it is actually"
 msgstr "aber tatsächlich ist es"
 
-#: components/Layout/Language.tsx:64
+#: components/Layout/Language.tsx:66
 msgid "Change Language"
 msgstr "Sprache ändern"
 
-#: components/Layout/Theme.tsx:21
+#: components/Layout/Theme.tsx:23
 msgid "Change Theme"
 msgstr "Design ändern"
 
@@ -130,7 +130,7 @@ msgstr "Tabellenformat umwandeln"
 msgid "converting and validating data"
 msgstr "Daten konvertieren und validieren"
 
-#: components/Layout/Theme.tsx:47
+#: components/Layout/Theme.tsx:51
 msgid "Dark"
 msgstr "Dunkel"
 
@@ -171,7 +171,7 @@ msgstr "Interner Serverfehler"
 msgid "Errors"
 msgstr "Fehler"
 
-#: app/about/route.tsx:27
+#: app/about/route.tsx:28
 #: app/home/route.tsx:52
 msgid "European Commission"
 msgstr "Europäische Kommission"
@@ -298,7 +298,7 @@ msgstr "ist nicht eindeutig"
 msgid "Length of the cell"
 msgstr "Länge der Zelle"
 
-#: components/Layout/Theme.tsx:38
+#: components/Layout/Theme.tsx:42
 msgid "Light"
 msgstr "Hell"
 
@@ -364,16 +364,16 @@ msgstr "Wähle unten ein Tool aus"
 msgid "Select data package file"
 msgstr "Datenpaket-Datei auswählen"
 
-#: app/about/route.tsx:24
+#: app/about/route.tsx:25
 #: app/home/route.tsx:48
 msgid "self-host"
 msgstr "selbst hosten"
 
-#: components/Layout/Share.tsx:41
+#: components/Layout/Share.tsx:45
 msgid "Share"
 msgstr "Teilen"
 
-#: components/Layout/Share.tsx:32
+#: components/Layout/Share.tsx:34
 msgid "Share Page"
 msgstr "Seite teilen"
 
@@ -388,6 +388,10 @@ msgstr "Unterstütze das Projekt durch"
 #: components/System/Error.tsx:32
 msgid "Take me back to home page"
 msgstr "Zurück zur Startseite"
+
+#: components/Dialog/Dialog.tsx:52
+#~ msgid "Test"
+#~ msgstr "Test"
 
 #: components/Form/Form.tsx:50
 msgid "Text"
@@ -406,11 +410,12 @@ msgstr "Die Zellwerte der Felder"
 msgid "The fields"
 msgstr "Die Felder"
 
-#: app/about/route.tsx:25
+#: app/about/route.tsx:26
 #: app/home/route.tsx:50
 msgid "the service. In 2025, the project was funded by"
 msgstr "den Service nutzen. 2025 wurde das Projekt gefördert von"
 
+#: app/schema/infer/route.tsx:17
 #: app/table/convert/route.tsx:17
 #: app/table/validate/route.tsx:17
 msgid "This tool is currently under construction and not yet available"
@@ -420,6 +425,7 @@ msgstr "Dieses Tool befindet sich derzeit im Aufbau und ist noch nicht verfügba
 msgid "Tools"
 msgstr "Werkzeuge"
 
+#: app/schema/infer/route.tsx:16
 #: app/table/convert/route.tsx:16
 #: app/table/validate/route.tsx:16
 msgid "Under Construction"
@@ -469,7 +475,7 @@ msgstr "Wert der Zelle"
 msgid "values"
 msgstr "Werte"
 
-#: components/Layout/Repository.tsx:13
+#: components/Layout/Repository.tsx:14
 msgid "View Repository"
 msgstr "Repository anzeigen"
 
