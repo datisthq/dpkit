@@ -9,6 +9,7 @@ import svgr from "vite-plugin-svgr"
 export default defineConfig({
   assetsInclude: ["**/*.md"],
   plugins: [
+    // @ts-ignore
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     devtoolsJson(),
     macrosPlugin(),
