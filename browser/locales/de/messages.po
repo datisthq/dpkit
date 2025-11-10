@@ -159,6 +159,14 @@ msgstr "entspricht nicht dem"
 msgid "Enter data package URL"
 msgstr "Datenpaket-URL eingeben"
 
+#: components/System/Error.tsx:18
+msgid "error404"
+msgstr "Seite nicht gefunden"
+
+#: components/System/Error.tsx:18
+msgid "error500"
+msgstr "Interner Serverfehler"
+
 #: components/Report/Report.tsx:37
 msgid "Errors"
 msgstr "Fehler"
@@ -332,6 +340,10 @@ msgstr "Open Source"
 msgid "or"
 msgstr "oder"
 
+#: components/System/Error.tsx:17
+msgid "Page not found"
+msgstr "Seite nicht gefunden"
+
 #: components/Form/Form.tsx:183
 msgid "Paste data package JSON"
 msgstr "Datenpaket-JSON einfügen"
@@ -365,9 +377,17 @@ msgstr "Teilen"
 msgid "Share Page"
 msgstr "Seite teilen"
 
+#: components/System/Error.tsx:17
+msgid "Something went wrong"
+msgstr "Etwas ist schiefgelaufen"
+
 #: components/Layout/Banner.tsx:12
 msgid "Support the project by"
 msgstr "Unterstütze das Projekt durch"
+
+#: components/System/Error.tsx:34
+msgid "Take me back to home page"
+msgstr "Zurück zur Startseite"
 
 #: components/Form/Form.tsx:50
 msgid "Text"

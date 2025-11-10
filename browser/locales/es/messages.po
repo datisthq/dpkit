@@ -159,6 +159,14 @@ msgstr "no coincide con el/la"
 msgid "Enter data package URL"
 msgstr "Ingrese la URL del paquete de datos"
 
+#: components/System/Error.tsx:18
+msgid "error404"
+msgstr "Página no encontrada"
+
+#: components/System/Error.tsx:18
+msgid "error500"
+msgstr "Error del servidor"
+
 #: components/Report/Report.tsx:37
 msgid "Errors"
 msgstr "Errores"
@@ -332,6 +340,10 @@ msgstr "código abierto"
 msgid "or"
 msgstr "o"
 
+#: components/System/Error.tsx:17
+msgid "Page not found"
+msgstr "Página no encontrada"
+
 #: components/Form/Form.tsx:183
 msgid "Paste data package JSON"
 msgstr "Pega el JSON del paquete de datos"
@@ -365,9 +377,17 @@ msgstr "Compartir"
 msgid "Share Page"
 msgstr "Compartir página"
 
+#: components/System/Error.tsx:17
+msgid "Something went wrong"
+msgstr "Algo salió mal"
+
 #: components/Layout/Banner.tsx:12
 msgid "Support the project by"
 msgstr "Apoya el proyecto mediante"
+
+#: components/System/Error.tsx:34
+msgid "Take me back to home page"
+msgstr "Llévame de vuelta a la página principal"
 
 #: components/Form/Form.tsx:50
 msgid "Text"

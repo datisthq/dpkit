@@ -159,6 +159,14 @@ msgstr "не відповідає"
 msgid "Enter data package URL"
 msgstr "Введіть URL пакету даних"
 
+#: components/System/Error.tsx:18
+msgid "error404"
+msgstr "Сторінку не знайдено"
+
+#: components/System/Error.tsx:18
+msgid "error500"
+msgstr "Внутрішня помилка сервера"
+
 #: components/Report/Report.tsx:37
 msgid "Errors"
 msgstr "Помилки"
@@ -332,6 +340,10 @@ msgstr "з відкритим кодом"
 msgid "or"
 msgstr "або"
 
+#: components/System/Error.tsx:17
+msgid "Page not found"
+msgstr "Сторінку не знайдено"
+
 #: components/Form/Form.tsx:183
 msgid "Paste data package JSON"
 msgstr "Вставте JSON пакету даних"
@@ -365,9 +377,17 @@ msgstr "Поділитися"
 msgid "Share Page"
 msgstr "Поділитися сторінкою"
 
+#: components/System/Error.tsx:17
+msgid "Something went wrong"
+msgstr "Щось пішло не так"
+
 #: components/Layout/Banner.tsx:12
 msgid "Support the project by"
 msgstr "Підтримайте проєкт через"
+
+#: components/System/Error.tsx:34
+msgid "Take me back to home page"
+msgstr "Повернутися на головну сторінку"
 
 #: components/Form/Form.tsx:50
 msgid "Text"

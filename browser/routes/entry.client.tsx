@@ -1,9 +1,9 @@
 import { StrictMode, startTransition } from "react"
 import { hydrateRoot } from "react-dom/client"
 import { HydratedRouter } from "react-router/dom"
-import { activateLocal, detectClientLocal } from "#helpers/locale.ts"
+import { activateLocal, detectClientLanguageId } from "#helpers/locale.ts"
 
-const languageId = await detectClientLocal()
+const languageId = await detectClientLanguageId()
 await activateLocal(languageId)
 
 startTransition(() => {

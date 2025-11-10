@@ -159,6 +159,14 @@ msgstr "не соответствует"
 msgid "Enter data package URL"
 msgstr "Введите URL пакета данных"
 
+#: components/System/Error.tsx:18
+msgid "error404"
+msgstr "Страница не найдена"
+
+#: components/System/Error.tsx:18
+msgid "error500"
+msgstr "Внутренняя ошибка сервера"
+
 #: components/Report/Report.tsx:37
 msgid "Errors"
 msgstr "Ошибки"
@@ -332,6 +340,10 @@ msgstr "открытый исходный код"
 msgid "or"
 msgstr "или"
 
+#: components/System/Error.tsx:17
+msgid "Page not found"
+msgstr "Страница не найдена"
+
 #: components/Form/Form.tsx:183
 msgid "Paste data package JSON"
 msgstr "Вставьте JSON пакета данных"
@@ -365,9 +377,17 @@ msgstr "Поделиться"
 msgid "Share Page"
 msgstr "Поделиться страницей"
 
+#: components/System/Error.tsx:17
+msgid "Something went wrong"
+msgstr "Что-то пошло не так"
+
 #: components/Layout/Banner.tsx:12
 msgid "Support the project by"
 msgstr "Поддержите проект:"
+
+#: components/System/Error.tsx:34
+msgid "Take me back to home page"
+msgstr "Вернуться на главную"
 
 #: components/Form/Form.tsx:50
 msgid "Text"
