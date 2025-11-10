@@ -70,3 +70,4 @@ dist/
 .mcp.json
 .env
 .env.local
+messages.js

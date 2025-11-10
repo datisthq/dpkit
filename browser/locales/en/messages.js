@@ -1,1 +1,0 @@
-/*eslint-disable*/module.exports={messages:JSON.parse("{\"yFAi8k\":[\"Support the project by\"]}")};

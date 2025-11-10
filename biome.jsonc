@@ -11,7 +11,6 @@
       "**/*d.ts",
       "**/*.module.css",
       "**/.react-router",
-      "**/messages.js",
       "pnpm-lock.yaml"
     ],
     "ignoreUnknown": true
