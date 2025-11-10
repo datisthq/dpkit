@@ -1,8 +1,9 @@
 import { defineConfig } from "@lingui/cli"
+import { LanguageIdDefault, Languages } from "#constants/language.ts"
 
 export default defineConfig({
-  sourceLocale: "en",
-  locales: ["en", "de", "es", "fr", "it", "pt", "ru", "uk"],
+  sourceLocale: LanguageIdDefault,
+  locales: Object.keys(Languages),
   catalogs: [
     {
       path: "<rootDir>/locales/{locale}/messages",

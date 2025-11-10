@@ -17,6 +17,8 @@
     "type": "tsc --noEmit"
   },
   "devDependencies": {
+    "@ai-sdk/openai": "2.0.64",
+    "@clack/prompts": "^0.11.0",
     "@cloudflare/containers": "0.0.28",
     "@cloudflare/vite-plugin": "1.13.13",
     "@dpkit/library": "workspace:*",
@@ -33,7 +35,9 @@
     "@tanstack/react-query": "5.90.3",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.0",
+    "ai": "5.0.90",
     "concurrently": "9.2.1",
+    "dotenv": "17.2.3",
     "es-toolkit": "1.39.10",
     "execa": "9.6.0",
     "i18next": "25.6.0",
