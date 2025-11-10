@@ -5,7 +5,7 @@ import type * as types from "#types/index.ts"
 
 export async function detectServerLocal(request: Request) {
   const { pathname } = new URL(request.url)
-  const [languageParam] = pathname.split("/")
+  const [languageParam] = pathname.split("/").slice(1)
 
   const language =
     Object.values(Languages).find(
@@ -27,7 +27,7 @@ export async function detectClientLocal() {
 }
 
 export async function activateLocal(languageId: types.LanguageId) {
-  const { messages } = await import(`../locales/${languageId}.po`)
+  const { messages } = await import(`../locales/${languageId}/messages.po`)
 
   i18n.load(languageId, messages)
   i18n.activate(languageId)

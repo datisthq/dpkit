@@ -12,7 +12,7 @@ export function Banner() {
     <Box className={classes.banner} py="xs">
       <Container size="lg">
         <Text>
-          <Trans>Support the project by</Trans>
+          <Trans>Support the project by</Trans>{" "}
           <Anchor
             component={Link}
             to="https://github.com/sponsors/datisthq"

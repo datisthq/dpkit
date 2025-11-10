@@ -12,19 +12,16 @@ export default defineConfig({
     // @ts-ignore
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     devtoolsJson(),
-    {
-      // @ts-ignore
-      ...babel({
-        filter: /\.(ts|tsx)$/,
-        babelConfig: {
-          presets: ["@babel/preset-typescript"],
-          plugins: ["babel-plugin-macros", "@lingui/babel-plugin-lingui-macro"],
-        },
-      }),
-      apply: "build",
-    },
-    lingui(),
     reactRouter(),
+    // @ts-ignore
+    babel({
+      filter: /\.tsx?$/u,
+      babelConfig: {
+        presets: ["@babel/preset-typescript"],
+        plugins: ["@lingui/babel-plugin-lingui-macro"],
+      },
+    }),
+    lingui(),
     svgr(),
   ],
   resolve: {

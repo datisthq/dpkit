@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@ai-sdk/openai": "2.0.64",
+    "@babel/preset-typescript": "7.28.5",
     "@clack/prompts": "^0.11.0",
     "@cloudflare/containers": "0.0.30",
     "@cloudflare/vite-plugin": "1.14.0",
