@@ -19,7 +19,7 @@
   "devDependencies": {
     "@ai-sdk/openai": "2.0.64",
     "@clack/prompts": "^0.11.0",
-    "@cloudflare/containers": "0.0.28",
+    "@cloudflare/containers": "0.0.30",
     "@cloudflare/vite-plugin": "1.14.0",
     "@dpkit/library": "workspace:*",
     "@dpkit/service": "workspace:*",
@@ -66,7 +66,7 @@
     "vite-plugin-babel-macros": "1.0.6",
     "vite-plugin-devtools-json": "1.0.0",
     "vite-plugin-svgr": "4.5.0",
-    "wrangler": "4.43.0",
+    "wrangler": "4.46.0",
     "xml-js": "1.6.11",
     "zustand": "5.0.8"
   }
