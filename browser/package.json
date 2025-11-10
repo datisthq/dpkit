@@ -25,6 +25,7 @@
     "@dpkit/service": "workspace:*",
     "@lingui/cli": "5.5.2",
     "@lingui/core": "5.5.2",
+    "@lingui/detect-locale": "5.5.2",
     "@lingui/react": "5.5.2",
     "@lingui/vite-plugin": "5.5.2",
     "@loglayer/transport-tslog": "3.0.4",

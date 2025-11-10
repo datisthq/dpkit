@@ -19,7 +19,8 @@ const $ = execa({
 
 await $`lingui extract`
 await translateLanguages()
-await $`lingui compile`
+// Handled by Vite
+// await $`lingui compile`
 
 async function translateLanguages() {
   for (const languageId of objectKeys(Languages)) {

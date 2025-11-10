@@ -2,6 +2,7 @@ import { isbot } from "isbot"
 import { renderToReadableStream } from "react-dom/server"
 import type { AppLoadContext, EntryContext } from "react-router"
 import { ServerRouter } from "react-router"
+import { activateLocal, detectServerLocal } from "#helpers/locale.ts"
 
 export default async function handleRequest(
   request: Request,
@@ -12,6 +13,9 @@ export default async function handleRequest(
 ) {
   let shellRendered = false
   const userAgent = request.headers.get("user-agent")
+
+  const languageId = await detectServerLocal(request)
+  await activateLocal(languageId)
 
   const body = await renderToReadableStream(
     <ServerRouter context={routerContext} url={request.url} />,
