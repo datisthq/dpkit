@@ -45,9 +45,33 @@ msgstr "Конвертувати формат таблиці"
 msgid "Dark"
 msgstr "Темна"
 
+#: components/Form/Form.tsx:144
+msgid "Data Package File"
+msgstr "Файл пакету даних"
+
+#: components/Form/Form.tsx:185
+msgid "Data Package JSON"
+msgstr "JSON пакету даних"
+
+#: components/Form/Form.tsx:99
+msgid "Data Package URL"
+msgstr "URL пакету даних"
+
 #: components/Dialog/Dialog.tsx:37
 msgid "Dialog"
 msgstr "Діалог"
+
+#: components/Form/Form.tsx:97
+msgid "Enter data package URL"
+msgstr "Введіть URL пакету даних"
+
+#: components/Form/Form.tsx:39
+msgid "File"
+msgstr "Файл"
+
+#: components/Form/Form.tsx:121
+msgid "File is required"
+msgstr "Файл є обов'язковим"
 
 #: components/Layout/Breadcrumbs.tsx:25
 msgid "Infer table dialect"
@@ -56,6 +80,18 @@ msgstr "Визначити діалект таблиці"
 #: components/Layout/Breadcrumbs.tsx:27
 msgid "Infer table schema"
 msgstr "Визначити схему таблиці"
+
+#: components/Form/Form.tsx:134
+msgid "Invalid JSON file"
+msgstr "Некоректний файл JSON"
+
+#: components/Form/Form.tsx:169
+msgid "Invalid JSON format"
+msgstr "Некоректний формат JSON"
+
+#: components/Form/Form.tsx:83
+msgid "Invalid URL format"
+msgstr "Некоректний формат URL"
 
 #: components/Layout/Theme.tsx:38
 msgid "Light"
@@ -69,9 +105,17 @@ msgstr "на GitHub!"
 msgid "or"
 msgstr "або"
 
+#: components/Form/Form.tsx:183
+msgid "Paste data package JSON"
+msgstr "Вставте JSON пакету даних"
+
 #: components/Layout/Breadcrumbs.tsx:31
 msgid "Select a tool below"
 msgstr "Виберіть інструмент нижче"
+
+#: components/Form/Form.tsx:142
+msgid "Select data package file"
+msgstr "Виберіть файл пакету даних"
 
 #: components/Layout/Share.tsx:41
 msgid "Share"
@@ -85,12 +129,32 @@ msgstr "Поділитися сторінкою"
 msgid "Support the project by"
 msgstr "Підтримайте проєкт через"
 
+#: components/Form/Form.tsx:50
+msgid "Text"
+msgstr "Текст"
+
+#: components/Form/Form.tsx:167
+msgid "Text is required"
+msgstr "Текст є обов'язковим"
+
 #: components/Layout/Breadcrumbs.tsx:17
 msgid "Tools"
 msgstr "Інструменти"
 
+#: components/Form/Form.tsx:28
+msgid "URL"
+msgstr "URL"
+
+#: components/Form/Form.tsx:77
+msgid "URL is required"
+msgstr "URL є обов'язковим"
+
 #: components/Layout/Breadcrumbs.tsx:23
 msgid "Validate data package"
+msgstr "Валідувати пакет даних"
+
+#: components/Form/Form.tsx:212
+msgid "Validate Data Package"
 msgstr "Валідувати пакет даних"
 
 #: components/Layout/Repository.tsx:13

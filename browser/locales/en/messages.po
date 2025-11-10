@@ -45,9 +45,33 @@ msgstr "Convert table format"
 msgid "Dark"
 msgstr "Dark"
 
+#: components/Form/Form.tsx:144
+msgid "Data Package File"
+msgstr "Data Package File"
+
+#: components/Form/Form.tsx:185
+msgid "Data Package JSON"
+msgstr "Data Package JSON"
+
+#: components/Form/Form.tsx:99
+msgid "Data Package URL"
+msgstr "Data Package URL"
+
 #: components/Dialog/Dialog.tsx:37
 msgid "Dialog"
 msgstr "Dialog"
+
+#: components/Form/Form.tsx:97
+msgid "Enter data package URL"
+msgstr "Enter data package URL"
+
+#: components/Form/Form.tsx:39
+msgid "File"
+msgstr "File"
+
+#: components/Form/Form.tsx:121
+msgid "File is required"
+msgstr "File is required"
 
 #: components/Layout/Breadcrumbs.tsx:25
 msgid "Infer table dialect"
@@ -56,6 +80,18 @@ msgstr "Infer table dialect"
 #: components/Layout/Breadcrumbs.tsx:27
 msgid "Infer table schema"
 msgstr "Infer table schema"
+
+#: components/Form/Form.tsx:134
+msgid "Invalid JSON file"
+msgstr "Invalid JSON file"
+
+#: components/Form/Form.tsx:169
+msgid "Invalid JSON format"
+msgstr "Invalid JSON format"
+
+#: components/Form/Form.tsx:83
+msgid "Invalid URL format"
+msgstr "Invalid URL format"
 
 #: components/Layout/Theme.tsx:38
 msgid "Light"
@@ -69,9 +105,17 @@ msgstr "on GitHub!"
 msgid "or"
 msgstr "or"
 
+#: components/Form/Form.tsx:183
+msgid "Paste data package JSON"
+msgstr "Paste data package JSON"
+
 #: components/Layout/Breadcrumbs.tsx:31
 msgid "Select a tool below"
 msgstr "Select a tool below"
+
+#: components/Form/Form.tsx:142
+msgid "Select data package file"
+msgstr "Select data package file"
 
 #: components/Layout/Share.tsx:41
 msgid "Share"
@@ -85,13 +129,33 @@ msgstr "Share Page"
 msgid "Support the project by"
 msgstr "Support the project by"
 
+#: components/Form/Form.tsx:50
+msgid "Text"
+msgstr "Text"
+
+#: components/Form/Form.tsx:167
+msgid "Text is required"
+msgstr "Text is required"
+
 #: components/Layout/Breadcrumbs.tsx:17
 msgid "Tools"
 msgstr "Tools"
 
+#: components/Form/Form.tsx:28
+msgid "URL"
+msgstr "URL"
+
+#: components/Form/Form.tsx:77
+msgid "URL is required"
+msgstr "URL is required"
+
 #: components/Layout/Breadcrumbs.tsx:23
 msgid "Validate data package"
 msgstr "Validate data package"
+
+#: components/Form/Form.tsx:212
+msgid "Validate Data Package"
+msgstr "Validate Data Package"
 
 #: components/Layout/Repository.tsx:13
 msgid "View Repository"
