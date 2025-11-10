@@ -1,5 +1,5 @@
+import { Trans } from "@lingui/react/macro"
 import { Card, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core"
-import { useTranslation } from "react-i18next"
 import { Link } from "#components/Link/index.ts"
 import { usePayload } from "#components/System/index.ts"
 import { useMakeLink } from "#components/System/index.ts"
@@ -16,7 +16,6 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export default function Page(_props: Route.ComponentProps) {
-  const { t } = useTranslation()
   const payload = usePayload()
   const makeLink = useMakeLink()
 
@@ -32,19 +31,25 @@ export default function Page(_props: Route.ComponentProps) {
           </Text>
         </Title>
         <Text size="xl">
-          {t("Free online tools for")}{" "}
+          <Trans>Free online tools for</Trans>{" "}
           <Text component="span" fw="bold" td="underline">
-            {t("converting and validating data")}
+            <Trans>converting and validating data</Trans>
           </Text>
-          . {t("Unlike others, dpkit Cloud is")}{" "}
-          <Link to={makeLink({ pageId: "about" })}>{t("privacy-first")}</Link>{" "}
-          {t("and completely")}{" "}
-          <Link to="https://github.com/datisthq/dpkit">{t("open source")}</Link>{" "}
-          {t("allowing you to review the code or")}{" "}
-          <Link to={makeLink({ pageId: "about" })}>{t("self-host")}</Link>{" "}
-          {t("the service. In 2025, the project was funded by")}{" "}
+          . <Trans>Unlike others, dpkit Cloud is</Trans>{" "}
+          <Link to={makeLink({ pageId: "about" })}>
+            <Trans>privacy-first</Trans>
+          </Link>{" "}
+          <Trans>and completely</Trans>{" "}
+          <Link to="https://github.com/datisthq/dpkit">
+            <Trans>open source</Trans>
+          </Link>{" "}
+          <Trans>allowing you to review the code or</Trans>{" "}
+          <Link to={makeLink({ pageId: "about" })}>
+            <Trans>self-host</Trans>
+          </Link>{" "}
+          <Trans>the service. In 2025, the project was funded by</Trans>{" "}
           <Link to="https://nlnet.nl/project/DataPackage-TS/">
-            {t("European Commission")}
+            <Trans>European Commission</Trans>
           </Link>
           .
         </Text>

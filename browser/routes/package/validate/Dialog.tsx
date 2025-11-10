@@ -1,13 +1,11 @@
-import { useTranslation } from "react-i18next"
+import { useLingui } from "@lingui/react/macro"
 import { Dialog } from "#components/Dialog/index.ts"
 import { Report } from "#components/Report/index.ts"
 import { Status } from "#components/Status/index.ts"
 import { store } from "./store.ts"
 
-// TODO: fix error type casting using any
-
 export function ValidatePackageDialog() {
-  const { t } = useTranslation()
+  const { t } = useLingui()
   const error = store.useState(state => state.error)
   const report = store.useState(state => state.report)
   const isPending = store.useState(state => state.isPending)
@@ -25,7 +23,7 @@ export function ValidatePackageDialog() {
   }
 
   const getErrorTitle = () => {
-    if (error) return t(error.message as any)
+    if (error) return t`${error.message}`
     return "Invalid data package"
   }
 
@@ -37,8 +35,8 @@ export function ValidatePackageDialog() {
     >
       <Status
         status={getStatus()}
-        pendingTitle={t("Validating data package...")}
-        successTitle={t("Valid data package")}
+        pendingTitle={t`Validating data package...`}
+        successTitle={t`Valid data package`}
         errorTitle={getErrorTitle()}
       />
 

@@ -13,9 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: error.message
 #. placeholder {0}: props.error.message
 #: components/Report/Error/Data.tsx:8
 #: components/Report/Error/Metadata.tsx:11
+#: routes/package/validate/Dialog.tsx:26
 msgid "{0}"
 msgstr "{0}"
 
@@ -27,9 +29,54 @@ msgstr "{type}"
 msgid "A required cell in field"
 msgstr "Eine erforderliche Zelle im Feld"
 
+#: routes/about/route.tsx:20
+msgid "about-description-intro"
+msgstr "dpkit Cloud ist eine frei zugängliche Plattform für offene Datenverarbeitung und -validierung."
+
+#: routes/about/route.tsx:18
+msgid "about-dpkit-cloud-title"
+msgstr "Über dpkit Cloud"
+
+#: routes/about/route.tsx:44
+msgid "about-get-in-touch"
+msgstr "Kontakt aufnehmen"
+
+#: routes/about/route.tsx:33
+msgid "about-privacy-first-description"
+msgstr "Wir behandeln Ihre Daten mit größter Sorgfalt und setzen auf Datenschutz als zentrales Prinzip."
+
+#: routes/about/route.tsx:32
+msgid "about-privacy-first-title"
+msgstr "Datenschutz an erster Stelle"
+
+#: routes/about/route.tsx:40
+msgid "about-self-hosting-docs"
+msgstr "Selbst-Hosting-Dokumentation"
+
+#: routes/about/route.tsx:38
+msgid "about-self-hosting-intro"
+msgstr "Betreiben Sie Ihre eigene Instanz durch einfaches Selbst-Hosting."
+
+#: routes/about/route.tsx:42
+msgid "about-self-hosting-middle"
+msgstr "Lesen Sie mehr darüber, wie Sie dpkit unabhängig betreiben können."
+
+#: routes/about/route.tsx:36
+msgid "about-self-hosting-title"
+msgstr "Eigene Instanz (Self-Hosting)"
+
 #: components/Layout/Banner.tsx:32
 msgid "adding a star"
 msgstr "einen Stern vergeben"
+
+#: routes/about/route.tsx:24
+#: routes/home/route.tsx:46
+msgid "allowing you to review the code or"
+msgstr "wodurch Sie den Code überprüfen oder"
+
+#: routes/home/route.tsx:42
+msgid "and completely"
+msgstr "und vollständig"
 
 #: components/Report/Error/Fields.tsx:14
 msgid "are missing"
@@ -79,6 +126,10 @@ msgstr "Schließen"
 msgid "Convert table format"
 msgstr "Tabellenformat umwandeln"
 
+#: routes/home/route.tsx:36
+msgid "converting and validating data"
+msgstr "Daten konvertieren und validieren"
+
 #: components/Layout/Theme.tsx:47
 msgid "Dark"
 msgstr "Dunkel"
@@ -111,6 +162,11 @@ msgstr "Datenpaket-URL eingeben"
 #: components/Report/Report.tsx:37
 msgid "Errors"
 msgstr "Fehler"
+
+#: routes/about/route.tsx:27
+#: routes/home/route.tsx:52
+msgid "European Commission"
+msgstr "Europäische Kommission"
 
 #: components/Report/Error/Cell.tsx:158
 msgid "exclusive maximum"
@@ -151,6 +207,10 @@ msgstr "Dateigröße"
 #: components/Report/Error/ForeignKey.tsx:8
 msgid "Foreign key violation in field(s)"
 msgstr "Fremdschlüsselverletzung in Feld(er/n)"
+
+#: routes/home/route.tsx:34
+msgid "Free online tools for"
+msgstr "Kostenlose Online-Tools für"
 
 #: components/Report/Error/Cell.tsx:14
 #: components/Report/Error/Cell.tsx:62
@@ -263,6 +323,11 @@ msgstr "der Zeile"
 msgid "on GitHub!"
 msgstr "auf GitHub!"
 
+#: routes/about/route.tsx:22
+#: routes/home/route.tsx:44
+msgid "open source"
+msgstr "Open Source"
+
 #: components/Layout/Banner.tsx:23
 msgid "or"
 msgstr "oder"
@@ -275,6 +340,10 @@ msgstr "Datenpaket-JSON einfügen"
 msgid "pattern"
 msgstr "Muster"
 
+#: routes/home/route.tsx:40
+msgid "privacy-first"
+msgstr "Datenschutz an erster Stelle"
+
 #: components/Layout/Breadcrumbs.tsx:31
 msgid "Select a tool below"
 msgstr "Wähle unten ein Tool aus"
@@ -282,6 +351,11 @@ msgstr "Wähle unten ein Tool aus"
 #: components/Form/Form.tsx:142
 msgid "Select data package file"
 msgstr "Datenpaket-Datei auswählen"
+
+#: routes/about/route.tsx:24
+#: routes/home/route.tsx:48
+msgid "self-host"
+msgstr "selbst hosten"
 
 #: components/Layout/Share.tsx:41
 msgid "Share"
@@ -312,9 +386,30 @@ msgstr "Die Zellwerte der Felder"
 msgid "The fields"
 msgstr "Die Felder"
 
+#: routes/about/route.tsx:25
+#: routes/home/route.tsx:50
+msgid "the service. In 2025, the project was funded by"
+msgstr "den Service nutzen. 2025 wurde das Projekt gefördert von"
+
+#: routes/schema/infer/route.tsx:17
+#: routes/table/convert/route.tsx:17
+#: routes/table/validate/route.tsx:17
+msgid "This tool is currently under construction and not yet available"
+msgstr "Dieses Tool befindet sich derzeit im Aufbau und ist noch nicht verfügbar"
+
 #: components/Layout/Breadcrumbs.tsx:17
 msgid "Tools"
 msgstr "Werkzeuge"
+
+#: routes/schema/infer/route.tsx:16
+#: routes/table/convert/route.tsx:16
+#: routes/table/validate/route.tsx:16
+msgid "Under Construction"
+msgstr "Im Aufbau"
+
+#: routes/home/route.tsx:38
+msgid "Unlike others, dpkit Cloud is"
+msgstr "Im Gegensatz zu anderen ist dpkit Cloud"
 
 #: components/Form/Form.tsx:28
 msgid "URL"
@@ -324,6 +419,10 @@ msgstr "URL"
 msgid "URL is required"
 msgstr "URL ist erforderlich"
 
+#: routes/package/validate/Dialog.tsx:39
+msgid "Valid data package"
+msgstr "Gültiges Datenpaket"
+
 #: components/Layout/Breadcrumbs.tsx:23
 msgid "Validate data package"
 msgstr "Datenpaket validieren"
@@ -331,6 +430,10 @@ msgstr "Datenpaket validieren"
 #: components/Form/Form.tsx:212
 msgid "Validate Data Package"
 msgstr "Datenpaket validieren"
+
+#: routes/package/validate/Dialog.tsx:38
+msgid "Validating data package..."
+msgstr "Datenpaket wird validiert..."
 
 #: components/Report/Error/Cell.tsx:10
 #: components/Report/Error/Cell.tsx:58

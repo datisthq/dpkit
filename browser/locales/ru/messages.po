@@ -13,9 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: error.message
 #. placeholder {0}: props.error.message
 #: components/Report/Error/Data.tsx:8
 #: components/Report/Error/Metadata.tsx:11
+#: routes/package/validate/Dialog.tsx:26
 msgid "{0}"
 msgstr "{0}"
 
@@ -27,9 +29,54 @@ msgstr "{type}"
 msgid "A required cell in field"
 msgstr "Обязательная ячейка в поле"
 
+#: routes/about/route.tsx:20
+msgid "about-description-intro"
+msgstr "dpkit Cloud — это современный инструмент для работы с открытыми данными, обеспечивающий конфиденциальность и гибкость."
+
+#: routes/about/route.tsx:18
+msgid "about-dpkit-cloud-title"
+msgstr "О dpkit Cloud"
+
+#: routes/about/route.tsx:44
+msgid "about-get-in-touch"
+msgstr "Свяжитесь с нами"
+
+#: routes/about/route.tsx:33
+msgid "about-privacy-first-description"
+msgstr "Мы уделяем большое внимание вашей конфиденциальности и делаем наш сервис максимально безопасным для пользователей."
+
+#: routes/about/route.tsx:32
+msgid "about-privacy-first-title"
+msgstr "Конфиденциальность прежде всего"
+
+#: routes/about/route.tsx:40
+msgid "about-self-hosting-docs"
+msgstr "Документация по самостоятельному размещению"
+
+#: routes/about/route.tsx:38
+msgid "about-self-hosting-intro"
+msgstr "Вы можете запускать этот сервис на своих серверах, полностью контролируя ваши данные."
+
+#: routes/about/route.tsx:42
+msgid "about-self-hosting-middle"
+msgstr "или воспользуйтесь подробным руководством для самостоятельного размещения."
+
+#: routes/about/route.tsx:36
+msgid "about-self-hosting-title"
+msgstr "Самостоятельное размещение"
+
 #: components/Layout/Banner.tsx:32
 msgid "adding a star"
 msgstr "поставив звезду"
+
+#: routes/about/route.tsx:24
+#: routes/home/route.tsx:46
+msgid "allowing you to review the code or"
+msgstr "что позволяет вам просмотреть код или"
+
+#: routes/home/route.tsx:42
+msgid "and completely"
+msgstr "и полностью"
 
 #: components/Report/Error/Fields.tsx:14
 msgid "are missing"
@@ -79,6 +126,10 @@ msgstr "Закрыть"
 msgid "Convert table format"
 msgstr "Преобразовать формат таблицы"
 
+#: routes/home/route.tsx:36
+msgid "converting and validating data"
+msgstr "конвертации и проверке данных"
+
 #: components/Layout/Theme.tsx:47
 msgid "Dark"
 msgstr "Тёмная"
@@ -111,6 +162,11 @@ msgstr "Введите URL пакета данных"
 #: components/Report/Report.tsx:37
 msgid "Errors"
 msgstr "Ошибки"
+
+#: routes/about/route.tsx:27
+#: routes/home/route.tsx:52
+msgid "European Commission"
+msgstr "Европейская комиссия"
 
 #: components/Report/Error/Cell.tsx:158
 msgid "exclusive maximum"
@@ -151,6 +207,10 @@ msgstr "Размер файла"
 #: components/Report/Error/ForeignKey.tsx:8
 msgid "Foreign key violation in field(s)"
 msgstr "Нарушение внешнего ключа в поле(ях)"
+
+#: routes/home/route.tsx:34
+msgid "Free online tools for"
+msgstr "Бесплатные онлайн-инструменты для"
 
 #: components/Report/Error/Cell.tsx:14
 #: components/Report/Error/Cell.tsx:62
@@ -263,6 +323,11 @@ msgstr "строки"
 msgid "on GitHub!"
 msgstr "на GitHub!"
 
+#: routes/about/route.tsx:22
+#: routes/home/route.tsx:44
+msgid "open source"
+msgstr "открытый исходный код"
+
 #: components/Layout/Banner.tsx:23
 msgid "or"
 msgstr "или"
@@ -275,6 +340,10 @@ msgstr "Вставьте JSON пакета данных"
 msgid "pattern"
 msgstr "шаблон"
 
+#: routes/home/route.tsx:40
+msgid "privacy-first"
+msgstr "ориентированный на конфиденциальность"
+
 #: components/Layout/Breadcrumbs.tsx:31
 msgid "Select a tool below"
 msgstr "Выберите инструмент ниже"
@@ -282,6 +351,11 @@ msgstr "Выберите инструмент ниже"
 #: components/Form/Form.tsx:142
 msgid "Select data package file"
 msgstr "Выберите файл пакета данных"
+
+#: routes/about/route.tsx:24
+#: routes/home/route.tsx:48
+msgid "self-host"
+msgstr "разместить самостоятельно"
 
 #: components/Layout/Share.tsx:41
 msgid "Share"
@@ -312,9 +386,30 @@ msgstr "Значения ячеек полей"
 msgid "The fields"
 msgstr "Поля"
 
+#: routes/about/route.tsx:25
+#: routes/home/route.tsx:50
+msgid "the service. In 2025, the project was funded by"
+msgstr "сервис. В 2025 году проект был профинансирован"
+
+#: routes/schema/infer/route.tsx:17
+#: routes/table/convert/route.tsx:17
+#: routes/table/validate/route.tsx:17
+msgid "This tool is currently under construction and not yet available"
+msgstr "Этот инструмент находится в разработке и пока недоступен"
+
 #: components/Layout/Breadcrumbs.tsx:17
 msgid "Tools"
 msgstr "Инструменты"
+
+#: routes/schema/infer/route.tsx:16
+#: routes/table/convert/route.tsx:16
+#: routes/table/validate/route.tsx:16
+msgid "Under Construction"
+msgstr "В разработке"
+
+#: routes/home/route.tsx:38
+msgid "Unlike others, dpkit Cloud is"
+msgstr "В отличие от других, dpkit Cloud — это"
 
 #: components/Form/Form.tsx:28
 msgid "URL"
@@ -324,6 +419,10 @@ msgstr "URL"
 msgid "URL is required"
 msgstr "URL обязателен"
 
+#: routes/package/validate/Dialog.tsx:39
+msgid "Valid data package"
+msgstr "Пакет данных корректный"
+
 #: components/Layout/Breadcrumbs.tsx:23
 msgid "Validate data package"
 msgstr "Проверить пакет данных"
@@ -331,6 +430,10 @@ msgstr "Проверить пакет данных"
 #: components/Form/Form.tsx:212
 msgid "Validate Data Package"
 msgstr "Проверить пакет данных"
+
+#: routes/package/validate/Dialog.tsx:38
+msgid "Validating data package..."
+msgstr "Проверка пакета данных..."
 
 #: components/Report/Error/Cell.tsx:10
 #: components/Report/Error/Cell.tsx:58
