@@ -1,6 +1,6 @@
+import { Trans } from "@lingui/react/macro"
 import { Box, Button, Group, Tooltip } from "@mantine/core"
 import { useComputedColorScheme, useMantineColorScheme } from "@mantine/core"
-import { useTranslation } from "react-i18next"
 import * as icons from "#icons.ts"
 import * as settings from "#settings.ts"
 import classes from "./Theme.module.css"
@@ -8,8 +8,6 @@ import classes from "./Theme.module.css"
 export function Theme(props: {
   fullWidth?: boolean
 }) {
-  const { t } = useTranslation()
-
   const { setColorScheme } = useMantineColorScheme()
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
@@ -20,7 +18,7 @@ export function Theme(props: {
   }
 
   return (
-    <Tooltip openDelay={300} label={t("Change Theme")} position="left">
+    <Tooltip openDelay={300} label={<Trans>Change Theme</Trans>} position="left">
       <Button
         h={40}
         px={8}
@@ -37,7 +35,7 @@ export function Theme(props: {
             strokeWidth={settings.ICON_STROKE_WIDTH}
           />
           <Box mr={4} visibleFrom="xl">
-            {t("Light")}
+            <Trans>Light</Trans>
           </Box>
         </Group>
         <Group lightHidden gap={4} wrap="nowrap">
@@ -46,7 +44,7 @@ export function Theme(props: {
             strokeWidth={settings.ICON_STROKE_WIDTH}
           />
           <Box mr={4} visibleFrom="xl">
-            {t("Dark")}
+            <Trans>Dark</Trans>
           </Box>
         </Group>
       </Button>

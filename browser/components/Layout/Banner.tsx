@@ -1,13 +1,10 @@
 import { Trans } from "@lingui/react/macro"
 import { Anchor, Box, Text } from "@mantine/core"
 import { Container } from "@mantine/core"
-import { useTranslation } from "react-i18next"
 import { Link } from "#components/Link/index.ts"
 import classes from "./Banner.module.css"
 
 export function Banner() {
-  const { t } = useTranslation()
-
   return (
     <Box className={classes.banner} py="xs">
       <Container size="lg">
@@ -21,9 +18,9 @@ export function Banner() {
             fw="bold"
             td="underline"
           >
-            {t("becoming a sponsor")}
+            <Trans>becoming a sponsor</Trans>
           </Anchor>{" "}
-          {t("or")}{" "}
+          <Trans>or</Trans>{" "}
           <Anchor
             component={Link}
             to="https://github.com/datisthq/dpkit/stargazers"
@@ -32,9 +29,9 @@ export function Banner() {
             fw="bold"
             td="underline"
           >
-            {t("adding a star")}
+            <Trans>adding a star</Trans>
           </Anchor>{" "}
-          {t("on GitHub!")}
+          <Trans>on GitHub!</Trans>
         </Text>
       </Container>
     </Box>

@@ -1,14 +1,13 @@
+import { Trans } from "@lingui/react/macro"
 import { Box, Group, Menu, Tooltip, UnstyledButton } from "@mantine/core"
 import { Center } from "@mantine/core"
 import { useState } from "react"
-import { useTranslation } from "react-i18next"
 import * as share from "react-share"
 import * as icons from "#icons.ts"
 import * as settings from "#settings.ts"
 import classes from "./Share.module.css"
 
 export function Share(props: { fullWidth?: boolean }) {
-  const { t } = useTranslation()
   const [opened, setOpened] = useState(false)
 
   const currentUrl = globalThis.location?.href || ""
@@ -30,7 +29,7 @@ export function Share(props: { fullWidth?: boolean }) {
       shadow="sm"
     >
       <Menu.Target>
-        <Tooltip openDelay={300} label={t("Share Page")} position="left">
+        <Tooltip openDelay={300} label={<Trans>Share Page</Trans>} position="left">
           <UnstyledButton
             w={props.fullWidth ? "100%" : undefined}
             className={classes.control}
@@ -39,7 +38,7 @@ export function Share(props: { fullWidth?: boolean }) {
             <Group gap={4} wrap="nowrap" w="100%" justify="center">
               <icons.Share strokeWidth={settings.ICON_STROKE_WIDTH} />
               <Box className={classes.label} visibleFrom="xl">
-                {t("Share")}
+                <Trans>Share</Trans>
               </Box>
             </Group>
           </UnstyledButton>

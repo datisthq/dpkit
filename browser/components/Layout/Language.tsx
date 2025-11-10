@@ -1,7 +1,7 @@
+import { Trans } from "@lingui/react/macro"
 import { Box, Group, Menu, Tooltip, UnstyledButton } from "@mantine/core"
 import { useState } from "react"
 import { De, Es, Fr, Gb, It, Pt, Ru, Ua } from "react-flags-select"
-import { useTranslation } from "react-i18next"
 import { usePayload } from "#components/System/index.ts"
 import { useMakeLink } from "#components/System/index.ts"
 import { Languages } from "#constants/language.ts"
@@ -22,7 +22,6 @@ const LANGUAGE_FLAGS = {
 } as const
 
 export function Language(props: { fullWidth?: boolean }) {
-  const { t } = useTranslation()
   const payload = usePayload()
   const makeLink = useMakeLink()
 
@@ -49,7 +48,6 @@ export function Language(props: { fullWidth?: boolean }) {
   const onLanguageChange = (languageId: LanguageId) => {
     const location = globalThis.location
     if (location) {
-      // We intentionally do not use client-side routing here
       location.href = makeLink({ languageId, pageId: payload.page.pageId })
     }
   }
@@ -63,7 +61,7 @@ export function Language(props: { fullWidth?: boolean }) {
       shadow="sm"
     >
       <Menu.Target>
-        <Tooltip openDelay={300} label={t("Change Language")} position="left">
+        <Tooltip openDelay={300} label={<Trans>Change Language</Trans>} position="left">
           <UnstyledButton
             w={props.fullWidth ? "100%" : undefined}
             className={classes.control}

@@ -13,6 +13,82 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: components/Layout/Banner.tsx:15
+#: components/Layout/Banner.tsx:32
+msgid "adding a star"
+msgstr "adicionando uma estrela"
+
+#: components/Layout/Banner.tsx:21
+msgid "becoming a sponsor"
+msgstr "tornando-se um patrocinador"
+
+#: components/Layout/Credits.tsx:20
+msgid "Brought to you by"
+msgstr "Apresentado por"
+
+#: components/Layout/Language.tsx:64
+msgid "Change Language"
+msgstr "Mudar idioma"
+
+#: components/Layout/Theme.tsx:21
+msgid "Change Theme"
+msgstr "Alterar tema"
+
+#: components/Layout/Breadcrumbs.tsx:29
+msgid "Convert table format"
+msgstr "Converter formato da tabela"
+
+#: components/Layout/Theme.tsx:47
+msgid "Dark"
+msgstr "Escuro"
+
+#: components/Layout/Breadcrumbs.tsx:25
+msgid "Infer table dialect"
+msgstr "Inferir dialeto da tabela"
+
+#: components/Layout/Breadcrumbs.tsx:27
+msgid "Infer table schema"
+msgstr "Inferir esquema da tabela"
+
+#: components/Layout/Theme.tsx:38
+msgid "Light"
+msgstr "Claro"
+
+#: components/Layout/Banner.tsx:34
+msgid "on GitHub!"
+msgstr "no GitHub!"
+
+#: components/Layout/Banner.tsx:23
+msgid "or"
+msgstr "ou"
+
+#: components/Layout/Breadcrumbs.tsx:31
+msgid "Select a tool below"
+msgstr "Selecione uma ferramenta abaixo"
+
+#: components/Layout/Share.tsx:41
+msgid "Share"
+msgstr "Compartilhar"
+
+#: components/Layout/Share.tsx:32
+msgid "Share Page"
+msgstr "Compartilhar página"
+
+#: components/Layout/Banner.tsx:12
 msgid "Support the project by"
 msgstr "Apoie o projeto por meio de"
+
+#: components/Layout/Breadcrumbs.tsx:17
+msgid "Tools"
+msgstr "Ferramentas"
+
+#: components/Layout/Breadcrumbs.tsx:23
+msgid "Validate data package"
+msgstr "Validar pacote de dados"
+
+#: components/Layout/Repository.tsx:13
+msgid "View Repository"
+msgstr "Ver Repositório"
+
+#: components/Layout/Credits.tsx:50
+msgid "We are bringing technological innovation and consultancy services to the open data field"
+msgstr "Estamos trazendo inovação tecnológica e serviços de consultoria para o campo de dados abertos"

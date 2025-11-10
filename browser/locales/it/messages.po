@@ -13,6 +13,82 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: components/Layout/Banner.tsx:15
+#: components/Layout/Banner.tsx:32
+msgid "adding a star"
+msgstr "aggiungendo una stella"
+
+#: components/Layout/Banner.tsx:21
+msgid "becoming a sponsor"
+msgstr "diventando sponsor"
+
+#: components/Layout/Credits.tsx:20
+msgid "Brought to you by"
+msgstr "Offerto da"
+
+#: components/Layout/Language.tsx:64
+msgid "Change Language"
+msgstr "Cambia lingua"
+
+#: components/Layout/Theme.tsx:21
+msgid "Change Theme"
+msgstr "Cambia tema"
+
+#: components/Layout/Breadcrumbs.tsx:29
+msgid "Convert table format"
+msgstr "Converti formato tabella"
+
+#: components/Layout/Theme.tsx:47
+msgid "Dark"
+msgstr "Scuro"
+
+#: components/Layout/Breadcrumbs.tsx:25
+msgid "Infer table dialect"
+msgstr "Individua dialetto tabella"
+
+#: components/Layout/Breadcrumbs.tsx:27
+msgid "Infer table schema"
+msgstr "Individua schema tabella"
+
+#: components/Layout/Theme.tsx:38
+msgid "Light"
+msgstr "Chiaro"
+
+#: components/Layout/Banner.tsx:34
+msgid "on GitHub!"
+msgstr "su GitHub!"
+
+#: components/Layout/Banner.tsx:23
+msgid "or"
+msgstr "oppure"
+
+#: components/Layout/Breadcrumbs.tsx:31
+msgid "Select a tool below"
+msgstr "Seleziona uno strumento qui sotto"
+
+#: components/Layout/Share.tsx:41
+msgid "Share"
+msgstr "Condividi"
+
+#: components/Layout/Share.tsx:32
+msgid "Share Page"
+msgstr "Condividi pagina"
+
+#: components/Layout/Banner.tsx:12
 msgid "Support the project by"
 msgstr "Sostieni il progetto con"
+
+#: components/Layout/Breadcrumbs.tsx:17
+msgid "Tools"
+msgstr "Strumenti"
+
+#: components/Layout/Breadcrumbs.tsx:23
+msgid "Validate data package"
+msgstr "Valida pacchetto dati"
+
+#: components/Layout/Repository.tsx:13
+msgid "View Repository"
+msgstr "Visualizza repository"
+
+#: components/Layout/Credits.tsx:50
+msgid "We are bringing technological innovation and consultancy services to the open data field"
+msgstr "Stiamo portando innovazione tecnologica e servizi di consulenza nel campo degli open data"

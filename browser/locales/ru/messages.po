@@ -13,6 +13,82 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: components/Layout/Banner.tsx:15
+#: components/Layout/Banner.tsx:32
+msgid "adding a star"
+msgstr "поставив звезду"
+
+#: components/Layout/Banner.tsx:21
+msgid "becoming a sponsor"
+msgstr "став спонсором"
+
+#: components/Layout/Credits.tsx:20
+msgid "Brought to you by"
+msgstr "Предоставлено"
+
+#: components/Layout/Language.tsx:64
+msgid "Change Language"
+msgstr "Изменить язык"
+
+#: components/Layout/Theme.tsx:21
+msgid "Change Theme"
+msgstr "Изменить тему"
+
+#: components/Layout/Breadcrumbs.tsx:29
+msgid "Convert table format"
+msgstr "Преобразовать формат таблицы"
+
+#: components/Layout/Theme.tsx:47
+msgid "Dark"
+msgstr "Тёмная"
+
+#: components/Layout/Breadcrumbs.tsx:25
+msgid "Infer table dialect"
+msgstr "Определить диалект таблицы"
+
+#: components/Layout/Breadcrumbs.tsx:27
+msgid "Infer table schema"
+msgstr "Определить схему таблицы"
+
+#: components/Layout/Theme.tsx:38
+msgid "Light"
+msgstr "Светлая"
+
+#: components/Layout/Banner.tsx:34
+msgid "on GitHub!"
+msgstr "на GitHub!"
+
+#: components/Layout/Banner.tsx:23
+msgid "or"
+msgstr "или"
+
+#: components/Layout/Breadcrumbs.tsx:31
+msgid "Select a tool below"
+msgstr "Выберите инструмент ниже"
+
+#: components/Layout/Share.tsx:41
+msgid "Share"
+msgstr "Поделиться"
+
+#: components/Layout/Share.tsx:32
+msgid "Share Page"
+msgstr "Поделиться страницей"
+
+#: components/Layout/Banner.tsx:12
 msgid "Support the project by"
 msgstr "Поддержите проект:"
+
+#: components/Layout/Breadcrumbs.tsx:17
+msgid "Tools"
+msgstr "Инструменты"
+
+#: components/Layout/Breadcrumbs.tsx:23
+msgid "Validate data package"
+msgstr "Проверить пакет данных"
+
+#: components/Layout/Repository.tsx:13
+msgid "View Repository"
+msgstr "Посмотреть репозиторий"
+
+#: components/Layout/Credits.tsx:50
+msgid "We are bringing technological innovation and consultancy services to the open data field"
+msgstr "Мы привносим технологические инновации и консалтинговые услуги в сферу открытых данных"

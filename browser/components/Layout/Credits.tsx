@@ -1,13 +1,11 @@
+import { Trans } from "@lingui/react/macro"
 import { Anchor, Box, Container, Image, Stack, Text } from "@mantine/core"
-import { useTranslation } from "react-i18next"
 import datistLogoTextDark from "#assets/datist-logo-text-dark.svg"
 import datistLogoTextLight from "#assets/datist-logo-text-light.svg"
 import { Link } from "#components/Link/index.ts"
 import classes from "./Credits.module.css"
 
 export function Credits() {
-  const { t } = useTranslation()
-
   return (
     <Container size="lg">
       <Stack
@@ -19,7 +17,7 @@ export function Credits() {
         py="md"
       >
         <Text c="dimmed" size="sm">
-          {t("Brought to you by")}
+          <Trans>Brought to you by</Trans>
         </Text>
         <Box className={classes.imageContainer}>
           <Anchor
@@ -49,9 +47,9 @@ export function Credits() {
           </Anchor>
         </Box>
         <Text c="dimmed" ta="center" maw="50ch">
-          {t(
-            "We are bringing technological innovation and consultancy services to the open data field",
-          )}
+          <Trans>
+            We are bringing technological innovation and consultancy services to the open data field
+          </Trans>
         </Text>
       </Stack>
     </Container>

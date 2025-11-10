@@ -13,6 +13,82 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: components/Layout/Banner.tsx:15
+#: components/Layout/Banner.tsx:32
+msgid "adding a star"
+msgstr "en ajoutant une étoile"
+
+#: components/Layout/Banner.tsx:21
+msgid "becoming a sponsor"
+msgstr "en devenant sponsor"
+
+#: components/Layout/Credits.tsx:20
+msgid "Brought to you by"
+msgstr "Présenté par"
+
+#: components/Layout/Language.tsx:64
+msgid "Change Language"
+msgstr "Changer de langue"
+
+#: components/Layout/Theme.tsx:21
+msgid "Change Theme"
+msgstr "Changer de thème"
+
+#: components/Layout/Breadcrumbs.tsx:29
+msgid "Convert table format"
+msgstr "Convertir le format du tableau"
+
+#: components/Layout/Theme.tsx:47
+msgid "Dark"
+msgstr "Sombre"
+
+#: components/Layout/Breadcrumbs.tsx:25
+msgid "Infer table dialect"
+msgstr "Déduire le dialecte du tableau"
+
+#: components/Layout/Breadcrumbs.tsx:27
+msgid "Infer table schema"
+msgstr "Déduire le schéma du tableau"
+
+#: components/Layout/Theme.tsx:38
+msgid "Light"
+msgstr "Clair"
+
+#: components/Layout/Banner.tsx:34
+msgid "on GitHub!"
+msgstr "sur GitHub !"
+
+#: components/Layout/Banner.tsx:23
+msgid "or"
+msgstr "ou"
+
+#: components/Layout/Breadcrumbs.tsx:31
+msgid "Select a tool below"
+msgstr "Sélectionnez un outil ci-dessous"
+
+#: components/Layout/Share.tsx:41
+msgid "Share"
+msgstr "Partager"
+
+#: components/Layout/Share.tsx:32
+msgid "Share Page"
+msgstr "Partager la page"
+
+#: components/Layout/Banner.tsx:12
 msgid "Support the project by"
 msgstr "Soutenez le projet en"
+
+#: components/Layout/Breadcrumbs.tsx:17
+msgid "Tools"
+msgstr "Outils"
+
+#: components/Layout/Breadcrumbs.tsx:23
+msgid "Validate data package"
+msgstr "Valider le paquet de données"
+
+#: components/Layout/Repository.tsx:13
+msgid "View Repository"
+msgstr "Voir le dépôt"
+
+#: components/Layout/Credits.tsx:50
+msgid "We are bringing technological innovation and consultancy services to the open data field"
+msgstr "Nous apportons l'innovation technologique et des services de conseil au domaine des données ouvertes"

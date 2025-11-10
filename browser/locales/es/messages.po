@@ -13,6 +13,82 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: components/Layout/Banner.tsx:15
+#: components/Layout/Banner.tsx:32
+msgid "adding a star"
+msgstr "añadiendo una estrella"
+
+#: components/Layout/Banner.tsx:21
+msgid "becoming a sponsor"
+msgstr "convirtiéndose en patrocinador"
+
+#: components/Layout/Credits.tsx:20
+msgid "Brought to you by"
+msgstr "Presentado por"
+
+#: components/Layout/Language.tsx:64
+msgid "Change Language"
+msgstr "Cambiar idioma"
+
+#: components/Layout/Theme.tsx:21
+msgid "Change Theme"
+msgstr "Cambiar tema"
+
+#: components/Layout/Breadcrumbs.tsx:29
+msgid "Convert table format"
+msgstr "Convertir formato de tabla"
+
+#: components/Layout/Theme.tsx:47
+msgid "Dark"
+msgstr "Oscuro"
+
+#: components/Layout/Breadcrumbs.tsx:25
+msgid "Infer table dialect"
+msgstr "Inferir dialecto de tabla"
+
+#: components/Layout/Breadcrumbs.tsx:27
+msgid "Infer table schema"
+msgstr "Inferir esquema de tabla"
+
+#: components/Layout/Theme.tsx:38
+msgid "Light"
+msgstr "Claro"
+
+#: components/Layout/Banner.tsx:34
+msgid "on GitHub!"
+msgstr "¡en GitHub!"
+
+#: components/Layout/Banner.tsx:23
+msgid "or"
+msgstr "o"
+
+#: components/Layout/Breadcrumbs.tsx:31
+msgid "Select a tool below"
+msgstr "Selecciona una herramienta abajo"
+
+#: components/Layout/Share.tsx:41
+msgid "Share"
+msgstr "Compartir"
+
+#: components/Layout/Share.tsx:32
+msgid "Share Page"
+msgstr "Compartir página"
+
+#: components/Layout/Banner.tsx:12
 msgid "Support the project by"
 msgstr "Apoya el proyecto mediante"
+
+#: components/Layout/Breadcrumbs.tsx:17
+msgid "Tools"
+msgstr "Herramientas"
+
+#: components/Layout/Breadcrumbs.tsx:23
+msgid "Validate data package"
+msgstr "Validar paquete de datos"
+
+#: components/Layout/Repository.tsx:13
+msgid "View Repository"
+msgstr "Ver repositorio"
+
+#: components/Layout/Credits.tsx:50
+msgid "We are bringing technological innovation and consultancy services to the open data field"
+msgstr "Estamos llevando innovación tecnológica y servicios de consultoría al campo de los datos abiertos"

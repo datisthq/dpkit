@@ -1,5 +1,5 @@
+import { Trans } from "@lingui/react/macro"
 import { Box, Button, Group, Tooltip } from "@mantine/core"
-import { useTranslation } from "react-i18next"
 import { Link } from "#components/Link/index.ts"
 import * as icons from "#icons.ts"
 import * as settings from "#settings.ts"
@@ -8,10 +8,9 @@ import classes from "./Repository.module.css"
 export function Repository(props: {
   fullWidth?: boolean
 }) {
-  const { t } = useTranslation()
 
   return (
-    <Tooltip openDelay={300} label={t("View Repository")} position="left">
+    <Tooltip openDelay={300} label={<Trans>View Repository</Trans>} position="left">
       <Button
         component={Link}
         to="https://github.com/datisthq/dpkit"
