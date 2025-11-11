@@ -6,7 +6,6 @@ import devtoolsJson from "vite-plugin-devtools-json"
 import svgr from "vite-plugin-svgr"
 
 export default defineConfig({
-  assetsInclude: ["**/*.md"],
   plugins: [
     devtoolsJson(),
     reactRouter(),

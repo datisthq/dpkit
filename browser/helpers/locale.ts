@@ -10,7 +10,7 @@ export async function activateLocal(languageId: types.LanguageId) {
   i18n.activate(languageId)
 }
 
-export async function detectClientLanguageId() {
+export async function detectClientLanguage() {
   const langTag = detect(fromHtmlTag("lang"))
 
   const language =
@@ -18,16 +18,16 @@ export async function detectClientLanguageId() {
       language => language.languageId === langTag,
     ) ?? Languages[LanguageIdDefault]
 
-  return language.languageId
+  return language
 }
 
-export async function detectServerLanguageId(request: Request) {
+export async function detectServerLanguage(request: Request) {
   const { pathname } = new URL(request.url)
 
-  return detectLanguageIdFromPath(pathname)
+  return detectLanguageFromPath(pathname)
 }
 
-export function detectLanguageIdFromPath(path: string) {
+export function detectLanguageFromPath(path: string) {
   const [languageParam] = path.split("/").slice(1)
 
   const language =
@@ -35,5 +35,5 @@ export function detectLanguageIdFromPath(path: string) {
       language => language.languageId === languageParam,
     ) ?? Languages[LanguageIdDefault]
 
-  return language.languageId
+  return language
 }

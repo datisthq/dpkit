@@ -2,7 +2,7 @@ import { useLingui } from "@lingui/react/macro"
 import { Button, Container, Group, Text, Title } from "@mantine/core"
 import { useLocation } from "react-router"
 import { makeLink } from "#helpers/link.ts"
-import { detectLanguageIdFromPath } from "#helpers/locale.ts"
+import { detectLanguageFromPath } from "#helpers/locale.ts"
 import classes from "./Error.module.css"
 
 export function Error(props: { code: number }) {
@@ -10,8 +10,9 @@ export function Error(props: { code: number }) {
   const { t } = useLingui()
 
   const location = useLocation()
-  const languageId = detectLanguageIdFromPath(location.pathname)
+  const language = detectLanguageFromPath(location.pathname)
 
+  const href = makeLink({ languageId: language.languageId, pageId: "home" })
   const title = code === 404 ? t`Page not found` : t`Something went wrong`
   const text = code === 404 ? t`error404` : t`error500`
 
@@ -23,12 +24,7 @@ export function Error(props: { code: number }) {
         {text}
       </Text>
       <Group justify="center">
-        <Button
-          size="md"
-          component="a"
-          variant="light"
-          href={makeLink({ languageId, pageId: "home" })}
-        >
+        <Button size="md" component="a" variant="light" href={href}>
           {t`Take me back to home page`}
         </Button>
       </Group>

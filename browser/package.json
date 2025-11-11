@@ -9,9 +9,7 @@
   "scripts": {
     "build": "react-router build",
     "generate": "react-router typegen",
-    "start": "concurrently 'pnpm start:api' 'pnpm start:main'",
-    "start:api": "node runtimes/node/api.ts --watch",
-    "start:main": "react-router dev",
+    "start": "react-router dev",
     "type": "tsc --noEmit"
   },
   "devDependencies": {
@@ -32,6 +30,7 @@
     "@mantine/hooks": "8.3.5",
     "@orpc/openapi-client": "1.10.0",
     "@react-router/dev": "7.9.5",
+    "@react-router/node": "7.9.5",
     "@tanstack/react-query": "5.90.3",
     "@types/gettext-parser": "8.0.0",
     "@types/react": "19.2.2",
@@ -47,7 +46,6 @@
     "isbot": "5.1.31",
     "loglayer": "6.9.1",
     "lucide-react": "0.545.0",
-    "nodemon": "3.1.10",
     "postcss": "8.5.6",
     "postcss-preset-mantine": "1.18.0",
     "postcss-simple-vars": "7.0.1",
