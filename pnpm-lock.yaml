@@ -77,12 +77,6 @@ importers:
       '@clack/prompts':
         specifier: ^0.11.0
         version: 0.11.0
-      '@cloudflare/containers':
-        specifier: 0.0.30
-        version: 0.0.30
-      '@cloudflare/vite-plugin':
-        specifier: 1.14.0
-        version: 1.14.0(vite@7.2.2(@types/node@24.2.0)(jiti@2.6.1)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251105.0)(wrangler@4.46.0)
       '@dpkit/library':
         specifier: workspace:*
         version: link:../library
@@ -224,9 +218,6 @@ importers:
       vite-plugin-svgr:
         specifier: 4.5.0
         version: 4.5.0(rollup@4.52.4)(typescript@5.9.2)(vite@7.2.2(@types/node@24.2.0)(jiti@2.6.1)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))
-      wrangler:
-        specifier: 4.46.0
-        version: 4.46.0
       xml-js:
         specifier: 1.6.11
         version: 1.6.11
@@ -870,9 +861,6 @@ packages:
   '@clack/prompts@0.11.0':
     resolution: {integrity: sha512-pMN5FcrEw9hUkZA4f+zLlzivQSeQf5dRGJjSUbvVYDLvpKCdQx5OaknvKzgbtXOizhP+SJJJjqEbOe55uKKfAw==}
 
-  '@cloudflare/containers@0.0.30':
-    resolution: {integrity: sha512-i148xBgmyn/pje82ZIyuTr/Ae0BT/YWwa1/GTJcw6DxEjUHAzZLaBCiX446U9OeuJ2rBh/L/9FIzxX5iYNt1AQ==}
-
   '@cloudflare/kv-asset-handler@0.4.0':
     resolution: {integrity: sha512-+tv3z+SPp+gqTIcImN9o0hqE9xyfQjI1XD9pL6NuKjua9B1y7mNYv0S9cP+QEbA4ppVgGZEmKOvHX5G5Ei1CVA==}
     engines: {node: '>=18.0.0'}
@@ -885,12 +873,6 @@ packages:
     peerDependenciesMeta:
       workerd:
         optional: true
-
-  '@cloudflare/vite-plugin@1.14.0':
-    resolution: {integrity: sha512-awsY1p9szhwo2LyIBWnnsWagd1hhwIaKeDyh49jA3108QvaOkXgp486vEIaqPkQhZdCQZbPfDlBNEhkBBV3tdQ==}
-    peerDependencies:
-      vite: ^6.1.0 || ^7.0.0
-      wrangler: ^4.46.0
 
   '@cloudflare/workerd-darwin-64@1.20251105.0':
     resolution: {integrity: sha512-nztUP35wTtUKM+681dBWtUNSySNWELTV+LY43oWy7ZhK19/iBJPQoFY7xpvF7zy4qOOShtise259B65DS4/71Q==}
@@ -2148,9 +2130,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  '@remix-run/node-fetch-server@0.8.1':
-    resolution: {integrity: sha512-J1dev372wtJqmqn9U/qbpbZxbJSQrogNN2+Qv1lKlpATpe/WQ9aCZfl/xSb9d2Rgh1IyLSvNxZAXPZxruO6Xig==}
 
   '@remix-run/node-fetch-server@0.9.0':
     resolution: {integrity: sha512-SoLMv7dbH+njWzXnOY6fI08dFMI5+/dQ+vY3n8RnnbdG7MdJEgiP28Xj/xWlnRnED/aB6SFw56Zop+LbmaaKqA==}
@@ -3592,10 +3571,6 @@ packages:
   get-nonce@1.0.1:
     resolution: {integrity: sha512-FJhYRoDaiatfEkUK8HKlicmu/3SGFD51q3itKDGoSTysQJBnfOcxU5GxnhE1E6soB76MbT0MBtnKJuXyAx+96Q==}
     engines: {node: '>=6'}
-
-  get-port@7.1.0:
-    resolution: {integrity: sha512-QB9NKEeDg3xxVwCCwJQ9+xycaz6pBB6iQ76wiWMl1927n0Kir6alPiP+yuiICLLU4jpMe08dXfpebuQppFA2zw==}
-    engines: {node: '>=16'}
 
   get-proto@1.0.1:
     resolution: {integrity: sha512-sTSfBjoXBp89JvIKIefqw7U2CCebsc74kiY6awiGogKtoSGbgjYE/G/+l9sF3MWFPNc9IcoOC4ODfKHfxFmp0g==}
@@ -7091,8 +7066,6 @@ snapshots:
       picocolors: 1.1.1
       sisteransi: 1.0.5
 
-  '@cloudflare/containers@0.0.30': {}
-
   '@cloudflare/kv-asset-handler@0.4.0':
     dependencies:
       mime: 3.0.0
@@ -7102,23 +7075,6 @@ snapshots:
       unenv: 2.0.0-rc.24
     optionalDependencies:
       workerd: 1.20251105.0
-
-  '@cloudflare/vite-plugin@1.14.0(vite@7.2.2(@types/node@24.2.0)(jiti@2.6.1)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1))(workerd@1.20251105.0)(wrangler@4.46.0)':
-    dependencies:
-      '@cloudflare/unenv-preset': 2.7.9(unenv@2.0.0-rc.24)(workerd@1.20251105.0)
-      '@remix-run/node-fetch-server': 0.8.1
-      get-port: 7.1.0
-      miniflare: 4.20251105.0
-      picocolors: 1.1.1
-      tinyglobby: 0.2.15
-      unenv: 2.0.0-rc.24
-      vite: 7.2.2(@types/node@24.2.0)(jiti@2.6.1)(sass@1.93.2)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.3)(yaml@2.8.1)
-      wrangler: 4.46.0
-      ws: 8.18.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-      - workerd
 
   '@cloudflare/workerd-darwin-64@1.20251105.0':
     optional: true
@@ -8346,8 +8302,6 @@ snapshots:
       react-router: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
     optionalDependencies:
       typescript: 5.9.2
-
-  '@remix-run/node-fetch-server@0.8.1': {}
 
   '@remix-run/node-fetch-server@0.9.0': {}
 
@@ -9956,8 +9910,6 @@ snapshots:
       math-intrinsics: 1.1.0
 
   get-nonce@1.0.1: {}
-
-  get-port@7.1.0: {}
 
   get-proto@1.0.1:
     dependencies:

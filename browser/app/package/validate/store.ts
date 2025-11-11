@@ -1,5 +1,5 @@
+import type { api } from "#api/client.ts"
 import { createStore } from "#helpers/store.ts"
-import type { api } from "#runtimes/browser/api.ts"
 
 export interface State {
   isDialogOpen?: boolean
