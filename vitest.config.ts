@@ -34,6 +34,8 @@ export default defineConfig({
         // TODO: Enalbe when ready
         "browser/**",
         // TODO: Enalbe when ready
+        "mobile/**",
+        // TODO: Enalbe when ready
         "service/**",
       ],
     },

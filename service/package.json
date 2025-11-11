@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "start": "node main.ts"
+    "start": "node --watch main.ts"
   },
   "dependencies": {
     "@dpkit/library": "workspace:*",
