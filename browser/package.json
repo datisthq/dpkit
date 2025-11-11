@@ -9,8 +9,12 @@
   "scripts": {
     "build": "react-router build",
     "generate": "react-router typegen",
+    "preview": "react-router-serve build/server/index.js",
     "start": "react-router dev",
     "type": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-router/serve": "7.9.5"
   },
   "devDependencies": {
     "@ai-sdk/openai": "2.0.64",
