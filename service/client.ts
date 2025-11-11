@@ -5,7 +5,7 @@ import type { JsonifiedClient } from "@orpc/openapi-client"
 import { OpenAPILink } from "@orpc/openapi-client/fetch"
 import type { Logger } from "tslog"
 import { contract } from "./contract.ts"
-import { logger } from "./logger.ts"
+import { logger } from "./services/logger.ts"
 import * as settings from "./settings.ts"
 
 export function createClient(options?: {

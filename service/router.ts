@@ -1,7 +1,8 @@
-import { validatePackage } from "./endpoints/package/validate.ts"
+import { validatePackage } from "./endpoints/package/validate/handler.ts"
+import { handler } from "./handler.ts"
 
-export const router = {
+export const router = handler.router({
   package: {
     validate: validatePackage,
   },
-}
+})

@@ -5,8 +5,8 @@ import type { Router } from "@orpc/server"
 import { CORSPlugin } from "@orpc/server/plugins"
 import { ZodToJsonSchemaConverter } from "@orpc/zod"
 import type { Logger } from "tslog"
-import { logger } from "./logger.ts"
 import { router } from "./router.ts"
+import { logger } from "./services/logger.ts"
 import * as settings from "./settings.ts"
 
 export function createServer(options?: {

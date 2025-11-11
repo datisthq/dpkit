@@ -1,4 +1,7 @@
-import contractJson from "./contract.json" with { type: "json" }
-import type { router } from "./router.ts"
+import { validatePackage } from "./endpoints/package/validate/contract.ts"
 
-export const contract = contractJson as typeof router
+export const contract = {
+  package: {
+    validate: validatePackage,
+  },
+}

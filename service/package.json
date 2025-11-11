@@ -4,8 +4,8 @@
   "version": "0.0.0-dev",
   "private": true,
   "exports": {
-    "./browser": "./build/runtimes/browser.js",
-    "./node": "./build/runtimes/node.js"
+    "./client": "./build/runtimes/client.js",
+    "./server": "./build/runtimes/server.js"
   },
   "sideEffects": false,
   "license": "MIT",
@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "generate": "node @generate.ts"
+    "start": "node main.ts"
   },
   "dependencies": {
     "@dpkit/library": "workspace:*",
