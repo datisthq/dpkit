@@ -20,7 +20,8 @@ export default defineConfig({
     lingui(),
     svgr(),
   ],
-  resolve: {
-    alias: [{ find: "@dpkit/browser", replacement: import.meta.dirname }],
-  },
+  // TODO: Remove the comment as alias seems to be no longer needed
+  // resolve: {
+  //   alias: [{ find: "@dpkit/browser", replacement: import.meta.dirname }],
+  // },
 })
