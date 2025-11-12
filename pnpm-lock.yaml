@@ -313,6 +313,9 @@ importers:
       '@dpkit/browser':
         specifier: workspace:*
         version: link:../browser
+      '@dpkit/service':
+        specifier: workspace:*
+        version: link:../service
       '@electron-toolkit/utils':
         specifier: 4.0.0
         version: 4.0.0(electron@39.1.2)

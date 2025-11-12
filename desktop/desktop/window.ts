@@ -4,16 +4,30 @@ import { BrowserWindow } from "electron"
 import icon from "../assets/dpkit-logo.svg?asset"
 
 export async function createWindow() {
+  const indexPath = nodePath.resolve(
+    import.meta.dirname,
+    "..",
+    "node_modules",
+    "@dpkit",
+    "browser",
+    "build",
+    "spa",
+    "client",
+    "index.html",
+  )
+
   const mainWindow = new BrowserWindow({
     show: false,
     ...(process.platform === "linux" ? { icon } : {}),
     webPreferences: {
-      preload: nodePath.join(__dirname, "preload", "index.js"),
+      preload: nodePath.join(import.meta.dirname, "preload", "index.js"),
       contextIsolation: true,
     },
   })
 
-  // mainWindow.loadFile(resolve(__dirname, "..", "client", "index.html"))
+  mainWindow.loadFile(indexPath)
+  mainWindow.setTitle("dpkit")
+  mainWindow.setMenu(null)
   mainWindow.maximize()
   mainWindow.show()
 

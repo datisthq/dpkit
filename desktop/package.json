@@ -2,13 +2,15 @@
   "name": "@dpkit/desktop",
   "type": "module",
   "version": "0.0.0-dev",
+  "main": "./build/main/main.js",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "electron-vite build",
     "start": "electron-vite dev"
   },
   "devDependencies": {
     "@dpkit/browser": "workspace:*",
+    "@dpkit/service": "workspace:*",
     "@electron-toolkit/utils": "4.0.0",
     "@loglayer/transport-electron-log": "2.1.10",
     "electron-log": "5.4.3",

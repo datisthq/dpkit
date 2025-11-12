@@ -5,17 +5,25 @@ export default defineConfig({
     plugins: [externalizeDepsPlugin()],
     build: {
       lib: { entry: "desktop/main.ts" },
-      outDir: "desktop/build",
+      outDir: "build/main",
     },
   },
   preload: {
     plugins: [externalizeDepsPlugin()],
     build: {
       lib: { entry: "desktop/preload.ts" },
-      outDir: "desktop/build",
+      outDir: "build/preload",
     },
   },
   renderer: {
-    root: import.meta.dirname,
+    root: "node_modules/@dpkit/browser/build/spa/client",
+    build: {
+      outDir: "build/renderer",
+      rollupOptions: {
+        input: {
+          index: "node_modules/@dpkit/browser/build/spa/client/index.html",
+        },
+      },
+    },
   },
 })

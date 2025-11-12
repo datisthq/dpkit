@@ -56,7 +56,7 @@ process.on("unhandledRejection", async (error: any) => {
 app.setAboutPanelOptions({
   applicationName: "dpkit",
   applicationVersion: metadata.version,
-  website: "https://dpkit.app/",
+  website: "https://dpkit.app",
   iconPath: nodePath.join(
     import.meta.dirname,
     "..",
