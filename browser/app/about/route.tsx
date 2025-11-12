@@ -4,7 +4,7 @@ import { Link } from "#components/Link/index.ts"
 import { createPayload } from "#payload.ts"
 import type { Route } from "./+types/route.tsx"
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function clientLoader({ params }: Route.LoaderArgs) {
   const { payload } = createPayload({ pageId: "about", params })
 
   return { payload }

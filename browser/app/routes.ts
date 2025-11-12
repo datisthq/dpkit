@@ -5,12 +5,11 @@ import { Pages } from "#constants/page.ts"
 
 const routes: RouteConfig = []
 
-routes.push(
-  route("", "system/redirects/home.ts"),
-
-  route("sitemap.xml", "sitemap/root.ts"),
-  route(":languageId/sitemap.xml", "sitemap/page.ts"),
-)
+if (!process.env.SPA) {
+  routes.push(route("", "system/redirects/home.ts"))
+  routes.push(route("sitemap.xml", "sitemap/root.ts"))
+  routes.push(route(":languageId/sitemap.xml", "sitemap/page.ts"))
+}
 
 for (const [pageId, page] of objectEntries(Pages)) {
   for (const languageId of objectKeys(Languages)) {

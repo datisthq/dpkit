@@ -9,7 +9,7 @@ import * as settings from "#settings.ts"
 import type { Route } from "./+types/route.tsx"
 import classes from "./route.module.css"
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function clientLoader({ params }: Route.LoaderArgs) {
   const { payload } = createPayload({ pageId: "home", params })
 
   return { payload }

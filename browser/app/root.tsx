@@ -16,11 +16,12 @@ import * as settings from "#settings.ts"
 import type * as types from "#types/index.ts"
 import type { Route } from "./+types/root.tsx"
 
-export function headers() {
-  return {
-    "Cache-Control": getRevisionCacheControl(),
-  }
-}
+// TODO: revover
+// export function headers() {
+//   return {
+//     "Cache-Control": getRevisionCacheControl(),
+//   }
+// }
 
 export default function Page() {
   return <Outlet />

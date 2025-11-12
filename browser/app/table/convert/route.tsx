@@ -3,7 +3,7 @@ import { Alert } from "#components/Alert/Alert.tsx"
 import { createPayload } from "#payload.ts"
 import type { Route } from "./+types/route.tsx"
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function clientLoader({ params }: Route.LoaderArgs) {
   const { payload } = createPayload({ pageId: "tableConvert", params })
 
   return { payload }

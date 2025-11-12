@@ -2,14 +2,15 @@
   "name": "@dpkit/browser",
   "type": "module",
   "version": "0.0.0-dev",
-  "exports": "./build",
   "sideEffects": false,
   "files": ["build"],
   "imports": {
     "#*": "./*"
   },
   "scripts": {
-    "build": "react-router build",
+    "build": "pnpm /build:/",
+    "build:ssr": "react-router build",
+    "build:spa": "SPA=true react-router build",
     "generate": "react-router typegen",
     "preview": "react-router-serve build/server/index.js",
     "start": "react-router dev",

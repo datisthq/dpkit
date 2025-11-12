@@ -6,7 +6,7 @@ import type { Route } from "./+types/route.tsx"
 import { ValidatePackageDialog } from "./Dialog.tsx"
 import { ValidatePackageForm } from "./Form.tsx"
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function clientLoader({ params }: Route.LoaderArgs) {
   const { payload } = createPayload({ pageId: "packageValidate", params })
 
   return { payload }
