@@ -1,6 +1,7 @@
 // Use comments to prevent sorting
 // ---
-import "#styles/index.ts"
+import "@mantine/core/styles.css"
+import "#styles/custom.css"
 // ---
 import { useMatches } from "react-router"
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router"

@@ -7,6 +7,7 @@ export async function createWindow() {
   const indexPath = nodePath.resolve(
     import.meta.dirname,
     "..",
+    "..",
     "node_modules",
     "@dpkit",
     "browser",

@@ -14,14 +14,6 @@ type Pages = {
   "/": {
     params: {};
   };
-  "/sitemap.xml": {
-    params: {};
-  };
-  "/:languageId/sitemap.xml": {
-    params: {
-      "languageId": string;
-    };
-  };
   "/:languageId": {
     params: {
       "languageId": string;
@@ -227,21 +219,12 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/sitemap.xml" | "/:languageId/sitemap.xml" | "/:languageId" | "/:languageId/validate-data-package" | "/:languageId/paket-validieren" | "/:languageId/validar-paquete" | "/:languageId/valider-paquet" | "/:languageId/convalidare-pacchetto" | "/:languageId/validar-pacote" | "/:languageId/proverit-paket" | "/:languageId/pereviryty-paket" | "/:languageId/infer-table-schema" | "/:languageId/schema-ableiten" | "/:languageId/inferir-esquema" | "/:languageId/inferer-schema" | "/:languageId/inferire-schema" | "/:languageId/opredelit-skhemu" | "/:languageId/vyznachyty-skhemu" | "/:languageId/validate-table-data" | "/:languageId/tabelle-validieren" | "/:languageId/validar-tabla" | "/:languageId/valider-table" | "/:languageId/convalidare-tabella" | "/:languageId/validar-tabela" | "/:languageId/proverit-tablitsu" | "/:languageId/pereviryty-tablitsyu" | "/:languageId/convert-table-format" | "/:languageId/konvertieren-tabelle" | "/:languageId/convertir-tabla" | "/:languageId/convertir-table" | "/:languageId/convertire-tabella" | "/:languageId/converter-tabela" | "/:languageId/konvertirovat-tablitsu" | "/:languageId/konvertuvaty-tablitsyu" | "/:languageId/about" | "/:languageId/ueber" | "/:languageId/acerca-de" | "/:languageId/a-propos" | "/:languageId/chi-siamo" | "/:languageId/sobre" | "/:languageId/o-nas" | "/:languageId/pro-nas";
-  };
-  "system/redirects/home.ts": {
-    id: "system/redirects/home";
-    page: "/";
-  };
-  "sitemap/root.ts": {
-    id: "sitemap/root";
-    page: "/sitemap.xml";
-  };
-  "sitemap/page.ts": {
-    id: "sitemap/page";
-    page: "/:languageId/sitemap.xml";
+    page: "/" | "/:languageId" | "/:languageId/validate-data-package" | "/:languageId/paket-validieren" | "/:languageId/validar-paquete" | "/:languageId/valider-paquet" | "/:languageId/convalidare-pacchetto" | "/:languageId/validar-pacote" | "/:languageId/proverit-paket" | "/:languageId/pereviryty-paket" | "/:languageId/infer-table-schema" | "/:languageId/schema-ableiten" | "/:languageId/inferir-esquema" | "/:languageId/inferer-schema" | "/:languageId/inferire-schema" | "/:languageId/opredelit-skhemu" | "/:languageId/vyznachyty-skhemu" | "/:languageId/validate-table-data" | "/:languageId/tabelle-validieren" | "/:languageId/validar-tabla" | "/:languageId/valider-table" | "/:languageId/convalidare-tabella" | "/:languageId/validar-tabela" | "/:languageId/proverit-tablitsu" | "/:languageId/pereviryty-tablitsyu" | "/:languageId/convert-table-format" | "/:languageId/konvertieren-tabelle" | "/:languageId/convertir-tabla" | "/:languageId/convertir-table" | "/:languageId/convertire-tabella" | "/:languageId/converter-tabela" | "/:languageId/konvertirovat-tablitsu" | "/:languageId/konvertuvaty-tablitsyu" | "/:languageId/about" | "/:languageId/ueber" | "/:languageId/acerca-de" | "/:languageId/a-propos" | "/:languageId/chi-siamo" | "/:languageId/sobre" | "/:languageId/o-nas" | "/:languageId/pro-nas";
   };
   "home/route.tsx": {
+    id: "home/route";
+    page: "/";
+  } | {
     id: "en/home";
     page: "/:languageId";
   } | {
@@ -395,9 +378,7 @@ type RouteFiles = {
 
 type RouteModules = {
   "root": typeof import("./app/root.tsx");
-  "system/redirects/home": typeof import("./app/system/redirects/home.ts");
-  "sitemap/root": typeof import("./app/sitemap/root.ts");
-  "sitemap/page": typeof import("./app/sitemap/page.ts");
+  "home/route": typeof import("./app/home/route.tsx");
   "en/home": typeof import("./app/home/route.tsx");
   "de/home": typeof import("./app/home/route.tsx");
   "es/home": typeof import("./app/home/route.tsx");
