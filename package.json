@@ -19,6 +19,7 @@
     "install:ci": "pnpm install --ignore-scripts",
     "prepare": "husky",
     "publish:ci": "pnpm -r publish --access public --ignore-scripts --no-git-checks",
+    "start:web": "pnpm --parallel -F service -F browser start",
     "spec": "vitest run",
     "test": "pnpm lint && pnpm type && pnpm spec",
     "test:win": "pnpm spec",

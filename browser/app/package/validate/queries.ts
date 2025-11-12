@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { api } from "#api/client.ts"
+import { api } from "#services/api.ts"
 import { store } from "./store.ts"
 
 export function useValidatePackage() {
