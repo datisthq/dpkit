@@ -2,9 +2,9 @@ import nodePath from "node:path"
 import { electronApp, optimizer } from "@electron-toolkit/utils"
 import { BrowserWindow, app, dialog } from "electron"
 import metadata from "../package.json" with { type: "json" }
+import { logger } from "../services/logger.ts"
+import * as settings from "../settings.ts"
 import { createBridge } from "./bridge.ts"
-import { logger } from "./logger.ts"
-import * as settings from "./settings.ts"
 import { createWindow } from "./window.ts"
 
 // This method will be called when Electron has finished

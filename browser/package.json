@@ -2,7 +2,9 @@
   "name": "@dpkit/browser",
   "type": "module",
   "version": "0.0.0-dev",
-  "private": true,
+  "exports": "./build",
+  "sideEffects": false,
+  "files": ["build"],
   "imports": {
     "#*": "./*"
   },
@@ -10,27 +12,22 @@
     "build": "react-router build",
     "generate": "react-router typegen",
     "preview": "react-router-serve build/server/index.js",
-    "start:desktop": "electron-vite dev",
     "start": "react-router dev",
     "type": "tsc --noEmit"
   },
-  "dependencies": {
-    "@react-router/serve": "7.9.5"
-  },
   "devDependencies": {
     "@ai-sdk/openai": "2.0.64",
+    "@react-router/serve": "7.9.5",
     "@babel/preset-typescript": "7.28.5",
     "@clack/prompts": "^0.11.0",
     "@dpkit/library": "workspace:*",
     "@dpkit/service": "workspace:*",
-    "@electron-toolkit/utils": "4.0.0",
     "@lingui/babel-plugin-lingui-macro": "5.5.2",
     "@lingui/cli": "5.5.2",
     "@lingui/core": "5.5.2",
     "@lingui/detect-locale": "5.5.2",
     "@lingui/react": "5.5.2",
     "@lingui/vite-plugin": "5.5.2",
-    "@loglayer/transport-electron-log": "2.1.10",
     "@loglayer/transport-tslog": "3.0.4",
     "@mantine/core": "8.3.5",
     "@mantine/form": "8.3.5",
@@ -46,8 +43,6 @@
     "babel-plugin-macros": "3.1.0",
     "concurrently": "9.2.1",
     "dotenv": "17.2.3",
-    "electron-log": "5.4.3",
-    "electron-vite": "4.0.1",
     "es-toolkit": "1.39.10",
     "execa": "9.6.0",
     "gettext-parser": "8.0.0",
