@@ -13,7 +13,8 @@ export function createServer(options?: {
   start?: boolean
   router?: Router<any, any>
   logger?: Logger<any>
-  origin?: string
+  host?: string
+  port?: number
   prefix?: `/${string}`
   corsMethods?: string[]
   withDocumentation?: boolean
@@ -22,15 +23,17 @@ export function createServer(options?: {
     start: options?.start ?? settings.START,
     router: options?.router ?? router,
     logger: options?.logger ?? logger,
-    origin: options?.origin ?? settings.ORIGIN,
+    host: options?.host ?? settings.HOST,
+    port: options?.port ?? settings.PORT,
     prefix: options?.prefix ?? settings.PREFIX,
     corsMethods: options?.corsMethods ?? settings.CORS_METHODS,
     withDocumentation:
       options?.withDocumentation ?? settings.WITH_DOCUMENTATION,
   }
 
-  const url = new URL(config.prefix, config.origin)
-  const port = url.port ?? (url.protocol === "https:" ? 443 : 80)
+  const protocol = config.port === 443 ? "https:" : "http:"
+  const origin = `${protocol}//${config.host}:${config.port}`
+  const url = new URL(config.prefix, origin)
   const version = config.prefix.match(/v(\d+)/)?.[1] ?? "1"
 
   const openAPIHandler = new OpenAPIHandler(config.router, {
@@ -109,7 +112,7 @@ export function createServer(options?: {
   })
 
   if (config.start) {
-    server.listen(port, () => {
+    server.listen(config.port, () => {
       logger.info(`Listening on ${url.toString()}`)
     })
   }
