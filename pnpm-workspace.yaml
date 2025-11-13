@@ -16,4 +16,5 @@ packages:
   - service
   - table
   - terminal
+  - toolbox
   - video
