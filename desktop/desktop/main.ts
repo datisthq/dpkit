@@ -5,6 +5,7 @@ import metadata from "../package.json" with { type: "json" }
 import { logger } from "../services/logger.ts"
 import * as settings from "../settings.ts"
 import { createBridge } from "./bridge.ts"
+import { createProxy } from "./proxy.ts"
 import { createWindow } from "./window.ts"
 
 // This method will be called when Electron has finished
@@ -13,8 +14,10 @@ import { createWindow } from "./window.ts"
 app.whenReady().then(async () => {
   logger.info("Start application")
   electronApp.setAppUserModelId(settings.APP_USER_MODEL_ID)
+
+  createProxy()
   createBridge()
-  await createWindow()
+  createWindow()
 })
 
 // Default open or close DevTools by F12 in development
