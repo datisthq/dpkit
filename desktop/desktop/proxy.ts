@@ -10,9 +10,9 @@ export function createProxy() {
     const url = new URL(request.url)
 
     let path = nodePath.join(settings.RENDERER_DIR, url.pathname)
-    const exists = await checkFileExistence(path)
+    const isExists = await checkFileExistence(path)
 
-    if (!exists) {
+    if (!isExists) {
       path = nodePath.join(settings.RENDERER_DIR, "index.html")
     }
 
