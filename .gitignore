@@ -70,3 +70,5 @@ dist/
 .env
 .env.local
 messages.js
+.user/
+tmuxp.yaml
