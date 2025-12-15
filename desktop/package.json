@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@dpkit/website": "workspace:*",
-    "@dpkit/service": "workspace:*",
+    "@dpkit/engine": "workspace:*",
     "@electron-toolkit/utils": "4.0.0",
     "@loglayer/transport-electron-log": "2.1.10",
     "electron-log": "5.4.3",

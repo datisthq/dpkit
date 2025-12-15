@@ -23,7 +23,7 @@
     "@babel/preset-typescript": "7.28.5",
     "@clack/prompts": "^0.11.0",
     "@dpkit/library": "workspace:*",
-    "@dpkit/service": "workspace:*",
+    "@dpkit/engine": "workspace:*",
     "@lingui/babel-plugin-lingui-macro": "5.5.2",
     "@lingui/cli": "5.5.2",
     "@lingui/core": "5.5.2",

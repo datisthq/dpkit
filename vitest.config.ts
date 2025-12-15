@@ -36,7 +36,7 @@ export default defineConfig({
         // TODO: Enalbe when ready
         "mobile/**",
         // TODO: Enalbe when ready
-        "service/**",
+        "engine/**",
       ],
     },
     resolveSnapshotPath: (testPath, snapExtension) => {

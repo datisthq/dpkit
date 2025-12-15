@@ -145,9 +145,9 @@ importers:
 
   desktop:
     devDependencies:
-      '@dpkit/service':
+      '@dpkit/engine':
         specifier: workspace:*
-        version: link:../service
+        version: link:../engine
       '@dpkit/website':
         specifier: workspace:*
         version: link:../website
@@ -218,6 +218,42 @@ importers:
       '@dpkit/terminal':
         specifier: workspace:*
         version: link:../terminal
+
+  engine:
+    dependencies:
+      '@dpkit/library':
+        specifier: workspace:*
+        version: link:../library
+      '@loglayer/transport-tslog':
+        specifier: 3.0.4
+        version: 3.0.4(tslog@4.10.2)
+      '@orpc/client':
+        specifier: ^1.11.1
+        version: 1.11.1(@opentelemetry/api@1.9.0)
+      '@orpc/contract':
+        specifier: ^1.11.1
+        version: 1.11.1(@opentelemetry/api@1.9.0)
+      '@orpc/openapi':
+        specifier: 1.11.1
+        version: 1.11.1(@opentelemetry/api@1.9.0)(crossws@0.3.5)(ws@8.18.3)
+      '@orpc/openapi-client':
+        specifier: 1.11.1
+        version: 1.11.1(@opentelemetry/api@1.9.0)
+      '@orpc/server':
+        specifier: 1.11.1
+        version: 1.11.1(@opentelemetry/api@1.9.0)(crossws@0.3.5)(ws@8.18.3)
+      '@orpc/zod':
+        specifier: 1.11.1
+        version: 1.11.1(@opentelemetry/api@1.9.0)(@orpc/contract@1.11.1(@opentelemetry/api@1.9.0))(@orpc/server@1.11.1(@opentelemetry/api@1.9.0)(crossws@0.3.5)(ws@8.18.3))(crossws@0.3.5)(ws@8.18.3)(zod@4.1.12)
+      loglayer:
+        specifier: 6.9.1
+        version: 6.9.1
+      tslog:
+        specifier: 4.10.2
+        version: 4.10.2
+      zod:
+        specifier: 4.1.12
+        version: 4.1.12
 
   image:
     dependencies:
@@ -327,42 +363,6 @@ importers:
         specifier: workspace:*
         version: link:../metadata
 
-  service:
-    dependencies:
-      '@dpkit/library':
-        specifier: workspace:*
-        version: link:../library
-      '@loglayer/transport-tslog':
-        specifier: 3.0.4
-        version: 3.0.4(tslog@4.10.2)
-      '@orpc/client':
-        specifier: ^1.11.1
-        version: 1.11.1(@opentelemetry/api@1.9.0)
-      '@orpc/contract':
-        specifier: ^1.11.1
-        version: 1.11.1(@opentelemetry/api@1.9.0)
-      '@orpc/openapi':
-        specifier: 1.11.1
-        version: 1.11.1(@opentelemetry/api@1.9.0)(crossws@0.3.5)(ws@8.18.3)
-      '@orpc/openapi-client':
-        specifier: 1.11.1
-        version: 1.11.1(@opentelemetry/api@1.9.0)
-      '@orpc/server':
-        specifier: 1.11.1
-        version: 1.11.1(@opentelemetry/api@1.9.0)(crossws@0.3.5)(ws@8.18.3)
-      '@orpc/zod':
-        specifier: 1.11.1
-        version: 1.11.1(@opentelemetry/api@1.9.0)(@orpc/contract@1.11.1(@opentelemetry/api@1.9.0))(@orpc/server@1.11.1(@opentelemetry/api@1.9.0)(crossws@0.3.5)(ws@8.18.3))(crossws@0.3.5)(ws@8.18.3)(zod@4.1.12)
-      loglayer:
-        specifier: 6.9.1
-        version: 6.9.1
-      tslog:
-        specifier: 4.10.2
-        version: 4.10.2
-      zod:
-        specifier: 4.1.12
-        version: 4.1.12
-
   table:
     dependencies:
       '@dpkit/dataset':
@@ -441,9 +441,9 @@ importers:
 
   toolbox:
     dependencies:
-      '@dpkit/service':
+      '@dpkit/engine':
         specifier: workspace:*
-        version: link:../service
+        version: link:../engine
     devDependencies:
       react-strict-dom:
         specifier: 0.0.54
@@ -469,12 +469,12 @@ importers:
       '@clack/prompts':
         specifier: ^0.11.0
         version: 0.11.0
+      '@dpkit/engine':
+        specifier: workspace:*
+        version: link:../engine
       '@dpkit/library':
         specifier: workspace:*
         version: link:../library
-      '@dpkit/service':
-        specifier: workspace:*
-        version: link:../service
       '@lingui/babel-plugin-lingui-macro':
         specifier: 5.5.2
         version: 5.5.2(babel-plugin-macros@3.1.0)(typescript@5.9.2)

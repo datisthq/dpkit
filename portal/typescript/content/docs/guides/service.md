@@ -9,11 +9,11 @@ This document provides a brief overview of self-hosting **dpkit Service** on you
 
 ## Instructions
 
-1. Install `@dpkit/service` package.
+1. Install `@dpkit/engine` package.
 2. Within your project, create a `main.ts` file:
 
 ```ts
-import { createServer } from "@dpkit/service/node"
+import { createServer } from "@dpkit/engine/node"
 
 createServer({ start: true })
 ```

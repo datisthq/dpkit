@@ -6,13 +6,13 @@ packages:
   - desktop
   - document
   - dpkit
+  - engine
   - image
   - library
   - metadata
   - mobile
   - portal
   - scanner
-  - service
   - table
   - terminal
   - toolbox

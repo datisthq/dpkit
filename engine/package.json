@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/service",
+  "name": "@dpkit/engine",
   "type": "module",
   "version": "0.0.0-dev",
   "private": true,
