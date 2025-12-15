@@ -16,12 +16,12 @@ export default defineConfig({
     },
   },
   renderer: {
-    root: "node_modules/@dpkit/browser/build/spa/client",
+    root: "node_modules/@dpkit/website/build/spa/client",
     build: {
       outDir: "build/renderer",
       rollupOptions: {
         input: {
-          index: "node_modules/@dpkit/browser/build/spa/client/index.html",
+          index: "node_modules/@dpkit/website/build/spa/client/index.html",
         },
       },
     },

@@ -32,7 +32,7 @@ export default defineConfig({
         "**/main.ts",
         "portal/**",
         // TODO: Enalbe when ready
-        "browser/**",
+        "website/**",
         // TODO: Enalbe when ready
         "mobile/**",
         // TODO: Enalbe when ready

@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/browser",
+  "name": "@dpkit/website",
   "type": "module",
   "version": "0.0.0-dev",
   "sideEffects": false,

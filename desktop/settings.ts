@@ -10,7 +10,7 @@ export const RENDERER_DIR = nodePath.join(
   "..",
   "node_modules",
   "@dpkit",
-  "browser",
+  "website",
   "build",
   "spa",
   "client",

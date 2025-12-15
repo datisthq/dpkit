@@ -9,7 +9,7 @@
     "start": "electron-vite dev"
   },
   "devDependencies": {
-    "@dpkit/browser": "workspace:*",
+    "@dpkit/website": "workspace:*",
     "@dpkit/service": "workspace:*",
     "@electron-toolkit/utils": "4.0.0",
     "@loglayer/transport-electron-log": "2.1.10",

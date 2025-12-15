@@ -1,7 +1,6 @@
 dangerouslyAllowAllBuilds: true
 packages:
   - audio
-  - browser
   - database
   - dataset
   - desktop
@@ -18,3 +17,4 @@ packages:
   - terminal
   - toolbox
   - video
+  - website
