@@ -33,6 +33,7 @@ describe("savePackageToGithub", () => {
 
   beforeEach(() => {
     fetchMock = vi.fn()
+    // @ts-ignore
     globalThis.fetch = fetchMock
   })
 

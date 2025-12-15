@@ -1,0 +1,484 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-11-10 07:34+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. placeholder {0}: error.message
+#. placeholder {0}: props.error.message
+#: app/package/validate/Dialog.tsx:26
+#: components/Report/Error/Data.tsx:8
+#: components/Report/Error/Metadata.tsx:11
+msgid "{0}"
+msgstr "{0}"
+
+#: components/Report/Report.tsx:48
+msgid "{type}"
+msgstr "{type}"
+
+#: components/Report/Error/Cell.tsx:38
+msgid "A required cell in field"
+msgstr "A required cell in field"
+
+#: app/about/route.tsx:20
+msgid "about-description-intro"
+msgstr "about-description-intro"
+
+#: app/about/route.tsx:18
+msgid "about-dpkit-cloud-title"
+msgstr "about-dpkit-cloud-title"
+
+#: app/about/route.tsx:45
+msgid "about-get-in-touch"
+msgstr "about-get-in-touch"
+
+#: app/about/route.tsx:34
+msgid "about-privacy-first-description"
+msgstr "about-privacy-first-description"
+
+#: app/about/route.tsx:33
+msgid "about-privacy-first-title"
+msgstr "about-privacy-first-title"
+
+#: app/about/route.tsx:41
+msgid "about-self-hosting-docs"
+msgstr "about-self-hosting-docs"
+
+#: app/about/route.tsx:39
+msgid "about-self-hosting-intro"
+msgstr "about-self-hosting-intro"
+
+#: app/about/route.tsx:43
+msgid "about-self-hosting-middle"
+msgstr "about-self-hosting-middle"
+
+#: app/about/route.tsx:37
+msgid "about-self-hosting-title"
+msgstr "about-self-hosting-title"
+
+#: components/Layout/Banner.tsx:32
+msgid "adding a star"
+msgstr "adding a star"
+
+#: app/about/route.tsx:24
+#: app/home/route.tsx:46
+msgid "allowing you to review the code or"
+msgstr "allowing you to review the code or"
+
+#: app/home/route.tsx:42
+msgid "and completely"
+msgstr "and completely"
+
+#: components/Report/Error/Fields.tsx:14
+msgid "are missing"
+msgstr "are missing"
+
+#: components/Report/Error/Fields.tsx:28
+msgid "are not expected"
+msgstr "are not expected"
+
+#: components/Report/Error/Row.tsx:12
+msgid "are not unique"
+msgstr "are not unique"
+
+#: components/Report/Error/Metadata.tsx:11
+msgid "at"
+msgstr "at"
+
+#: components/Layout/Banner.tsx:21
+msgid "becoming a sponsor"
+msgstr "becoming a sponsor"
+
+#: components/Layout/Credits.tsx:20
+msgid "Brought to you by"
+msgstr "Brought to you by"
+
+#: components/Report/Error/Field.tsx:12
+#: components/Report/Error/Field.tsx:31
+#: components/Report/Error/File.tsx:12
+#: components/Report/Error/File.tsx:27
+#: components/Report/Error/File.tsx:42
+msgid "but it is actually"
+msgstr "but it is actually"
+
+#: components/Layout/Language.tsx:66
+msgid "Change Language"
+msgstr "Change Language"
+
+#: components/Layout/Theme.tsx:23
+msgid "Change Theme"
+msgstr "Change Theme"
+
+#: components/Dialog/Dialog.tsx:52
+msgid "Close"
+msgstr "Close"
+
+#: components/Layout/Breadcrumbs.tsx:29
+msgid "Convert table format"
+msgstr "Convert table format"
+
+#: app/home/route.tsx:36
+msgid "converting and validating data"
+msgstr "converting and validating data"
+
+#: components/Layout/Theme.tsx:51
+msgid "Dark"
+msgstr "Dark"
+
+#: components/Form/Form.tsx:144
+msgid "Data Package File"
+msgstr "Data Package File"
+
+#: components/Form/Form.tsx:185
+msgid "Data Package JSON"
+msgstr "Data Package JSON"
+
+#: components/Form/Form.tsx:99
+msgid "Data Package URL"
+msgstr "Data Package URL"
+
+#: components/Dialog/Dialog.tsx:37
+msgid "Dialog"
+msgstr "Dialog"
+
+#: components/Report/Error/Cell.tsx:238
+#: components/Report/Error/Cell.tsx:314
+msgid "does not match the"
+msgstr "does not match the"
+
+#: components/Form/Form.tsx:97
+msgid "Enter data package URL"
+msgstr "Enter data package URL"
+
+#: components/System/Error.tsx:16
+msgid "error404"
+msgstr "error404"
+
+#: components/System/Error.tsx:16
+msgid "error500"
+msgstr "error500"
+
+#: components/Report/Report.tsx:37
+msgid "Errors"
+msgstr "Errors"
+
+#: app/about/route.tsx:28
+#: app/home/route.tsx:52
+msgid "European Commission"
+msgstr "European Commission"
+
+#: components/Report/Error/Cell.tsx:158
+msgid "exclusive maximum"
+msgstr "exclusive maximum"
+
+#: components/Report/Error/Cell.tsx:130
+msgid "exclusive minimum"
+msgstr "exclusive minimum"
+
+#: components/Report/Error/Field.tsx:23
+msgid "Field"
+msgstr "Field"
+
+#: components/Report/Error/Field.tsx:8
+msgid "Field name"
+msgstr "Field name"
+
+#: components/Form/Form.tsx:39
+msgid "File"
+msgstr "File"
+
+#: components/Report/Error/File.tsx:38
+msgid "File encoding"
+msgstr "File encoding"
+
+#: components/Report/Error/File.tsx:23
+msgid "File hash"
+msgstr "File hash"
+
+#: components/Form/Form.tsx:121
+msgid "File is required"
+msgstr "File is required"
+
+#: components/Report/Error/File.tsx:8
+msgid "File size"
+msgstr "File size"
+
+#: components/Report/Error/ForeignKey.tsx:8
+msgid "Foreign key violation in field(s)"
+msgstr "Foreign key violation in field(s)"
+
+#: app/home/route.tsx:34
+msgid "Free online tools for"
+msgstr "Free online tools for"
+
+#: components/Report/Error/Cell.tsx:14
+#: components/Report/Error/Cell.tsx:62
+#: components/Report/Error/Cell.tsx:90
+#: components/Report/Error/Cell.tsx:118
+#: components/Report/Error/Cell.tsx:146
+#: components/Report/Error/Cell.tsx:174
+#: components/Report/Error/Cell.tsx:202
+#: components/Report/Error/Cell.tsx:230
+#: components/Report/Error/Cell.tsx:256
+#: components/Report/Error/Cell.tsx:278
+#: components/Report/Error/Cell.tsx:306
+msgid "in field"
+msgstr "in field"
+
+#: components/Layout/Breadcrumbs.tsx:25
+msgid "Infer table dialect"
+msgstr "Infer table dialect"
+
+#: components/Layout/Breadcrumbs.tsx:27
+msgid "Infer table schema"
+msgstr "Infer table schema"
+
+#: components/Form/Form.tsx:134
+msgid "Invalid JSON file"
+msgstr "Invalid JSON file"
+
+#: components/Form/Form.tsx:169
+msgid "Invalid JSON format"
+msgstr "Invalid JSON format"
+
+#: components/Form/Form.tsx:83
+msgid "Invalid URL format"
+msgstr "Invalid URL format"
+
+#: components/Report/Error/Field.tsx:8
+#: components/Report/Error/Field.tsx:27
+#: components/Report/Error/File.tsx:8
+#: components/Report/Error/File.tsx:23
+#: components/Report/Error/File.tsx:38
+msgid "is expected to be"
+msgstr "is expected to be"
+
+#: components/Report/Error/Cell.tsx:126
+#: components/Report/Error/Cell.tsx:154
+msgid "is less or equal to"
+msgstr "is less or equal to"
+
+#: components/Report/Error/Cell.tsx:70
+#: components/Report/Error/Cell.tsx:182
+msgid "is less than"
+msgstr "is less than"
+
+#: components/Report/Error/Cell.tsx:46
+msgid "is missing"
+msgstr "is missing"
+
+#: components/Report/Error/Cell.tsx:98
+#: components/Report/Error/Cell.tsx:210
+msgid "is more than"
+msgstr "is more than"
+
+#: components/Report/Error/Cell.tsx:22
+msgid "is not"
+msgstr "is not"
+
+#: components/Report/Error/Cell.tsx:286
+msgid "is not in the allowed"
+msgstr "is not in the allowed"
+
+#: components/Report/Error/Cell.tsx:264
+msgid "is not unique"
+msgstr "is not unique"
+
+#: components/Report/Error/Cell.tsx:170
+#: components/Report/Error/Cell.tsx:198
+msgid "Length of the cell"
+msgstr "Length of the cell"
+
+#: components/Layout/Theme.tsx:42
+msgid "Light"
+msgstr "Light"
+
+#: components/Report/Error/Cell.tsx:102
+#: components/Report/Error/Cell.tsx:214
+msgid "maximum"
+msgstr "maximum"
+
+#: components/Report/Error/Cell.tsx:74
+#: components/Report/Error/Cell.tsx:186
+msgid "minimum"
+msgstr "minimum"
+
+#: components/Report/Error/Cell.tsx:18
+#: components/Report/Error/Cell.tsx:42
+#: components/Report/Error/Cell.tsx:66
+#: components/Report/Error/Cell.tsx:94
+#: components/Report/Error/Cell.tsx:122
+#: components/Report/Error/Cell.tsx:150
+#: components/Report/Error/Cell.tsx:178
+#: components/Report/Error/Cell.tsx:206
+#: components/Report/Error/Cell.tsx:234
+#: components/Report/Error/Cell.tsx:260
+#: components/Report/Error/Cell.tsx:282
+#: components/Report/Error/Cell.tsx:310
+msgid "of row"
+msgstr "of row"
+
+#: components/Layout/Banner.tsx:34
+msgid "on GitHub!"
+msgstr "on GitHub!"
+
+#: app/about/route.tsx:22
+#: app/home/route.tsx:44
+msgid "open source"
+msgstr "open source"
+
+#: components/Layout/Banner.tsx:23
+msgid "or"
+msgstr "or"
+
+#: components/System/Error.tsx:15
+msgid "Page not found"
+msgstr "Page not found"
+
+#: components/Form/Form.tsx:183
+msgid "Paste data package JSON"
+msgstr "Paste data package JSON"
+
+#: components/Report/Error/Cell.tsx:242
+msgid "pattern"
+msgstr "pattern"
+
+#: app/home/route.tsx:40
+msgid "privacy-first"
+msgstr "privacy-first"
+
+#: components/Layout/Breadcrumbs.tsx:31
+msgid "Select a tool below"
+msgstr "Select a tool below"
+
+#: components/Form/Form.tsx:142
+msgid "Select data package file"
+msgstr "Select data package file"
+
+#: app/about/route.tsx:25
+#: app/home/route.tsx:48
+msgid "self-host"
+msgstr "self-host"
+
+#: components/Layout/Share.tsx:45
+msgid "Share"
+msgstr "Share"
+
+#: components/Layout/Share.tsx:34
+msgid "Share Page"
+msgstr "Share Page"
+
+#: components/System/Error.tsx:15
+msgid "Something went wrong"
+msgstr "Something went wrong"
+
+#: components/Layout/Banner.tsx:12
+msgid "Support the project by"
+msgstr "Support the project by"
+
+#: components/System/Error.tsx:32
+msgid "Take me back to home page"
+msgstr "Take me back to home page"
+
+#: components/Dialog/Dialog.tsx:52
+#~ msgid "Test"
+#~ msgstr "Test"
+
+#: components/Form/Form.tsx:50
+msgid "Text"
+msgstr "Text"
+
+#: components/Form/Form.tsx:167
+msgid "Text is required"
+msgstr "Text is required"
+
+#: components/Report/Error/Row.tsx:8
+msgid "The cell values of the fields"
+msgstr "The cell values of the fields"
+
+#: components/Report/Error/Fields.tsx:10
+#: components/Report/Error/Fields.tsx:24
+msgid "The fields"
+msgstr "The fields"
+
+#: app/about/route.tsx:26
+#: app/home/route.tsx:50
+msgid "the service. In 2025, the project was funded by"
+msgstr "the service. In 2025, the project was funded by"
+
+#: app/schema/infer/route.tsx:17
+#: app/table/convert/route.tsx:17
+#: app/table/validate/route.tsx:17
+msgid "This tool is currently under construction and not yet available"
+msgstr "This tool is currently under construction and not yet available"
+
+#: components/Layout/Breadcrumbs.tsx:17
+msgid "Tools"
+msgstr "Tools"
+
+#: app/schema/infer/route.tsx:16
+#: app/table/convert/route.tsx:16
+#: app/table/validate/route.tsx:16
+msgid "Under Construction"
+msgstr "Under Construction"
+
+#: app/home/route.tsx:38
+msgid "Unlike others, dpkit Cloud is"
+msgstr "Unlike others, dpkit Cloud is"
+
+#: components/Form/Form.tsx:28
+msgid "URL"
+msgstr "URL"
+
+#: components/Form/Form.tsx:77
+msgid "URL is required"
+msgstr "URL is required"
+
+#: app/package/validate/Dialog.tsx:39
+msgid "Valid data package"
+msgstr "Valid data package"
+
+#: components/Layout/Breadcrumbs.tsx:23
+msgid "Validate data package"
+msgstr "Validate data package"
+
+#: components/Form/Form.tsx:212
+msgid "Validate Data Package"
+msgstr "Validate Data Package"
+
+#: app/package/validate/Dialog.tsx:38
+msgid "Validating data package..."
+msgstr "Validating data package..."
+
+#: components/Report/Error/Cell.tsx:10
+#: components/Report/Error/Cell.tsx:58
+#: components/Report/Error/Cell.tsx:86
+#: components/Report/Error/Cell.tsx:114
+#: components/Report/Error/Cell.tsx:142
+#: components/Report/Error/Cell.tsx:226
+#: components/Report/Error/Cell.tsx:252
+#: components/Report/Error/Cell.tsx:274
+#: components/Report/Error/Cell.tsx:302
+msgid "Value of the cell"
+msgstr "Value of the cell"
+
+#: components/Report/Error/Cell.tsx:290
+msgid "values"
+msgstr "values"
+
+#: components/Layout/Repository.tsx:14
+msgid "View Repository"
+msgstr "View Repository"
+
+#: components/Layout/Credits.tsx:50
+msgid "We are bringing technological innovation and consultancy services to the open data field"
+msgstr "We are bringing technological innovation and consultancy services to the open data field"

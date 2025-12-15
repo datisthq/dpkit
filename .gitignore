@@ -54,7 +54,6 @@ pids
 .idea/
 .next/
 .yarn/
-.user/
 .cache/
 .clinic/
 .vscode/
@@ -69,3 +68,7 @@ dist/
 .serena/
 .mcp.json
 .env
+.env.local
+messages.js
+.user/
+tmuxp.yaml

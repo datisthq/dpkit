@@ -24,6 +24,6 @@
     "starlight-typedoc": "0.21.3",
     "typedoc": "0.28.9",
     "typedoc-plugin-markdown": "4.8.0",
-    "wrangler": "4.43.0"
+    "wrangler": "4.46.0"
   }
 }

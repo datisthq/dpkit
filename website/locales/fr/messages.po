@@ -1,0 +1,484 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-11-10 07:34+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: fr\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. placeholder {0}: error.message
+#. placeholder {0}: props.error.message
+#: app/package/validate/Dialog.tsx:26
+#: components/Report/Error/Data.tsx:8
+#: components/Report/Error/Metadata.tsx:11
+msgid "{0}"
+msgstr "{0}"
+
+#: components/Report/Report.tsx:48
+msgid "{type}"
+msgstr "{type}"
+
+#: components/Report/Error/Cell.tsx:38
+msgid "A required cell in field"
+msgstr "Une cellule requise dans le champ"
+
+#: app/about/route.tsx:20
+msgid "about-description-intro"
+msgstr "Bienvenue sur dpkit Cloud, une plateforme conçue pour gérer et valider facilement vos paquets de données."
+
+#: app/about/route.tsx:18
+msgid "about-dpkit-cloud-title"
+msgstr "À propos de dpkit Cloud"
+
+#: app/about/route.tsx:45
+msgid "about-get-in-touch"
+msgstr "Contactez-nous"
+
+#: app/about/route.tsx:34
+msgid "about-privacy-first-description"
+msgstr "Vos données sont traitées avec la plus grande confidentialité et ne quittent jamais votre navigateur."
+
+#: app/about/route.tsx:33
+msgid "about-privacy-first-title"
+msgstr "Confidentialité avant tout"
+
+#: app/about/route.tsx:41
+msgid "about-self-hosting-docs"
+msgstr "Consultez la documentation pour auto-héberger"
+
+#: app/about/route.tsx:39
+msgid "about-self-hosting-intro"
+msgstr "dpkit Cloud est 100% open source et peut être exécuté sur votre propre infrastructure."
+
+#: app/about/route.tsx:43
+msgid "about-self-hosting-middle"
+msgstr "ou découvrez comment déployer votre propre instance."
+
+#: app/about/route.tsx:37
+msgid "about-self-hosting-title"
+msgstr "Auto-hébergement"
+
+#: components/Layout/Banner.tsx:32
+msgid "adding a star"
+msgstr "en ajoutant une étoile"
+
+#: app/about/route.tsx:24
+#: app/home/route.tsx:46
+msgid "allowing you to review the code or"
+msgstr "vous permettant de consulter le code ou"
+
+#: app/home/route.tsx:42
+msgid "and completely"
+msgstr "et entièrement"
+
+#: components/Report/Error/Fields.tsx:14
+msgid "are missing"
+msgstr "manquent"
+
+#: components/Report/Error/Fields.tsx:28
+msgid "are not expected"
+msgstr "ne sont pas attendus"
+
+#: components/Report/Error/Row.tsx:12
+msgid "are not unique"
+msgstr "ne sont pas uniques"
+
+#: components/Report/Error/Metadata.tsx:11
+msgid "at"
+msgstr "à"
+
+#: components/Layout/Banner.tsx:21
+msgid "becoming a sponsor"
+msgstr "en devenant sponsor"
+
+#: components/Layout/Credits.tsx:20
+msgid "Brought to you by"
+msgstr "Présenté par"
+
+#: components/Report/Error/Field.tsx:12
+#: components/Report/Error/Field.tsx:31
+#: components/Report/Error/File.tsx:12
+#: components/Report/Error/File.tsx:27
+#: components/Report/Error/File.tsx:42
+msgid "but it is actually"
+msgstr "mais il est en fait"
+
+#: components/Layout/Language.tsx:66
+msgid "Change Language"
+msgstr "Changer de langue"
+
+#: components/Layout/Theme.tsx:23
+msgid "Change Theme"
+msgstr "Changer de thème"
+
+#: components/Dialog/Dialog.tsx:52
+msgid "Close"
+msgstr "Fermer"
+
+#: components/Layout/Breadcrumbs.tsx:29
+msgid "Convert table format"
+msgstr "Convertir le format du tableau"
+
+#: app/home/route.tsx:36
+msgid "converting and validating data"
+msgstr "convertir et valider des données"
+
+#: components/Layout/Theme.tsx:51
+msgid "Dark"
+msgstr "Sombre"
+
+#: components/Form/Form.tsx:144
+msgid "Data Package File"
+msgstr "Fichier du paquet de données"
+
+#: components/Form/Form.tsx:185
+msgid "Data Package JSON"
+msgstr "JSON du paquet de données"
+
+#: components/Form/Form.tsx:99
+msgid "Data Package URL"
+msgstr "URL du paquet de données"
+
+#: components/Dialog/Dialog.tsx:37
+msgid "Dialog"
+msgstr "Dialogue"
+
+#: components/Report/Error/Cell.tsx:238
+#: components/Report/Error/Cell.tsx:314
+msgid "does not match the"
+msgstr "ne correspond pas au"
+
+#: components/Form/Form.tsx:97
+msgid "Enter data package URL"
+msgstr "Entrez l'URL du paquet de données"
+
+#: components/System/Error.tsx:16
+msgid "error404"
+msgstr "Erreur 404"
+
+#: components/System/Error.tsx:16
+msgid "error500"
+msgstr "Erreur 500"
+
+#: components/Report/Report.tsx:37
+msgid "Errors"
+msgstr "Erreurs"
+
+#: app/about/route.tsx:28
+#: app/home/route.tsx:52
+msgid "European Commission"
+msgstr "Commission européenne"
+
+#: components/Report/Error/Cell.tsx:158
+msgid "exclusive maximum"
+msgstr "maximum exclusif"
+
+#: components/Report/Error/Cell.tsx:130
+msgid "exclusive minimum"
+msgstr "minimum exclusif"
+
+#: components/Report/Error/Field.tsx:23
+msgid "Field"
+msgstr "Champ"
+
+#: components/Report/Error/Field.tsx:8
+msgid "Field name"
+msgstr "Nom du champ"
+
+#: components/Form/Form.tsx:39
+msgid "File"
+msgstr "Fichier"
+
+#: components/Report/Error/File.tsx:38
+msgid "File encoding"
+msgstr "Encodage du fichier"
+
+#: components/Report/Error/File.tsx:23
+msgid "File hash"
+msgstr "Hash du fichier"
+
+#: components/Form/Form.tsx:121
+msgid "File is required"
+msgstr "Le fichier est requis"
+
+#: components/Report/Error/File.tsx:8
+msgid "File size"
+msgstr "Taille du fichier"
+
+#: components/Report/Error/ForeignKey.tsx:8
+msgid "Foreign key violation in field(s)"
+msgstr "Violation de la clé étrangère dans le(s) champ(s)"
+
+#: app/home/route.tsx:34
+msgid "Free online tools for"
+msgstr "Outils en ligne gratuits pour"
+
+#: components/Report/Error/Cell.tsx:14
+#: components/Report/Error/Cell.tsx:62
+#: components/Report/Error/Cell.tsx:90
+#: components/Report/Error/Cell.tsx:118
+#: components/Report/Error/Cell.tsx:146
+#: components/Report/Error/Cell.tsx:174
+#: components/Report/Error/Cell.tsx:202
+#: components/Report/Error/Cell.tsx:230
+#: components/Report/Error/Cell.tsx:256
+#: components/Report/Error/Cell.tsx:278
+#: components/Report/Error/Cell.tsx:306
+msgid "in field"
+msgstr "dans le champ"
+
+#: components/Layout/Breadcrumbs.tsx:25
+msgid "Infer table dialect"
+msgstr "Déduire le dialecte du tableau"
+
+#: components/Layout/Breadcrumbs.tsx:27
+msgid "Infer table schema"
+msgstr "Déduire le schéma du tableau"
+
+#: components/Form/Form.tsx:134
+msgid "Invalid JSON file"
+msgstr "Fichier JSON invalide"
+
+#: components/Form/Form.tsx:169
+msgid "Invalid JSON format"
+msgstr "Format JSON invalide"
+
+#: components/Form/Form.tsx:83
+msgid "Invalid URL format"
+msgstr "Format d'URL invalide"
+
+#: components/Report/Error/Field.tsx:8
+#: components/Report/Error/Field.tsx:27
+#: components/Report/Error/File.tsx:8
+#: components/Report/Error/File.tsx:23
+#: components/Report/Error/File.tsx:38
+msgid "is expected to be"
+msgstr "est censé être"
+
+#: components/Report/Error/Cell.tsx:126
+#: components/Report/Error/Cell.tsx:154
+msgid "is less or equal to"
+msgstr "est inférieur ou égal à"
+
+#: components/Report/Error/Cell.tsx:70
+#: components/Report/Error/Cell.tsx:182
+msgid "is less than"
+msgstr "est inférieur à"
+
+#: components/Report/Error/Cell.tsx:46
+msgid "is missing"
+msgstr "manque"
+
+#: components/Report/Error/Cell.tsx:98
+#: components/Report/Error/Cell.tsx:210
+msgid "is more than"
+msgstr "est supérieur à"
+
+#: components/Report/Error/Cell.tsx:22
+msgid "is not"
+msgstr "n'est pas"
+
+#: components/Report/Error/Cell.tsx:286
+msgid "is not in the allowed"
+msgstr "n'est pas dans les valeurs autorisées"
+
+#: components/Report/Error/Cell.tsx:264
+msgid "is not unique"
+msgstr "n'est pas unique"
+
+#: components/Report/Error/Cell.tsx:170
+#: components/Report/Error/Cell.tsx:198
+msgid "Length of the cell"
+msgstr "Longueur de la cellule"
+
+#: components/Layout/Theme.tsx:42
+msgid "Light"
+msgstr "Clair"
+
+#: components/Report/Error/Cell.tsx:102
+#: components/Report/Error/Cell.tsx:214
+msgid "maximum"
+msgstr "maximum"
+
+#: components/Report/Error/Cell.tsx:74
+#: components/Report/Error/Cell.tsx:186
+msgid "minimum"
+msgstr "minimum"
+
+#: components/Report/Error/Cell.tsx:18
+#: components/Report/Error/Cell.tsx:42
+#: components/Report/Error/Cell.tsx:66
+#: components/Report/Error/Cell.tsx:94
+#: components/Report/Error/Cell.tsx:122
+#: components/Report/Error/Cell.tsx:150
+#: components/Report/Error/Cell.tsx:178
+#: components/Report/Error/Cell.tsx:206
+#: components/Report/Error/Cell.tsx:234
+#: components/Report/Error/Cell.tsx:260
+#: components/Report/Error/Cell.tsx:282
+#: components/Report/Error/Cell.tsx:310
+msgid "of row"
+msgstr "de la ligne"
+
+#: components/Layout/Banner.tsx:34
+msgid "on GitHub!"
+msgstr "sur GitHub !"
+
+#: app/about/route.tsx:22
+#: app/home/route.tsx:44
+msgid "open source"
+msgstr "open source"
+
+#: components/Layout/Banner.tsx:23
+msgid "or"
+msgstr "ou"
+
+#: components/System/Error.tsx:15
+msgid "Page not found"
+msgstr "Page non trouvée"
+
+#: components/Form/Form.tsx:183
+msgid "Paste data package JSON"
+msgstr "Collez le JSON du paquet de données"
+
+#: components/Report/Error/Cell.tsx:242
+msgid "pattern"
+msgstr "motif"
+
+#: app/home/route.tsx:40
+msgid "privacy-first"
+msgstr "respect de la vie privée"
+
+#: components/Layout/Breadcrumbs.tsx:31
+msgid "Select a tool below"
+msgstr "Sélectionnez un outil ci-dessous"
+
+#: components/Form/Form.tsx:142
+msgid "Select data package file"
+msgstr "Sélectionnez le fichier du paquet de données"
+
+#: app/about/route.tsx:25
+#: app/home/route.tsx:48
+msgid "self-host"
+msgstr "auto-héberger"
+
+#: components/Layout/Share.tsx:45
+msgid "Share"
+msgstr "Partager"
+
+#: components/Layout/Share.tsx:34
+msgid "Share Page"
+msgstr "Partager la page"
+
+#: components/System/Error.tsx:15
+msgid "Something went wrong"
+msgstr "Une erreur s'est produite"
+
+#: components/Layout/Banner.tsx:12
+msgid "Support the project by"
+msgstr "Soutenez le projet en"
+
+#: components/System/Error.tsx:32
+msgid "Take me back to home page"
+msgstr "Retourner à la page d'accueil"
+
+#: components/Dialog/Dialog.tsx:52
+#~ msgid "Test"
+#~ msgstr "Test"
+
+#: components/Form/Form.tsx:50
+msgid "Text"
+msgstr "Texte"
+
+#: components/Form/Form.tsx:167
+msgid "Text is required"
+msgstr "Le texte est requis"
+
+#: components/Report/Error/Row.tsx:8
+msgid "The cell values of the fields"
+msgstr "Les valeurs des cellules des champs"
+
+#: components/Report/Error/Fields.tsx:10
+#: components/Report/Error/Fields.tsx:24
+msgid "The fields"
+msgstr "Les champs"
+
+#: app/about/route.tsx:26
+#: app/home/route.tsx:50
+msgid "the service. In 2025, the project was funded by"
+msgstr "le service. En 2025, le projet a été financé par"
+
+#: app/schema/infer/route.tsx:17
+#: app/table/convert/route.tsx:17
+#: app/table/validate/route.tsx:17
+msgid "This tool is currently under construction and not yet available"
+msgstr "Cet outil est actuellement en construction et n'est pas encore disponible"
+
+#: components/Layout/Breadcrumbs.tsx:17
+msgid "Tools"
+msgstr "Outils"
+
+#: app/schema/infer/route.tsx:16
+#: app/table/convert/route.tsx:16
+#: app/table/validate/route.tsx:16
+msgid "Under Construction"
+msgstr "En construction"
+
+#: app/home/route.tsx:38
+msgid "Unlike others, dpkit Cloud is"
+msgstr "Contrairement aux autres, dpkit Cloud est"
+
+#: components/Form/Form.tsx:28
+msgid "URL"
+msgstr "URL"
+
+#: components/Form/Form.tsx:77
+msgid "URL is required"
+msgstr "L'URL est requise"
+
+#: app/package/validate/Dialog.tsx:39
+msgid "Valid data package"
+msgstr "Paquet de données valide"
+
+#: components/Layout/Breadcrumbs.tsx:23
+msgid "Validate data package"
+msgstr "Valider le paquet de données"
+
+#: components/Form/Form.tsx:212
+msgid "Validate Data Package"
+msgstr "Valider le paquet de données"
+
+#: app/package/validate/Dialog.tsx:38
+msgid "Validating data package..."
+msgstr "Validation du paquet de données..."
+
+#: components/Report/Error/Cell.tsx:10
+#: components/Report/Error/Cell.tsx:58
+#: components/Report/Error/Cell.tsx:86
+#: components/Report/Error/Cell.tsx:114
+#: components/Report/Error/Cell.tsx:142
+#: components/Report/Error/Cell.tsx:226
+#: components/Report/Error/Cell.tsx:252
+#: components/Report/Error/Cell.tsx:274
+#: components/Report/Error/Cell.tsx:302
+msgid "Value of the cell"
+msgstr "Valeur de la cellule"
+
+#: components/Report/Error/Cell.tsx:290
+msgid "values"
+msgstr "valeurs"
+
+#: components/Layout/Repository.tsx:14
+msgid "View Repository"
+msgstr "Voir le dépôt"
+
+#: components/Layout/Credits.tsx:50
+msgid "We are bringing technological innovation and consultancy services to the open data field"
+msgstr "Nous apportons l'innovation technologique et des services de conseil au domaine des données ouvertes"

@@ -26,14 +26,17 @@ export default defineConfig({
         "**/coverage/**",
         "**/entrypoints/**",
         "**/examples/**",
+        "**/messages.js",
         "**/program.ts",
         "**/index.ts",
         "**/main.ts",
         "portal/**",
         // TODO: Enalbe when ready
-        "browser/**",
+        "website/**",
         // TODO: Enalbe when ready
-        "service/**",
+        "mobile/**",
+        // TODO: Enalbe when ready
+        "engine/**",
       ],
     },
     resolveSnapshotPath: (testPath, snapExtension) => {

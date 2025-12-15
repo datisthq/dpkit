@@ -15,7 +15,7 @@ Project is a monorepo with the following packages:
 - `@dpkit/<name>`: Domain-specific functionality
 - `@dpkit/library`: All-in-one package that re-exports all functionality
 - `@dpkit/terminal`: Terminal interface for running tasks
-- `@dpkit/browser`: Browser-related functionality
+- `@dpkit/website`: Website-related functionality
 - `dpkit`: Meta-package that re-exports the underlying functionality
 
 ## Development Environment

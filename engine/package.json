@@ -1,0 +1,44 @@
+{
+  "name": "@dpkit/engine",
+  "type": "module",
+  "version": "0.0.0-dev",
+  "private": true,
+  "exports": {
+    "./client": "./build/runtimes/client.js",
+    "./server": "./build/runtimes/server.js"
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/dpkit",
+  "description": "Fast TypeScript data management framework built on top of the Data Package standard and Polars DataFrames",
+  "keywords": [
+    "data",
+    "polars",
+    "dataframe",
+    "datapackage",
+    "tableschema",
+    "typescript",
+    "validation",
+    "quality",
+    "fair",
+    "service"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node --watch main.ts"
+  },
+  "dependencies": {
+    "@dpkit/library": "workspace:*",
+    "@loglayer/transport-tslog": "3.0.4",
+    "@orpc/client": "^1.11.1",
+    "@orpc/contract": "^1.11.1",
+    "@orpc/openapi": "1.11.1",
+    "@orpc/openapi-client": "1.11.1",
+    "@orpc/server": "1.11.1",
+    "@orpc/zod": "1.11.1",
+    "loglayer": "6.9.1",
+    "tslog": "4.10.2",
+    "zod": "4.1.12"
+  }
+}
