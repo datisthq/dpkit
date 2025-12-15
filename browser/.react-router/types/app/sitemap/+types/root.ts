@@ -2,10 +2,10 @@
 
 import type { GetInfo, GetAnnotations } from "react-router/internal";
 
-type Module = typeof import("../route.js")
+type Module = typeof import("../root.js")
 
 type Info = GetInfo<{
-  file: "home/route.tsx",
+  file: "sitemap/root.ts",
   module: Module
 }>
 
@@ -13,50 +13,8 @@ type Matches = [{
   id: "root";
   module: typeof import("../../root.js");
 }, {
-  id: "en/home";
-  module: typeof import("../route.js");
-}] | [{
-  id: "root";
-  module: typeof import("../../root.js");
-}, {
-  id: "de/home";
-  module: typeof import("../route.js");
-}] | [{
-  id: "root";
-  module: typeof import("../../root.js");
-}, {
-  id: "es/home";
-  module: typeof import("../route.js");
-}] | [{
-  id: "root";
-  module: typeof import("../../root.js");
-}, {
-  id: "fr/home";
-  module: typeof import("../route.js");
-}] | [{
-  id: "root";
-  module: typeof import("../../root.js");
-}, {
-  id: "it/home";
-  module: typeof import("../route.js");
-}] | [{
-  id: "root";
-  module: typeof import("../../root.js");
-}, {
-  id: "pt/home";
-  module: typeof import("../route.js");
-}] | [{
-  id: "root";
-  module: typeof import("../../root.js");
-}, {
-  id: "ru/home";
-  module: typeof import("../route.js");
-}] | [{
-  id: "root";
-  module: typeof import("../../root.js");
-}, {
-  id: "uk/home";
-  module: typeof import("../route.js");
+  id: "sitemap/root";
+  module: typeof import("../root.js");
 }];
 
 type Annotations = GetAnnotations<Info & { module: Module, matches: Matches }, false>;

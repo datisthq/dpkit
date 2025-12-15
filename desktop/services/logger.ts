@@ -1,4 +1,5 @@
 import { ElectronLogTransport } from "@loglayer/transport-electron-log"
+// @ts-ignore
 import log from "electron-log/main"
 import { LogLayer } from "loglayer"
 
