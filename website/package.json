@@ -14,7 +14,7 @@
     "build:spa": "SPA=true react-router build",
     "generate": "react-router typegen",
     "preview": "react-router-serve build/server/index.js",
-    "start": "react-router dev",
+    "start": "react-router dev --port 5000",
     "start:spa": "SPA=true react-router dev",
     "type": "tsc --noEmit"
   },
