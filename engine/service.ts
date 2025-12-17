@@ -8,7 +8,7 @@ import { contract } from "./contract.ts"
 import { logger } from "./services/logger.ts"
 import * as settings from "./settings.ts"
 
-export function createClient(options?: {
+export function createEngineService(options?: {
   contract?: ContractRouter<any>
   logger?: Logger<any>
   url?: string

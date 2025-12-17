@@ -9,6 +9,8 @@ import { router } from "./router.ts"
 import { logger } from "./services/logger.ts"
 import * as settings from "./settings.ts"
 
+// TODO: Split into native/openapi handlers (see keephero)
+
 export function createServer(options?: {
   start?: boolean
   router?: Router<any, any>

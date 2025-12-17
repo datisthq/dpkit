@@ -1,10 +1,10 @@
 import { createStore } from "#helpers/store.ts"
-import type { api } from "#services/api.ts"
+import type { engine } from "#services/engine.ts"
 
 export interface State {
   isDialogOpen?: boolean
   isPending?: boolean
-  report?: Awaited<ReturnType<typeof api.package.validate>>
+  report?: Awaited<ReturnType<typeof engine.package.validate>>
   error?: Error
 }
 

@@ -1,12 +1,14 @@
 import { useMutation } from "@tanstack/react-query"
-import { api } from "#services/api.ts"
+import { engine } from "#services/engine.ts"
 import { store } from "./store.ts"
 
 export function useValidatePackage() {
   return useMutation({
     mutationKey: ["validatePackage"],
-    mutationFn: async (input: Parameters<typeof api.package.validate>[0]) => {
-      return await api.package.validate(input)
+    mutationFn: async (
+      input: Parameters<typeof engine.package.validate>[0],
+    ) => {
+      return await engine.package.validate(input)
     },
     onMutate: () => {
       store.setState({ isDialogOpen: true })

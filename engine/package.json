@@ -3,10 +3,7 @@
   "type": "module",
   "version": "0.0.0-dev",
   "private": true,
-  "exports": {
-    "./client": "./build/runtimes/client.js",
-    "./server": "./build/runtimes/server.js"
-  },
+  "exports": "./index.ts",
   "scripts": {
     "build": "tsc",
     "start": "node --watch main.ts"
