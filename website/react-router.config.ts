@@ -1,7 +1,10 @@
 import type { Config } from "@react-router/dev/config"
 
-// TODO: Rebase on DPKIT_MODE = 'app/site'?
+// TODO: Migrate to tanstack-start
+
 export default {
-  ssr: !process.env.SPA,
-  buildDirectory: !process.env.SPA ? "build/ssr" : "build/spa",
+  appDirectory: "routes",
+  future: {
+    unstable_viteEnvironmentApi: true,
+  },
 } satisfies Config

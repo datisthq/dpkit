@@ -27,6 +27,11 @@ type Pages = {
       "languageId": string;
     };
   };
+  "/:languageId/terminal": {
+    params: {
+      "languageId": string;
+    };
+  };
   "/:languageId/validate-data-package": {
     params: {
       "languageId": string;
@@ -227,7 +232,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/sitemap.xml" | "/:languageId/sitemap.xml" | "/:languageId" | "/:languageId/validate-data-package" | "/:languageId/paket-validieren" | "/:languageId/validar-paquete" | "/:languageId/valider-paquet" | "/:languageId/convalidare-pacchetto" | "/:languageId/validar-pacote" | "/:languageId/proverit-paket" | "/:languageId/pereviryty-paket" | "/:languageId/infer-table-schema" | "/:languageId/schema-ableiten" | "/:languageId/inferir-esquema" | "/:languageId/inferer-schema" | "/:languageId/inferire-schema" | "/:languageId/opredelit-skhemu" | "/:languageId/vyznachyty-skhemu" | "/:languageId/validate-table-data" | "/:languageId/tabelle-validieren" | "/:languageId/validar-tabla" | "/:languageId/valider-table" | "/:languageId/convalidare-tabella" | "/:languageId/validar-tabela" | "/:languageId/proverit-tablitsu" | "/:languageId/pereviryty-tablitsyu" | "/:languageId/convert-table-format" | "/:languageId/konvertieren-tabelle" | "/:languageId/convertir-tabla" | "/:languageId/convertir-table" | "/:languageId/convertire-tabella" | "/:languageId/converter-tabela" | "/:languageId/konvertirovat-tablitsu" | "/:languageId/konvertuvaty-tablitsyu" | "/:languageId/about" | "/:languageId/ueber" | "/:languageId/acerca-de" | "/:languageId/a-propos" | "/:languageId/chi-siamo" | "/:languageId/sobre" | "/:languageId/o-nas" | "/:languageId/pro-nas";
+    page: "/" | "/sitemap.xml" | "/:languageId/sitemap.xml" | "/:languageId" | "/:languageId/terminal" | "/:languageId/validate-data-package" | "/:languageId/paket-validieren" | "/:languageId/validar-paquete" | "/:languageId/valider-paquet" | "/:languageId/convalidare-pacchetto" | "/:languageId/validar-pacote" | "/:languageId/proverit-paket" | "/:languageId/pereviryty-paket" | "/:languageId/infer-table-schema" | "/:languageId/schema-ableiten" | "/:languageId/inferir-esquema" | "/:languageId/inferer-schema" | "/:languageId/inferire-schema" | "/:languageId/opredelit-skhemu" | "/:languageId/vyznachyty-skhemu" | "/:languageId/validate-table-data" | "/:languageId/tabelle-validieren" | "/:languageId/validar-tabla" | "/:languageId/valider-table" | "/:languageId/convalidare-tabella" | "/:languageId/validar-tabela" | "/:languageId/proverit-tablitsu" | "/:languageId/pereviryty-tablitsyu" | "/:languageId/convert-table-format" | "/:languageId/konvertieren-tabelle" | "/:languageId/convertir-tabla" | "/:languageId/convertir-table" | "/:languageId/convertire-tabella" | "/:languageId/converter-tabela" | "/:languageId/konvertirovat-tablitsu" | "/:languageId/konvertuvaty-tablitsyu" | "/:languageId/about" | "/:languageId/ueber" | "/:languageId/acerca-de" | "/:languageId/a-propos" | "/:languageId/chi-siamo" | "/:languageId/sobre" | "/:languageId/o-nas" | "/:languageId/pro-nas";
   };
   "system/redirects/home.ts": {
     id: "system/redirects/home";
@@ -265,6 +270,31 @@ type RouteFiles = {
   } | {
     id: "uk/home";
     page: "/:languageId";
+  };
+  "terminal/route.tsx": {
+    id: "en/terminal";
+    page: "/:languageId/terminal";
+  } | {
+    id: "de/terminal";
+    page: "/:languageId/terminal";
+  } | {
+    id: "es/terminal";
+    page: "/:languageId/terminal";
+  } | {
+    id: "fr/terminal";
+    page: "/:languageId/terminal";
+  } | {
+    id: "it/terminal";
+    page: "/:languageId/terminal";
+  } | {
+    id: "pt/terminal";
+    page: "/:languageId/terminal";
+  } | {
+    id: "ru/terminal";
+    page: "/:languageId/terminal";
+  } | {
+    id: "uk/terminal";
+    page: "/:languageId/terminal";
   };
   "package/validate/route.tsx": {
     id: "en/packageValidate";
@@ -394,56 +424,64 @@ type RouteFiles = {
 };
 
 type RouteModules = {
-  "root": typeof import("./app/root.tsx");
-  "system/redirects/home": typeof import("./app/system/redirects/home.ts");
-  "sitemap/root": typeof import("./app/sitemap/root.ts");
-  "sitemap/page": typeof import("./app/sitemap/page.ts");
-  "en/home": typeof import("./app/home/route.tsx");
-  "de/home": typeof import("./app/home/route.tsx");
-  "es/home": typeof import("./app/home/route.tsx");
-  "fr/home": typeof import("./app/home/route.tsx");
-  "it/home": typeof import("./app/home/route.tsx");
-  "pt/home": typeof import("./app/home/route.tsx");
-  "ru/home": typeof import("./app/home/route.tsx");
-  "uk/home": typeof import("./app/home/route.tsx");
-  "en/packageValidate": typeof import("./app/package/validate/route.tsx");
-  "de/packageValidate": typeof import("./app/package/validate/route.tsx");
-  "es/packageValidate": typeof import("./app/package/validate/route.tsx");
-  "fr/packageValidate": typeof import("./app/package/validate/route.tsx");
-  "it/packageValidate": typeof import("./app/package/validate/route.tsx");
-  "pt/packageValidate": typeof import("./app/package/validate/route.tsx");
-  "ru/packageValidate": typeof import("./app/package/validate/route.tsx");
-  "uk/packageValidate": typeof import("./app/package/validate/route.tsx");
-  "en/schemaInfer": typeof import("./app/schema/infer/route.tsx");
-  "de/schemaInfer": typeof import("./app/schema/infer/route.tsx");
-  "es/schemaInfer": typeof import("./app/schema/infer/route.tsx");
-  "fr/schemaInfer": typeof import("./app/schema/infer/route.tsx");
-  "it/schemaInfer": typeof import("./app/schema/infer/route.tsx");
-  "pt/schemaInfer": typeof import("./app/schema/infer/route.tsx");
-  "ru/schemaInfer": typeof import("./app/schema/infer/route.tsx");
-  "uk/schemaInfer": typeof import("./app/schema/infer/route.tsx");
-  "en/tableValidate": typeof import("./app/table/validate/route.tsx");
-  "de/tableValidate": typeof import("./app/table/validate/route.tsx");
-  "es/tableValidate": typeof import("./app/table/validate/route.tsx");
-  "fr/tableValidate": typeof import("./app/table/validate/route.tsx");
-  "it/tableValidate": typeof import("./app/table/validate/route.tsx");
-  "pt/tableValidate": typeof import("./app/table/validate/route.tsx");
-  "ru/tableValidate": typeof import("./app/table/validate/route.tsx");
-  "uk/tableValidate": typeof import("./app/table/validate/route.tsx");
-  "en/tableConvert": typeof import("./app/table/convert/route.tsx");
-  "de/tableConvert": typeof import("./app/table/convert/route.tsx");
-  "es/tableConvert": typeof import("./app/table/convert/route.tsx");
-  "fr/tableConvert": typeof import("./app/table/convert/route.tsx");
-  "it/tableConvert": typeof import("./app/table/convert/route.tsx");
-  "pt/tableConvert": typeof import("./app/table/convert/route.tsx");
-  "ru/tableConvert": typeof import("./app/table/convert/route.tsx");
-  "uk/tableConvert": typeof import("./app/table/convert/route.tsx");
-  "en/about": typeof import("./app/about/route.tsx");
-  "de/about": typeof import("./app/about/route.tsx");
-  "es/about": typeof import("./app/about/route.tsx");
-  "fr/about": typeof import("./app/about/route.tsx");
-  "it/about": typeof import("./app/about/route.tsx");
-  "pt/about": typeof import("./app/about/route.tsx");
-  "ru/about": typeof import("./app/about/route.tsx");
-  "uk/about": typeof import("./app/about/route.tsx");
+  "root": typeof import("./routes/root.tsx");
+  "system/redirects/home": typeof import("./routes/system/redirects/home.ts");
+  "sitemap/root": typeof import("./routes/sitemap/root.ts");
+  "sitemap/page": typeof import("./routes/sitemap/page.ts");
+  "en/home": typeof import("./routes/home/route.tsx");
+  "de/home": typeof import("./routes/home/route.tsx");
+  "es/home": typeof import("./routes/home/route.tsx");
+  "fr/home": typeof import("./routes/home/route.tsx");
+  "it/home": typeof import("./routes/home/route.tsx");
+  "pt/home": typeof import("./routes/home/route.tsx");
+  "ru/home": typeof import("./routes/home/route.tsx");
+  "uk/home": typeof import("./routes/home/route.tsx");
+  "en/terminal": typeof import("./routes/terminal/route.tsx");
+  "de/terminal": typeof import("./routes/terminal/route.tsx");
+  "es/terminal": typeof import("./routes/terminal/route.tsx");
+  "fr/terminal": typeof import("./routes/terminal/route.tsx");
+  "it/terminal": typeof import("./routes/terminal/route.tsx");
+  "pt/terminal": typeof import("./routes/terminal/route.tsx");
+  "ru/terminal": typeof import("./routes/terminal/route.tsx");
+  "uk/terminal": typeof import("./routes/terminal/route.tsx");
+  "en/packageValidate": typeof import("./routes/package/validate/route.tsx");
+  "de/packageValidate": typeof import("./routes/package/validate/route.tsx");
+  "es/packageValidate": typeof import("./routes/package/validate/route.tsx");
+  "fr/packageValidate": typeof import("./routes/package/validate/route.tsx");
+  "it/packageValidate": typeof import("./routes/package/validate/route.tsx");
+  "pt/packageValidate": typeof import("./routes/package/validate/route.tsx");
+  "ru/packageValidate": typeof import("./routes/package/validate/route.tsx");
+  "uk/packageValidate": typeof import("./routes/package/validate/route.tsx");
+  "en/schemaInfer": typeof import("./routes/schema/infer/route.tsx");
+  "de/schemaInfer": typeof import("./routes/schema/infer/route.tsx");
+  "es/schemaInfer": typeof import("./routes/schema/infer/route.tsx");
+  "fr/schemaInfer": typeof import("./routes/schema/infer/route.tsx");
+  "it/schemaInfer": typeof import("./routes/schema/infer/route.tsx");
+  "pt/schemaInfer": typeof import("./routes/schema/infer/route.tsx");
+  "ru/schemaInfer": typeof import("./routes/schema/infer/route.tsx");
+  "uk/schemaInfer": typeof import("./routes/schema/infer/route.tsx");
+  "en/tableValidate": typeof import("./routes/table/validate/route.tsx");
+  "de/tableValidate": typeof import("./routes/table/validate/route.tsx");
+  "es/tableValidate": typeof import("./routes/table/validate/route.tsx");
+  "fr/tableValidate": typeof import("./routes/table/validate/route.tsx");
+  "it/tableValidate": typeof import("./routes/table/validate/route.tsx");
+  "pt/tableValidate": typeof import("./routes/table/validate/route.tsx");
+  "ru/tableValidate": typeof import("./routes/table/validate/route.tsx");
+  "uk/tableValidate": typeof import("./routes/table/validate/route.tsx");
+  "en/tableConvert": typeof import("./routes/table/convert/route.tsx");
+  "de/tableConvert": typeof import("./routes/table/convert/route.tsx");
+  "es/tableConvert": typeof import("./routes/table/convert/route.tsx");
+  "fr/tableConvert": typeof import("./routes/table/convert/route.tsx");
+  "it/tableConvert": typeof import("./routes/table/convert/route.tsx");
+  "pt/tableConvert": typeof import("./routes/table/convert/route.tsx");
+  "ru/tableConvert": typeof import("./routes/table/convert/route.tsx");
+  "uk/tableConvert": typeof import("./routes/table/convert/route.tsx");
+  "en/about": typeof import("./routes/about/route.tsx");
+  "de/about": typeof import("./routes/about/route.tsx");
+  "es/about": typeof import("./routes/about/route.tsx");
+  "fr/about": typeof import("./routes/about/route.tsx");
+  "it/about": typeof import("./routes/about/route.tsx");
+  "pt/about": typeof import("./routes/about/route.tsx");
+  "ru/about": typeof import("./routes/about/route.tsx");
+  "uk/about": typeof import("./routes/about/route.tsx");
 };

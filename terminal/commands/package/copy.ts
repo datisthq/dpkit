@@ -1,5 +1,5 @@
-import { loadPackage, savePackage } from "@dpkit/library"
 import { Command } from "commander"
+import { loadPackage, savePackage } from "frictionless-ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
 import { Session } from "../../session.ts"

@@ -1,6 +1,6 @@
-import { inferDialect } from "@dpkit/library"
-import type { Resource } from "@dpkit/library"
 import { Command } from "commander"
+import { inferDialect } from "frictionless-ts"
+import type { Resource } from "frictionless-ts"
 import React from "react"
 import { Dialect } from "../../components/Dialect/index.ts"
 import { helpConfiguration } from "../../helpers/help.ts"

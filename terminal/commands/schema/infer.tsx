@@ -1,5 +1,5 @@
-import { inferSchemaFromTable, loadTable } from "@dpkit/library"
 import { Command } from "commander"
+import { inferSchemaFromTable, loadTable } from "frictionless-ts"
 import React from "react"
 import { Schema } from "../../components/Schema/index.ts"
 import { createDialectFromOptions } from "../../helpers/dialect.ts"

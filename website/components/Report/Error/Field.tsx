@@ -1,6 +1,6 @@
-import type * as library from "@dpkit/library"
 import { Trans } from "@lingui/react/macro"
 import { Code, Text } from "@mantine/core"
+import type * as library from "frictionless-ts"
 
 export function FieldNameError(props: { error: library.FieldNameError }) {
   return (

@@ -1,5 +1,5 @@
-import { validatePackage } from "@dpkit/library"
 import { Command } from "commander"
+import { validatePackage } from "frictionless-ts"
 import React from "react"
 import { Report } from "../../components/Report/index.ts"
 import { selectErrorResource, selectErrorType } from "../../helpers/error.ts"

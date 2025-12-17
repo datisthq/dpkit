@@ -1,4 +1,4 @@
-import { loadPackage } from "@dpkit/library"
+import { loadPackage } from "frictionless-ts"
 import type { Session } from "../session.ts"
 
 export async function selectResource(

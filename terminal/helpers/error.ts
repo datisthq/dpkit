@@ -1,5 +1,5 @@
-import type { BoundError, UnboundError } from "@dpkit/library"
 import { countBy } from "es-toolkit"
+import type { BoundError, UnboundError } from "frictionless-ts"
 import type { Session } from "../session.ts"
 
 export async function selectErrorResource(

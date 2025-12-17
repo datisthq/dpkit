@@ -8,17 +8,13 @@
     "pnpm": "^10.0.0"
   },
   "scripts": {
-    "build": "pnpm -F !website -F !desktop -F !portal build",
     "bump": "ncu -ws -u",
     "clean": "rm -rf **/node_modules",
-    "compile": "pnpm -F terminal compile",
     "coverage": "sensible-browser coverage/index.html",
     "format": "biome check --write",
     "lint": "biome check",
-    "login:ci": "pnpm config set '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'",
     "install:ci": "pnpm install --ignore-scripts",
     "prepare": "husky",
-    "publish:ci": "pnpm -r publish --access public --ignore-scripts --no-git-checks",
     "start:web": "pnpm --parallel -F engine -F website start",
     "spec": "vitest run",
     "test": "pnpm lint && pnpm type && pnpm spec",

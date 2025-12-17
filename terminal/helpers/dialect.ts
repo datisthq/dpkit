@@ -1,4 +1,4 @@
-import type { Dialect } from "@dpkit/library"
+import type { Dialect } from "frictionless-ts"
 
 // TODO: Find a better way to construct dialects
 

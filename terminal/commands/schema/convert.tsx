@@ -1,12 +1,12 @@
 import { writeFile } from "node:fs/promises"
+import { Command, Option } from "commander"
 import {
   convertSchemaFromJsonSchema,
   convertSchemaToHtml,
   convertSchemaToJsonSchema,
   convertSchemaToMarkdown,
-} from "@dpkit/library"
-import { loadDescriptor, saveDescriptor } from "@dpkit/library"
-import { Command, Option } from "commander"
+} from "frictionless-ts"
+import { loadDescriptor, saveDescriptor } from "frictionless-ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
 import { Session } from "../../session.ts"

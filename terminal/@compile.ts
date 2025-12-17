@@ -2,6 +2,8 @@ import { join } from "node:path"
 import { execa } from "execa"
 import metadata from "./package.json" with { type: "json" }
 
+// TODO: Merge build/compile folders
+
 function makeShell(...paths: string[]) {
   return execa({
     cwd: join(import.meta.dirname, ...paths),

@@ -1,4 +1,4 @@
-import type { UnboundError } from "@dpkit/library"
+import type { UnboundError } from "frictionless-ts"
 import * as pl from "nodejs-polars"
 import React from "react"
 import { Table } from "../Table/index.ts"

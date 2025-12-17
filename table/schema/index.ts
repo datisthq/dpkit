@@ -1,8 +1,0 @@
-export type { PolarsSchema } from "./Schema.ts"
-export { getPolarsSchema } from "./helpers.ts"
-export type { SchemaOptions } from "./Options.ts"
-export { inferSchemaFromTable } from "./infer.ts"
-export { inferSchemaFromSample } from "./infer.ts"
-export type { InferSchemaOptions } from "./infer.ts"
-export type { SchemaMapping } from "./Mapping.ts"
-export { matchSchemaField } from "./match.ts"

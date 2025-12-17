@@ -1,5 +1,5 @@
-import type * as library from "@dpkit/library"
-import type { DataRecord } from "@dpkit/library"
+import type * as library from "frictionless-ts"
+import type { DataRecord } from "frictionless-ts"
 import React from "react"
 import { Datagrid } from "../Datagrid/index.ts"
 

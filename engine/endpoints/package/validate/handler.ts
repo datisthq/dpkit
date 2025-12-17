@@ -1,4 +1,4 @@
-import * as dpkit from "@dpkit/library"
+import * as dpkit from "frictionless-ts"
 import { handler } from "../../../handler.ts"
 
 export const validatePackage = handler.package.validate.handler(

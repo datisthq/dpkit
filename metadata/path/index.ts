@@ -1,5 +1,0 @@
-export { getName, getFormat, getFilename, getProtocol } from "./path.ts"
-export { getBasepath, resolveBasepath } from "./basepath.ts"
-export { denormalizePath } from "./denormalize.ts"
-export { normalizePath } from "./normalize.ts"
-export { isRemotePath } from "./path.ts"

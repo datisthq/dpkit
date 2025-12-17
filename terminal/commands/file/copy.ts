@@ -1,5 +1,5 @@
-import { copyFile } from "@dpkit/library"
 import { Command } from "commander"
+import { copyFile } from "frictionless-ts"
 import { helpConfiguration } from "../../helpers/help.ts"
 import { selectResource } from "../../helpers/resource.ts"
 import * as params from "../../params/index.ts"

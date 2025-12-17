@@ -1,20 +1,9 @@
 dangerouslyAllowAllBuilds: true
 packages:
-  - audio
-  - database
-  - dataset
   - desktop
-  - document
-  - dpkit
   - engine
-  - image
   - library
-  - metadata
   - mobile
-  - portal
-  - scanner
-  - table
   - terminal
   - toolbox
-  - video
   - website

@@ -1,9 +1,0 @@
-{
-  "name": 1,
-  "resources": [
-    {
-      "name": "name",
-      "path": "table.csv"
-    }
-  ]
-}

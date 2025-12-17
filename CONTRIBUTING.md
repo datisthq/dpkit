@@ -1,22 +1,18 @@
----
-title: Contributing
-sidebar:
-  order: 2
----
+# Contributing
+
 Thank you for your interest in contributing to dpkit! This document provides guidelines and instructions for contributing to this project.
 
 ## Project Overview
 
 Project is a monorepo with the following packages:
 
-- `@dpkit/metadata`: Core metadata functionality
-- `@dpkit/dataset`: File-related functionality
-- `@dpkit/table`: Table-related functionality
-- `@dpkit/<name>`: Domain-specific functionality
-- `@dpkit/library`: All-in-one package that re-exports all functionality
-- `@dpkit/terminal`: Terminal interface for running tasks
-- `@dpkit/website`: Website-related functionality
-- `dpkit`: Meta-package that re-exports the underlying functionality
+- `@dpkit/desktop`: Desktop application
+- `@dpkit/engine`: OpenAPI-based service
+- `@dpkit/library`: Node library
+- `@dpkit/mobile`: Mobile application
+- `@dpkit/terminal`: Terminal application
+- `@dpkit/toolbox`: Visual toolbox
+- `@dpkit/website`: Web application
 
 ## Development Environment
 
@@ -82,7 +78,7 @@ Tests are located in `__spec__` directories and use Vitest:
 
 - **Run a Specific Test**:
   ```bash
-  pnpm exec vitest run core/actions/__spec__/findTask.ts
+  pnpm exec vitest run library/aspect/__spec__/findTask.ts
   ```
 
 ### Dependencies

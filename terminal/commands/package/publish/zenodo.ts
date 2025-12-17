@@ -1,5 +1,5 @@
-import { loadPackage, savePackageToZenodo } from "@dpkit/library"
 import { Command } from "commander"
+import { loadPackage, savePackageToZenodo } from "frictionless-ts"
 import { helpConfiguration } from "../../../helpers/help.ts"
 import * as params from "../../../params/index.ts"
 import { Session } from "../../../session.ts"
