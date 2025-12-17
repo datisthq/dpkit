@@ -9,29 +9,22 @@ export function Banner() {
     <Box className={classes.banner} py="xs">
       <Container size="lg">
         <Text>
-          <Trans>Support the project by</Trans>{" "}
+          <Trans>
+            Looking for using a{" "}
+            <strong>Data Package implementation in TypeScript</strong> as a
+            library? It is now
+          </Trans>{" "}
           <Anchor
             component={Link}
-            to="https://github.com/sponsors/datisthq"
+            to="https://github.com/frictionlessdata/frictionless-ts"
             rel="noopener noreferrer"
             c="white"
             fw="bold"
             td="underline"
           >
-            <Trans>becoming a sponsor</Trans>
-          </Anchor>{" "}
-          <Trans>or</Trans>{" "}
-          <Anchor
-            component={Link}
-            to="https://github.com/datisthq/dpkit/stargazers"
-            rel="noopener noreferrer"
-            c="white"
-            fw="bold"
-            td="underline"
-          >
-            <Trans>adding a star</Trans>
-          </Anchor>{" "}
-          <Trans>on GitHub!</Trans>
+            frictionless-ts
+          </Anchor>
+          !
         </Text>
       </Container>
     </Box>
