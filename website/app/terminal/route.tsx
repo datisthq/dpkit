@@ -1,13 +1,9 @@
-import { Trans } from "@lingui/react/macro"
-import { Card, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core"
-import { Link } from "#components/Link/index.ts"
-import { usePayload } from "#components/System/index.ts"
-import { useMakeLink } from "#components/System/index.ts"
-import { Pages } from "#constants/page.ts"
+import { Anchor, Code, List, Stack, Text, Title } from "@mantine/core"
 import { createPayload } from "#payload.ts"
-import * as settings from "#settings.ts"
 import type { Route } from "./+types/route.tsx"
-import classes from "./route.module.css"
+
+// TODO: Add sidebar (TOC)
+// TODO: Add translations
 
 export async function clientLoader({ params }: Route.LoaderArgs) {
   const { payload } = createPayload({ pageId: "terminal", params })
@@ -16,77 +12,83 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
 }
 
 export default function Page(_props: Route.ComponentProps) {
-  const payload = usePayload()
-  const makeLink = useMakeLink()
-
-  const tools = Object.values(Pages).filter(page => page.pageId !== "home")
-
   return (
-    <Stack gap="xl">
+    <Stack gap="xl" maw={800}>
       <Stack gap="md">
-        <Title order={1} fz={40} style={{ whiteSpace: "nowrap" }}>
-          dpkit{" "}
-          <Text component="span" color="dimmed" fz={{ base: "lg", md: "xl" }}>
-            / data processing kit /
-          </Text>
-        </Title>
-        <Text size="xl">
-          <Trans>Free online tools for</Trans>{" "}
-          <Text component="span" fw="bold" td="underline">
-            <Trans>converting and validating data</Trans>
-          </Text>
-          . <Trans>Unlike others, dpkit Cloud is</Trans>{" "}
-          <Link to={makeLink({ pageId: "about" })}>
-            <Trans>privacy-first</Trans>
-          </Link>{" "}
-          <Trans>and completely</Trans>{" "}
-          <Link to="https://github.com/datisthq/dpkit">
-            <Trans>open source</Trans>
-          </Link>{" "}
-          <Trans>allowing you to review the code or</Trans>{" "}
-          <Link to={makeLink({ pageId: "about" })}>
-            <Trans>self-host</Trans>
-          </Link>{" "}
-          <Trans>the service. In 2025, the project was funded by</Trans>{" "}
-          <Link to="https://nlnet.nl/project/DataPackage-TS/">
-            <Trans>European Commission</Trans>
-          </Link>
-          .
+        <Title order={1}>Terminal Application</Title>
+        <Text size="lg">
+          This guide will help you get started with dpkit in Terminal. If you
+          are new to the core framework's technologies, please take a look at
+          the{" "}
+          <Anchor
+            href="https://datapackage.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Data Package standard
+          </Anchor>{" "}
+          and{" "}
+          <Anchor
+            href="https://pola.rs/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Polars DataFrames
+          </Anchor>{" "}
+          documentation.
         </Text>
       </Stack>
-      <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-        {tools.map(tool => {
-          if (!tool.Icon) return null
-          return (
-            <Card
-              key={tool.pageId}
-              component={Link}
-              to={makeLink({ pageId: tool.pageId })}
-              shadow="sm"
-              p={{ base: "md", md: "xl" }}
-              radius="md"
-              withBorder
-              style={{ cursor: "pointer" }}
-              className={classes.card}
+
+      <Stack gap="md">
+        <Title order={2}>Prerequisites</Title>
+        <Text>Supported operating systems:</Text>
+        <List>
+          <List.Item>
+            <strong>Linux</strong> (x64/arm64)
+          </List.Item>
+          <List.Item>
+            <strong>macOS</strong> (x64/arm64)
+          </List.Item>
+          <List.Item>
+            <strong>Windows</strong> (x64)
+          </List.Item>
+        </List>
+      </Stack>
+
+      <Stack gap="md">
+        <Title order={2}>Installation</Title>
+
+        <Stack gap="sm">
+          <Text>
+            You can download the latest binary from the{" "}
+            <Anchor
+              href="https://github.com/datisthq/dpkit/releases"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <Group gap="sm" mb="md" wrap="nowrap">
-                <tool.Icon
-                  size={32}
-                  strokeWidth={settings.ICON_STROKE_WIDTH}
-                  style={{ color: tool.color, flexShrink: 0 }}
-                  className={classes.icon}
-                />
-                <Title order={2} className={classes.title}>
-                  {tool.title[payload.language.languageId]}
-                </Title>
-              </Group>
-              <Text size="md">
-                {tool.description[payload.language.languageId]}
-              </Text>
-            </Card>
-          )
-        })}
-      </SimpleGrid>
+              releases page
+            </Anchor>{" "}
+            or use the following command (for POSIX-compatible shells including
+            Git for Windows):
+          </Text>
+          <Code block>curl -fsSL https://dpkit.app/install.sh | sh</Code>
+          <Text>
+            After downloading, you can verify the binary using the following
+            command:
+          </Text>
+          <Code block>./dpkit --version</Code>
+          <Text>
+            We recommend adding the binary to your PATH environment variable to
+            make it easier to use.
+          </Text>
+        </Stack>
+
+        <Stack gap="sm">
+          <Title order={2}>Usage</Title>
+          <Text>See the usage instructions:</Text>
+          <Code block>dpkit --help</Code>
+        </Stack>
+      </Stack>
     </Stack>
   )
 }

@@ -14,7 +14,7 @@ export function Breadcrumbs() {
   return (
     <MantineBreadcrumbs>
       <Anchor to={makeLink({ pageId: "home" })} component={Link}>
-        <Trans>Tools</Trans>
+        <Trans>Home</Trans>
       </Anchor>
       {payload.page.pageId === "home" ? (
         <Text c="dimmed">

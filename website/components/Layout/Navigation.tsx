@@ -9,7 +9,7 @@ export function Navigation() {
 
   return (
     <Group fw="bold" wrap="nowrap">
-      {payload.page.pageId === "home" ? (
+      {payload.page.pageId !== "terminal" ? (
         <Box>Website</Box>
       ) : (
         <Link to={makeLink({ pageId: "home" })}>Website</Link>
