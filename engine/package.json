@@ -12,7 +12,7 @@
     "start": "node --watch main.ts"
   },
   "dependencies": {
-    "@dpkit/library": "workspace:*",
+    "frictionless-ts": "1.0.1",
     "@loglayer/transport-tslog": "3.0.4",
     "@orpc/client": "^1.11.1",
     "@orpc/contract": "^1.11.1",

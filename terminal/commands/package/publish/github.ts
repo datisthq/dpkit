@@ -1,4 +1,4 @@
-import { loadPackage, savePackageToGithub } from "@dpkit/library"
+import { loadPackage, savePackageToGithub } from "frictionless-ts"
 import { Command } from "commander"
 import { helpConfiguration } from "../../../helpers/help.ts"
 import * as params from "../../../params/index.ts"

@@ -4,8 +4,8 @@ import {
   convertSchemaToHtml,
   convertSchemaToJsonSchema,
   convertSchemaToMarkdown,
-} from "@dpkit/library"
-import { loadDescriptor, saveDescriptor } from "@dpkit/library"
+} from "frictionless-ts"
+import { loadDescriptor, saveDescriptor } from "frictionless-ts"
 import { Command, Option } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"

@@ -1,4 +1,4 @@
-import { inferSchemaFromTable, loadTable } from "@dpkit/library"
+import { inferSchemaFromTable, loadTable } from "frictionless-ts"
 import { Command } from "commander"
 import React from "react"
 import { Schema } from "../../components/Schema/index.ts"

@@ -1,4 +1,4 @@
-import type { SchemaOptions } from "@dpkit/library"
+import type { SchemaOptions } from "frictionless-ts"
 
 // TODO: Find a better way to construct schema options
 

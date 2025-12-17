@@ -1,4 +1,4 @@
-import { loadPackage } from "@dpkit/library"
+import { loadPackage } from "frictionless-ts"
 import { Command } from "commander"
 import React from "react"
 import { Package } from "../../components/Package/index.ts"

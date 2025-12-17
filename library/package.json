@@ -1,5 +1,5 @@
 {
-  "name": "@dpkit/library",
+  "name": "frictionless-ts",
   "type": "module",
   "version": "0.0.0-dev",
   "exports": "./index.ts",

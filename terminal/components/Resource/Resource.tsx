@@ -1,4 +1,4 @@
-import type * as library from "@dpkit/library"
+import type * as library from "frictionless-ts"
 import React from "react"
 import { Datagrid } from "../Datagrid/index.ts"
 

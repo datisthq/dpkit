@@ -1,4 +1,4 @@
-import type { FieldType } from "@dpkit/library"
+import type { FieldType } from "frictionless-ts"
 import { Option } from "commander"
 
 export const schema = new Option(

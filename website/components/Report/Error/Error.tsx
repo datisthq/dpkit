@@ -1,4 +1,4 @@
-import type { UnboundError } from "@dpkit/library"
+import type { UnboundError } from "frictionless-ts"
 import {
   CellEnumError,
   CellExclusiveMaximumError,

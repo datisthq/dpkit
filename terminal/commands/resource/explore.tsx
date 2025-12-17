@@ -1,4 +1,4 @@
-import { loadResourceDescriptor } from "@dpkit/library"
+import { loadResourceDescriptor } from "frictionless-ts"
 import { Command } from "commander"
 import React from "react"
 import { Resource } from "../../components/Resource/index.ts"

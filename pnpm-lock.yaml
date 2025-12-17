@@ -92,7 +92,7 @@ importers:
 
   engine:
     dependencies:
-      '@dpkit/library':
+      'frictionless-ts':
         specifier: workspace:*
         version: link:../library
       '@loglayer/transport-tslog':
@@ -210,7 +210,7 @@ importers:
       '@dpkit/engine':
         specifier: workspace:*
         version: link:../engine
-      '@dpkit/library':
+      'frictionless-ts':
         specifier: workspace:*
         version: link:../library
       '@lingui/babel-plugin-lingui-macro':

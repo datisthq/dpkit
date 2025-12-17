@@ -1,4 +1,4 @@
-import { inferResource } from "@dpkit/library"
+import { inferResource } from "frictionless-ts"
 import { Command } from "commander"
 import React from "react"
 import { Resource } from "../../components/Resource/index.ts"

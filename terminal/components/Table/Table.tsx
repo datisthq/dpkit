@@ -1,4 +1,4 @@
-import type * as library from "@dpkit/library"
+import type * as library from "frictionless-ts"
 import { useApp, useInput } from "ink"
 import { Box, Text } from "ink"
 import pc from "picocolors"

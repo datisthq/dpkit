@@ -1,4 +1,4 @@
-import type { BoundError, UnboundError } from "@dpkit/library"
+import type { BoundError, UnboundError } from "frictionless-ts"
 import { countBy } from "es-toolkit"
 import type { Session } from "../session.ts"
 

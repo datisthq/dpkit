@@ -1,4 +1,4 @@
-import type * as library from "@dpkit/library"
+import type * as library from "frictionless-ts"
 import { useLingui } from "@lingui/react/macro"
 import { Text } from "@mantine/core"
 

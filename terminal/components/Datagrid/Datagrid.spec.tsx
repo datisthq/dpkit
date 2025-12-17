@@ -1,4 +1,4 @@
-import type { DataRecord } from "@dpkit/library"
+import type { DataRecord } from "frictionless-ts"
 import { render } from "ink-testing-library"
 import React from "react"
 import { describe, expect, it } from "vitest"

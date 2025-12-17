@@ -1,4 +1,4 @@
-import { describeFile } from "@dpkit/library"
+import { describeFile } from "frictionless-ts"
 import { Command } from "commander"
 import React from "react"
 import { Datagrid } from "../../components/Datagrid/index.ts"

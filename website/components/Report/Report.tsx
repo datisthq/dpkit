@@ -1,4 +1,4 @@
-import type { UnboundError } from "@dpkit/library"
+import type { UnboundError } from "frictionless-ts"
 import { Trans, useLingui } from "@lingui/react/macro"
 import { Card, Divider, ScrollArea, Stack, Tabs } from "@mantine/core"
 import { groupBy } from "es-toolkit"

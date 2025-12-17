@@ -1,4 +1,4 @@
-import { validatePackage } from "@dpkit/library"
+import { validatePackage } from "frictionless-ts"
 import { Command } from "commander"
 import React from "react"
 import { Report } from "../../components/Report/index.ts"
