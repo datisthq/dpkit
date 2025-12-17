@@ -4,10 +4,10 @@
   "version": "0.0.0-dev",
   "private": true,
   "scripts": {
-    "build": "tsc && pnpm build:copy && pnpm build:mode",
+    "build": "tsc && pnpm build:copy && pnpm build:mode && pnpm build:compile",
     "build:copy": "cp entrypoints/*.cmd build/entrypoints && cp package.json build",
     "build:mode": "chmod +x ./build/entrypoints/*.js",
-    "compile": "node @compile.ts",
+    "build:compile": "node @compile.ts",
     "dev": "node ./entrypoints/dev.ts",
     "run": "node ./entrypoints/run.ts"
   },

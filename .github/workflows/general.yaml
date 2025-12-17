@@ -26,10 +26,8 @@ jobs:
           node-version-file: package.json
       - name: Install Dependencies
         run: pnpm install:ci
-      - name: Build Packages
-        run: pnpm build
-      - name: Compile Binaries
-        run: pnpm compile
+      - name: Build Terminal
+        run: pnpm -F terminal build
       - name: Upload Binaries
         uses: actions/upload-artifact@v4
         with:
@@ -54,9 +52,7 @@ jobs:
           node-version-file: package.json
       - name: Install Dependencies
         run: pnpm install:ci
-      - name: Build Packages
-        run: pnpm build
-      - name: Test Packages
+      - name: Run Tests
         run: pnpm test
         env:
           DPKIT_MYSQL_URL: mysql://test:test@localhost:3306/test
@@ -111,9 +107,7 @@ jobs:
           node-version-file: package.json
       - name: Install Dependencies
         run: pnpm install:ci
-      - name: Build Packages
-        run: pnpm build
-      - name: Test Packages
+      - name: Run Tests
         run: pnpm test
       - name: Download Binaries
         uses: actions/download-artifact@v5
@@ -142,9 +136,7 @@ jobs:
           node-version-file: package.json
       - name: Install Dependencies
         run: pnpm install:ci
-      - name: Build Packages
-        run: pnpm build
-      - name: Test Packages
+      - name: Run Tests
         run: pnpm test:win
       - name: Download Binaries
         uses: actions/download-artifact@v5
@@ -216,10 +208,8 @@ jobs:
         run: pnpm install:ci
       - name: Set Version
         run: pnpm version:ci ${{ needs.release-draft.outputs.version }}
-      - name: Build Packages
-        run: pnpm build
-      - name: Compile Packages
-        run: pnpm compile
+      - name: Build Terminal
+        run: pnpm -F terminal build
       - name: Publish Release
         uses: softprops/action-gh-release@v2
         with:

@@ -4,9 +4,6 @@
   "version": "0.0.0-dev",
   "exports": "./index.ts",
   "private": true,
-  "scripts": {
-    "build": "tsc"
-  },
   "dependencies": {
     "frictionless-ts": "1.0.1"
   }

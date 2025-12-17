@@ -8,10 +8,8 @@
     "pnpm": "^10.0.0"
   },
   "scripts": {
-    "build": "pnpm -F !website -F !desktop -F !portal build",
     "bump": "ncu -ws -u",
     "clean": "rm -rf **/node_modules",
-    "compile": "pnpm -F terminal compile",
     "coverage": "sensible-browser coverage/index.html",
     "format": "biome check --write",
     "lint": "biome check",
