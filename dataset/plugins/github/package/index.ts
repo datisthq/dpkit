@@ -1,6 +1,0 @@
-export type { GithubPackage } from "./Package.ts"
-export type { GithubOwner } from "./Owner.ts"
-export type { GithubLicense } from "./License.ts"
-export { loadPackageFromGithub } from "./load.ts"
-export { savePackageToGithub } from "./save.ts"
-export { convertPackageFromGithub } from "./convert/fromGithub.ts"

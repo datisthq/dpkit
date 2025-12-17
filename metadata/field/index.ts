@@ -1,5 +1,0 @@
-export type { Field } from "./Field.ts"
-export type { FieldType } from "./Type.ts"
-export type * from "./types/index.ts"
-export { convertFieldFromDescriptor } from "./convert/fromDescriptor.ts"
-export { convertFieldToDescriptor } from "./convert/toDescriptor.ts"

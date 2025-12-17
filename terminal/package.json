@@ -2,28 +2,7 @@
   "name": "@dpkit/terminal",
   "type": "module",
   "version": "0.0.0-dev",
-  "sideEffects": false,
-  "exports": "./build/index.js",
-  "files": ["build"],
-  "bin": {
-    "dpkit": "./build/entrypoints/run.js"
-  },
-  "license": "MIT",
-  "author": "Evgeny Karev",
-  "repository": "https://github.com/datisthq/dpkit",
-  "description": "Fast TypeScript data management framework built on top of the Data Package standard and Polars DataFrames",
-  "keywords": [
-    "data",
-    "polars",
-    "dataframe",
-    "datapackage",
-    "tableschema",
-    "typescript",
-    "validation",
-    "quality",
-    "fair",
-    "terminal"
-  ],
+  "private": true,
   "scripts": {
     "build": "tsc && pnpm build:copy && pnpm build:mode",
     "build:copy": "cp entrypoints/*.cmd build/entrypoints && cp package.json build",
@@ -35,7 +14,7 @@
   "dependencies": {
     "@clack/prompts": "^0.11.0",
     "@commander-js/extra-typings": "^14.0.0",
-    "@dpkit/library": "workspace:*",
+    "frictionless-ts": "1.0.1",
     "commander": "^14.0.0",
     "es-toolkit": "^1.39.10",
     "exit-hook": "^4.0.0",
@@ -48,7 +27,6 @@
     "ts-extras": "^0.14.0"
   },
   "devDependencies": {
-    "@dpkit/dataset": "workspace:*",
     "@types/node": "24.2.0",
     "@types/react": "19.1.9",
     "ink-testing-library": "4.0.0"

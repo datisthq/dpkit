@@ -2,6 +2,7 @@
   "name": "@dpkit/website",
   "type": "module",
   "version": "0.0.0-dev",
+  "private": true,
   "sideEffects": false,
   "files": ["build"],
   "imports": {

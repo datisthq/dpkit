@@ -1,8 +1,0 @@
-export { assertDialect } from "./assert.ts"
-export { validateDialect } from "./validate.ts"
-export type { Dialect } from "./Dialect.ts"
-export { loadDialect } from "./load.ts"
-export { saveDialect } from "./save.ts"
-export { convertDialectFromDescriptor } from "./convert/fromDescriptor.ts"
-export { convertDialectToDescriptor } from "./convert/toDescriptor.ts"
-export { resolveDialect } from "./resolve.ts"
