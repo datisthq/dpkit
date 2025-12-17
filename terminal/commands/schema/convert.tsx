@@ -1,4 +1,5 @@
 import { writeFile } from "node:fs/promises"
+import { Command, Option } from "commander"
 import {
   convertSchemaFromJsonSchema,
   convertSchemaToHtml,
@@ -6,7 +7,6 @@ import {
   convertSchemaToMarkdown,
 } from "frictionless-ts"
 import { loadDescriptor, saveDescriptor } from "frictionless-ts"
-import { Command, Option } from "commander"
 import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"
 import { Session } from "../../session.ts"

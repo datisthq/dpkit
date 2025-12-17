@@ -1,7 +1,7 @@
-import type { UnboundError } from "frictionless-ts"
 import { Trans, useLingui } from "@lingui/react/macro"
 import { Card, Divider, ScrollArea, Stack, Tabs } from "@mantine/core"
 import { groupBy } from "es-toolkit"
+import type { UnboundError } from "frictionless-ts"
 import { useState } from "react"
 import { objectKeys } from "ts-extras"
 import { Error } from "./Error/Error.tsx"

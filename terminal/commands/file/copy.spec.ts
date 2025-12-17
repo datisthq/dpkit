@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs"
-import { getTempFilePath, writeTempFile } from "@dpkit/dataset"
 import { Command } from "commander"
+import { getTempFilePath, writeTempFile } from "frictionless-ts"
 import { describe, expect, it } from "vitest"
 import { useRecording } from "vitest-polly"
 import { copyFileCommand } from "./copy.ts"

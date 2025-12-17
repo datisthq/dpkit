@@ -1,7 +1,7 @@
+import { Command } from "commander"
 import { loadDescriptor, validateSchema } from "frictionless-ts"
 import { resolveSchema } from "frictionless-ts"
 import type { Resource } from "frictionless-ts"
-import { Command } from "commander"
 import React from "react"
 import { Report } from "../../components/Report/index.ts"
 import { selectErrorType } from "../../helpers/error.ts"

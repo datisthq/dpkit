@@ -1,6 +1,6 @@
 import repl from "node:repl"
-import { writeTempFile } from "@dpkit/dataset"
 import { Command } from "commander"
+import { writeTempFile } from "frictionless-ts"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import * as sessionModule from "../../session.ts"
 import { scriptSchemaCommand } from "./script.tsx"

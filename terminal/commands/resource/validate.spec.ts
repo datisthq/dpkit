@@ -1,6 +1,6 @@
 import { basename } from "node:path"
-import { writeTempFile } from "@dpkit/dataset"
 import { Command } from "commander"
+import { writeTempFile } from "frictionless-ts"
 import { describe, expect, it, vi } from "vitest"
 import { useRecording } from "vitest-polly"
 import { validateResourceCommand } from "./validate.tsx"

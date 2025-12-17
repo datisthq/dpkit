@@ -92,9 +92,6 @@ importers:
 
   engine:
     dependencies:
-      'frictionless-ts':
-        specifier: workspace:*
-        version: link:../library
       '@loglayer/transport-tslog':
         specifier: 3.0.4
         version: 3.0.4(tslog@4.10.2)
@@ -116,6 +113,9 @@ importers:
       '@orpc/zod':
         specifier: 1.11.1
         version: 1.11.1(@opentelemetry/api@1.9.0)(@orpc/contract@1.11.1(@opentelemetry/api@1.9.0))(@orpc/server@1.11.1(@opentelemetry/api@1.9.0)(crossws@0.3.5)(ws@8.18.3))(crossws@0.3.5)(ws@8.18.3)(zod@4.1.12)
+      frictionless-ts:
+        specifier: 1.0.1
+        version: 1.0.1(@types/react@19.2.2)
       loglayer:
         specifier: 6.9.1
         version: 6.9.1
@@ -210,9 +210,6 @@ importers:
       '@dpkit/engine':
         specifier: workspace:*
         version: link:../engine
-      'frictionless-ts':
-        specifier: workspace:*
-        version: link:../library
       '@lingui/babel-plugin-lingui-macro':
         specifier: 5.5.2
         version: 5.5.2(babel-plugin-macros@3.1.0)(typescript@5.9.2)
@@ -285,6 +282,9 @@ importers:
       execa:
         specifier: 9.6.0
         version: 9.6.0
+      frictionless-ts:
+        specifier: 1.0.1
+        version: 1.0.1(@types/react@19.2.2)
       gettext-parser:
         specifier: 8.0.0
         version: 8.0.0

@@ -1,6 +1,6 @@
+import { Command } from "commander"
 import { inferDialect } from "frictionless-ts"
 import type { Resource } from "frictionless-ts"
-import { Command } from "commander"
 import React from "react"
 import { Dialect } from "../../components/Dialect/index.ts"
 import { helpConfiguration } from "../../helpers/help.ts"

@@ -1,5 +1,5 @@
-import { inferResource } from "frictionless-ts"
 import { Command } from "commander"
+import { inferResource } from "frictionless-ts"
 import React from "react"
 import { Resource } from "../../components/Resource/index.ts"
 import { helpConfiguration } from "../../helpers/help.ts"

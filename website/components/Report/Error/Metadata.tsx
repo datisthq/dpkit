@@ -1,7 +1,7 @@
-import type * as library from "frictionless-ts"
 import { useLingui } from "@lingui/react/macro"
 import { Code, Text } from "@mantine/core"
 import { capitalize } from "es-toolkit"
+import type * as library from "frictionless-ts"
 
 export function MetadataError(props: { error: library.MetadataError }) {
   const { t } = useLingui()

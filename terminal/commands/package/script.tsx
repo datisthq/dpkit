@@ -1,7 +1,7 @@
 import repl from "node:repl"
+import { Command } from "commander"
 import { loadPackage } from "frictionless-ts"
 import * as dpkit from "frictionless-ts"
-import { Command } from "commander"
 import pc from "picocolors"
 import { helpConfiguration } from "../../helpers/help.ts"
 import * as params from "../../params/index.ts"

@@ -1,7 +1,7 @@
+import { Command } from "commander"
 import { loadSchema } from "frictionless-ts"
 import type { Resource } from "frictionless-ts"
 import { resolveSchema } from "frictionless-ts"
-import { Command } from "commander"
 import React from "react"
 import { Schema } from "../../components/Schema/index.ts"
 import { helpConfiguration } from "../../helpers/help.ts"

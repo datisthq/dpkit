@@ -1,6 +1,6 @@
-import type * as library from "frictionless-ts"
 import { useLingui } from "@lingui/react/macro"
 import { Text } from "@mantine/core"
+import type * as library from "frictionless-ts"
 
 export function DataError(props: { error: library.DataError }) {
   const { t } = useLingui()
