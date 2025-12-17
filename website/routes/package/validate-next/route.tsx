@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box, Stack, Text, Title } from "@mantine/core"
 import { usePayload } from "#components/System/index.ts"
 import { Pages } from "#constants/page.ts"

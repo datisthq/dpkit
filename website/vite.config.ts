@@ -1,3 +1,4 @@
+import { cloudflare } from "@cloudflare/vite-plugin"
 import { lingui } from "@lingui/vite-plugin"
 import { reactRouter } from "@react-router/dev/vite"
 import { defineConfig } from "vite"
@@ -8,6 +9,7 @@ import svgr from "vite-plugin-svgr"
 export default defineConfig({
   plugins: [
     devtoolsJson(),
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
     reactRouter(),
     // @ts-ignore
     babel({

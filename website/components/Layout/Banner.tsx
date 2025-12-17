@@ -10,9 +10,9 @@ export function Banner() {
       <Container size="lg">
         <Text>
           <Trans>
-            Looking for using a{" "}
-            <strong>Data Package implementation in TypeScript</strong> as a
-            library? It is now
+            The service is <strong>under construction</strong>! Looking for
+            using a <strong>Data Package implementation in TypeScript</strong>{" "}
+            as a library? It is now
           </Trans>{" "}
           <Anchor
             component={Link}
