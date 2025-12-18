@@ -15,6 +15,8 @@ msgstr ""
 
 #: components/Report/Error/Data.tsx:8
 #: components/Report/Error/Metadata.tsx:11
+#: routes/package/validate-next/Dialog.tsx:26
+#. placeholder {0}: error.message
 #. placeholder {0}: props.error.message
 msgid "{0}"
 msgstr "{0}"
@@ -26,6 +28,19 @@ msgstr "{type}"
 #: components/Report/Error/Cell.tsx:38
 msgid "A required cell in field"
 msgstr "Une cellule requise dans le champ"
+
+#: routes/about/route.tsx:17
+msgid "About dpkit"
+msgstr "À propos de dpkit"
+
+#: routes/about/route.tsx:27
+#: routes/home/route.tsx:46
+msgid "allowing you to review the code or"
+msgstr "vous permettant de consulter le code ou"
+
+#: routes/home/route.tsx:42
+msgid "and completely"
+msgstr "et entièrement"
 
 #: components/Report/Error/Fields.tsx:14
 msgid "are missing"
@@ -71,6 +86,10 @@ msgstr "Fermer"
 msgid "Convert table format"
 msgstr "Convertir le format du tableau"
 
+#: routes/home/route.tsx:36
+msgid "converting and validating data"
+msgstr "convertir et valider des données"
+
 #: components/Layout/Theme.tsx:51
 msgid "Dark"
 msgstr "Sombre"
@@ -96,6 +115,18 @@ msgstr "Dialogue"
 msgid "does not match the"
 msgstr "ne correspond pas au"
 
+#: routes/about/route.tsx:40
+msgid "dpkit is a competely open source project being under constant peer-review. The code is transparent and auditable, ensuring your data is never collected on our servers and remains accessible only to you during processing. dpkit does not collect your data or store your data after processing."
+msgstr "dpkit est un projet totalement open source en constante révision par les pairs. Le code est transparent et auditable, garantissant que vos données ne sont jamais collectées sur nos serveurs et restent accessibles uniquement pour vous pendant le traitement. dpkit ne collecte ni ne stocke vos données après traitement."
+
+#: routes/about/route.tsx:54
+msgid "dpkit is completely open source and can be self-hosted. At the moment, the self-hosting documentation is under development. For assistance with self-hosting or custom deployments"
+msgstr "dpkit est entièrement open source et peut être auto-hébergé. Actuellement, la documentation pour l’auto-hébergement est en cours de développement. Pour toute aide sur l’auto-hébergement ou les déploiements personnalisés"
+
+#: routes/about/route.tsx:20
+msgid "dpkit provides free online privacy-first tools for converting and validating data. Unlike others, dpkit is free and completely"
+msgstr "dpkit fournit des outils en ligne gratuits et axés sur la confidentialité pour convertir et valider des données. Contrairement aux autres, dpkit est gratuit et entièrement"
+
 #: components/Form/Form.tsx:97
 msgid "Enter data package URL"
 msgstr "Entrez l'URL du paquet de données"
@@ -111,6 +142,11 @@ msgstr "Erreur 500"
 #: components/Report/Report.tsx:37
 msgid "Errors"
 msgstr "Erreurs"
+
+#: routes/about/route.tsx:31
+#: routes/home/route.tsx:52
+msgid "European Commission"
+msgstr "Commission européenne"
 
 #: components/Report/Error/Cell.tsx:158
 msgid "exclusive maximum"
@@ -151,6 +187,14 @@ msgstr "Taille du fichier"
 #: components/Report/Error/ForeignKey.tsx:8
 msgid "Foreign key violation in field(s)"
 msgstr "Violation de la clé étrangère dans le(s) champ(s)"
+
+#: routes/home/route.tsx:34
+msgid "Free online tools for"
+msgstr "Outils en ligne gratuits pour"
+
+#: routes/about/route.tsx:60
+msgid "get in touch with us"
+msgstr "contactez-nous"
 
 #: components/Layout/Breadcrumbs.tsx:17
 msgid "Home"
@@ -263,6 +307,11 @@ msgstr "minimum"
 msgid "of row"
 msgstr "de la ligne"
 
+#: routes/about/route.tsx:25
+#: routes/home/route.tsx:44
+msgid "open source"
+msgstr "open source"
+
 #: components/System/Error.tsx:16
 msgid "Page not found"
 msgstr "Page non trouvée"
@@ -275,6 +324,14 @@ msgstr "Collez le JSON du paquet de données"
 msgid "pattern"
 msgstr "motif"
 
+#: routes/home/route.tsx:40
+msgid "privacy-first"
+msgstr "respectueux de la vie privée"
+
+#: routes/about/route.tsx:37
+msgid "Privacy-first"
+msgstr "Respectueux de la vie privée"
+
 #: components/Layout/Breadcrumbs.tsx:31
 msgid "Select a tool below"
 msgstr "Sélectionnez un outil ci-dessous"
@@ -282,6 +339,15 @@ msgstr "Sélectionnez un outil ci-dessous"
 #: components/Form/Form.tsx:142
 msgid "Select data package file"
 msgstr "Sélectionnez le fichier du paquet de données"
+
+#: routes/about/route.tsx:28
+#: routes/home/route.tsx:48
+msgid "self-host"
+msgstr "auto-héberger"
+
+#: routes/about/route.tsx:51
+msgid "Self-hosting"
+msgstr "Auto-hébergement"
 
 #: components/Layout/Share.tsx:45
 msgid "Share"
@@ -320,6 +386,29 @@ msgstr "Les champs"
 msgid "The service is <0>under construction</0>! Looking for using a <1>Data Package implementation in TypeScript</1> as a library? It is now"
 msgstr "Le service est <0>en cours de construction</0> ! Vous souhaitez utiliser une <1>implémentation de Data Package en TypeScript</1> comme bibliothèque ? C'est maintenant possible"
 
+#: routes/about/route.tsx:29
+#: routes/home/route.tsx:50
+msgid "the service. In 2025, the project was funded by"
+msgstr "le service. En 2025, le projet a été financé par"
+
+#: routes/package/validate/route.tsx:17
+#: routes/schema/infer/route.tsx:17
+#: routes/table/convert/route.tsx:17
+#: routes/table/validate/route.tsx:17
+msgid "This tool is currently under construction and not yet available"
+msgstr "Cet outil est actuellement en cours de construction et n'est pas encore disponible"
+
+#: routes/package/validate/route.tsx:16
+#: routes/schema/infer/route.tsx:16
+#: routes/table/convert/route.tsx:16
+#: routes/table/validate/route.tsx:16
+msgid "Under Construction"
+msgstr "En construction"
+
+#: routes/home/route.tsx:38
+msgid "Unlike others, dpkit Cloud is"
+msgstr "Contrairement aux autres, dpkit Cloud est"
+
 #: components/Form/Form.tsx:28
 msgid "URL"
 msgstr "URL"
@@ -328,6 +417,10 @@ msgstr "URL"
 msgid "URL is required"
 msgstr "L'URL est requise"
 
+#: routes/package/validate-next/Dialog.tsx:39
+msgid "Valid data package"
+msgstr "Package de données valide"
+
 #: components/Layout/Breadcrumbs.tsx:23
 msgid "Validate data package"
 msgstr "Valider le paquet de données"
@@ -335,6 +428,10 @@ msgstr "Valider le paquet de données"
 #: components/Form/Form.tsx:212
 msgid "Validate Data Package"
 msgstr "Valider le paquet de données"
+
+#: routes/package/validate-next/Dialog.tsx:38
+msgid "Validating data package..."
+msgstr "Validation du package de données…"
 
 #: components/Report/Error/Cell.tsx:10
 #: components/Report/Error/Cell.tsx:58

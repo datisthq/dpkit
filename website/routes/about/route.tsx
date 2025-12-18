@@ -1,4 +1,4 @@
-import { Trans, useLingui } from "@lingui/react/macro"
+import { Trans } from "@lingui/react/macro"
 import { Stack, Text, Title } from "@mantine/core"
 import { Link } from "#components/Link/index.ts"
 import { createPayload } from "#payload.ts"
@@ -11,13 +11,16 @@ export async function clientLoader({ params }: Route.LoaderArgs) {
 }
 
 export default function Page(_props: Route.ComponentProps) {
-  const { t } = useLingui()
-
   return (
     <Stack gap="xl">
-      <Title order={1}>{t`about-dpkit-cloud-title`}</Title>
+      <Title order={1}>
+        <Trans>About dpkit</Trans>
+      </Title>
       <Text size="xl">
-        {t`about-description-intro`}{" "}
+        <Trans>
+          dpkit provides free online privacy-first tools for converting and
+          validating data. Unlike others, dpkit is free and completely
+        </Trans>{" "}
         <Link to="https://github.com/datisthq/dpkit">
           <Trans>open source</Trans>
         </Link>{" "}
@@ -30,19 +33,31 @@ export default function Page(_props: Route.ComponentProps) {
         .
       </Text>
       <Stack gap="md">
-        <Title order={2}>{t`about-privacy-first-title`}</Title>
-        <Text size="lg">{t`about-privacy-first-description`}</Text>
+        <Title order={2}>
+          <Trans>Privacy-first</Trans>
+        </Title>
+        <Text size="lg">
+          <Trans>
+            dpkit is a competely open source project being under constant
+            peer-review. The code is transparent and auditable, ensuring your
+            data is never collected on our servers and remains accessible only
+            to you during processing. dpkit does not collect your data or store
+            your data after processing.
+          </Trans>
+        </Text>
       </Stack>
       <Stack gap="md">
-        <Title order={2}>{t`about-self-hosting-title`}</Title>
+        <Title order={2}>
+          <Trans>Self-hosting</Trans>
+        </Title>
         <Text size="lg">
-          {t`about-self-hosting-intro`}{" "}
-          <Link to="http://typescript.dpkit.app/guides/cloud/">
-            {t`about-self-hosting-docs`}
-          </Link>{" "}
-          {t`about-self-hosting-middle`}{" "}
-          <Link to="https://www.linkedin.com/in/evgeny-karev/">
-            {t`about-get-in-touch`}
+          <Trans>
+            dpkit is completely open source and can be self-hosted. At the
+            moment, the self-hosting documentation is under development. For
+            assistance with self-hosting or custom deployments
+          </Trans>{" "}
+          <Link to="https://tally.so/r/QKKJ57">
+            <Trans>get in touch with us</Trans>
           </Link>
           .
         </Text>

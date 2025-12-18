@@ -13,9 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: error.message
 #. placeholder {0}: props.error.message
 #: components/Report/Error/Data.tsx:8
 #: components/Report/Error/Metadata.tsx:11
+#: routes/package/validate-next/Dialog.tsx:26
 msgid "{0}"
 msgstr "{0}"
 
@@ -26,6 +28,10 @@ msgstr "{type}"
 #: components/Report/Error/Cell.tsx:38
 msgid "A required cell in field"
 msgstr "A required cell in field"
+
+#: routes/about/route.tsx:17
+msgid "About dpkit"
+msgstr "About dpkit"
 
 #: app/about/route.tsx:20
 #~ msgid "about-description-intro"
@@ -67,14 +73,14 @@ msgstr "A required cell in field"
 #~ msgid "adding a star"
 #~ msgstr "adding a star"
 
-#: app/about/route.tsx:24
-#: app/home/route.tsx:46
-#~ msgid "allowing you to review the code or"
-#~ msgstr "allowing you to review the code or"
+#: routes/about/route.tsx:27
+#: routes/home/route.tsx:46
+msgid "allowing you to review the code or"
+msgstr "allowing you to review the code or"
 
-#: app/home/route.tsx:42
-#~ msgid "and completely"
-#~ msgstr "and completely"
+#: routes/home/route.tsx:42
+msgid "and completely"
+msgstr "and completely"
 
 #: components/Report/Error/Fields.tsx:14
 msgid "are missing"
@@ -124,9 +130,9 @@ msgstr "Close"
 msgid "Convert table format"
 msgstr "Convert table format"
 
-#: app/home/route.tsx:36
-#~ msgid "converting and validating data"
-#~ msgstr "converting and validating data"
+#: routes/home/route.tsx:36
+msgid "converting and validating data"
+msgstr "converting and validating data"
 
 #: components/Layout/Theme.tsx:51
 msgid "Dark"
@@ -153,6 +159,18 @@ msgstr "Dialog"
 msgid "does not match the"
 msgstr "does not match the"
 
+#: routes/about/route.tsx:40
+msgid "dpkit is a competely open source project being under constant peer-review. The code is transparent and auditable, ensuring your data is never collected on our servers and remains accessible only to you during processing. dpkit does not collect your data or store your data after processing."
+msgstr "dpkit is a competely open source project being under constant peer-review. The code is transparent and auditable, ensuring your data is never collected on our servers and remains accessible only to you during processing. dpkit does not collect your data or store your data after processing."
+
+#: routes/about/route.tsx:54
+msgid "dpkit is completely open source and can be self-hosted. At the moment, the self-hosting documentation is under development. For assistance with self-hosting or custom deployments"
+msgstr "dpkit is completely open source and can be self-hosted. At the moment, the self-hosting documentation is under development. For assistance with self-hosting or custom deployments"
+
+#: routes/about/route.tsx:20
+msgid "dpkit provides free online privacy-first tools for converting and validating data. Unlike others, dpkit is free and completely"
+msgstr "dpkit provides free online privacy-first tools for converting and validating data. Unlike others, dpkit is free and completely"
+
 #: components/Form/Form.tsx:97
 msgid "Enter data package URL"
 msgstr "Enter data package URL"
@@ -169,10 +187,10 @@ msgstr "error500"
 msgid "Errors"
 msgstr "Errors"
 
-#: app/about/route.tsx:28
-#: app/home/route.tsx:52
-#~ msgid "European Commission"
-#~ msgstr "European Commission"
+#: routes/about/route.tsx:31
+#: routes/home/route.tsx:52
+msgid "European Commission"
+msgstr "European Commission"
 
 #: components/Report/Error/Cell.tsx:158
 msgid "exclusive maximum"
@@ -214,9 +232,13 @@ msgstr "File size"
 msgid "Foreign key violation in field(s)"
 msgstr "Foreign key violation in field(s)"
 
-#: app/home/route.tsx:34
-#~ msgid "Free online tools for"
-#~ msgstr "Free online tools for"
+#: routes/home/route.tsx:34
+msgid "Free online tools for"
+msgstr "Free online tools for"
+
+#: routes/about/route.tsx:60
+msgid "get in touch with us"
+msgstr "get in touch with us"
 
 #: components/Layout/Breadcrumbs.tsx:17
 msgid "Home"
@@ -333,10 +355,10 @@ msgstr "of row"
 #~ msgid "on GitHub!"
 #~ msgstr "on GitHub!"
 
-#: app/about/route.tsx:22
-#: app/home/route.tsx:44
-#~ msgid "open source"
-#~ msgstr "open source"
+#: routes/about/route.tsx:25
+#: routes/home/route.tsx:44
+msgid "open source"
+msgstr "open source"
 
 #: components/Layout/Banner.tsx:23
 #~ msgid "or"
@@ -354,9 +376,13 @@ msgstr "Paste data package JSON"
 msgid "pattern"
 msgstr "pattern"
 
-#: app/home/route.tsx:40
-#~ msgid "privacy-first"
-#~ msgstr "privacy-first"
+#: routes/home/route.tsx:40
+msgid "privacy-first"
+msgstr "privacy-first"
+
+#: routes/about/route.tsx:37
+msgid "Privacy-first"
+msgstr "Privacy-first"
 
 #: components/Layout/Breadcrumbs.tsx:31
 msgid "Select a tool below"
@@ -366,10 +392,14 @@ msgstr "Select a tool below"
 msgid "Select data package file"
 msgstr "Select data package file"
 
-#: app/about/route.tsx:25
-#: app/home/route.tsx:48
-#~ msgid "self-host"
-#~ msgstr "self-host"
+#: routes/about/route.tsx:28
+#: routes/home/route.tsx:48
+msgid "self-host"
+msgstr "self-host"
+
+#: routes/about/route.tsx:51
+msgid "Self-hosting"
+msgstr "Self-hosting"
 
 #: components/Layout/Share.tsx:45
 msgid "Share"
@@ -416,30 +446,32 @@ msgstr "The fields"
 msgid "The service is <0>under construction</0>! Looking for using a <1>Data Package implementation in TypeScript</1> as a library? It is now"
 msgstr "The service is <0>under construction</0>! Looking for using a <1>Data Package implementation in TypeScript</1> as a library? It is now"
 
-#: app/about/route.tsx:26
-#: app/home/route.tsx:50
-#~ msgid "the service. In 2025, the project was funded by"
-#~ msgstr "the service. In 2025, the project was funded by"
+#: routes/about/route.tsx:29
+#: routes/home/route.tsx:50
+msgid "the service. In 2025, the project was funded by"
+msgstr "the service. In 2025, the project was funded by"
 
-#: app/schema/infer/route.tsx:17
-#: app/table/convert/route.tsx:17
-#: app/table/validate/route.tsx:17
-#~ msgid "This tool is currently under construction and not yet available"
-#~ msgstr "This tool is currently under construction and not yet available"
+#: routes/package/validate/route.tsx:17
+#: routes/schema/infer/route.tsx:17
+#: routes/table/convert/route.tsx:17
+#: routes/table/validate/route.tsx:17
+msgid "This tool is currently under construction and not yet available"
+msgstr "This tool is currently under construction and not yet available"
 
 #: components/Layout/Breadcrumbs.tsx:17
 #~ msgid "Tools"
 #~ msgstr "Tools"
 
-#: app/schema/infer/route.tsx:16
-#: app/table/convert/route.tsx:16
-#: app/table/validate/route.tsx:16
-#~ msgid "Under Construction"
-#~ msgstr "Under Construction"
+#: routes/package/validate/route.tsx:16
+#: routes/schema/infer/route.tsx:16
+#: routes/table/convert/route.tsx:16
+#: routes/table/validate/route.tsx:16
+msgid "Under Construction"
+msgstr "Under Construction"
 
-#: app/home/route.tsx:38
-#~ msgid "Unlike others, dpkit Cloud is"
-#~ msgstr "Unlike others, dpkit Cloud is"
+#: routes/home/route.tsx:38
+msgid "Unlike others, dpkit Cloud is"
+msgstr "Unlike others, dpkit Cloud is"
 
 #: components/Form/Form.tsx:28
 msgid "URL"
@@ -449,9 +481,9 @@ msgstr "URL"
 msgid "URL is required"
 msgstr "URL is required"
 
-#: app/package/validate/Dialog.tsx:39
-#~ msgid "Valid data package"
-#~ msgstr "Valid data package"
+#: routes/package/validate-next/Dialog.tsx:39
+msgid "Valid data package"
+msgstr "Valid data package"
 
 #: components/Layout/Breadcrumbs.tsx:23
 msgid "Validate data package"
@@ -461,9 +493,9 @@ msgstr "Validate data package"
 msgid "Validate Data Package"
 msgstr "Validate Data Package"
 
-#: app/package/validate/Dialog.tsx:38
-#~ msgid "Validating data package..."
-#~ msgstr "Validating data package..."
+#: routes/package/validate-next/Dialog.tsx:38
+msgid "Validating data package..."
+msgstr "Validating data package..."
 
 #: components/Report/Error/Cell.tsx:10
 #: components/Report/Error/Cell.tsx:58
