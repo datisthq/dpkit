@@ -13,11 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#. placeholder {0}: error.message
-#. placeholder {0}: props.error.message
-#: app/package/validate/Dialog.tsx:26
 #: components/Report/Error/Data.tsx:8
 #: components/Report/Error/Metadata.tsx:11
+#. placeholder {0}: props.error.message
 msgid "{0}"
 msgstr "{0}"
 
@@ -28,55 +26,6 @@ msgstr "{type}"
 #: components/Report/Error/Cell.tsx:38
 msgid "A required cell in field"
 msgstr "Una celda requerida en el campo"
-
-#: app/about/route.tsx:20
-msgid "about-description-intro"
-msgstr "Introducción de la descripción acerca de"
-
-#: app/about/route.tsx:18
-msgid "about-dpkit-cloud-title"
-msgstr "Título sobre dpkit Cloud"
-
-#: app/about/route.tsx:45
-msgid "about-get-in-touch"
-msgstr "Ponerse en contacto"
-
-#: app/about/route.tsx:34
-msgid "about-privacy-first-description"
-msgstr "Descripción de privacidad primero"
-
-#: app/about/route.tsx:33
-msgid "about-privacy-first-title"
-msgstr "Título privacidad primero"
-
-#: app/about/route.tsx:41
-msgid "about-self-hosting-docs"
-msgstr "Documentación sobre autoalojamiento"
-
-#: app/about/route.tsx:39
-msgid "about-self-hosting-intro"
-msgstr "Introducción sobre autoalojamiento"
-
-#: app/about/route.tsx:43
-msgid "about-self-hosting-middle"
-msgstr "Autoalojamiento medio"
-
-#: app/about/route.tsx:37
-msgid "about-self-hosting-title"
-msgstr "Título sobre autoalojamiento"
-
-#: components/Layout/Banner.tsx:32
-msgid "adding a star"
-msgstr "añadiendo una estrella"
-
-#: app/about/route.tsx:24
-#: app/home/route.tsx:46
-msgid "allowing you to review the code or"
-msgstr "permitiéndote revisar el código o"
-
-#: app/home/route.tsx:42
-msgid "and completely"
-msgstr "y completamente"
 
 #: components/Report/Error/Fields.tsx:14
 msgid "are missing"
@@ -93,10 +42,6 @@ msgstr "no son únicos"
 #: components/Report/Error/Metadata.tsx:11
 msgid "at"
 msgstr "en"
-
-#: components/Layout/Banner.tsx:21
-msgid "becoming a sponsor"
-msgstr "convirtiéndose en patrocinador"
 
 #: components/Layout/Credits.tsx:20
 msgid "Brought to you by"
@@ -125,10 +70,6 @@ msgstr "Cerrar"
 #: components/Layout/Breadcrumbs.tsx:29
 msgid "Convert table format"
 msgstr "Convertir formato de tabla"
-
-#: app/home/route.tsx:36
-msgid "converting and validating data"
-msgstr "convirtiendo y validando datos"
 
 #: components/Layout/Theme.tsx:51
 msgid "Dark"
@@ -159,22 +100,17 @@ msgstr "no coincide con el/la"
 msgid "Enter data package URL"
 msgstr "Ingrese la URL del paquete de datos"
 
-#: components/System/Error.tsx:16
+#: components/System/Error.tsx:17
 msgid "error404"
 msgstr "Página no encontrada"
 
-#: components/System/Error.tsx:16
+#: components/System/Error.tsx:17
 msgid "error500"
 msgstr "Error del servidor"
 
 #: components/Report/Report.tsx:37
 msgid "Errors"
 msgstr "Errores"
-
-#: app/about/route.tsx:28
-#: app/home/route.tsx:52
-msgid "European Commission"
-msgstr "Comisión Europea"
 
 #: components/Report/Error/Cell.tsx:158
 msgid "exclusive maximum"
@@ -216,9 +152,9 @@ msgstr "Tamaño del archivo"
 msgid "Foreign key violation in field(s)"
 msgstr "Violación de clave foránea en el/los campo(s)"
 
-#: app/home/route.tsx:34
-msgid "Free online tools for"
-msgstr "Herramientas gratuitas en línea para"
+#: components/Layout/Breadcrumbs.tsx:17
+msgid "Home"
+msgstr "Inicio"
 
 #: components/Report/Error/Cell.tsx:14
 #: components/Report/Error/Cell.tsx:62
@@ -327,20 +263,7 @@ msgstr "mínimo"
 msgid "of row"
 msgstr "de la fila"
 
-#: components/Layout/Banner.tsx:34
-msgid "on GitHub!"
-msgstr "¡en GitHub!"
-
-#: app/about/route.tsx:22
-#: app/home/route.tsx:44
-msgid "open source"
-msgstr "código abierto"
-
-#: components/Layout/Banner.tsx:23
-msgid "or"
-msgstr "o"
-
-#: components/System/Error.tsx:15
+#: components/System/Error.tsx:16
 msgid "Page not found"
 msgstr "Página no encontrada"
 
@@ -352,10 +275,6 @@ msgstr "Pega el JSON del paquete de datos"
 msgid "pattern"
 msgstr "patrón"
 
-#: app/home/route.tsx:40
-msgid "privacy-first"
-msgstr "privacidad primero"
-
 #: components/Layout/Breadcrumbs.tsx:31
 msgid "Select a tool below"
 msgstr "Selecciona una herramienta abajo"
@@ -363,11 +282,6 @@ msgstr "Selecciona una herramienta abajo"
 #: components/Form/Form.tsx:142
 msgid "Select data package file"
 msgstr "Selecciona el archivo del paquete de datos"
-
-#: app/about/route.tsx:25
-#: app/home/route.tsx:48
-msgid "self-host"
-msgstr "autoalojar"
 
 #: components/Layout/Share.tsx:45
 msgid "Share"
@@ -377,21 +291,13 @@ msgstr "Compartir"
 msgid "Share Page"
 msgstr "Compartir página"
 
-#: components/System/Error.tsx:15
+#: components/System/Error.tsx:16
 msgid "Something went wrong"
 msgstr "Algo salió mal"
 
-#: components/Layout/Banner.tsx:12
-msgid "Support the project by"
-msgstr "Apoya el proyecto mediante"
-
-#: components/System/Error.tsx:32
+#: components/System/Error.tsx:28
 msgid "Take me back to home page"
 msgstr "Llévame de vuelta a la página principal"
-
-#: components/Dialog/Dialog.tsx:52
-#~ msgid "Test"
-#~ msgstr "Prueba"
 
 #: components/Form/Form.tsx:50
 msgid "Text"
@@ -410,30 +316,9 @@ msgstr "Los valores de las celdas de los campos"
 msgid "The fields"
 msgstr "Los campos"
 
-#: app/about/route.tsx:26
-#: app/home/route.tsx:50
-msgid "the service. In 2025, the project was funded by"
-msgstr "el servicio. En 2025, el proyecto fue financiado por"
-
-#: app/schema/infer/route.tsx:17
-#: app/table/convert/route.tsx:17
-#: app/table/validate/route.tsx:17
-msgid "This tool is currently under construction and not yet available"
-msgstr "Esta herramienta está actualmente en construcción y aún no está disponible"
-
-#: components/Layout/Breadcrumbs.tsx:17
-msgid "Tools"
-msgstr "Herramientas"
-
-#: app/schema/infer/route.tsx:16
-#: app/table/convert/route.tsx:16
-#: app/table/validate/route.tsx:16
-msgid "Under Construction"
-msgstr "En construcción"
-
-#: app/home/route.tsx:38
-msgid "Unlike others, dpkit Cloud is"
-msgstr "A diferencia de otros, dpkit Cloud es"
+#: components/Layout/Banner.tsx:12
+msgid "The service is <0>under construction</0>! Looking for using a <1>Data Package implementation in TypeScript</1> as a library? It is now"
+msgstr "¡El servicio está <0>en construcción</0>! ¿Buscas usar una <1>implementación de Data Package en TypeScript</1> como una biblioteca? Ahora lo es"
 
 #: components/Form/Form.tsx:28
 msgid "URL"
@@ -443,10 +328,6 @@ msgstr "URL"
 msgid "URL is required"
 msgstr "La URL es obligatoria"
 
-#: app/package/validate/Dialog.tsx:39
-msgid "Valid data package"
-msgstr "Paquete de datos válido"
-
 #: components/Layout/Breadcrumbs.tsx:23
 msgid "Validate data package"
 msgstr "Validar paquete de datos"
@@ -454,10 +335,6 @@ msgstr "Validar paquete de datos"
 #: components/Form/Form.tsx:212
 msgid "Validate Data Package"
 msgstr "Validar Paquete de Datos"
-
-#: app/package/validate/Dialog.tsx:38
-msgid "Validating data package..."
-msgstr "Validando paquete de datos..."
 
 #: components/Report/Error/Cell.tsx:10
 #: components/Report/Error/Cell.tsx:58
